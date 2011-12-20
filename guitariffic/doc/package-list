@@ -1,0 +1,9 @@
+com.guitariffic.controller
+com.guitariffic.controller.filter
+com.guitariffic.dao.chord
+com.guitariffic.dao.fakesheet
+com.guitariffic.dao.fakesheet.adapter
+com.guitariffic.model
+com.guitariffic.model.enums
+com.guitariffic.view
+com.guitariffic.view.adapter

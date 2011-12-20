@@ -1,0 +1,20 @@
+<GuitarChordChart serialization="custom">
+  <unserializable-parents>
+    <isDirty>true</isDirty>
+  </unserializable-parents>
+  <BaseChordChart>
+    <default>
+      <Key>1843587031</Key>
+      <isChanged>false</isChanged>
+      <chordName>Ab</chordName>
+      <chordPosition>4</chordPosition>
+    </default>
+  </BaseChordChart>
+  <GuitarChordChart>
+    <default>
+      <isLeftHanded>false</isLeftHanded>
+      <chordFingering>134211</chordFingering>
+      <chordFrets>133211</chordFrets>
+    </default>
+  </GuitarChordChart>
+</GuitarChordChart>
