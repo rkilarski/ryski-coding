@@ -1,0 +1,20 @@
+<GuitarChordChart serialization="custom">
+  <unserializable-parents>
+    <isDirty>false</isDirty>
+  </unserializable-parents>
+  <BaseChordChart>
+    <default>
+      <Key>3411217923</Key>
+      <isChanged>false</isChanged>
+      <chordName>C</chordName>
+      <chordPosition>1</chordPosition>
+    </default>
+  </BaseChordChart>
+  <GuitarChordChart>
+    <default>
+      <isLeftHanded>false</isLeftHanded>
+      <chordFingering> 32 1 </chordFingering>
+      <chordFrets> 32 1 </chordFrets>
+    </default>
+  </GuitarChordChart>
+</GuitarChordChart>

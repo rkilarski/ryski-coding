@@ -1,0 +1,20 @@
+<GuitarChordChart serialization="custom">
+  <unserializable-parents>
+    <isDirty>false</isDirty>
+  </unserializable-parents>
+  <BaseChordChart>
+    <default>
+      <Key>3762840413</Key>
+      <isChanged>false</isChanged>
+      <chordName>Cm</chordName>
+      <chordPosition>8</chordPosition>
+    </default>
+  </BaseChordChart>
+  <GuitarChordChart>
+    <default>
+      <isLeftHanded>false</isLeftHanded>
+      <chordFingering>134111</chordFingering>
+      <chordFrets>133111</chordFrets>
+    </default>
+  </GuitarChordChart>
+</GuitarChordChart>
