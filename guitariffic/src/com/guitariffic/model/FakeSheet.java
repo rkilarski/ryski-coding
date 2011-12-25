@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.Serializable;
 
 import com.guitariffic.dao.fakesheet.BaseAdapter;
-import com.guitariffic.model.enums.EnumTextAreaType;
 
 /**
  * This class contains the model for the FakeSheet. It contains within it the text and chord chart areas and has methods to open and save fake sheets.
@@ -48,36 +47,13 @@ public class FakeSheet extends BaseModel implements Serializable
 	public FakeSheet()
 	{
 		// initializeModel(EnumTextAreaType.TEXT);
-		initializeModel(EnumTextAreaType.STYLED);
+		initializeModel();
 	}
 
-	public FakeSheet(EnumTextAreaType type)
+	private void initializeModel()
 	{
-		initializeModel(type);
-		/*
-		 * textArea = new TextArea(); chordChartArea = new ChordChartArea();
-		 */
-	}
-
-	private void initializeModel(EnumTextAreaType type)
-	{
-		switch (type)
-		{
-			case TEXT:
-				textArea = new TextArea();
-				break;
-			case TABLE:
-			case STYLED:
-				textArea = new StyledTextArea();
-				break;
-			case HTML:
-			default:
-				// throw new Exception("Unimplemented TextAreaType " + type);
-				textArea = null;
-		}
-
+		textArea = new StyledTextArea();
 		chordChartArea = new ChordChartArea(10, 5); // TODO: MAGIC NUMBERS!!!
-
 	}
 
 	/**
