@@ -106,7 +106,7 @@ public class GuitarifficApplication
 	private void initialize()
 	{
 		frmGuitariffic = new JFrame();
-		frmGuitariffic.setIconImage(Toolkit.getDefaultToolkit().getImage(GuitarifficApplication.class.getResource("/com/guitariffic/resources/Guitariffic.jpg")));
+		frmGuitariffic.setIconImage(Toolkit.getDefaultToolkit().getImage(GuitarifficApplication.class.getResource("/resource/Guitariffic.jpg")));
 		frmGuitariffic.setTitle("guitariffic");
 		frmGuitariffic.setBounds(100, 100, 765, 626);
 		frmGuitariffic.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -118,7 +118,7 @@ public class GuitarifficApplication
 		frmGuitariffic.getContentPane().add(toolBar, BorderLayout.NORTH);
 
 		JButton btnNew = new JButton("New");
-		btnNew.setIcon(new ImageIcon(GuitarifficApplication.class.getResource("/com/guitariffic/resources/new.png")));
+		btnNew.setIcon(new ImageIcon(GuitarifficApplication.class.getResource("/resource/new.png")));
 		btnNew.setToolTipText("New Fake Sheet");
 		btnNew.addMouseListener(new MouseAdapter()
 		{
@@ -130,7 +130,7 @@ public class GuitarifficApplication
 		});
 
 		JButton btnSave = new JButton("Save");
-		btnSave.setIcon(new ImageIcon(GuitarifficApplication.class.getResource("/com/guitariffic/resources/save.png")));
+		btnSave.setIcon(new ImageIcon(GuitarifficApplication.class.getResource("/resource/save.png")));
 		btnSave.setToolTipText("Save Fake Sheet");
 		btnSave.addMouseListener(new MouseAdapter()
 		{
@@ -144,7 +144,7 @@ public class GuitarifficApplication
 		toolBar.add(btnNew);
 
 		JButton btnOpen = new JButton("Open");
-		btnOpen.setIcon(new ImageIcon(GuitarifficApplication.class.getResource("/com/guitariffic/resources/open.png")));
+		btnOpen.setIcon(new ImageIcon(GuitarifficApplication.class.getResource("/resource/open.png")));
 		btnOpen.setToolTipText("Open Fake Sheet");
 		btnOpen.addMouseListener(new MouseAdapter()
 		{
@@ -157,7 +157,7 @@ public class GuitarifficApplication
 		toolBar.add(btnOpen);
 
 		JButton btnSaveAs = new JButton("Save As");
-		btnSaveAs.setIcon(new ImageIcon(GuitarifficApplication.class.getResource("/com/guitariffic/resources/saveas.png")));
+		btnSaveAs.setIcon(new ImageIcon(GuitarifficApplication.class.getResource("/resource/saveas.png")));
 		btnSaveAs.setToolTipText("Save Fake Sheet As External File");
 		btnSaveAs.addMouseListener(new MouseAdapter()
 		{
@@ -171,7 +171,7 @@ public class GuitarifficApplication
 
 		JButton btnExit = new JButton("Exit");
 		btnExit.setToolTipText("Exit application");
-		btnExit.setIcon(new ImageIcon(GuitarifficApplication.class.getResource("/com/guitariffic/resources/Exit.png")));
+		btnExit.setIcon(new ImageIcon(GuitarifficApplication.class.getResource("/resource/Exit.png")));
 		btnExit.addMouseListener(new MouseAdapter()
 		{
 			@Override
@@ -623,6 +623,13 @@ public class GuitarifficApplication
 	{
 		try
 		{
+
+			// take the menu bar off the jframe
+			System.setProperty("apple.laf.useScreenMenuBar", "true");
+
+			// set the name of the application menu item
+			// System.setProperty("com.apple.mrj.application.apple.menu.about.name", "AppName");
+
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e1)
 		{

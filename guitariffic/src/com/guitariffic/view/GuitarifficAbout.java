@@ -52,7 +52,7 @@ public class GuitarifficAbout extends JDialog
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 		{
 			JLabel lblAbout = new JLabel("");
-			lblAbout.setIcon(new ImageIcon(GuitarifficAbout.class.getResource("/com/guitariffic/resources/CWGuitariffic3.jpg")));
+			lblAbout.setIcon(new ImageIcon(GuitarifficAbout.class.getResource("/resource/CWGuitariffic3.jpg")));
 			contentPanel.add(lblAbout);
 		}
 		{
