@@ -197,7 +197,7 @@ public class FakeSheetController
 
 				String[] extensions = ((FileNameExtensionFilter) fileChooser.getFileFilter()).getExtensions();
 
-				if (this.getFileExtension(fileChooser.getSelectedFile().getName()) != extensions[0])
+				if (!this.getFileExtension(fileChooser.getSelectedFile().getName()).equals(extensions[0]))
 				{
 					// Add extension if it didn't exist already
 					file = new File(fileChooser.getSelectedFile().getAbsoluteFile() + "." + extensions[0]);

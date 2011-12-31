@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import com.guitariffic.dao.fakesheet.adapter.DOCXAdapter;
 import com.guitariffic.dao.fakesheet.adapter.HTMLAdapter;
 import com.guitariffic.dao.fakesheet.adapter.SerialAdapter;
 import com.guitariffic.dao.fakesheet.adapter.XMLAdapter;
@@ -37,6 +38,10 @@ public abstract class BaseAdapter
 		{
 			adapter = new HTMLAdapter();
 		}
+		if (fileType.equalsIgnoreCase("docx"))
+		{
+			adapter = new DOCXAdapter();
+		}
 		return adapter;
 	}
 
@@ -51,7 +56,7 @@ public abstract class BaseAdapter
 		getSaveTypes(fileChooser); // Include the Save file types as well.
 
 		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("HTML File", "html"));
-		// fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Word File", "docx", "docx"));
+		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Microsoft Word (docx)", "docx"));
 		// fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("PDF File", "pdf", "pdf"));
 	}
 }
