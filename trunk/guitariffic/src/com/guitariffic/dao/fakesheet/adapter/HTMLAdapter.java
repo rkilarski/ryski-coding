@@ -4,7 +4,12 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Vector;
+
+import org.docx4j.convert.out.html.AbstractHtmlExporter;
+import org.docx4j.convert.out.html.HtmlExporterNG2;
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 
 import com.guitariffic.dao.fakesheet.BaseAdapter;
 import com.guitariffic.model.FakeSheet;
@@ -27,7 +32,29 @@ public class HTMLAdapter extends BaseAdapter
 	/**
 	 * Write object as an HTML file.
 	 */
+	@SuppressWarnings("deprecation")
 	public void saveFile(Object o, File file) throws IOException
+	{
+		DOCX4JAdapter documentGetter = new DOCX4JAdapter();
+		WordprocessingMLPackage wordMLPackage = documentGetter.generateDocument((FakeSheet) o);
+
+		AbstractHtmlExporter exporter = new HtmlExporterNG2();
+
+		// Write to StreamResult (in this case, an output stream)
+		OutputStream os = new java.io.FileOutputStream(file.getAbsolutePath() + ".html");
+		javax.xml.transform.stream.StreamResult result = new javax.xml.transform.stream.StreamResult(os);
+		try
+		{
+			exporter.html(wordMLPackage, result, file.getCanonicalPath() + "_files");
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return;
+	}
+
+	@SuppressWarnings("unused")
+	private void saveFile2(Object o, File file) throws IOException
 	{
 		FakeSheet fakeSheet = (FakeSheet) o;
 		String[] textArray;
@@ -752,7 +779,7 @@ public class HTMLAdapter extends BaseAdapter
 		write("</html>", bw);
 
 		bw.close();
-
+		return;
 	}
 
 	private void write(String line, BufferedWriter bw)

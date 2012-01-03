@@ -8,6 +8,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.guitariffic.dao.fakesheet.adapter.DOCXAdapter;
 import com.guitariffic.dao.fakesheet.adapter.HTMLAdapter;
+import com.guitariffic.dao.fakesheet.adapter.PDFAdapter;
 import com.guitariffic.dao.fakesheet.adapter.SerialAdapter;
 import com.guitariffic.dao.fakesheet.adapter.XMLAdapter;
 
@@ -42,6 +43,10 @@ public abstract class BaseAdapter
 		{
 			adapter = new DOCXAdapter();
 		}
+		if (fileType.equalsIgnoreCase("pdf"))
+		{
+			adapter = new PDFAdapter();
+		}
 		return adapter;
 	}
 
@@ -57,6 +62,6 @@ public abstract class BaseAdapter
 
 		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("HTML File", "html"));
 		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Microsoft Word (docx)", "docx"));
-		// fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("PDF File", "pdf", "pdf"));
+		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("PDF File", "pdf", "pdf"));
 	}
 }
