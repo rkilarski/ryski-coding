@@ -8,13 +8,19 @@ import java.util.Vector;
 
 import javax.imageio.ImageIO;
 
-import org.docx4j.dml.wordprocessingDrawing.Inline;
+import org.docx4j.fonts.Mapper;
+import org.docx4j.fonts.PhysicalFont;
+import org.docx4j.fonts.PhysicalFonts;
 import org.docx4j.model.table.TblFactory;
 import org.docx4j.openpackaging.exceptions.InvalidFormatException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
-import org.docx4j.openpackaging.parts.WordprocessingML.BinaryPartAbstractImage;
+import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.CTBorder;
+import org.docx4j.wml.RFonts;
+import org.docx4j.wml.RPr;
 import org.docx4j.wml.STBorder;
+import org.docx4j.wml.Style;
+import org.docx4j.wml.Styles;
 import org.docx4j.wml.Tbl;
 import org.docx4j.wml.TblBorders;
 import org.docx4j.wml.Tc;
@@ -33,9 +39,44 @@ public class DOCX4JAdapter
 		{
 			wordMLPackage = WordprocessingMLPackage.createPackage();
 
+			// Set the default style font.
+			MainDocumentPart mp = wordMLPackage.getMainDocumentPart();
+			Styles styles = mp.getStyleDefinitionsPart().getJaxbElement();
+			// ObjectFactory factory = Context.getWmlObjectFactory();
+			org.docx4j.wml.ObjectFactory factory = new org.docx4j.wml.ObjectFactory();
+			for (Style s : styles.getStyle())
+			{
+				// if (s.getName().getVal().equals(Font.STYLE_NORMAL))
+				// {
+				RPr rpr = s.getRPr();
+				if (rpr == null)
+				{
+					rpr = factory.createRPr();
+					s.setRPr(rpr);
+				}
+				RFonts rf = rpr.getRFonts();
+				if (rf == null)
+				{
+					rf = factory.createRFonts();
+					rpr.setRFonts(rf);
+				}
+				// This is where you set your font name.
+				rf.setAscii("Courier New");
+				// }
+			}
+
+			// Set up font mapper
+			// Mapper fontMapper = new IdentityPlusMapper();
+			Mapper fontMapper = new DOCX4JFontMapperAdapter();
+			wordMLPackage.setFontMapper(fontMapper);
+			// Example of mapping missing font Algerian to installed font Comic Sans MS
+			PhysicalFont font = PhysicalFonts.getPhysicalFonts().get("Courier New");
+			fontMapper.getFontMappings().put("Courier New", font);
+			// font = PhysicalFonts.getPhysicalFonts().get("Calibri");
+			// fontMapper.getFontMappings().put("Calibri", font);
+
 			// To get bold text, you must set the run's rPr@w:b,
 			// so you can't use the createParagraphOfText convenience method
-			org.docx4j.wml.ObjectFactory factory = new org.docx4j.wml.ObjectFactory();
 			org.docx4j.wml.P p = factory.createP();
 
 			// Add song and artist name.
@@ -91,19 +132,20 @@ public class DOCX4JAdapter
 			Vector<Vector<GuitarChordChart>> chordCharts = fakeSheet.getChordChartArea().getChordChartArea();
 			for (Vector<GuitarChordChart> chartRow : chordCharts)
 			{
-				p = factory.createP();
+				// p = factory.createP();
 
 				for (GuitarChordChart chart : chartRow)
 				{
-					BinaryPartAbstractImage imagePart = BinaryPartAbstractImage.createImagePart(wordMLPackage, serializeObj(chart.getChordImage()));
-					Inline inline = imagePart.createImageInline(chart.getChordName(), chart.getChordName(), 0, 1, false);
-					run = factory.createR();
-					p.getContent().add(run);
-					org.docx4j.wml.Drawing drawing = factory.createDrawing();
-					run.getContent().add(drawing);
-					drawing.getAnchorOrInline().add(inline);
+					// BinaryPartAbstractImage imagePart = BinaryPartAbstractImage.createImagePart(wordMLPackage,
+					// serializeObj(chart.getChordImage()));
+					// Inline inline = imagePart.createImageInline(chart.getChordName(), chart.getChordName(), 0, 1, false);
+					// run = factory.createR();
+					// p.getContent().add(run);
+					// org.docx4j.wml.Drawing drawing = factory.createDrawing();
+					// run.getContent().add(drawing);
+					// drawing.getAnchorOrInline().add(inline);
 				}
-				tc.getContent().add(p);
+				// tc.getContent().add(p);
 			}
 
 			wordMLPackage.getMainDocumentPart().addObject(tbl);
