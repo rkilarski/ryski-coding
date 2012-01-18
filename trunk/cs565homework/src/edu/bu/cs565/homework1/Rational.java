@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.bu.cs565.homework;
+package edu.bu.cs565.homework1;
 
 /**
  * CS565 Homework Problem 1
