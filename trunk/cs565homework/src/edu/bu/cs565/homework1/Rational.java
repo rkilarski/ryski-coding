@@ -131,22 +131,24 @@ public class Rational {
 			Rational newAddend1;
 			Rational newAddend2;
 			Rational multiplyBy;
-			
+
 			// Transform addend1 into one with a common denominator.
-			multiplyBy = new Rational(addend2.getDenominator(),addend2.getDenominator());
+			multiplyBy = new Rational(addend2.getDenominator(),
+					addend2.getDenominator());
 			newAddend1 = Rational.Multiply(addend1, multiplyBy, false);
-			
+
 			// Transform addend2 into one with a common denominator.
-			multiplyBy = new Rational(addend1.getDenominator(),addend1.getDenominator());
+			multiplyBy = new Rational(addend1.getDenominator(),
+					addend1.getDenominator());
 			newAddend2 = Rational.Multiply(addend2, multiplyBy, false);
 
 			result = Rational.Add(newAddend1, newAddend2);
 		}
 
-		if (reduceFlag){
+		if (reduceFlag) {
 			result = Rational.Reduce(result);
 		}
-		
+
 		return result;
 	}
 
@@ -161,7 +163,8 @@ public class Rational {
 		return Rational.Subtract(minuend, subtrahend, true);
 	}
 
-	private static Rational Subtract(Rational minuend, Rational subtrahend, boolean reduceFlag) {
+	private static Rational Subtract(Rational minuend, Rational subtrahend,
+			boolean reduceFlag) {
 		Rational result = new Rational();
 
 		// If the two numbers have a common denominator, then it's easy to
@@ -174,19 +177,21 @@ public class Rational {
 			Rational newMinuend;
 			Rational newSubtrahend;
 			Rational multiplyBy;
-			
+
 			// Transform minuend into one with a common denominator.
-			multiplyBy = new Rational(subtrahend.getDenominator(),subtrahend.getDenominator());
+			multiplyBy = new Rational(subtrahend.getDenominator(),
+					subtrahend.getDenominator());
 			newMinuend = Rational.Multiply(minuend, multiplyBy, false);
-			
+
 			// Transform minuend into one with a common denominator.
-			multiplyBy = new Rational(minuend.getDenominator(),minuend.getDenominator());
+			multiplyBy = new Rational(minuend.getDenominator(),
+					minuend.getDenominator());
 			newSubtrahend = Rational.Multiply(subtrahend, multiplyBy, false);
 
 			result = Rational.Subtract(newMinuend, newSubtrahend);
 		}
 
-		if (reduceFlag){
+		if (reduceFlag) {
 			result = Rational.Reduce(result);
 		}
 
@@ -195,42 +200,49 @@ public class Rational {
 
 	/**
 	 * Multiply two Rational numbers.
+	 * 
 	 * @param product1
 	 * @param product2
 	 * @return Rational number that is the product of the two passed in.
 	 */
-	public static Rational Multiply(Rational product1, Rational product2){
+	public static Rational Multiply(Rational product1, Rational product2) {
 		return Rational.Multiply(product1, product2, true);
 	}
-	private static Rational Multiply(Rational product1, Rational product2, boolean reduceFlag){
+
+	private static Rational Multiply(Rational product1, Rational product2,
+			boolean reduceFlag) {
 		Rational result = new Rational();
-	
-		result.setNumerator(product1.getNumerator()*product2.getNumerator());
-		result.setDenominator(product1.getDenominator()*product2.getDenominator());
-		
-		if (reduceFlag){
+
+		result.setNumerator(product1.getNumerator() * product2.getNumerator());
+		result.setDenominator(product1.getDenominator()
+				* product2.getDenominator());
+
+		if (reduceFlag) {
 			result = Rational.Reduce(result);
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * Divide two Rational numbers
+	 * 
 	 * @param divisor
 	 * @param dividend
 	 * @return Rational number that is the quotient of the two passed in.
 	 */
-	public static Rational Divide(Rational dividend, Rational divisor){
+	public static Rational Divide(Rational dividend, Rational divisor) {
 		return Rational.Divide(dividend, divisor, true);
 	}
-	private static Rational Divide(Rational dividend, Rational divisor, boolean reduceFlag){
+
+	private static Rational Divide(Rational dividend, Rational divisor,
+			boolean reduceFlag) {
 		Rational result = new Rational();
-		
+
 		Rational reciprocal = Rational.Reciprocal(divisor);
 		result = Rational.Multiply(dividend, reciprocal, false);
-		
-		if (reduceFlag){
+
+		if (reduceFlag) {
 			result = Rational.Reduce(result);
 		}
 
@@ -239,31 +251,60 @@ public class Rational {
 
 	/**
 	 * Return the reciprocal Rational for the given number.
+	 * 
 	 * @param number
 	 * @return
 	 */
-	public static Rational Reciprocal(Rational number){
-		Rational result = new Rational(number.getDenominator(),number.getNumerator());
+	public static Rational Reciprocal(Rational number) {
+		Rational result = new Rational(number.getDenominator(),
+				number.getNumerator());
 		return result;
 	}
 
 	/**
-	 * Return the string representation of the Rational number.
-	 * If the denominator is 1, then it just returns the numerator.
+	 * Return the string representation of the Rational number. If the
+	 * denominator is 1, then it just returns the numerator.
 	 */
-	public String toString(){
-		StringBuilder result=new StringBuilder();
-		
-		if (this.denominator==1){
+	public String toString() {
+		StringBuilder result = new StringBuilder();
+
+		if (this.denominator == 1) {
 			result.append(this.numerator);
-		}else{
+		} else {
 			result.append(this.numerator);
 			result.append("/");
 			result.append(this.denominator);
 		}
 		return result.toString();
 	}
+
 	private static Rational Reduce(Rational number) {
+		/*
+		 * n Euclid's Elements (Book VII) we find a way of calculating the gcd
+		 * of two numbers, without listing the divisors of either number. It is
+		 * now called Euclid's Algorithm. [An algorithm is a step by step
+		 * process (or recipe) for doing something.] First, I will describe it
+		 * using an example. We will find the gcd of 36 and 15. Divide 36 by 15
+		 * (the greater by the smaller), getting 2 with a remainder of 6. Then
+		 * we divide 15 by 6 (the previous remainder) and we get 2 and a
+		 * remainder of 3. Then we divide 6 by 3 (the previous remainder) and we
+		 * get 2 with no remainder. The last non-zero remainder (3) is our gcd.
+		 * Here it is in general:
+		 * 
+		 * a/b gives a remainder of r b/r gives a remainder of s r/s gives a
+		 * remainder of t ... w/x gives a remainder of y x/y gives no remainder
+		 * 
+		 * In this case, y is the gcd of a and b. If the first step produced no
+		 * remainder, then b (the lesser of the two numbers) is the gcd.
+		 * 
+		 * Euclid's algorithm comes in handy with computers, because listing
+		 * divisors is more difficult than the above algorithm. Large numbers
+		 * are difficult to factor, while they are relatively easy to divide.
+		 * 
+		 * Euclid did his proof of his algorithm geometrically, believe it or
+		 * not, as algebra had not been invented yet. His algorithm is
+		 * considered to be one of the best examples of an efficient algorithm.
+		 */
 
 		return number;
 	}
