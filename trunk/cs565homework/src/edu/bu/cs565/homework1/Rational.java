@@ -88,10 +88,21 @@ public class Rational {
 	}
 
 	/**
-	 * Basic constructor.
+	 * Basic constructor that sets the rational number to 0 (or 0/1).
 	 */
 	public Rational() {
 		this.numerator = 0;
+		this.denominator = 1;
+	}
+
+	/**
+	 * Constructor that takes one integer for the numerator and sets 1 to be the
+	 * default denominator.
+	 * 
+	 * @param numerator
+	 */
+	public Rational(int numerator) {
+		this.numerator = numerator;
 		this.denominator = 1;
 	}
 
@@ -102,10 +113,23 @@ public class Rational {
 	 * @param denominator
 	 */
 	public Rational(int numerator, int denominator) {
-
-		// TODO: Reduce item.
 		this.numerator = numerator;
 		this.denominator = denominator;
+
+		Rational result = Rational.Reduce(this);
+		this.numerator = result.getNumerator();
+		this.denominator = result.getDenominator();
+	}
+
+	public Rational(int numerator, int denominator, boolean reduceFlag) {
+		this.numerator = numerator;
+		this.denominator = denominator;
+
+		if (reduceFlag) {
+			Rational result = Rational.Reduce(this);
+			this.numerator = result.getNumerator();
+			this.denominator = result.getDenominator();
+		}
 	}
 
 	/**
@@ -133,13 +157,16 @@ public class Rational {
 			Rational multiplyBy;
 
 			// Transform addend1 into one with a common denominator.
-			multiplyBy = new Rational(addend2.getDenominator(),
-					addend2.getDenominator());
+			multiplyBy = new Rational();
+			multiplyBy.setNumerator(addend2.getDenominator());
+			multiplyBy.setDenominator(addend2.getDenominator());
+
 			newAddend1 = Rational.Multiply(addend1, multiplyBy, false);
 
 			// Transform addend2 into one with a common denominator.
-			multiplyBy = new Rational(addend1.getDenominator(),
-					addend1.getDenominator());
+			multiplyBy.setNumerator(addend1.getDenominator());
+			multiplyBy.setDenominator(addend1.getDenominator());
+
 			newAddend2 = Rational.Multiply(addend2, multiplyBy, false);
 
 			result = Rational.Add(newAddend1, newAddend2);
@@ -179,13 +206,16 @@ public class Rational {
 			Rational multiplyBy;
 
 			// Transform minuend into one with a common denominator.
-			multiplyBy = new Rational(subtrahend.getDenominator(),
-					subtrahend.getDenominator());
+			multiplyBy = new Rational();
+			multiplyBy.setNumerator(subtrahend.getDenominator());
+			multiplyBy.setDenominator(subtrahend.getDenominator());
+
 			newMinuend = Rational.Multiply(minuend, multiplyBy, false);
 
 			// Transform minuend into one with a common denominator.
-			multiplyBy = new Rational(minuend.getDenominator(),
-					minuend.getDenominator());
+			multiplyBy.setNumerator(minuend.getDenominator());
+			multiplyBy.setDenominator(minuend.getDenominator());
+
 			newSubtrahend = Rational.Multiply(subtrahend, multiplyBy, false);
 
 			result = Rational.Subtract(newMinuend, newSubtrahend);
@@ -256,8 +286,9 @@ public class Rational {
 	 * @return
 	 */
 	public static Rational Reciprocal(Rational number) {
-		Rational result = new Rational(number.getDenominator(),
-				number.getNumerator());
+		Rational result = new Rational();
+		result.setNumerator(number.getDenominator());
+		result.setDenominator(number.getNumerator());
 		return result;
 	}
 
@@ -277,35 +308,95 @@ public class Rational {
 		}
 		return result.toString();
 	}
+	
+	/**
+	 * Return the floating point representation of the Rational number.
+	 */
+	public float toFloat() {
+		return this.numerator/this.denominator;
+	}
+	
+	/**
+	 * Return the floating point representation of the Rational number.
+	 */
+	public float toFloat(int digits) {
+		//TODO
+		return this.numerator/this.denominator;
+	}
 
+	/**
+	 * Method to reduce a Rational number to its lowest terms.
+	 * 
+	 * @param number
+	 * @return Rational number in its lowest terms.
+	 */
 	private static Rational Reduce(Rational number) {
+		int gcd;
+		Rational result = new Rational();
+
+		gcd = Rational.gcd(number.getNumerator(), number.getDenominator());
+		result.setNumerator(number.getNumerator() / gcd);
+		result.setDenominator(number.getDenominator() / gcd);
+
+		return result;
+	}
+
+	/**
+	 * Finds the gcd of two integers. This method implements Euclid's Algorithm
+	 * to do this.
+	 * 
+	 * @param number1
+	 * @param number2
+	 * @return Returns the Greatest Common Divisor of the two numbers.
+	 */
+	private static int gcd(int number1, int number2) {
 		/*
-		 * n Euclid's Elements (Book VII) we find a way of calculating the gcd
-		 * of two numbers, without listing the divisors of either number. It is
-		 * now called Euclid's Algorithm. [An algorithm is a step by step
-		 * process (or recipe) for doing something.] First, I will describe it
-		 * using an example. We will find the gcd of 36 and 15. Divide 36 by 15
-		 * (the greater by the smaller), getting 2 with a remainder of 6. Then
-		 * we divide 15 by 6 (the previous remainder) and we get 2 and a
-		 * remainder of 3. Then we divide 6 by 3 (the previous remainder) and we
-		 * get 2 with no remainder. The last non-zero remainder (3) is our gcd.
-		 * Here it is in general:
+		 * Excerpted From: http://www.jimloy.com/number/euclids.htm
 		 * 
-		 * a/b gives a remainder of r b/r gives a remainder of s r/s gives a
-		 * remainder of t ... w/x gives a remainder of y x/y gives no remainder
+		 * In Euclid's Elements (Book VII) we find a way of calculating the gcd
+		 * of two numbers, without listing the divisors of either number. It is
+		 * now called Euclid's Algorithm. First, I will describe it using an
+		 * example. We will find the gcd of 36 and 15. Divide 36 by 15 (the
+		 * greater by the smaller), getting 2 with a remainder of 6. Then we
+		 * divide 15 by 6 (the previous remainder) and we get 2 and a remainder
+		 * of 3. Then we divide 6 by 3 (the previous remainder) and we get 2
+		 * with no remainder. The last non-zero remainder (3) is our gcd. Here
+		 * it is in general:
+		 * 
+		 * a/b gives a remainder of r
+		 * 
+		 * b/r gives a remainder of s
+		 * 
+		 * r/s gives a remainder of t
+		 * 
+		 * ...
+		 * 
+		 * w/x gives a remainder of y
+		 * 
+		 * x/y gives no remainder
 		 * 
 		 * In this case, y is the gcd of a and b. If the first step produced no
 		 * remainder, then b (the lesser of the two numbers) is the gcd.
-		 * 
-		 * Euclid's algorithm comes in handy with computers, because listing
-		 * divisors is more difficult than the above algorithm. Large numbers
-		 * are difficult to factor, while they are relatively easy to divide.
-		 * 
-		 * Euclid did his proof of his algorithm geometrically, believe it or
-		 * not, as algebra had not been invented yet. His algorithm is
-		 * considered to be one of the best examples of an efficient algorithm.
 		 */
+		int remainder = 0;
+		int result = 0;
 
-		return number;
+		// Make sure number1 is the bigger number.
+		if (number1 < number2) {
+			int switchNumber = number1;
+			number1 = number2;
+			number2 = switchNumber;
+		}
+
+		// Get the remainder of the two numbers.
+		remainder = number1 % number2;
+
+		if (remainder == 0) {
+			result = number2; // If no remainder, this is the GCD.
+		} else {
+			result = gcd(number2, remainder);
+		}
+
+		return result;
 	}
 }
