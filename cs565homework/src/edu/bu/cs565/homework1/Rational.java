@@ -6,57 +6,57 @@ package edu.bu.cs565.homework1;
 import java.text.DecimalFormat;
 
 /**
- * CS565 Homework Problem 1
+ * CS565 Homework Problem 1.
+ * 
+ * Copied from Deitel Java How to Program p357: 8-15:
+ * 
+ * 8.15 (Rational Numbers) Create a class called Rational for performing
+ * arithmetic with fractions. Write a program to test your class. Use integer
+ * variables to represent the private instance variables of the class – the
+ * numerator and the denominator. Provide a constructor which enables an object
+ * of this class to be initialized when it is declared. The constructor should
+ * store the fraction in reduced form. The fraction
+ * 
+ * 2/4
+ * 
+ * Is equivalent to 1/2 and would be stored in the object as 1 in the numerator
+ * and 2 in the denominator. Provide a no-argument constructor with default
+ * values in case no initializers are provided. Provide public methods which
+ * perform each of the following operations:
+ * 
+ * a)Add two rational numbers: The result of the addition should be stored in
+ * reduced form. Implement this as a static method.
+ * 
+ * b)Subtract two rational numbers: The result of the subtraction should be
+ * stored in reduced form. Implement this as a static method.
+ * 
+ * c)Multiply two rational numbers: The result of the multiplication should be
+ * stored in reduced form. Implement this as a static method.
+ * 
+ * d)Divide two rational numbers: The result of the division should be stored in
+ * reduced form. Implement this as a static method. (JM: What do you do about
+ * division by zero.)
+ * 
+ * e)Return a String representation of a Rational number in the form a/b, where
+ * a is the numerator and b is the denominator.
+ * 
+ * f)Return a String representation of a Rational number in floating-point
+ * format. (Consider providing formatting capabilities that enable the user of
+ * the class to specify the number of digits of precision to the right of the
+ * decimal point.)
  * 
  * @author Ryszard Kilarski
  * 
- *         Copied from Deitel Java How to Program p357: 8-15
- * 
- *         8.15 (Rational Numbers) Create a class called Rational for performing
- *         arithmetic with fractions. Write a program to test your class. Use
- *         integer variables to represent the private instance variables of the
- *         class – the numerator and the denominator. Provide a constructor
- *         which enables an object of this class to be initialized when it is
- *         declared. The constructor should store the fraction in reduced form.
- *         The fraction
- * 
- *         2/4
- * 
- *         Is equivalent to 1/2 and would be stored in the object as 1 in the
- *         numerator and 2 in the denominator. Provide a no-argument constructor
- *         with default values in case no initializers are provided. Provide
- *         public methods which perform each of the following operations:
- * 
- *         a)Add two rational numbers: The result of the addition should be
- *         stored in reduced form. Implement this as a static method.
- * 
- *         b)Subtract two rational numbers: The result of the subtraction should
- *         be stored in reduced form. Implement this as a static method.
- * 
- *         c)Multiply two rational numbers: The result of the multiplication
- *         should be stored in reduced form. Implement this as a static method.
- * 
- *         d)Divide two rational numbers: The result of the division should be
- *         stored in reduced form. Implement this as a static method. (JM: What
- *         do you do about division by zero.)
- * 
- *         e)Return a String representation of a Rational number in the form
- *         a/b, where a is the numerator and b is the denominator.
- * 
- *         f)Return a String representation of a Rational number in
- *         floating-point format. (Consider providing formatting capabilities
- *         that enable the user of the class to specify the number of digits of
- *         precision to the right of the decimal point.)
  */
 public class Rational {
 
-	private int numerator; // Numerator of
-	private int denominator;
+	private int numerator; // Numerator of the Rational number.
+	private int denominator; // Denominator of the Rational number.
 
 	/**
 	 * Public get method for the numerator.
 	 * 
-	 * @return
+	 * @return The numerator of the Rational number.
 	 */
 	public int getNumerator() {
 		return numerator;
@@ -66,6 +66,7 @@ public class Rational {
 	 * Public set method for the numerator.
 	 * 
 	 * @param numerator
+	 *            The numerator of the Rational number.
 	 */
 	public void setNumerator(int numerator) {
 		this.numerator = numerator;
@@ -74,7 +75,7 @@ public class Rational {
 	/**
 	 * Public get method for the denominator.
 	 * 
-	 * @return
+	 * @return The denominator of the Rational number.
 	 */
 	public int getDenominator() {
 		return denominator;
@@ -84,13 +85,16 @@ public class Rational {
 	 * Public set method for the denominator
 	 * 
 	 * @param denominator
+	 *            The denominator of the Rational number.
 	 */
 	public void setDenominator(int denominator) {
-		this.denominator = denominator;
+		if (denominator != 0) {
+			this.denominator = denominator;
+		}
 	}
 
 	/**
-	 * Basic constructor that sets the rational number to 0 (or 0/1).
+	 * No-argument constructor that sets the rational number to 0 (or 0/1).
 	 */
 	public Rational() {
 		this.numerator = 0;
@@ -102,6 +106,7 @@ public class Rational {
 	 * default denominator.
 	 * 
 	 * @param numerator
+	 *            The numerator of the Rational number.
 	 */
 	public Rational(int numerator) {
 		this.numerator = numerator;
@@ -112,7 +117,9 @@ public class Rational {
 	 * Constructor with default values.
 	 * 
 	 * @param numerator
+	 *            The numerator of the Rational number.
 	 * @param denominator
+	 *            The denominator of the Rational number.
 	 */
 	public Rational(int numerator, int denominator) {
 		this.numerator = numerator;
@@ -123,6 +130,17 @@ public class Rational {
 		this.denominator = result.getDenominator();
 	}
 
+	/**
+	 * Constructor with default values and the ability to store as reduced or
+	 * not.
+	 * 
+	 * @param numerator
+	 *            The numerator of the Rational number.
+	 * @param denominator
+	 *            The denominator of the Rational number.
+	 * @param reduceFlag
+	 *            If true, reduce the Rational number
+	 */
 	public Rational(int numerator, int denominator, boolean reduceFlag) {
 		this.numerator = numerator;
 		this.denominator = denominator;
@@ -138,13 +156,26 @@ public class Rational {
 	 * Add two Rational numbers.
 	 * 
 	 * @param addend1
+	 *            Rational number to add.
 	 * @param addend2
+	 *            Rational number to add.
 	 * @return Rational number that is the sum of the two passed in.
 	 */
 	public static Rational Add(Rational addend1, Rational addend2) {
 		return Rational.Add(addend1, addend2, true);
 	}
 
+	/**
+	 * Add two rational numbers and give the ability to not reduce the fraction.
+	 * 
+	 * @param addend1
+	 *            Rational Number to add.
+	 * @param addend2
+	 *            Rational Number to add.
+	 * @param reduceFlag
+	 *            If true, reduce the Rational number
+	 * @return Rational number that is the sum of the two passed in.
+	 */
 	private static Rational Add(Rational addend1, Rational addend2,
 			boolean reduceFlag) {
 		Rational result = new Rational();
@@ -185,13 +216,27 @@ public class Rational {
 	 * Subtract two Rational numbers.
 	 * 
 	 * @param minuend
+	 *            Rational Number to subtract.
 	 * @param subtrahend
+	 *            Rational Number to subtract.
 	 * @return Rational number that is the sum of the two passed in.
 	 */
 	public static Rational Subtract(Rational minuend, Rational subtrahend) {
 		return Rational.Subtract(minuend, subtrahend, true);
 	}
 
+	/**
+	 * Subtract two rational numbers and give the ability to not reduce the
+	 * fraction.
+	 * 
+	 * @param minuend
+	 *            Rational Number to subtract.
+	 * @param subtrahend
+	 *            Rational Number to subtract.
+	 * @param reduceFlag
+	 *            If true, reduce the Rational number
+	 * @return Rational number that is the difference of the two passed in.
+	 */
 	private static Rational Subtract(Rational minuend, Rational subtrahend,
 			boolean reduceFlag) {
 		Rational result = new Rational();
@@ -234,13 +279,27 @@ public class Rational {
 	 * Multiply two Rational numbers.
 	 * 
 	 * @param product1
+	 *            Rational Number to multiply.
 	 * @param product2
+	 *            Rational Number to multiply
 	 * @return Rational number that is the product of the two passed in.
 	 */
 	public static Rational Multiply(Rational product1, Rational product2) {
 		return Rational.Multiply(product1, product2, true);
 	}
 
+	/**
+	 * Multiply two Rational numbers and give the ability to not reduce the
+	 * fraction.
+	 * 
+	 * @param product1
+	 *            Rational Number to multiply
+	 * @param product2
+	 *            Rational Number to multiply
+	 * @param reduceFlag
+	 *            If true, reduce the Rational number
+	 * @return Rational number that is the product of the two passed in.
+	 */
 	private static Rational Multiply(Rational product1, Rational product2,
 			boolean reduceFlag) {
 		Rational result = new Rational();
@@ -260,13 +319,27 @@ public class Rational {
 	 * Divide two Rational numbers
 	 * 
 	 * @param divisor
+	 *            Rational Number to divide.
 	 * @param dividend
+	 *            Rational Number to divide by.
 	 * @return Rational number that is the quotient of the two passed in.
 	 */
 	public static Rational Divide(Rational dividend, Rational divisor) {
 		return Rational.Divide(dividend, divisor, true);
 	}
 
+	/**
+	 * Divide the two rational numbers and give the ability to not reduce the
+	 * fraction.
+	 * 
+	 * @param dividend
+	 *            Rational Number to divide.
+	 * @param divisor
+	 *            Rational Number to divide by.
+	 * @param reduceFlag
+	 *            If true, reduce the Rational number
+	 * @return Rational number that is the product of the two passed in.
+	 */
 	private static Rational Divide(Rational dividend, Rational divisor,
 			boolean reduceFlag) {
 		Rational result = new Rational();
@@ -285,7 +358,8 @@ public class Rational {
 	 * Return the reciprocal Rational for the given number.
 	 * 
 	 * @param number
-	 * @return
+	 *            Rational number to make a reciprocal.
+	 * @return Rational number that is the reciprocal.
 	 */
 	public static Rational Reciprocal(Rational number) {
 		Rational result = new Rational();
@@ -313,6 +387,8 @@ public class Rational {
 
 	/**
 	 * Return the floating point representation of the Rational number.
+	 * 
+	 * @return The floating-point number corresponding to the Rational number.
 	 */
 	public double toFloat() {
 		double numerator = (double) this.numerator;
@@ -323,6 +399,10 @@ public class Rational {
 	/**
 	 * Return the floating point representation of the Rational number with the
 	 * specified number of digits.
+	 * 
+	 * @param digits
+	 *            Number of digits after the decimal to show.
+	 * @return The floating-point number corresponding to the Rational number.
 	 */
 	public double toFloat(int digits) {
 		double result = this.toFloat();
@@ -333,15 +413,26 @@ public class Rational {
 			format.append("#");
 		}
 		DecimalFormat df = new DecimalFormat(format.toString());
-		
+
 		System.out.println(Double.valueOf(df.format(result)).doubleValue());
 		return Double.valueOf(df.format(result)).doubleValue();
+	}
+
+	/**
+	 * Reduces the Rational number to lowest terms.
+	 */
+	public void Reduce() {
+		Rational result;
+		result = Reduce(this);
+		this.numerator = result.getNumerator();
+		this.denominator = result.getDenominator();
 	}
 
 	/**
 	 * Method to reduce a Rational number to its lowest terms.
 	 * 
 	 * @param number
+	 *            Rational number to reduce.
 	 * @return Rational number in its lowest terms.
 	 */
 	private static Rational Reduce(Rational number) {
@@ -356,11 +447,13 @@ public class Rational {
 	}
 
 	/**
-	 * Finds the gcd of two integers. This method implements Euclid's Algorithm
-	 * to do this.
+	 * Finds the Greatest Common Divisor (GCD) of two integers. This method
+	 * implements Euclid's Algorithm to do this.
 	 * 
 	 * @param number1
+	 *            Integer value to find the GCD.
 	 * @param number2
+	 *            Integer value to find the GCD.
 	 * @return Returns the Greatest Common Divisor of the two numbers.
 	 */
 	private static int gcd(int number1, int number2) {

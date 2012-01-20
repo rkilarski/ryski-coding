@@ -54,10 +54,18 @@ public class TestRational {
 		Rational rational = new Rational(2, 4);
 		assertEquals("1/2", rational.toString());
 
+		rational = new Rational(1, 3);
+		assertEquals("1/3", rational.toString());
+
+		//Test a non-reduced Rational.
 		rational = new Rational();
 		rational.setNumerator(2);
 		rational.setDenominator(4);
 		assertEquals("2/4", rational.toString());
+		
+		//Test run-time reduction.
+		rational.Reduce();
+		assertEquals("1/2", rational.toString());
 	}
 
 	@Test
