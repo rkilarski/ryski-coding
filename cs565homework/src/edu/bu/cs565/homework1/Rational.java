@@ -3,6 +3,8 @@
  */
 package edu.bu.cs565.homework1;
 
+import java.text.DecimalFormat;
+
 /**
  * CS565 Homework Problem 1
  * 
@@ -308,20 +310,32 @@ public class Rational {
 		}
 		return result.toString();
 	}
-	
+
 	/**
 	 * Return the floating point representation of the Rational number.
 	 */
-	public float toFloat() {
-		return this.numerator/this.denominator;
+	public double toFloat() {
+		double numerator = (double) this.numerator;
+		double denominator = (double) this.denominator;
+		return numerator / denominator;
 	}
-	
+
 	/**
-	 * Return the floating point representation of the Rational number.
+	 * Return the floating point representation of the Rational number with the
+	 * specified number of digits.
 	 */
-	public float toFloat(int digits) {
-		//TODO
-		return this.numerator/this.denominator;
+	public double toFloat(int digits) {
+		double result = this.toFloat();
+		StringBuilder format = new StringBuilder();
+
+		format.append("#.");
+		for (int i = 1; i <= digits; i++) {
+			format.append("#");
+		}
+		DecimalFormat df = new DecimalFormat(format.toString());
+		
+		System.out.println(Double.valueOf(df.format(result)).doubleValue());
+		return Double.valueOf(df.format(result)).doubleValue();
 	}
 
 	/**
