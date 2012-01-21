@@ -88,9 +88,12 @@ public class Rational {
 	 *            The denominator of the Rational number.
 	 */
 	public void setDenominator(int denominator) {
-		if (denominator != 0) {
-			this.denominator = denominator;
+		if (denominator == 0) {
+			throw new IllegalArgumentException(
+					"A zero denominator is not allowed.");
 		}
+
+		this.denominator = denominator;
 	}
 
 	/**
@@ -122,6 +125,11 @@ public class Rational {
 	 *            The denominator of the Rational number.
 	 */
 	public Rational(int numerator, int denominator) {
+		if (denominator == 0) {
+			throw new IllegalArgumentException(
+					"A zero denominator is not allowed.");
+		}
+
 		this.numerator = numerator;
 		this.denominator = denominator;
 
@@ -142,6 +150,11 @@ public class Rational {
 	 *            If true, reduce the Rational number
 	 */
 	public Rational(int numerator, int denominator, boolean reduceFlag) {
+		if (denominator == 0) {
+			throw new IllegalArgumentException(
+					"A zero denominator is not allowed.");
+		}
+
 		this.numerator = numerator;
 		this.denominator = denominator;
 
@@ -414,7 +427,6 @@ public class Rational {
 		}
 		DecimalFormat df = new DecimalFormat(format.toString());
 
-		System.out.println(Double.valueOf(df.format(result)).doubleValue());
 		return Double.valueOf(df.format(result)).doubleValue();
 	}
 
