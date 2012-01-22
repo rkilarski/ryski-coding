@@ -100,8 +100,7 @@ public class Rational {
 	 * No-argument constructor that sets the rational number to 0 (or 0/1).
 	 */
 	public Rational() {
-		this.numerator = 0;
-		this.denominator = 1;
+		this(0, 1, false);
 	}
 
 	/**
@@ -112,8 +111,7 @@ public class Rational {
 	 *            The numerator of the Rational number.
 	 */
 	public Rational(int numerator) {
-		this.numerator = numerator;
-		this.denominator = 1;
+		this(numerator, 1);
 	}
 
 	/**
@@ -125,17 +123,7 @@ public class Rational {
 	 *            The denominator of the Rational number.
 	 */
 	public Rational(int numerator, int denominator) {
-		if (denominator == 0) {
-			throw new IllegalArgumentException(
-					"A zero denominator is not allowed.");
-		}
-
-		this.numerator = numerator;
-		this.denominator = denominator;
-
-		Rational result = Rational.Reduce(this);
-		this.numerator = result.getNumerator();
-		this.denominator = result.getDenominator();
+		this(numerator, denominator, true);
 	}
 
 	/**
@@ -513,7 +501,7 @@ public class Rational {
 		if (remainder == 0) {
 			result = number2; // If no remainder, this is the GCD.
 		} else {
-			result = gcd(number2, remainder);
+			result = Rational.gcd(number2, remainder);
 		}
 
 		return result;
