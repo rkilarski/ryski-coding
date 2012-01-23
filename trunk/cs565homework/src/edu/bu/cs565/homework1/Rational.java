@@ -143,13 +143,13 @@ public class Rational {
 					"A zero denominator is not allowed.");
 		}
 
-		this.numerator = numerator;
-		this.denominator = denominator;
+		this.setNumerator(numerator);
+		this.setDenominator(denominator);
 
 		if (reduceFlag) {
 			Rational result = Rational.Reduce(this);
-			this.numerator = result.getNumerator();
-			this.denominator = result.getDenominator();
+			this.setNumerator(result.getNumerator());
+			this.setDenominator(result.getDenominator());
 		}
 	}
 
