@@ -73,9 +73,17 @@ public class TestRational {
 		rational = new Rational();
 		rational.setNumerator(2);
 		rational.setDenominator(4);
+		
+		//Initial check
 		assertEquals("2/4", rational.toString());
 		
-		//Test run-time reduction.
+		//Test toReduced() method that doesn't modify original object.
+		assertEquals("1/2", Rational.toReduced(rational).toString());
+		
+		//Verify original object still not reduced.
+		assertEquals("2/4", rational.toString());
+
+		//Now reduce original object.
 		rational.Reduce();
 		assertEquals("1/2", rational.toString());
 
