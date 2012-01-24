@@ -147,7 +147,7 @@ public class Rational {
 		this.setDenominator(denominator);
 
 		if (reduceFlag) {
-			Rational result = Rational.Reduce(this);
+			Rational result = Rational.toReduced(this);
 			this.setNumerator(result.getNumerator());
 			this.setDenominator(result.getDenominator());
 		}
@@ -207,7 +207,7 @@ public class Rational {
 		}
 
 		if (reduceFlag) {
-			result = Rational.Reduce(result);
+			result = Rational.toReduced(result);
 		}
 
 		return result;
@@ -270,7 +270,7 @@ public class Rational {
 		}
 
 		if (reduceFlag) {
-			result = Rational.Reduce(result);
+			result = Rational.toReduced(result);
 		}
 
 		return result;
@@ -310,7 +310,7 @@ public class Rational {
 				* product2.getDenominator());
 
 		if (reduceFlag) {
-			result = Rational.Reduce(result);
+			result = Rational.toReduced(result);
 		}
 
 		return result;
@@ -349,7 +349,7 @@ public class Rational {
 		result = Rational.Multiply(dividend, reciprocal, false);
 
 		if (reduceFlag) {
-			result = Rational.Reduce(result);
+			result = Rational.toReduced(result);
 		}
 
 		return result;
@@ -376,12 +376,12 @@ public class Rational {
 	public String toString() {
 		StringBuilder result = new StringBuilder();
 
-		if (this.denominator == 1) {
-			result.append(this.numerator);
+		if (this.getDenominator() == 1) {
+			result.append(this.getNumerator());
 		} else {
-			result.append(this.numerator);
+			result.append(this.getNumerator());
 			result.append("/");
-			result.append(this.denominator);
+			result.append(this.getDenominator());
 		}
 		return result.toString();
 	}
@@ -392,8 +392,8 @@ public class Rational {
 	 * @return The floating-point number corresponding to the Rational number.
 	 */
 	public double toFloat() {
-		double numerator = (double) this.numerator;
-		double denominator = (double) this.denominator;
+		double numerator = (double) this.getNumerator();
+		double denominator = (double) this.getDenominator();
 		return numerator / denominator;
 	}
 
@@ -422,10 +422,9 @@ public class Rational {
 	 * Reduces the Rational number to lowest terms.
 	 */
 	public void Reduce() {
-		Rational result;
-		result = Reduce(this);
-		this.numerator = result.getNumerator();
-		this.denominator = result.getDenominator();
+		Rational result = Rational.toReduced(this);
+		this.setNumerator(result.getNumerator());
+		this.setDenominator(result.getDenominator());
 	}
 
 	/**
@@ -435,7 +434,7 @@ public class Rational {
 	 *            Rational number to reduce.
 	 * @return Rational number in its lowest terms.
 	 */
-	private static Rational Reduce(Rational number) {
+	public static Rational toReduced(Rational number) {
 		int gcd;
 		Rational result = new Rational();
 
