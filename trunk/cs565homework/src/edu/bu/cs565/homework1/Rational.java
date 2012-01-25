@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.bu.cs565.homework1;
 
 import java.text.DecimalFormat;
