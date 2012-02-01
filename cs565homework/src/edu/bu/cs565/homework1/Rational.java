@@ -5,6 +5,8 @@ import java.text.DecimalFormat;
 /**
  * CS565 Homework Problem 1.
  * 
+ * This class implements the Rational functionality of the problem set.
+ * 
  * Copied from Deitel Java How to Program p357: 8-15:
  * 
  * 8.15 (Rational Numbers) Create a class called Rational for performing
@@ -67,6 +69,9 @@ public class Rational {
 	 */
 	public void setNumerator(int numerator) {
 		this.numerator = numerator;
+		if (numerator == 0) {
+			this.denominator = 1;
+		}
 	}
 
 	/**
@@ -430,10 +435,14 @@ public class Rational {
 		int gcd;
 		Rational result = new Rational();
 
-		gcd = Rational.gcd(number.getNumerator(), number.getDenominator());
-		result.setNumerator(number.getNumerator() / gcd);
-		result.setDenominator(number.getDenominator() / gcd);
-
+		if (number.getNumerator() > 0) {
+			gcd = Rational.gcd(number.getNumerator(), number.getDenominator());
+			result.setNumerator(number.getNumerator() / gcd);
+			result.setDenominator(number.getDenominator() / gcd);
+		} else {
+			result.setNumerator(number.getNumerator());
+			result.setDenominator(number.getDenominator());
+		}
 		return result;
 	}
 
