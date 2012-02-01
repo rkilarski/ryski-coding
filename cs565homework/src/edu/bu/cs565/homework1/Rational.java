@@ -86,8 +86,7 @@ public class Rational {
 	 */
 	public void setDenominator(int denominator) {
 		if (denominator == 0) {
-			throw new IllegalArgumentException(
-					"A zero denominator is not allowed.");
+			throw new ArithmeticException("A zero denominator is not allowed.");
 		}
 
 		this.denominator = denominator;
@@ -135,10 +134,6 @@ public class Rational {
 	 *            If true, reduce the Rational number
 	 */
 	public Rational(int numerator, int denominator, boolean reduceFlag) {
-		if (denominator == 0) {
-			throw new IllegalArgumentException(
-					"A zero denominator is not allowed.");
-		}
 
 		this.setNumerator(numerator);
 		this.setDenominator(denominator);
