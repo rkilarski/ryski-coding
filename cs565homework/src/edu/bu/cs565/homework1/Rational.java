@@ -3,7 +3,7 @@ package edu.bu.cs565.homework1;
 import java.text.DecimalFormat;
 
 /**
- * CS565 Homework Problem 1.
+ * CS565 Homework #1.
  * 
  * This class implements the Rational functionality of the problem set.
  * 
