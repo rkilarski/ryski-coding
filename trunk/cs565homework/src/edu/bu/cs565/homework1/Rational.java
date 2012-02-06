@@ -3,6 +3,7 @@ package edu.bu.cs565.homework1;
 import java.text.DecimalFormat;
 
 /**
+ * Author: Ryszard Kilarski (Id: U81-39-8560)
  * CS565 Homework #1.
  * 
  * This class implements the Rational functionality of the problem set.
@@ -44,7 +45,7 @@ import java.text.DecimalFormat;
  * the class to specify the number of digits of precision to the right of the
  * decimal point.)
  * 
- * @author Ryszard Kilarski
+ * @author Ryszard Kilarski (Id: U81-39-8560)
  * 
  */
 public class Rational {
@@ -89,7 +90,7 @@ public class Rational {
 	 * @param denominator
 	 *            The denominator of the Rational number.
 	 */
-	public void setDenominator(int denominator) {
+	public void setDenominator(int denominator) throws ArithmeticException {
 		if (denominator == 0) {
 			throw new ArithmeticException("A zero denominator is not allowed.");
 		}
@@ -139,7 +140,6 @@ public class Rational {
 	 *            If true, reduce the Rational number
 	 */
 	public Rational(int numerator, int denominator, boolean reduceFlag) {
-
 		this.setNumerator(numerator);
 		this.setDenominator(denominator);
 
@@ -373,7 +373,7 @@ public class Rational {
 	public String toString() {
 		StringBuilder result = new StringBuilder();
 
-		if (this.getDenominator() == 1) {
+		if ((this.getNumerator() == 0) || (this.getDenominator() == 1)) {
 			result.append(this.getNumerator());
 		} else {
 			result.append(this.getNumerator());

@@ -3,10 +3,13 @@ package edu.bu.cs565.homework1;
 import java.util.Scanner;
 
 /**
- * CS565 Homework Problem 1.
+ * Author: Ryszard Kilarski (Id: U81-39-8560)
+ * CS565 Homework #1.
  * 
  * This class implements a scanner functionality in order to test the Rational
  * class.
+ *
+ * @author Ryszard Kilarski (Id: U81-39-8560)
  * 
  */
 public class TestRationalScanner {
@@ -16,9 +19,9 @@ public class TestRationalScanner {
 		int denominator1;
 		int numerator2;
 		int denominator2;
-		int decimals;
-		Rational rational1;
-		Rational rational2;
+		Rational rational1 = null;
+		Rational rational2 = null;
+		boolean exitForError = false;
 
 		Scanner input = new Scanner(System.in);
 
@@ -30,44 +33,62 @@ public class TestRationalScanner {
 				.println("You will be prompted for two rational numbers.  They will then be ");
 		System.out.println("added, subtracted, multiplied, and divided.\n");
 
-		// do {
-		System.out.println("Input a numerator for Rational #1:");
-		numerator1 = input.nextInt();
+		try {
 
-		System.out.println("Input a denominator for Rational #1:");
-		denominator1 = input.nextInt();
+			System.out.println("Input a numerator for Rational #1:");
+			numerator1 = input.nextInt();
 
-		System.out.println("Input a numerator for Rational #2:");
-		numerator2 = input.nextInt();
-		System.out.println("Input a denominator for Rational #2:");
-		denominator2 = input.nextInt();
+			System.out.println("Input a denominator for Rational #1:");
+			denominator1 = input.nextInt();
 
-		System.out.println("Input the number of decimals to display:");
-		decimals = input.nextInt();
+			// Check rational number 1.
+			try {
+				rational1 = new Rational(numerator1, denominator1);
+			} catch (ArithmeticException arithmeticException) {
+				System.out
+						.println("A rational number cannot have a zero divisor.  This program will end.");
+				exitForError = true;
+			}
 
-		rational1 = new Rational(numerator1, denominator1);
-		rational2 = new Rational(numerator2, denominator2);
+			if (!exitForError) {
+				System.out.println("Input a numerator for Rational #2:");
+				numerator2 = input.nextInt();
+				System.out.println("Input a denominator for Rational #2:");
+				denominator2 = input.nextInt();
 
-		// Test the toString and toFloat methods.
-		testToMethod("Rational 1", decimals, rational1);
-		System.out.println("\n");
-		testToMethod("Rational 2", decimals, rational2);
+				// Check rational number 2.
+				try {
+					rational2 = new Rational(numerator2, denominator2);
+				} catch (ArithmeticException arithmeticException) {
+					System.out
+							.println("A rational number cannot have a zero divisor.  This program will end.");
+					exitForError = true;
+				}
 
-		System.out.println("\nTesting operations");
-		testOperations(decimals, rational1, rational2);
+				if (!exitForError) {
+					if ((rational1 != null) && (rational2 != null)) {
+						// Test the toString and toFloat methods.
+						testToMethod("Rational 1", rational1);
+						System.out.println("\n");
+						testToMethod("Rational 2", rational2);
 
-		// } while (input.hasNext());
+						System.out.println("\nTesting operations");
+						testOperations(rational1, rational2);
+					}
+				}
+			}
+		} catch (Exception exception) {
+			System.out.println("Unhandled exception!");
+		} finally {
+			input.close();
+		}
 
-		input.close();
-
+		return;
 	}
 
-	private static void testToMethod(String text, int decimals,
-			Rational rational) {
+	private static void testToMethod(String text, Rational rational) {
 		System.out.println(text + " toString: " + rational.toString());
 		System.out.println(text + " toFloat: " + rational.toFloat());
-		System.out.println(text + " toFloat with " + decimals
-				+ " decimal(s): " + rational.toFloat(decimals));
 		System.out.println(text + " toFloat with 1 decimal: "
 				+ rational.toFloat(1));
 		System.out.println(text + " toFloat with 2 decimals: "
@@ -76,17 +97,18 @@ public class TestRationalScanner {
 				+ rational.toFloat(3));
 		System.out.println(text + " toFloat with 4 decimals: "
 				+ rational.toFloat(4));
-
+		System.out.println(text + " toFloat with 5 decimals: "
+				+ rational.toFloat(5));
 	}
 
-	private static void testOperations(int decimals, Rational rational1,
+	private static void testOperations(Rational rational1,
 			Rational rational2) {
 		Rational result;
 
 		// Testing addition.
 		try {
 			result = Rational.Add(rational1, rational2);
-			outputOperationResult("+", decimals, rational1, rational2, result);
+			outputOperationResult("+", rational1, rational2, result);
 		} catch (Exception e) {
 			System.out.println("Error with Add() method.");
 			e.printStackTrace();
@@ -95,7 +117,7 @@ public class TestRationalScanner {
 		// Testing subtraction
 		try {
 			result = Rational.Subtract(rational1, rational2);
-			outputOperationResult("-", decimals, rational1, rational2, result);
+			outputOperationResult("-", rational1, rational2, result);
 		} catch (Exception e) {
 			System.out.println("Error with Subtract() method.");
 			e.printStackTrace();
@@ -104,7 +126,7 @@ public class TestRationalScanner {
 		// Testing multiplication
 		try {
 			result = Rational.Multiply(rational1, rational2);
-			outputOperationResult("X", decimals, rational1, rational2, result);
+			outputOperationResult("X", rational1, rational2, result);
 		} catch (Exception e) {
 			System.out.println("Error with Multiply() method.");
 			e.printStackTrace();
@@ -113,7 +135,7 @@ public class TestRationalScanner {
 		// Testing division
 		try {
 			result = Rational.Divide(rational1, rational2);
-			outputOperationResult("/", decimals, rational1, rational2, result);
+			outputOperationResult("/", rational1, rational2, result);
 		} catch (Exception e) {
 			System.out.println("Error with Divide() method.");
 			e.printStackTrace();
@@ -121,12 +143,11 @@ public class TestRationalScanner {
 
 	}
 
-	private static void outputOperationResult(String operator, int decimals,
-			Rational rational1, Rational rational2, Rational result) {
+	private static void outputOperationResult(String operator, Rational rational1, Rational rational2, Rational result) {
 		try {
 			System.out.println(rational1.toString() + " " + operator + " "
 					+ rational2.toString());
-			testToMethod("\t= ", decimals, result);
+			testToMethod("\t= ", result);
 		} catch (Exception e) {
 			System.out.println("Error with toString() method.");
 			e.printStackTrace();
