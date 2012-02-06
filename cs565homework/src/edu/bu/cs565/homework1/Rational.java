@@ -50,53 +50,8 @@ import java.text.DecimalFormat;
  */
 public class Rational {
 
-	private int numerator; // Numerator of the Rational number.
 	private int denominator; // Denominator of the Rational number.
-
-	/**
-	 * Public get method for the numerator.
-	 * 
-	 * @return The numerator of the Rational number.
-	 */
-	public int getNumerator() {
-		return numerator;
-	}
-
-	/**
-	 * Public set method for the numerator.
-	 * 
-	 * @param numerator
-	 *            The numerator of the Rational number.
-	 */
-	public void setNumerator(int numerator) {
-		this.numerator = numerator;
-		if (numerator == 0) {
-			this.denominator = 1;
-		}
-	}
-
-	/**
-	 * Public get method for the denominator.
-	 * 
-	 * @return The denominator of the Rational number.
-	 */
-	public int getDenominator() {
-		return denominator;
-	}
-
-	/**
-	 * Public set method for the denominator
-	 * 
-	 * @param denominator
-	 *            The denominator of the Rational number.
-	 */
-	public void setDenominator(int denominator) throws ArithmeticException {
-		if (denominator == 0) {
-			throw new ArithmeticException("A zero denominator is not allowed.");
-		}
-
-		this.denominator = denominator;
-	}
+	private int numerator; // Numerator of the Rational number.
 
 	/**
 	 * No-argument constructor that sets the rational number to 0 (or 0/1).
@@ -124,7 +79,7 @@ public class Rational {
 	 * @param denominator
 	 *            The denominator of the Rational number.
 	 */
-	public Rational(int numerator, int denominator) {
+	public Rational(int numerator, int denominator) throws ArithmeticException {
 		this(numerator, denominator, true);
 	}
 
@@ -139,7 +94,7 @@ public class Rational {
 	 * @param reduceFlag
 	 *            If true, reduce the Rational number
 	 */
-	public Rational(int numerator, int denominator, boolean reduceFlag) {
+	public Rational(int numerator, int denominator, boolean reduceFlag) throws ArithmeticException {
 		this.setNumerator(numerator);
 		this.setDenominator(denominator);
 
@@ -161,6 +116,81 @@ public class Rational {
 	 */
 	public static Rational Add(Rational addend1, Rational addend2) {
 		return Rational.Add(addend1, addend2, true);
+	}
+
+	/**
+	 * Divide two Rational numbers
+	 * 
+	 * @param divisor
+	 *            Rational Number to divide.
+	 * @param dividend
+	 *            Rational Number to divide by.
+	 * @return Rational number that is the quotient of the two passed in.
+	 */
+	public static Rational Divide(Rational dividend, Rational divisor) {
+		return Rational.Divide(dividend, divisor, true);
+	}
+
+	/**
+	 * Multiply two Rational numbers.
+	 * 
+	 * @param product1
+	 *            Rational Number to multiply.
+	 * @param product2
+	 *            Rational Number to multiply
+	 * @return Rational number that is the product of the two passed in.
+	 */
+	public static Rational Multiply(Rational product1, Rational product2) {
+		return Rational.Multiply(product1, product2, true);
+	}
+
+	/**
+	 * Return the reciprocal Rational for the given number.
+	 * 
+	 * @param number
+	 *            Rational number to make a reciprocal.
+	 * @return Rational number that is the reciprocal.
+	 */
+	public static Rational Reciprocal(Rational number) throws ArithmeticException {
+		Rational result = new Rational();
+		result.setNumerator(number.getDenominator());
+		result.setDenominator(number.getNumerator());
+		return result;
+	}
+
+	/**
+	 * Subtract two Rational numbers.
+	 * 
+	 * @param minuend
+	 *            Rational Number to subtract.
+	 * @param subtrahend
+	 *            Rational Number to subtract.
+	 * @return Rational number that is the sum of the two passed in.
+	 */
+	public static Rational Subtract(Rational minuend, Rational subtrahend) {
+		return Rational.Subtract(minuend, subtrahend, true);
+	}
+
+	/**
+	 * Method to reduce a Rational number to its lowest terms.
+	 * 
+	 * @param number
+	 *            Rational number to reduce.
+	 * @return Rational number in its lowest terms.
+	 */
+	public static Rational toReduced(Rational number) {
+		int gcd;
+		Rational result = new Rational();
+
+		if (number.getNumerator() > 0) {
+			gcd = Rational.gcd(number.getNumerator(), number.getDenominator());
+			result.setNumerator(number.getNumerator() / gcd);
+			result.setDenominator(number.getDenominator() / gcd);
+		} else {
+			result.setNumerator(number.getNumerator());
+			result.setDenominator(number.getDenominator());
+		}
+		return result;
 	}
 
 	/**
@@ -211,122 +241,6 @@ public class Rational {
 	}
 
 	/**
-	 * Subtract two Rational numbers.
-	 * 
-	 * @param minuend
-	 *            Rational Number to subtract.
-	 * @param subtrahend
-	 *            Rational Number to subtract.
-	 * @return Rational number that is the sum of the two passed in.
-	 */
-	public static Rational Subtract(Rational minuend, Rational subtrahend) {
-		return Rational.Subtract(minuend, subtrahend, true);
-	}
-
-	/**
-	 * Subtract two rational numbers and give the ability to not reduce the
-	 * fraction.
-	 * 
-	 * @param minuend
-	 *            Rational Number to subtract.
-	 * @param subtrahend
-	 *            Rational Number to subtract.
-	 * @param reduceFlag
-	 *            If true, reduce the Rational number
-	 * @return Rational number that is the difference of the two passed in.
-	 */
-	private static Rational Subtract(Rational minuend, Rational subtrahend,
-			boolean reduceFlag) {
-		Rational result = new Rational();
-
-		// If the two numbers have a common denominator, then it's easy to
-		// subtract.
-		if (minuend.getDenominator() == subtrahend.getDenominator()) {
-			result.setNumerator(minuend.getNumerator()
-					- subtrahend.getNumerator());
-			result.setDenominator(minuend.getDenominator());
-		} else {
-			Rational newMinuend;
-			Rational newSubtrahend;
-			Rational multiplyBy;
-
-			// Transform minuend into one with a common denominator.
-			multiplyBy = new Rational();
-			multiplyBy.setNumerator(subtrahend.getDenominator());
-			multiplyBy.setDenominator(subtrahend.getDenominator());
-
-			newMinuend = Rational.Multiply(minuend, multiplyBy, false);
-
-			// Transform minuend into one with a common denominator.
-			multiplyBy.setNumerator(minuend.getDenominator());
-			multiplyBy.setDenominator(minuend.getDenominator());
-
-			newSubtrahend = Rational.Multiply(subtrahend, multiplyBy, false);
-
-			result = Rational.Subtract(newMinuend, newSubtrahend);
-		}
-
-		if (reduceFlag) {
-			result = Rational.toReduced(result);
-		}
-
-		return result;
-	}
-
-	/**
-	 * Multiply two Rational numbers.
-	 * 
-	 * @param product1
-	 *            Rational Number to multiply.
-	 * @param product2
-	 *            Rational Number to multiply
-	 * @return Rational number that is the product of the two passed in.
-	 */
-	public static Rational Multiply(Rational product1, Rational product2) {
-		return Rational.Multiply(product1, product2, true);
-	}
-
-	/**
-	 * Multiply two Rational numbers and give the ability to not reduce the
-	 * fraction.
-	 * 
-	 * @param product1
-	 *            Rational Number to multiply
-	 * @param product2
-	 *            Rational Number to multiply
-	 * @param reduceFlag
-	 *            If true, reduce the Rational number
-	 * @return Rational number that is the product of the two passed in.
-	 */
-	private static Rational Multiply(Rational product1, Rational product2,
-			boolean reduceFlag) {
-		Rational result = new Rational();
-
-		result.setNumerator(product1.getNumerator() * product2.getNumerator());
-		result.setDenominator(product1.getDenominator()
-				* product2.getDenominator());
-
-		if (reduceFlag) {
-			result = Rational.toReduced(result);
-		}
-
-		return result;
-	}
-
-	/**
-	 * Divide two Rational numbers
-	 * 
-	 * @param divisor
-	 *            Rational Number to divide.
-	 * @param dividend
-	 *            Rational Number to divide by.
-	 * @return Rational number that is the quotient of the two passed in.
-	 */
-	public static Rational Divide(Rational dividend, Rational divisor) {
-		return Rational.Divide(dividend, divisor, true);
-	}
-
-	/**
 	 * Divide the two rational numbers and give the ability to not reduce the
 	 * fraction.
 	 * 
@@ -349,100 +263,6 @@ public class Rational {
 			result = Rational.toReduced(result);
 		}
 
-		return result;
-	}
-
-	/**
-	 * Return the reciprocal Rational for the given number.
-	 * 
-	 * @param number
-	 *            Rational number to make a reciprocal.
-	 * @return Rational number that is the reciprocal.
-	 */
-	public static Rational Reciprocal(Rational number) {
-		Rational result = new Rational();
-		result.setNumerator(number.getDenominator());
-		result.setDenominator(number.getNumerator());
-		return result;
-	}
-
-	/**
-	 * Return the string representation of the Rational number. If the
-	 * denominator is 1, then it just returns the numerator.
-	 */
-	public String toString() {
-		StringBuilder result = new StringBuilder();
-
-		if ((this.getNumerator() == 0) || (this.getDenominator() == 1)) {
-			result.append(this.getNumerator());
-		} else {
-			result.append(this.getNumerator());
-			result.append("/");
-			result.append(this.getDenominator());
-		}
-		return result.toString();
-	}
-
-	/**
-	 * Return the floating point representation of the Rational number.
-	 * 
-	 * @return The floating-point number corresponding to the Rational number.
-	 */
-	public double toFloat() {
-		double numerator = (double) this.getNumerator();
-		double denominator = (double) this.getDenominator();
-		return numerator / denominator;
-	}
-
-	/**
-	 * Return the floating point representation of the Rational number with the
-	 * specified number of digits.
-	 * 
-	 * @param digits
-	 *            Number of digits after the decimal to show.
-	 * @return The floating-point number corresponding to the Rational number.
-	 */
-	public double toFloat(int digits) {
-		double result = this.toFloat();
-		StringBuilder format = new StringBuilder();
-
-		format.append("#.");
-		for (int i = 1; i <= digits; i++) {
-			format.append("#");
-		}
-		DecimalFormat df = new DecimalFormat(format.toString());
-
-		return Double.valueOf(df.format(result)).doubleValue();
-	}
-
-	/**
-	 * Reduces the Rational number to lowest terms.
-	 */
-	public void Reduce() {
-		Rational result = Rational.toReduced(this);
-		this.setNumerator(result.getNumerator());
-		this.setDenominator(result.getDenominator());
-	}
-
-	/**
-	 * Method to reduce a Rational number to its lowest terms.
-	 * 
-	 * @param number
-	 *            Rational number to reduce.
-	 * @return Rational number in its lowest terms.
-	 */
-	public static Rational toReduced(Rational number) {
-		int gcd;
-		Rational result = new Rational();
-
-		if (number.getNumerator() > 0) {
-			gcd = Rational.gcd(number.getNumerator(), number.getDenominator());
-			result.setNumerator(number.getNumerator() / gcd);
-			result.setDenominator(number.getDenominator() / gcd);
-		} else {
-			result.setNumerator(number.getNumerator());
-			result.setDenominator(number.getDenominator());
-		}
 		return result;
 	}
 
@@ -505,5 +325,185 @@ public class Rational {
 		}
 
 		return result;
+	}
+
+	/**
+	 * Multiply two Rational numbers and give the ability to not reduce the
+	 * fraction.
+	 * 
+	 * @param product1
+	 *            Rational Number to multiply
+	 * @param product2
+	 *            Rational Number to multiply
+	 * @param reduceFlag
+	 *            If true, reduce the Rational number
+	 * @return Rational number that is the product of the two passed in.
+	 */
+	private static Rational Multiply(Rational product1, Rational product2,
+			boolean reduceFlag) {
+		Rational result = new Rational();
+
+		result.setNumerator(product1.getNumerator() * product2.getNumerator());
+		result.setDenominator(product1.getDenominator()
+				* product2.getDenominator());
+
+		if (reduceFlag) {
+			result = Rational.toReduced(result);
+		}
+
+		return result;
+	}
+
+	/**
+	 * Subtract two rational numbers and give the ability to not reduce the
+	 * fraction.
+	 * 
+	 * @param minuend
+	 *            Rational Number to subtract.
+	 * @param subtrahend
+	 *            Rational Number to subtract.
+	 * @param reduceFlag
+	 *            If true, reduce the Rational number
+	 * @return Rational number that is the difference of the two passed in.
+	 */
+	private static Rational Subtract(Rational minuend, Rational subtrahend,
+			boolean reduceFlag) {
+		Rational result = new Rational();
+
+		// If the two numbers have a common denominator, then it's easy to
+		// subtract.
+		if (minuend.getDenominator() == subtrahend.getDenominator()) {
+			result.setNumerator(minuend.getNumerator()
+					- subtrahend.getNumerator());
+			result.setDenominator(minuend.getDenominator());
+		} else {
+			Rational newMinuend;
+			Rational newSubtrahend;
+			Rational multiplyBy;
+
+			// Transform minuend into one with a common denominator.
+			multiplyBy = new Rational();
+			multiplyBy.setNumerator(subtrahend.getDenominator());
+			multiplyBy.setDenominator(subtrahend.getDenominator());
+
+			newMinuend = Rational.Multiply(minuend, multiplyBy, false);
+
+			// Transform minuend into one with a common denominator.
+			multiplyBy.setNumerator(minuend.getDenominator());
+			multiplyBy.setDenominator(minuend.getDenominator());
+
+			newSubtrahend = Rational.Multiply(subtrahend, multiplyBy, false);
+
+			result = Rational.Subtract(newMinuend, newSubtrahend);
+		}
+
+		if (reduceFlag) {
+			result = Rational.toReduced(result);
+		}
+
+		return result;
+	}
+
+	/**
+	 * Public get method for the denominator.
+	 * 
+	 * @return The denominator of the Rational number.
+	 */
+	public int getDenominator() {
+		return denominator;
+	}
+
+	/**
+	 * Public get method for the numerator.
+	 * 
+	 * @return The numerator of the Rational number.
+	 */
+	public int getNumerator() {
+		return numerator;
+	}
+
+	/**
+	 * Reduces the Rational number to lowest terms.
+	 */
+	public void Reduce() {
+		Rational result = Rational.toReduced(this);
+		this.setNumerator(result.getNumerator());
+		this.setDenominator(result.getDenominator());
+	}
+
+	/**
+	 * Public set method for the denominator
+	 * 
+	 * @param denominator
+	 *            The denominator of the Rational number.
+	 */
+	public void setDenominator(int denominator) throws ArithmeticException {
+		if (denominator == 0) {
+			throw new ArithmeticException("A zero denominator is not allowed.");
+		}
+
+		this.denominator = denominator;
+	}
+
+	/**
+	 * Public set method for the numerator.
+	 * 
+	 * @param numerator
+	 *            The numerator of the Rational number.
+	 */
+	public void setNumerator(int numerator) {
+		this.numerator = numerator;
+		if (numerator == 0) {
+			this.denominator = 1;
+		}
+	}
+
+	/**
+	 * Return the floating point representation of the Rational number.
+	 * 
+	 * @return The floating-point number corresponding to the Rational number.
+	 */
+	public double toFloat() {
+		double numerator = (double) this.getNumerator();
+		double denominator = (double) this.getDenominator();
+		return numerator / denominator;
+	}
+
+	/**
+	 * Return the floating point representation of the Rational number with the
+	 * specified number of digits.
+	 * 
+	 * @param digits
+	 *            Number of digits after the decimal to show.
+	 * @return The floating-point number corresponding to the Rational number.
+	 */
+	public double toFloat(int digits) {
+		double result = this.toFloat();
+		StringBuilder format = new StringBuilder();
+
+		format.append("#.");
+		for (int i = 1; i <= digits; i++) {
+			format.append("#");
+		}
+		DecimalFormat df = new DecimalFormat(format.toString());
+
+		return Double.valueOf(df.format(result)).doubleValue();
+	}
+
+	/**
+	 * Return the string representation of the Rational number. If the
+	 * denominator is 1, then it just returns the numerator.
+	 */
+	public String toString() {
+		StringBuilder result = new StringBuilder();
+
+		if ((this.getNumerator() == 0) || (this.getDenominator() == 1)) {
+			result.append(this.getNumerator());
+		} else {
+			result.append(this.getNumerator());
+			result.append("/");
+			result.append(this.getDenominator());
+		}
+		return result.toString();
 	}
 }
