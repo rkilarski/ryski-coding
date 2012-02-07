@@ -3,8 +3,7 @@ package edu.bu.cs565.homework1;
 import java.text.DecimalFormat;
 
 /**
- * Author: Ryszard Kilarski (Id: U81-39-8560)
- * CS565 Homework #1.
+ * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #1.
  * 
  * This class implements the Rational functionality of the problem set.
  * 
@@ -94,7 +93,8 @@ public class Rational {
 	 * @param reduceFlag
 	 *            If true, reduce the Rational number
 	 */
-	public Rational(int numerator, int denominator, boolean reduceFlag) throws ArithmeticException {
+	public Rational(int numerator, int denominator, boolean reduceFlag)
+			throws ArithmeticException {
 		this.setNumerator(numerator);
 		this.setDenominator(denominator);
 
@@ -151,7 +151,8 @@ public class Rational {
 	 *            Rational number to make a reciprocal.
 	 * @return Rational number that is the reciprocal.
 	 */
-	public static Rational Reciprocal(Rational number) throws ArithmeticException {
+	public static Rational Reciprocal(Rational number)
+			throws ArithmeticException {
 		Rational result = new Rational();
 		result.setNumerator(number.getDenominator());
 		result.setDenominator(number.getNumerator());
@@ -270,6 +271,33 @@ public class Rational {
 	 * Finds the Greatest Common Divisor (GCD) of two integers. This method
 	 * implements Euclid's Algorithm to do this.
 	 * 
+	 * The algorithm used is excerpted From:
+	 * http://www.jimloy.com/number/euclids.htm
+	 * 
+	 * In Euclid's Elements (Book VII) we find a way of calculating the gcd of
+	 * two numbers, without listing the divisors of either number. It is now
+	 * called Euclid's Algorithm. First, I will describe it using an example. We
+	 * will find the gcd of 36 and 15. Divide 36 by 15 (the greater by the
+	 * smaller), getting 2 with a remainder of 6. Then we divide 15 by 6 (the
+	 * previous remainder) and we get 2 and a remainder of 3. Then we divide 6
+	 * by 3 (the previous remainder) and we get 2 with no remainder. The last
+	 * non-zero remainder (3) is our gcd. Here it is in general:
+	 * 
+	 * a/b gives a remainder of r
+	 * 
+	 * b/r gives a remainder of s
+	 * 
+	 * r/s gives a remainder of t
+	 * 
+	 * ...
+	 * 
+	 * w/x gives a remainder of y
+	 * 
+	 * x/y gives no remainder
+	 * 
+	 * In this case, y is the gcd of a and b. If the first step produced no
+	 * remainder, then b (the lesser of the two numbers) is the gcd.
+	 * 
 	 * @param number1
 	 *            Integer value to find the GCD.
 	 * @param number2
@@ -277,34 +305,6 @@ public class Rational {
 	 * @return Returns the Greatest Common Divisor of the two numbers.
 	 */
 	private static int gcd(int number1, int number2) {
-		/*
-		 * Excerpted From: http://www.jimloy.com/number/euclids.htm
-		 * 
-		 * In Euclid's Elements (Book VII) we find a way of calculating the gcd
-		 * of two numbers, without listing the divisors of either number. It is
-		 * now called Euclid's Algorithm. First, I will describe it using an
-		 * example. We will find the gcd of 36 and 15. Divide 36 by 15 (the
-		 * greater by the smaller), getting 2 with a remainder of 6. Then we
-		 * divide 15 by 6 (the previous remainder) and we get 2 and a remainder
-		 * of 3. Then we divide 6 by 3 (the previous remainder) and we get 2
-		 * with no remainder. The last non-zero remainder (3) is our gcd. Here
-		 * it is in general:
-		 * 
-		 * a/b gives a remainder of r
-		 * 
-		 * b/r gives a remainder of s
-		 * 
-		 * r/s gives a remainder of t
-		 * 
-		 * ...
-		 * 
-		 * w/x gives a remainder of y
-		 * 
-		 * x/y gives no remainder
-		 * 
-		 * In this case, y is the gcd of a and b. If the first step produced no
-		 * remainder, then b (the lesser of the two numbers) is the gcd.
-		 */
 		int remainder = 0;
 		int result = 0;
 
