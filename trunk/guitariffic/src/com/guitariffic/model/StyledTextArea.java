@@ -47,7 +47,6 @@ public class StyledTextArea extends BaseTextArea
 	 */
 	public StyledTextArea()
 	{
-		super();
 		styledDocument = null;
 	}
 

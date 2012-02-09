@@ -38,10 +38,7 @@ public class ChordChartArea extends BaseModel implements Serializable
 	 */
 	public ChordChartArea()
 	{
-		super();
-		chordChartArea = new Vector<Vector<GuitarChordChart>>();
-		chordChartArea.add(new Vector<GuitarChordChart>());
-		chordChartArea.get(0).add(new GuitarChordChart());
+		this(1,1);
 	}
 
 	/**

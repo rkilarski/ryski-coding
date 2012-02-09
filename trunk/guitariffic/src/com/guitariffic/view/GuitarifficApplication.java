@@ -44,7 +44,7 @@ import com.guitariffic.controller.ChordChartAreaController;
 import com.guitariffic.controller.ChordTrayController;
 import com.guitariffic.controller.FakeSheetController;
 import com.guitariffic.controller.TextAreaController;
-import com.guitariffic.model.BaseChordChart;
+import com.guitariffic.model.MusicChart;
 import com.guitariffic.model.GuitarChordChart;
 import com.guitariffic.view.adapter.ChordChartTransferHandler;
 import com.guitariffic.view.adapter.ChordTableEditor;
@@ -70,8 +70,8 @@ public class GuitarifficApplication
 	private JTable tableChordChartArea;
 	private JTable tableChordTray;
 	private JTextField txtFilter;
-	private BaseChordChart chordCopyBuffer;
-	private BaseChordChart popupMenuItem;
+	private MusicChart chordCopyBuffer;
+	private MusicChart popupMenuItem;
 	private JPopupMenu popupTrayMenu;
 	private JPanel panelLyrics;
 	private JScrollPane textAreaPane;
@@ -249,8 +249,8 @@ public class GuitarifficApplication
 		tableChordChartArea.setFillsViewportHeight(true);
 		tableChordChartArea.setBackground(Color.WHITE);
 		tableChordChartArea.setRowHeight(GuitarChordChart.IMAGE_HEIGHT + 15);
-		tableChordChartArea.setDefaultRenderer(BaseChordChart.class, new ChordTableRenderer());
-		tableChordChartArea.setDefaultEditor(BaseChordChart.class, new ChordTableEditor(frmGuitariffic));
+		tableChordChartArea.setDefaultRenderer(MusicChart.class, new ChordTableRenderer());
+		tableChordChartArea.setDefaultEditor(MusicChart.class, new ChordTableEditor(frmGuitariffic));
 		tableChordChartArea.setDragEnabled(true);
 		tableChordChartArea.setDropMode(DropMode.ON);
 		tableChordChartArea.setTransferHandler(new ChordChartTransferHandler());
@@ -421,8 +421,8 @@ public class GuitarifficApplication
 		tableChordTray.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		tableChordTray.setBackground(Color.WHITE);
 		tableChordTray.setRowHeight(GuitarChordChart.IMAGE_HEIGHT + 1);
-		tableChordTray.setDefaultRenderer(BaseChordChart.class, new ChordTableRenderer());
-		tableChordTray.setDefaultEditor(BaseChordChart.class, new ChordTableEditor(frmGuitariffic));
+		tableChordTray.setDefaultRenderer(MusicChart.class, new ChordTableRenderer());
+		tableChordTray.setDefaultEditor(MusicChart.class, new ChordTableEditor(frmGuitariffic));
 		tableChordTray.setDragEnabled(true);
 		tableChordTray.setTransferHandler(new ChordTrayTransferHandler());
 		tableChordTray.getTableHeader().setReorderingAllowed(false);
@@ -713,7 +713,7 @@ public class GuitarifficApplication
 				JTable table = (JTable) e.getComponent();
 				int row = table.rowAtPoint(popupPoint);
 				int column = table.columnAtPoint(popupPoint);
-				popupMenuItem = (BaseChordChart) table.getValueAt(row, column);
+				popupMenuItem = (MusicChart) table.getValueAt(row, column);
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
@@ -835,7 +835,7 @@ public class GuitarifficApplication
 	{
 		try
 		{
-			chordCopyBuffer = (BaseChordChart) popupMenuItem.clone();
+			chordCopyBuffer = (MusicChart) popupMenuItem.clone();
 		} catch (CloneNotSupportedException e)
 		{
 			e.printStackTrace();

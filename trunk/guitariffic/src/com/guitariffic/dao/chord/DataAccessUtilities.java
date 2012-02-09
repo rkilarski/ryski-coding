@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.zip.CRC32;
 
-import com.guitariffic.model.BaseChordChart;
+import com.guitariffic.model.MusicChart;
 import com.guitariffic.model.GuitarChordChart;
 import com.thoughtworks.xstream.XStream;
 
@@ -25,14 +25,14 @@ public class DataAccessUtilities
      * @param chart
      * @return String XML
      */
-	public static String getXStream(BaseChordChart chart)
+	public static String getXStream(MusicChart chart)
 	{
 
-		Class<? extends BaseChordChart> cls = chart.getClass();
+		Class<? extends MusicChart> cls = chart.getClass();
 		XStream xstreamx = new XStream();
 
 		xstreamx.alias(cls.getSimpleName(), cls);
-		xstreamx.alias("BaseChordChart", BaseChordChart.class);
+		xstreamx.alias("BaseChordChart", MusicChart.class);
 		String xml = xstreamx.toXML(chart);
 
 		return xml;
@@ -44,7 +44,7 @@ public class DataAccessUtilities
 	 * @param chart
 	 * @return valid chord object
 	 */
-	public static boolean validChord(BaseChordChart chart)
+	public static boolean validChord(MusicChart chart)
 	{
 		return !(chart.getChordName().isEmpty() || chart.getChordPosition().isEmpty());
 	}
@@ -96,10 +96,10 @@ public class DataAccessUtilities
 	 * @param frets
 	 * @return BaseChordChart
 	 */
-	public static BaseChordChart createChordChart(String type, String name, String posit, String finger, String frets)
+	public static MusicChart createChordChart(String type, String name, String posit, String finger, String frets)
 	{
 
-		BaseChordChart chart = null;
+		MusicChart chart = null;
 		if (type == "guitar")
 		{
 			chart = new GuitarChordChart();
@@ -126,13 +126,13 @@ public class DataAccessUtilities
 	 * @param type
 	 * @return LinkedList
 	 */
-	public static LinkedList<BaseChordChart> buildChordChartList(List<String> list, String type)
+	public static LinkedList<MusicChart> buildChordChartList(List<String> list, String type)
 	{
 
 		XStream xstream = null;
-		Class<? extends BaseChordChart> cls = DataAccessUtilities.getNewChordChart(type).getClass();
+		Class<? extends MusicChart> cls = DataAccessUtilities.getNewChordChart(type).getClass();
 
-		LinkedList<BaseChordChart> charts = new LinkedList<BaseChordChart>();
+		LinkedList<MusicChart> charts = new LinkedList<MusicChart>();
 
 		Iterator<String> itr = list.iterator();
 		while (itr.hasNext())
@@ -142,7 +142,7 @@ public class DataAccessUtilities
 			// http://xstream.codehaus.org/tutorial.html
 			xstream = new XStream();
 			xstream.alias(cls.getSimpleName(), cls);
-			xstream.alias("BaseChordChart", BaseChordChart.class);
+			xstream.alias("BaseChordChart", MusicChart.class);
 
 			String text;
 
@@ -157,7 +157,7 @@ public class DataAccessUtilities
 				if (text.isEmpty())
 					continue;
 
-				BaseChordChart chart2 = (BaseChordChart) xstream.fromXML(text);
+				MusicChart chart2 = (MusicChart) xstream.fromXML(text);
 				charts.add(chart2);
 			}
 		}
@@ -169,7 +169,7 @@ public class DataAccessUtilities
 	 * @param type
 	 * @return BaseChordChart
 	 */
-	public static BaseChordChart getNewChordChart(String type)
+	public static MusicChart getNewChordChart(String type)
 	{
 		if (type == "Guitar")
 			return new GuitarChordChart();
@@ -190,13 +190,13 @@ public class DataAccessUtilities
 	 * 
 	 * @return List<BaseChordChart>
 	 */
-	public static List<BaseChordChart> getNewChordChartList()
+	public static List<MusicChart> getNewChordChartList()
 	{
-		List<BaseChordChart> list = new ArrayList<BaseChordChart>();
+		List<MusicChart> list = new ArrayList<MusicChart>();
 
 		for (int x = 0; x < chordNames.length; x++)
 		{
-			BaseChordChart chart = DataAccessUtilities.createChordChart("guitar", chordNames[x], chordPosit[x], chordFingr[x], chordFrets[x]);
+			MusicChart chart = DataAccessUtilities.createChordChart("guitar", chordNames[x], chordPosit[x], chordFingr[x], chordFrets[x]);
 			//String xml = DataAccessUtilities.getXStream(chart);
 
 			list.add(chart);
@@ -206,7 +206,7 @@ public class DataAccessUtilities
 		return list;
 	}
 
-	private static List<BaseChordChart> generateFFormBarreChords(List<BaseChordChart> list)
+	private static List<MusicChart> generateFFormBarreChords(List<MusicChart> list)
 	{
 		String majorFingering = "134211";
 		String majorFrets = "133211";
@@ -236,7 +236,7 @@ public class DataAccessUtilities
 		return list;
 	}
 
-	private static List<BaseChordChart> generateAFormBarreChords(List<BaseChordChart> list)
+	private static List<MusicChart> generateAFormBarreChords(List<MusicChart> list)
 	{
 		String majorFingering = "113331";
 		String majorFrets = "113331";
@@ -265,11 +265,11 @@ public class DataAccessUtilities
 		return list;
 	}
 
-	private static List<BaseChordChart> generateBarreChords(String[] chordNames, String suffix, String chordFingering, String chordFrets, String[] chordPositions, List<BaseChordChart> list)
+	private static List<MusicChart> generateBarreChords(String[] chordNames, String suffix, String chordFingering, String chordFrets, String[] chordPositions, List<MusicChart> list)
 	{
 		for (int x = 0; x < chordNames.length; x++)
 		{
-			BaseChordChart chart =
+			MusicChart chart =
 					DataAccessUtilities.createChordChart("guitar", chordNames[x] + suffix, chordPositions[x], chordFingering, chordFrets);
 			list.add(chart);
 		}

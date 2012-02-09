@@ -22,7 +22,7 @@ import com.guitariffic.model.enums.EnumChordChartType;
  * 
  * @author ryszardkilarski
  */
-public class GuitarChordChart extends BaseChordChart
+public class GuitarChordChart extends MusicChart
 {
 	private String chordFingering;
 	private String chordFrets;
@@ -52,9 +52,7 @@ public class GuitarChordChart extends BaseChordChart
 	 */
 	public GuitarChordChart()
 	{
-		super();
-		setDirty(false);
-		createImage("", "", "      ", "      ", false);
+		this("","", "      ", "      ", false);
 	}
 
 	/**
@@ -67,9 +65,7 @@ public class GuitarChordChart extends BaseChordChart
 	 */
 	public GuitarChordChart(String chordName, String chordPosition, String chordFingering, String chordFrets)
 	{
-		super();
-		setDirty(false);
-		createImage(chordName, chordPosition, chordFingering, chordFrets, false);
+		this(chordName, chordPosition, chordFingering, chordFrets, false);
 	}
 
 	/**

@@ -13,7 +13,7 @@ import org.tmatesoft.sqljet.core.table.ISqlJetTable;
 import org.tmatesoft.sqljet.core.table.ISqlJetTransaction;
 import org.tmatesoft.sqljet.core.table.SqlJetDb;
 
-import com.guitariffic.model.BaseChordChart;
+import com.guitariffic.model.MusicChart;
 
 public class DbDaoQuery implements IDaoQuery
 {
@@ -101,9 +101,9 @@ public class DbDaoQuery implements IDaoQuery
 			ISqlJetTable table = db.getTable(TABLE_NAME);
 			// id (generated); name (i); fret (i); chord XML
 			// insert charts:
-			List<BaseChordChart> list = DataAccessUtilities.getNewChordChartList();
+			List<MusicChart> list = DataAccessUtilities.getNewChordChartList();
 
-			for (BaseChordChart c : list)
+			for (MusicChart c : list)
 			{
 				String xml = DataAccessUtilities.getXStream(c);
 				table.insert(c.getKey(), c.getChordName(), c.getChordPosition(), xml);
@@ -194,7 +194,7 @@ public class DbDaoQuery implements IDaoQuery
 	}
 
 	@Override
-	public int insert(BaseChordChart chart) throws SqlJetException
+	public int insert(MusicChart chart) throws SqlJetException
 	{
 
 		int retVal = 0;
@@ -258,7 +258,7 @@ public class DbDaoQuery implements IDaoQuery
 	}
 
 	@Override
-	public int update(BaseChordChart chart) throws SqlJetException
+	public int update(MusicChart chart) throws SqlJetException
 	{
 
 		// System.out.println();
@@ -334,7 +334,7 @@ public class DbDaoQuery implements IDaoQuery
 	}
 
 	@Override
-	public int delete(BaseChordChart chart) throws SqlJetException
+	public int delete(MusicChart chart) throws SqlJetException
 	{
 
 		// System.out.println();

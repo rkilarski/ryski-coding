@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.tmatesoft.sqljet.core.SqlJetException;
 
-import com.guitariffic.model.BaseChordChart;
+import com.guitariffic.model.MusicChart;
 
 /**
  * Access Data storage
@@ -22,7 +22,7 @@ public interface IDaoAccess {
      * @return LinkedList<BaseChordChart>
      * @throws SqlJetException
      */
-	public LinkedList<BaseChordChart> getAllChordCharts(IDaoQuery query, String type)
+	public LinkedList<MusicChart> getAllChordCharts(IDaoQuery query, String type)
 			throws SqlJetException;
 
 	/**
@@ -34,7 +34,7 @@ public interface IDaoAccess {
 	 * @return BaseChordChart
 	 * @throws SqlJetException
 	 */
-	public BaseChordChart getChordChart(IDaoQuery query, String name, String posit,
+	public MusicChart getChordChart(IDaoQuery query, String name, String posit,
 			String type) throws SqlJetException;
 
 	/**
@@ -55,7 +55,7 @@ public interface IDaoAccess {
 	 * @return boolean (success/failure)
 	 * @throws SqlJetException
 	 */
-	public boolean insertChordChart(IDaoQuery query, BaseChordChart chordChart)
+	public boolean insertChordChart(IDaoQuery query, MusicChart chordChart)
 			throws SqlJetException;
 
 	/**
@@ -66,7 +66,7 @@ public interface IDaoAccess {
 	 * @return boolean (success/failure)
 	 * @throws SqlJetException
 	 */
-	public boolean updateChordChart(IDaoQuery query, BaseChordChart chordChart)
+	public boolean updateChordChart(IDaoQuery query, MusicChart chordChart)
 			throws SqlJetException;
 
 	/**
@@ -77,7 +77,7 @@ public interface IDaoAccess {
 	 * @return boolean (success/failure)
 	 * @throws SqlJetException
 	 */
-	public boolean deleteChordChart(IDaoQuery query, BaseChordChart chart)
+	public boolean deleteChordChart(IDaoQuery query, MusicChart chart)
 			throws SqlJetException;
 
 }

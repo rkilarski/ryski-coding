@@ -17,7 +17,7 @@ import com.guitariffic.dao.chord.AbstractDaoFactory;
 import com.guitariffic.dao.chord.ChordDaoFactory;
 import com.guitariffic.dao.chord.IDaoAccess;
 import com.guitariffic.dao.chord.IDaoQuery;
-import com.guitariffic.model.BaseChordChart;
+import com.guitariffic.model.MusicChart;
 import com.guitariffic.model.ChordTray;
 import com.guitariffic.model.GuitarChordChart;
 import com.guitariffic.view.GuitarChordChartEditor;
@@ -35,12 +35,12 @@ public class ChordTrayController
     private AbstractDaoFactory daofactory;
     private IDaoAccess dbDao;
     private IDaoQuery dbQuery;
-    private LinkedList<BaseChordChart> allChordCharts;
+    private LinkedList<MusicChart> allChordCharts;
 
     public ChordTrayController()
     {
 
-        allChordCharts = new LinkedList<BaseChordChart>();
+        allChordCharts = new LinkedList<MusicChart>();
         chordTray = new ChordTray();
 
         client = new ChordDaoFactory();
@@ -52,9 +52,9 @@ public class ChordTrayController
         {
             dbDao = daofactory.createDaoAccess();
             dbQuery = daofactory.createDaoQuery();
-            List<BaseChordChart> charts = dbDao.getAllChordCharts(dbQuery, "Guitar");
+            List<MusicChart> charts = dbDao.getAllChordCharts(dbQuery, "Guitar");
 
-            for (BaseChordChart chart : charts)
+            for (MusicChart chart : charts)
             {
                 allChordCharts.add(chart);
             }
@@ -100,7 +100,7 @@ public class ChordTrayController
 
             PositionFilter posfilter = new PositionFilter();
             posfilter.setFilter(namefilter, searchPosition);
-            LinkedList<BaseChordChart> newChordChartsx = posfilter.filterList(allChordCharts);
+            LinkedList<MusicChart> newChordChartsx = posfilter.filterList(allChordCharts);
 
             chordTray.setChordChartList(newChordChartsx);
         }
@@ -128,7 +128,7 @@ public class ChordTrayController
 
                 dbDao.insertChordChart(dbQuery, guitarChordChart);
 
-                LinkedList<BaseChordChart> chordChartsx = chordTray.getChordChartList();
+                LinkedList<MusicChart> chordChartsx = chordTray.getChordChartList();
                 chordChartsx.add(guitarChordChart);
 
                 // sort list
@@ -153,7 +153,7 @@ public class ChordTrayController
     public void exportAllChordCharts(Frame frame)
     {
 
-        LinkedList<BaseChordChart> chordCharts = chordTray.getChordChartList();
+        LinkedList<MusicChart> chordCharts = chordTray.getChordChartList();
         try
         {
             /* AbstractDaoFactory */
@@ -161,7 +161,7 @@ public class ChordTrayController
             dbDao = daofactory.createDaoAccess();
             dbQuery = daofactory.createDaoQuery();
 
-            for (BaseChordChart c : chordCharts)
+            for (MusicChart c : chordCharts)
             {
                 dbDao.insertChordChart(dbQuery, c);
             }
@@ -178,7 +178,7 @@ public class ChordTrayController
      * @param frame
      * @param chart
      */
-    public void exportChordChart(Frame frame, BaseChordChart chart)
+    public void exportChordChart(Frame frame, MusicChart chart)
     {
         try
         {
@@ -201,7 +201,7 @@ public class ChordTrayController
      * @param frame
      * @param chart
      */
-    public void deleteChordChart(Frame frame, BaseChordChart chart)
+    public void deleteChordChart(Frame frame, MusicChart chart)
     {
 
         // confirm Y/N delete
@@ -236,7 +236,7 @@ public class ChordTrayController
      * 
      * @param chart
      */
-    public void removeChartFromList(BaseChordChart chart)
+    public void removeChartFromList(MusicChart chart)
     {
 
         allChordCharts.remove(chart);
@@ -251,7 +251,7 @@ public class ChordTrayController
      * @param frame
      * @param chart
      */
-    public void editChart(Frame frame, BaseChordChart chart)
+    public void editChart(Frame frame, MusicChart chart)
     {
 
         allChordCharts.remove(chart);

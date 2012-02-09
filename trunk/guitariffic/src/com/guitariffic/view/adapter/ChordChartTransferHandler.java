@@ -11,7 +11,7 @@ import javax.swing.JTable;
 import javax.swing.TransferHandler;
 import javax.swing.table.AbstractTableModel;
 
-import com.guitariffic.model.BaseChordChart;
+import com.guitariffic.model.MusicChart;
 import com.guitariffic.model.GuitarChordChart;
 
 /**
@@ -36,11 +36,11 @@ public class ChordChartTransferHandler extends TransferHandler
 		int row = table.getSelectedRow();
 		int col = table.getSelectedColumn();
 
-		BaseChordChart value = (BaseChordChart) table.getModel().getValueAt(row, col);
+		MusicChart value = (MusicChart) table.getModel().getValueAt(row, col);
 		Transferable transferable = null;
 		try
 		{
-			transferable = (Transferable) value.getTransferData(new DataFlavor(BaseChordChart.class, "ChordChart"));
+			transferable = (Transferable) value.getTransferData(new DataFlavor(MusicChart.class, "ChordChart"));
 		} catch (UnsupportedFlavorException e)
 		{
 			e.printStackTrace();
@@ -77,10 +77,10 @@ public class ChordChartTransferHandler extends TransferHandler
 		int row = dl.getRow();
 		int col = dl.getColumn();
 
-		BaseChordChart data;
+		MusicChart data;
 		try
 		{
-			data = (BaseChordChart) support.getTransferable().getTransferData(new DataFlavor(GuitarChordChart.class, "ChordChart"));
+			data = (MusicChart) support.getTransferable().getTransferData(new DataFlavor(GuitarChordChart.class, "ChordChart"));
 		} catch (UnsupportedFlavorException e)
 		{
 			return false;
