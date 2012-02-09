@@ -3,7 +3,7 @@ package com.guitariffic.controller.filter;
 
 import java.util.LinkedList;
 
-import com.guitariffic.model.BaseChordChart;
+import com.guitariffic.model.MusicChart;
 
 /**
  * Filter chord chart list interface
@@ -13,6 +13,6 @@ import com.guitariffic.model.BaseChordChart;
  */
 public interface IListFilter {
 
-  public LinkedList<BaseChordChart> filterList(LinkedList<BaseChordChart> list);
+  public LinkedList<MusicChart> filterList(LinkedList<MusicChart> list);
 
 }

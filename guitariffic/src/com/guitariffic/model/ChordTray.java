@@ -14,7 +14,7 @@ public class ChordTray extends AbstractTableModel
 {
 
 	private static final long serialVersionUID = 1L;
-	private LinkedList<BaseChordChart> chordChartList;
+	private LinkedList<MusicChart> chordChartList;
 
 	public ChordTray()
 	{
@@ -61,22 +61,22 @@ public class ChordTray extends AbstractTableModel
 	@Override
 	public void setValueAt(Object arg0, int arg1, int arg2)
 	{
-		chordChartList.set(arg1, (BaseChordChart) arg0);
+		chordChartList.set(arg1, (MusicChart) arg0);
 		fireTableCellUpdated(arg1, arg2);
 	}
 
-	public LinkedList<BaseChordChart> getChordChartList()
+	public LinkedList<MusicChart> getChordChartList()
 	{
 		return chordChartList;
 	}
 
-	public void setChordChartList(LinkedList<BaseChordChart> chordChartList)
+	public void setChordChartList(LinkedList<MusicChart> chordChartList)
 	{
 		this.chordChartList = chordChartList;
 		fireTableDataChanged();
 	}
 
-	public void addChordChart(BaseChordChart chordChart)
+	public void addChordChart(MusicChart chordChart)
 	{
 		chordChartList.addFirst(chordChart);
 		fireTableDataChanged();

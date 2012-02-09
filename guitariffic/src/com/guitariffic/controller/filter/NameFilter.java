@@ -2,7 +2,7 @@ package com.guitariffic.controller.filter;
 
 import java.util.LinkedList;
 
-import com.guitariffic.model.BaseChordChart;
+import com.guitariffic.model.MusicChart;
 
 /**
  * 
@@ -19,14 +19,14 @@ public class NameFilter extends ListFilter {
 	}
 
 	@Override
-	public LinkedList<BaseChordChart> filterList(LinkedList<BaseChordChart> list) {
+	public LinkedList<MusicChart> filterList(LinkedList<MusicChart> list) {
 
 		if (filterString == null || filterString.isEmpty())
 			return filterComponent(list);
 
-		LinkedList<BaseChordChart> filtered = new LinkedList<BaseChordChart>();
+		LinkedList<MusicChart> filtered = new LinkedList<MusicChart>();
 
-		for (BaseChordChart c : filterComponent(list)) {
+		for (MusicChart c : filterComponent(list)) {
 			if (ifMatchesCriteria(c.getChordName(), filterString)) {
 				filtered.add(c);
 			}

@@ -8,7 +8,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.TableCellRenderer;
 
-import com.guitariffic.model.BaseChordChart;
+import com.guitariffic.model.MusicChart;
 
 /**
  * Table renderer for the chord tables.
@@ -29,7 +29,7 @@ public class ChordTableRenderer extends JLabel implements TableCellRenderer
 	{
 		this.setText(null);
 		{
-			this.setIcon(new ImageIcon(((BaseChordChart) value).getChordImage()));
+			this.setIcon(new ImageIcon(((MusicChart) value).getChordImage()));
 		}
 		this.setHorizontalAlignment(SwingConstants.CENTER);
 

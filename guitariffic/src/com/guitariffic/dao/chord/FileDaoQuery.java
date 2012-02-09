@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import org.tmatesoft.sqljet.core.SqlJetException;
-import com.guitariffic.model.BaseChordChart;
+import com.guitariffic.model.MusicChart;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -118,7 +118,7 @@ public class FileDaoQuery implements IDaoQuery {
 	}
 
 	@Override
-	public int insert(BaseChordChart chart) throws SqlJetException {
+	public int insert(MusicChart chart) throws SqlJetException {
 
 		int retVal = 0;
 
@@ -211,7 +211,7 @@ public class FileDaoQuery implements IDaoQuery {
 	}
 
 	@Override
-	public int update(BaseChordChart chart) throws SqlJetException {
+	public int update(MusicChart chart) throws SqlJetException {
 
 		int retVal = 0;
 		File storeDir = new File(DB_NAME);
@@ -250,7 +250,7 @@ public class FileDaoQuery implements IDaoQuery {
 	}
 
 	@Override
-	public int delete(BaseChordChart chart) throws SqlJetException {
+	public int delete(MusicChart chart) throws SqlJetException {
 
 		int retVal = 0;
 		File storeDir = new File(DB_NAME);

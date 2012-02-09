@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
-import com.guitariffic.model.BaseChordChart;
+import com.guitariffic.model.MusicChart;
 import com.guitariffic.model.GuitarChordChart;
 import com.guitariffic.view.GuitarChordChartEditor;
 
@@ -26,7 +26,7 @@ public class ChordTableEditor extends AbstractCellEditor implements TableCellEdi
 	private static final long serialVersionUID = 1L;
 
 	private JButton button;
-	private BaseChordChart chordChart;
+	private MusicChart chordChart;
 	private GuitarChordChartEditor chordChartEditor;
 	protected static final String EDIT = "edit";
 
@@ -48,8 +48,8 @@ public class ChordTableEditor extends AbstractCellEditor implements TableCellEdi
 	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column)
 	{
-		chordChart = (BaseChordChart) value;
-		button.setIcon(new ImageIcon(((BaseChordChart) value).getChordImage()));
+		chordChart = (MusicChart) value;
+		button.setIcon(new ImageIcon(((MusicChart) value).getChordImage()));
 		return button;
 	}
 

@@ -10,7 +10,7 @@ import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.TransferHandler;
 
-import com.guitariffic.model.BaseChordChart;
+import com.guitariffic.model.MusicChart;
 
 /**
  * Transfer handler for the table drag and drop functionality. This is to transfer data from the chord tray. Note that canImport() returns false which
@@ -34,11 +34,11 @@ public class ChordTrayTransferHandler extends TransferHandler
 		int row = table.getSelectedRow();
 		int col = table.getSelectedColumn();
 
-		BaseChordChart value = (BaseChordChart) table.getModel().getValueAt(row, col);
+		MusicChart value = (MusicChart) table.getModel().getValueAt(row, col);
 		Transferable transferable = null;
 		try
 		{
-			transferable = (Transferable) value.getTransferData(new DataFlavor(BaseChordChart.class, "ChordChart"));
+			transferable = (Transferable) value.getTransferData(new DataFlavor(MusicChart.class, "ChordChart"));
 		} catch (UnsupportedFlavorException e)
 		{
 			e.printStackTrace();

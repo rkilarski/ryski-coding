@@ -2,7 +2,7 @@ package com.guitariffic.controller.filter;
 
 import java.util.LinkedList;
 
-import com.guitariffic.model.BaseChordChart;
+import com.guitariffic.model.MusicChart;
 
 /**
  * 
@@ -26,7 +26,7 @@ public abstract class ListFilter implements IListFilter {
 	}
 
 	@Override
-	public LinkedList<BaseChordChart> filterList(LinkedList<BaseChordChart> list) {
+	public LinkedList<MusicChart> filterList(LinkedList<MusicChart> list) {
 		if (filter != null) {
 			return filter.filterList(list);
 		}
@@ -39,8 +39,8 @@ public abstract class ListFilter implements IListFilter {
 	 * @param list
 	 * @return
 	 */
-	protected LinkedList<BaseChordChart> filterComponent(
-			LinkedList<BaseChordChart> list) {
+	protected LinkedList<MusicChart> filterComponent(
+			LinkedList<MusicChart> list) {
 		if (filter != null) {
 			return filter.filterList(list);
 		} else

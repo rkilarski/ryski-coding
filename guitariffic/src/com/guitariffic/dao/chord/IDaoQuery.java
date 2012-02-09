@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.tmatesoft.sqljet.core.SqlJetException;
 
-import com.guitariffic.model.BaseChordChart;
+import com.guitariffic.model.MusicChart;
 //import com.guitariffic.tools.ChordChart;
 
 /**
@@ -34,7 +34,7 @@ public interface IDaoQuery {
 	 * @return integer; 0 = success; all others = fail
 	 * @throws SqlJetException
 	 */
-	public int insert(BaseChordChart chart) throws SqlJetException;
+	public int insert(MusicChart chart) throws SqlJetException;
 
 	/**
 	 * Update existing chord chart
@@ -43,7 +43,7 @@ public interface IDaoQuery {
 	 * @throws SqlJetException
 	 * @return integer; 0 = success; all others = fail
 	 */
-	public int update(BaseChordChart chart) throws SqlJetException;
+	public int update(MusicChart chart) throws SqlJetException;
 
 	/**
 	 * Delete chord chart
@@ -52,6 +52,6 @@ public interface IDaoQuery {
 	 * @throws SqlJetException
 	 * @return integer; 0 = success; all others = fail
 	 */
-	public int delete(BaseChordChart chart) throws SqlJetException;
+	public int delete(MusicChart chart) throws SqlJetException;
 
 }

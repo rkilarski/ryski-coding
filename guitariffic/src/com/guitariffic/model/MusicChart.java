@@ -21,7 +21,7 @@ import com.guitariffic.model.enums.EnumChordChartType;
  * @author ryszardkilarski
  * 
  */
-public abstract class BaseChordChart extends BaseModel implements Serializable, Transferable, Cloneable
+public abstract class MusicChart extends BaseModel implements Serializable, Transferable, Cloneable
 {
 	private transient BufferedImage chordImage;
 	private boolean isChanged;
@@ -44,7 +44,7 @@ public abstract class BaseChordChart extends BaseModel implements Serializable, 
 		this.chordName = chordName;
 	}
 
-	public BaseChordChart()
+	public MusicChart()
 	{
 		setChordImage(null);
 	}
@@ -143,7 +143,7 @@ public abstract class BaseChordChart extends BaseModel implements Serializable, 
 	public DataFlavor[] getTransferDataFlavors()
 	{
 		DataFlavor[] flavors = new DataFlavor[1];
-		flavors[0] = new DataFlavor(BaseChordChart.class, "ChordChart");
+		flavors[0] = new DataFlavor(MusicChart.class, "ChordChart");
 		return flavors;
 	}
 
