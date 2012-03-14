@@ -1,6 +1,8 @@
 package edu.bu.cs565.homework2;
 
 /**
+ * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #2.
+ * 
  * 
  * Adapted from Deitel "Java How To Program",p 437: 10:13. I changed a few
  * words, but the intent of this transcription is the same as the copy in the

@@ -1,13 +1,12 @@
 package edu.bu.cs565.homework2;
 
-/*
- 0.59 metric tons:	1000 kWh of electricity in United States	
- 0.18 metric tons:	1000 kWh of natural gas	
- 0.28 metric tons:	1000 kWh of heating oil	
- 0.34 metric tons:	1000 kWh of coal	
- 0.21 metric tons:	1000 kWh of LPG	
- 0.58 metric tons:	100 US gallons of propane	
- 7.74 metric tons:	100 metric tons of wooden pellets
+/**
+ * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #2.
+ * 
+ * 0.59 metric tons: 1000 kWh of electricity in United States 0.18 metric tons:
+ * 1000 kWh of natural gas 0.28 metric tons: 1000 kWh of heating oil 0.34 metric
+ * tons: 1000 kWh of coal 0.21 metric tons: 1000 kWh of LPG 0.58 metric tons:
+ * 100 US gallons of propane 7.74 metric tons: 100 metric tons of wooden pellets
  */
 public class House implements CarbonFootprint {
 
