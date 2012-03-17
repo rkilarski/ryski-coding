@@ -5,12 +5,19 @@ import edu.bu.cs565.homework2.CarbonFootprint;
 /**
  * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #2.
  * 
- * @author ryszardkilarski
+ * This class describes a Car and several different ways it can take up a carbon
+ * footprint.
  * 
+ * The carbon footprint calculation is based on the following amounts:
+ * 
+ * 3.51 metric tons: 10000 miles in a petrol vehicle doing 25 mpg (US)
+ * 
+ * 8.76 metric tons: 1000 miles in a petrol vehicle doing 1 mpg
+ * 
+ * 87.65 metric tons: 10000 miles in a petrol vehicle doing 1 mpg (US)
+ * 
+ * Source: http://www.carbonfootprint.com/calculator.aspx
  */
-// 3.51 metric tons: 10000 miles in a petrol vehicle doing 25 mpg (US)
-// 8.76 metric tons: 1000 miles in a petrol vehicle doing 1 mpg
-// 87.65 metric tons: 10000 miles in a petrol vehicle doing 1 mpg (US)
 public class Car implements CarbonFootprint {
 
 	private static double FOOTPRINT_PER_MILE_PER_GALLON = .08765;

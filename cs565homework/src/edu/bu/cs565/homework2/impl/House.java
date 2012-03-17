@@ -5,6 +5,11 @@ import edu.bu.cs565.homework2.CarbonFootprint;
 /**
  * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #2.
  * 
+ * This class describes a House and several different ways it can take up a
+ * carbon footprint.
+ * 
+ * The carbon footprint calculation is based on the following amounts:
+ * 
  * 0.59 metric tons: 1000 kWh of electricity in United States
  * 
  * 0.18 metric tons: 1000 kWh of natural gas
@@ -15,9 +20,11 @@ import edu.bu.cs565.homework2.CarbonFootprint;
  * 
  * 0.21 metric tons: 1000 kWh of LPG
  * 
- * 0.58 metric tons: 100 US gallons of propane
+ * 5.79 metric tons: 1000 US gallons of propane
  * 
  * 7.74 metric tons: 100 metric tons of wooden pellets
+ * 
+ * Source: http://www.carbonfootprint.com/calculator.aspx
  */
 public class House implements CarbonFootprint {
 
@@ -26,7 +33,7 @@ public class House implements CarbonFootprint {
 	private static double HEATING_OIL_PER_ONE_KWH = .00028;
 	private static double LPG_PER_ONE_KWH = .00021;
 	private static double NATURAL_GAS_PER_ONE_KWH = .00018;
-	private static double PROPANE_PER_ONE_GALLON = .00058;
+	private static double PROPANE_PER_ONE_GALLON = .00579;
 	private static double WOODEN_PELLETS_PER_ONE_METRIC_TON = .00774;
 
 	private double coal;
@@ -92,7 +99,7 @@ public class House implements CarbonFootprint {
 		carbonFootprint = addLPG(carbonFootprint);
 		carbonFootprint = addPropane(carbonFootprint);
 		carbonFootprint = addWoodenPellets(carbonFootprint);
-		carbonFootprint = peopleModifier(carbonFootprint);
+		// carbonFootprint = peopleModifier(carbonFootprint);
 		return carbonFootprint;
 
 	}

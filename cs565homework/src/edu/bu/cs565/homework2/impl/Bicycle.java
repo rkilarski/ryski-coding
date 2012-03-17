@@ -5,7 +5,12 @@ import edu.bu.cs565.homework2.CarbonFootprint;
 /**
  * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #2.
  * 
- * The carbon footprint of cycling a mile:
+ * This class describes a Car and several different ways it can take up a carbon
+ * footprint.
+ * 
+ * The carbon footprint of cycling a mile was calculated by these values:
+ * 
+ * 50g CO2e: average footprint
  * 
  * 65g CO2e: powered by bananas
  * 
@@ -31,7 +36,15 @@ public class Bicycle implements CarbonFootprint {
 
 	private static double GRAM_TO_METRIC_TON_MULTIPLIER = .000001;
 
+	/**
+	 * Enum that describes the different power sources for a bicycle.
+	 */
 	public enum PowerSource {
+		AVERAGE_PERSON {
+			public String toString() {
+				return "Average Person";
+			}
+		},
 		AIR_FREIGHTED_ASPARAGUS {
 			public String toString() {
 				return "Air-Freighted Asparagus";
@@ -41,7 +54,6 @@ public class Bicycle implements CarbonFootprint {
 			public String toString() {
 				return "Bacon";
 			}
-
 		},
 		BANANAS {
 			public String toString() {
