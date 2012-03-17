@@ -2,6 +2,12 @@ package edu.bu.cs565.homework2.test;
 
 import java.text.DecimalFormat;
 
+/**
+ * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #2.
+ * 
+ * This class is a services class for the main carbon footprint tester class in
+ * order for it to perform operations.
+ */
 public final class TestCarbonFootprintServices {
 	/**
 	 * Return the floating point representation of the Rational number with the
