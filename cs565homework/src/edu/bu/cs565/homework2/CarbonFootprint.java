@@ -42,5 +42,10 @@ package edu.bu.cs565.homework2;
 
 public interface CarbonFootprint {
 
+	/**
+	 * Return the carbon footprint for any class that implements this interface.
+	 * 
+	 * @return The carbon footprint in metric tons.
+	 */
 	public double getCarbonFootprint();
 }
