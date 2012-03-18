@@ -76,6 +76,16 @@ public class Bicycle implements CarbonFootprint {
 	private double miles;
 	private Bicycle.PowerSource powerSource;
 
+	/**
+	 * Constructor to create the Bicycle object.
+	 * 
+	 * @param id
+	 *            - The Id of the Bicycle.
+	 * @param miles
+	 *            - Number of miles traveled.
+	 * @param powerSource
+	 *            - The power source used.
+	 */
 	public Bicycle(String id, double miles, Bicycle.PowerSource powerSource) {
 		setId(id);
 		setMiles(miles);
@@ -167,6 +177,7 @@ public class Bicycle implements CarbonFootprint {
 	public String toString() {
 		StringBuilder string = new StringBuilder();
 		string.append(getId());
+		string.append("\nDistance Traveled: " + getMiles());
 		string.append("\nPowered by: " + getPowerSource().toString());
 		return string.toString();
 	}

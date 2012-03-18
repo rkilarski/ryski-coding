@@ -1,5 +1,7 @@
 package edu.bu.cs565.homework2.test;
 
+import java.util.ArrayList;
+
 import edu.bu.cs565.homework2.CarbonFootprint;
 import edu.bu.cs565.homework2.impl.Bicycle;
 import edu.bu.cs565.homework2.impl.Car;
@@ -30,17 +32,17 @@ public class TestCarbonFootprint {
 	 */
 	public static void main(String[] args) {
 		TestCarbonFootprintServices service = new TestCarbonFootprintServices();
-		CarbonFootprint[] footprintItems = new CarbonFootprint[4];
+		ArrayList<CarbonFootprint> footprintItems = new ArrayList<CarbonFootprint>();
 		double totalFootprint = 0;
 
-		// Set up an array of different objects that implement the
+		// Create list of different objects that implement the
 		// CarbonFootprint interface.
-		footprintItems[0] = new House("Rich's House", 2, 100, 100, 100, 100,
-				100, 100, 0);
-		footprintItems[1] = new Car("My Car", 10000, 25);
-		footprintItems[2] = new Motorbike("My Scooter", 1000, 60);
-		footprintItems[3] = new Bicycle("My Bicycle", 100,
-				Bicycle.PowerSource.CHEESEBURGERS);
+		footprintItems.add(new House("Rich's House", 2, 100, 100, 100, 100,
+				100, 100, 0));
+		footprintItems.add(new Car("My Car", 10000, 25));
+		footprintItems.add(new Motorbike("My Scooter", 1000, 60));
+		footprintItems.add(new Bicycle("My Bicycle", 1000,
+				Bicycle.PowerSource.CHEESEBURGERS));
 
 		// Loop through all items and print out the information.
 		for (CarbonFootprint item : footprintItems) {
@@ -55,5 +57,4 @@ public class TestCarbonFootprint {
 		System.out.println("\nTotal carbon footprint for this session: "
 				+ service.toFloat(2, totalFootprint) + " Metric Tons of CO2");
 	}
-
 }
