@@ -28,20 +28,23 @@ public class TestCarbonFootprint {
 	/**
 	 * Main method to run test.
 	 * 
-	 * @param args
+	 * @param args - This program does not take any arguments.
 	 */
 	public static void main(String[] args) {
 		TestCarbonFootprintServices service = new TestCarbonFootprintServices();
 		ArrayList<CarbonFootprint> footprintItems = new ArrayList<CarbonFootprint>();
 		double totalFootprint = 0;
 
+		//Print out an introduction.
+		service.outputIntroduction();
+		
 		// Create list of different objects that implement the
 		// CarbonFootprint interface.
 		footprintItems.add(new House("Rich's House", 2, 100, 100, 100, 100,
 				100, 100, 0));
-		footprintItems.add(new Car("My Car", 10000, 25));
-		footprintItems.add(new Motorbike("My Scooter", 1000, 60));
-		footprintItems.add(new Bicycle("My Bicycle", 1000,
+		footprintItems.add(new Car("Rich's Mini Cooper S", 10000, 25));
+		footprintItems.add(new Motorbike("Rich's Vespa Scooter", 1000, 60));
+		footprintItems.add(new Bicycle("Rich's Bicycle", 1000,
 				Bicycle.PowerSource.CHEESEBURGERS));
 
 		// Loop through all items and print out the information.
@@ -50,8 +53,8 @@ public class TestCarbonFootprint {
 			totalFootprint += footprint;
 			System.out.println("\nItem: " + item.toString());
 
-			System.out.println("Carbon footprint: "
-					+ service.toFloat(2, footprint) + " Metric Tons of CO2");
+			System.out.println("\tCarbon footprint: "
+					+ service.toCommaNumber(service.toFloat(2, footprint)) + " Metric Tons of CO2");
 		}
 
 		System.out.println("\nTotal carbon footprint for this session: "

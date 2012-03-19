@@ -1,6 +1,7 @@
 package edu.bu.cs565.homework2.impl;
 
 import edu.bu.cs565.homework2.CarbonFootprint;
+import edu.bu.cs565.homework2.CarbonFootprintServices;
 
 /**
  * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #2.
@@ -175,9 +176,10 @@ public class Bicycle implements CarbonFootprint {
 	 * @return String - The string description.
 	 */
 	public String toString() {
+		CarbonFootprintServices service = new CarbonFootprintServices();
 		StringBuilder string = new StringBuilder();
 		string.append(getId());
-		string.append("\nDistance Traveled: " + getMiles());
+		string.append("\nMiles Traveled: " + service.toCommaNumber(getMiles()));
 		string.append("\nPowered by: " + getPowerSource().toString());
 		return string.toString();
 	}

@@ -1,6 +1,7 @@
 package edu.bu.cs565.homework2.test;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 
 /**
  * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #2.
@@ -26,9 +27,35 @@ public final class TestCarbonFootprintServices {
 		for (int i = 1; i <= digits; i++) {
 			format.append("#");
 		}
+		//format.setGroupingSeparator(',');
 		DecimalFormat df = new DecimalFormat(format.toString());
-
 		return Double.valueOf(df.format(number)).doubleValue();
+	}
+
+	/**
+	 * Given a number, return a string representation with thousands comma.
+	 * @param number - The number.
+	 * @return - The number formatted with commas.
+	 */
+	public String toCommaNumber(double number){
+		DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+		dfs.setGroupingSeparator(',');
+		DecimalFormat df = new DecimalFormat();
+		df.setDecimalFormatSymbols(dfs);
+		return df.format(number);
+	}
+	
+	/**
+	 * Outputs the program introduction.
+	 */
+	public void outputIntroduction() {
+		System.out.println("MET CS 565 Homework #2");
+		System.out.println("Ryszard Kilarski (Id: U81-39-8560)");
+		System.out
+				.println("\nThis program creates an array of disparate objects that share an interface.");
+		System.out
+				.println("It then prints out the carbon footprint for the objects., ");
+		return;
 	}
 
 }
