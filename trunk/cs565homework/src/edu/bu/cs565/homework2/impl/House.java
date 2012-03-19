@@ -1,6 +1,7 @@
 package edu.bu.cs565.homework2.impl;
 
 import edu.bu.cs565.homework2.CarbonFootprint;
+import edu.bu.cs565.homework2.CarbonFootprintServices;
 
 /**
  * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #2.
@@ -99,6 +100,7 @@ public class House implements CarbonFootprint {
 		carbonFootprint = addLPG(carbonFootprint);
 		carbonFootprint = addPropane(carbonFootprint);
 		carbonFootprint = addWoodenPellets(carbonFootprint);
+		// Do not currently divide the calculation by the number of people.
 		// carbonFootprint = peopleModifier(carbonFootprint);
 		return carbonFootprint;
 
@@ -281,30 +283,31 @@ public class House implements CarbonFootprint {
 	 * @return String - The string description.
 	 */
 	public String toString() {
+		CarbonFootprintServices service = new CarbonFootprintServices();
 		StringBuilder string = new StringBuilder();
 		string.append(getId());
 		string.append("\nNumber of people: " + getNumberOfPeople());
 		if (getElectricity() > 0) {
-			string.append("\nElectricity used (kWh): " + getElectricity());
+			string.append("\nElectricity used (kWh): " + service.toCommaNumber(getElectricity()));
 		}
 		if (getNaturalGas() > 0) {
-			string.append("\nNatural Gas used (kWh): " + getNaturalGas());
+			string.append("\nNatural Gas used (kWh): " + service.toCommaNumber(getNaturalGas()));
 		}
 		if (getHeatingOil() > 0) {
-			string.append("\nHeating Oil used (kWh): " + getHeatingOil());
+			string.append("\nHeating Oil used (kWh): " + service.toCommaNumber(getHeatingOil()));
 		}
 		if (getCoal() > 0) {
-			string.append("\nCoal used (kWh): " + getCoal());
+			string.append("\nCoal used (kWh): " + service.toCommaNumber(getCoal()));
 		}
 		if (getLpg() > 0) {
-			string.append("\nLPG used (kWh): " + getLpg());
+			string.append("\nLPG used (kWh): " + service.toCommaNumber(getLpg()));
 		}
 		if (getPropane() > 0) {
-			string.append("\nPropane used (Gallons): " + getPropane());
+			string.append("\nPropane used (Gallons): " + service.toCommaNumber(getPropane()));
 		}
 		if (getWoodenPellets() > 0) {
 			string.append("\nWooden Pellets used (Metric Tons): "
-					+ getWoodenPellets());
+					+ service.toCommaNumber(getWoodenPellets()));
 		}
 		return string.toString();
 	}
