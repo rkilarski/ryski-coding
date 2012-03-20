@@ -100,8 +100,6 @@ public class House implements CarbonFootprint {
 		carbonFootprint = addLPG(carbonFootprint);
 		carbonFootprint = addPropane(carbonFootprint);
 		carbonFootprint = addWoodenPellets(carbonFootprint);
-		// Do not currently divide the calculation by the number of people.
-		// carbonFootprint = peopleModifier(carbonFootprint);
 		return carbonFootprint;
 
 	}
@@ -345,14 +343,5 @@ public class House implements CarbonFootprint {
 	private double computeItem(double carbonFootprint, double amount,
 			double multiplier) {
 		return carbonFootprint + (amount * multiplier);
-	}
-
-	private double peopleModifier(double carbonFootprint)
-			throws ArithmeticException {
-		if (getNumberOfPeople() == 0) {
-			throw new ArithmeticException();
-		}
-
-		return carbonFootprint / getNumberOfPeople();
 	}
 }
