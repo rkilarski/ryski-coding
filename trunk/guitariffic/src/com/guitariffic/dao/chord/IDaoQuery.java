@@ -5,27 +5,25 @@ import java.util.List;
 import org.tmatesoft.sqljet.core.SqlJetException;
 
 import com.guitariffic.model.MusicChart;
-//import com.guitariffic.tools.ChordChart;
 
 /**
  * Database Query methods
  * 
  * @author rdbrmurray
- *
+ * 
  */
 public interface IDaoQuery {
 
-    /**
-     * Select chord chart
-     * 
-     * @param name
-     * @param posit
-     * @param expand
-     * @return List<String>
-     * @throws SqlJetException
-     */
-	public List<String> select(String name, String posit, boolean expand)
-			throws SqlJetException;
+	/**
+	 * Select chord chart
+	 * 
+	 * @param name
+	 * @param posit
+	 * @param expand
+	 * @return List<String>
+	 * @throws SqlJetException
+	 */
+	public List<String> select(String name, String posit, boolean expand) throws SqlJetException;
 
 	/**
 	 * Insert chord chart
@@ -47,7 +45,7 @@ public interface IDaoQuery {
 
 	/**
 	 * Delete chord chart
-	 *
+	 * 
 	 * @param chart
 	 * @throws SqlJetException
 	 * @return integer; 0 = success; all others = fail

@@ -15,8 +15,7 @@ import org.tmatesoft.sqljet.core.table.SqlJetDb;
 
 import com.guitariffic.model.MusicChart;
 
-public class DbDaoQuery implements IDaoQuery
-{
+public class DbDaoQuery implements IDaoQuery {
 
 	private static final String DB_NAME = "database\\guitariffic.sqljet";
 	private static final String TABLE_NAME = "Chords";
@@ -33,14 +32,13 @@ public class DbDaoQuery implements IDaoQuery
 
 	private SqlJetDb db;
 
-	public DbDaoQuery() throws SqlJetException
-	{
+	public DbDaoQuery() throws SqlJetException {
 		/*
-		 * 1. check to see if guitariffic.sqljet exists a. if exists, great b. if not exists, create and initialize 2. initialize database object
+		 * 1. check to see if guitariffic.sqljet exists a. if exists, great b. if not exists, create
+		 * and initialize 2. initialize database object
 		 */
 		File dbFile = new File(DB_NAME);
-		if (!dbFile.exists())
-		{
+		if (!dbFile.exists()) {
 			// create and initialize
 			dbFile = null;
 			initializeDb();
@@ -48,8 +46,7 @@ public class DbDaoQuery implements IDaoQuery
 
 	}
 
-	private void initializeDb() throws SqlJetException
-	{
+	private void initializeDb() throws SqlJetException {
 		// DONE Auto-generated method stub
 		// open db for writing
 		openDb(true);
@@ -59,10 +56,8 @@ public class DbDaoQuery implements IDaoQuery
 		db.getOptions().setAutovacuum(true);
 
 		// set DB option that have to be set in a transaction:
-		db.runTransaction(new ISqlJetTransaction()
-		{
-			public Object run(SqlJetDb db) throws SqlJetException
-			{
+		db.runTransaction(new ISqlJetTransaction() {
+			public Object run(SqlJetDb db) throws SqlJetException {
 				db.getOptions().setUserVersion(1);
 				return true;
 			}
@@ -70,47 +65,50 @@ public class DbDaoQuery implements IDaoQuery
 
 		db.beginTransaction(SqlJetTransactionMode.WRITE);
 
-		try
-		{
-			String createTableQuery = "CREATE TABLE " + TABLE_NAME + " (" + CHORD_KEY + " INTEGER NOT NULL UNIQUE, " // Key value from CRC
-					+ CHORD_NAME + " TEXT NOT NULL, " // name - must be unique
-					+ CHORD_POSITION + " TEXT NOT NULL, " // finger list
-					+ CHORD_CHART + " TEXT NOT NULL, " // XML representation of chord
-					+ "PRIMARY KEY (" + CHORD_NAME + ", " + CHORD_POSITION + ")" + " )";
+		try {
+			String createTableQuery =
+					"CREATE TABLE " + TABLE_NAME + " (" + CHORD_KEY + " INTEGER NOT NULL UNIQUE, " // Key
+																									// value
+																									// from
+																									// CRC
+							+ CHORD_NAME + " TEXT NOT NULL, " // name - must be unique
+							+ CHORD_POSITION + " TEXT NOT NULL, " // finger list
+							+ CHORD_CHART + " TEXT NOT NULL, " // XML representation of chord
+							+ "PRIMARY KEY (" + CHORD_NAME + ", " + CHORD_POSITION + ")" + " )";
 
-			String createChordNameIndexQuery = "CREATE INDEX " + NAME_INDEX + " ON " + TABLE_NAME + "( " + CHORD_NAME + ")";
+			String createChordNameIndexQuery =
+					"CREATE INDEX " + NAME_INDEX + " ON " + TABLE_NAME + "( " + CHORD_NAME + ")";
 
-			String createChordKeyIndexQuery = "CREATE INDEX " + KEY_INDEX + " ON " + TABLE_NAME + "( " + CHORD_KEY + ")";
+			String createChordKeyIndexQuery =
+					"CREATE INDEX " + KEY_INDEX + " ON " + TABLE_NAME + "( " + CHORD_KEY + ")";
 
-			String createChordPrimaryIndexQuery = "CREATE INDEX " + PRIMARY_INDEX + " ON " + TABLE_NAME + "( " + CHORD_NAME + ", " + CHORD_POSITION + ")";
+			String createChordPrimaryIndexQuery =
+					"CREATE INDEX " + PRIMARY_INDEX + " ON " + TABLE_NAME + "( " + CHORD_NAME
+							+ ", " + CHORD_POSITION + ")";
 
 			db.createTable(createTableQuery);
 			db.createIndex(createChordNameIndexQuery);
 			db.createIndex(createChordKeyIndexQuery);
 			db.createIndex(createChordPrimaryIndexQuery);
 
-		} finally
-		{
+		} finally {
 			db.commit();
 		}
 
 		// insert rows:
 		db.beginTransaction(SqlJetTransactionMode.WRITE);
-		try
-		{
+		try {
 			ISqlJetTable table = db.getTable(TABLE_NAME);
 			// id (generated); name (i); fret (i); chord XML
 			// insert charts:
 			List<MusicChart> list = DataAccessUtilities.getNewChordChartList();
 
-			for (MusicChart c : list)
-			{
+			for (MusicChart c : list) {
 				String xml = DataAccessUtilities.getXStream(c);
 				table.insert(c.getKey(), c.getChordName(), c.getChordPosition(), xml);
 			}
 
-		} finally
-		{
+		} finally {
 			db.commit();
 		}
 
@@ -122,14 +120,12 @@ public class DbDaoQuery implements IDaoQuery
 	/**
 	 * @throws SqlJetException
 	 */
-	private void openDb(boolean isWritable) throws SqlJetException
-	{
+	private void openDb(boolean isWritable) throws SqlJetException {
 
 		File dbFile = new File(DB_NAME);
 		// create database, table and two indices:
 		// open(java.io.File file, boolean write)
-		if (db == null)
-		{
+		if (db == null) {
 			db = SqlJetDb.open(dbFile, isWritable);
 		}
 	}
@@ -143,8 +139,7 @@ public class DbDaoQuery implements IDaoQuery
 	 * @param key a Regex pattern for searching for items
 	 * 
 	 */
-	public List<String> select(String name, String posit, boolean expand) throws SqlJetException
-	{
+	public List<String> select(String name, String posit, boolean expand) throws SqlJetException {
 
 		List<String> records = null;
 
@@ -163,25 +158,21 @@ public class DbDaoQuery implements IDaoQuery
 		// read
 		ISqlJetTable table = db.getTable(TABLE_NAME);
 		db.beginTransaction(SqlJetTransactionMode.READ_ONLY);
-		try
-		{
+		try {
 			ISqlJetCursor cursor = table.order(PRIMARY_INDEX);
-			if (!cursor.eof())
-			{
+			if (!cursor.eof()) {
 				records = new ArrayList<String>();
-				do
-				{
-					String matchPattern = cursor.getString(CHORD_NAME) + cursor.getString(CHORD_POSITION);
+				do {
+					String matchPattern =
+							cursor.getString(CHORD_NAME) + cursor.getString(CHORD_POSITION);
 					Matcher m = p.matcher(matchPattern);
-					if (m.matches())
-					{
+					if (m.matches()) {
 						records.add(cursor.getString(CHORD_CHART));
 					}
 				} while (cursor.next());
 			}
 			cursor.close();
-		} finally
-		{
+		} finally {
 			db.commit();
 		}
 		// add to list
@@ -194,21 +185,17 @@ public class DbDaoQuery implements IDaoQuery
 	}
 
 	@Override
-	public int insert(MusicChart chart) throws SqlJetException
-	{
+	public int insert(MusicChart chart) throws SqlJetException {
 
 		int retVal = 0;
 		// open db for writing
 		openDb(true);
 
-		try
-		{
+		try {
 
 			// set DB option that have to be set in a transaction:
-			db.runTransaction(new ISqlJetTransaction()
-			{
-				public Object run(SqlJetDb db) throws SqlJetException
-				{
+			db.runTransaction(new ISqlJetTransaction() {
+				public Object run(SqlJetDb db) throws SqlJetException {
 					db.getOptions().setUserVersion(1);
 					return true;
 				}
@@ -216,11 +203,9 @@ public class DbDaoQuery implements IDaoQuery
 
 			db.beginTransaction(SqlJetTransactionMode.WRITE);
 
-			if (!DataAccessUtilities.validChord(chart))
-			{
+			if (!DataAccessUtilities.validChord(chart)) {
 				retVal = -10;
-			} else
-			{
+			} else {
 				// name
 				String chordName = chart.getChordName();
 				// position
@@ -235,16 +220,13 @@ public class DbDaoQuery implements IDaoQuery
 				table.insert(key, chordName, chordPosition, chordXml);
 			}
 
-		} catch (SqlJetException e)
-		{
+		} catch (SqlJetException e) {
 			System.out.println(e.getMessage());
 			retVal = -1;
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			retVal = -1;
-		} finally
-		{
+		} finally {
 			if (retVal == 0)
 				db.commit();
 			else
@@ -258,9 +240,7 @@ public class DbDaoQuery implements IDaoQuery
 	}
 
 	@Override
-	public int update(MusicChart chart) throws SqlJetException
-	{
-
+	public int update(MusicChart chart) throws SqlJetException {
 		// System.out.println();
 		// System.out.println(">update " + chart);
 		// System.out.println();
@@ -269,14 +249,11 @@ public class DbDaoQuery implements IDaoQuery
 		// open db for writing
 		openDb(true);
 
-		try
-		{
+		try {
 
 			// set DB option that have to be set in a transaction:
-			db.runTransaction(new ISqlJetTransaction()
-			{
-				public Object run(SqlJetDb db) throws SqlJetException
-				{
+			db.runTransaction(new ISqlJetTransaction() {
+				public Object run(SqlJetDb db) throws SqlJetException {
 					db.getOptions().setUserVersion(1);
 					return true;
 				}
@@ -284,11 +261,9 @@ public class DbDaoQuery implements IDaoQuery
 
 			db.beginTransaction(SqlJetTransactionMode.WRITE);
 
-			if (!DataAccessUtilities.validChord(chart))
-			{
+			if (!DataAccessUtilities.validChord(chart)) {
 				retVal = -10;
-			} else
-			{
+			} else {
 				// name
 				String chordName = chart.getChordName();
 				// position
@@ -302,26 +277,21 @@ public class DbDaoQuery implements IDaoQuery
 				ISqlJetTable table = db.getTable(TABLE_NAME);
 
 				ISqlJetCursor updateCursor = table.lookup(PRIMARY_INDEX, chordName, chordPosition);
-				if (!updateCursor.eof())
-				{
+				if (!updateCursor.eof()) {
 					updateCursor.update(updateCursor.getValue(CHORD_KEY), chordName, chordPosition, chordXml);
-				} else
-				{
+				} else {
 					retVal = -400;
 				}
 				updateCursor.close();
 			}
 
-		} catch (SqlJetException e)
-		{
+		} catch (SqlJetException e) {
 			System.out.println(e.getMessage());
 			retVal = -1;
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			retVal = -1;
-		} finally
-		{
+		} finally {
 			if (retVal == 0)
 				db.commit();
 			else
@@ -334,9 +304,7 @@ public class DbDaoQuery implements IDaoQuery
 	}
 
 	@Override
-	public int delete(MusicChart chart) throws SqlJetException
-	{
-
+	public int delete(MusicChart chart) throws SqlJetException {
 		// System.out.println();
 		// System.out.println(">delete " + chart.getChordName());
 		// System.out.println();
@@ -345,50 +313,41 @@ public class DbDaoQuery implements IDaoQuery
 		// open db for writing
 		openDb(true);
 
-		try
-		{
+		try {
 
 			// set DB option that have to be set in a transaction:
-			db.runTransaction(new ISqlJetTransaction()
-			{
-				public Object run(SqlJetDb db) throws SqlJetException
-				{
+			db.runTransaction(new ISqlJetTransaction() {
+				public Object run(SqlJetDb db) throws SqlJetException {
 					db.getOptions().setUserVersion(1);
 					return true;
 				}
 			}, SqlJetTransactionMode.WRITE);
 
-			if (!DataAccessUtilities.validChord(chart))
-			{
+			if (!DataAccessUtilities.validChord(chart)) {
 				retVal = -10;
-			} else
-			{
+			} else {
 				db.beginTransaction(SqlJetTransactionMode.WRITE);
 
 				ISqlJetTable table = db.getTable(TABLE_NAME);
 
-				ISqlJetCursor deleteCursor = table.lookup(PRIMARY_INDEX, chart.getChordName(), chart.getChordPosition());
+				ISqlJetCursor deleteCursor =
+						table.lookup(PRIMARY_INDEX, chart.getChordName(), chart.getChordPosition());
 
-				if (!deleteCursor.eof())
-				{
+				if (!deleteCursor.eof()) {
 					deleteCursor.delete();
-				} else
-				{
+				} else {
 					retVal = -400;
 				}
 				deleteCursor.close();
 			}
 
-		} catch (SqlJetException e)
-		{
+		} catch (SqlJetException e) {
 			System.out.println(e.getMessage());
 			retVal = -1;
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return -1;
-		} finally
-		{
+		} finally {
 			if (retVal == 0)
 				db.commit();
 			else
