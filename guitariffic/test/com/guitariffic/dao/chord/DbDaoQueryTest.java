@@ -1,6 +1,6 @@
 package com.guitariffic.dao.chord;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,200 +11,189 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.tmatesoft.sqljet.core.SqlJetException;
 
-import com.guitariffic.model.BaseChordChart;
 import com.guitariffic.model.GuitarChordChart;
+import com.guitariffic.model.MusicChart;
 
-public class DbDaoQueryTest
-{
+public class DbDaoQueryTest {
 
-    private static final String DB_NAME = "database-test\\guitariffic.sqljet";
+	private static final String DB_NAME = "database-test\\guitariffic.sqljet";
 
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception
-    {
-        File dbFile = new File(DB_NAME);
-        if (dbFile.exists()) {
-            // create and initialize
-            dbFile.delete();
-        }
-    }
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		File dbFile = new File(DB_NAME);
+		if (dbFile.exists()) {
+			// create and initialize
+			dbFile.delete();
+		}
+	}
 
-    @AfterClass
-    public static void tearDownAfterClass() throws Exception
-    {
-    }
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+	}
 
-    /**
-     * Test method for {@link com.guitariffic.dao.DbDaoQuery#DbDaoQuery()}.
-     * 
-     * @throws SqlJetException
-     */
-    @Test
-    public void testDbDaoQuery() throws SqlJetException {
-        DbDaoQuery query = new DbDaoQuery();
-        assertTrue (query != null);
-    }
-    
-    /**
-     * Test method for
-     * {@link com.guitariffic.dao.DbDaoQuery#select(java.lang.String)}.
-     * 
-     * @throws SqlJetException
-     */
-    @Test
-    public void testSelect() throws SqlJetException {
-        // fail("Not yet implemented");
-        DbDaoQuery query = new DbDaoQuery();
+	/**
+	 * Test method for {@link com.guitariffic.dao.DbDaoQuery#DbDaoQuery()}.
+	 * 
+	 * @throws SqlJetException
+	 */
+	@Test
+	public void testDbDaoQuery() throws SqlJetException {
+		DbDaoQuery query = new DbDaoQuery();
+		assertTrue(query != null);
+	}
 
-        List<String> chords = query.select("A", "", true);
+	/**
+	 * Test method for {@link com.guitariffic.dao.DbDaoQuery#select(java.lang.String)}.
+	 * 
+	 * @throws SqlJetException
+	 */
+	@Test
+	public void testSelect() throws SqlJetException {
+		// fail("Not yet implemented");
+		DbDaoQuery query = new DbDaoQuery();
 
-        assertTrue (query != null);
-        assertTrue (chords.size() > 0);
+		List<String> chords = query.select("A", "", true);
 
-        chords = query.select("", "", true);
+		assertTrue(query != null);
+		assertTrue(chords.size() > 0);
 
-        assertTrue (query != null);
-        assertTrue (chords.size() > 0);
+		chords = query.select("", "", true);
 
-    }
+		assertTrue(query != null);
+		assertTrue(chords.size() > 0);
 
-    /**
-     * Test method for
-     * {@link com.guitariffic.dao.DbDaoQuery#insert(java.lang.String, java.lang.String)}
-     * .
-     */
-    @Test
-    public void testInsert() throws SqlJetException {
-        // fail("Not yet implemented");
-        DbDaoQuery query = new DbDaoQuery();
+	}
 
-        // empty chart cannot be inserted
-        BaseChordChart chart = new GuitarChordChart();
-        chart.setChordName("");
-        chart.setChordPosition("");
-        chart.setChordFingering("");
-        chart.setChordFrets("");
-        chart.setDirty(false);
+	/**
+	 * Test method for
+	 * {@link com.guitariffic.dao.DbDaoQuery#insert(java.lang.String, java.lang.String)} .
+	 */
+	@Test
+	public void testInsert() throws SqlJetException {
+		// fail("Not yet implemented");
+		DbDaoQuery query = new DbDaoQuery();
 
-        int retVal = query.insert(chart);
+		// empty chart cannot be inserted
+		MusicChart chart = new GuitarChordChart();
+		chart.setChordName("");
+		chart.setChordPosition("");
+		chart.setChordFingering("");
+		chart.setChordFrets("");
+		chart.setDirty(false);
 
-        assertTrue (query != null);
-        assertTrue (retVal != 0);
+		int retVal = query.insert(chart);
 
-        // filled chart successful
-        chart = new GuitarChordChart();
-        chart.setChordName("Cmaj7");
-        chart.setChordPosition("1");
-        chart.setChordFingering("XXX23X");
-        chart.setChordFrets("XXX23X");
-        chart.setDirty(false);
+		assertTrue(query != null);
+		assertTrue(retVal != 0);
 
-        retVal = query.insert(chart);
+		// filled chart successful
+		chart = new GuitarChordChart();
+		chart.setChordName("Cmaj7");
+		chart.setChordPosition("1");
+		chart.setChordFingering("XXX23X");
+		chart.setChordFrets("XXX23X");
+		chart.setDirty(false);
 
-        assertTrue (query != null);
-        assertTrue (retVal == 0);
+		retVal = query.insert(chart);
 
-        /*
-         * invalid insert of identical
-         */
-        retVal = query.insert(chart);
-        assertTrue (retVal != 0);
+		assertTrue(query != null);
+		assertTrue(retVal == 0);
 
-    }
-    
-    /**
-     * Test method for
-     * {@link com.guitariffic.dao.DbDaoQuery#update(java.lang.String, java.lang.String)}
-     * .
-     */
-    @Test
-    public void testUpdate() throws SqlJetException {
-        // fail("Not yet implemented");
-        DbDaoQuery query = new DbDaoQuery();
-        int retVal;
+		/*
+		 * invalid insert of identical
+		 */
+		retVal = query.insert(chart);
+		assertTrue(retVal != 0);
 
-        // existing chart successful
-        BaseChordChart chart = new GuitarChordChart();
-        chart.setChordName("C");
-        chart.setChordPosition("1");
-        chart.setChordFingering("XXX23X");
-        chart.setChordFrets("XXX23X");
-        chart.setDirty(false);
+	}
 
-        retVal = query.update(chart);
-        assertTrue (retVal == 0);
+	/**
+	 * Test method for
+	 * {@link com.guitariffic.dao.DbDaoQuery#update(java.lang.String, java.lang.String)} .
+	 */
+	@Test
+	public void testUpdate() throws SqlJetException {
+		// fail("Not yet implemented");
+		DbDaoQuery query = new DbDaoQuery();
+		int retVal;
 
-        // invalid update of non-existing record
-        chart = new GuitarChordChart();
-        chart.setChordName("C7b5");
-        chart.setChordPosition("3");
-        chart.setChordFingering("XXX23X");
-        chart.setChordFrets("XXX23X");
-        chart.setDirty(false);
+		// existing chart successful
+		MusicChart chart = new GuitarChordChart();
+		chart.setChordName("C");
+		chart.setChordPosition("1");
+		chart.setChordFingering("XXX23X");
+		chart.setChordFrets("XXX23X");
+		chart.setDirty(false);
 
-        retVal = query.update(chart);
-        assertTrue (retVal != 0);
+		retVal = query.update(chart);
+		assertTrue(retVal == 0);
 
-        // invalid update of empty record
-        chart = new GuitarChordChart();
-        chart.setChordName("");
-        chart.setChordPosition("");
-        chart.setChordFingering("XXX23X");
-        chart.setChordFrets("XXX23X");
-        chart.setDirty(false);
+		// invalid update of non-existing record
+		chart = new GuitarChordChart();
+		chart.setChordName("C7b5");
+		chart.setChordPosition("3");
+		chart.setChordFingering("XXX23X");
+		chart.setChordFrets("XXX23X");
+		chart.setDirty(false);
 
-        retVal = query.update(chart);
-        assertTrue (retVal != 0);
+		retVal = query.update(chart);
+		assertTrue(retVal != 0);
 
-    }
+		// invalid update of empty record
+		chart = new GuitarChordChart();
+		chart.setChordName("");
+		chart.setChordPosition("");
+		chart.setChordFingering("XXX23X");
+		chart.setChordFrets("XXX23X");
+		chart.setDirty(false);
 
-    /**
-     * Test method for
-     * {@link com.guitariffic.dao.DbDaoQuery#delete(java.lang.String)}.
-     */
-    @Test
-    public void testDelete() throws SqlJetException {
-        // fail("Not yet implemented");
-        DbDaoQuery query = new DbDaoQuery();
-        int retVal = 0;
+		retVal = query.update(chart);
+		assertTrue(retVal != 0);
 
-        BaseChordChart chart = new GuitarChordChart();
-        chart.setChordName("C7b5");
-        chart.setChordPosition("3");
-        chart.setChordFingering("XXX23X");
-        chart.setChordFrets("XXX23X");
-        chart.setDirty(false);
+	}
 
-        retVal = query.insert(chart);
-        assertTrue (retVal != 0);
-        
-        // confirm present
-        List<String> xml = new ArrayList<String>();
-        xml = query.select(chart.getChordName(), chart.getChordPosition(),
-                false);
-        assertTrue (xml != null && xml.size() > 0);
+	/**
+	 * Test method for {@link com.guitariffic.dao.DbDaoQuery#delete(java.lang.String)}.
+	 */
+	@Test
+	public void testDelete() throws SqlJetException {
+		// fail("Not yet implemented");
+		DbDaoQuery query = new DbDaoQuery();
+		int retVal = 0;
 
-        retVal = query.delete(chart);
-        assertTrue (retVal == 0);
-        // assert not present
-        xml.clear();
-        xml = query.select(chart.getChordName(), chart.getChordPosition(),
-                false);
-        assertTrue (xml != null && xml.size() == 0);
-        
+		MusicChart chart = new GuitarChordChart();
+		chart.setChordName("C7b5");
+		chart.setChordPosition("3");
+		chart.setChordFingering("XXX23X");
+		chart.setChordFrets("XXX23X");
+		chart.setDirty(false);
 
-        // invalid update of empty record
-        chart = new GuitarChordChart();
-        chart.setChordName("");
-        chart.setChordPosition("");
-        chart.setChordFingering("XXX23X");
-        chart.setChordFrets("XXX23X");
-        chart.setDirty(false);
+		retVal = query.insert(chart);
+		assertTrue(retVal != 0);
 
-        retVal = query.delete(chart);
-        assertTrue (retVal != 0);
+		// confirm present
+		List<String> xml = new ArrayList<String>();
+		xml = query.select(chart.getChordName(), chart.getChordPosition(), false);
+		assertTrue(xml != null && xml.size() > 0);
 
-    }
-    
+		retVal = query.delete(chart);
+		assertTrue(retVal == 0);
+		// assert not present
+		xml.clear();
+		xml = query.select(chart.getChordName(), chart.getChordPosition(), false);
+		assertTrue(xml != null && xml.size() == 0);
+
+		// invalid update of empty record
+		chart = new GuitarChordChart();
+		chart.setChordName("");
+		chart.setChordPosition("");
+		chart.setChordFingering("XXX23X");
+		chart.setChordFrets("XXX23X");
+		chart.setDirty(false);
+
+		retVal = query.delete(chart);
+		assertTrue(retVal != 0);
+
+	}
 
 }
