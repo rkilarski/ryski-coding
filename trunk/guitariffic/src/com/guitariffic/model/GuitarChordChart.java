@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import com.guitariffic.model.enums.EnumChordChartType;
-
 /**
  * This class contains the methods to create an Image object of a guitar chord. Use either the parameterized constructor or the default constructor
  * with createImage to create your image. This class follows the bean conventions in order for it to be XML serializable. I.e., it is a bean (so there
@@ -52,7 +50,7 @@ public class GuitarChordChart extends MusicChart
 	 */
 	public GuitarChordChart()
 	{
-		this("","", "      ", "      ", false);
+		this("", "", "      ", "      ", false);
 	}
 
 	/**
@@ -98,11 +96,6 @@ public class GuitarChordChart extends MusicChart
 		setChordFingering(chordFingering);
 		setChordFrets(chordFrets);
 		setLeftHanded(isLeftHanded);
-	}
-
-	public EnumChordChartType getChordChartType()
-	{
-		return EnumChordChartType.GUITAR;
 	}
 
 	public String getChordFingering()
@@ -371,5 +364,11 @@ public class GuitarChordChart extends MusicChart
 		GuitarChordChart clone =
 				new GuitarChordChart(this.getChordName(), this.getChordPosition(), this.getChordFingering(), this.getChordFrets(), this.isLeftHanded());
 		return clone;
+	}
+
+	@Override
+	public ChordChartType getChordChartType()
+	{
+		return ChordChartType.GUITAR;
 	}
 }

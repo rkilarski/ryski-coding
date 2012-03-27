@@ -13,8 +13,6 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
 
-import com.guitariffic.model.enums.EnumChordChartType;
-
 /**
  * Chord chart base class.
  * 
@@ -33,6 +31,11 @@ public abstract class MusicChart extends BaseModel implements Serializable, Tran
 	private long Key;
 	private static final long serialVersionUID = 1L;
 
+	public enum ChordChartType
+	{
+		GUITAR;
+	}
+
 	public String getChordName()
 	{
 		return chordName;
@@ -49,7 +52,7 @@ public abstract class MusicChart extends BaseModel implements Serializable, Tran
 		setChordImage(null);
 	}
 
-	public abstract EnumChordChartType getChordChartType();
+	public abstract ChordChartType getChordChartType();
 
 	public BufferedImage getChordImage()
 	{
