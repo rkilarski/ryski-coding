@@ -17,9 +17,9 @@ import com.guitariffic.dao.chord.AbstractDaoFactory;
 import com.guitariffic.dao.chord.ChordDaoFactory;
 import com.guitariffic.dao.chord.IDaoAccess;
 import com.guitariffic.dao.chord.IDaoQuery;
-import com.guitariffic.model.MusicChart;
 import com.guitariffic.model.ChordTray;
 import com.guitariffic.model.GuitarChordChart;
+import com.guitariffic.model.MusicChart;
 import com.guitariffic.view.GuitarChordChartEditor;
 
 /**
@@ -28,246 +28,211 @@ import com.guitariffic.view.GuitarChordChartEditor;
  * @author ryszardkilarski
  * 
  */
-public class ChordTrayController 
-{
-    private ChordTray chordTray; // Chord tray model.
-    private ChordDaoFactory client;
-    private AbstractDaoFactory daofactory;
-    private IDaoAccess dbDao;
-    private IDaoQuery dbQuery;
-    private LinkedList<MusicChart> allChordCharts;
+public class ChordTrayController {
+	private ChordTray chordTray; // Chord tray model.
+	private ChordDaoFactory client;
+	private AbstractDaoFactory daofactory;
+	private IDaoAccess dbDao;
+	private IDaoQuery dbQuery;
+	private LinkedList<MusicChart> allChordCharts;
 
-    public ChordTrayController()
-    {
+	public ChordTrayController() {
 
-        allChordCharts = new LinkedList<MusicChart>();
-        chordTray = new ChordTray();
+		allChordCharts = new LinkedList<MusicChart>();
+		chordTray = new ChordTray();
+		client = new ChordDaoFactory();
 
-        client = new ChordDaoFactory();
+		// AbstractDaoFactory
+		daofactory = client.buildFactory(AbstractDaoFactory.database);
 
-        // AbstractDaoFactory
-        daofactory = client.buildFactory(AbstractDaoFactory.database);
+		try {
+			dbDao = daofactory.createDaoAccess();
+			dbQuery = daofactory.createDaoQuery();
+			List<MusicChart> charts = dbDao.getAllChordCharts(dbQuery, "Guitar");
 
-        try
-        {
-            dbDao = daofactory.createDaoAccess();
-            dbQuery = daofactory.createDaoQuery();
-            List<MusicChart> charts = dbDao.getAllChordCharts(dbQuery, "Guitar");
+			for (MusicChart chart : charts) {
+				allChordCharts.add(chart);
+			}
 
-            for (MusicChart chart : charts)
-            {
-                allChordCharts.add(chart);
-            }
+		} catch (SqlJetException e) {
+			e.printStackTrace();
+		}
 
-        } catch (SqlJetException e)
-        {
-            e.printStackTrace();
-        }
+		Collections.sort(allChordCharts, new GreaterThanPosition());
+		Collections.sort(allChordCharts, new GreaterThanName());
+		chordTray.setChordChartList(allChordCharts);
+	}
 
-        Collections.sort(allChordCharts, new GreaterThanPosition());
-        Collections.sort(allChordCharts, new GreaterThanName());
-        chordTray.setChordChartList(allChordCharts);
-    }
+	public ChordTray getChordTray() {
+		return chordTray;
+	}
 
-    public ChordTray getChordTray()
-    {
-        return chordTray;
-    }
+	public void setChordTray(ChordTray chordTray) {
+		this.chordTray = chordTray;
+	}
 
-    public void setChordTray(ChordTray chordTray)
-    {
-        this.chordTray = chordTray;
-    }
+	/**
+	 * Filter chord chart display
+	 * 
+	 * @param searchName
+	 * @param searchPosition
+	 */
+	public void updateChords(String searchName, String searchPosition) {
+		// If we need to reset the list, just display the full chord chart list.
+		if ((searchName == null) || (searchName == "") || (searchName.equals("filter..."))
+				&& (searchPosition == null || searchPosition == "")) {
+			chordTray.setChordChartList(allChordCharts);
+		} else {
 
-    /**
-     * Filter chord chart display
-     * 
-     * @param searchName
-     * @param searchPosition
-     */
-    public void updateChords(String searchName, String searchPosition)
-    {
-        // If we need to reset the list, just display the full chord chart list.
-        if ((searchName == null) || (searchName == "") || (searchName.equals("filter..."))
-                && (searchPosition == null || searchPosition == ""))
-        {
-            chordTray.setChordChartList(allChordCharts);
-        } else
-        {
+			NameFilter namefilter = new NameFilter();
+			namefilter.setFilter(null, searchName);
 
-            NameFilter namefilter = new NameFilter();
-            namefilter.setFilter(null, searchName);
+			PositionFilter posfilter = new PositionFilter();
+			posfilter.setFilter(namefilter, searchPosition);
+			LinkedList<MusicChart> newChordChartsx = posfilter.filterList(allChordCharts);
+			chordTray.setChordChartList(newChordChartsx);
+		}
+	}
 
-            PositionFilter posfilter = new PositionFilter();
-            posfilter.setFilter(namefilter, searchPosition);
-            LinkedList<MusicChart> newChordChartsx = posfilter.filterList(allChordCharts);
+	/**
+	 * Create new chord chart. Save to database and display.
+	 * 
+	 * @param frame
+	 */
+	public void newChordChart(Frame frame) {
+		GuitarChordChartEditor editor = new GuitarChordChartEditor(frame);
+		editor.setVisible(true);
+		GuitarChordChart guitarChordChart = editor.getGuitarChordChart();
 
-            chordTray.setChordChartList(newChordChartsx);
-        }
-    }
+		if (guitarChordChart != null) {
+			// add to database
+			try {
+				daofactory = client.buildFactory(AbstractDaoFactory.database);
+				dbDao = daofactory.createDaoAccess();
+				dbQuery = daofactory.createDaoQuery();
 
-    /**
-     * Create new chord chart. Save to database and display.
-     * 
-     * @param frame
-     */
-    public void newChordChart(Frame frame)
-    {
-        GuitarChordChartEditor editor = new GuitarChordChartEditor(frame);
-        editor.setVisible(true);
-        GuitarChordChart guitarChordChart = editor.getGuitarChordChart();
+				dbDao.insertChordChart(dbQuery, guitarChordChart);
 
-        if (guitarChordChart != null)
-        {
-            // add to database
-            try
-            {
-                daofactory = client.buildFactory(AbstractDaoFactory.database);
-                dbDao = daofactory.createDaoAccess();
-                dbQuery = daofactory.createDaoQuery();
+				LinkedList<MusicChart> chordChartsx = chordTray.getChordChartList();
+				chordChartsx.add(guitarChordChart);
 
-                dbDao.insertChordChart(dbQuery, guitarChordChart);
+				// sort list
+				Collections.sort(chordChartsx, new GreaterThanPosition());
+				Collections.sort(chordChartsx, new GreaterThanName());
 
-                LinkedList<MusicChart> chordChartsx = chordTray.getChordChartList();
-                chordChartsx.add(guitarChordChart);
+				chordTray.setChordChartList(chordChartsx);
 
-                // sort list
-                Collections.sort(chordChartsx, new GreaterThanPosition());
-                Collections.sort(chordChartsx, new GreaterThanName());
+			} catch (SqlJetException e) {
+				e.printStackTrace();
+			}
 
-                chordTray.setChordChartList(chordChartsx);
+		}
+	}
 
-            } catch (SqlJetException e)
-            {
-                e.printStackTrace();
-            }
+	/**
+	 * Export all chord charts to files
+	 * 
+	 * @param frame
+	 */
+	public void exportAllChordCharts(Frame frame) {
+		LinkedList<MusicChart> chordCharts = chordTray.getChordChartList();
+		try {
+			/* AbstractDaoFactory */
+			daofactory = client.buildFactory(AbstractDaoFactory.file);
+			dbDao = daofactory.createDaoAccess();
+			dbQuery = daofactory.createDaoQuery();
 
-        }
-    }
+			for (MusicChart c : chordCharts) {
+				dbDao.insertChordChart(dbQuery, c);
+			}
+		} catch (SqlJetException e) {
+			e.printStackTrace();
+		}
 
-    /**
-     * Export all chord charts to files
-     * 
-     * @param frame
-     */
-    public void exportAllChordCharts(Frame frame)
-    {
+	}
 
-        LinkedList<MusicChart> chordCharts = chordTray.getChordChartList();
-        try
-        {
-            /* AbstractDaoFactory */
-            daofactory = client.buildFactory(AbstractDaoFactory.file);
-            dbDao = daofactory.createDaoAccess();
-            dbQuery = daofactory.createDaoQuery();
+	/**
+	 * Export chord chart to file
+	 * 
+	 * @param frame
+	 * @param chart
+	 */
+	public void exportChordChart(Frame frame, MusicChart chart) {
+		try {
+			/* AbstractDaoFactory */
+			daofactory = client.buildFactory(AbstractDaoFactory.file);
+			dbDao = daofactory.createDaoAccess();
+			dbQuery = daofactory.createDaoQuery();
 
-            for (MusicChart c : chordCharts)
-            {
-                dbDao.insertChordChart(dbQuery, c);
-            }
-        } catch (SqlJetException e)
-        {
-            e.printStackTrace();
-        }
+			dbDao.insertChordChart(dbQuery, chart);
 
-    }
+		} catch (SqlJetException e) {
+			e.printStackTrace();
+		}
+	}
 
-    /**
-     * Export chord chart to file
-     * 
-     * @param frame
-     * @param chart
-     */
-    public void exportChordChart(Frame frame, MusicChart chart)
-    {
-        try
-        {
-            /* AbstractDaoFactory */
-            daofactory = client.buildFactory(AbstractDaoFactory.file);
-            dbDao = daofactory.createDaoAccess();
-            dbQuery = daofactory.createDaoQuery();
+	/**
+	 * Delete chord chart from database
+	 * 
+	 * @param frame
+	 * @param chart
+	 */
+	public void deleteChordChart(Frame frame, MusicChart chart) {
+		// confirm Y/N delete
+		int response =
+				JOptionPane.showConfirmDialog(null, "Are you sure that you want to delete chord "
+						+ chart.getChordName() + " at position " + chart.getChordPosition() + "?");
 
-            dbDao.insertChordChart(dbQuery, chart);
+		if (response == JOptionPane.YES_OPTION) {
+			try {
+				/* AbstractDaoFactory */
+				daofactory = client.buildFactory(AbstractDaoFactory.database);
+				dbDao = daofactory.createDaoAccess();
+				dbQuery = daofactory.createDaoQuery();
 
-        } catch (SqlJetException e)
-        {
-            e.printStackTrace();
-        }
-    }
+				// delete from database
+				dbDao.deleteChordChart(dbQuery, chart);
+				// delete from display
+				removeChartFromList(chart);
 
-    /**
-     * Delete chord chart from database
-     * 
-     * @param frame
-     * @param chart
-     */
-    public void deleteChordChart(Frame frame, MusicChart chart)
-    {
+			} catch (SqlJetException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
-        // confirm Y/N delete
-        int response = JOptionPane.showConfirmDialog(
-                null,
-                "Are you sure that you want to delete chord " + chart.getChordName() + " at position "
-                        + chart.getChordPosition() + "?");
+	/**
+	 * Remove chord chart from display
+	 * 
+	 * @param chart
+	 */
+	public void removeChartFromList(MusicChart chart) {
+		allChordCharts.remove(chart);
+		Collections.sort(allChordCharts, new GreaterThanPosition());
+		Collections.sort(allChordCharts, new GreaterThanName());
+		chordTray.setChordChartList(allChordCharts);
+	}
 
-        if (response == JOptionPane.YES_OPTION)
-        {
-            try
-            {
-                /* AbstractDaoFactory */
-                daofactory = client.buildFactory(AbstractDaoFactory.database);
-                dbDao = daofactory.createDaoAccess();
-                dbQuery = daofactory.createDaoQuery();
+	/**
+	 * Edit chord chart
+	 * 
+	 * @param frame
+	 * @param chart
+	 */
+	public void editChart(Frame frame, MusicChart chart) {
+		allChordCharts.remove(chart);
 
-                // delete from database
-                dbDao.deleteChordChart(dbQuery, chart);
-                // delete from display
-                removeChartFromList(chart);
-
-            } catch (SqlJetException e)
-            {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * Remove chord chart from display
-     * 
-     * @param chart
-     */
-    public void removeChartFromList(MusicChart chart)
-    {
-
-        allChordCharts.remove(chart);
-        Collections.sort(allChordCharts, new GreaterThanPosition());
-        Collections.sort(allChordCharts, new GreaterThanName());
-        chordTray.setChordChartList(allChordCharts);
-    }
-
-    /**
-     * Edit chord chart
-     * 
-     * @param frame
-     * @param chart
-     */
-    public void editChart(Frame frame, MusicChart chart)
-    {
-
-        allChordCharts.remove(chart);
-
-        GuitarChordChartEditor chordChartEditor = new GuitarChordChartEditor(frame);
-        chordChartEditor.setGuitarChordChart((GuitarChordChart) chart);
-        chordChartEditor.setVisible(true);
-        // Make the renderer reappear.
-        if (chordChartEditor.getGuitarChordChart() != null)
-        {
-            chart = chordChartEditor.getGuitarChordChart();
-        }
-        allChordCharts.add(chart);
-        Collections.sort(allChordCharts, new GreaterThanPosition());
-        Collections.sort(allChordCharts, new GreaterThanName());
-        chordTray.setChordChartList(allChordCharts);
-    }
+		GuitarChordChartEditor chordChartEditor = new GuitarChordChartEditor(frame);
+		chordChartEditor.setGuitarChordChart((GuitarChordChart) chart);
+		chordChartEditor.setVisible(true);
+		// Make the renderer reappear.
+		if (chordChartEditor.getGuitarChordChart() != null) {
+			chart = chordChartEditor.getGuitarChordChart();
+		}
+		allChordCharts.add(chart);
+		Collections.sort(allChordCharts, new GreaterThanPosition());
+		Collections.sort(allChordCharts, new GreaterThanName());
+		chordTray.setChordChartList(allChordCharts);
+	}
 
 }
