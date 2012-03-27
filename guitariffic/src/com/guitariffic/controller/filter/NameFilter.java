@@ -9,7 +9,7 @@ import com.guitariffic.model.MusicChart;
  * Filter chord chart list by name
  * 
  * @author rdbrmurray
- *
+ * 
  */
 public class NameFilter extends ListFilter {
 
