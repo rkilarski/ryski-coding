@@ -3,8 +3,6 @@ package com.guitariffic.model;
 import java.awt.Component;
 import java.io.Serializable;
 
-import com.guitariffic.model.enums.EnumTextLineType;
-
 /**
  * The base class for the text area that appears on the left pane of the application. All impementors must be serializable and inherit from
  * <code>java.awt.Component</code>.
@@ -20,6 +18,11 @@ import com.guitariffic.model.enums.EnumTextLineType;
 public abstract class BaseTextArea implements Serializable
 {
 	private static final long serialVersionUID = 1L;
+
+	public enum TextLineType
+	{
+		CHORD, LABEL, LYRIC
+	}
 
 	/**
 	 * Returns the <code>Component</code> that appears in the left pane of the application.
@@ -60,5 +63,5 @@ public abstract class BaseTextArea implements Serializable
 	 * 
 	 * @return line type for the given line number.
 	 */
-	abstract public EnumTextLineType getLineType(int lineNumber);
+	abstract public TextLineType getLineType(int lineNumber);
 }
