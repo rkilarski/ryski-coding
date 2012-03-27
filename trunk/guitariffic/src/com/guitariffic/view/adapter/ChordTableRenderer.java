@@ -16,17 +16,14 @@ import com.guitariffic.model.MusicChart;
  * @author ryszardkilarski
  * 
  */
-public class ChordTableRenderer extends JLabel implements TableCellRenderer
-{
+public class ChordTableRenderer extends JLabel implements TableCellRenderer {
 	private static final long serialVersionUID = 1L;
 
-	public ChordTableRenderer()
-	{
+	public ChordTableRenderer() {
 		this.setOpaque(false);
 	}
 
-	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
-	{
+	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 		this.setText(null);
 		{
 			this.setIcon(new ImageIcon(((MusicChart) value).getChordImage()));
