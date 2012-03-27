@@ -44,8 +44,8 @@ import com.guitariffic.controller.ChordChartAreaController;
 import com.guitariffic.controller.ChordTrayController;
 import com.guitariffic.controller.FakeSheetController;
 import com.guitariffic.controller.TextAreaController;
-import com.guitariffic.model.MusicChart;
 import com.guitariffic.model.GuitarChordChart;
+import com.guitariffic.model.MusicChart;
 import com.guitariffic.view.adapter.ChordChartTransferHandler;
 import com.guitariffic.view.adapter.ChordTableEditor;
 import com.guitariffic.view.adapter.ChordTableRenderer;
@@ -57,8 +57,7 @@ import com.guitariffic.view.adapter.ChordTrayTransferHandler;
  * @author ryszardkilarski
  * 
  */
-public class GuitarifficApplication
-{
+public class GuitarifficApplication {
 
 	private JFrame frmGuitariffic;
 	private FakeSheetController fakeSheetController;
@@ -84,16 +83,14 @@ public class GuitarifficApplication
 	 * 
 	 * @param setVisible
 	 */
-	public void setVisible(boolean setVisible)
-	{
+	public void setVisible(boolean setVisible) {
 		frmGuitariffic.setVisible(true);
 	}
 
 	/**
 	 * Create the application.
 	 */
-	public GuitarifficApplication()
-	{
+	public GuitarifficApplication() {
 		setUIManager();
 
 		createControllers();
@@ -103,8 +100,7 @@ public class GuitarifficApplication
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize()
-	{
+	private void initialize() {
 		frmGuitariffic = new JFrame();
 		frmGuitariffic.setIconImage(Toolkit.getDefaultToolkit().getImage(GuitarifficApplication.class.getResource("/resource/Guitariffic.jpg")));
 		frmGuitariffic.setTitle("guitariffic");
@@ -112,7 +108,8 @@ public class GuitarifficApplication
 		frmGuitariffic.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-		frmGuitariffic.setLocation(screenSize.width / 2 - (frmGuitariffic.getWidth() / 2), screenSize.height / 2 - (frmGuitariffic.getHeight() / 2));
+		frmGuitariffic.setLocation(screenSize.width / 2 - (frmGuitariffic.getWidth() / 2), screenSize.height
+				/ 2 - (frmGuitariffic.getHeight() / 2));
 
 		JToolBar toolBar = new JToolBar();
 		frmGuitariffic.getContentPane().add(toolBar, BorderLayout.NORTH);
@@ -120,11 +117,9 @@ public class GuitarifficApplication
 		JButton btnNew = new JButton("New");
 		btnNew.setIcon(new ImageIcon(GuitarifficApplication.class.getResource("/resource/new.png")));
 		btnNew.setToolTipText("New Fake Sheet");
-		btnNew.addMouseListener(new MouseAdapter()
-		{
+		btnNew.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0)
-			{
+			public void mouseClicked(MouseEvent arg0) {
 				newFunction();
 			}
 		});
@@ -132,11 +127,9 @@ public class GuitarifficApplication
 		JButton btnSave = new JButton("Save");
 		btnSave.setIcon(new ImageIcon(GuitarifficApplication.class.getResource("/resource/save.png")));
 		btnSave.setToolTipText("Save Fake Sheet");
-		btnSave.addMouseListener(new MouseAdapter()
-		{
+		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0)
-			{
+			public void mouseClicked(MouseEvent arg0) {
 				saveFunction();
 			}
 		});
@@ -146,11 +139,9 @@ public class GuitarifficApplication
 		JButton btnOpen = new JButton("Open");
 		btnOpen.setIcon(new ImageIcon(GuitarifficApplication.class.getResource("/resource/open.png")));
 		btnOpen.setToolTipText("Open Fake Sheet");
-		btnOpen.addMouseListener(new MouseAdapter()
-		{
+		btnOpen.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0)
-			{
+			public void mouseClicked(MouseEvent arg0) {
 				openFunction();
 			}
 		});
@@ -159,11 +150,9 @@ public class GuitarifficApplication
 		JButton btnSaveAs = new JButton("Save As");
 		btnSaveAs.setIcon(new ImageIcon(GuitarifficApplication.class.getResource("/resource/saveas.png")));
 		btnSaveAs.setToolTipText("Save Fake Sheet As External File");
-		btnSaveAs.addMouseListener(new MouseAdapter()
-		{
+		btnSaveAs.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0)
-			{
+			public void mouseClicked(MouseEvent arg0) {
 				saveAsFunction();
 			}
 		});
@@ -172,11 +161,9 @@ public class GuitarifficApplication
 		JButton btnExit = new JButton("Exit");
 		btnExit.setToolTipText("Exit application");
 		btnExit.setIcon(new ImageIcon(GuitarifficApplication.class.getResource("/resource/Exit.png")));
-		btnExit.addMouseListener(new MouseAdapter()
-		{
+		btnExit.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0)
-			{
+			public void mouseClicked(MouseEvent arg0) {
 				endFunction();
 			}
 		});
@@ -197,11 +184,9 @@ public class GuitarifficApplication
 		panelSongAbout.setLayout(new BoxLayout(panelSongAbout, BoxLayout.X_AXIS));
 
 		txtSongName = new JTextField();
-		txtSongName.addFocusListener(new FocusAdapter()
-		{
+		txtSongName.addFocusListener(new FocusAdapter() {
 			@Override
-			public void focusGained(FocusEvent arg0)
-			{
+			public void focusGained(FocusEvent arg0) {
 				selectText(txtSongName);
 			}
 		});
@@ -211,11 +196,9 @@ public class GuitarifficApplication
 		txtSongName.setColumns(10);
 
 		txtArtistName = new JTextField();
-		txtArtistName.addFocusListener(new FocusAdapter()
-		{
+		txtArtistName.addFocusListener(new FocusAdapter() {
 			@Override
-			public void focusGained(FocusEvent e)
-			{
+			public void focusGained(FocusEvent e) {
 				selectText(txtArtistName);
 			}
 		});
@@ -263,10 +246,8 @@ public class GuitarifficApplication
 		addPopup(tableChordChartArea, popupChordMenu);
 
 		JMenuItem mntmInsertNewRow = new JMenuItem("Insert New Row");
-		mntmInsertNewRow.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{
+		mntmInsertNewRow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				insertRowFunction();
 			}
 		});
@@ -275,19 +256,15 @@ public class GuitarifficApplication
 		popupChordMenu.addSeparator();
 
 		JMenuItem mntmPasteChordChart = new JMenuItem("Paste Chord");
-		mntmPasteChordChart.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{
+		mntmPasteChordChart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				pasteFunction();
 			}
 		});
 
 		JMenuItem mntmCopyChordChart = new JMenuItem("Copy Chord");
-		mntmCopyChordChart.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		mntmCopyChordChart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				copyFunction();
 			}
 		});
@@ -297,30 +274,24 @@ public class GuitarifficApplication
 		popupChordMenu.addSeparator();
 
 		JMenuItem mntmNewChordChart = new JMenuItem("New Chord");
-		mntmNewChordChart.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{
+		mntmNewChordChart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				editChordChartFunction();
 			}
 		});
 		popupChordMenu.add(mntmNewChordChart);
 
 		JMenuItem mntmEditChordChart = new JMenuItem("Edit Chord");
-		mntmEditChordChart.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{
+		mntmEditChordChart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				editChordChartFunction();
 			}
 		});
 		popupChordMenu.add(mntmEditChordChart);
 
 		JMenuItem mntmRemoveChordChart = new JMenuItem("Remove Chord");
-		mntmRemoveChordChart.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{
+		mntmRemoveChordChart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				deleteChordChartFunction();
 			}
 		});
@@ -347,26 +318,21 @@ public class GuitarifficApplication
 		txtPosition = new JTextField();
 		txtPosition.setColumns(2);
 		panelFretFilter.add(txtPosition);
-		txtPosition.addKeyListener(new KeyAdapter()
-		{
+		txtPosition.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyTyped(KeyEvent e)
-			{
-				if ((int) e.getKeyChar() >= 48 && (int) e.getKeyChar() <= 57)
-				{
-					chordTrayController.updateChords(txtFilter.getText(), txtPosition.getText() + e.getKeyChar());
-				} else
-				{
+			public void keyTyped(KeyEvent e) {
+				if ((int) e.getKeyChar() >= 48 && (int) e.getKeyChar() <= 57) {
+					chordTrayController.updateChords(txtFilter.getText(), txtPosition.getText()
+							+ e.getKeyChar());
+				} else {
 					chordTrayController.updateChords(txtFilter.getText(), txtPosition.getText());
 				}
 			}
 		});
 
-		txtPosition.addFocusListener(new FocusAdapter()
-		{
+		txtPosition.addFocusListener(new FocusAdapter() {
 			@Override
-			public void focusGained(FocusEvent e)
-			{
+			public void focusGained(FocusEvent e) {
 				selectText(txtPosition);
 			}
 		});
@@ -384,25 +350,20 @@ public class GuitarifficApplication
 		txtFilter.setToolTipText("Enter filter criteria to filter the chord list.");
 		txtFilter.setColumns(8);
 		panelTextFilter.add(txtFilter);
-		txtFilter.addKeyListener(new KeyAdapter()
-		{
+		txtFilter.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyTyped(KeyEvent e)
-			{
-				if (((int) e.getKeyChar() >= 65 && (int) e.getKeyChar() <= 122) || (e.getKeyChar() >= 33 && e.getKeyChar() <= 57))
-				{
+			public void keyTyped(KeyEvent e) {
+				if (((int) e.getKeyChar() >= 65 && (int) e.getKeyChar() <= 122)
+						|| (e.getKeyChar() >= 33 && e.getKeyChar() <= 57)) {
 					chordTrayController.updateChords(txtFilter.getText() + e.getKeyChar(), txtPosition.getText());
-				} else
-				{
+				} else {
 					chordTrayController.updateChords(txtFilter.getText(), txtPosition.getText());
 				}
 			}
 		});
-		txtFilter.addFocusListener(new FocusAdapter()
-		{
+		txtFilter.addFocusListener(new FocusAdapter() {
 			@Override
-			public void focusGained(FocusEvent e)
-			{
+			public void focusGained(FocusEvent e) {
 				selectText(txtFilter);
 			}
 		});
@@ -441,10 +402,8 @@ public class GuitarifficApplication
 		addPopup(tableChordTray, popupTrayMenu);
 
 		JMenuItem mntmCopyChordTray = new JMenuItem("Copy Chord");
-		mntmCopyChordTray.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		mntmCopyChordTray.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				copyFunction();
 			}
 		});
@@ -453,40 +412,32 @@ public class GuitarifficApplication
 		popupTrayMenu.addSeparator();
 
 		JMenuItem mntmNewChordTray = new JMenuItem("New Chord");
-		mntmNewChordTray.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		mntmNewChordTray.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				newChordTrayFunction();
 			}
 		});
 		popupTrayMenu.add(mntmNewChordTray);
 
 		JMenuItem mntmEditChordTray = new JMenuItem("Edit Chord");
-		mntmEditChordTray.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		mntmEditChordTray.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				editChordTrayFunction();
 			}
 		});
 		popupTrayMenu.add(mntmEditChordTray);
 
 		JMenuItem mntmDeleteChordTray = new JMenuItem("Delete Chord");
-		mntmDeleteChordTray.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		mntmDeleteChordTray.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				deleteChordTrayFunction();
 			}
 		});
 		popupTrayMenu.add(mntmDeleteChordTray);
 
 		JMenuItem mntmExportChordTray = new JMenuItem("Export Chord");
-		mntmExportChordTray.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		mntmExportChordTray.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				exportChordTrayFunction();
 			}
 		});
@@ -502,10 +453,8 @@ public class GuitarifficApplication
 		JMenuItem mntmNew = new JMenuItem("New");
 		mntmNew.setMnemonic(KeyEvent.VK_N);
 		mntmNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-		mntmNew.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{
+		mntmNew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				newFunction();
 			}
 		});
@@ -514,10 +463,8 @@ public class GuitarifficApplication
 		JMenuItem mntmOpen = new JMenuItem("Open");
 		mntmOpen.setMnemonic(KeyEvent.VK_O);
 		mntmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-		mntmOpen.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		mntmOpen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				openFunction();
 			}
 		});
@@ -528,10 +475,8 @@ public class GuitarifficApplication
 		JMenuItem mntmClose = new JMenuItem("Close");
 		mntmClose.setMnemonic(KeyEvent.VK_C);
 		mntmClose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-		mntmClose.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		mntmClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				endFunction();
 			}
 		});
@@ -542,10 +487,8 @@ public class GuitarifficApplication
 		JMenuItem mntmSave = new JMenuItem("Save");
 		mntmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 		mntmSave.setMnemonic(KeyEvent.VK_S);
-		mntmSave.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		mntmSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				saveFunction();
 			}
 		});
@@ -553,10 +496,8 @@ public class GuitarifficApplication
 
 		JMenuItem mntmSaveAs = new JMenuItem("Save As...");
 		mntmSaveAs.setMnemonic(KeyEvent.VK_A);
-		mntmSaveAs.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		mntmSaveAs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				saveAsFunction();
 			}
 		});
@@ -565,10 +506,8 @@ public class GuitarifficApplication
 		mnFile.addSeparator();
 
 		JMenuItem mntmExit = new JMenuItem("Exit");
-		mntmExit.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		mntmExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				endFunction();
 			}
 		});
@@ -580,10 +519,8 @@ public class GuitarifficApplication
 
 		JMenuItem mntmNewChordChartMenu = new JMenuItem("New Chord Chart");
 		mntmNewChordChartMenu.setMnemonic(KeyEvent.VK_N);
-		mntmNewChordChartMenu.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		mntmNewChordChartMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				newChordTrayFunction();
 			}
 		});
@@ -591,10 +528,8 @@ public class GuitarifficApplication
 
 		JMenuItem mntmExportAllChordsMenu = new JMenuItem("Export All Chord Charts");
 		mntmExportAllChordsMenu.setMnemonic(KeyEvent.VK_E);
-		mntmExportAllChordsMenu.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		mntmExportAllChordsMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				exportAllChordsTrayFunction();
 			}
 		});
@@ -606,10 +541,8 @@ public class GuitarifficApplication
 
 		JMenuItem mntmAbout = new JMenuItem("About");
 		mntmAbout.setMnemonic(KeyEvent.VK_A);
-		mntmAbout.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{
+		mntmAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				aboutFunction();
 			}
 		});
@@ -619,10 +552,8 @@ public class GuitarifficApplication
 	/**
 	 * Make sure application adopts the native look-and-feel of the system.
 	 */
-	private void setUIManager()
-	{
-		try
-		{
+	private void setUIManager() {
+		try {
 
 			// take the menu bar off the jframe
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
@@ -631,17 +562,13 @@ public class GuitarifficApplication
 			// System.setProperty("com.apple.mrj.application.apple.menu.about.name", "AppName");
 
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException e1)
-		{
+		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
-		} catch (InstantiationException e1)
-		{
+		} catch (InstantiationException e1) {
 			e1.printStackTrace();
-		} catch (IllegalAccessException e1)
-		{
+		} catch (IllegalAccessException e1) {
 			e1.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e1)
-		{
+		} catch (UnsupportedLookAndFeelException e1) {
 			e1.printStackTrace();
 		}
 	}
@@ -649,8 +576,7 @@ public class GuitarifficApplication
 	/**
 	 * Update all local controllers.
 	 */
-	private void updateControllers(FakeSheetController fakeSheetController)
-	{
+	private void updateControllers(FakeSheetController fakeSheetController) {
 		// Update the text and chord chart controllers
 		textAreaController.setTextArea(fakeSheetController.getTextArea());
 		chordChartAreaController.setChordChartAreaAdapter(fakeSheetController.getChordChartArea());
@@ -659,8 +585,7 @@ public class GuitarifficApplication
 	/**
 	 * Create all the local controllers.
 	 */
-	private void createControllers()
-	{
+	private void createControllers() {
 		// Create new controllers...
 		fakeSheetController = new FakeSheetController();
 		chordTrayController = new ChordTrayController();
@@ -676,39 +601,29 @@ public class GuitarifficApplication
 	 * 
 	 * @param fileName
 	 */
-	private void updateTitle(String fileName)
-	{
-		if (fileName.equals(""))
-		{
+	private void updateTitle(String fileName) {
+		if (fileName.equals("")) {
 			frmGuitariffic.setTitle("guitariffic");
-		} else
-		{
+		} else {
 			frmGuitariffic.setTitle("guitariffic (" + fileName + ")");
 		}
 	}
 
-	private void addPopup(Component component, final JPopupMenu popup)
-	{
-		component.addMouseListener(new MouseAdapter()
-		{
-			public void mousePressed(MouseEvent e)
-			{
-				if (e.isPopupTrigger())
-				{
+	private void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
 					showMenu(e);
 				}
 			}
 
-			public void mouseReleased(MouseEvent e)
-			{
-				if (e.isPopupTrigger())
-				{
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
 					showMenu(e);
 				}
 			}
 
-			private void showMenu(MouseEvent e)
-			{
+			private void showMenu(MouseEvent e) {
 				popupPoint = e.getPoint();
 				JTable table = (JTable) e.getComponent();
 				int row = table.rowAtPoint(popupPoint);
@@ -722,8 +637,7 @@ public class GuitarifficApplication
 	/**
 	 * Function to initialize all parts of the FakeSheet when the user selects New.
 	 */
-	private void newFunction()
-	{
+	private void newFunction() {
 		fakeSheetController.newFakeSheet();
 		updateControllers(fakeSheetController);
 
@@ -738,8 +652,7 @@ public class GuitarifficApplication
 		textAreaPane.setViewportView(panelLyrics);
 	}
 
-	private void saveFunction()
-	{
+	private void saveFunction() {
 		fakeSheetController.setArtistName(txtArtistName.getText());
 		fakeSheetController.setSongName(txtSongName.getText());
 
@@ -747,8 +660,7 @@ public class GuitarifficApplication
 		updateTitle(fakeSheetController.getFakeSheetFileName());
 	}
 
-	private void openFunction()
-	{
+	private void openFunction() {
 		fakeSheetController.openFakeSheet();
 		updateControllers(fakeSheetController);
 
@@ -763,8 +675,7 @@ public class GuitarifficApplication
 		textAreaPane.setViewportView(panelLyrics);
 	}
 
-	private void saveAsFunction()
-	{
+	private void saveAsFunction() {
 		fakeSheetController.setArtistName(txtArtistName.getText());
 		fakeSheetController.setSongName(txtSongName.getText());
 
@@ -772,78 +683,66 @@ public class GuitarifficApplication
 		updateTitle(fakeSheetController.getFakeSheetFileName());
 	}
 
-	private void aboutFunction()
-	{
+	private void aboutFunction() {
 		GuitarifficAbout aboutBox = new GuitarifficAbout(frmGuitariffic);
 		aboutBox.setVisible(true);
 	}
 
-	private void endFunction()
-	{
+	private void endFunction() {
 		System.exit(0);
 	}
 
-	private void selectText(JTextField textArea)
-	{
+	private void selectText(JTextField textArea) {
 		textArea.selectAll();
 	}
 
 	/**
 	 * export all chords to file from main menu
 	 */
-	private void exportAllChordsTrayFunction()
-	{
+	private void exportAllChordsTrayFunction() {
 		chordTrayController.exportAllChordCharts(frmGuitariffic);
 	}
 
 	/**
 	 * new chord from popup menu
 	 */
-	private void newChordTrayFunction()
-	{
+	private void newChordTrayFunction() {
 		chordTrayController.newChordChart(frmGuitariffic);
 	}
 
 	/**
 	 * export single chord from popup menu
 	 */
-	private void exportChordTrayFunction()
-	{
+	private void exportChordTrayFunction() {
 		chordTrayController.exportChordChart(frmGuitariffic, popupMenuItem);
 	}
 
 	/**
 	 * delete chord from popup menu
 	 */
-	private void deleteChordTrayFunction()
-	{
+	private void deleteChordTrayFunction() {
 		chordTrayController.deleteChordChart(frmGuitariffic, popupMenuItem);
 	}
 
 	/**
 	 * edit chord from popup menu
 	 */
-	private void editChordTrayFunction()
-	{
+	private void editChordTrayFunction() {
 		chordTrayController.editChart(frmGuitariffic, popupMenuItem);
 	}
 
 	/**
 	 * copy chord from popup menu
 	 */
-	private void copyFunction()
-	{
-		try
-		{
+	private void copyFunction() {
+		try {
 			chordCopyBuffer = (MusicChart) popupMenuItem.clone();
-		} catch (CloneNotSupportedException e)
-		{
+		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void editChordChartFunction()
-	{
+	private void editChordChartFunction() {
 		GuitarChordChartEditor chordChartEditor = new GuitarChordChartEditor(frmGuitariffic);
 		int row = tableChordChartArea.rowAtPoint(popupPoint);
 		int column = tableChordChartArea.columnAtPoint(popupPoint);
@@ -851,35 +750,29 @@ public class GuitarifficApplication
 		chordChartEditor.setGuitarChordChart((GuitarChordChart) tableChordChartArea.getValueAt(row, column));
 		chordChartEditor.setVisible(true);
 		// Make the renderer reappear.
-		if (chordChartEditor.getGuitarChordChart() != null)
-		{
+		if (chordChartEditor.getGuitarChordChart() != null) {
 			tableChordChartArea.setValueAt(chordChartEditor.getGuitarChordChart(), row, column);
 		}
 
 	}
 
-	private void deleteChordChartFunction()
-	{
+	private void deleteChordChartFunction() {
 		int row = tableChordChartArea.rowAtPoint(popupPoint);
 		int column = tableChordChartArea.columnAtPoint(popupPoint);
 		tableChordChartArea.setValueAt(new GuitarChordChart(), row, column);
 	}
 
-	private void pasteFunction()
-	{
+	private void pasteFunction() {
 		int row = tableChordChartArea.rowAtPoint(popupPoint);
 		int column = tableChordChartArea.columnAtPoint(popupPoint);
-		try
-		{
+		try {
 			tableChordChartArea.setValueAt(chordCopyBuffer.clone(), row, column);
-		} catch (CloneNotSupportedException e)
-		{
+		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void insertRowFunction()
-	{
+	private void insertRowFunction() {
 		int row = tableChordChartArea.rowAtPoint(popupPoint);
 		chordChartAreaController.getChordChartAreaAdapter().insertRow(row);
 	}
