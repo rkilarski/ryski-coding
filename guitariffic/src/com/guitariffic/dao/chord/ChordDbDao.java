@@ -1,9 +1,10 @@
 package com.guitariffic.dao.chord;
 
-
 import java.util.LinkedList;
 import java.util.List;
+
 import org.tmatesoft.sqljet.core.SqlJetException;
+
 import com.guitariffic.model.MusicChart;
 import com.thoughtworks.xstream.XStream;
 
@@ -14,34 +15,29 @@ import com.thoughtworks.xstream.XStream;
  */
 public class ChordDbDao implements IDaoAccess {
 
-
 	@Override
-	public LinkedList<MusicChart> getAllChordCharts(IDaoQuery query, String type)
-			throws SqlJetException {
+	public LinkedList<MusicChart> getAllChordCharts(IDaoQuery query, String type) throws SqlJetException {
 
 		List<String> list = getChordChartList(query);
 
-		LinkedList<MusicChart> charts = DataAccessUtilities.buildChordChartList(list,
-				type);
+		LinkedList<MusicChart> charts = DataAccessUtilities.buildChordChartList(list, type);
 
 		return charts;
 	}
 
-
 	@Override
-	public MusicChart getChordChart(IDaoQuery query, String name, String posit,
-			String type) {
+	public MusicChart getChordChart(IDaoQuery query, String name, String posit, String type) {
 
 		MusicChart newChart = null;
 		try {
 			List<String> list = query.select(name, posit, false);
 			if (list.size() == 1) {
 				String xml = list.get(0);
-				Class<? extends MusicChart> cls = DataAccessUtilities
-						.getNewChordChart(type).getClass();
+				Class<? extends MusicChart> cls =
+						DataAccessUtilities.getNewChordChart(type).getClass();
 				XStream xstream = new XStream();
 				xstream.alias(cls.getSimpleName(), cls);
-				xstream.alias("BaseChordChart", MusicChart.class);
+				xstream.alias("MusicChart", MusicChart.class);
 				newChart = (MusicChart) xstream.fromXML(xml);
 			}
 		} catch (SqlJetException e) {
@@ -50,7 +46,6 @@ public class ChordDbDao implements IDaoAccess {
 		return newChart;
 
 	}
-
 
 	@Override
 	public List<String> getChordChartList(IDaoQuery query) {
@@ -62,7 +57,6 @@ public class ChordDbDao implements IDaoAccess {
 		}
 		return null;
 	}
-
 
 	@Override
 	public boolean insertChordChart(IDaoQuery query, MusicChart chart) {
@@ -77,7 +71,6 @@ public class ChordDbDao implements IDaoAccess {
 		return retVal == 0;
 	}
 
-
 	@Override
 	public boolean updateChordChart(IDaoQuery query, MusicChart chordChart) {
 
@@ -91,10 +84,8 @@ public class ChordDbDao implements IDaoAccess {
 		return retVal == 0;
 	}
 
-
 	@Override
-	public boolean deleteChordChart(IDaoQuery query, MusicChart chart)
-			throws SqlJetException {
+	public boolean deleteChordChart(IDaoQuery query, MusicChart chart) throws SqlJetException {
 
 		int retVal = 0;
 

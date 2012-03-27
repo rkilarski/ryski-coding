@@ -1,22 +1,22 @@
 package com.guitariffic.dao.chord;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
 import org.tmatesoft.sqljet.core.SqlJetException;
-import com.guitariffic.model.MusicChart;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.FilenameFilter;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.io.IOException;
+import com.guitariffic.model.MusicChart;
 
 public class FileDaoQuery implements IDaoQuery {
 
@@ -58,31 +58,26 @@ public class FileDaoQuery implements IDaoQuery {
 				return;
 		}
 		// add files if not present in application area
-		/* do not add by default; allow user to request export
-		FilenameFilter select = new FileListFilter(filePrefix, fileExtension);
-
-		File[] contents = storeDir.listFiles(select);
-
-		if (contents != null && contents.length == 0) {
-			// add new files
-
-			List<BaseChordChart> list = DataAccessUtilities
-					.getNewChordChartList();
-
-			for (BaseChordChart c : list) {
-				String xml = DataAccessUtilities.getXStream(c);
-				String filename = DB_NAME + filePrefix + "-" + c.getChordName()
-						+ "-" + c.getChordPosition() + ".xml";
-
-				writeFile(xml, filename);
-			}
-		}
-		*/
+		/*
+		 * do not add by default; allow user to request export FilenameFilter select = new
+		 * FileListFilter(filePrefix, fileExtension);
+		 * 
+		 * File[] contents = storeDir.listFiles(select);
+		 * 
+		 * if (contents != null && contents.length == 0) { // add new files
+		 * 
+		 * List<MusicChart> list = DataAccessUtilities .getNewChordChartList();
+		 * 
+		 * for (MusicChart c : list) { String xml = DataAccessUtilities.getXStream(c); String
+		 * filename = DB_NAME + filePrefix + "-" + c.getChordName() + "-" + c.getChordPosition() +
+		 * ".xml";
+		 * 
+		 * writeFile(xml, filename); } }
+		 */
 	}
 
 	@Override
-	public List<String> select(String name, String posit, boolean expand)
-			throws SqlJetException {
+	public List<String> select(String name, String posit, boolean expand) throws SqlJetException {
 
 		List<String> chords = null;
 
@@ -99,9 +94,9 @@ public class FileDaoQuery implements IDaoQuery {
 			// filter xml
 			String regex = expand ? ".*" : "";
 
-			Pattern p = Pattern.compile(filePrefix + "-" + name + regex + "-"
-					+ posit + regex + "." + fileExtension,
-					Pattern.CASE_INSENSITIVE);
+			Pattern p =
+					Pattern.compile(filePrefix + "-" + name + regex + "-" + posit + regex + "."
+							+ fileExtension, Pattern.CASE_INSENSITIVE);
 
 			chords = new ArrayList<String>();
 
@@ -125,12 +120,12 @@ public class FileDaoQuery implements IDaoQuery {
 		if (!DataAccessUtilities.validChord(chart))
 			return -20;
 
-		chart.setKey(DataAccessUtilities.getKeyId(chart.getChordName(),
-				chart.getChordPosition()));
+		chart.setKey(DataAccessUtilities.getKeyId(chart.getChordName(), chart.getChordPosition()));
 		String xml = DataAccessUtilities.getXStream(chart);
 		// save xml to directory
-		String filename = DB_NAME + filePrefix + "-" + chart.getChordName()
-				+ "-" + chart.getChordPosition() + ".xml";
+		String filename =
+				DB_NAME + filePrefix + "-" + chart.getChordName() + "-" + chart.getChordPosition()
+						+ ".xml";
 
 		File storeDir = new File(DB_NAME);
 		if (!storeDir.exists()) {
@@ -139,8 +134,8 @@ public class FileDaoQuery implements IDaoQuery {
 		}
 
 		// test for existing
-		String filename_test = filePrefix + "-" + chart.getChordName() + "-"
-				+ chart.getChordPosition();
+		String filename_test =
+				filePrefix + "-" + chart.getChordName() + "-" + chart.getChordPosition();
 		FilenameFilter select = new FileListFilter(filename_test, fileExtension);
 		File[] contents = storeDir.listFiles(select);
 
@@ -148,8 +143,7 @@ public class FileDaoQuery implements IDaoQuery {
 			// ask for overwrite
 			int response;
 
-			response = JOptionPane.showConfirmDialog(null,
-					"Should I override the existing file?");
+			response = JOptionPane.showConfirmDialog(null, "Should I override the existing file?");
 
 			if (response == JOptionPane.YES_OPTION)
 				retVal = writeFile(xml, filename);
@@ -222,23 +216,23 @@ public class FileDaoQuery implements IDaoQuery {
 		if (!DataAccessUtilities.validChord(chart))
 			return -20;
 
-		chart.setKey(DataAccessUtilities.getKeyId(chart.getChordName(),
-				chart.getChordPosition()));
+		chart.setKey(DataAccessUtilities.getKeyId(chart.getChordName(), chart.getChordPosition()));
 		String xml = DataAccessUtilities.getXStream(chart);
 		// xml filename
-		String filename = DB_NAME + filePrefix + "-" + chart.getChordName()
-				+ "-" + chart.getChordPosition() + ".xml";
+		String filename =
+				DB_NAME + filePrefix + "-" + chart.getChordName() + "-" + chart.getChordPosition()
+						+ ".xml";
 
 		// test for existing
-		String filename_test = filePrefix + "-" + chart.getChordName() + "-"
-				+ chart.getChordPosition() + ".xml";
+		String filename_test =
+				filePrefix + "-" + chart.getChordName() + "-" + chart.getChordPosition() + ".xml";
 		FilenameFilter select = new FileListFilter(filename_test, fileExtension);
 
 		File[] contents = storeDir.listFiles(select);
 
 		if (contents.length == 1) {
-			int response = JOptionPane.showConfirmDialog(null,
-					"Should I override the existing file?");
+			int response =
+					JOptionPane.showConfirmDialog(null, "Should I override the existing file?");
 
 			if (response == JOptionPane.YES_OPTION)
 				retVal = writeFile(xml, filename);
@@ -262,8 +256,8 @@ public class FileDaoQuery implements IDaoQuery {
 			return -20;
 
 		// test for existing
-		String filename_test = filePrefix + "-" + chart.getChordName() + "-"
-				+ chart.getChordPosition();
+		String filename_test =
+				filePrefix + "-" + chart.getChordName() + "-" + chart.getChordPosition();
 		FilenameFilter select = new FileListFilter(filename_test, fileExtension);
 
 		File[] contents = storeDir.listFiles(select);
