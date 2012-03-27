@@ -18,8 +18,6 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import javax.swing.text.Utilities;
 
-import com.guitariffic.model.enums.EnumTextLineType;
-
 /**
  * This class implements a styled version for the text area panel. Individual lines in the text area panel can be marked with either bold or italic
  * font style to distinguish its function in the application as either a label or chord note.
@@ -224,7 +222,7 @@ public class StyledTextArea extends BaseTextArea
 	}
 
 	@Override
-	public EnumTextLineType getLineType(int lineNumber)
+	public TextLineType getLineType(int lineNumber)
 	{
 		int totLength = textArea.getDocument().getLength();
 		int position = 0, end, start, curLine = 0;
@@ -240,7 +238,7 @@ public class StyledTextArea extends BaseTextArea
 				end = Utilities.getRowEnd(textArea, position);
 				if (end < 0 || curLine > lineNumber)
 					// Couldn't find the line type, so return default
-					return EnumTextLineType.LYRIC;
+					return TextLineType.LYRIC;
 
 				// Continue unless we're at lineNumber
 				if (curLine < lineNumber)
@@ -253,20 +251,20 @@ public class StyledTextArea extends BaseTextArea
 				start = Utilities.getRowStart(textArea, position);
 				current = textArea.getStyledDocument().getCharacterElement(start).getAttributes();
 				if (current == null)
-					return EnumTextLineType.LYRIC;
+					return TextLineType.LYRIC;
 
 				if (current.getAttribute(StyleConstants.Bold).toString() == "true")
-					return EnumTextLineType.LABEL;
+					return TextLineType.LABEL;
 				else if (current.getAttribute(StyleConstants.Italic).toString() == "true")
-					return EnumTextLineType.CHORD;
+					return TextLineType.CHORD;
 				else
-					return EnumTextLineType.LYRIC;
+					return TextLineType.LYRIC;
 			}
 		} catch (BadLocationException e)
 		{
 		}
 
-		return EnumTextLineType.LYRIC;
+		return TextLineType.LYRIC;
 	}
 
 	@Override
