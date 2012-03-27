@@ -4,12 +4,11 @@ import java.util.LinkedList;
 
 import com.guitariffic.model.MusicChart;
 
-
 /**
  * Filter chord chart list by position
  * 
  * @author rdbrmurray
- *
+ * 
  */
 public class PositionFilter extends ListFilter {
 
@@ -33,6 +32,5 @@ public class PositionFilter extends ListFilter {
 		}
 		return filtered;
 	}
-
 
 }

@@ -7,8 +7,9 @@ import com.guitariffic.model.MusicChart;
 /**
  * 
  * Filter chord chart list abstract class
+ * 
  * @author rdbrmurray
- *
+ * 
  */
 public abstract class ListFilter implements IListFilter {
 
@@ -17,6 +18,7 @@ public abstract class ListFilter implements IListFilter {
 
 	/**
 	 * Initialize ListFilter and filter string
+	 * 
 	 * @param filter
 	 * @param filterString
 	 */
@@ -29,18 +31,17 @@ public abstract class ListFilter implements IListFilter {
 	public LinkedList<MusicChart> filterList(LinkedList<MusicChart> list) {
 		if (filter != null) {
 			return filter.filterList(list);
-		}
-		else
+		} else
 			return list;
 	}
-	
+
 	/**
 	 * Filter method
+	 * 
 	 * @param list
 	 * @return
 	 */
-	protected LinkedList<MusicChart> filterComponent(
-			LinkedList<MusicChart> list) {
+	protected LinkedList<MusicChart> filterComponent(LinkedList<MusicChart> list) {
 		if (filter != null) {
 			return filter.filterList(list);
 		} else
