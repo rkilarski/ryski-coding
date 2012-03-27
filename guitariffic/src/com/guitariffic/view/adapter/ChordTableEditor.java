@@ -11,8 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
-import com.guitariffic.model.MusicChart;
 import com.guitariffic.model.GuitarChordChart;
+import com.guitariffic.model.MusicChart;
 import com.guitariffic.view.GuitarChordChartEditor;
 
 /**
@@ -21,8 +21,7 @@ import com.guitariffic.view.GuitarChordChartEditor;
  * @author ryszardkilarski
  * 
  */
-public class ChordTableEditor extends AbstractCellEditor implements TableCellEditor, ActionListener
-{
+public class ChordTableEditor extends AbstractCellEditor implements TableCellEditor, ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	private JButton button;
@@ -30,8 +29,7 @@ public class ChordTableEditor extends AbstractCellEditor implements TableCellEdi
 	private GuitarChordChartEditor chordChartEditor;
 	protected static final String EDIT = "edit";
 
-	public ChordTableEditor(Frame frame)
-	{
+	public ChordTableEditor(Frame frame) {
 		button = new JButton();
 		button.setActionCommand(EDIT);
 		button.addActionListener(this);
@@ -40,30 +38,25 @@ public class ChordTableEditor extends AbstractCellEditor implements TableCellEdi
 	}
 
 	@Override
-	public Object getCellEditorValue()
-	{
+	public Object getCellEditorValue() {
 		return chordChart;
 	}
 
 	@Override
-	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column)
-	{
+	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
 		chordChart = (MusicChart) value;
 		button.setIcon(new ImageIcon(((MusicChart) value).getChordImage()));
 		return button;
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-		if (EDIT.equals(e.getActionCommand()))
-		{
+	public void actionPerformed(ActionEvent e) {
+		if (EDIT.equals(e.getActionCommand())) {
 			// The user has clicked the cell, so bring up the dialog.
 			chordChartEditor.setGuitarChordChart((GuitarChordChart) chordChart);
 			chordChartEditor.setVisible(true);
 			// Make the renderer reappear.
-			if (chordChartEditor.getGuitarChordChart() != null)
-			{
+			if (chordChartEditor.getGuitarChordChart() != null) {
 				chordChart = chordChartEditor.getGuitarChordChart();
 			}
 			fireEditingStopped();
