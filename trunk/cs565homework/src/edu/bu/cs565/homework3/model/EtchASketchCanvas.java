@@ -201,7 +201,7 @@ public class EtchASketchCanvas {
 		Graphics2D graphicItem = canvasImage.createGraphics();
 		graphicItem.setBackground(Color.LIGHT_GRAY);
 		graphicItem.setColor(Color.DARK_GRAY);
-		graphicItem.setStroke(new BasicStroke(3));
+		graphicItem.setStroke(new BasicStroke(2));
 		graphicItem.drawLine((int) from.getX(), (int) from.getY(),
 				(int) to.getX(), (int) to.getY());
 	}
