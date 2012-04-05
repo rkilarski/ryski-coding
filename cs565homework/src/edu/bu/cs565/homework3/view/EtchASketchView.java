@@ -44,12 +44,16 @@ import edu.bu.cs565.homework3.model.EtchASketchCanvas.DrawingDirection;
 
 public class EtchASketchView implements CanvasObserver {
 
+	private JButton btnSave;
 	private JButton btnShake;
-	private final EtchASketchCanvas canvas;
 
+	private final EtchASketchCanvas canvas;
 	private final EtchASketchController controller;
 	private JFrame frame;
 	private JLabel labelCanvas;
+	private JMenuBar menuBar;
+	private JMenu mnfile;
+	private JMenuItem mntmSave;
 	private JButton moveEast;
 	private JButton moveNorth;
 	private JButton moveNortheast;
@@ -58,10 +62,6 @@ public class EtchASketchView implements CanvasObserver {
 	private JButton moveSoutheast;
 	private JButton moveSouthwest;
 	private JButton moveWest;
-	private JMenuBar menuBar;
-	private JMenu mnfile;
-	private JMenuItem mntmSave;
-	private JButton btnSave;
 
 	/**
 	 * Create the application.
@@ -114,7 +114,8 @@ public class EtchASketchView implements CanvasObserver {
 
 		btnShake = new JButton("");
 		btnShake.setToolTipText("Earthquake!");
-		btnShake.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/Desktop-Internet-Explorer-icon.png")));
+		btnShake.setIcon(new ImageIcon(EtchASketchView.class
+				.getResource("/resource/Desktop-Internet-Explorer-icon.png")));
 		btnShake.setOpaque(false);
 		GridBagConstraints gbc_btnShake = new GridBagConstraints();
 		gbc_btnShake.insets = new Insets(0, 0, 5, 5);
@@ -125,7 +126,8 @@ public class EtchASketchView implements CanvasObserver {
 
 		moveNorthwest = new JButton("");
 		moveNorthwest.setToolTipText("Move Diagonally Up & Left");
-		moveNorthwest.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/arrow-top-left-icon.png")));
+		moveNorthwest.setIcon(new ImageIcon(EtchASketchView.class
+				.getResource("/resource/arrow-top-left-icon.png")));
 		moveNorthwest.setOpaque(false);
 		GridBagConstraints gbc_moveNorthwest = new GridBagConstraints();
 		gbc_moveNorthwest.insets = new Insets(0, 0, 5, 5);
@@ -137,7 +139,8 @@ public class EtchASketchView implements CanvasObserver {
 
 		moveNorth = new JButton("");
 		moveNorth.setToolTipText("Move Up");
-		moveNorth.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/Extras-Up-icon.png")));
+		moveNorth.setIcon(new ImageIcon(EtchASketchView.class
+				.getResource("/resource/Extras-Up-icon.png")));
 		moveNorth.setOpaque(false);
 		GridBagConstraints gbc_moveNorth = new GridBagConstraints();
 		gbc_moveNorth.insets = new Insets(0, 0, 5, 5);
@@ -148,7 +151,8 @@ public class EtchASketchView implements CanvasObserver {
 
 		moveNortheast = new JButton("");
 		moveNortheast.setToolTipText("Move Diagonally Up & Right");
-		moveNortheast.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/arrow-top-right-icon.png")));
+		moveNortheast.setIcon(new ImageIcon(EtchASketchView.class
+				.getResource("/resource/arrow-top-right-icon.png")));
 		moveNortheast.setOpaque(false);
 		GridBagConstraints gbc_moveNortheast = new GridBagConstraints();
 		gbc_moveNortheast.insets = new Insets(0, 0, 5, 5);
@@ -160,7 +164,8 @@ public class EtchASketchView implements CanvasObserver {
 
 		moveSouthwest = new JButton("");
 		moveSouthwest.setToolTipText("Move Diagonally Down & Left");
-		moveSouthwest.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/arrow-bottom-left-icon.png")));
+		moveSouthwest.setIcon(new ImageIcon(EtchASketchView.class
+				.getResource("/resource/arrow-bottom-left-icon.png")));
 		moveSouthwest.setOpaque(false);
 		GridBagConstraints gbc_moveSouthwest = new GridBagConstraints();
 		gbc_moveSouthwest.insets = new Insets(0, 0, 0, 5);
@@ -172,7 +177,8 @@ public class EtchASketchView implements CanvasObserver {
 
 		moveSouth = new JButton("");
 		moveSouth.setToolTipText("Move Down");
-		moveSouth.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/Extras-Down-icon.png")));
+		moveSouth.setIcon(new ImageIcon(EtchASketchView.class
+				.getResource("/resource/Extras-Down-icon.png")));
 		moveSouth.setOpaque(false);
 		GridBagConstraints gbc_moveSouth = new GridBagConstraints();
 		gbc_moveSouth.insets = new Insets(0, 0, 0, 5);
@@ -183,7 +189,8 @@ public class EtchASketchView implements CanvasObserver {
 
 		moveEast = new JButton("");
 		moveEast.setToolTipText("Move Right");
-		moveEast.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/Extras-Forward-icon.png")));
+		moveEast.setIcon(new ImageIcon(EtchASketchView.class
+				.getResource("/resource/Extras-Forward-icon.png")));
 		moveEast.setOpaque(false);
 		GridBagConstraints gbc_moveEast = new GridBagConstraints();
 		gbc_moveEast.insets = new Insets(0, 0, 5, 5);
@@ -194,7 +201,8 @@ public class EtchASketchView implements CanvasObserver {
 
 		moveWest = new JButton("");
 		moveWest.setToolTipText("Move Left");
-		moveWest.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/Extras-Backward-icon.png")));
+		moveWest.setIcon(new ImageIcon(EtchASketchView.class
+				.getResource("/resource/Extras-Backward-icon.png")));
 		moveWest.setOpaque(false);
 		GridBagConstraints gbc_moveWest = new GridBagConstraints();
 		gbc_moveWest.insets = new Insets(0, 0, 5, 5);
@@ -206,7 +214,8 @@ public class EtchASketchView implements CanvasObserver {
 
 		moveSoutheast = new JButton("");
 		moveSoutheast.setToolTipText("Move Diagonally Down & Right");
-		moveSoutheast.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/arrow-bottom-right-icon.png")));
+		moveSoutheast.setIcon(new ImageIcon(EtchASketchView.class
+				.getResource("/resource/arrow-bottom-right-icon.png")));
 		moveSoutheast.setOpaque(false);
 		GridBagConstraints gbc_moveSoutheast = new GridBagConstraints();
 		gbc_moveSoutheast.insets = new Insets(0, 0, 0, 5);
@@ -244,7 +253,8 @@ public class EtchASketchView implements CanvasObserver {
 		panel.add(topRed, BorderLayout.NORTH);
 
 		JPanel panelMain = new JPanel();
-		panelMain.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panelMain.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null,
+				null, null));
 		panel.add(panelMain, BorderLayout.CENTER);
 		panelMain.setLayout(new BorderLayout(0, 0));
 
@@ -253,12 +263,13 @@ public class EtchASketchView implements CanvasObserver {
 		labelCanvas.setOpaque(true);
 		labelCanvas.setBackground(Color.LIGHT_GRAY);
 		panelMain.add(labelCanvas, BorderLayout.CENTER);
-		
+
 		btnSave = new JButton("");
-		btnSave.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/Drives-Floppy-icon.png")));
+		btnSave.setIcon(new ImageIcon(EtchASketchView.class
+				.getResource("/resource/Drives-Floppy-icon.png")));
 		btnSave.setToolTipText("Save Your Artwork!");
 		btnSave.addActionListener(new SaveActionListener());
-		
+
 		panelMain.add(btnSave, BorderLayout.SOUTH);
 
 		menuBar = new JMenuBar();
@@ -466,6 +477,19 @@ public class EtchASketchView implements CanvasObserver {
 	}
 
 	/**
+	 * Action listener for the Save menu item.
+	 * 
+	 */
+	private class SaveActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			controller.saveImage(canvas.getCanvasImage());
+		}
+
+	}
+
+	/**
 	 * Action listener for the Shake button.
 	 * 
 	 */
@@ -477,18 +501,5 @@ public class EtchASketchView implements CanvasObserver {
 			canvas.shakeCanvas();
 
 		}
-	}
-
-	/**
-	 * Action listener for the Save menu item.
-	 * 
-	 */
-	private class SaveActionListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			controller.saveImage(canvas.getCanvasImage());
-		}
-
 	}
 }
