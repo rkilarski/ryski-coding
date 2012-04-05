@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -20,7 +21,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -53,6 +58,10 @@ public class EtchASketchView implements CanvasObserver {
 	private JButton moveSoutheast;
 	private JButton moveSouthwest;
 	private JButton moveWest;
+	private JMenuBar menuBar;
+	private JMenu mnfile;
+	private JMenuItem mntmSave;
+	private JButton btnSave;
 
 	/**
 	 * Create the application.
@@ -88,8 +97,6 @@ public class EtchASketchView implements CanvasObserver {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		// frame.addKeyListener(new ArrowKeyAdapter());
-		frame.addComponentListener(new FormResizeListener());
 		frame.setBounds(100, 100, 701, 577);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -105,75 +112,104 @@ public class EtchASketchView implements CanvasObserver {
 		gbl_toolbarPanel.rowWeights = new double[] { 0.0, 0.0, 0.0 };
 		toolbarPanel.setLayout(gbl_toolbarPanel);
 
-		btnShake = new JButton("Shake!");
+		btnShake = new JButton("");
+		btnShake.setToolTipText("Earthquake!");
+		btnShake.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/Desktop-Internet-Explorer-icon.png")));
+		btnShake.setOpaque(false);
 		GridBagConstraints gbc_btnShake = new GridBagConstraints();
-		gbc_btnShake.insets = new Insets(0, 0, 0, 0);
+		gbc_btnShake.insets = new Insets(0, 0, 5, 5);
 		gbc_btnShake.gridx = 1;
 		gbc_btnShake.gridy = 1;
 		toolbarPanel.add(btnShake, gbc_btnShake);
 		btnShake.addActionListener(new ShakeActionListener());
 
-		moveNorthwest = new JButton("Move Up & Left");
+		moveNorthwest = new JButton("");
+		moveNorthwest.setToolTipText("Move Diagonally Up & Left");
+		moveNorthwest.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/arrow-top-left-icon.png")));
+		moveNorthwest.setOpaque(false);
 		GridBagConstraints gbc_moveNorthwest = new GridBagConstraints();
+		gbc_moveNorthwest.insets = new Insets(0, 0, 5, 5);
 		gbc_moveNorthwest.gridx = 0;
 		gbc_moveNorthwest.gridy = 0;
 		toolbarPanel.add(moveNorthwest, gbc_moveNorthwest);
 		moveNorthwest
 				.addMouseListener(new MoveMouseAdapter(DrawingDirection.NW));
 
-		moveNorth = new JButton("Move Up");
+		moveNorth = new JButton("");
+		moveNorth.setToolTipText("Move Up");
+		moveNorth.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/Extras-Up-icon.png")));
+		moveNorth.setOpaque(false);
 		GridBagConstraints gbc_moveNorth = new GridBagConstraints();
-		gbc_moveNorth.insets = new Insets(0, 0, 0, 0);
+		gbc_moveNorth.insets = new Insets(0, 0, 5, 5);
 		gbc_moveNorth.gridx = 1;
 		gbc_moveNorth.gridy = 0;
 		toolbarPanel.add(moveNorth, gbc_moveNorth);
 		moveNorth.addMouseListener(new MoveMouseAdapter(DrawingDirection.N));
 
-		moveNortheast = new JButton("Move Up & Right");
+		moveNortheast = new JButton("");
+		moveNortheast.setToolTipText("Move Diagonally Up & Right");
+		moveNortheast.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/arrow-top-right-icon.png")));
+		moveNortheast.setOpaque(false);
 		GridBagConstraints gbc_moveNortheast = new GridBagConstraints();
-		gbc_moveNortheast.insets = new Insets(0, 0, 0, 0);
+		gbc_moveNortheast.insets = new Insets(0, 0, 5, 5);
 		gbc_moveNortheast.gridx = 2;
 		gbc_moveNortheast.gridy = 0;
 		toolbarPanel.add(moveNortheast, gbc_moveNortheast);
 		moveNortheast
 				.addMouseListener(new MoveMouseAdapter(DrawingDirection.NE));
 
-		moveSouthwest = new JButton("Move Down & Left");
+		moveSouthwest = new JButton("");
+		moveSouthwest.setToolTipText("Move Diagonally Down & Left");
+		moveSouthwest.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/arrow-bottom-left-icon.png")));
+		moveSouthwest.setOpaque(false);
 		GridBagConstraints gbc_moveSouthwest = new GridBagConstraints();
-		gbc_moveSouthwest.insets = new Insets(0, 0, 0, 0);
+		gbc_moveSouthwest.insets = new Insets(0, 0, 0, 5);
 		gbc_moveSouthwest.gridx = 0;
 		gbc_moveSouthwest.gridy = 2;
 		toolbarPanel.add(moveSouthwest, gbc_moveSouthwest);
 		moveSouthwest
 				.addMouseListener(new MoveMouseAdapter(DrawingDirection.SW));
 
-		moveSouth = new JButton("Move Down");
+		moveSouth = new JButton("");
+		moveSouth.setToolTipText("Move Down");
+		moveSouth.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/Extras-Down-icon.png")));
+		moveSouth.setOpaque(false);
 		GridBagConstraints gbc_moveSouth = new GridBagConstraints();
-		gbc_moveSouth.insets = new Insets(0, 0, 0, 0);
+		gbc_moveSouth.insets = new Insets(0, 0, 0, 5);
 		gbc_moveSouth.gridx = 1;
 		gbc_moveSouth.gridy = 2;
 		toolbarPanel.add(moveSouth, gbc_moveSouth);
 		moveSouth.addMouseListener(new MoveMouseAdapter(DrawingDirection.S));
 
-		moveEast = new JButton("Move Right");
+		moveEast = new JButton("");
+		moveEast.setToolTipText("Move Right");
+		moveEast.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/Extras-Forward-icon.png")));
+		moveEast.setOpaque(false);
 		GridBagConstraints gbc_moveEast = new GridBagConstraints();
-		gbc_moveEast.insets = new Insets(0, 0, 0, 0);
+		gbc_moveEast.insets = new Insets(0, 0, 5, 5);
 		gbc_moveEast.gridx = 2;
 		gbc_moveEast.gridy = 1;
 		toolbarPanel.add(moveEast, gbc_moveEast);
 		moveEast.addMouseListener(new MoveMouseAdapter(DrawingDirection.E));
 
-		moveWest = new JButton("Move Left");
+		moveWest = new JButton("");
+		moveWest.setToolTipText("Move Left");
+		moveWest.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/Extras-Backward-icon.png")));
+		moveWest.setOpaque(false);
 		GridBagConstraints gbc_moveWest = new GridBagConstraints();
-		gbc_moveWest.insets = new Insets(0, 0, 0, 0);
+		gbc_moveWest.insets = new Insets(0, 0, 5, 5);
 		gbc_moveWest.anchor = GridBagConstraints.NORTH;
 		gbc_moveWest.gridx = 0;
 		gbc_moveWest.gridy = 1;
 		toolbarPanel.add(moveWest, gbc_moveWest);
 		moveWest.addMouseListener(new MoveMouseAdapter(DrawingDirection.W));
 
-		moveSoutheast = new JButton("Move Down & Right");
+		moveSoutheast = new JButton("");
+		moveSoutheast.setToolTipText("Move Diagonally Down & Right");
+		moveSoutheast.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/arrow-bottom-right-icon.png")));
+		moveSoutheast.setOpaque(false);
 		GridBagConstraints gbc_moveSoutheast = new GridBagConstraints();
+		gbc_moveSoutheast.insets = new Insets(0, 0, 0, 5);
 		gbc_moveSoutheast.gridx = 2;
 		gbc_moveSoutheast.gridy = 2;
 		toolbarPanel.add(moveSoutheast, gbc_moveSoutheast);
@@ -199,7 +235,7 @@ public class EtchASketchView implements CanvasObserver {
 		bottomRed.setBackground(Color.RED);
 		panel.add(bottomRed, BorderLayout.SOUTH);
 
-		JLabel topRed = new JLabel("Etch - A - Sketch!");
+		JLabel topRed = new JLabel("Etch - a - Sketch - a - Romney");
 		topRed.setFont(new Font("Lucida Grande", Font.ITALIC, 20));
 		topRed.setHorizontalAlignment(SwingConstants.CENTER);
 		topRed.setForeground(new Color(255, 255, 255));
@@ -208,15 +244,36 @@ public class EtchASketchView implements CanvasObserver {
 		panel.add(topRed, BorderLayout.NORTH);
 
 		JPanel panelMain = new JPanel();
-		panelMain.setBorder(new BevelBorder(BevelBorder.RAISED, null, null,
-				null, null));
+		panelMain.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panel.add(panelMain, BorderLayout.CENTER);
 		panelMain.setLayout(new BorderLayout(0, 0));
 
 		labelCanvas = new JLabel("");
+		labelCanvas.addComponentListener(new ComponentResizeListener());
 		labelCanvas.setOpaque(true);
 		labelCanvas.setBackground(Color.LIGHT_GRAY);
 		panelMain.add(labelCanvas, BorderLayout.CENTER);
+		
+		btnSave = new JButton("");
+		btnSave.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/Drives-Floppy-icon.png")));
+		btnSave.setToolTipText("Save Your Artwork!");
+		btnSave.addActionListener(new SaveActionListener());
+		
+		panelMain.add(btnSave, BorderLayout.SOUTH);
+
+		menuBar = new JMenuBar();
+		frame.setJMenuBar(menuBar);
+
+		mnfile = new JMenu("File");
+		mnfile.setMnemonic('F');
+		menuBar.add(mnfile);
+
+		mntmSave = new JMenuItem("Save");
+		mntmSave.addActionListener(new SaveActionListener());
+		mntmSave.setMnemonic('S');
+		mntmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
+				InputEvent.CTRL_MASK));
+		mnfile.add(mntmSave);
 	}
 
 	/**
@@ -251,11 +308,12 @@ public class EtchASketchView implements CanvasObserver {
 
 			if (keyEvent.getID() == KeyEvent.KEY_PRESSED) {
 				// Save the current key pressed in whichever slot is open.
-				if (currentKey1 > 0) {
+				if ((currentKey1 > 0) && (currentKey1 != keyEvent.getKeyCode())) {
 					currentKey2 = keyEvent.getKeyCode();
 				} else {
 					currentKey1 = keyEvent.getKeyCode();
 				}
+				// Get the direction to draw in based on the two buffered items.
 				DrawingDirection direction = getKeyDirection(currentKey1,
 						currentKey2);
 
@@ -337,7 +395,7 @@ public class EtchASketchView implements CanvasObserver {
 	/**
 	 * Class to take care of resizing the canvas.
 	 */
-	private class FormResizeListener extends ComponentAdapter {
+	private class ComponentResizeListener extends ComponentAdapter {
 		@Override
 		public void componentResized(ComponentEvent arg0) {
 			canvas.resizeCanvas(labelCanvas.getWidth(), labelCanvas.getHeight());
@@ -419,5 +477,18 @@ public class EtchASketchView implements CanvasObserver {
 			canvas.shakeCanvas();
 
 		}
+	}
+
+	/**
+	 * Action listener for the Save menu item.
+	 * 
+	 */
+	private class SaveActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			controller.saveImage(canvas.getCanvasImage());
+		}
+
 	}
 }

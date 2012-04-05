@@ -36,6 +36,11 @@ import edu.bu.cs565.homework3.view.EtchASketchView;
  * 5) For ease of drawing, I have implemented the use of the arrow keys as well.
  * This includes using arrow keys in combination--so you can use UP/LEFT,
  * UP/RIGHT, DOWN/LEFT, and DOWN/RIGHT to draw diagonally.
+ * 
+ * 6) Note that you can save your image as a jpeg, for your pleasure.
+ * 
+ * Images are from: http://www.iconarchive.com/show/ginux-icons-by-kyo-tux.html
+ * 
  */
 public class EtchASketchMain {
 	/**
