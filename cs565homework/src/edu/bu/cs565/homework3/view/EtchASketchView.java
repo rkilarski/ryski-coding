@@ -14,6 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.BevelBorder;
 
 import edu.bu.cs565.homework3.controller.EtchASketchController;
@@ -43,6 +45,7 @@ public class EtchASketchView implements CanvasObserver {
 	 * Create the application.
 	 */
 	public EtchASketchView() {
+		setUIManager();
 		canvas = new EtchASketchCanvas();
 		controller = new EtchASketchController();
 		canvas.registerObserver(this);
@@ -262,5 +265,33 @@ public class EtchASketchView implements CanvasObserver {
 
 		}
 	}
+	/**
+	 * Make sure application adopts the native look-and-feel of the system.
+	 */
+	private void setUIManager()
+	{
+		try
+		{
 
+			// take the menu bar off the jframe
+			System.setProperty("apple.laf.useScreenMenuBar", "true");
+
+			// set the name of the application menu item
+			// System.setProperty("com.apple.mrj.application.apple.menu.about.name", "AppName");
+
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e1)
+		{
+			e1.printStackTrace();
+		} catch (InstantiationException e1)
+		{
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1)
+		{
+			e1.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e1)
+		{
+			e1.printStackTrace();
+		}
+	}
 }
