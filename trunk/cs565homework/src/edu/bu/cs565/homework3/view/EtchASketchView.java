@@ -8,7 +8,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,6 +24,7 @@ import javax.swing.border.BevelBorder;
 import edu.bu.cs565.homework3.controller.EtchASketchController;
 import edu.bu.cs565.homework3.model.CanvasObserver;
 import edu.bu.cs565.homework3.model.EtchASketchCanvas;
+import edu.bu.cs565.homework3.model.EtchASketchCanvas.DrawingDirection;
 
 /**
  * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #2.
@@ -37,8 +41,12 @@ public class EtchASketchView implements CanvasObserver {
 	private JButton moveEast;
 	private JButton moveNorth;
 	private JButton moveSouth;
+	private JButton moveSoutheast;
+	private JButton moveSouthwest;
+	private JButton moveNortheast;
+	private JButton moveNorthwest;
 	private JButton btnShake;
-
+	private JLabel labelCanvas;
 	private JFrame frame;
 
 	/**
@@ -61,10 +69,13 @@ public class EtchASketchView implements CanvasObserver {
 		frame.setVisible(setVisible);
 	}
 
+	/**
+	 * Method that is called by the canvas model in the CanvasObserver
+	 * subscription service.
+	 */
 	@Override
 	public void updateImage() {
-		// TODO Auto-generated method stub
-
+		labelCanvas.setIcon(new ImageIcon(canvas.getCanvasImage()));
 	}
 
 	/**
@@ -84,15 +95,20 @@ public class EtchASketchView implements CanvasObserver {
 		toolbarPanel.setLayout(gbl_toolbarPanel);
 
 		btnShake = new JButton("Shake!");
+		GridBagConstraints gbc_btnShake = new GridBagConstraints();
+		gbc_btnShake.insets = new Insets(0, 0, 0, 0);
+		gbc_btnShake.gridx = 1;
+		gbc_btnShake.gridy = 1;
+		toolbarPanel.add(btnShake, gbc_btnShake);
 		btnShake.addActionListener(new ShakeActionListener());
 
-		JButton moveNorthwest = new JButton("Move Up & Left");
-		moveNorthwest.addActionListener(new MoveNorthwestActionListener());
-
+		moveNorthwest = new JButton("Move Up & Left");
 		GridBagConstraints gbc_moveNorthwest = new GridBagConstraints();
 		gbc_moveNorthwest.gridx = 0;
 		gbc_moveNorthwest.gridy = 0;
 		toolbarPanel.add(moveNorthwest, gbc_moveNorthwest);
+		moveNorthwest
+				.addMouseListener(new MoveMouseAdapter(DrawingDirection.NW));
 
 		moveNorth = new JButton("Move Up");
 		GridBagConstraints gbc_moveNorth = new GridBagConstraints();
@@ -100,23 +116,25 @@ public class EtchASketchView implements CanvasObserver {
 		gbc_moveNorth.gridx = 1;
 		gbc_moveNorth.gridy = 0;
 		toolbarPanel.add(moveNorth, gbc_moveNorth);
-		moveNorth.addActionListener(new MoveNorthActionListener());
+		moveNorth.addMouseListener(new MoveMouseAdapter(DrawingDirection.N));
 
-		JButton moveNortheast = new JButton("Move Up & Right");
-		moveNortheast.addActionListener(new MoveNortheastActionListener());
+		moveNortheast = new JButton("Move Up & Right");
 		GridBagConstraints gbc_moveNortheast = new GridBagConstraints();
 		gbc_moveNortheast.insets = new Insets(0, 0, 0, 0);
 		gbc_moveNortheast.gridx = 2;
 		gbc_moveNortheast.gridy = 0;
 		toolbarPanel.add(moveNortheast, gbc_moveNortheast);
+		moveNortheast
+				.addMouseListener(new MoveMouseAdapter(DrawingDirection.NE));
 
-		JButton moveSouthwest = new JButton("Move Down & Left");
-		moveSouthwest.addActionListener(new MoveSouthwestActionListener());
+		moveSouthwest = new JButton("Move Down & Left");
 		GridBagConstraints gbc_moveSouthwest = new GridBagConstraints();
 		gbc_moveSouthwest.insets = new Insets(0, 0, 0, 0);
 		gbc_moveSouthwest.gridx = 0;
 		gbc_moveSouthwest.gridy = 2;
 		toolbarPanel.add(moveSouthwest, gbc_moveSouthwest);
+		moveSouthwest
+				.addMouseListener(new MoveMouseAdapter(DrawingDirection.SW));
 
 		moveSouth = new JButton("Move Down");
 		GridBagConstraints gbc_moveSouth = new GridBagConstraints();
@@ -124,12 +142,7 @@ public class EtchASketchView implements CanvasObserver {
 		gbc_moveSouth.gridx = 1;
 		gbc_moveSouth.gridy = 2;
 		toolbarPanel.add(moveSouth, gbc_moveSouth);
-		moveSouth.addActionListener(new MoveSouthActionListener());
-		GridBagConstraints gbc_btnShake = new GridBagConstraints();
-		gbc_btnShake.insets = new Insets(0, 0, 0, 0);
-		gbc_btnShake.gridx = 1;
-		gbc_btnShake.gridy = 1;
-		toolbarPanel.add(btnShake, gbc_btnShake);
+		moveSouth.addMouseListener(new MoveMouseAdapter(DrawingDirection.S));
 
 		moveEast = new JButton("Move Right");
 		GridBagConstraints gbc_moveEast = new GridBagConstraints();
@@ -137,7 +150,8 @@ public class EtchASketchView implements CanvasObserver {
 		gbc_moveEast.gridx = 2;
 		gbc_moveEast.gridy = 1;
 		toolbarPanel.add(moveEast, gbc_moveEast);
-		moveEast.addActionListener(new MoveEastActionListener());
+		moveEast.addMouseListener(new MoveMouseAdapter(DrawingDirection.E));
+
 		moveWest = new JButton("Move Left");
 		GridBagConstraints gbc_moveWest = new GridBagConstraints();
 		gbc_moveWest.insets = new Insets(0, 0, 0, 0);
@@ -145,14 +159,15 @@ public class EtchASketchView implements CanvasObserver {
 		gbc_moveWest.gridx = 0;
 		gbc_moveWest.gridy = 1;
 		toolbarPanel.add(moveWest, gbc_moveWest);
+		moveWest.addMouseListener(new MoveMouseAdapter(DrawingDirection.W));
 
-		JButton moveSoutheast = new JButton("Move Down & Right");
-		moveSoutheast.addActionListener(new MoveSoutheastActionListener());
+		moveSoutheast = new JButton("Move Down & Right");
 		GridBagConstraints gbc_moveSoutheast = new GridBagConstraints();
 		gbc_moveSoutheast.gridx = 2;
 		gbc_moveSoutheast.gridy = 2;
 		toolbarPanel.add(moveSoutheast, gbc_moveSoutheast);
-		moveWest.addActionListener(new MoveWestActionListener());
+		moveSoutheast
+				.addMouseListener(new MoveMouseAdapter(DrawingDirection.SE));
 
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -187,73 +202,10 @@ public class EtchASketchView implements CanvasObserver {
 		panel.add(panelMain, BorderLayout.CENTER);
 		panelMain.setLayout(new BorderLayout(0, 0));
 
-		JLabel labelCanvas = new JLabel("");
+		labelCanvas = new JLabel("");
+		labelCanvas.setOpaque(true);
 		labelCanvas.setBackground(Color.LIGHT_GRAY);
 		panelMain.add(labelCanvas, BorderLayout.CENTER);
-	}
-
-	private class MoveSouthActionListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			canvas.moveSouth();
-		}
-	}
-
-	private class MoveWestActionListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			canvas.moveWest();
-		}
-	}
-
-	private class MoveEastActionListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			canvas.moveEast();
-		}
-	}
-
-	private class MoveNorthActionListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			canvas.moveNorth();
-		}
-	}
-
-	private class MoveNortheastActionListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			canvas.moveNorthEast();
-		}
-	}
-
-	private class MoveNorthwestActionListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			canvas.moveNorthWest();
-		}
-	}
-
-	private class MoveSoutheastActionListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			canvas.moveSouthEast();
-		}
-	}
-
-	private class MoveSouthwestActionListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			canvas.moveSouthWest();
-		}
 	}
 
 	private class ShakeActionListener implements ActionListener {
@@ -265,32 +217,91 @@ public class EtchASketchView implements CanvasObserver {
 
 		}
 	}
+
+	/**
+	 * Mouse adapter class to control mouse clicks on each of the buttons.
+	 * 
+	 */
+	private class MoveMouseAdapter extends MouseAdapter {
+
+		private DrawingDirection direction;
+		boolean mousePressed = false;
+
+		/**
+		 * Constructor.
+		 * 
+		 * @param direction
+		 */
+		public MoveMouseAdapter(DrawingDirection direction) {
+			this.direction = direction;
+		}
+
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			// Spin off thread to draw on the canvas.
+			DrawItemRunnable runnable = new DrawItemRunnable(direction);
+			Thread threadItem = new Thread(runnable);
+			threadItem.start();
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			mousePressed = false;
+		}
+
+		/**
+		 * Runnable item to update the canvas.
+		 * 
+		 */
+		private class DrawItemRunnable implements Runnable {
+
+			private DrawingDirection direction;
+
+			/**
+			 * Constructor to set up direction for this runnable item.
+			 */
+			public DrawItemRunnable(DrawingDirection direction) {
+				this.direction = direction;
+			}
+
+			@Override
+			public void run() {
+				mousePressed = true;
+				while (mousePressed) {
+					if (mousePressed) {
+						canvas.move(direction);
+					}
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+
 	/**
 	 * Make sure application adopts the native look-and-feel of the system.
 	 */
-	private void setUIManager()
-	{
-		try
-		{
+	private void setUIManager() {
+		try {
 
 			// take the menu bar off the jframe
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 
 			// set the name of the application menu item
-			// System.setProperty("com.apple.mrj.application.apple.menu.about.name", "AppName");
+			// System.setProperty("com.apple.mrj.application.apple.menu.about.name",
+			// "AppName");
 
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException e1)
-		{
+		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
-		} catch (InstantiationException e1)
-		{
+		} catch (InstantiationException e1) {
 			e1.printStackTrace();
-		} catch (IllegalAccessException e1)
-		{
+		} catch (IllegalAccessException e1) {
 			e1.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e1)
-		{
+		} catch (UnsupportedLookAndFeelException e1) {
 			e1.printStackTrace();
 		}
 	}

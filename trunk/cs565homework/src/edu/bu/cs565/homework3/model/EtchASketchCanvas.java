@@ -1,6 +1,10 @@
 package edu.bu.cs565.homework3.model;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
@@ -11,15 +15,36 @@ import java.util.ArrayList;
 
 public class EtchASketchCanvas {
 
-	Point lastPoint;
-	ArrayList<CanvasObserver> observers = new ArrayList<CanvasObserver>();
-	ArrayList<Point> points;
+	private static int IMAGE_HEIGHT = 600;
+	private static int IMAGE_WIDTH = 800;
+
+	private BufferedImage canvasImage;
+	private Point lastPoint;
+	private ArrayList<CanvasObserver> observers = new ArrayList<CanvasObserver>();
+	private ArrayList<Point> points;
+
+	/**
+	 * Private enum for drawing direction.
+	 * 
+	 */
+	public enum DrawingDirection {
+		N, S, E, W, NW, SW, NE, SE;
+	}
 
 	/**
 	 * Constructor that creates the initial point value.
 	 */
 	public EtchASketchCanvas() {
 		initializeCanvas();
+	}
+
+	/**
+	 * Return the canvas image to anyone who needs it.
+	 * 
+	 * @return A BufferedImage
+	 */
+	public BufferedImage getCanvasImage() {
+		return canvasImage;
 	}
 
 	/**
@@ -30,68 +55,51 @@ public class EtchASketchCanvas {
 	 * @param y
 	 *            - Move vertically.
 	 */
-	public void moveDrawer(int x, int y) {
+	private void moveDrawer(int x, int y) {
 		Point newPoint = (Point) lastPoint.clone();
 		newPoint.translate(x, y);
+
+		paintImage(lastPoint, newPoint);
+
 		points.add(newPoint);
 		lastPoint = newPoint;
 		updateObservers();
 	}
 
 	/**
-	 * Move right by one pixel in the canvas.
+	 * Move in a particular direction by one pixel on the canvas.
+	 * 
+	 * @param direction
 	 */
-	public void moveEast() {
-		moveDrawer(1, 0);
-	}
-
-	/**
-	 * Move up by one pixel in the canvas.
-	 */
-	public void moveNorth() {
-		moveDrawer(0, -1);
-	}
-
-	/**
-	 * Move up and right by one pixel in the canvas.
-	 */
-	public void moveNorthEast() {
-		moveDrawer(1, -1);
-	}
-
-	/**
-	 * Move up and left by one pixel in the canvas.
-	 */
-	public void moveNorthWest() {
-		moveDrawer(-1, -1);
-	}
-
-	/**
-	 * Move down by one pixel in the canvas.
-	 */
-	public void moveSouth() {
-		moveDrawer(0, 1);
-	}
-
-	/**
-	 * Move down and right by one pixel in the canvas.
-	 */
-	public void moveSouthEast() {
-		moveDrawer(1, 1);
-	}
-
-	/**
-	 * Move down and left by one pixel in the canvas.
-	 */
-	public void moveSouthWest() {
-		moveDrawer(-1, 1);
-	}
-
-	/**
-	 * Move left by one pixel in the canvas.
-	 */
-	public void moveWest() {
-		moveDrawer(-1, 0);
+	public synchronized void move(DrawingDirection direction) {
+		switch (direction) {
+		case N:
+			moveDrawer(0, -1);
+			return;
+		case S:
+			moveDrawer(0, 1);
+			return;
+		case E:
+			moveDrawer(1, 0);
+			return;
+		case W:
+			moveDrawer(-1, 0);
+			return;
+		case NW:
+			moveDrawer(-1, -1);
+			return;
+		case SW:
+			moveDrawer(-1, 1);
+			return;
+		case NE:
+			moveDrawer(1, -1);
+			return;
+		case SE:
+			moveDrawer(1, 1);
+			return;
+		default:
+			;
+		}
 	}
 
 	/**
@@ -117,9 +125,24 @@ public class EtchASketchCanvas {
 	 * Initialize the canvas to the zero location.
 	 */
 	private void initializeCanvas() {
+		canvasImage = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT,
+				BufferedImage.TYPE_INT_RGB);
+		Graphics2D graphicItem = canvasImage.createGraphics();
+		graphicItem.setBackground(Color.LIGHT_GRAY);
+		graphicItem.clearRect(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
+
 		points = new ArrayList<Point>();
 		lastPoint = new Point(0, 0);
 		points.add(lastPoint);
+	}
+
+	private void paintImage(Point from, Point to) {
+		Graphics2D graphicItem = canvasImage.createGraphics();
+		graphicItem.setBackground(Color.LIGHT_GRAY);
+		graphicItem.setColor(Color.DARK_GRAY);
+		graphicItem.setStroke(new BasicStroke(3));
+		graphicItem.drawLine((int) from.getX(), (int) from.getY(),
+				(int) to.getX(), (int) to.getY());
 	}
 
 	/**
