@@ -22,6 +22,7 @@ public class EtchASketchCanvas {
 	public enum DrawingDirection {
 		E, N, NE, NW, S, SE, SW, W;
 	}
+
 	private BufferedImage canvasImage;
 	private int imageHeight;
 	private int imageWidth;
@@ -102,6 +103,7 @@ public class EtchASketchCanvas {
 		this.imageWidth = imageWidth;
 		this.imageHeight = imageHeight;
 		replayPoints();
+		updateObservers();
 	}
 
 	/**
@@ -164,6 +166,27 @@ public class EtchASketchCanvas {
 	 *            - Move vertically.
 	 */
 	private void moveDrawer(int x, int y) {
+
+		// If moving left and no more room, don't move.
+		if ((x == -1) && (lastPoint.getX() == 0)) {
+			return;
+		}
+
+		// If moving right and no more room, don't move.
+		if ((y == -1) && (lastPoint.getY() == 0)) {
+			return;
+		}
+
+		// If moving right and no more room, don't move.
+		if ((x == 1) && (lastPoint.getX() == imageWidth)) {
+			return;
+		}
+
+		// If moving down and no more room, don't move.
+		if ((y == 1) && (lastPoint.getY() == imageHeight)) {
+			return;
+		}
+
 		Point newPoint = (Point) lastPoint.clone();
 		newPoint.translate(x, y);
 

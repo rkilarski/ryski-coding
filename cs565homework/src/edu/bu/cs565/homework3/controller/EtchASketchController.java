@@ -1,8 +1,17 @@
 package edu.bu.cs565.homework3.controller;
 
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
 
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #2.
@@ -56,5 +65,81 @@ public class EtchASketchController {
 				}
 			}
 		}
+	}
+
+	public void saveImage(BufferedImage image) {
+		File file = promptForFile(true, false);
+		if (file != null) {
+			try {
+				writeImageToFile(image, file);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * Outputs the image to a jpeg file.
+	 * 
+	 * @param fileName
+	 * @throws IOException
+	 */
+	private void writeImageToFile(BufferedImage image, File file)
+			throws IOException {
+		// write to file
+		Iterator<ImageWriter> writers = ImageIO
+				.getImageWritersByFormatName("jpeg");
+		ImageWriter writer = (ImageWriter) writers.next();
+		if (writer == null) {
+			throw new RuntimeException("JPeg not supported.");
+		}
+
+		ImageOutputStream out = ImageIO.createImageOutputStream(file);
+		writer.setOutput(out);
+		writer.write(image);
+		out.close(); // close flushes buffer
+	}
+
+	/**
+	 * Prompt the user for a file.
+	 * 
+	 * @param showOpenDialog
+	 * @return
+	 */
+	private File promptForFile(boolean showOpenDialog, boolean saveAsFlag) {
+		int returnValue;
+		File file = null;
+		final JFileChooser fileChooser = new JFileChooser();
+
+		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(
+				"JPeg File", "jpg"));
+
+		returnValue = fileChooser.showSaveDialog(null);
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+
+			String[] extensions = ((FileNameExtensionFilter) fileChooser
+					.getFileFilter()).getExtensions();
+
+			if (!this.getFileExtension(fileChooser.getSelectedFile().getName())
+					.equals(extensions[0])) {
+				// Add extension if it didn't exist already
+				file = new File(fileChooser.getSelectedFile().getAbsoluteFile()
+						+ "." + extensions[0]);
+			} else {
+				file = fileChooser.getSelectedFile();
+			}
+		}
+		return file;
+	}
+
+	/**
+	 * Return the file extension for a given filename.
+	 * 
+	 * @param fileName
+	 * @return
+	 */
+	private String getFileExtension(String fileName) {
+		int mid = fileName.lastIndexOf(".");
+		return fileName.substring(mid + 1, fileName.length());
 	}
 }
