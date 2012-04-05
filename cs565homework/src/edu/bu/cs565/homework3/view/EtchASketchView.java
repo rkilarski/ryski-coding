@@ -6,10 +6,13 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -36,20 +39,20 @@ import edu.bu.cs565.homework3.model.EtchASketchCanvas.DrawingDirection;
 
 public class EtchASketchView implements CanvasObserver {
 
+	private JButton btnShake;
 	private final EtchASketchCanvas canvas;
-	private final EtchASketchController controller;
 
-	private JButton moveWest;
+	private final EtchASketchController controller;
+	private JFrame frame;
+	private JLabel labelCanvas;
 	private JButton moveEast;
 	private JButton moveNorth;
+	private JButton moveNortheast;
+	private JButton moveNorthwest;
 	private JButton moveSouth;
 	private JButton moveSoutheast;
 	private JButton moveSouthwest;
-	private JButton moveNortheast;
-	private JButton moveNorthwest;
-	private JButton btnShake;
-	private JLabel labelCanvas;
-	private JFrame frame;
+	private JButton moveWest;
 
 	/**
 	 * Create the application.
@@ -85,9 +88,14 @@ public class EtchASketchView implements CanvasObserver {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		// frame.addKeyListener(new ArrowKeyAdapter());
 		frame.addComponentListener(new FormResizeListener());
 		frame.setBounds(100, 100, 701, 577);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		KeyboardFocusManager manager = KeyboardFocusManager
+				.getCurrentKeyboardFocusManager();
+		manager.addKeyEventDispatcher(new ArrowKeyDispatcher());
 
 		JPanel toolbarPanel = new JPanel();
 		toolbarPanel.setBackground(Color.RED);
@@ -211,13 +219,128 @@ public class EtchASketchView implements CanvasObserver {
 		panelMain.add(labelCanvas, BorderLayout.CENTER);
 	}
 
-	private class ShakeActionListener implements ActionListener {
+	/**
+	 * Make sure application adopts the native look-and-feel of the system.
+	 */
+	private void setUIManager() {
+		try {
+			System.setProperty("apple.laf.useScreenMenuBar", "true");
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (InstantiationException e1) {
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			e1.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	/**
+	 * Class to handle key press events. This is implemented at the
+	 * KeyEventDispatcher level because the arrow keys should be active from the
+	 * ENTIRE form rather than from certain elements on the form.
+	 */
+	private class ArrowKeyDispatcher implements KeyEventDispatcher {
+		private int currentKey1 = 0;
+		private int currentKey2 = 0;
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			controller.shakeWindow(frame);
-			canvas.shakeCanvas();
+		public boolean dispatchKeyEvent(KeyEvent keyEvent) {
 
+			if (keyEvent.getID() == KeyEvent.KEY_PRESSED) {
+				// Save the current key pressed in whichever slot is open.
+				if (currentKey1 > 0) {
+					currentKey2 = keyEvent.getKeyCode();
+				} else {
+					currentKey1 = keyEvent.getKeyCode();
+				}
+				DrawingDirection direction = getKeyDirection(currentKey1,
+						currentKey2);
+
+				// Move in the direction specified.
+				if (direction != null) {
+					canvas.move(direction);
+				}
+			}
+
+			if (keyEvent.getID() == KeyEvent.KEY_RELEASED) {
+				// Remove the current key pressed from whichever slot it has it.
+				if (currentKey1 == keyEvent.getKeyCode()) {
+					currentKey1 = 0;
+				}
+				if (currentKey2 == keyEvent.getKeyCode()) {
+					currentKey2 = 0;
+				}
+			}
+			return false;
+		}
+
+		/**
+		 * Given a key, return the right direction to draw in.
+		 * 
+		 * @param keyCode
+		 * @return
+		 */
+		private DrawingDirection getDirection(int keyCode) {
+			switch (keyCode) {
+			case KeyEvent.VK_UP:
+				return DrawingDirection.N;
+			case KeyEvent.VK_DOWN:
+				return DrawingDirection.S;
+			case KeyEvent.VK_LEFT:
+				return DrawingDirection.W;
+			case KeyEvent.VK_RIGHT:
+				return DrawingDirection.E;
+			default:
+				return null;
+			}
+		}
+
+		/**
+		 * Given up to two key directions (either can be 0), return the
+		 * direction to draw in.
+		 * 
+		 * @param keyCode1
+		 * @param keyCode2
+		 * @return
+		 */
+		private DrawingDirection getKeyDirection(int keyCode1, int keyCode2) {
+			if ((keyCode1 == 0) & (keyCode2 == 0)) {
+				return null;
+			}
+			DrawingDirection direction1 = getDirection(keyCode1);
+			DrawingDirection direction2 = getDirection(keyCode2);
+
+			if (direction1 == null) {
+				return direction2;
+			} else if (direction2 == null) {
+				return direction1;
+			} else if (((direction1 == DrawingDirection.N) && (direction2 == DrawingDirection.W))
+					|| ((direction2 == DrawingDirection.N) && (direction1 == DrawingDirection.W))) {
+				return DrawingDirection.NW;
+			} else if (((direction1 == DrawingDirection.N) && (direction2 == DrawingDirection.E))
+					|| ((direction2 == DrawingDirection.N) && (direction1 == DrawingDirection.E))) {
+				return DrawingDirection.NE;
+			} else if (((direction1 == DrawingDirection.S) && (direction2 == DrawingDirection.W))
+					|| ((direction2 == DrawingDirection.S) && (direction1 == DrawingDirection.W))) {
+				return DrawingDirection.SW;
+			} else if (((direction1 == DrawingDirection.S) && (direction2 == DrawingDirection.E))
+					|| ((direction2 == DrawingDirection.S) && (direction1 == DrawingDirection.E))) {
+				return DrawingDirection.SE;
+			}
+			return null;
+		}
+	}
+
+	/**
+	 * Class to take care of resizing the canvas.
+	 */
+	private class FormResizeListener extends ComponentAdapter {
+		@Override
+		public void componentResized(ComponentEvent arg0) {
+			canvas.resizeCanvas(labelCanvas.getWidth(), labelCanvas.getHeight());
 		}
 	}
 
@@ -285,40 +408,16 @@ public class EtchASketchView implements CanvasObserver {
 	}
 
 	/**
-	 * Make sure application adopts the native look-and-feel of the system.
-	 */
-	private void setUIManager() {
-		try {
-
-			// take the menu bar off the jframe
-			System.setProperty("apple.laf.useScreenMenuBar", "true");
-
-			// set the name of the application menu item
-			// System.setProperty("com.apple.mrj.application.apple.menu.about.name",
-			// "AppName");
-
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (InstantiationException e1) {
-			e1.printStackTrace();
-		} catch (IllegalAccessException e1) {
-			e1.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e1) {
-			e1.printStackTrace();
-		}
-	}
-
-	/**
-	 * Class to take care of resizing the canvas.
-	 * 
-	 * @author 212039795
+	 * Action listener for the Shake button.
 	 * 
 	 */
-	private class FormResizeListener extends ComponentAdapter {
+	private class ShakeActionListener implements ActionListener {
+
 		@Override
-		public void componentResized(ComponentEvent arg0) {
-			canvas.resizeCanvas(labelCanvas.getWidth(), labelCanvas.getHeight());
+		public void actionPerformed(ActionEvent e) {
+			controller.shakeWindow(frame);
+			canvas.shakeCanvas();
+
 		}
 	}
 }

@@ -32,6 +32,10 @@ import edu.bu.cs565.homework3.view.EtchASketchView;
  * 
  * 4) Like a real etch-a-sketch, if you click on Shake, the application starts
  * drawing from your previous last location.
+ * 
+ * 5) For ease of drawing, I have implemented the use of the arrow keys as well.
+ * This includes using arrow keys in combination--so you can use UP/LEFT,
+ * UP/RIGHT, DOWN/LEFT, and DOWN/RIGHT to draw diagonally.
  */
 public class EtchASketchMain {
 	/**
