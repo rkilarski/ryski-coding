@@ -15,20 +15,12 @@ import java.util.ArrayList;
 
 public class EtchASketchCanvas {
 
-	/**
-	 * Private enum for drawing direction.
-	 * 
-	 */
-	public enum DrawingDirection {
-		E, N, NE, NW, S, SE, SW, W;
-	}
+	private transient BufferedImage canvasImage;
 
-	private BufferedImage canvasImage;
 	private int imageHeight;
 	private int imageWidth;
 	private Point lastPoint;
 	private ArrayList<CanvasObserver> observers = new ArrayList<CanvasObserver>();
-
 	private ArrayList<Point> points;
 
 	/**
@@ -227,5 +219,13 @@ public class EtchASketchCanvas {
 		for (CanvasObserver observer : observers) {
 			observer.updateImage();
 		}
+	}
+
+	/**
+	 * Private enum for drawing direction.
+	 * 
+	 */
+	public enum DrawingDirection {
+		E, N, NE, NW, S, SE, SW, W;
 	}
 }

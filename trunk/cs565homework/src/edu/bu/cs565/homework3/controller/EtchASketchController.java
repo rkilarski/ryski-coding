@@ -20,6 +20,17 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class EtchASketchController {
 
+	public void saveImage(BufferedImage image) {
+		File file = promptForFile(true, false);
+		if (file != null) {
+			try {
+				writeImageToFile(image, file);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	/**
 	 * This method shakes a given frame horizontally.
 	 * 
@@ -67,37 +78,15 @@ public class EtchASketchController {
 		}
 	}
 
-	public void saveImage(BufferedImage image) {
-		File file = promptForFile(true, false);
-		if (file != null) {
-			try {
-				writeImageToFile(image, file);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 	/**
-	 * Outputs the image to a jpeg file.
+	 * Return the file extension for a given filename.
 	 * 
 	 * @param fileName
-	 * @throws IOException
+	 * @return
 	 */
-	private void writeImageToFile(BufferedImage image, File file)
-			throws IOException {
-		// write to file
-		Iterator<ImageWriter> writers = ImageIO
-				.getImageWritersByFormatName("jpeg");
-		ImageWriter writer = (ImageWriter) writers.next();
-		if (writer == null) {
-			throw new RuntimeException("JPeg not supported.");
-		}
-
-		ImageOutputStream out = ImageIO.createImageOutputStream(file);
-		writer.setOutput(out);
-		writer.write(image);
-		out.close(); // close flushes buffer
+	private String getFileExtension(String fileName) {
+		int mid = fileName.lastIndexOf(".");
+		return fileName.substring(mid + 1, fileName.length());
 	}
 
 	/**
@@ -133,13 +122,24 @@ public class EtchASketchController {
 	}
 
 	/**
-	 * Return the file extension for a given filename.
+	 * Outputs the image to a jpeg file.
 	 * 
 	 * @param fileName
-	 * @return
+	 * @throws IOException
 	 */
-	private String getFileExtension(String fileName) {
-		int mid = fileName.lastIndexOf(".");
-		return fileName.substring(mid + 1, fileName.length());
+	private void writeImageToFile(BufferedImage image, File file)
+			throws IOException {
+		// write to file
+		Iterator<ImageWriter> writers = ImageIO
+				.getImageWritersByFormatName("jpeg");
+		ImageWriter writer = (ImageWriter) writers.next();
+		if (writer == null) {
+			throw new RuntimeException("JPeg not supported.");
+		}
+
+		ImageOutputStream out = ImageIO.createImageOutputStream(file);
+		writer.setOutput(out);
+		writer.write(image);
+		out.close(); // close flushes buffer
 	}
 }
