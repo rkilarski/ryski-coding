@@ -84,6 +84,8 @@ public class EtchASketchView implements CanvasObserver {
 		btnShake.addActionListener(new ShakeActionListener());
 
 		JButton moveNorthwest = new JButton("Move Up & Left");
+		moveNorthwest.addActionListener(new MoveNorthwestActionListener());
+
 		GridBagConstraints gbc_moveNorthwest = new GridBagConstraints();
 		gbc_moveNorthwest.gridx = 0;
 		gbc_moveNorthwest.gridy = 0;
@@ -95,9 +97,10 @@ public class EtchASketchView implements CanvasObserver {
 		gbc_moveNorth.gridx = 1;
 		gbc_moveNorth.gridy = 0;
 		toolbarPanel.add(moveNorth, gbc_moveNorth);
-		moveNorth.addActionListener(new MoveUpActionListener());
+		moveNorth.addActionListener(new MoveNorthActionListener());
 
 		JButton moveNortheast = new JButton("Move Up & Right");
+		moveNortheast.addActionListener(new MoveNortheastActionListener());
 		GridBagConstraints gbc_moveNortheast = new GridBagConstraints();
 		gbc_moveNortheast.insets = new Insets(0, 0, 0, 0);
 		gbc_moveNortheast.gridx = 2;
@@ -105,6 +108,7 @@ public class EtchASketchView implements CanvasObserver {
 		toolbarPanel.add(moveNortheast, gbc_moveNortheast);
 
 		JButton moveSouthwest = new JButton("Move Down & Left");
+		moveSouthwest.addActionListener(new MoveSouthwestActionListener());
 		GridBagConstraints gbc_moveSouthwest = new GridBagConstraints();
 		gbc_moveSouthwest.insets = new Insets(0, 0, 0, 0);
 		gbc_moveSouthwest.gridx = 0;
@@ -117,7 +121,7 @@ public class EtchASketchView implements CanvasObserver {
 		gbc_moveSouth.gridx = 1;
 		gbc_moveSouth.gridy = 2;
 		toolbarPanel.add(moveSouth, gbc_moveSouth);
-		moveSouth.addActionListener(new MoveDownActionListener());
+		moveSouth.addActionListener(new MoveSouthActionListener());
 		GridBagConstraints gbc_btnShake = new GridBagConstraints();
 		gbc_btnShake.insets = new Insets(0, 0, 0, 0);
 		gbc_btnShake.gridx = 1;
@@ -130,7 +134,7 @@ public class EtchASketchView implements CanvasObserver {
 		gbc_moveEast.gridx = 2;
 		gbc_moveEast.gridy = 1;
 		toolbarPanel.add(moveEast, gbc_moveEast);
-		moveEast.addActionListener(new MoveRightActionListener());
+		moveEast.addActionListener(new MoveEastActionListener());
 		moveWest = new JButton("Move Left");
 		GridBagConstraints gbc_moveWest = new GridBagConstraints();
 		gbc_moveWest.insets = new Insets(0, 0, 0, 0);
@@ -140,11 +144,12 @@ public class EtchASketchView implements CanvasObserver {
 		toolbarPanel.add(moveWest, gbc_moveWest);
 
 		JButton moveSoutheast = new JButton("Move Down & Right");
+		moveSoutheast.addActionListener(new MoveSoutheastActionListener());
 		GridBagConstraints gbc_moveSoutheast = new GridBagConstraints();
 		gbc_moveSoutheast.gridx = 2;
 		gbc_moveSoutheast.gridy = 2;
 		toolbarPanel.add(moveSoutheast, gbc_moveSoutheast);
-		moveWest.addActionListener(new MoveLeftActionListener());
+		moveWest.addActionListener(new MoveWestActionListener());
 
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -184,35 +189,67 @@ public class EtchASketchView implements CanvasObserver {
 		panelMain.add(labelCanvas, BorderLayout.CENTER);
 	}
 
-	private class MoveDownActionListener implements ActionListener {
+	private class MoveSouthActionListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			canvas.moveDown();
+			canvas.moveSouth();
 		}
 	}
 
-	private class MoveLeftActionListener implements ActionListener {
+	private class MoveWestActionListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			canvas.moveLeft();
+			canvas.moveWest();
 		}
 	}
 
-	private class MoveRightActionListener implements ActionListener {
+	private class MoveEastActionListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			canvas.moveRight();
+			canvas.moveEast();
 		}
 	}
 
-	private class MoveUpActionListener implements ActionListener {
+	private class MoveNorthActionListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			canvas.moveUp();
+			canvas.moveNorth();
+		}
+	}
+
+	private class MoveNortheastActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			canvas.moveNorthEast();
+		}
+	}
+
+	private class MoveNorthwestActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			canvas.moveNorthWest();
+		}
+	}
+
+	private class MoveSoutheastActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			canvas.moveSouthEast();
+		}
+	}
+
+	private class MoveSouthwestActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			canvas.moveSouthWest();
 		}
 	}
 
