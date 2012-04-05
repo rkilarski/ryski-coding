@@ -8,6 +8,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -54,7 +56,7 @@ public class EtchASketchView implements CanvasObserver {
 	 */
 	public EtchASketchView() {
 		setUIManager();
-		canvas = new EtchASketchCanvas();
+		canvas = new EtchASketchCanvas(600, 800);
 		controller = new EtchASketchController();
 		canvas.registerObserver(this);
 		initialize();
@@ -83,6 +85,7 @@ public class EtchASketchView implements CanvasObserver {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.addComponentListener(new FormResizeListener());
 		frame.setBounds(100, 100, 701, 577);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -213,7 +216,7 @@ public class EtchASketchView implements CanvasObserver {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			controller.shakeWindow(frame);
-			canvas.resetCanvas();
+			canvas.shakeCanvas();
 
 		}
 	}
@@ -303,6 +306,19 @@ public class EtchASketchView implements CanvasObserver {
 			e1.printStackTrace();
 		} catch (UnsupportedLookAndFeelException e1) {
 			e1.printStackTrace();
+		}
+	}
+
+	/**
+	 * Class to take care of resizing the canvas.
+	 * 
+	 * @author 212039795
+	 * 
+	 */
+	private class FormResizeListener extends ComponentAdapter {
+		@Override
+		public void componentResized(ComponentEvent arg0) {
+			canvas.resizeCanvas(labelCanvas.getWidth(), labelCanvas.getHeight());
 		}
 	}
 }

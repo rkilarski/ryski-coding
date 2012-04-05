@@ -29,6 +29,9 @@ import edu.bu.cs565.homework3.view.EtchASketchView;
  * 
  * 3) To allow the user to click-and-hold a mouse button down to draw, threads
  * are implemented in order to paint the canvas.
+ * 
+ * 4) Like a real etch-a-sketch, if you click on Shake, the application starts
+ * drawing from your previous last location.
  */
 public class EtchASketchMain {
 	/**
