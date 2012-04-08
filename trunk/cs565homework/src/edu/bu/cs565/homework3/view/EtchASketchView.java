@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -18,7 +19,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -59,6 +64,9 @@ public class EtchASketchView implements CanvasObserver {
 	private JPanel northPanel;
 	private JPanel centerPanel;
 	private JPanel southPanel;
+	private JMenuBar menuBar;
+	private JMenu mnfile;
+	private JMenuItem mntmSaveAsJPeg;
 
 	/**
 	 * Create the application.
@@ -259,6 +267,21 @@ public class EtchASketchView implements CanvasObserver {
 		rightKnob.setIcon(new ImageIcon(EtchASketchView.class
 				.getResource("/resource/knoba.png")));
 		bottomPanel.add(rightKnob, BorderLayout.EAST);
+
+		menuBar = new JMenuBar();
+		frame.setJMenuBar(menuBar);
+
+		mnfile = new JMenu("File");
+		mnfile.setMnemonic('F');
+		menuBar.add(mnfile);
+
+		mntmSaveAsJPeg = new JMenuItem("Save As JPeg");
+		mntmSaveAsJPeg.addActionListener(new SaveActionListener());
+		mntmSaveAsJPeg.setMnemonic('S');
+		mntmSaveAsJPeg.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
+				InputEvent.CTRL_MASK));
+		mnfile.add(mntmSaveAsJPeg);
+
 	}
 
 	/**
