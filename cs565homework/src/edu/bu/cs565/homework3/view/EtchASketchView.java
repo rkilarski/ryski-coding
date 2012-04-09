@@ -46,12 +46,28 @@ import edu.bu.cs565.homework3.model.EtchASketchCanvas.DrawingDirection;
 
 public class EtchASketchView implements CanvasObserver {
 
-	private JButton btnShake;
-	private EtchASketchCanvas canvas;
+	private JPanel ApplicationPanel;
+	private JPanel bottomPanel;
 
+	private JButton btnClose;
+	private JButton btnOpen;
+	private JButton btnSave;
+	private JButton btnShake;
+	private JPanel buttonPanel;
+	private EtchASketchCanvas canvas;
+	private JPanel centerPanel;
 	private final EtchASketchController controller;
+	private File file = null;
 	private JFrame frame;
+	private Component horizontalGlue;
 	private JLabel labelCanvas;
+	private JLabel leftKnob;
+	private JMenuBar menuBar;
+	private JMenu mnfile;
+	private JMenuItem mntmClose;
+	private JMenuItem mntmOpen;
+	private JMenuItem mntmSave;
+	private JMenuItem mntmSaveAs;
 	private JButton moveEast;
 	private JButton moveNorth;
 	private JButton moveNortheast;
@@ -60,26 +76,10 @@ public class EtchASketchView implements CanvasObserver {
 	private JButton moveSoutheast;
 	private JButton moveSouthwest;
 	private JButton moveWest;
-	private JButton btnSave;
-	private JLabel leftKnob;
-	private JPanel bottomPanel;
-	private JLabel rightKnob;
-	private JPanel buttonPanel;
 	private JPanel northPanel;
-	private JPanel centerPanel;
+	private JLabel rightKnob;
 	private JPanel southPanel;
-	private JMenuBar menuBar;
-	private JMenu mnfile;
-	private JMenuItem mntmSaveAs;
-	private JMenuItem mntmOpen;
-	private JMenuItem mntmSave;
-	private File file = null;
-	private JPanel ApplicationPanel;
 	private JToolBar toolBar;
-	private JButton btnOpen;
-	private JMenuItem mntmClose;
-	private JButton btnClose;
-	private Component horizontalGlue;
 
 	/**
 	 * Create the application.
@@ -451,75 +451,24 @@ public class EtchASketchView implements CanvasObserver {
 	}
 
 	/**
+	 * Handle the Close functionality.
+	 * 
+	 */
+	private class CloseActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.exit(0);
+		}
+	}
+
+	/**
 	 * Take care of resizing the canvas.
 	 */
 	private class ComponentResizeListener extends ComponentAdapter {
 		@Override
 		public void componentResized(ComponentEvent arg0) {
 			canvas.resizeCanvas(labelCanvas.getWidth(), labelCanvas.getHeight());
-		}
-	}
-
-	/**
-	 * Control mouse clicks on each of the buttons.
-	 * 
-	 */
-	private class MoveMouseAdapter extends MouseAdapter {
-
-		private DrawingDirection direction;
-		boolean mousePressed = false;
-
-		/**
-		 * Constructor.
-		 * 
-		 * @param direction
-		 */
-		public MoveMouseAdapter(DrawingDirection direction) {
-			this.direction = direction;
-		}
-
-		@Override
-		public void mousePressed(MouseEvent arg0) {
-			// Spin off thread to draw on the canvas.
-			DrawItemRunnable runnable = new DrawItemRunnable(direction);
-			Thread threadItem = new Thread(runnable);
-			threadItem.start();
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent arg0) {
-			mousePressed = false;
-		}
-
-		/**
-		 * Runnable item to update the canvas.
-		 * 
-		 */
-		private class DrawItemRunnable implements Runnable {
-
-			private DrawingDirection direction;
-
-			/**
-			 * Constructor to set up direction for this runnable item.
-			 */
-			public DrawItemRunnable(DrawingDirection direction) {
-				this.direction = direction;
-			}
-
-			@Override
-			public void run() {
-				mousePressed = true;
-				while (mousePressed) {
-					if (mousePressed) {
-						canvas.move(direction);
-					}
-					try {
-						Thread.sleep(100);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
 		}
 	}
 
@@ -597,16 +546,94 @@ public class EtchASketchView implements CanvasObserver {
 	}
 
 	/**
-	 * Handle the Shake button.
+	 * Control mouse clicks on each of the buttons.
 	 * 
 	 */
-	private class ShakeActionListener implements ActionListener {
+	private class MoveMouseAdapter extends MouseAdapter {
+
+		private DrawingDirection direction;
+		boolean mousePressed = false;
+
+		/**
+		 * Constructor.
+		 * 
+		 * @param direction
+		 */
+		public MoveMouseAdapter(DrawingDirection direction) {
+			this.direction = direction;
+		}
+
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			// Spin off thread to draw on the canvas.
+			DrawItemRunnable runnable = new DrawItemRunnable(direction);
+			Thread threadItem = new Thread(runnable);
+			threadItem.start();
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			mousePressed = false;
+		}
+
+		/**
+		 * Runnable item to update the canvas.
+		 * 
+		 */
+		private class DrawItemRunnable implements Runnable {
+
+			private DrawingDirection direction;
+
+			/**
+			 * Constructor to set up direction for this runnable item.
+			 */
+			public DrawItemRunnable(DrawingDirection direction) {
+				this.direction = direction;
+			}
+
+			@Override
+			public void run() {
+				mousePressed = true;
+				while (mousePressed) {
+					if (mousePressed) {
+						canvas.move(direction);
+					}
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Handle the Open functionality.
+	 * 
+	 */
+	private class OpenActionListener implements ActionListener {
+		CanvasObserver observer;
+
+		public OpenActionListener(CanvasObserver observer) {
+			this.observer = observer;
+		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			controller.shakeWindow(frame);
-			canvas.shakeCanvas();
-			file = null;
+			EtchASketchCanvas newCanvas;
+			File newFile = controller.promptForFile(true);
+			if (newFile != null) {
+				file = newFile;
+				newCanvas = controller.openImage(file);
+				if (newCanvas != null) {
+					canvas = newCanvas;
+					canvas.registerObserver(observer);
+					// Trigger a "resize" to show the opened canvas.
+					canvas.resizeCanvas(labelCanvas.getWidth(),
+							labelCanvas.getHeight());
+				}
+			}
 		}
 	}
 
@@ -647,43 +674,16 @@ public class EtchASketchView implements CanvasObserver {
 	}
 
 	/**
-	 * Handle the Open functionality.
+	 * Handle the Shake button.
 	 * 
 	 */
-	private class OpenActionListener implements ActionListener {
-		CanvasObserver observer;
-
-		public OpenActionListener(CanvasObserver observer) {
-			this.observer = observer;
-		}
+	private class ShakeActionListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			EtchASketchCanvas newCanvas;
-			File newFile = controller.promptForFile(true);
-			if (newFile != null) {
-				file = newFile;
-				newCanvas = controller.openImage(file);
-				if (newCanvas != null) {
-					canvas = newCanvas;
-					canvas.registerObserver(observer);
-					// Trigger a "resize" to show the opened canvas.
-					canvas.resizeCanvas(labelCanvas.getWidth(),
-							labelCanvas.getHeight());
-				}
-			}
-		}
-	}
-
-	/**
-	 * Handle the Close functionality.
-	 * 
-	 */
-	private class CloseActionListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.exit(0);
+			controller.shakeWindow(frame);
+			canvas.shakeCanvas();
+			file = null;
 		}
 	}
 }

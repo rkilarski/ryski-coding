@@ -19,16 +19,10 @@ public class EtchASketchCanvas implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * The array of points is the data in this model and contains all of the
-	 * canvas points.
-	 */
-	private ArrayList<Point> points;
-
 	private transient BufferedImage canvasImage;
+
 	private transient int imageHeight;
 	private transient int imageWidth;
-
 	/**
 	 * The observers array is the list to update when the model has been
 	 * changed.
@@ -36,19 +30,10 @@ public class EtchASketchCanvas implements Serializable {
 	private transient ArrayList<CanvasObserver> observers;
 
 	/**
-	 * @return the points
+	 * The array of points is the data in this model and contains all of the
+	 * canvas points.
 	 */
-	public ArrayList<Point> getPoints() {
-		return points;
-	}
-
-	/**
-	 * @param points
-	 *            the points to set
-	 */
-	public void setPoints(ArrayList<Point> points) {
-		this.points = points;
-	}
+	private ArrayList<Point> points;
 
 	/**
 	 * No argument constructor.
@@ -73,6 +58,13 @@ public class EtchASketchCanvas implements Serializable {
 	 */
 	public BufferedImage getCanvasImage() {
 		return canvasImage;
+	}
+
+	/**
+	 * @return the points
+	 */
+	public ArrayList<Point> getPoints() {
+		return points;
 	}
 
 	/**
@@ -135,6 +127,14 @@ public class EtchASketchCanvas implements Serializable {
 		this.imageHeight = imageHeight;
 		replayPoints();
 		updateObservers();
+	}
+
+	/**
+	 * @param points
+	 *            the points to set
+	 */
+	public void setPoints(ArrayList<Point> points) {
+		this.points = points;
 	}
 
 	/**
