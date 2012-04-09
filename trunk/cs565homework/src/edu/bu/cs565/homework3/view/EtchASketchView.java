@@ -46,10 +46,10 @@ import edu.bu.cs565.homework3.model.EtchASketchCanvas.DrawingDirection;
 
 public class EtchASketchView implements CanvasObserver {
 
-	private JPanel ApplicationPanel;
+	private JPanel applicationPanel;
 	private JPanel bottomPanel;
 
-	private JButton btnClose;
+	private JButton btnExit;
 	private JButton btnOpen;
 	private JButton btnSave;
 	private JButton btnShake;
@@ -64,7 +64,7 @@ public class EtchASketchView implements CanvasObserver {
 	private JLabel leftKnob;
 	private JMenuBar menuBar;
 	private JMenu mnfile;
-	private JMenuItem mntmClose;
+	private JMenuItem mntmExit;
 	private JMenuItem mntmOpen;
 	private JMenuItem mntmSave;
 	private JMenuItem mntmSaveAs;
@@ -80,6 +80,7 @@ public class EtchASketchView implements CanvasObserver {
 	private JLabel rightKnob;
 	private JPanel southPanel;
 	private JToolBar toolBar;
+	private JPanel redPanel;
 
 	/**
 	 * Create the application.
@@ -122,187 +123,192 @@ public class EtchASketchView implements CanvasObserver {
 				.getCurrentKeyboardFocusManager();
 		manager.addKeyEventDispatcher(new ArrowKeyDispatcher());
 
-		ApplicationPanel = new JPanel();
-		frame.getContentPane().add(ApplicationPanel, BorderLayout.CENTER);
-		ApplicationPanel.setLayout(new BorderLayout(0, 0));
-
-		JPanel sketchPanel = new JPanel();
-		ApplicationPanel.add(sketchPanel, BorderLayout.CENTER);
-		sketchPanel.setLayout(new BorderLayout(0, 0));
-
-		JLabel leftRed = new JLabel("          ");
-		leftRed.setOpaque(true);
-		leftRed.setBackground(Color.RED);
-		sketchPanel.add(leftRed, BorderLayout.WEST);
-
-		JLabel rightRed = new JLabel("          ");
-		rightRed.setOpaque(true);
-		rightRed.setBackground(Color.RED);
-		sketchPanel.add(rightRed, BorderLayout.EAST);
-
-		JLabel bottomRed = new JLabel("          ");
-		bottomRed.setOpaque(true);
-		bottomRed.setBackground(Color.RED);
-		sketchPanel.add(bottomRed, BorderLayout.SOUTH);
-
-		JLabel topRed = new JLabel("Etch - a - Sketch - a - Romney");
-		topRed.setFont(new Font("Lucida Grande", Font.ITALIC, 20));
-		topRed.setHorizontalAlignment(SwingConstants.CENTER);
-		topRed.setForeground(new Color(255, 255, 255));
-		topRed.setOpaque(true);
-		topRed.setBackground(Color.RED);
-		sketchPanel.add(topRed, BorderLayout.NORTH);
-
-		JPanel panelMain = new JPanel();
-		panelMain.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null,
-				null, null));
-		sketchPanel.add(panelMain, BorderLayout.CENTER);
-		panelMain.setLayout(new BorderLayout(0, 0));
-
-		labelCanvas = new JLabel("");
-		labelCanvas.addComponentListener(new ComponentResizeListener());
-		labelCanvas.setOpaque(true);
-		labelCanvas.setBackground(Color.LIGHT_GRAY);
-		panelMain.add(labelCanvas, BorderLayout.CENTER);
-
-		bottomPanel = new JPanel();
-		ApplicationPanel.add(bottomPanel, BorderLayout.SOUTH);
-		bottomPanel.setBackground(Color.RED);
-		bottomPanel.setLayout(new BorderLayout(0, 0));
-
-		buttonPanel = new JPanel();
-		buttonPanel.setBackground(Color.RED);
-		bottomPanel.add(buttonPanel, BorderLayout.CENTER);
-		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-
-		northPanel = new JPanel();
-		northPanel.setBackground(Color.RED);
-		buttonPanel.add(northPanel);
-
-		moveNorthwest = new JButton("");
-		northPanel.add(moveNorthwest);
-		moveNorthwest.setToolTipText("Move Diagonally Up & Left");
-		moveNorthwest.setIcon(new ImageIcon(EtchASketchView.class
-				.getResource("/resource/arrow-top-left-icon.png")));
-		moveNorthwest.setOpaque(false);
-
-		moveNorth = new JButton("");
-		northPanel.add(moveNorth);
-		moveNorth.setToolTipText("Move Up");
-		moveNorth.setIcon(new ImageIcon(EtchASketchView.class
-				.getResource("/resource/Extras-Up-icon.png")));
-		moveNorth.setOpaque(false);
-
-		moveNortheast = new JButton("");
-		northPanel.add(moveNortheast);
-		moveNortheast.setToolTipText("Move Diagonally Up & Right");
-		moveNortheast.setIcon(new ImageIcon(EtchASketchView.class
-				.getResource("/resource/arrow-top-right-icon.png")));
-		moveNortheast.setOpaque(false);
-		moveNortheast
-				.addMouseListener(new MoveMouseAdapter(DrawingDirection.NE));
-		moveNorth.addMouseListener(new MoveMouseAdapter(DrawingDirection.N));
-		moveNorthwest
-				.addMouseListener(new MoveMouseAdapter(DrawingDirection.NW));
-
-		centerPanel = new JPanel();
-		centerPanel.setBackground(Color.RED);
-		buttonPanel.add(centerPanel);
-
-		moveWest = new JButton("");
-		centerPanel.add(moveWest);
-		moveWest.setToolTipText("Move Left");
-		moveWest.setIcon(new ImageIcon(EtchASketchView.class
-				.getResource("/resource/Extras-Backward-icon.png")));
-		moveWest.setOpaque(false);
-
-		btnShake = new JButton("");
-		centerPanel.add(btnShake);
-		btnShake.setToolTipText("Earthquake!");
-		btnShake.setIcon(new ImageIcon(EtchASketchView.class
-				.getResource("/resource/Desktop-Internet-Explorer-icon.png")));
-		btnShake.setOpaque(false);
-
-		moveEast = new JButton("");
-		centerPanel.add(moveEast);
-		moveEast.setToolTipText("Move Right");
-		moveEast.setIcon(new ImageIcon(EtchASketchView.class
-				.getResource("/resource/Extras-Forward-icon.png")));
-		moveEast.setOpaque(false);
-
-		southPanel = new JPanel();
-		southPanel.setBackground(Color.RED);
-		buttonPanel.add(southPanel);
-
-		moveSouthwest = new JButton("");
-		southPanel.add(moveSouthwest);
-		moveSouthwest.setToolTipText("Move Diagonally Down & Left");
-		moveSouthwest.setIcon(new ImageIcon(EtchASketchView.class
-				.getResource("/resource/arrow-bottom-left-icon.png")));
-		moveSouthwest.setOpaque(false);
-
-		moveSouth = new JButton("");
-		southPanel.add(moveSouth);
-		moveSouth.setToolTipText("Move Down");
-		moveSouth.setIcon(new ImageIcon(EtchASketchView.class
-				.getResource("/resource/Extras-Down-icon.png")));
-		moveSouth.setOpaque(false);
-
-		moveSoutheast = new JButton("");
-		southPanel.add(moveSoutheast);
-		moveSoutheast.setToolTipText("Move Diagonally Down & Right");
-		moveSoutheast.setIcon(new ImageIcon(EtchASketchView.class
-				.getResource("/resource/arrow-bottom-right-icon.png")));
-		moveSoutheast.setOpaque(false);
-		moveSoutheast
-				.addMouseListener(new MoveMouseAdapter(DrawingDirection.SE));
-		moveSouth.addMouseListener(new MoveMouseAdapter(DrawingDirection.S));
-		moveSouthwest
-				.addMouseListener(new MoveMouseAdapter(DrawingDirection.SW));
-		moveEast.addMouseListener(new MoveMouseAdapter(DrawingDirection.E));
-		btnShake.addActionListener(new ShakeActionListener());
-		moveWest.addMouseListener(new MoveMouseAdapter(DrawingDirection.W));
-
-		leftKnob = new JLabel("");
-		leftKnob.addMouseListener(new KnobMouseAdapter(DrawingDirection.W));
-		leftKnob.setToolTipText("Move the drawer up or down.");
-		bottomPanel.add(leftKnob, BorderLayout.WEST);
-		leftKnob.setIcon(new ImageIcon(EtchASketchView.class
-				.getResource("/resource/leftrightknob.png")));
-
-		rightKnob = new JLabel("");
-		rightKnob.setToolTipText("Move the drawer left or right.");
-		rightKnob.addMouseListener(new KnobMouseAdapter(DrawingDirection.N));
-		rightKnob.setIcon(new ImageIcon(EtchASketchView.class
-				.getResource("/resource/updownknob.png")));
-		bottomPanel.add(rightKnob, BorderLayout.EAST);
-
-		toolBar = new JToolBar();
-		ApplicationPanel.add(toolBar, BorderLayout.NORTH);
-
-		btnOpen = new JButton("Open");
-		btnOpen.setToolTipText("Open a previously saved sketch.");
-		btnOpen.addActionListener(new OpenActionListener(this));
-		btnOpen.setIcon(new ImageIcon(EtchASketchView.class
-				.getResource("/resource/open.png")));
-		toolBar.add(btnOpen);
-
-		btnSave = new JButton("Save As");
-		toolBar.add(btnSave);
-		btnSave.setIcon(new ImageIcon(EtchASketchView.class
-				.getResource("/resource/Drives-Floppy-icon.png")));
-		btnSave.setToolTipText("Save Your Artwork!");
-
-		horizontalGlue = Box.createHorizontalGlue();
-		toolBar.add(horizontalGlue);
-
-		btnClose = new JButton("Close");
-		btnClose.setToolTipText("Close the application.");
-		btnClose.addActionListener(new CloseActionListener());
-		btnClose.setIcon(new ImageIcon(EtchASketchView.class
-				.getResource("/resource/Exit.png")));
-		toolBar.add(btnClose);
-		btnSave.addActionListener(new SaveActionListener());
+		applicationPanel = new JPanel();
+		frame.getContentPane().add(applicationPanel, BorderLayout.CENTER);
+		applicationPanel.setLayout(new BorderLayout(0, 0));
+		
+				toolBar = new JToolBar();
+				applicationPanel.add(toolBar, BorderLayout.NORTH);
+				
+						btnOpen = new JButton("Open");
+						btnOpen.setToolTipText("Open a previously saved sketch.");
+						btnOpen.addActionListener(new OpenActionListener(this));
+						btnOpen.setIcon(new ImageIcon(EtchASketchView.class
+								.getResource("/resource/open.png")));
+						toolBar.add(btnOpen);
+						
+								btnSave = new JButton("Save As");
+								toolBar.add(btnSave);
+								btnSave.setIcon(new ImageIcon(EtchASketchView.class
+										.getResource("/resource/Drives-Floppy-icon.png")));
+								btnSave.setToolTipText("Save Your Artwork!");
+								
+										horizontalGlue = Box.createHorizontalGlue();
+										toolBar.add(horizontalGlue);
+										
+												btnExit = new JButton("Exit");
+												btnExit.setToolTipText("Close the application.");
+												btnExit.addActionListener(new ExitActionListener());
+												btnExit.setIcon(new ImageIcon(EtchASketchView.class
+														.getResource("/resource/Exit.png")));
+												toolBar.add(btnExit);
+												btnSave.addActionListener(new SaveActionListener());
+		
+		redPanel = new JPanel();
+		redPanel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		applicationPanel.add(redPanel, BorderLayout.CENTER);
+				redPanel.setLayout(new BorderLayout(0, 0));
+		
+				JPanel sketchPanel = new JPanel();
+				redPanel.add(sketchPanel, BorderLayout.CENTER);
+				sketchPanel.setLayout(new BorderLayout(0, 0));
+				
+						JLabel leftRed = new JLabel("          ");
+						leftRed.setOpaque(true);
+						leftRed.setBackground(Color.RED);
+						sketchPanel.add(leftRed, BorderLayout.WEST);
+						
+								JLabel rightRed = new JLabel("          ");
+								rightRed.setOpaque(true);
+								rightRed.setBackground(Color.RED);
+								sketchPanel.add(rightRed, BorderLayout.EAST);
+								
+										JLabel bottomRed = new JLabel("          ");
+										bottomRed.setOpaque(true);
+										bottomRed.setBackground(Color.RED);
+										sketchPanel.add(bottomRed, BorderLayout.SOUTH);
+										
+												JLabel topRed = new JLabel("Etch - a - Sketch - a - Romney");
+												topRed.setFont(new Font("Lucida Grande", Font.ITALIC, 20));
+												topRed.setHorizontalAlignment(SwingConstants.CENTER);
+												topRed.setForeground(new Color(255, 255, 255));
+												topRed.setOpaque(true);
+												topRed.setBackground(Color.RED);
+												sketchPanel.add(topRed, BorderLayout.NORTH);
+												
+														JPanel panelMain = new JPanel();
+														panelMain.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null,
+																null, null));
+														sketchPanel.add(panelMain, BorderLayout.CENTER);
+														panelMain.setLayout(new BorderLayout(0, 0));
+														
+																labelCanvas = new JLabel("");
+																labelCanvas.addComponentListener(new ComponentResizeListener());
+																labelCanvas.setOpaque(true);
+																labelCanvas.setBackground(Color.LIGHT_GRAY);
+																panelMain.add(labelCanvas, BorderLayout.CENTER);
+																
+																		bottomPanel = new JPanel();
+																		redPanel.add(bottomPanel, BorderLayout.SOUTH);
+																		bottomPanel.setBackground(Color.RED);
+																		bottomPanel.setLayout(new BorderLayout(0, 0));
+																		
+																				buttonPanel = new JPanel();
+																				buttonPanel.setBackground(Color.RED);
+																				bottomPanel.add(buttonPanel, BorderLayout.CENTER);
+																				buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+																				
+																						northPanel = new JPanel();
+																						northPanel.setBackground(Color.RED);
+																						buttonPanel.add(northPanel);
+																						
+																								moveNorthwest = new JButton("");
+																								northPanel.add(moveNorthwest);
+																								moveNorthwest.setToolTipText("Move Diagonally Up & Left");
+																								moveNorthwest.setIcon(new ImageIcon(EtchASketchView.class
+																										.getResource("/resource/arrow-top-left-icon.png")));
+																								moveNorthwest.setOpaque(false);
+																								
+																										moveNorth = new JButton("");
+																										northPanel.add(moveNorth);
+																										moveNorth.setToolTipText("Move Up");
+																										moveNorth.setIcon(new ImageIcon(EtchASketchView.class
+																												.getResource("/resource/Extras-Up-icon.png")));
+																										moveNorth.setOpaque(false);
+																										
+																												moveNortheast = new JButton("");
+																												northPanel.add(moveNortheast);
+																												moveNortheast.setToolTipText("Move Diagonally Up & Right");
+																												moveNortheast.setIcon(new ImageIcon(EtchASketchView.class
+																														.getResource("/resource/arrow-top-right-icon.png")));
+																												moveNortheast.setOpaque(false);
+																												moveNortheast
+																														.addMouseListener(new MoveMouseAdapter(DrawingDirection.NE));
+																												moveNorth.addMouseListener(new MoveMouseAdapter(DrawingDirection.N));
+																												moveNorthwest
+																														.addMouseListener(new MoveMouseAdapter(DrawingDirection.NW));
+																												
+																														centerPanel = new JPanel();
+																														centerPanel.setBackground(Color.RED);
+																														buttonPanel.add(centerPanel);
+																														
+																																moveWest = new JButton("");
+																																centerPanel.add(moveWest);
+																																moveWest.setToolTipText("Move Left");
+																																moveWest.setIcon(new ImageIcon(EtchASketchView.class
+																																		.getResource("/resource/Extras-Backward-icon.png")));
+																																moveWest.setOpaque(false);
+																																
+																																		btnShake = new JButton("");
+																																		centerPanel.add(btnShake);
+																																		btnShake.setToolTipText("Earthquake!");
+																																		btnShake.setIcon(new ImageIcon(EtchASketchView.class
+																																				.getResource("/resource/Desktop-Internet-Explorer-icon.png")));
+																																		btnShake.setOpaque(false);
+																																		
+																																				moveEast = new JButton("");
+																																				centerPanel.add(moveEast);
+																																				moveEast.setToolTipText("Move Right");
+																																				moveEast.setIcon(new ImageIcon(EtchASketchView.class
+																																						.getResource("/resource/Extras-Forward-icon.png")));
+																																				moveEast.setOpaque(false);
+																																				
+																																						southPanel = new JPanel();
+																																						southPanel.setBackground(Color.RED);
+																																						buttonPanel.add(southPanel);
+																																						
+																																								moveSouthwest = new JButton("");
+																																								southPanel.add(moveSouthwest);
+																																								moveSouthwest.setToolTipText("Move Diagonally Down & Left");
+																																								moveSouthwest.setIcon(new ImageIcon(EtchASketchView.class
+																																										.getResource("/resource/arrow-bottom-left-icon.png")));
+																																								moveSouthwest.setOpaque(false);
+																																								
+																																										moveSouth = new JButton("");
+																																										southPanel.add(moveSouth);
+																																										moveSouth.setToolTipText("Move Down");
+																																										moveSouth.setIcon(new ImageIcon(EtchASketchView.class
+																																												.getResource("/resource/Extras-Down-icon.png")));
+																																										moveSouth.setOpaque(false);
+																																										
+																																												moveSoutheast = new JButton("");
+																																												southPanel.add(moveSoutheast);
+																																												moveSoutheast.setToolTipText("Move Diagonally Down & Right");
+																																												moveSoutheast.setIcon(new ImageIcon(EtchASketchView.class
+																																														.getResource("/resource/arrow-bottom-right-icon.png")));
+																																												moveSoutheast.setOpaque(false);
+																																												moveSoutheast
+																																														.addMouseListener(new MoveMouseAdapter(DrawingDirection.SE));
+																																												moveSouth.addMouseListener(new MoveMouseAdapter(DrawingDirection.S));
+																																												moveSouthwest
+																																														.addMouseListener(new MoveMouseAdapter(DrawingDirection.SW));
+																																												moveEast.addMouseListener(new MoveMouseAdapter(DrawingDirection.E));
+																																												btnShake.addActionListener(new ShakeActionListener());
+																																												moveWest.addMouseListener(new MoveMouseAdapter(DrawingDirection.W));
+																																												
+																																														leftKnob = new JLabel("");
+																																														leftKnob.addMouseListener(new KnobMouseAdapter(DrawingDirection.W));
+																																														leftKnob.setToolTipText("Move the drawer left or right.");
+																																														bottomPanel.add(leftKnob, BorderLayout.WEST);
+																																														leftKnob.setIcon(new ImageIcon(EtchASketchView.class
+																																																.getResource("/resource/leftrightknob.png")));
+																																														
+																																																rightKnob = new JLabel("");
+																																																rightKnob.setToolTipText("Move the drawer up or down.");
+																																																rightKnob.addMouseListener(new KnobMouseAdapter(DrawingDirection.N));
+																																																rightKnob.setIcon(new ImageIcon(EtchASketchView.class
+																																																		.getResource("/resource/updownknob.png")));
+																																																bottomPanel.add(rightKnob, BorderLayout.EAST);
 
 		menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -312,11 +318,14 @@ public class EtchASketchView implements CanvasObserver {
 		menuBar.add(mnfile);
 
 		mntmOpen = new JMenuItem("Open");
+		mntmOpen.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/open.png")));
 		mntmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
 				InputEvent.CTRL_MASK));
 		mnfile.add(mntmOpen);
 		mntmOpen.addActionListener(new OpenActionListener(this));
 
+		mnfile.addSeparator();
+		
 		mntmSave = new JMenuItem("Save");
 		mntmSave.addActionListener(new SaveActionListener());
 		mntmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
@@ -324,13 +333,18 @@ public class EtchASketchView implements CanvasObserver {
 		mnfile.add(mntmSave);
 
 		mntmSaveAs = new JMenuItem("Save As");
+		mntmSaveAs.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/Drives-Floppy-icon.png")));
 		mntmSaveAs.addActionListener(new SaveAsActionListener());
 		mntmSaveAs.setMnemonic('S');
 		mnfile.add(mntmSaveAs);
 
-		mntmClose = new JMenuItem("Close");
-		mntmClose.addActionListener(new CloseActionListener());
-		mnfile.add(mntmClose);
+		mnfile.addSeparator();
+		
+		mntmExit = new JMenuItem("Exit");
+		mntmExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_MASK));
+		mntmExit.setIcon(new ImageIcon(EtchASketchView.class.getResource("/resource/Exit.png")));
+		mntmExit.addActionListener(new ExitActionListener());
+		mnfile.add(mntmExit);
 
 	}
 
@@ -454,7 +468,7 @@ public class EtchASketchView implements CanvasObserver {
 	 * Handle the Close functionality.
 	 * 
 	 */
-	private class CloseActionListener implements ActionListener {
+	private class ExitActionListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
