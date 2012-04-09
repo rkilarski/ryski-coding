@@ -5,7 +5,7 @@ import java.awt.EventQueue;
 import edu.bu.cs565.homework3.view.EtchASketchView;
 
 /**
- * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #2.
+ * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #3.
  * 
  * This is the Etch-A-Sketch class that is the main entry point into the
  * software.
@@ -31,7 +31,7 @@ import edu.bu.cs565.homework3.view.EtchASketchView;
  * are implemented in order to paint the canvas.
  * 
  * 4) Like a real etch-a-sketch, if you click on Shake, the application starts
- * drawing from your previous last location.
+ * drawing from your previous last location. This is on purpose.
  * 
  * 5) For ease of drawing, I have implemented the use of the arrow keys as well.
  * This includes using arrow keys in combination--so you can use UP/LEFT,

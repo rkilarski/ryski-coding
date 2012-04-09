@@ -20,12 +20,21 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import edu.bu.cs565.homework3.model.EtchASketchCanvas;
 
 /**
- * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #2.
+ * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #3.
  * 
- * This is the Etch-A-Sketch controller class.
+ * This is the Etch-A-Sketch controller class. It contains support functionality
+ * for the application view.
  */
 public class EtchASketchController {
 
+	/**
+	 * Save a canvas to a file.
+	 * 
+	 * @param canvas
+	 *            - The canvas to save.
+	 * @param file
+	 *            - The file to save into.
+	 */
 	public void saveImage(EtchASketchCanvas canvas, File file) {
 		try {
 			if (file != null) {
@@ -44,6 +53,8 @@ public class EtchASketchController {
 	/**
 	 * Load an image into a canvas.
 	 * 
+	 * @param file
+	 *            - The file to open.
 	 * @return EtchASketchCanvas - The canvas from a file.
 	 */
 	public EtchASketchCanvas openImage(File file) {
@@ -67,11 +78,11 @@ public class EtchASketchController {
 	 *            - The frame to shake.
 	 */
 	public void shakeWindow(JFrame frame) {
-		// the horizontal displacement
+		// The horizontal displacement
 		int deltaX = 20;
+		// The duration of the shake.
 		final int shakeDuration = 100;
 
-		// make sure the browser support the moveBy method
 		for (int shakeCounter = 0; shakeCounter < shakeDuration; shakeCounter++) {
 			Point p = frame.getLocation();
 
@@ -88,18 +99,19 @@ public class EtchASketchController {
 
 			frame.repaint();
 			try {
+				// Sleep for a little bit to space out the shaking.
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
-				// Just don't sleep on an exception.
+				// If the system can't sleep, just skip it.
 			}
 
-			// speed up or slow down every X cycles
+			// Speed up or slow down every X cycles
 			if ((shakeCounter % 30) == 0) {
-				// speed up halfway
+				// Speed up halfway
 				if (shakeCounter < shakeDuration / 2) {
 					deltaX++;
 				}
-				// slow down after halfway of the duration
+				// Slow down after halfway of the duration
 				else {
 					deltaX--;
 				}
@@ -163,9 +175,12 @@ public class EtchASketchController {
 	}
 
 	/**
-	 * Outputs the image to a jpeg file.
+	 * Outputs the BufferedImage to a jpeg file.
 	 * 
+	 * @param image
+	 *            - The image to save.
 	 * @param fileName
+	 *            - The filename to save to.
 	 * @throws IOException
 	 */
 	private void writeImageToFile(BufferedImage image, File file)
@@ -188,7 +203,9 @@ public class EtchASketchController {
 	 * Method to read a serialized file and re-inflate into an object.
 	 * 
 	 * @param file
-	 * @return Object
+	 *            - The file to open.
+	 * @return Object - The object that is inflated (in this case, it will be an
+	 *         EtchASketchCanvas).
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
@@ -208,7 +225,9 @@ public class EtchASketchController {
 	 * Method to write a serializable object to a file.
 	 * 
 	 * @param o
+	 *            - The object to save.
 	 * @param file
+	 *            - The file to save into.
 	 * @throws IOException
 	 */
 	private void saveFile(Object o, File file) throws IOException {
