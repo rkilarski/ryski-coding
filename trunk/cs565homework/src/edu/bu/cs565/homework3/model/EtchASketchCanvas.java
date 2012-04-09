@@ -9,20 +9,30 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #2.
+ * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #3.
  * 
- * This is the Etch-A-Sketch canvas class.
+ * This is the Etch-A-Sketch canvas class. It implements the model in the MVC
+ * (Model-View-Controller) pattern and contains the data for the canvas. It
+ * implements Serializable in order for us to load and save a canvas.
  */
-
 public class EtchASketchCanvas implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * The array of points is the data in this model and contains all of the
+	 * canvas points.
+	 */
 	private ArrayList<Point> points;
 
 	private transient BufferedImage canvasImage;
 	private transient int imageHeight;
 	private transient int imageWidth;
+
+	/**
+	 * The observers array is the list to update when the model has been
+	 * changed.
+	 */
 	private transient ArrayList<CanvasObserver> observers;
 
 	/**
@@ -216,6 +226,14 @@ public class EtchASketchCanvas implements Serializable {
 		updateObservers();
 	}
 
+	/**
+	 * Draw the points on the actual image.
+	 * 
+	 * @param from
+	 *            - The from point to draw.
+	 * @param to
+	 *            - The to point to draw.
+	 */
 	private void paintImage(Point from, Point to) {
 		Graphics2D graphicItem = canvasImage.createGraphics();
 		graphicItem.setBackground(Color.LIGHT_GRAY);
@@ -226,7 +244,7 @@ public class EtchASketchCanvas implements Serializable {
 	}
 
 	/**
-	 * Recreate the image.
+	 * Recreate the image by replaying all the points.
 	 */
 	private void replayPoints() {
 		initializeImage(imageWidth, imageHeight);

@@ -2,6 +2,7 @@ package edu.bu.cs565.homework3.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
@@ -15,6 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,6 +26,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -36,7 +39,7 @@ import edu.bu.cs565.homework3.model.EtchASketchCanvas;
 import edu.bu.cs565.homework3.model.EtchASketchCanvas.DrawingDirection;
 
 /**
- * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #2.
+ * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #3.
  * 
  * This is the Etch-A-Sketch view class.
  */
@@ -71,6 +74,12 @@ public class EtchASketchView implements CanvasObserver {
 	private JMenuItem mntmOpen;
 	private JMenuItem mntmSave;
 	private File file = null;
+	private JPanel ApplicationPanel;
+	private JToolBar toolBar;
+	private JButton btnOpen;
+	private JMenuItem mntmClose;
+	private JButton btnClose;
+	private Component horizontalGlue;
 
 	/**
 	 * Create the application.
@@ -102,7 +111,7 @@ public class EtchASketchView implements CanvasObserver {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frame and create the entire form.
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -113,8 +122,12 @@ public class EtchASketchView implements CanvasObserver {
 				.getCurrentKeyboardFocusManager();
 		manager.addKeyEventDispatcher(new ArrowKeyDispatcher());
 
+		ApplicationPanel = new JPanel();
+		frame.getContentPane().add(ApplicationPanel, BorderLayout.CENTER);
+		ApplicationPanel.setLayout(new BorderLayout(0, 0));
+
 		JPanel sketchPanel = new JPanel();
-		frame.getContentPane().add(sketchPanel, BorderLayout.CENTER);
+		ApplicationPanel.add(sketchPanel, BorderLayout.CENTER);
 		sketchPanel.setLayout(new BorderLayout(0, 0));
 
 		JLabel leftRed = new JLabel("          ");
@@ -152,17 +165,9 @@ public class EtchASketchView implements CanvasObserver {
 		labelCanvas.setBackground(Color.LIGHT_GRAY);
 		panelMain.add(labelCanvas, BorderLayout.CENTER);
 
-		btnSave = new JButton("");
-		btnSave.setIcon(new ImageIcon(EtchASketchView.class
-				.getResource("/resource/Drives-Floppy-icon.png")));
-		btnSave.setToolTipText("Save Your Artwork!");
-		btnSave.addActionListener(new SaveActionListener());
-
-		panelMain.add(btnSave, BorderLayout.SOUTH);
-
 		bottomPanel = new JPanel();
+		ApplicationPanel.add(bottomPanel, BorderLayout.SOUTH);
 		bottomPanel.setBackground(Color.RED);
-		frame.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
 		bottomPanel.setLayout(new BorderLayout(0, 0));
 
 		buttonPanel = new JPanel();
@@ -263,14 +268,41 @@ public class EtchASketchView implements CanvasObserver {
 		leftKnob.setToolTipText("Move the drawer up or down.");
 		bottomPanel.add(leftKnob, BorderLayout.WEST);
 		leftKnob.setIcon(new ImageIcon(EtchASketchView.class
-				.getResource("/resource/knoba.png")));
+				.getResource("/resource/leftrightknob.png")));
 
 		rightKnob = new JLabel("");
 		rightKnob.setToolTipText("Move the drawer left or right.");
 		rightKnob.addMouseListener(new KnobMouseAdapter(DrawingDirection.N));
 		rightKnob.setIcon(new ImageIcon(EtchASketchView.class
-				.getResource("/resource/knoba.png")));
+				.getResource("/resource/updownknob.png")));
 		bottomPanel.add(rightKnob, BorderLayout.EAST);
+
+		toolBar = new JToolBar();
+		ApplicationPanel.add(toolBar, BorderLayout.NORTH);
+
+		btnOpen = new JButton("Open");
+		btnOpen.setToolTipText("Open a previously saved sketch.");
+		btnOpen.addActionListener(new OpenActionListener(this));
+		btnOpen.setIcon(new ImageIcon(EtchASketchView.class
+				.getResource("/resource/open.png")));
+		toolBar.add(btnOpen);
+
+		btnSave = new JButton("Save As");
+		toolBar.add(btnSave);
+		btnSave.setIcon(new ImageIcon(EtchASketchView.class
+				.getResource("/resource/Drives-Floppy-icon.png")));
+		btnSave.setToolTipText("Save Your Artwork!");
+
+		horizontalGlue = Box.createHorizontalGlue();
+		toolBar.add(horizontalGlue);
+
+		btnClose = new JButton("Close");
+		btnClose.setToolTipText("Close the application.");
+		btnClose.addActionListener(new CloseActionListener());
+		btnClose.setIcon(new ImageIcon(EtchASketchView.class
+				.getResource("/resource/Exit.png")));
+		toolBar.add(btnClose);
+		btnSave.addActionListener(new SaveActionListener());
 
 		menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -296,6 +328,10 @@ public class EtchASketchView implements CanvasObserver {
 		mntmSaveAs.setMnemonic('S');
 		mnfile.add(mntmSaveAs);
 
+		mntmClose = new JMenuItem("Close");
+		mntmClose.addActionListener(new CloseActionListener());
+		mnfile.add(mntmClose);
+
 	}
 
 	/**
@@ -317,9 +353,9 @@ public class EtchASketchView implements CanvasObserver {
 	}
 
 	/**
-	 * Class to handle key press events. This is implemented at the
-	 * KeyEventDispatcher level because the arrow keys should be active from the
-	 * ENTIRE form rather than from certain elements on the form.
+	 * Handle key press events. This is implemented at the KeyEventDispatcher
+	 * level because the arrow keys should be active from the ENTIRE form rather
+	 * than from certain elements on the form.
 	 */
 	private class ArrowKeyDispatcher implements KeyEventDispatcher {
 		private int currentKey1 = 0;
@@ -415,7 +451,7 @@ public class EtchASketchView implements CanvasObserver {
 	}
 
 	/**
-	 * Class to take care of resizing the canvas.
+	 * Take care of resizing the canvas.
 	 */
 	private class ComponentResizeListener extends ComponentAdapter {
 		@Override
@@ -425,7 +461,7 @@ public class EtchASketchView implements CanvasObserver {
 	}
 
 	/**
-	 * Mouse adapter class to control mouse clicks on each of the buttons.
+	 * Control mouse clicks on each of the buttons.
 	 * 
 	 */
 	private class MoveMouseAdapter extends MouseAdapter {
@@ -488,7 +524,7 @@ public class EtchASketchView implements CanvasObserver {
 	}
 
 	/**
-	 * Mouse adapter class to control mouse clicks on each of the buttons.
+	 * Control mouse clicks on each of the knobs.
 	 * 
 	 */
 	private class KnobMouseAdapter extends MouseAdapter {
@@ -561,7 +597,7 @@ public class EtchASketchView implements CanvasObserver {
 	}
 
 	/**
-	 * Action listener for the Shake button.
+	 * Handle the Shake button.
 	 * 
 	 */
 	private class ShakeActionListener implements ActionListener {
@@ -575,7 +611,7 @@ public class EtchASketchView implements CanvasObserver {
 	}
 
 	/**
-	 * Action listener for the Save menu item.
+	 * Handle the Save functionality.
 	 * 
 	 */
 	private class SaveActionListener implements ActionListener {
@@ -593,7 +629,7 @@ public class EtchASketchView implements CanvasObserver {
 	}
 
 	/**
-	 * Action listener for the Save menu item.
+	 * Handle the Save As functionality.
 	 * 
 	 */
 	private class SaveAsActionListener implements ActionListener {
@@ -611,7 +647,7 @@ public class EtchASketchView implements CanvasObserver {
 	}
 
 	/**
-	 * Action listener for the Open menu item.
+	 * Handle the Open functionality.
 	 * 
 	 */
 	private class OpenActionListener implements ActionListener {
@@ -636,6 +672,18 @@ public class EtchASketchView implements CanvasObserver {
 							labelCanvas.getHeight());
 				}
 			}
+		}
+	}
+
+	/**
+	 * Handle the Close functionality.
+	 * 
+	 */
+	private class CloseActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.exit(0);
 		}
 	}
 }
