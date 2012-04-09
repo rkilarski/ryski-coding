@@ -28,6 +28,71 @@ import edu.bu.cs565.homework3.model.EtchASketchCanvas;
 public class EtchASketchController {
 
 	/**
+	 * Load an image into a canvas.
+	 * 
+	 * @param file
+	 *            - The file to open.
+	 * @return EtchASketchCanvas - The canvas from a file.
+	 */
+	public EtchASketchCanvas openImage(File file) {
+		EtchASketchCanvas canvas = null;
+		try {
+			if (file != null) {
+				canvas = (EtchASketchCanvas) openFile(file);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return canvas;
+	}
+
+	/**
+	 * Prompt the user for a file.
+	 * 
+	 * @param showOpenDialog
+	 * @return
+	 */
+	public File promptForFile(boolean showOpenDialog) {
+		int returnValue;
+		File file = null;
+		final JFileChooser fileChooser = new JFileChooser();
+
+		if (showOpenDialog) {
+			fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(
+					"Etch A Sketch File", "etch"));
+
+			returnValue = fileChooser.showOpenDialog(null);
+			if (returnValue == JFileChooser.APPROVE_OPTION) {
+				file = fileChooser.getSelectedFile();
+			}
+		} else {
+			fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(
+					"JPeg File", "jpg"));
+			fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(
+					"Etch A Sketch File", "etch"));
+
+			returnValue = fileChooser.showSaveDialog(null);
+			if (returnValue == JFileChooser.APPROVE_OPTION) {
+
+				String[] extensions = ((FileNameExtensionFilter) fileChooser
+						.getFileFilter()).getExtensions();
+
+				if (!getFileExtension(fileChooser.getSelectedFile().getName())
+						.equals(extensions[0])) {
+					// Add extension if it didn't exist already
+					file = new File(fileChooser.getSelectedFile()
+							.getAbsoluteFile() + "." + extensions[0]);
+				} else {
+					file = fileChooser.getSelectedFile();
+				}
+			}
+		}
+		return file;
+	}
+
+	/**
 	 * Save a canvas to a file.
 	 * 
 	 * @param canvas
@@ -48,27 +113,6 @@ public class EtchASketchController {
 			e.printStackTrace();
 		}
 		return;
-	}
-
-	/**
-	 * Load an image into a canvas.
-	 * 
-	 * @param file
-	 *            - The file to open.
-	 * @return EtchASketchCanvas - The canvas from a file.
-	 */
-	public EtchASketchCanvas openImage(File file) {
-		EtchASketchCanvas canvas = null;
-		try {
-			if (file != null) {
-				canvas = (EtchASketchCanvas) openFile(file);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		return canvas;
 	}
 
 	/**
@@ -131,75 +175,6 @@ public class EtchASketchController {
 	}
 
 	/**
-	 * Prompt the user for a file.
-	 * 
-	 * @param showOpenDialog
-	 * @return
-	 */
-	public File promptForFile(boolean showOpenDialog) {
-		int returnValue;
-		File file = null;
-		final JFileChooser fileChooser = new JFileChooser();
-
-		if (showOpenDialog) {
-			fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(
-					"Etch A Sketch File", "etch"));
-
-			returnValue = fileChooser.showOpenDialog(null);
-			if (returnValue == JFileChooser.APPROVE_OPTION) {
-				file = fileChooser.getSelectedFile();
-			}
-		} else {
-			fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(
-					"JPeg File", "jpg"));
-			fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(
-					"Etch A Sketch File", "etch"));
-
-			returnValue = fileChooser.showSaveDialog(null);
-			if (returnValue == JFileChooser.APPROVE_OPTION) {
-
-				String[] extensions = ((FileNameExtensionFilter) fileChooser
-						.getFileFilter()).getExtensions();
-
-				if (!getFileExtension(fileChooser.getSelectedFile().getName())
-						.equals(extensions[0])) {
-					// Add extension if it didn't exist already
-					file = new File(fileChooser.getSelectedFile()
-							.getAbsoluteFile() + "." + extensions[0]);
-				} else {
-					file = fileChooser.getSelectedFile();
-				}
-			}
-		}
-		return file;
-	}
-
-	/**
-	 * Outputs the BufferedImage to a jpeg file.
-	 * 
-	 * @param image
-	 *            - The image to save.
-	 * @param fileName
-	 *            - The filename to save to.
-	 * @throws IOException
-	 */
-	private void writeImageToFile(BufferedImage image, File file)
-			throws IOException {
-		// write to file
-		Iterator<ImageWriter> writers = ImageIO
-				.getImageWritersByFormatName("jpeg");
-		ImageWriter writer = (ImageWriter) writers.next();
-		if (writer == null) {
-			throw new RuntimeException("JPeg not supported.");
-		}
-
-		ImageOutputStream out = ImageIO.createImageOutputStream(file);
-		writer.setOutput(out);
-		writer.write(image);
-		out.close(); // close flushes buffer
-	}
-
-	/**
 	 * Method to read a serialized file and re-inflate into an object.
 	 * 
 	 * @param file
@@ -238,5 +213,30 @@ public class EtchASketchController {
 		out = new ObjectOutputStream(fos);
 		out.writeObject(o);
 		out.close();
+	}
+
+	/**
+	 * Outputs the BufferedImage to a jpeg file.
+	 * 
+	 * @param image
+	 *            - The image to save.
+	 * @param fileName
+	 *            - The filename to save to.
+	 * @throws IOException
+	 */
+	private void writeImageToFile(BufferedImage image, File file)
+			throws IOException {
+		// write to file
+		Iterator<ImageWriter> writers = ImageIO
+				.getImageWritersByFormatName("jpeg");
+		ImageWriter writer = (ImageWriter) writers.next();
+		if (writer == null) {
+			throw new RuntimeException("JPeg not supported.");
+		}
+
+		ImageOutputStream out = ImageIO.createImageOutputStream(file);
+		writer.setOutput(out);
+		writer.write(image);
+		out.close(); // close flushes buffer
 	}
 }
