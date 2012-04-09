@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -13,20 +14,45 @@ import java.util.ArrayList;
  * This is the Etch-A-Sketch canvas class.
  */
 
-public class EtchASketchCanvas {
+public class EtchASketchCanvas implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private ArrayList<Point> points;
 
 	private transient BufferedImage canvasImage;
+	private transient int imageHeight;
+	private transient int imageWidth;
+	private transient ArrayList<CanvasObserver> observers;
 
-	private int imageHeight;
-	private int imageWidth;
-	private Point lastPoint;
-	private ArrayList<CanvasObserver> observers = new ArrayList<CanvasObserver>();
-	private ArrayList<Point> points;
+	/**
+	 * @return the points
+	 */
+	public ArrayList<Point> getPoints() {
+		return points;
+	}
+
+	/**
+	 * @param points
+	 *            the points to set
+	 */
+	public void setPoints(ArrayList<Point> points) {
+		this.points = points;
+	}
+
+	/**
+	 * No argument constructor.
+	 */
+	public EtchASketchCanvas() {
+		observers = new ArrayList<CanvasObserver>();
+	}
 
 	/**
 	 * Constructor that creates the initial point value.
 	 */
 	public EtchASketchCanvas(int imageWidth, int imageHeight) {
+		// Call no-argument constructor first.
+		this();
 		initializeCanvas(imageWidth, imageHeight);
 	}
 
@@ -81,6 +107,9 @@ public class EtchASketchCanvas {
 	 * @param observer
 	 */
 	public void registerObserver(CanvasObserver observer) {
+		if (observers == null) {
+			observers = new ArrayList<CanvasObserver>();
+		}
 		observers.add(observer);
 	}
 
@@ -106,8 +135,6 @@ public class EtchASketchCanvas {
 		// Like in a real etch-a-sketch, we restart at the point where we left
 		// off.
 		initializePointHistory();
-		points.add(lastPoint);
-
 		updateObservers();
 	}
 
@@ -122,8 +149,6 @@ public class EtchASketchCanvas {
 	private void initializeCanvas(int imageWidth, int imageHeight) {
 		initializeImage(imageWidth, imageHeight);
 		initializePointHistory();
-		lastPoint = new Point(0, 0);
-		points.add(lastPoint);
 	}
 
 	/**
@@ -147,6 +172,8 @@ public class EtchASketchCanvas {
 	 */
 	private void initializePointHistory() {
 		points = new ArrayList<Point>();
+		// Every sketch must have an origin point.
+		points.add(new Point(0, 0));
 	}
 
 	/**
@@ -158,7 +185,7 @@ public class EtchASketchCanvas {
 	 *            - Move vertically.
 	 */
 	private void moveDrawer(int x, int y) {
-
+		Point lastPoint = points.get(points.size() - 1);
 		// If moving left and no more room, don't move.
 		if ((x == -1) && (lastPoint.getX() == 0)) {
 			return;

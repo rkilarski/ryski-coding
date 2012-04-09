@@ -13,6 +13,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -43,7 +44,7 @@ import edu.bu.cs565.homework3.model.EtchASketchCanvas.DrawingDirection;
 public class EtchASketchView implements CanvasObserver {
 
 	private JButton btnShake;
-	private final EtchASketchCanvas canvas;
+	private EtchASketchCanvas canvas;
 
 	private final EtchASketchController controller;
 	private JFrame frame;
@@ -66,7 +67,10 @@ public class EtchASketchView implements CanvasObserver {
 	private JPanel southPanel;
 	private JMenuBar menuBar;
 	private JMenu mnfile;
-	private JMenuItem mntmSaveAsJPeg;
+	private JMenuItem mntmSaveAs;
+	private JMenuItem mntmOpen;
+	private JMenuItem mntmSave;
+	private File file = null;
 
 	/**
 	 * Create the application.
@@ -275,12 +279,22 @@ public class EtchASketchView implements CanvasObserver {
 		mnfile.setMnemonic('F');
 		menuBar.add(mnfile);
 
-		mntmSaveAsJPeg = new JMenuItem("Save As JPeg");
-		mntmSaveAsJPeg.addActionListener(new SaveActionListener());
-		mntmSaveAsJPeg.setMnemonic('S');
-		mntmSaveAsJPeg.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
+		mntmOpen = new JMenuItem("Open");
+		mntmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
 				InputEvent.CTRL_MASK));
-		mnfile.add(mntmSaveAsJPeg);
+		mnfile.add(mntmOpen);
+		mntmOpen.addActionListener(new OpenActionListener(this));
+
+		mntmSave = new JMenuItem("Save");
+		mntmSave.addActionListener(new SaveActionListener());
+		mntmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
+				InputEvent.CTRL_MASK));
+		mnfile.add(mntmSave);
+
+		mntmSaveAs = new JMenuItem("Save As");
+		mntmSaveAs.addActionListener(new SaveAsActionListener());
+		mntmSaveAs.setMnemonic('S');
+		mnfile.add(mntmSaveAs);
 
 	}
 
@@ -556,6 +570,7 @@ public class EtchASketchView implements CanvasObserver {
 		public void actionPerformed(ActionEvent e) {
 			controller.shakeWindow(frame);
 			canvas.shakeCanvas();
+			file = null;
 		}
 	}
 
@@ -567,8 +582,60 @@ public class EtchASketchView implements CanvasObserver {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			controller.saveImage(canvas.getCanvasImage());
+			if (file == null) {
+				file = controller.promptForFile(false);
+			}
+			if (file != null) {
+				controller.saveImage(canvas, file);
+			}
 		}
 
+	}
+
+	/**
+	 * Action listener for the Save menu item.
+	 * 
+	 */
+	private class SaveAsActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			File newFile;
+			newFile = controller.promptForFile(false);
+			if (newFile != null) {
+				file = newFile;
+				controller.saveImage(canvas, file);
+			}
+		}
+
+	}
+
+	/**
+	 * Action listener for the Open menu item.
+	 * 
+	 */
+	private class OpenActionListener implements ActionListener {
+		CanvasObserver observer;
+
+		public OpenActionListener(CanvasObserver observer) {
+			this.observer = observer;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			EtchASketchCanvas newCanvas;
+			File newFile = controller.promptForFile(true);
+			if (newFile != null) {
+				file = newFile;
+				newCanvas = controller.openImage(file);
+				if (newCanvas != null) {
+					canvas = newCanvas;
+					canvas.registerObserver(observer);
+					// Trigger a "resize" to show the opened canvas.
+					canvas.resizeCanvas(labelCanvas.getWidth(),
+							labelCanvas.getHeight());
+				}
+			}
+		}
 	}
 }
