@@ -37,7 +37,13 @@ import edu.bu.cs565.homework3.view.EtchASketchView;
  * This includes using arrow keys in combination--so you can use UP/LEFT,
  * UP/RIGHT, DOWN/LEFT, and DOWN/RIGHT to draw diagonally.
  * 
- * 6) Note that you can save your image as a jpeg, for your pleasure.
+ * 6) Note that you can save your image in the following formats:
+ * 
+ * a) as a jpeg, for your pleasure.
+ * 
+ * b) as type ".etch" for later editing.
+ * 
+ * 7) Note you can later open a file of type ".etch" to continue editing.
  * 
  * Images are from: http://www.iconarchive.com/show/ginux-icons-by-kyo-tux.html
  * 
