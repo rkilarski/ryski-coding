@@ -27,24 +27,26 @@ public final class TestCarbonFootprintServices {
 		for (int i = 1; i <= digits; i++) {
 			format.append("#");
 		}
-		//format.setGroupingSeparator(',');
+		// format.setGroupingSeparator(',');
 		DecimalFormat df = new DecimalFormat(format.toString());
 		return Double.valueOf(df.format(number)).doubleValue();
 	}
 
 	/**
 	 * Given a number, return a string representation with thousands comma.
-	 * @param number - The number.
+	 * 
+	 * @param number
+	 *            - The number.
 	 * @return - The number formatted with commas.
 	 */
-	public String toCommaNumber(double number){
+	public String toCommaNumber(double number) {
 		DecimalFormatSymbols dfs = new DecimalFormatSymbols();
 		dfs.setGroupingSeparator(',');
 		DecimalFormat df = new DecimalFormat();
 		df.setDecimalFormatSymbols(dfs);
 		return df.format(number);
 	}
-	
+
 	/**
 	 * Outputs the program introduction.
 	 */

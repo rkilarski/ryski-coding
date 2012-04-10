@@ -110,7 +110,8 @@ public class Motorbike implements CarbonFootprint {
 		StringBuilder string = new StringBuilder();
 		string.append(getId());
 		string.append("\nMiles Travelled: " + service.toCommaNumber(getMiles()));
-		string.append("\nMiles per gallon: " + service.toCommaNumber(getMilesPerGallon()));
+		string.append("\nMiles per gallon: "
+				+ service.toCommaNumber(getMilesPerGallon()));
 		return string.toString();
 	}
 
