@@ -46,6 +46,9 @@ import edu.bu.cs565.homework3.view.EtchASketchView;
  * 
  * 7) Note you can later open a file of type ".etch" to continue editing.
  * 
+ * 8) I couldn't decide which way to go: whether to show the three knobs, or to
+ * show the directional buttons. So I'm offering both with a tabbed interface to
+ * let you choose between them.
  * 
  * References:
  * 
