@@ -123,7 +123,8 @@ public class TestRationalScanner {
 			result = Rational.Add(rational1, rational2);
 			outputOperationResult("+", rational1, rational2, result);
 		} catch (Exception exception) {
-			System.out.println("Error with Add() method: " + exception.toString());
+			System.out.println("Error with Add() method: "
+					+ exception.toString());
 			exception.printStackTrace();
 		}
 
@@ -132,7 +133,8 @@ public class TestRationalScanner {
 			result = Rational.Subtract(rational1, rational2);
 			outputOperationResult("-", rational1, rational2, result);
 		} catch (Exception exception) {
-			System.out.println("Error with Subtract() method: " + exception.toString());
+			System.out.println("Error with Subtract() method: "
+					+ exception.toString());
 			exception.printStackTrace();
 		}
 
@@ -141,7 +143,8 @@ public class TestRationalScanner {
 			result = Rational.Multiply(rational1, rational2);
 			outputOperationResult("X", rational1, rational2, result);
 		} catch (Exception exception) {
-			System.out.println("Error with Multiply() method: " + exception.toString());
+			System.out.println("Error with Multiply() method: "
+					+ exception.toString());
 			exception.printStackTrace();
 		}
 
@@ -150,7 +153,8 @@ public class TestRationalScanner {
 			result = Rational.Divide(rational1, rational2);
 			outputOperationResult("/", rational1, rational2, result);
 		} catch (Exception exception) {
-			System.out.println("Error with Divide() method: " + exception.toString());
+			System.out.println("Error with Divide() method: "
+					+ exception.toString());
 			exception.printStackTrace();
 		}
 
@@ -175,7 +179,8 @@ public class TestRationalScanner {
 					+ rational2.toString());
 			testToMethod("\t= ", result);
 		} catch (Exception exception) {
-			System.out.println("Error with toString() method: " + exception.toString());
+			System.out.println("Error with toString() method: "
+					+ exception.toString());
 			exception.printStackTrace();
 		}
 	}

@@ -286,22 +286,28 @@ public class House implements CarbonFootprint {
 		string.append(getId());
 		string.append("\nNumber of people: " + getNumberOfPeople());
 		if (getElectricity() > 0) {
-			string.append("\nElectricity used (kWh): " + service.toCommaNumber(getElectricity()));
+			string.append("\nElectricity used (kWh): "
+					+ service.toCommaNumber(getElectricity()));
 		}
 		if (getNaturalGas() > 0) {
-			string.append("\nNatural Gas used (kWh): " + service.toCommaNumber(getNaturalGas()));
+			string.append("\nNatural Gas used (kWh): "
+					+ service.toCommaNumber(getNaturalGas()));
 		}
 		if (getHeatingOil() > 0) {
-			string.append("\nHeating Oil used (kWh): " + service.toCommaNumber(getHeatingOil()));
+			string.append("\nHeating Oil used (kWh): "
+					+ service.toCommaNumber(getHeatingOil()));
 		}
 		if (getCoal() > 0) {
-			string.append("\nCoal used (kWh): " + service.toCommaNumber(getCoal()));
+			string.append("\nCoal used (kWh): "
+					+ service.toCommaNumber(getCoal()));
 		}
 		if (getLpg() > 0) {
-			string.append("\nLPG used (kWh): " + service.toCommaNumber(getLpg()));
+			string.append("\nLPG used (kWh): "
+					+ service.toCommaNumber(getLpg()));
 		}
 		if (getPropane() > 0) {
-			string.append("\nPropane used (Gallons): " + service.toCommaNumber(getPropane()));
+			string.append("\nPropane used (Gallons): "
+					+ service.toCommaNumber(getPropane()));
 		}
 		if (getWoodenPellets() > 0) {
 			string.append("\nWooden Pellets used (Metric Tons): "
