@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Insets;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
@@ -28,6 +29,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
@@ -85,6 +87,9 @@ public class EtchASketchView implements CanvasObserver {
 	private JPanel redPanel;
 	private JMenu mnEdit;
 	private JMenuItem mntmShake;
+	private JLabel diagonalKnob;
+	private JTabbedPane tabbedPane;
+	private JButton btnShakeToolbar;
 
 	/**
 	 * Create the application.
@@ -158,7 +163,7 @@ public class EtchASketchView implements CanvasObserver {
 		btnExit.setIcon(new ImageIcon(EtchASketchView.class
 				.getResource("/resource/Exit.png")));
 		toolBar.add(btnExit);
-		btnSave.addActionListener(new SaveActionListener());
+		btnSave.addActionListener(new SaveAsActionListener());
 
 		redPanel = new JPanel();
 		redPanel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null,
@@ -211,8 +216,9 @@ public class EtchASketchView implements CanvasObserver {
 		bottomPanel.setLayout(new BorderLayout(0, 0));
 
 		buttonPanel = new JPanel();
+		buttonPanel.setBorder(null);
 		buttonPanel.setBackground(Color.RED);
-		bottomPanel.add(buttonPanel, BorderLayout.CENTER);
+		// bottomPanel.add(buttonPanel, BorderLayout.CENTER);
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
 		northPanel = new JPanel();
@@ -303,19 +309,51 @@ public class EtchASketchView implements CanvasObserver {
 		btnShake.addActionListener(new ShakeActionListener());
 		moveWest.addMouseListener(new MoveMouseAdapter(DrawingDirection.W));
 
+		tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
+		tabbedPane.setBorder(null);
+		tabbedPane.setBackground(Color.RED);
+		bottomPanel.add(tabbedPane, BorderLayout.CENTER);
+
+		JPanel knobPanel = new JPanel();
+		knobPanel.setBorder(null);
+		knobPanel.setBackground(Color.RED);
+		knobPanel.setLayout(new BorderLayout(0, 0));
+		diagonalKnob = new JLabel("");
+		diagonalKnob.setHorizontalAlignment(SwingConstants.CENTER);
+		diagonalKnob.setBackground(Color.RED);
+		knobPanel.add(diagonalKnob);
+
+		tabbedPane.addTab("Diagonal Knobs", null, knobPanel,
+				"Display three knobs to move the etch-a-sketch drawer.");
+		tabbedPane.addTab("Directional Buttons", null, buttonPanel,
+				"Display a bunch of buttons to move the etch-a-sketch drawer.");
+		diagonalKnob.setToolTipText("Move the drawer diagonally.");
+		diagonalKnob
+				.addMouseListener(new KnobMouseAdapter(DrawingDirection.NW));
+		diagonalKnob.setIcon(new ImageIcon(EtchASketchView.class
+				.getResource("/resource/diagonalknob.png")));
+
 		leftKnob = new JLabel("");
+		knobPanel.add(leftKnob, BorderLayout.WEST);
 		leftKnob.addMouseListener(new KnobMouseAdapter(DrawingDirection.W));
 		leftKnob.setToolTipText("Move the drawer left or right.");
-		bottomPanel.add(leftKnob, BorderLayout.WEST);
 		leftKnob.setIcon(new ImageIcon(EtchASketchView.class
 				.getResource("/resource/leftrightknob.png")));
 
 		rightKnob = new JLabel("");
+		knobPanel.add(rightKnob, BorderLayout.EAST);
 		rightKnob.setToolTipText("Move the drawer up or down.");
 		rightKnob.addMouseListener(new KnobMouseAdapter(DrawingDirection.N));
 		rightKnob.setIcon(new ImageIcon(EtchASketchView.class
 				.getResource("/resource/updownknob.png")));
-		bottomPanel.add(rightKnob, BorderLayout.EAST);
+
+		btnShakeToolbar = new JButton("Shake it!  Shake It!  Shake It!");
+		knobPanel.add(btnShakeToolbar, BorderLayout.NORTH);
+		btnShakeToolbar.setIcon(new ImageIcon(EtchASketchView.class
+				.getResource("/resource/Desktop-Internet-Explorer-icon.png")));
+		btnShakeToolbar.setToolTipText("Earthquake!");
+		btnShakeToolbar.setOpaque(false);
+		btnShakeToolbar.addActionListener(new ShakeActionListener());
 
 		menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -375,6 +413,11 @@ public class EtchASketchView implements CanvasObserver {
 		try {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+			// Turn off the borders in the tabbed control.
+			UIManager.getDefaults().put("TabbedPane.contentBorderInsets",
+					new Insets(0, 0, 0, 0));
+			UIManager.getDefaults().put("TabbedPane.tabsOverlapBorder", true);
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (InstantiationException e1) {
@@ -523,17 +566,31 @@ public class EtchASketchView implements CanvasObserver {
 		public void mousePressed(MouseEvent arg0) {
 			DrawItemRunnable runnable = null;
 			// Spin off thread to draw on the canvas.
-			if (direction == DrawingDirection.W) {
+			if (direction == DrawingDirection.W) { // Moving Left-Right
 				if (arg0.getX() < leftKnob.getWidth() / 2) {
 					runnable = new DrawItemRunnable(DrawingDirection.W);
 				} else {
 					runnable = new DrawItemRunnable(DrawingDirection.E);
 				}
-			} else if (direction == DrawingDirection.N) {
+			} else if (direction == DrawingDirection.N) { // Moving Up-Down
 				if (arg0.getY() < leftKnob.getHeight() / 2) {
 					runnable = new DrawItemRunnable(DrawingDirection.N);
 				} else {
 					runnable = new DrawItemRunnable(DrawingDirection.S);
+				}
+			} else if (direction == DrawingDirection.NW) { // Moving Diagionally
+				if (arg0.getY() < leftKnob.getHeight() / 2) { // Moving NW/NE
+					if (arg0.getX() < leftKnob.getWidth() / 2) {
+						runnable = new DrawItemRunnable(DrawingDirection.NW);
+					} else {
+						runnable = new DrawItemRunnable(DrawingDirection.NE);
+					}
+				} else { // Moving SW/SE
+					if (arg0.getX() < leftKnob.getWidth() / 2) {
+						runnable = new DrawItemRunnable(DrawingDirection.SW);
+					} else {
+						runnable = new DrawItemRunnable(DrawingDirection.SE);
+					}
 				}
 			}
 
