@@ -144,7 +144,11 @@ public class EtchASketchCanvas implements Serializable {
 		initializeImage(imageWidth, imageHeight);
 		// Like in a real etch-a-sketch, we restart at the point where we left
 		// off.
-		initializePointHistory();
+		Point lastPoint = new Point(0, 0);
+		if (points.size() > 0) {
+			lastPoint = points.get(points.size() - 1);
+		}
+		initializePointHistory(lastPoint);
 		updateObservers();
 	}
 
@@ -158,7 +162,7 @@ public class EtchASketchCanvas implements Serializable {
 	 */
 	private void initializeCanvas(int imageWidth, int imageHeight) {
 		initializeImage(imageWidth, imageHeight);
-		initializePointHistory();
+		initializePointHistory(new Point(0, 0));
 	}
 
 	/**
@@ -180,10 +184,10 @@ public class EtchASketchCanvas implements Serializable {
 	/**
 	 * Initialize only the array history list.
 	 */
-	private void initializePointHistory() {
+	private void initializePointHistory(Point lastPoint) {
 		points = new ArrayList<Point>();
 		// Every sketch must have an origin point.
-		points.add(new Point(0, 0));
+		points.add(lastPoint);
 	}
 
 	/**
@@ -221,9 +225,45 @@ public class EtchASketchCanvas implements Serializable {
 
 		paintImage(lastPoint, newPoint);
 
+		// Optimize data by keeping only turns.
+		if (points.size() > 2) {
+			Point lastPoint2 = points.get(points.size() - 2);
+
+			if ((lastPoint2.getX() == newPoint.getX())
+					|| (lastPoint2.getY() == newPoint.getY())) {
+				// Remove this last point since we don't need it.
+				points.remove(points.size() - 1);
+			}
+		}
 		points.add(newPoint);
-		lastPoint = newPoint;
 		updateObservers();
+	}
+
+	/**
+	 * Given a points array, create a new array that is optimized.
+	 */
+	public void optimizePoints() {
+		// Optimize only if you have at least 3 points.
+		if (points.size() > 2) {
+			ArrayList<Point> newPoints = new ArrayList<Point>();
+			// The first two points are a given.
+			newPoints.add(points.get(0));
+			newPoints.add(points.get(1));
+
+			// Start with the 3rd item and see if it's needed.
+			for (int i = 2; i < points.size(); i++) {
+				Point lastPoint2 = newPoints.get(newPoints.size() - 2);
+				Point newPoint = points.get(i);
+
+				if ((lastPoint2.getX() == newPoint.getX())
+						|| (lastPoint2.getY() == newPoint.getY())) {
+					// Remove this last point since we don't need it.
+					newPoints.remove(newPoints.size() - 1);
+				}
+				newPoints.add(newPoint);
+			}
+			points = newPoints;
+		}
 	}
 
 	/**
