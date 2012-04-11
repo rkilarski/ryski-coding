@@ -2,6 +2,10 @@ package edu.bu.cs565.homework3.controller;
 
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -37,8 +41,10 @@ public class EtchASketchController {
 	public EtchASketchCanvas openImage(File file) {
 		EtchASketchCanvas canvas = null;
 		try {
-			if (file != null) {
-				canvas = (EtchASketchCanvas) openFile(file);
+			if (getFileExtension(file.getName()).equals("etch")) {
+				canvas = (EtchASketchCanvas) openSerialFile(file);
+			} else if (getFileExtension(file.getName()).equals("xml")) {
+				canvas = (EtchASketchCanvas) openXMLFile(file);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -62,6 +68,8 @@ public class EtchASketchController {
 		if (showOpenDialog) {
 			fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(
 					"Etch A Sketch File", "etch"));
+			fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(
+					"XML File", "xml"));
 
 			returnValue = fileChooser.showOpenDialog(null);
 			if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -72,6 +80,8 @@ public class EtchASketchController {
 					"JPeg File", "jpg"));
 			fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(
 					"Etch A Sketch File", "etch"));
+			fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(
+					"XML File", "xml"));
 
 			returnValue = fileChooser.showSaveDialog(null);
 			if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -104,7 +114,9 @@ public class EtchASketchController {
 		try {
 			if (file != null) {
 				if (getFileExtension(file.getName()).equals("etch")) {
-					saveFile(canvas, file);
+					saveSerialFile(canvas, file);
+				} else if (getFileExtension(file.getName()).equals("xml")) {
+					saveXMLFile(canvas, file);
 				} else {
 					writeImageToFile(canvas.getCanvasImage(), file);
 				}
@@ -184,7 +196,7 @@ public class EtchASketchController {
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
-	private Object openFile(File file) throws IOException,
+	private Object openSerialFile(File file) throws IOException,
 			ClassNotFoundException {
 		Object o;
 		FileInputStream fis = null;
@@ -205,7 +217,7 @@ public class EtchASketchController {
 	 *            - The file to save into.
 	 * @throws IOException
 	 */
-	private void saveFile(Object o, File file) throws IOException {
+	private void saveSerialFile(Object o, File file) throws IOException {
 		// Serialize to normal file
 		FileOutputStream fos = null;
 		ObjectOutputStream out = null;
@@ -213,6 +225,35 @@ public class EtchASketchController {
 		out = new ObjectOutputStream(fos);
 		out.writeObject(o);
 		out.close();
+	}
+
+	/**
+	 * Method to read a serialized XML file and re-inflate into an object.
+	 * 
+	 * @param file
+	 * @return Object
+	 * @throws IOException
+	 */
+	public Object openXMLFile(File file) throws IOException {
+		XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(
+				new FileInputStream(file)));
+		Object o = decoder.readObject();
+		decoder.close();
+		return o;
+	}
+
+	/**
+	 * Method to write a serializable object to an XML file.
+	 * 
+	 * @param o
+	 * @param file
+	 * @throws IOException
+	 */
+	public void saveXMLFile(Object o, File file) throws IOException {
+		XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(
+				new FileOutputStream(file)));
+		encoder.writeObject(o);
+		encoder.close();
 	}
 
 	/**

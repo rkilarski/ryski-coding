@@ -7,11 +7,11 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -323,7 +323,7 @@ public class EtchASketchView implements CanvasObserver {
 		diagonalKnob.setBackground(Color.RED);
 		knobPanel.add(diagonalKnob);
 
-		tabbedPane.addTab("Diagonal Knobs", null, knobPanel,
+		tabbedPane.addTab("Directional Knobs", null, knobPanel,
 				"Display three knobs to move the etch-a-sketch drawer.");
 		tabbedPane.addTab("Directional Buttons", null, buttonPanel,
 				"Display a bunch of buttons to move the etch-a-sketch drawer.");
@@ -365,8 +365,8 @@ public class EtchASketchView implements CanvasObserver {
 		mntmOpen = new JMenuItem("Open");
 		mntmOpen.setIcon(new ImageIcon(EtchASketchView.class
 				.getResource("/resource/open.png")));
-		mntmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
-				InputEvent.CTRL_MASK));
+		mntmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Toolkit
+				.getDefaultToolkit().getMenuShortcutKeyMask()));
 		mnfile.add(mntmOpen);
 		mntmOpen.addActionListener(new OpenActionListener(this));
 
@@ -374,8 +374,8 @@ public class EtchASketchView implements CanvasObserver {
 
 		mntmSave = new JMenuItem("Save");
 		mntmSave.addActionListener(new SaveActionListener());
-		mntmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-				InputEvent.CTRL_MASK));
+		mntmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Toolkit
+				.getDefaultToolkit().getMenuShortcutKeyMask()));
 		mnfile.add(mntmSave);
 
 		mntmSaveAs = new JMenuItem("Save As");
@@ -388,8 +388,8 @@ public class EtchASketchView implements CanvasObserver {
 		mnfile.addSeparator();
 
 		mntmExit = new JMenuItem("Exit");
-		mntmExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4,
-				InputEvent.ALT_MASK));
+		mntmExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, Toolkit
+				.getDefaultToolkit().getMenuShortcutKeyMask()));
 		mntmExit.setIcon(new ImageIcon(EtchASketchView.class
 				.getResource("/resource/Exit.png")));
 		mntmExit.addActionListener(new ExitActionListener());
@@ -718,6 +718,7 @@ public class EtchASketchView implements CanvasObserver {
 				newCanvas = controller.openImage(file);
 				if (newCanvas != null) {
 					canvas = newCanvas;
+					canvas.optimizePoints();
 					canvas.registerObserver(observer);
 					// Trigger a "resize" to show the opened canvas.
 					canvas.resizeCanvas(labelCanvas.getWidth(),
