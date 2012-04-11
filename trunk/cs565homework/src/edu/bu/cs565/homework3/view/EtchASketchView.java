@@ -573,7 +573,7 @@ public class EtchASketchView implements CanvasObserver {
 					runnable = new DrawItemRunnable(DrawingDirection.E);
 				}
 			} else if (direction == DrawingDirection.N) { // Moving Up-Down
-				if (arg0.getY() < leftKnob.getHeight() / 2) {
+				if (arg0.getY() < rightKnob.getHeight() / 2) {
 					runnable = new DrawItemRunnable(DrawingDirection.N);
 				} else {
 					runnable = new DrawItemRunnable(DrawingDirection.S);
