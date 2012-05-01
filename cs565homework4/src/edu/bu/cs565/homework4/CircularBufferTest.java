@@ -12,6 +12,10 @@ import edu.bu.cs565.homework4.util.Producer;
 /**
  * Author: Ryszard Kilarski (Id: U81-39-8560) CS565 Homework #4.
  * 
+ * Notes: The Producer, Consumer, and Buffer classes were not modified in any way in this exercise.
+ * Only CircularBuffer was modified. This class was also not modified, except for the insertion of
+ * this comment.
+ *
  * Deitel "Java How To Program", page 1117: 26.11 This very brief problem statement points us to the
  * example of section 26.8, which is shown in Figures 26.18 and 26.19 which uses the technique of
  * "bounded buffers". Then, it asks us to re-implement that example using the
@@ -34,10 +38,6 @@ import edu.bu.cs565.homework4.util.Producer;
  * chapters in the book. Select Chapter 26, which is a zip file, then download it. The zip file can
  * be expanded into a folder which contains all of the examples of Chapter 26.
  * 
- * 
- * Notes: The Producer, Consumer, and Buffer classes were not modified in any way in this exercise.
- * Only CircularBuffer was modified. This class was also not modified, except for the insertion of
- * this comment.
  */
 
 public class CircularBufferTest {
