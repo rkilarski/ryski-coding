@@ -14,14 +14,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 /**
- * This class contains the methods to create an Image object of a guitar chord. Use either the parameterized constructor or the default constructor
- * with createImage to create your image. This class follows the bean conventions in order for it to be XML serializable. I.e., it is a bean (so there
- * is a default constructor, the accessors follow the get and set conventions, and is serializable)
+ * This class contains the methods to create an Image object of a guitar chord. Use either the
+ * parameterized constructor or the default constructor with createImage to create your image. This
+ * class follows the bean conventions in order for it to be XML serializable. I.e., it is a bean (so
+ * there is a default constructor, the accessors follow the get and set conventions, and is
+ * serializable)
  * 
  * @author ryszardkilarski
  */
-public class GuitarChordChart extends MusicChart
-{
+public class GuitarChordChart extends MusicChart {
 	private String chordFingering;
 	private String chordFrets;
 	private boolean isLeftHanded;
@@ -46,10 +47,10 @@ public class GuitarChordChart extends MusicChart
 	private static int TITLE_OFFSET_FROM_TOP = 18;
 
 	/**
-	 * Default no-parameter constructor to make this class a bean. If used, you then have to call createImage to create the chord.
+	 * Default no-parameter constructor to make this class a bean. If used, you then have to call
+	 * createImage to create the chord.
 	 */
-	public GuitarChordChart()
-	{
+	public GuitarChordChart() {
 		this("", "", "      ", "      ", false);
 	}
 
@@ -61,8 +62,7 @@ public class GuitarChordChart extends MusicChart
 	 * @param chordFingering
 	 * @param chordFrets
 	 */
-	public GuitarChordChart(String chordName, String chordPosition, String chordFingering, String chordFrets)
-	{
+	public GuitarChordChart(String chordName, String chordPosition, String chordFingering, String chordFrets) {
 		this(chordName, chordPosition, chordFingering, chordFrets, false);
 	}
 
@@ -75,8 +75,7 @@ public class GuitarChordChart extends MusicChart
 	 * @param chordFrets
 	 * @param isLeftHanded
 	 */
-	public GuitarChordChart(String chordName, String chordPosition, String chordFingering, String chordFrets, boolean isLeftHanded)
-	{
+	public GuitarChordChart(String chordName, String chordPosition, String chordFingering, String chordFrets, boolean isLeftHanded) {
 		setDirty(false);
 		createImage(chordName, chordPosition, chordFingering, chordFrets, isLeftHanded);
 	}
@@ -89,8 +88,7 @@ public class GuitarChordChart extends MusicChart
 	 * @param chordFingering
 	 * @param chordFrets
 	 */
-	public void createImage(String chordName, String chordPosition, String chordFingering, String chordFrets, boolean isLeftHanded)
-	{
+	public void createImage(String chordName, String chordPosition, String chordFingering, String chordFrets, boolean isLeftHanded) {
 		setChordName(chordName);
 		setChordPosition(chordPosition);
 		setChordFingering(chordFingering);
@@ -98,20 +96,16 @@ public class GuitarChordChart extends MusicChart
 		setLeftHanded(isLeftHanded);
 	}
 
-	public String getChordFingering()
-	{
+	public String getChordFingering() {
 		return chordFingering;
 	}
 
-	public String getChordFrets()
-	{
+	public String getChordFrets() {
 		return chordFrets;
 	}
 
-	public BufferedImage getChordImage()
-	{
-		if (isChanged() || super.getChordImage() == null)
-		{
+	public BufferedImage getChordImage() {
+		if (isChanged() || super.getChordImage() == null) {
 			setChanged(false);
 			setChordImage(new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT, BufferedImage.TYPE_INT_RGB));
 			produceImage();
@@ -119,33 +113,28 @@ public class GuitarChordChart extends MusicChart
 		return super.getChordImage();
 	}
 
-	public boolean isLeftHanded()
-	{
+	public boolean isLeftHanded() {
 		return isLeftHanded;
 	}
 
-	public void setChordFingering(String chordFingering)
-	{
+	public void setChordFingering(String chordFingering) {
 		setDirty(true);
 		this.chordFingering = chordFingering;
 	}
 
-	public void setChordFrets(String chordFrets)
-	{
+	public void setChordFrets(String chordFrets) {
 		setDirty(true);
 		this.chordFrets = chordFrets;
 	}
 
-	private void setLeftHanded(boolean isLeftHanded)
-	{
+	private void setLeftHanded(boolean isLeftHanded) {
 		this.isLeftHanded = isLeftHanded;
 	}
 
 	/**
 	 * Method to produce the Image object.
 	 */
-	private void produceImage()
-	{
+	private void produceImage() {
 		Graphics2D graphicItem = getChordImage().createGraphics();
 		graphicItem.setBackground(Color.WHITE);
 		graphicItem.setColor(Color.BLACK);
@@ -153,8 +142,7 @@ public class GuitarChordChart extends MusicChart
 
 		writeTitle(graphicItem);
 		writeChordPosition(graphicItem);
-		if (!getChordFrets().equals("      "))
-		{
+		if (!getChordFrets().equals("      ")) {
 			writeGrid(graphicItem);
 		}
 		writeFingering(graphicItem);
@@ -169,8 +157,7 @@ public class GuitarChordChart extends MusicChart
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
-	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException
-	{
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
 		// our "pseudo-constructor"
 		in.defaultReadObject();
 		// now we are a "live" object again, so let's run rebuild and start
@@ -183,23 +170,21 @@ public class GuitarChordChart extends MusicChart
 	 * 
 	 * @param graphicItem
 	 */
-	private void writeChordCircles(Graphics2D graphicItem)
-	{
+	private void writeChordCircles(Graphics2D graphicItem) {
 
 		char chordString;
 		int chordFret;
 		float floatX, floatY;
 		String chordLocation = getChordFrets();
 
-		for (int whichString = 0; whichString < chordLocation.length(); whichString++)
-		{
+		for (int whichString = 0; whichString < chordLocation.length(); whichString++) {
 			chordString = chordLocation.charAt(whichString);
-			if ((chordString != ' ') && (Character.digit(chordString, 9) > 0))
-			{
+			if ((chordString != ' ') && (Character.digit(chordString, 9) > 0)) {
 				chordFret = Character.digit(chordString, 9) - 1;
 				floatX = GRID_OFFSET_FROM_LEFT - (FRET_CIRCLE_SIZE / 2) + (whichString * ROW_WIDTH);
 				floatY = GRID_OFFSET_FROM_TOP + (FRET_CIRCLE_SIZE / 2) + (chordFret * ROW_HEIGHT);
-				Shape circle = new Ellipse2D.Float(floatX, floatY, FRET_CIRCLE_SIZE, FRET_CIRCLE_SIZE);
+				Shape circle =
+						new Ellipse2D.Float(floatX, floatY, FRET_CIRCLE_SIZE, FRET_CIRCLE_SIZE);
 				graphicItem.setPaint(Color.black);
 				graphicItem.draw(circle);
 				graphicItem.fill(circle);
@@ -212,8 +197,7 @@ public class GuitarChordChart extends MusicChart
 	 * 
 	 * @param graphicItem
 	 */
-	private void writeChordPosition(Graphics2D graphicItem)
-	{
+	private void writeChordPosition(Graphics2D graphicItem) {
 		int intX, intY;
 		String chordPosition = getChordPosition();
 		FontMetrics fontMetrics = null;
@@ -232,8 +216,7 @@ public class GuitarChordChart extends MusicChart
 			graphicItem.drawString(chordPosition, intX, intY);
 		}
 		// Mark this chord as a left-handed chord.
-		if (isLeftHanded())
-		{
+		if (isLeftHanded()) {
 			intY = GRID_OFFSET_FROM_TOP + (2 * fontMetrics.getHeight());
 			graphicItem.drawString("L", intX, intY);
 		}
@@ -244,26 +227,25 @@ public class GuitarChordChart extends MusicChart
 	 * 
 	 * @param graphicItem
 	 */
-	private void writeFingering(Graphics2D graphicItem)
-	{
+	private void writeFingering(Graphics2D graphicItem) {
 		char chordFinger;
 		float floatX, floatY;
 		FontMetrics fontMetrics = null;
 		String chordFingering = getChordFingering();
 
-		if (!chordFingering.isEmpty())
-		{
+		if (!chordFingering.isEmpty()) {
 			int screenRes = Toolkit.getDefaultToolkit().getScreenResolution();
 			int fontSize = (int) Math.round(FINGERING_FONT_SIZE * screenRes / FONT_DPI);
 
 			graphicItem.setFont(new Font("Courier New", Font.PLAIN, fontSize));
 			fontMetrics = graphicItem.getFontMetrics();
-			for (int whichString = 0; whichString < chordFingering.length(); whichString++)
-			{
+			for (int whichString = 0; whichString < chordFingering.length(); whichString++) {
 				chordFinger = chordFingering.charAt(whichString);
 				if (chordFinger != ' ') // &&Character.digit(chordFinger, 9)>0)
 				{
-					floatX = (GRID_OFFSET_FROM_LEFT - (fontMetrics.stringWidth(Character.toString(chordFinger)) / 2)) + (whichString * ROW_WIDTH);
+					floatX =
+							(GRID_OFFSET_FROM_LEFT - (fontMetrics.stringWidth(Character.toString(chordFinger)) / 2))
+									+ (whichString * ROW_WIDTH);
 					floatY = GRID_OFFSET_FROM_TOP - 2;
 					graphicItem.drawString(Character.toString(chordFinger), floatX, floatY);
 				}
@@ -276,25 +258,20 @@ public class GuitarChordChart extends MusicChart
 	 * 
 	 * @param graphicItem
 	 */
-	private void writeGrid(Graphics2D graphicItem)
-	{
+	private void writeGrid(Graphics2D graphicItem) {
 		int thicknessOffset;
 		int intX1, intY1, intX2, intY2;
 
 		// Output rows
-		for (int row = 0; row < ROW_COUNT; row++)
-		{
+		for (int row = 0; row < ROW_COUNT; row++) {
 			// The first row should be a little thicker
-			if (row == 0)
-			{
+			if (row == 0) {
 				graphicItem.setStroke(new BasicStroke(2.0f));
-			} else if (row == 1)
-			{
+			} else if (row == 1) {
 				graphicItem.setStroke(new BasicStroke(1.0f));
 			}
 			thicknessOffset = 1;
-			if (row == 0)
-			{
+			if (row == 0) {
 				thicknessOffset = 0;
 			}
 			intX1 = GRID_OFFSET_FROM_LEFT - thicknessOffset;
@@ -306,14 +283,11 @@ public class GuitarChordChart extends MusicChart
 
 		// Output columns
 		graphicItem.setStroke(new BasicStroke(1.0f));
-		for (int column = 0; column < COLUMN_COUNT; column++)
-		{
+		for (int column = 0; column < COLUMN_COUNT; column++) {
 			thicknessOffset = 0;
-			if (column == 0)
-			{
+			if (column == 0) {
 				thicknessOffset = 1;
-			} else if (column == COLUMN_COUNT - 1)
-			{
+			} else if (column == COLUMN_COUNT - 1) {
 				thicknessOffset = 0;
 			}
 			intX1 = GRID_OFFSET_FROM_LEFT + (column * ROW_WIDTH) - thicknessOffset;
@@ -330,8 +304,7 @@ public class GuitarChordChart extends MusicChart
 	 * @param out
 	 * @throws IOException
 	 */
-	private void writeObject(ObjectOutputStream out) throws IOException
-	{
+	private void writeObject(ObjectOutputStream out) throws IOException {
 		out.defaultWriteObject();
 	}
 
@@ -340,14 +313,12 @@ public class GuitarChordChart extends MusicChart
 	 * 
 	 * @param graphicItem
 	 */
-	private void writeTitle(Graphics2D graphicItem)
-	{
+	private void writeTitle(Graphics2D graphicItem) {
 		int intX, intY;
 		FontMetrics fontMetrics = graphicItem.getFontMetrics();
 		String chordTitle = getChordName();
 
-		if (!chordTitle.isEmpty())
-		{
+		if (!chordTitle.isEmpty()) {
 			int screenRes = Toolkit.getDefaultToolkit().getScreenResolution();
 			int fontSize = (int) Math.round(TITLE_FONT_SIZE * screenRes / FONT_DPI);
 			graphicItem.setFont(new Font(TEXT_FONT, Font.BOLD, fontSize));
@@ -359,16 +330,14 @@ public class GuitarChordChart extends MusicChart
 
 	}
 
-	public GuitarChordChart clone()
-	{
+	public GuitarChordChart clone() {
 		GuitarChordChart clone =
 				new GuitarChordChart(this.getChordName(), this.getChordPosition(), this.getChordFingering(), this.getChordFrets(), this.isLeftHanded());
 		return clone;
 	}
 
 	@Override
-	public ChordChartType getChordChartType()
-	{
+	public ChordChartType getChordChartType() {
 		return ChordChartType.GUITAR;
 	}
 }

@@ -20,12 +20,10 @@ import javax.swing.border.LineBorder;
  * @author ryszardkilarski
  * 
  */
-class GuitarifficSplash extends JWindow
-{
+public class GuitarifficSplash extends JWindow {
 	private static final long serialVersionUID = 1L;
 
-	public GuitarifficSplash(ImageIcon image, Frame f, int waitTime)
-	{
+	public GuitarifficSplash(ImageIcon image, Frame f, int waitTime) {
 		super(f);
 		JLabel l = new JLabel(image);
 		l.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -33,34 +31,27 @@ class GuitarifficSplash extends JWindow
 		pack();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension labelSize = l.getPreferredSize();
-		setLocation(screenSize.width / 2 - (labelSize.width / 2), screenSize.height / 2 - (labelSize.height / 2));
-		addMouseListener(new MouseAdapter()
-		{
-			public void mousePressed(MouseEvent e)
-			{
+		setLocation(screenSize.width / 2 - (labelSize.width / 2), screenSize.height / 2
+				- (labelSize.height / 2));
+		addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
 				setVisible(false);
 				dispose();
 			}
 		});
 		final int pause = waitTime;
-		final Runnable closerRunner = new Runnable()
-		{
-			public void run()
-			{
+		final Runnable closerRunner = new Runnable() {
+			public void run() {
 				setVisible(false);
 				dispose();
 			}
 		};
-		Runnable waitRunner = new Runnable()
-		{
-			public void run()
-			{
-				try
-				{
+		Runnable waitRunner = new Runnable() {
+			public void run() {
+				try {
 					Thread.sleep(pause);
 					SwingUtilities.invokeAndWait(closerRunner);
-				} catch (Exception e)
-				{
+				} catch (Exception e) {
 					e.printStackTrace();
 					// can catch InvocationTargetException
 					// can catch InterruptedException

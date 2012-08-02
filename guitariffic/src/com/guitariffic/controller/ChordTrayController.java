@@ -17,7 +17,7 @@ import com.guitariffic.dao.chord.AbstractDaoFactory;
 import com.guitariffic.dao.chord.ChordDaoFactory;
 import com.guitariffic.dao.chord.IDaoAccess;
 import com.guitariffic.dao.chord.IDaoQuery;
-import com.guitariffic.model.ChordTray;
+import com.guitariffic.model.ChordTrayTableModel;
 import com.guitariffic.model.GuitarChordChart;
 import com.guitariffic.model.MusicChart;
 import com.guitariffic.view.GuitarChordChartEditor;
@@ -29,7 +29,7 @@ import com.guitariffic.view.GuitarChordChartEditor;
  * 
  */
 public class ChordTrayController {
-	private ChordTray chordTray; // Chord tray model.
+	private ChordTrayTableModel chordTray; // Chord tray model.
 	private ChordDaoFactory client;
 	private AbstractDaoFactory daofactory;
 	private IDaoAccess dbDao;
@@ -39,7 +39,7 @@ public class ChordTrayController {
 	public ChordTrayController() {
 
 		allChordCharts = new LinkedList<MusicChart>();
-		chordTray = new ChordTray();
+		chordTray = new ChordTrayTableModel();
 		client = new ChordDaoFactory();
 
 		// AbstractDaoFactory
@@ -63,11 +63,11 @@ public class ChordTrayController {
 		chordTray.setChordChartList(allChordCharts);
 	}
 
-	public ChordTray getChordTray() {
+	public ChordTrayTableModel getChordTray() {
 		return chordTray;
 	}
 
-	public void setChordTray(ChordTray chordTray) {
+	public void setChordTray(ChordTrayTableModel chordTray) {
 		this.chordTray = chordTray;
 	}
 

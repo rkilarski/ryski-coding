@@ -10,13 +10,13 @@ import javax.swing.table.AbstractTableModel;
  * @author ryszardkilarski
  * 
  */
-public class ChordTray extends AbstractTableModel
+public class ChordTrayTableModel extends AbstractTableModel
 {
 
 	private static final long serialVersionUID = 1L;
 	private LinkedList<MusicChart> chordChartList;
 
-	public ChordTray()
+	public ChordTrayTableModel()
 	{
 		chordChartList = null;
 	}

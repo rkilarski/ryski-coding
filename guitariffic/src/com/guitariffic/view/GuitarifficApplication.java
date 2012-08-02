@@ -4,7 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -16,6 +17,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -44,11 +46,10 @@ import com.guitariffic.controller.ChordChartAreaController;
 import com.guitariffic.controller.ChordTrayController;
 import com.guitariffic.controller.FakeSheetController;
 import com.guitariffic.controller.TextAreaController;
+import com.guitariffic.model.ChordTable;
 import com.guitariffic.model.GuitarChordChart;
 import com.guitariffic.model.MusicChart;
 import com.guitariffic.view.adapter.ChordChartTransferHandler;
-import com.guitariffic.view.adapter.ChordTableEditor;
-import com.guitariffic.view.adapter.ChordTableRenderer;
 import com.guitariffic.view.adapter.ChordTrayTransferHandler;
 
 /**
@@ -59,24 +60,34 @@ import com.guitariffic.view.adapter.ChordTrayTransferHandler;
  */
 public class GuitarifficApplication {
 
-	private JFrame frmGuitariffic;
-	private FakeSheetController fakeSheetController;
-	private ChordTrayController chordTrayController;
-	private TextAreaController textAreaController;
 	private ChordChartAreaController chordChartAreaController;
-	private JTextField txtSongName;
-	private JTextField txtArtistName;
-	private JTable tableChordChartArea;
-	private JTable tableChordTray;
-	private JTextField txtFilter;
 	private MusicChart chordCopyBuffer;
-	private MusicChart popupMenuItem;
-	private JPopupMenu popupTrayMenu;
+	private ChordTrayController chordTrayController;
+	private FakeSheetController fakeSheetController;
+	private JFrame frmGuitariffic;
 	private JPanel panelLyrics;
-	private JScrollPane textAreaPane;
+	private MusicChart popupMenuItem;
 	private Point popupPoint;
-
+	private JPopupMenu popupTrayMenu;
+	private ChordTable tableChordChartArea;
+	private ChordTable tableChordTray;
+	private TextAreaController textAreaController;
+	private JScrollPane textAreaPane;
+	private JTextField txtArtistName;
+	private JTextField txtFilter;
 	private JTextField txtPosition;
+
+	private JTextField txtSongName;
+
+	/**
+	 * Create the application.
+	 */
+	public GuitarifficApplication() {
+		setUIManager();
+
+		createControllers();
+		initialize();
+	}
 
 	/**
 	 * Set the application to be visible.
@@ -87,14 +98,112 @@ public class GuitarifficApplication {
 		frmGuitariffic.setVisible(true);
 	}
 
-	/**
-	 * Create the application.
-	 */
-	public GuitarifficApplication() {
-		setUIManager();
+	private void aboutFunction() {
+		GuitarifficAbout aboutBox = new GuitarifficAbout(frmGuitariffic);
+		aboutBox.setVisible(true);
+	}
 
-		createControllers();
-		initialize();
+	private void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+
+			private void showMenu(MouseEvent e) {
+				popupPoint = e.getPoint();
+				JTable table = (JTable) e.getComponent();
+				int row = table.rowAtPoint(popupPoint);
+				int column = table.columnAtPoint(popupPoint);
+				popupMenuItem = (MusicChart) table.getValueAt(row, column);
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+
+		});
+	}
+
+	/**
+	 * copy chord from popup menu
+	 */
+	private void copyFunction() {
+		try {
+			chordCopyBuffer = (MusicChart) popupMenuItem.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create all the local controllers.
+	 */
+	private void createControllers() {
+		// Create new controllers...
+		fakeSheetController = new FakeSheetController();
+		chordTrayController = new ChordTrayController();
+		textAreaController = new TextAreaController();
+		chordChartAreaController = new ChordChartAreaController();
+
+		// and pass into them their respective models.
+		updateControllers(fakeSheetController);
+	}
+
+	private void deleteChordChartFunction() {
+		int row = tableChordChartArea.rowAtPoint(popupPoint);
+		int column = tableChordChartArea.columnAtPoint(popupPoint);
+		tableChordChartArea.setValueAt(new GuitarChordChart(), row, column);
+	}
+
+	/**
+	 * delete chord from popup menu
+	 */
+	private void deleteChordTrayFunction() {
+		chordTrayController.deleteChordChart(frmGuitariffic, popupMenuItem);
+	}
+
+	private void editChordChartFunction() {
+		GuitarChordChartEditor chordChartEditor = new GuitarChordChartEditor(frmGuitariffic);
+		int row = tableChordChartArea.rowAtPoint(popupPoint);
+		int column = tableChordChartArea.columnAtPoint(popupPoint);
+
+		chordChartEditor.setGuitarChordChart((GuitarChordChart) tableChordChartArea.getValueAt(row, column));
+		chordChartEditor.setVisible(true);
+		// Make the renderer reappear.
+		if (chordChartEditor.getGuitarChordChart() != null) {
+			tableChordChartArea.setValueAt(chordChartEditor.getGuitarChordChart(), row, column);
+		}
+
+	}
+
+	/**
+	 * edit chord from popup menu
+	 */
+	private void editChordTrayFunction() {
+		chordTrayController.editChart(frmGuitariffic, popupMenuItem);
+	}
+
+	private void endFunction() {
+		System.exit(0);
+	}
+
+	/**
+	 * export all chords to file from main menu
+	 */
+	private void exportAllChordsTrayFunction() {
+		chordTrayController.exportAllChordCharts(frmGuitariffic);
+	}
+
+	/**
+	 * export single chord from popup menu
+	 */
+	private void exportChordTrayFunction() {
+		chordTrayController.exportChordChart(frmGuitariffic, popupMenuItem);
 	}
 
 	/**
@@ -179,52 +288,33 @@ public class GuitarifficApplication {
 		panelSong.setLayout(new BorderLayout(0, 0));
 		frmGuitariffic.getContentPane().add(panelSong, BorderLayout.CENTER);
 
-		JPanel panelSongAbout = new JPanel();
-		panelSong.add(panelSongAbout, BorderLayout.NORTH);
-		panelSongAbout.setLayout(new BoxLayout(panelSongAbout, BoxLayout.X_AXIS));
-
-		txtSongName = new JTextField();
-		txtSongName.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				selectText(txtSongName);
-			}
-		});
-		txtSongName.setToolTipText("Enter the song name.");
-		txtSongName.setText("Song Name");
-		panelSongAbout.add(txtSongName);
-		txtSongName.setColumns(10);
-
-		txtArtistName = new JTextField();
-		txtArtistName.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				selectText(txtArtistName);
-			}
-		});
-		txtArtistName.setToolTipText("Enter the artist name.");
-		txtArtistName.setText("Artist");
-		panelSongAbout.add(txtArtistName);
-		txtArtistName.setColumns(10);
-
 		JPanel panelSongDetails = new JPanel();
 		panelSong.add(panelSongDetails, BorderLayout.CENTER);
-		panelSongDetails.setLayout(new GridLayout(0, 2, 0, 0));
+		GridBagLayout gbl_panelSongDetails = new GridBagLayout();
+		gbl_panelSongDetails.columnWidths = new int[] { 382, 382, 0, 0 };
+		gbl_panelSongDetails.rowHeights = new int[] { 247, 247, 0 };
+		gbl_panelSongDetails.columnWeights = new double[] { 1.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_panelSongDetails.rowWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
+		panelSongDetails.setLayout(gbl_panelSongDetails);
+		panelLyrics = (JPanel) textAreaController.getTextArea();
 
 		JPanel panelTextArea = new JPanel();
-		panelSongDetails.add(panelTextArea);
+		GridBagConstraints gbc_panelTextArea = new GridBagConstraints();
+		gbc_panelTextArea.gridheight = 2;
+		gbc_panelTextArea.fill = GridBagConstraints.BOTH;
+		gbc_panelTextArea.gridx = 0;
+		gbc_panelTextArea.gridy = 0;
+		panelSongDetails.add(panelTextArea, gbc_panelTextArea);
 
 		panelTextArea.setLayout(new BorderLayout(0, 0));
 		textAreaPane = new JScrollPane();
 		panelTextArea.add(textAreaPane);
-		panelLyrics = (JPanel) textAreaController.getTextArea();
 		textAreaPane.setViewportView(panelLyrics);
 
-		JPanel panelChordArea = new JPanel();
-		panelSongDetails.add(panelChordArea);
-		panelChordArea.setLayout(new BorderLayout(0, 0));
-
-		tableChordChartArea = new JTable(chordChartAreaController.getChordChartAreaAdapter());
+		tableChordChartArea =
+				new ChordTable(chordChartAreaController.getChordChartAreaAdapter(), frmGuitariffic);
+		tableChordChartArea.setShowHover(true);
+		tableChordChartArea.addMouseMotionListener(new MoveOverTable());
 		tableChordChartArea.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableChordChartArea.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tableChordChartArea.setShowVerticalLines(false);
@@ -232,14 +322,18 @@ public class GuitarifficApplication {
 		tableChordChartArea.setFillsViewportHeight(true);
 		tableChordChartArea.setBackground(Color.WHITE);
 		tableChordChartArea.setRowHeight(GuitarChordChart.IMAGE_HEIGHT + 15);
-		tableChordChartArea.setDefaultRenderer(MusicChart.class, new ChordTableRenderer());
-		tableChordChartArea.setDefaultEditor(MusicChart.class, new ChordTableEditor(frmGuitariffic));
 		tableChordChartArea.setDragEnabled(true);
 		tableChordChartArea.setDropMode(DropMode.ON);
 		tableChordChartArea.setTransferHandler(new ChordChartTransferHandler());
 		tableChordChartArea.getTableHeader().setReorderingAllowed(false);
 
 		JScrollPane chordChartPane = new JScrollPane(tableChordChartArea);
+		GridBagConstraints gbc_chordChartPane = new GridBagConstraints();
+		gbc_chordChartPane.gridheight = 2;
+		gbc_chordChartPane.fill = GridBagConstraints.BOTH;
+		gbc_chordChartPane.gridx = 1;
+		gbc_chordChartPane.gridy = 0;
+		panelSongDetails.add(chordChartPane, gbc_chordChartPane);
 		chordChartPane.setBackground(Color.WHITE);
 
 		JPopupMenu popupChordMenu = new JPopupMenu();
@@ -297,19 +391,19 @@ public class GuitarifficApplication {
 		});
 
 		popupChordMenu.add(mntmRemoveChordChart);
-		panelChordArea.add(chordChartPane);
 
 		JPanel panelChordTray = new JPanel();
-		panelChordArea.add(panelChordTray, BorderLayout.EAST);
+		GridBagConstraints gbc_panelChordTray = new GridBagConstraints();
+		gbc_panelChordTray.gridheight = 2;
+		gbc_panelChordTray.fill = GridBagConstraints.BOTH;
+		gbc_panelChordTray.gridx = 2;
+		gbc_panelChordTray.gridy = 0;
+		panelSongDetails.add(panelChordTray, gbc_panelChordTray);
 		panelChordTray.setLayout(new BoxLayout(panelChordTray, BoxLayout.Y_AXIS));
 
-		JPanel panelChordTrayActions = new JPanel();
-		panelChordTray.add(panelChordTrayActions);
-		panelChordTrayActions.setLayout(new GridLayout(0, 1, 0, 0));
-
 		JPanel panelFretFilter = new JPanel();
-		panelChordTrayActions.add(panelFretFilter);
-		panelFretFilter.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panelChordTray.add(panelFretFilter);
+		panelFretFilter.setLayout(new GridLayout(0, 2, 0, 0));
 
 		JLabel lblFretPosition = new JLabel("Fret:");
 		panelFretFilter.add(lblFretPosition);
@@ -339,8 +433,8 @@ public class GuitarifficApplication {
 		txtPosition.setToolTipText("Enter first fret position for chord");
 
 		JPanel panelTextFilter = new JPanel();
-		panelChordTrayActions.add(panelTextFilter);
-		panelFretFilter.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panelChordTray.add(panelTextFilter);
+		panelTextFilter.setLayout(new GridLayout(1, 1, 0, 0));
 
 		JLabel lblFilter = new JLabel("Filter:");
 		panelTextFilter.add(lblFilter);
@@ -373,7 +467,8 @@ public class GuitarifficApplication {
 		panelChordTray.add(panelChordTrayChords);
 		panelChordTrayChords.setLayout(new BorderLayout(0, 0));
 
-		tableChordTray = new JTable(chordTrayController.getChordTray());
+		tableChordTray = new ChordTable(chordTrayController.getChordTray(), frmGuitariffic);
+		tableChordTray.setShowHover(false);
 		tableChordTray.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableChordTray.setDropMode(DropMode.ON);
 		tableChordTray.setShowVerticalLines(false);
@@ -382,15 +477,13 @@ public class GuitarifficApplication {
 		tableChordTray.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		tableChordTray.setBackground(Color.WHITE);
 		tableChordTray.setRowHeight(GuitarChordChart.IMAGE_HEIGHT + 1);
-		tableChordTray.setDefaultRenderer(MusicChart.class, new ChordTableRenderer());
-		tableChordTray.setDefaultEditor(MusicChart.class, new ChordTableEditor(frmGuitariffic));
 		tableChordTray.setDragEnabled(true);
 		tableChordTray.setTransferHandler(new ChordTrayTransferHandler());
 		tableChordTray.getTableHeader().setReorderingAllowed(false);
 
 		JScrollPane scrollPane = new JScrollPane(tableChordTray);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setPreferredSize(new Dimension(60, GuitarChordChart.IMAGE_WIDTH));
+		scrollPane.setPreferredSize(new Dimension(70, 70));
 		scrollPane.setMinimumSize(new Dimension(0, 0));
 		scrollPane.setBackground(Color.WHITE);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -442,6 +535,34 @@ public class GuitarifficApplication {
 			}
 		});
 		popupTrayMenu.add(mntmExportChordTray);
+
+		JPanel panel = new JPanel();
+		panelSong.add(panel, BorderLayout.NORTH);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+
+		txtSongName = new JTextField();
+		panel.add(txtSongName);
+		txtSongName.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				selectText(txtSongName);
+			}
+		});
+		txtSongName.setToolTipText("Enter the song name.");
+		txtSongName.setText("Song Name");
+		txtSongName.setColumns(10);
+
+		txtArtistName = new JTextField();
+		panel.add(txtArtistName);
+		txtArtistName.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				selectText(txtArtistName);
+			}
+		});
+		txtArtistName.setToolTipText("Enter the artist name.");
+		txtArtistName.setText("Artist");
+		txtArtistName.setColumns(10);
 
 		JMenuBar menuBar = new JMenuBar();
 		frmGuitariffic.setJMenuBar(menuBar);
@@ -549,6 +670,81 @@ public class GuitarifficApplication {
 		mnHelp.add(mntmAbout);
 	}
 
+	private void insertRowFunction() {
+		int row = tableChordChartArea.rowAtPoint(popupPoint);
+		chordChartAreaController.getChordChartAreaAdapter().insertRow(row);
+	}
+
+	/**
+	 * new chord from popup menu
+	 */
+	private void newChordTrayFunction() {
+		chordTrayController.newChordChart(frmGuitariffic);
+	}
+
+	/**
+	 * Function to initialize all parts of the FakeSheet when the user selects New.
+	 */
+	private void newFunction() {
+		fakeSheetController.newFakeSheet();
+		updateControllers(fakeSheetController);
+
+		// Initialize areas of the form.
+		txtSongName.setText("Song Name");
+		txtArtistName.setText("Artist");
+		updateTitle("");
+
+		tableChordChartArea.setModel(chordChartAreaController.getChordChartAreaAdapter());
+
+		panelLyrics = (JPanel) textAreaController.getTextArea();
+		textAreaPane.setViewportView(panelLyrics);
+	}
+
+	private void openFunction() {
+		fakeSheetController.openFakeSheet();
+		updateControllers(fakeSheetController);
+
+		// Set up areas of the form.
+		txtArtistName.setText(fakeSheetController.getArtistName());
+		txtSongName.setText(fakeSheetController.getSongName());
+		updateTitle(fakeSheetController.getFakeSheetFileName());
+
+		tableChordChartArea.setModel(chordChartAreaController.getChordChartAreaAdapter());
+
+		panelLyrics = (JPanel) textAreaController.getTextArea();
+		textAreaPane.setViewportView(panelLyrics);
+	}
+
+	private void pasteFunction() {
+		int row = tableChordChartArea.rowAtPoint(popupPoint);
+		int column = tableChordChartArea.columnAtPoint(popupPoint);
+		try {
+			tableChordChartArea.setValueAt(chordCopyBuffer.clone(), row, column);
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void saveAsFunction() {
+		fakeSheetController.setArtistName(txtArtistName.getText());
+		fakeSheetController.setSongName(txtSongName.getText());
+
+		fakeSheetController.saveFakeSheet(true);
+		updateTitle(fakeSheetController.getFakeSheetFileName());
+	}
+
+	private void saveFunction() {
+		fakeSheetController.setArtistName(txtArtistName.getText());
+		fakeSheetController.setSongName(txtSongName.getText());
+
+		fakeSheetController.saveFakeSheet(false);
+		updateTitle(fakeSheetController.getFakeSheetFileName());
+	}
+
+	private void selectText(JTextField textArea) {
+		textArea.selectAll();
+	}
+
 	/**
 	 * Make sure application adopts the native look-and-feel of the system.
 	 */
@@ -559,7 +755,7 @@ public class GuitarifficApplication {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 
 			// set the name of the application menu item
-			// System.setProperty("com.apple.mrj.application.apple.menu.about.name", "AppName");
+			// System.setProperty("com.apple.mrj.application.apple.menu.about.name", "guitariffic");
 
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e1) {
@@ -583,20 +779,6 @@ public class GuitarifficApplication {
 	}
 
 	/**
-	 * Create all the local controllers.
-	 */
-	private void createControllers() {
-		// Create new controllers...
-		fakeSheetController = new FakeSheetController();
-		chordTrayController = new ChordTrayController();
-		textAreaController = new TextAreaController();
-		chordChartAreaController = new ChordChartAreaController();
-
-		// and pass into them their respective models.
-		updateControllers(fakeSheetController);
-	}
-
-	/**
 	 * Update the title on the form.
 	 * 
 	 * @param fileName
@@ -609,171 +791,14 @@ public class GuitarifficApplication {
 		}
 	}
 
-	private void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-
-			private void showMenu(MouseEvent e) {
-				popupPoint = e.getPoint();
-				JTable table = (JTable) e.getComponent();
-				int row = table.rowAtPoint(popupPoint);
-				int column = table.columnAtPoint(popupPoint);
-				popupMenuItem = (MusicChart) table.getValueAt(row, column);
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
-	}
-
-	/**
-	 * Function to initialize all parts of the FakeSheet when the user selects New.
-	 */
-	private void newFunction() {
-		fakeSheetController.newFakeSheet();
-		updateControllers(fakeSheetController);
-
-		// Initialize areas of the form.
-		txtSongName.setText("Song Name");
-		txtArtistName.setText("Artist");
-		updateTitle("");
-
-		tableChordChartArea.setModel(chordChartAreaController.getChordChartAreaAdapter());
-
-		panelLyrics = (JPanel) textAreaController.getTextArea();
-		textAreaPane.setViewportView(panelLyrics);
-	}
-
-	private void saveFunction() {
-		fakeSheetController.setArtistName(txtArtistName.getText());
-		fakeSheetController.setSongName(txtSongName.getText());
-
-		fakeSheetController.saveFakeSheet(false);
-		updateTitle(fakeSheetController.getFakeSheetFileName());
-	}
-
-	private void openFunction() {
-		fakeSheetController.openFakeSheet();
-		updateControllers(fakeSheetController);
-
-		// Set up areas of the form.
-		txtArtistName.setText(fakeSheetController.getArtistName());
-		txtSongName.setText(fakeSheetController.getSongName());
-		updateTitle(fakeSheetController.getFakeSheetFileName());
-
-		tableChordChartArea.setModel(chordChartAreaController.getChordChartAreaAdapter());
-
-		panelLyrics = (JPanel) textAreaController.getTextArea();
-		textAreaPane.setViewportView(panelLyrics);
-	}
-
-	private void saveAsFunction() {
-		fakeSheetController.setArtistName(txtArtistName.getText());
-		fakeSheetController.setSongName(txtSongName.getText());
-
-		fakeSheetController.saveFakeSheet(true);
-		updateTitle(fakeSheetController.getFakeSheetFileName());
-	}
-
-	private void aboutFunction() {
-		GuitarifficAbout aboutBox = new GuitarifficAbout(frmGuitariffic);
-		aboutBox.setVisible(true);
-	}
-
-	private void endFunction() {
-		System.exit(0);
-	}
-
-	private void selectText(JTextField textArea) {
-		textArea.selectAll();
-	}
-
-	/**
-	 * export all chords to file from main menu
-	 */
-	private void exportAllChordsTrayFunction() {
-		chordTrayController.exportAllChordCharts(frmGuitariffic);
-	}
-
-	/**
-	 * new chord from popup menu
-	 */
-	private void newChordTrayFunction() {
-		chordTrayController.newChordChart(frmGuitariffic);
-	}
-
-	/**
-	 * export single chord from popup menu
-	 */
-	private void exportChordTrayFunction() {
-		chordTrayController.exportChordChart(frmGuitariffic, popupMenuItem);
-	}
-
-	/**
-	 * delete chord from popup menu
-	 */
-	private void deleteChordTrayFunction() {
-		chordTrayController.deleteChordChart(frmGuitariffic, popupMenuItem);
-	}
-
-	/**
-	 * edit chord from popup menu
-	 */
-	private void editChordTrayFunction() {
-		chordTrayController.editChart(frmGuitariffic, popupMenuItem);
-	}
-
-	/**
-	 * copy chord from popup menu
-	 */
-	private void copyFunction() {
-		try {
-			chordCopyBuffer = (MusicChart) popupMenuItem.clone();
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
+	public class MoveOverTable extends MouseMotionAdapter {
+		public void mouseMoved(MouseEvent e) {
+			ChordTable table = (ChordTable) e.getSource();
+			int row = table.rowAtPoint(e.getPoint());
+			int column = table.columnAtPoint(e.getPoint());
+			table.setHoverRow(row);
+			table.setHoverColumn(column);
+			table.repaint();
 		}
-	}
-
-	private void editChordChartFunction() {
-		GuitarChordChartEditor chordChartEditor = new GuitarChordChartEditor(frmGuitariffic);
-		int row = tableChordChartArea.rowAtPoint(popupPoint);
-		int column = tableChordChartArea.columnAtPoint(popupPoint);
-
-		chordChartEditor.setGuitarChordChart((GuitarChordChart) tableChordChartArea.getValueAt(row, column));
-		chordChartEditor.setVisible(true);
-		// Make the renderer reappear.
-		if (chordChartEditor.getGuitarChordChart() != null) {
-			tableChordChartArea.setValueAt(chordChartEditor.getGuitarChordChart(), row, column);
-		}
-
-	}
-
-	private void deleteChordChartFunction() {
-		int row = tableChordChartArea.rowAtPoint(popupPoint);
-		int column = tableChordChartArea.columnAtPoint(popupPoint);
-		tableChordChartArea.setValueAt(new GuitarChordChart(), row, column);
-	}
-
-	private void pasteFunction() {
-		int row = tableChordChartArea.rowAtPoint(popupPoint);
-		int column = tableChordChartArea.columnAtPoint(popupPoint);
-		try {
-			tableChordChartArea.setValueAt(chordCopyBuffer.clone(), row, column);
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void insertRowFunction() {
-		int row = tableChordChartArea.rowAtPoint(popupPoint);
-		chordChartAreaController.getChordChartAreaAdapter().insertRow(row);
 	}
 }
