@@ -1,5 +1,6 @@
 /*
-Author: Ryszard Kilarski, BU ID: U81-39-8560
+Author: Ryszard Kilarski
+BU ID: U81-39-8560
 */
 /**********************************Universal styles***********************************/
 
@@ -92,9 +93,9 @@ Define some borders around each section.
 }
 
 /*
-Style the major.
+Style the school major and date ranges.
 */
-.major {
+.major,.daterange {
 	font-style: italic;
 }
 
@@ -107,24 +108,10 @@ Style the job title.
 }
 
 /*
-Style the company name.
+Style the company name and technical skill.
 */
-.companyname {
+.companyname,.technicalskill {
 	font-weight: bold;
-}
-
-/*
-Style the technical skill.
-*/
-.technicalskill {
-	font-weight: bold;
-}
-
-/*
-Style the date ranges.
-*/
-.daterange {
-	font-style: italic;
 }
 
 /***********************************ID Styles for specific items.***********************************/
