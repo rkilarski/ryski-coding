@@ -1,0 +1,18 @@
+/*
+Style sheet for moviecss1.html.
+Submitted by Ryszard Kilarski, BU ID: U81-39-8560
+*/
+body {
+	background-color: #FFFFFF;
+	color: #000099;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+	background-color: #CCCCCC;
+}
+
+h1 {
+	font-family: "Times New Roman", serif;
+	color: red;
+}
