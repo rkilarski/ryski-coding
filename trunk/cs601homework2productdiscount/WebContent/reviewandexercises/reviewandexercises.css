@@ -1,0 +1,29 @@
+body{
+	font-family: Calibri, sans-serif;
+}
+
+.question{
+	font-family: Calibri, sans-serif;
+	font-weight: bold;
+}
+
+.answer{
+	font-family: Calibri, sans-serif;
+	margin: 0 0 20px 20px;	
+}
+
+.title{
+	font-weight: bold;
+	font-size: 20px;
+	margin: 0 0 20px 0px;
+}
+
+.fillintheblank{
+	text-decoration: underline;
+}
+
+#wrapper {
+	margin: 0 auto;
+	width: 90%;
+}
+

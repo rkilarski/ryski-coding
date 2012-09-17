@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Review and Hands-On Exercises
+    </title>
+    <link rel="stylesheet" href="reviewandexercises.css" type=
+    "text/css">
+  </head>
+  <body>
+    <div id="wrapper">
+      Submitted by: Ryszard Kilarski (BU ID: U81-39-8560)<br>
+      Homework #2 from Felke-Morris<br>
+       
+      <div class="title">
+        Chapter 3 Review Questions (Page 110-111)<br>
+      </div>
+      <div class="question">
+        1) Which of the following is the CSS property used to set
+        the background color of a web page?
+      </div>
+      <div class="answer">
+        b. background-color
+      </div>
+      <div class="question">
+        2) Which type of CSS is coded in the body of the web page
+        as an attribute of an HTML tag?
+      </div>
+      <div class="answer">
+        b. inline
+      </div>
+      <div class="question">
+        3) Which of the following describe two components of CSS
+        rules?
+      </div>
+      <div class="answer">
+        a. selectors and declarations
+      </div>
+      <div class="question">
+        4) Which of the following associates a web page with an
+        external style sheet?
+      </div>
+      <div class="answer">
+        c. &lt;link rel="stylesheet" href="styles.css"&gt;
+      </div>
+      <div class="question">
+        5) Which of the following is the declaration property used
+        to set the font typeface for an area of a web page?
+      </div>
+      <div class="answer">
+        c. font-family
+      </div>
+      <div class="question">
+        6) Which of the following can be a CSS selector?
+      </div>
+      <div class="answer">
+        d. all of the above
+      </div>
+      <div class="question">
+        7) Which of the following do you configure to apply a style
+        to only one area on a web page?
+      </div>
+      <div class="answer">
+        c. id
+      </div>
+      <div class="question">
+        8) Where do you place the code to associate a web page with
+        an external style sheet?
+      </div>
+      <div class="answer">
+        d. in the head section of the web page document
+      </div>
+      <div class="question">
+        9) Which of the following configures a background color of
+        #FF8DC for a web page using CSS?
+      </div>
+      <div class="answer">
+        a. body { background-color: #FF8DC; }
+      </div>
+      <div class="question">
+        10) Which of the following uses CSS to configure a class
+        called news with red text, large font, and Arial or a
+        sans-serif font?
+      </div>
+      <div class="answer">
+        b. .news { color: red; font-size: large; font-family:
+        Arial, sans-serif; }
+      </div>
+      <div class="question">
+        11) Which of the following is true if a web page contains
+        both a link to an external style sheet and embedded styles?
+      </div>
+      <div class="answer">
+        c. External styles will be applied first, and then the
+        embedded styles will be applied.
+      </div>
+      <div class="title">
+        Fill in the blank.
+      </div>
+      <div class="question">
+        12) The <span class="fillintheblank">span</span> element is
+        useful for creating areas on a web page that are embedded
+        within paragraphs or other block display elements.
+      </div>
+      <div class="question">
+        13) The <span class="fillintheblank">text-align</span> CSS
+        property can be used to center text within a block display
+        element.
+      </div>
+      <div class="question">
+        14) The <span class="fillintheblank">text-indent</span> CSS
+        property can be used to indent the first line of text.
+      </div>
+      <div class="question">
+        15) CSS was first proposed as a standard by the W3C in
+        <span class="fillintheblank">1996</span>.
+      </div>
+      <div class="title">
+        Hands-On Exercises (Page 113)
+      </div>
+      <div class="question">
+        1. Write the HTML for a paragraph that uses inline styles
+        to configure the background color of red and the text color
+        of white.
+      </div>
+      <div class="answer">
+<pre>
+&lt;p style="background-color: red; color: white;"&gt;This is a paragraph.&lt;/p&gt;
+</pre>
+      </div>
+      <div class="question">
+        2. Write the HTML and CSS code for an embedded style sheet
+        that configures a background color of #eaeaea and a text
+        color of #000033.
+      </div>
+      <div class="answer">
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;Title&gt;Title goes here&lt;/Title&gt;
+    &lt;style&gt;
+      body {
+        background-color: #EAEAEA;
+        color: #000033;
+      }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    The body goes here.
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+      <div class="question">
+        3. Write the CSS code for an external style sheet that
+        configures the text to be brown, 1.2 em in size, and in
+        Arial, Verdana, or a sans-serif font.
+      </div>
+      <div class="answer">
+<pre>
+body{
+  color: brown;
+  font-size: 1.2em;
+  font-family: Arial,Verdana,sans-serif;
+}
+</pre>
+      </div>
+      <div class="question">
+        4. Write the HTML and CSS code for an embedded style sheet
+        that configures a class called new that is bold and italic.
+      </div>
+      <div class="answer">
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;Title&gt;Title goes here&lt;/Title&gt;
+    &lt;style&gt;
+      .new {
+        font-style: italic;
+        font-weight: bold;
+      }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    The body &lt;span class="new"&gt;goes&lt;/span&gt; here.
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+      <div class="question">
+        5. Write the HTML and CSS code for an embedded style sheet
+        that configures links without underlines; a background
+        color of white; text color of black; is in Arial,
+        Helvetica, or a sans-serif font; and has a class called new
+        that is bold and italic.
+      </div>
+      <div class="answer">
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;Title&gt;Title goes here&lt;/Title&gt;
+    &lt;style&gt;
+      a {
+        text-decoration: none;
+        background-color: white;
+        color: black;
+        font-family: Arial,Helvetica,sans-serif;
+      }
+      .new {
+        font-style: italic;
+        font-weight: bold;
+      }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    The body goes here.
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+      <div class="question">
+        6. Write the CSS code for an external style sheet that
+        configures a page background color of #FFF8DC; has a text
+        color of #000099; is in Arial, Helvetica, or a sans-serif
+        font; and has an id called new that is bold and italic.
+      </div>
+      <div class="answer">
+<pre>
+body{
+  background-color: #FFF8DC;
+  color: #000099;
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+#new{
+  font-style: italic;
+  font-weight: bold;
+}
+</pre>
+      </div>
+      <br>
+       Questions 7 and 8 are answered via html and css pages in
+      separate directories.<br>
+       
+      <div class="question">
+        9. Write a one- or two-paragraph summary about the
+        validation process that answers the following questions:
+        Was the CSS validator easy to use? Did anything surprise
+        you? Did you encounter a number of errors or just a few?
+        How easy was it to determine how to correct the CSS file?
+        Would you recommend the validator to other students? Why or
+        why not?
+      </div>
+      <div class="answer">
+        <p>
+          Both the CSS and HTML validators are very easy to use.
+          While neither offers any real surprises, one small issue
+          I had with them is that the results page is a little
+          busy. In my opinion, parts of the resulting page (after
+          the check is run) look like advertising until you look
+          closer at what is being presented.
+        </p>
+        <p>
+          The only warning I received while using this tool is with
+          validating HTML 5 code and that this is still marked as
+          "experimental". I would definitely recommend the
+          validator to other students because a) it's quite fast
+          and easy to use, and b)is a good sanity check on the HTML
+          and CSS you've written.
+        </p>
+        <p>
+          A sanity check is especially important if you do not use
+          an IDE or editor that uses syntax highlighting. I use
+          Eclipse and other tools, so I can very easily see syntax
+          errors and fix them before I ever need to validate; but
+          if someone uses Notepad or some other simple text editor,
+          then checking basic syntax through this tool is
+          invaluable.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
+
