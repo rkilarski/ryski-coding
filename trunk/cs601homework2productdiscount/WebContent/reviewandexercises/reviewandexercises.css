@@ -1,31 +1,58 @@
+* {
+	font-family: Calibri, Arial, sans-serif;
+}
+
 body {
-	font-family: Arial, Calibri, sans-serif;
-}
-
-.question {
-	font-family: Calibri, sans-serif;
-	font-weight: bold;
-	font-style:italic;
-}
-
-.answer {
-	font-family: Calibri, sans-serif;
-	margin: 0 0 20px 20px;
-}
-
-.answer:first-letter{
-	font-weight:bold;
+	font-family: Calibri, Arial, sans-serif;
 }
 
 h2 {
 	margin: 20px 0 20px 0px;
 }
 
-.fillintheblank {
+pre {
+	margin: 0px 0 0px 20px;
+	font-family: monospace;
+}
+
+.question {
+	font-weight: bold;
+	font-style: italic;
+}
+
+.multiplechoiceanswer {
+	margin: 0 0 20px 20px;
+}
+
+.multiplechoiceanswer:first-letter {
+	font-weight: bold;
+}
+
+.fillintheblankquestion {
+	font-weight: bold;
+	font-style: italic;
+}
+
+.fillintheblankanswer {
 	text-decoration: underline;
+	font-weight: bold;
+	font-style: normal;
+}
+
+.answer {
+	margin: 0 0 20px 20px;
 }
 
 #wrapper {
 	margin: 0 auto;
 	width: 90%;
 }
+
+#buid {
+	font-style: italic;
+}
+
+#author {
+	font-style: normal;
+}
+
