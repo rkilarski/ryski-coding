@@ -1,24 +1,27 @@
-body{
-	font-family: Calibri, sans-serif;
+body {
+	font-family: Arial, Calibri, sans-serif;
 }
 
-.question{
+.question {
 	font-family: Calibri, sans-serif;
 	font-weight: bold;
+	font-style:italic;
 }
 
-.answer{
+.answer {
 	font-family: Calibri, sans-serif;
-	margin: 0 0 20px 20px;	
+	margin: 0 0 20px 20px;
 }
 
-.title{
-	font-weight: bold;
-	font-size: 20px;
-	margin: 0 0 20px 0px;
+.answer:first-letter{
+	font-weight:bold;
 }
 
-.fillintheblank{
+h2 {
+	margin: 20px 0 20px 0px;
+}
+
+.fillintheblank {
 	text-decoration: underline;
 }
 
@@ -26,4 +29,3 @@ body{
 	margin: 0 auto;
 	width: 90%;
 }
-
