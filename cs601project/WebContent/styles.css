@@ -1,0 +1,87 @@
+/*
+Stylesheet for client-side restaurant.
+
+Need to use
+Descendant Selector [p div]
+Child Selector ['p > div']
+YESAttribute Selector ['att=value']
+YESType or Element Selector ['p']
+Adjacent sibling Selector ['p + div']
+
+
+*/
+
+/*------------------------------Universal Section------------------------------*/
+* {
+	font-family: Arial, sans-serif;
+}
+
+/*------------------------------Element Section------------------------------*/
+a {
+	text-decoration: none;
+	color: #FF6600
+}
+
+body {
+	background-color: #000000;
+	margins: 0;
+}
+
+input[type="button"] {
+	background-color: #FF6600;
+	color: #FFFFFF;
+	/*Border radius section*/
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	-webkit-border-radius: 15px
+}
+/*------------------------------Class Section------------------------------*/
+
+
+
+/*------------------------------ID Section------------------------------*/
+#wrapper {
+	width: 1220px;
+	margin: 0 auto;
+	/*Border radius section*/
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	/*End border radius section*/
+	/*Linear gradient section*/
+	background-color: #FFFFFF;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF),
+		to(#FF6600) );
+	background-image: -moz-linear-gradient(top, #FFFFFF, #FF6600);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFFFFF,
+		endColorstr=#FF6600 );
+	background-image: linear-gradient(#FFFFFF, #FF6600);
+	border-radius: 15px;
+	/*End linear gradient section*/
+}
+
+#chickenrice {
+	float: left;
+	width: 100px;
+	margin: 5px 5px 5px 5px;
+}
+
+#navigation {
+	float: right;
+	width: 1100px;
+	text-align: right;
+	margin: 5px 5px 5px 5px;
+}
+
+#content {
+	float: clear;
+	height: 600px;
+	margin: 5px 5px 5px 5px;
+}
+
+#footer {
+	text-align: center;
+	font-size: 12px;
+	color: #FFFFFF;
+}
