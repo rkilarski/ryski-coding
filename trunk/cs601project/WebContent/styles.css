@@ -14,17 +14,36 @@ Adjacent sibling Selector ['p + div']
 /*------------------------------Universal Section------------------------------*/
 * {
 	font-family: Arial, sans-serif;
+	color: #FFFFFF;
 }
 
 /*------------------------------Element Section------------------------------*/
 a {
 	text-decoration: none;
-	color: #FF6600
+}
+a:hover {
+	color:black;
 }
 
 body {
 	background-color: #000000;
-	margins: 0;
+	margin: 0;
+	/*Background image begin*/
+	background: url("images/chickengrill.jpg") no-repeat fixed center center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	/*Background image end*/
+}
+
+h1,h2 {
+	text-align: center;
+	font-size: 30px;
+}
+
+h2 {
+	font-size: 15px;
 }
 
 input[type="button"] {
@@ -38,50 +57,63 @@ input[type="button"] {
 }
 /*------------------------------Class Section------------------------------*/
 
-
-
 /*------------------------------ID Section------------------------------*/
 #wrapper {
-	width: 1220px;
-	margin: 0 auto;
+	width: 95%;
+	height: 100%;
+	background-color: #FF6600;
+	margin: 100px auto;
 	/*Border radius section*/
 	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
 	border-radius: 15px;
 	/*End border radius section*/
-	/*Linear gradient section*/
-	background-color: #FFFFFF;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF),
-		to(#FF6600) );
-	background-image: -moz-linear-gradient(top, #FFFFFF, #FF6600);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFFFFF,
-		endColorstr=#FF6600 );
-	background-image: linear-gradient(#FFFFFF, #FF6600);
-	border-radius: 15px;
-	/*End linear gradient section*/
 }
+
+#transparent {
+	width: 95%;
+	height: 95%; /* Does this do anything?*/
+	margin: 100px auto;
+	background-color: #FFFFFF;
+	border: 1px solid black;
+	/*Set opacity for image */
+	opacity: 0.8;
+	filter: alpha(opacity = 80); /* For IE8 and earlier */
+	/*Border radius section*/
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	-webkit-border-radius: 15px
+}
+
+
 
 #chickenrice {
 	float: left;
-	width: 100px;
+	width: 10%;
 	margin: 5px 5px 5px 5px;
 }
 
 #navigation {
 	float: right;
-	width: 1100px;
+	width: 87%;
 	text-align: right;
 	margin: 5px 5px 5px 5px;
 }
 
 #content {
 	float: clear;
-	height: 600px;
 	margin: 5px 5px 5px 5px;
+	padding: 10px 10px 10px 10px;
 }
 
 #footer {
 	text-align: center;
 	font-size: 12px;
+	color: #000000;
+}
+
+#location {
+	text-align: center;
 	color: #FFFFFF;
 }
