@@ -3,7 +3,7 @@ Stylesheet for client-side restaurant.
 
 Need to use
 Descendant Selector [p div]
-Child Selector ['p > div']
+YESChild Selector ['p > div']
 YESAttribute Selector ['att=value']
 YESType or Element Selector ['p']
 Adjacent sibling Selector ['p + div']
@@ -14,22 +14,20 @@ Adjacent sibling Selector ['p + div']
 /*------------------------------Universal Section------------------------------*/
 * {
 	font-family: Arial, sans-serif;
-	color: #FFFFFF;
+	color: #FFFFFF; /*white*/
 }
 
 /*------------------------------Element Section------------------------------*/
 a {
 	text-decoration: none;
 }
-a:hover {
-	color:black;
-}
 
 body {
 	background-color: #000000;
 	margin: 0;
-	/*Background image begin*/
-	background: url("images/chickengrill.jpg") no-repeat fixed center center;
+	height: 100%;
+	/*Background image begin*/ 
+	background : url("images/chickengrill.jpg") no-repeat fixed center center;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -37,8 +35,7 @@ body {
 	/*Background image end*/
 }
 
-h1,h2 {
-	text-align: center;
+h1{
 	font-size: 30px;
 }
 
@@ -46,23 +43,18 @@ h2 {
 	font-size: 15px;
 }
 
+h1,h2 {
+	text-align: center;
+}
+
 input[type="button"] {
-	background-color: #FF6600;
-	color: #FFFFFF;
-	/*Border radius section*/
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
-	-webkit-border-radius: 15px
+	background-color: #FF6600; /*orange*/
+	color: #FFFFFF; /*white*/
 }
 /*------------------------------Class Section------------------------------*/
 
 /*------------------------------ID Section------------------------------*/
-#wrapper {
-	width: 95%;
-	height: 100%;
-	background-color: #FF6600;
-	margin: 100px auto;
+#wrapper,#contenttransparent,#logo,input[type="button"] {
 	/*Border radius section*/
 	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
@@ -70,25 +62,45 @@ input[type="button"] {
 	/*End border radius section*/
 }
 
-#transparent {
-	width: 95%;
-	height: 95%; /* Does this do anything?*/
-	margin: 100px auto;
-	background-color: #FFFFFF;
-	border: 1px solid black;
-	/*Set opacity for image */
+#contenttransparent,#logo { /*Set opacity for image */
 	opacity: 0.8;
-	filter: alpha(opacity = 80); /* For IE8 and earlier */
-	/*Border radius section*/
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
-	-webkit-border-radius: 15px
+	filter: alpha(opacity =     80); /* For IE8 and earlier */
+	border: 1px solid black;
 }
 
+#wrapper {
+	width: 95%;
+	height: 100%;
+	background-color: #FF6600;
+	margin: 50px auto;
+}
 
+#contenttransparent {
+	width: 95%;
+	margin: 100px auto;
+	background-color: #FFFFFF;
+}
 
-#chickenrice {
+#logo {
+	position: absolute;
+	left: 25px;
+	top: 0px;
+	background-color: #FFFFFF;
+	color: #FF6600;
+	padding: 10px 10px 10px 10px;
+}
+
+#largerestaurantname {
+	font-size: 30px;
+	color: #FF6600;
+}
+
+#tagline {
+	font-size: 15px;
+	color: #FF6600;
+}
+
+#restaurantname {
 	float: left;
 	width: 10%;
 	margin: 5px 5px 5px 5px;
@@ -114,6 +126,18 @@ input[type="button"] {
 }
 
 #location {
-	text-align: center;
+	text-align: right;
 	color: #FFFFFF;
+}
+/*------------------------------Pseudo-class Section------------------------------*/
+
+#navigation>a:nth-of-type(even){
+	color: #000000;  /*black*/
+}
+
+#navigation>a:nth-of-type(odd):hover{
+	color: #000000;  /*black*/
+}
+#navigation>a:nth-of-type(even):hover{
+	color: #FFFFFF;  /*white*/
 }
