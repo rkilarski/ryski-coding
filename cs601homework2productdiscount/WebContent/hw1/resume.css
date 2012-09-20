@@ -1,0 +1,148 @@
+/*
+Author: Ryszard Kilarski
+BU ID: U81-39-8560
+*/
+/**********************************Universal styles***********************************/
+
+/*
+Style the address item to be centered.
+*/
+address {
+	text-align: center;
+	font-family: Calibri, sans-serif;
+	font-size: small;
+}
+
+/*
+Style all lists.
+*/
+ul {
+	list-style-type: none;
+	padding-left: 0;
+	font-family: Calibri, sans-serif;
+	font-size: small;
+	margin: 0;
+	list-style-position: outside;
+}
+
+/*
+Use custom bullet item. 
+*/
+ul li:before {
+	content: "\2014 \0020";
+}
+
+/*
+Massage the second-line indent on the custom bullet items.
+*/
+li {
+	margin-left: 20px;
+	text-indent: -20px;
+}
+
+/*
+Make the horizontal line be a solid line.
+*/
+hr {
+	color: black;
+	background-color: black;
+	height: 1px;
+	border: 0;
+}
+
+a:link {
+	text-decoration: none;
+}
+/**********************************Class styles**********************************/
+/*
+Clear the floating items from the header.  
+*/
+.clearfloat {
+	clear: both;
+}
+
+/*
+Style the section items on the left side.
+*/
+.leftitem {
+	width: 10%;
+	float: left;
+	clear: both;
+	font-family: Calibri, sans-serif;
+	font-size: small;
+	font-weight: bold;
+}
+
+/*
+Style the data items on the right side.
+*/
+.rightitem {
+	width: 90%;
+	float: right;
+	font-family: Calibri, sans-serif;
+	font-size: small;
+	margin: 0 0 20px 0;
+}
+
+/*
+Define some borders around each section.
+*/
+.section {
+	margin: 10px 0;
+	padding: 10px;
+}
+
+/*
+Style the school major and date ranges.
+*/
+.major,.daterange {
+	font-style: italic;
+}
+
+/*
+Style the job title.
+*/
+.jobtitle {
+	font-weight: bold;
+	font-style: italic;
+}
+
+/*
+Style the company name and technical skill.
+*/
+.companyname,.technicalskill {
+	font-weight: bold;
+}
+
+/***********************************ID Styles for specific items.***********************************/
+/*
+Define the overall wrapper for the page.
+*/
+#wrapper {
+	margin: 0 auto;
+	width: 90%;
+}
+
+/*
+Style the name item.
+*/
+#myname {
+	font-weight: bold;
+	text-align: center;
+	font-size: x-large;
+	font-family: Calibri, sans-serif;
+}
+
+/*
+Style the telephone to be on the left.
+*/
+#homephone {
+	float: left;
+}
+
+/*
+Style the cell phone to be on the right.
+*/
+#cellphone {
+	float: right;
+}

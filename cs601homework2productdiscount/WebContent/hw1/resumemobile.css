@@ -1,0 +1,87 @@
+@CHARSET "ISO-8859-1";
+
+address {
+	text-align: center;
+	font-family: sans-serif;
+}
+
+ul {
+	list-style-type: square;
+	padding-left: 20px;
+	font-family: sans-serif;
+	margin: 0;
+}
+
+p {
+	font-family: sans-serif;
+}
+
+hr{
+	color: black;
+	background-color: black;
+	height:1px;
+	border: 0;
+}
+#wrapper {
+	margin: 0 auto;
+	/*width: 90%;*/
+}
+
+#myname {
+	font-weight: bold;
+	text-align: center;
+	font-size: x-large;
+	font-family: sans-serif;
+}
+
+#homephone {
+	/*float: left;*/
+}
+
+#cellphone {
+	/*float: right;*/
+}
+
+.clearfloat {
+	clear: both;
+}
+
+.leftitem {
+	/*width: 10%;
+	float: left;
+	clear: both;*/
+	text-align: center;
+	font-family: sans-serif;
+	font-weight: bold;
+}
+
+.rightitem {
+	/*width: 90%;
+	float: right;*/
+	font-family: sans-serif;
+}
+
+.section {
+	padding: 20px;
+	margin-bottom: 50px;
+}
+
+.major {
+	font-style: italic;
+}
+
+.jobtitle {
+	font-weight: bold;
+	font-style: italic;
+}
+
+.companyname {
+	font-weight: bold;
+}
+
+.technicalskill {
+	font-weight: bold;
+}
+.daterange {
+	font-style: italic;
+}

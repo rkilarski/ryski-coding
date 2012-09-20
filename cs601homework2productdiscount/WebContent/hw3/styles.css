@@ -1,0 +1,81 @@
+/*
+Stylesheet for homework #3.
+
+*/
+
+/*1.Write a CSS rule that gives all h3 and h5 elements a padding of .5em, a dashed border (any style) and a margin of .5em*/
+h3,h5 {
+	padding: 0.5em;
+	border: 1px dashed;
+	margin: .5em;
+}
+
+/*2.Write a CSS rule that changes the color of all elements containing attribute class="high" to green and shifts them down 25 pixels and right 25 pixels.*/
+[class="high"] {
+	color: green;
+	margin-top: 25px;
+	margin-left: 25px;
+}
+/*3.Make a layout template that contains a header and two columns. Use divs for each layout component, and use float to line up the columns side by side. Give each component a border and/or a background color so you can see where your div are.*/
+#header {
+	border: 1px solid;
+	background-color: #FF0000;
+}
+
+#leftcolumn {
+	float: left;
+	width: 200px;
+	height: 1200px;
+	border: 1px solid;
+	background-color: #00FF00;
+}
+
+#rightcolumn {
+	float: right;
+	width: 796px;
+	height: 1200px;
+	border: 1px solid;
+	background-color: #00FFFF;
+}
+
+/*4.Change all anchor elements to not have a natural bottom line. Instead, using CSS, give them all a dotted line with the color darkgreen.*/
+a {
+	text-decoration: none;
+	border-bottom: 1px dotted;
+	color: darkgreen;
+}
+
+/*5.For any span on your page that is within a list item, set its background color to #333333 and the color of the font to white*/
+li span {
+	background-color: #333333;
+	color: #FFFFFF;
+}
+
+/*6.For any div with a class of "spacer" add 25 pixels of margin to its bottom.*/
+div.spacer {
+	margin-bottom: 25px;
+}
+
+/*7.Create a rule that says for any paragraph with a class of "on_right" to have its contained text aligned to the right, with a font-size of 30 pixels.*/
+p.on_right {
+	text-align: right;
+	font-size: 30px;
+}
+
+/*8.Create a rule that says that any list item in a unordered list to have a margin of 1 pixels on top, 4 pixels on its right, 10 pixels on its bottom and 20 pixels on its left. Make sure your rule uses the short-hand margin property, not all 4 properties individually spelled out.*/
+ul>li {
+	margin: 1px 4px 10px 20px;
+}
+
+/*9.For the entire body of your XHTML document, ensure the fonts to be used (in this order!) are: Howdy-doody, bogus-font-family, than lastly, indicate fantasy. What font is rendered?*/
+body {
+	width: 1000px;
+	font-family: "Howdy-doody", "bogus-font-family", fantasy;
+}
+
+/*10.Create a rule that says when a div followed by a cite followed by a span, that the text color will be darkgreen, with a 19 pixels font and italic.*/
+div cite span {
+	color: darkgreen;
+	font-size: 19px;
+	font-style: italic;
+}
