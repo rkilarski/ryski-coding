@@ -136,8 +136,8 @@ input[type="button"] {
 }
 
 #navigation>a:nth-of-type(odd):hover{
-	color: *#000000;  /*black*/
+	color: #BDE500;  /*#000000black*/
 }
 #navigation>a:nth-of-type(even):hover{
-	color: #FFFFFF; /*white*/
+	color: #BDE500; /*FFFFFFwhite*/
 }
