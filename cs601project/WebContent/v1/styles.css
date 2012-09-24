@@ -26,8 +26,13 @@ body {
 	background-color: #000000;
 	margin: 0;
 	height: 100%;
-	/*Background image begin*/ 
-	background : url("images/bg/bg-01.jpg") no-repeat fixed center center;
+	/*Background image begin*/
+	background: url("images/bg/bg-01.jpg") no-repeat fixed center center;
+	/*For IE8*/
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/bg/bg-01.jpg",
+		sizingMethod="scale" );
+	/*For IE8?
+	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/bg/bg-01.jpg", sizingMethod="scale");*/
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -35,7 +40,7 @@ body {
 	/*Background image end*/
 }
 
-h1{
+h1 {
 	font-size: 30px;
 }
 
@@ -64,7 +69,7 @@ input[type="button"] {
 
 #contenttransparent,#logo { /*Set opacity for image */
 	opacity: 0.8;
-	filter: alpha(opacity =     80); /* For IE8 and earlier */
+	filter: alpha(opacity =       80); /* For IE8 and earlier */
 	border: 1px solid black;
 }
 
@@ -129,15 +134,27 @@ input[type="button"] {
 	text-align: right;
 	color: #FFFFFF;
 }
+#pagename{
+	font-style: italic;
+}
+
 /*------------------------------Pseudo-class Section------------------------------*/
-
-#navigation>a:nth-of-type(even){
-	color: #000000;  /*black*/
+#navigation>a:nth-of-type(even) {
+	color: #000000; /*black*/
 }
 
-#navigation>a:nth-of-type(odd):hover{
-	color: #BDE500;  /*#000000black*/
+#navigation>a:nth-of-type(odd) {
+	color: #FFFFFF; /*white*/
 }
-#navigation>a:nth-of-type(even):hover{
-	color: #BDE500; /*FFFFFFwhite*/
+
+#navigation>a:nth-of-type(odd):hover {
+	color: #FFFF00; /*#000000black*/
+}
+
+#navigation>a:nth-of-type(even):hover {
+	color: #FFFF00; /*FFFFFFwhite*/
+}
+
+#restaurantname>a:hover {
+	color: #FFFF00; /*yellow*/
 }

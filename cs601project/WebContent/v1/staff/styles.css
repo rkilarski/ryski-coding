@@ -9,17 +9,20 @@ Staff stylesheet, which presents a darker-toned set of colors to differentiate i
 }
 
 /*------------------------------Element Section------------------------------*/
-a {
-	
-}
-
 input[type="button"] {
 	background-color: #CC6600;
 }
 /*------------------------------Class Section------------------------------*/
 
-
 /*------------------------------ID Section------------------------------*/
-#wrapper { 
+#wrapper {
 	background-color: #CC6600;
+}
+
+#largerestaurantname {
+	color: #CC6600;
+}
+
+#tagline {
+	color: #CC6600;
 }
