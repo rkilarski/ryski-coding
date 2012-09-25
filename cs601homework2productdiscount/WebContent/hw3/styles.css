@@ -1,12 +1,13 @@
 /*
-Stylesheet for homework #3.
-
+Homework #3 Due Sept 25, 2012
+Submitted by: Ryszard Kilarski, BU ID: U81-39-8560
+Stylesheet for Homework #3.
 */
 
 /*1.Write a CSS rule that gives all h3 and h5 elements a padding of .5em, a dashed border (any style) and a margin of .5em*/
 h3,h5 {
 	padding: 0.5em;
-	border: 1px dashed;
+	border: 5px dashed;
 	margin: .5em;
 }
 
@@ -48,7 +49,7 @@ a {
 /*5.For any span on your page that is within a list item, set its background color to #333333 and the color of the font to white*/
 li span {
 	background-color: #333333;
-	color: #FFFFFF;
+	color: white;
 }
 
 /*6.For any div with a class of "spacer" add 25 pixels of margin to its bottom.*/
@@ -69,12 +70,13 @@ ul>li {
 
 /*9.For the entire body of your XHTML document, ensure the fonts to be used (in this order!) are: Howdy-doody, bogus-font-family, than lastly, indicate fantasy. What font is rendered?*/
 body {
-	width: 1000px;
+	width: 1000px; /*Need a width for the columns to work*/
 	font-family: "Howdy-doody", "bogus-font-family", fantasy;
 }
 
 /*10.Create a rule that says when a div followed by a cite followed by a span, that the text color will be darkgreen, with a 19 pixels font and italic.*/
-div cite span {
+/*Note: This question was ambiguous; I didn't know if you meant div>cite>span or div cite span; i.e., whether "followed by" means a direct child or descendant.*/
+div>cite>span {
 	color: darkgreen;
 	font-size: 19px;
 	font-style: italic;
