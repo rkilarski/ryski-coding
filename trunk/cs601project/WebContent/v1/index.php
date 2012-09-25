@@ -1,10 +1,9 @@
-<!-- <?php
-  $bg = array('bg-01.jpg', 'bg-02.jpg', 'bg-03.jpg', 'bg-04.jpg', 'bg-05.jpg', 'bg-06.jpg', 'bg-07.jpg' ); // array of filenames
+<?php
+  $bg = array('bg-01.jpg', 'bg-02.jpg', 'bg-03.jpg' ); // array of filenames
 
   $i = rand(0, count($bg)-1); // generate random number size of the array
   $selectedBg = "$bg[$i]"; // set variable equal to which random filename was chosen
 ?>
- -->
  
 <!DOCTYPE html>
 <html lang="eng">
@@ -18,25 +17,30 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="shortcut icon" type="image/ico" href="images/favicon/favicon1.ico"/>
  
-<!--<style type="text/css">
+	<style type="text/css">
 		body{
-			background: url(images/<?php echo $selectedBg; ?>) no-repeat fixed center center;
+			background: url("images/bg/<?php echo $selectedBg;?>") no-repeat fixed center center;
+			/*For IE8*/
+			filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="url("images/bg/<?php echo $selectedBg;?>")",sizingMethod="scale" );
+			/*For IE8?
+			-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="url("images/bg/<?php echo $selectedBg;?>")", sizingMethod="scale");*/
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+			/*Background image end*/
 		}
 	</style>
--->
 
   </head>
   <body>
-    <div id="logo">
-      <span id="largerestaurantname">chickenrice</span><br>
-       <span id="tagline">chicken.re(de)fined</span>
-    </div>
-    <div id="location">
-      895 commonwealth avenue boston ma 617.353.5000 <img src=
-      "images/facebook.png" width="30px" alt=
+  <?php 
+	include("header.php")
+  ?>
+    <div id="favorites"><img src=
+      "images/icon-facebook-white.png" width="30px" alt=
       "like us on facebook"><img src="images/map.png" width="20px"
-      alt="find us on a map">
-    </div>
+      alt="find us on a map"></div>
     <div id="contenttransparent">
       <div id="wrapper">
         <div id="restaurantname">
