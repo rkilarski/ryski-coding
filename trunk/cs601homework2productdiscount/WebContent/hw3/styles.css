@@ -25,7 +25,7 @@ h3,h5 {
 #leftcolumn {
 	float: left;
 	width: 200px;
-	height: 1200px;
+	height: 1000px;
 	border: 1px solid;
 	background-color: #00FF00;
 }
@@ -33,7 +33,7 @@ h3,h5 {
 #rightcolumn {
 	float: right;
 	width: 796px;
-	height: 1200px;
+	height: 1000px;
 	border: 1px solid;
 	background-color: #00FFFF;
 }
