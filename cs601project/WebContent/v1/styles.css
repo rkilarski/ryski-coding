@@ -138,6 +138,9 @@ input[type="button"] {
 	font-style: italic;
 }
 
+#favorites{
+	float: right;
+}
 /*------------------------------Pseudo-class Section------------------------------*/
 #navigation>a:nth-of-type(even) {
 	color: #000000; /*black*/
