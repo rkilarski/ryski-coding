@@ -11,19 +11,13 @@
       <span id="largerestaurantname">chickenrice</span><br>
        <span id="tagline">chicken.re(de)fined</span>
     </div>
-	<div id="location">895 commonwealth avenue boston ma 617.353.5000
-	</div>
+	<?php include("component/header.php") ?>
 	<div id="contenttransparent">
 		<div id="wrapper">
 			<div id="restaurantname">
 				<a href="index.html">chickenrice<span id="pagename">staffhome</span></a>
 			</div>
-			<div id="navigation">
-				<a href="takeoutorders.html">takeout</a><a
-					href="reservations.html">reservations</a><a
-					href="reservationsearch.html">searchreservations</a><a
-					href="ordersearch.html">searchorders</a><a href="blacklist.html">blacklist</a>
-			</div>
+		  	<?php include("component/nav.php") ?>
 			<div id="content">
 				Lots of Content <input type="button" value="Add to Cart">
 			</div>
