@@ -74,8 +74,14 @@
             </dt>
             <dd>
               the spanish rice dish with a lovely long-grain rice
-              from galicia and the best saffron
+              from galicia and the best saffron, cooked with onions and spices in a delicious broth
             </dd>
+			<dt>
+			 tallarin verde
+			 </dt>
+			 <dd>
+			 a milanese-style chicken topped with noodles tossed in a spinach sauce
+			 </dd>
           </dl>
           <h2>
             chicken
@@ -92,13 +98,13 @@
               fried
             </dt>
             <dd>
-              definition
+              on-the-bone chicken breast, leg, and wing, battered and fried
             </dd>
             <dt>
               milanese
             </dt>
             <dd>
-              definition
+              a flattened chicken breast, dipped in our spices and breadcrumbs, and then fried
             </dd>
             <dt>
               chicoletipan
@@ -166,13 +172,13 @@
               roast vegetables
             </dt>
             <dd>
-              definition
+              a seasonal set of vegetables, tossed with our special spices, and grilled
             </dd>
             <dt>
-              mash
+              mashed
             </dt>
             <dd>
-              creamy mashed potatoes
+              creamy mashed potatoes, finished with butter, sour cream, and topped with shredded cheese
             </dd>
             <dt>
               biscuit
@@ -201,13 +207,13 @@
               babka
             </dt>
             <dd>
-              definition
+              a slice of a traditional polish chocolate cake topped with a butter and cocoa liqueur
             </dd>
             <dt>
               chocotorta
             </dt>
             <dd>
-              definition
+              thin chocolate wafers layered with a mixture of dulce-de-leche and sour cream, topped with a chocolate sauce
             </dd>
           </dl>
           <br>
