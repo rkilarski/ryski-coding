@@ -42,7 +42,7 @@
     <div id="contenttransparent">
       <div id="wrapper">
         <div id="restaurantname">
-          <a href="index.html">chickenrice<span id="pagename">home</span></a>
+          <a href="index.php">chickenrice<span id="pagename">home</span></a>
         </div>
 	  	<?php include("component/nav.php") ?>
         <div id="content">
