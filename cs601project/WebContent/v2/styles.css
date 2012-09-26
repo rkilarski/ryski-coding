@@ -1,0 +1,163 @@
+/*
+Stylesheet for client-side restaurant.
+
+Need to use
+Descendant Selector [p div]
+YESChild Selector ['p > div']
+YESAttribute Selector ['att=value']
+YESType or Element Selector ['p']
+Adjacent sibling Selector ['p + div']
+
+
+*/
+
+/*------------------------------Universal Section------------------------------*/
+* {
+	font-family: Arial, sans-serif;
+	color: #FFFFFF; /*white*/
+}
+
+/*------------------------------Element Section------------------------------*/
+a {
+	text-decoration: none;
+}
+
+body {
+	background-color: #000000;
+	margin: 0;
+	height: 100%;
+	/*Background image begin*/
+	background: url("images/bg/bg-01.jpg") no-repeat fixed center center;
+	/*For IE8*/
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/bg/bg-01.jpg",
+		sizingMethod="scale" );
+	/*For IE8?
+	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/bg/bg-01.jpg", sizingMethod="scale");*/
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	/*Background image end*/
+}
+
+h1 {
+	font-size: 30px;
+}
+
+h2 {
+	font-size: 15px;
+}
+
+h1,h2 {
+	text-align: center;
+}
+
+input[type="button"] {
+	background-color: #FF6600; /*orange*/
+	color: #FFFFFF; /*white*/
+}
+/*------------------------------Class Section------------------------------*/
+
+/*------------------------------ID Section------------------------------*/
+#wrapper,#contenttransparent,#logo,input[type="button"] {
+	/*Border radius section*/
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	/*End border radius section*/
+}
+
+#contenttransparent,#logo { /*Set opacity for image */
+	opacity: 0.8;
+	filter: alpha(opacity =       80); /* For IE8 and earlier */
+	border: 1px solid black;
+}
+
+#wrapper {
+	width: 95%;
+	height: 100%;
+	background-color: #FF6600;
+	margin: 50px auto;
+}
+
+#contenttransparent {
+	width: 95%;
+	margin: 100px auto;
+	background-color: #FFFFFF;
+}
+
+#logo {
+	position: absolute;
+	left: 25px;
+	top: 0px;
+	background-color: #FFFFFF;
+	color: #FF6600;
+	padding: 10px 10px 10px 10px;
+}
+
+#largerestaurantname {
+	font-size: 30px;
+	color: #FF6600;
+}
+
+#tagline {
+	font-size: 15px;
+	color: #FF6600;
+}
+
+#restaurantname {
+	float: left;
+	width: 10%;
+	margin: 5px 5px 5px 5px;
+}
+
+#navigation {
+	float: right;
+	width: 87%;
+	text-align: right;
+	margin: 5px 5px 5px 5px;
+}
+
+#content {
+	float: clear;
+	margin: 5px 5px 5px 5px;
+	padding: 10px 10px 10px 10px;
+}
+
+#footer {
+	text-align: center;
+	font-size: 12px;
+	color: #000000;
+}
+
+#location {
+	text-align: right;
+	color: #FFFFFF;
+}
+#pagename{
+	font-style: italic;
+}
+
+#favorites{
+	float: right;
+}
+/*------------------------------Pseudo-class Section------------------------------*/
+#navigation>a:nth-of-type(even) {
+	color: #000000; /*black*/
+}
+
+#navigation>a:nth-of-type(odd) {
+	color: #FFFFFF; /*white*/
+}
+
+#navigation>a:nth-of-type(odd):hover {
+	color: #FFFF00; /*#000000black*/
+}
+
+#navigation>a:nth-of-type(even):hover {
+	color: #FFFF00; /*FFFFFFwhite*/
+}
+
+#restaurantname>a:hover {
+	color: #FFFF00; /*yellow*/
+}
