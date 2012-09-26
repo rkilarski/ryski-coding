@@ -34,9 +34,7 @@
 
   </head>
   <body>
-  <?php 
-	include("header.php")
-  ?>
+  	<?php include("component/header.php") ?>
     <div id="favorites"><img src=
       "images/icon-facebook-white.png" width="30px" alt=
       "like us on facebook"><img src="images/map.png" width="20px"
@@ -46,15 +44,7 @@
         <div id="restaurantname">
           <a href="index.html">chickenrice<span id="pagename">home</span></a>
         </div>
-        <div id="navigation">
-          <a href="menu.html">menu</a><a href=
-          "specials.html">specials</a><a href=
-          "events.html">events</a><a href=
-          "mycart.html">mycart</a><a href=
-          "checkout.html">checkout</a><a href=
-          "reservations.html">reservations</a><a href=
-          "contactus.html">contact</a>
-        </div>
+	  	<?php include("component/nav.php") ?>
         <div id="content">
           <br>
           <br>
