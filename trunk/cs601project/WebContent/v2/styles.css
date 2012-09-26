@@ -27,12 +27,12 @@ body {
 	margin: 0;
 	height: 100%;
 	/*Background image begin*/
-	background: url("images/bg/bg-01.jpg") no-repeat fixed center center;
+	background: url("img/bg/bg-01.jpg") no-repeat fixed center center;
 	/*For IE8*/
-	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/bg/bg-01.jpg",
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="img/bg/bg-01.jpg",
 		sizingMethod="scale" );
 	/*For IE8?
-	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/bg/bg-01.jpg", sizingMethod="scale");*/
+	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="img/bg/bg-01.jpg", sizingMethod="scale");*/
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
