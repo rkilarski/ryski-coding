@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="eng">
 <head>
@@ -5,19 +6,21 @@
 <meta name="description" content="Ryszard Kilarski, BU ID: U81-39-8560">
 <title>chickenrice</title>
 <link type="text/css" rel="stylesheet" href="styles.css">
+<?php include("include/bgstyle.php") ?>
 </head>
 <body>
    <div id="logo">
-      <span id="largerestaurantname">chickenrice</span><br>
+      <span id="largerestaurantname">chickenricereservations</span><br>
        <span id="tagline">chicken.re(de)fined</span>
     </div>
-	<?php include("component/header.php") ?>
+	<div id="location">895 commonwealth avenue boston ma 617.353.5000
+	</div>
 	<div id="contenttransparent">
 		<div id="wrapper">
 			<div id="restaurantname">
-				<a href="index.html">chickenrice<span id="pagename">staffhome</span></a>
+				<a href="index.html">chickenrice<span id="pagename">reservations</span></a>
 			</div>
-		  	<?php include("component/nav.php") ?>
+			<?php include("include/nav.php") ?>
 			<div id="content">
 				Lots of Content <input type="button" value="Add to Cart">
 			</div>
