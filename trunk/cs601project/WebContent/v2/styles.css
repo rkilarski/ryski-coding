@@ -63,6 +63,7 @@ input[type="button"] {
 	/*Border radius section*/
 	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
+	-khtml-border-radius: 15px;
 	border-radius: 15px;
 	/*End border radius section*/
 }
@@ -70,7 +71,7 @@ input[type="button"] {
 #contenttransparent,#logo { /*Set opacity for image */
 	opacity: 0.8;
 	filter: alpha(opacity =       80); /* For IE8 and earlier */
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 }
 
 #wrapper {
