@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="eng">
 <head>
@@ -5,6 +6,7 @@
 <meta name="description" content="Ryszard Kilarski, BU ID: U81-39-8560">
 <title>chickenrice</title>
 <link type="text/css" rel="stylesheet" href="styles.css">
+<?php include("include/bgstyle.php") ?>
 </head>
 <body>
    <div id="logo">
@@ -16,14 +18,9 @@
 	<div id="contenttransparent">
 		<div id="wrapper">
 			<div id="restaurantname">
-				<a href="index.html">chickenrice<span id="pagename">reservations</span></a>
+				<a href="index.html">chickenrice<span id="pagename">reservationsearch</span></a>
 			</div>
-			<div id="navigation">
-				<a href="takeoutorders.html">takeout</a><a
-					href="reservations.html">reservations</a><a
-					href="reservationsearch.html">searchreservations</a><a
-					href="ordersearch.html">searchorders</a><a href="blacklist.html">blacklist</a>
-			</div>
+			<?php include("include/nav.php") ?>
 			<div id="content">
 				Lots of Content <input type="button" value="Add to Cart">
 			</div>
