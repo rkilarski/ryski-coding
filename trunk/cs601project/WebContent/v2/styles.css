@@ -52,15 +52,20 @@ h1,h2 {
 	text-align: center;
 }
 
-input[type="button"] {
+input {
 	background-color: #FF6600; /*orange*/
 	color: #FFFFFF; /*white*/
+	padding-left: 5px;
+	/*Border radius section*/
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	-khtml-border-radius: 15px;
+	border-radius: 15px;
+	/*End border radius section*/
 }
 /*------------------------------Class Section------------------------------*/
-
 /*------------------------------ID Section------------------------------*/
-#wrapper,#contenttransparent,#logo,input[type="button"] {
-	/*Border radius section*/
+#wrapper,#contenttransparent,#logo { /*Border radius section*/
 	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
 	-khtml-border-radius: 15px;
@@ -70,7 +75,8 @@ input[type="button"] {
 
 #contenttransparent,#logo { /*Set opacity for image */
 	opacity: 0.8;
-	filter: alpha(opacity =       80); /* For IE8 and earlier */
+	filter: alpha(opacity =                   80);
+	/* For IE8 and earlier */
 	border: 1px solid black;
 }
 
@@ -125,23 +131,36 @@ input[type="button"] {
 	padding: 10px 10px 10px 10px;
 }
 
-#footer {
-	text-align: center;
-	font-size: 12px;
-	color: #000000;
-}
-
 #location {
 	text-align: right;
 	color: #FFFFFF;
 }
-#pagename{
+
+#pagename {
 	font-style: italic;
 }
 
-#favorites{
+#favorites {
 	float: right;
 }
+
+#footer {
+	text-align: right;
+	padding: 10px;
+	color: #FF6600; /*orange*/
+}
+
+#footer input {
+	background-color: #FF6600; /*orange*/
+	color: #FFFFFF; /*white*/
+}
+
+#dhonis {
+	margin-left: auto;
+	margin-right: auto;
+	float:clear;
+}
+
 /*------------------------------Pseudo-class Section------------------------------*/
 #navigation>a:nth-of-type(even) {
 	color: #000000; /*black*/

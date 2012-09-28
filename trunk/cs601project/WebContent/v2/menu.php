@@ -25,6 +25,7 @@
         </div>
         <?php include("include/nav.php") ?>
         <div id="content">
+           <input type="button" value="Add to Cart">
           <h1>
             menu
           </h1>

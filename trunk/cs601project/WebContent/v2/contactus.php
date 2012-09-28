@@ -44,6 +44,11 @@
            <input type="button" value="Add to Cart">
         </div>
       </div>
+		<div id="footer">stafflogin:
+			<input type="text" name="username" placeholder="username">
+			<input type="password" name="password" placeholder="password" >
+			<input type="submit" value="login">
+		</div>
     </div>
   </body>
 </html>
