@@ -234,7 +234,7 @@ public class EtchASketchController {
 	 * @return Object
 	 * @throws IOException
 	 */
-	public Object openXMLFile(File file) throws IOException {
+	private Object openXMLFile(File file) throws IOException {
 		XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(
 				new FileInputStream(file)));
 		Object o = decoder.readObject();
@@ -249,7 +249,7 @@ public class EtchASketchController {
 	 * @param file
 	 * @throws IOException
 	 */
-	public void saveXMLFile(Object o, File file) throws IOException {
+	private void saveXMLFile(Object o, File file) throws IOException {
 		XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(
 				new FileOutputStream(file)));
 		encoder.writeObject(o);
