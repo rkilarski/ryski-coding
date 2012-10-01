@@ -5,16 +5,11 @@
 <meta charset="utf-8">
 <meta name="description" content="Ryszard Kilarski, BU ID: U81-39-8560">
 <title>chickenrice</title>
-<link type="text/css" rel="stylesheet" href="styles.css">
+<link type="text/css" rel="stylesheet" href="css/staff_styles.css">
 <?php include("include/bgstyle.php") ?>
 </head>
 <body>
-   <div id="logo">
-      <span id="largerestaurantname">chickenricereservations</span><br>
-       <span id="tagline">chicken.re(de)fined</span>
-    </div>
-	<div id="location">895 commonwealth avenue boston ma 617.353.5000
-	</div>
+	<?php include("include/header.php") ?>
 	<div id="contenttransparent">
 		<div id="wrapper">
 			<div id="restaurantname">

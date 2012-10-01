@@ -8,14 +8,10 @@
     <title>
       chickenrice
     </title>
-    <link type="text/css" rel="stylesheet" href="styles.css">
+    <link type="text/css" rel="stylesheet" href="css/styles.css">
 	<?php include("include/bgstyle.php") ?>
   </head>
   <body>
-    <div id="logo">
-      <span id="largerestaurantname">chickenrice</span><br>
-       <span id="tagline">chicken.re(de)fined</span>
-    </div>
   	<?php include("include/header.php") ?>
     <div id="contenttransparent">
       <div id="wrapper">

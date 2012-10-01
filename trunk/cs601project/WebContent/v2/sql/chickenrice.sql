@@ -20,7 +20,33 @@ create table Person
 	telephone_1 varchar(10),
 	is_staff varchar(2) 
 	} engine=INNODB
+
+create table Food
+	{
+	food_id int(25) unsigned primary key auto_increment,
+	name varchar(50) not null,
+	description varchar(255) not null,
+	is_special varchar(2),
+	is_vegetarian varchar(2) 
+	} engine=INNODB
 	
+create table MenuType{
+	menutype_id int(25) unsigned primary key auto_increment,
+	name varchar(30) not null
+	} engine=INNODB
+
+create table Menu{
+	menu_id int(25) unsigned primary key auto_increment,
+	menutype_id unsigned foreign key,
+	food unsigned foreign key
+	} engine=INNODB
+
+
+	-- create the users and grant priveleges to those users
+	GRANT SELECT, INSERT, DELETE, UPDATE
+	ON chickenrice.*
+	TO manager@chickenrice.com
+	IDENTIFIED BY 'doyoufeellikechickentonight';
 	
 	-- create the users and grant priveleges to those users
 	GRANT SELECT, INSERT, DELETE, UPDATE

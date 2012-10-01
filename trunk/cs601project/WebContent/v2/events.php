@@ -8,14 +8,10 @@
     <title>
       chickenrice
     </title>
-    <link type="text/css" rel="stylesheet" href="styles.css">
+    <link type="text/css" rel="stylesheet" href="css/styles.css">
 	<?php include("include/bgstyle.php") ?>
   </head>
   <body>
-    <div id="logo">
-      <span id="largerestaurantname">chickenrice</span><br>
-       <span id="tagline">chicken.re(de)fined</span>
-    </div>
   	<?php include("include/header.php") ?>
     <div id="contenttransparent">
       <div id="wrapper">
@@ -24,17 +20,15 @@
         </div>
 	  	<?php include("include/nav.php") ?>
         <div id="content">
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-           <input type="button" value="Add to Cart">
+		  <ul>
+			<li>Item 1</li>
+			<li>Item 2</li>
+			<li>Item 3</li>
+			<li>Item 4</li>
+			<li>Item 5</li>
+			<li>Item 6</li>
+			<li>Item 7</li>
+		  </ul>
         </div>
       </div>
     </div>

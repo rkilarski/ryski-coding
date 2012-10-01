@@ -9,7 +9,7 @@
       chickenrice
     </title>
     <link rel="shortcut icon" type="image/ico" href="img/favicon/favicon1.ico"/>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 	<link rel="stylesheet" href="dhonishow/dhonishow.css" type="text/css" media="screen" />
 	
 	<link rel="stylesheet" type="text/css" media="screen" href="dhonishow/style/dhonishow_screen.css" />
