@@ -3,7 +3,6 @@
   <a href="specials.php">specials</a>
   <a href="events.php">events</a>
   <a href="mycart.php">mycart</a>
-  <a href="checkout.php">checkout</a>
   <a href="reservations.php">reservations</a>
   <a href="contactus.php">contact</a>
   <br>
@@ -13,5 +12,9 @@
   echo '<a href="staff_reservationsearch.php">searchreservations</a>';
   echo '<a href="staff_ordersearch.php">searchorders</a>';
   echo '<a href="staff_blacklist.php">blacklist</a>';
+   } ?>
+  <?php if (true) { 
+	echo '<br>';
+	echo '<a href="checkout.php">checkout</a>';
    } ?>
 </div>
