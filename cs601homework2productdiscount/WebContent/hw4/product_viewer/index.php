@@ -1,6 +1,8 @@
 <?php
 	require 'database.php';
 
+	//Weird:  This original code from the book does NOT work on my PC but works fine on my Mac.
+	//Error:  Notice: Undefined index: category_id in D:\xampp\htdocs\cs601\book_apps\ch04_product_manager\index.php on line 6
 	//Get category ID
 	//$category_id = $_GET['category_id'];
 	//if (!isset($category_id)) {
@@ -36,6 +38,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<meta name="description" content="Submitted by Ryszard Kilarski, BU ID: U81-39-8560" />
 <title>My Guitar Shop</title>
 <link rel="stylesheet" type="text/css" href="main.css" />
 </head>
