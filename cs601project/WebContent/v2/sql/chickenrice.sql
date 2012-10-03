@@ -65,6 +65,21 @@ CREATE TABLE IF NOT EXISTS `menu` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `menu`
+--
+
+CREATE TABLE IF NOT EXISTS `special` (
+  `menu_id` int(10) NOT NULL AUTO_INCREMENT,
+  `menuType` int(10) NOT NULL,
+  `foodItem` int(10) NOT NULL,
+  `specialDate` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`menu_id`),
+  KEY `menuType` (`menuType`),
+  KEY `foodItem` (`foodItem`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `menutype`
 --
 
@@ -87,12 +102,15 @@ CREATE TABLE IF NOT EXISTS `person` (
   `lastName` varchar(255) NOT NULL,
   `emailAddress` varchar(255) NOT NULL,
   `addressLine1` varchar(255) NOT NULL,
-  `addressLine2` varchar(255) NOT NULL,
+  `addressLine2` varchar(255) NULL,
   `city` varchar(25) NOT NULL,
   `state` varchar(2) NOT NULL,
   `zip` varchar(10) NOT NULL,
   `telephone` varchar(10) NOT NULL,
   `isStaff` varchar(1) NOT NULL DEFAULT 'N',
+  `blacklistFlag` varchar(1) NULL,
+  `blacklistReason` varchar(255) NULL,
+  `sendEmail` varchar(1) NOT NULL DEFAULT 'N',
   PRIMARY KEY (`personId`),
   KEY `emailAddress` (`emailAddress`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

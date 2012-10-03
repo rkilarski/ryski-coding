@@ -63,9 +63,11 @@
         </div>
 	</div>
 	<div id="footer">
-		joinourmailinglist:
-		<input type="text" name="email" placeholder="emailaddress" >
-		<input type="submit" value="Submit">
+		<form name="mailinglist" action="" method="post">
+			joinourmailinglist:
+			<input type="text" name="emailaddress" placeholder="emailaddress" size="50">
+			<input type="submit" value="Submit">
+		</form>
 	</div>
     </div>
   </body>
