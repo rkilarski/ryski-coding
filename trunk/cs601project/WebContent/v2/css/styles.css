@@ -180,7 +180,12 @@ td+td+td:hover{
 
 #location {
 	text-align: right;
-	color: #FFFFFF;
+	color: #000000;
+	padding-right: 10px;
+	padding-top: 10px;
+}
+#location a{
+	color: #000000;
 }
 
 #pagename {
