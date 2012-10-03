@@ -23,7 +23,8 @@
   <body>
   	<?php include("include/header.php") ?>
     <div id="contenttransparent">
-      <div id="wrapper">
+	<?php include("include/location.php") ?>
+	<div id="wrapper">
         <div id="restaurantname">
           <a href="index.php">chickenrice<span id="pagename">home</span></a>
         </div>

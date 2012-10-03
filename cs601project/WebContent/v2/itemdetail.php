@@ -14,6 +14,7 @@
   <body>
   	<?php include("include/header.php") ?>
     <div id="contenttransparent">
+	<?php include("include/location.php") ?>
       <div id="wrapper">
         <div id="restaurantname">
           <a href="index.php">chickenrice</a>

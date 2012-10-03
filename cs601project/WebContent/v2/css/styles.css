@@ -8,7 +8,6 @@ YESAttribute Selector ['att=value']
 YESType or Element Selector ['p']
 Adjacent sibling Selector ['p + div']
 
-
 */
 
 /*------------------------------Universal Section------------------------------*/
@@ -29,8 +28,7 @@ body {
 	/*Background image begin*/
 	background: url("img/bg/bg-01.jpg") no-repeat fixed center center;
 	/*For IE8*/
-	filter: progid : DXImageTransform.Microsoft.AlphaImageLoader ( src =
-		"img/bg/bg-01.jpg", sizingMethod = "scale" );
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="img/bg/bg-01.jpg", sizingMethod="scale" );
 	/*For IE8?
 	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="img/bg/bg-01.jpg", sizingMethod="scale");*/
 	-webkit-background-size: cover;
@@ -63,6 +61,11 @@ input {
 	border-radius: 15px;
 	/*End border radius section*/
 }
+
+table {
+	margin-left: auto;
+	margin-right: auto;
+}
 /*------------------------------Class Section------------------------------*/
 .menuheader {
 	text-align: center;
@@ -84,7 +87,7 @@ input {
 	color: #FFFFFF; /*black*/
 }
 
-.menuitem:hover, .menudesc:hover{
+.menuitem:hover,.menudesc:hover {
 	color: #FFFF00; /*yellow*/
 }
 /*
@@ -122,7 +125,7 @@ td+td+td:hover{
 
 #contenttransparent,#logo { /*Set opacity for image */
 	opacity: 0.8;
-	filter: alpha(opacity =                     80);
+	filter: alpha(opacity=80);
 	/* For IE8 and earlier */
 	border: 1px solid black;
 }
@@ -131,7 +134,7 @@ td+td+td:hover{
 	width: 95%;
 	height: 100%;
 	background-color: #FF6600;
-	margin: 50px auto;
+	margin: 25px auto;
 }
 
 #contenttransparent {
@@ -142,7 +145,7 @@ td+td+td:hover{
 
 #logo {
 	position: absolute;
-	left: 25px;
+	left: 30px;
 	top: 0px;
 	background-color: #FFFFFF;
 	color: #FF6600;
@@ -181,10 +184,11 @@ td+td+td:hover{
 #location {
 	text-align: right;
 	color: #000000;
-	padding-right: 10px;
 	padding-top: 10px;
+	padding-right: 10px;
 }
-#location a{
+
+#location a {
 	color: #000000;
 }
 
