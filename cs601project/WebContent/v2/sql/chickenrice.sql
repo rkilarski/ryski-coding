@@ -100,12 +100,12 @@ CREATE TABLE IF NOT EXISTS `specials` (
 
 
 ALTER TABLE `menu`
-  ADD CONSTRAINT `menu_ibfk_2` FOREIGN KEY (`foodItem`) REFERENCES `food` (`id`),
-  ADD CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`menuType`) REFERENCES `menutype` (`id`);
+  ADD CONSTRAINT `menuFoodItemFK` FOREIGN KEY (`foodItem`) REFERENCES `food` (`id`),
+  ADD CONSTRAINT `menuMenuTypeFK` FOREIGN KEY (`menuType`) REFERENCES `menutype` (`id`);
 
 ALTER TABLE `reservations`
-  ADD CONSTRAINT `reservations_ibfk_1` FOREIGN KEY (`person`) REFERENCES `person` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `reservationsPersonFK` FOREIGN KEY (`person`) REFERENCES `person` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 ALTER TABLE `specials`
-  ADD CONSTRAINT `specials_ibfk_2` FOREIGN KEY (`foodItem`) REFERENCES `food` (`id`),
-  ADD CONSTRAINT `specials_ibfk_1` FOREIGN KEY (`menuType`) REFERENCES `menutype` (`id`);
+  ADD CONSTRAINT `specialsFoodItemFK` FOREIGN KEY (`foodItem`) REFERENCES `food` (`id`),
+  ADD CONSTRAINT `specialsMenuTypeFK` FOREIGN KEY (`menuType`) REFERENCES `menutype` (`id`);
