@@ -27,6 +27,7 @@
 			<input type="submit" value="login">
 			<input type="reset" value="reset">
 			</form>
+			<a href="loginnew.php">new user</a>
         </div>
       </div>
     </div>
