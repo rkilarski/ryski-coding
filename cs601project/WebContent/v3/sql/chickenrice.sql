@@ -39,6 +39,8 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `menuType` int(10) NOT NULL,
   `foodItem` int(10) NOT NULL,
+  `price` int(5) NOT NULL,
+  `cost` int(5) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `menuType` (`menuType`),
   KEY `foodItem` (`foodItem`)
@@ -92,6 +94,8 @@ CREATE TABLE IF NOT EXISTS `specials` (
   `menuType` int(10) NOT NULL,
   `foodItem` int(10) NOT NULL,
   `specialDay` varchar(1) NOT NULL,
+  `price` int(5) NOT NULL,
+  `cost` int(5) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `menuType` (`menuType`),
   KEY `foodItem` (`foodItem`)
