@@ -1,6 +1,6 @@
 <?php
-	require("database.php");
-	require('../model/person_db.php');
+	require_once("../model/database.php");
+	require_once('../model/person_db.php');
 
 	$email = $_POST['email'];
 	$pswd =  $_POST['password'];
@@ -10,10 +10,13 @@
 	if ( $row['numUsers'] == 1 ) {
 		$person=getPersonByEmail($email);
 		$_SESSION=array();  //Initialize session
-		$_SESSION('isStaff')=$person['isStaff'];
-		$_SESSION('hasCart')='N';
+		$_SESSION('isstaff')=$person['isStaff'];
+		$_SESSION('hascart')=false;
 		$_SESSION('userId')=$person['id'];
+		$_SESSION('isloggedin')=true;
+		header("index.php?action=$action");
 	} else {
 		echo "Authentication Failed";
+		$_SESSION('isloggedin')=false;
 	}
 ?>
