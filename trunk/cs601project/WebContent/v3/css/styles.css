@@ -203,16 +203,9 @@ input, #innerframe,#outerframe,#logo{
 	color: #FF6600;
 }
 
-#restaurantname {
-	float: left;
-	width: 10%;
-	margin: 5px 5px 5px 5px;
-}
-
 #navigation {
-	float: right;
-	width: 800px;
-	text-align: right;
+	width: 100%%;
+	text-align: center;
 	margin: 5px 5px 5px 5px;
 }
 
@@ -223,7 +216,7 @@ input, #innerframe,#outerframe,#logo{
 }
 
 #location {
-	text-align: right;
+	text-align: center;
 	color: #000000;
 	padding-top: 10px;
 	padding-right: 10px;
@@ -279,16 +272,9 @@ input, #innerframe,#outerframe,#logo{
 	color: #FFFFFF; /*white*/
 }
 
-#navigation>a:nth-of-type(odd):hover {
-	color: #FFFF00; /*#000000black*/
-	/*border-top: 1px solid;*/
-	border-bottom: 1px solid;
-}
-
-#navigation>a:nth-of-type(even):hover {
-	color: #FFFF00; /*FFFFFFwhite*/
-	/*border-top: 1px solid;*/
-	border-bottom: 1px solid;
+#navigation>a:hover {
+	background-color: #FFFFFF;
+	color: #FF6600;
 }
 
 #restaurantname>a:hover {
