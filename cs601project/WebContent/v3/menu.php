@@ -15,9 +15,6 @@
 		<?php include("include/location.php") ?>
 
 			<div id="innerframe">
-				<div id="restaurantname">
-					<a href="index.php">chickenrice</a>
-				</div>
 				<?php include("include/nav.php") ?>
 				<div id="content">
 					<h1>menu</h1>
