@@ -176,17 +176,21 @@ input, #innerframe,#outerframe,#logo{
 
 #outerframe {
 	width: 95%;
-	margin: 100px auto;
+	margin: 50px auto;
 	background-color: #FFFFFF;
 }
 
 #logo {
-	position: absolute;
+	/*position: absolute;
 	left: 30px;
-	top: 0px;
+	top: 0px;*/
+	width: 200px;
+	margin: auto;
+	text-align: center;
 	background-color: #FFFFFF;
 	color: #FF6600;
 	padding: 10px 10px 10px 10px;
+	margin-top: 20px;
 }
 
 #largerestaurantname {
@@ -227,10 +231,6 @@ input, #innerframe,#outerframe,#logo{
 
 #location a {
 	color: #000000;
-}
-
-#pagename {
-	font-style: italic;
 }
 
 #favorites {
@@ -281,18 +281,18 @@ input, #innerframe,#outerframe,#logo{
 
 #navigation>a:nth-of-type(odd):hover {
 	color: #FFFF00; /*#000000black*/
-	border-top: 1px solid;
+	/*border-top: 1px solid;*/
 	border-bottom: 1px solid;
 }
 
 #navigation>a:nth-of-type(even):hover {
 	color: #FFFF00; /*FFFFFFwhite*/
-	border-top: 1px solid;
+	/*border-top: 1px solid;*/
 	border-bottom: 1px solid;
 }
 
 #restaurantname>a:hover {
 	color: #FFFF00; /*yellow*/
-	border-top: 1px solid;
+	/*border-top: 1px solid;*/
 	border-bottom: 1px solid;
 }

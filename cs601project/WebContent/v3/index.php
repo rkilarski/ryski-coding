@@ -18,7 +18,7 @@ switch ($action) {
 		include('checkout.php');
 		break;
 	case 'contact':
-		include('contactus.php');
+		include('contact.php');
 		break;
 	case 'events':
 		include('events.php');
