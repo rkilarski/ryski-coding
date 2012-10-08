@@ -21,6 +21,10 @@ a {
 	text-decoration: none;
 }
 
+html {
+	height: 100%;
+}
+
 body {
 	background-color: #000000;
 	margin: 0;
@@ -28,7 +32,8 @@ body {
 	/*Background image begin*/
 	background: url("img/bg/bg-01.jpg") no-repeat fixed center center;
 	/*For IE8*/
-	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="img/bg/bg-01.jpg", sizingMethod="scale" );
+	filter: progid : DXImageTransform.Microsoft.AlphaImageLoader ( src =
+		"img/bg/bg-01.jpg", sizingMethod = "scale" );
 	/*For IE8?
 	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="img/bg/bg-01.jpg", sizingMethod="scale");*/
 	-webkit-background-size: cover;
@@ -47,6 +52,7 @@ h2 {
 }
 
 h1,h2 {
+	clear: both;
 	text-align: center;
 }
 
@@ -54,17 +60,46 @@ input {
 	background-color: #FF6600; /*orange*/
 	color: #FFFFFF; /*white*/
 	padding-left: 5px;
-	/*Border radius section*/
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	-khtml-border-radius: 15px;
-	border-radius: 15px;
-	/*End border radius section*/
 }
 
 table {
 	margin-left: auto;
 	margin-right: auto;
+}
+
+footer {
+	background-color: #000000;
+	color: #FFFFFF;
+	width: 100%;
+	height: 2em;
+	text-align: center;
+	font-weight: normal;
+	font-size: 12px;
+}
+
+form {
+	margin: auto;
+	width: 400px;
+	padding;
+	10
+	px;
+}
+
+label {
+	float: left;
+	width: 100px;
+	display: block;
+	clear: left;
+	text-align: right;
+	padding-right: 10px;
+}
+
+form[name="login"] {
+	float: left;
+}
+
+form[name="loginnew"] {
+	/*float: right;*/	
 }
 /*------------------------------Class Section------------------------------*/
 .menuheader {
@@ -115,29 +150,31 @@ td+td+td:hover{
 */
 
 /*------------------------------ID Section------------------------------*/
-#wrapper,#contenttransparent,#logo { /*Border radius section*/
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	-khtml-border-radius: 15px;
-	border-radius: 15px;
+input, #innerframe,#outerframe,#logo{ 
+	/*Border radius section*/
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	border-radius: 10px;
 	/*End border radius section*/
 }
 
-#contenttransparent,#logo { /*Set opacity for image */
-	opacity: 0.8;
-	filter: alpha(opacity=80);
+#outerframe,#logo { /*Set opacity for image */
+	opacity: 0.85;
+	filter: alpha(opacity = 80);
 	/* For IE8 and earlier */
 	border: 1px solid black;
 }
 
-#wrapper {
+#innerframe {
 	width: 95%;
 	height: 100%;
+	min-height: 100px;
 	background-color: #FF6600;
 	margin: 25px auto;
 }
 
-#contenttransparent {
+#outerframe {
 	width: 95%;
 	margin: 100px auto;
 	background-color: #FFFFFF;
@@ -170,7 +207,7 @@ td+td+td:hover{
 
 #navigation {
 	float: right;
-	width: 87%;
+	width: 800px;
 	text-align: right;
 	margin: 5px 5px 5px 5px;
 }
@@ -197,18 +234,9 @@ td+td+td:hover{
 }
 
 #favorites {
-	float: right;
-}
-
-#footer {
-	text-align: right;
-	padding: 10px;
-	color: #FF6600; /*orange*/
-}
-
-#footer input {
-	background-color: #FF6600; /*orange*/
-	color: #FFFFFF; /*white*/
+	position: absolute;
+	top: 0px;
+	right: 0px;
 }
 
 #dhonis {
@@ -217,6 +245,31 @@ td+td+td:hover{
 	float: clear;
 }
 
+#bodywrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -2em;
+}
+
+#mailinglist {
+	padding: 10px;
+	color: #FF6600; /*orange*/
+}
+
+#mailinglist input {
+	background-color: #FF6600; /*orange*/
+	color: #FFFFFF; /*white*/
+}
+
+#mailinglist form {
+	text-align: right;
+	width: 100%;
+}
+
+#mailinglist label {
+	color: #FF6600; /*orange*/
+}
 /*------------------------------Pseudo-class Section------------------------------*/
 #navigation>a:nth-of-type(even) {
 	color: #000000; /*black*/

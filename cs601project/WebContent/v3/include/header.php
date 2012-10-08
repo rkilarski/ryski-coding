@@ -1,6 +1,8 @@
 <div id="logo">
+	<a href="index.php">
 	<span id="largerestaurantname">chickenrice</span><br> <span
 		id="tagline">chicken.re(de)fined</span>
+	</a>
 </div>
 
 <div id="favorites">

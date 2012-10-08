@@ -1,46 +1,48 @@
 <?php session_start(); ?>
 <!DOCTYPE html>
-<html lang="eng">
-  <head>
-    <meta charset="utf-8">
-    <meta name="description" content=
-    "Ryszard Kilarski, BU ID: U81-39-8560">
-    <title>
-      chickenrice
-    </title>
-    <link type="text/css" rel="stylesheet" href="css/styles.css">
-	<?php include("include/bgstyle.php") ?>
-  </head>
-  <body>
-  	<?php include("include/header.php") ?>
-    <div id="contenttransparent">
-	<?php include("include/location.php") ?>
-      <div id="wrapper">
-        <div id="restaurantname">
-          <a href="index.php">chickenrice<span id="pagename">login</span></a>
-        </div>
-	  	<?php include("include/nav.php") ?>
-        <div id="content">
-			<form name="login" method="post" action="controller/addperson.php">
-			firstname:<input type="text" name="firstname"> <br/>
-			middleinitial:<input type="text" name="middle"> <br/>
-			lastname:<input type="text" name="lastname"> <br/>
-			addressline1:<input type="text" name="addressline1"> <br/>
-			addressline2:<input type="text" name="addressline2"> <br/>
-			city:<input type="text" name="city"> <br/>
-			state:<input type="text" name="state"> <br/>
-			zip:<input type="text" name="zip"> <br/>
-			telephone:<input type="tel" name="telephone"> <br/>
-			staff?:<input type="checkbox" name="isstaff"> <br/>			
-			sendemail?:<input type="checkbox" name="sendemail"> <br/>			
-			emailaddress: <input type="text" name="email"> <br/>
-			password: <input type="password" name="password"> 
-			<input type="submit" value="login">
-			<input type="reset" value="reset">
-			</form>
-        </div>
-      </div>
-    </div>
-  </body>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Ryszard Kilarski, BU ID: U81-39-8560">
+<title>chickenrice</title>
+<link type="text/css" rel="stylesheet" href="css/styles.css">
+<?php include("include/bgstyle.php") ?>
+</head>
+<body>
+	<div id="bodywrapper">
+	<?php include("include/header.php") ?>
+		<div id="outerframe">
+		<?php include("include/location.php") ?>
+			<div id="innerframe">
+				<div id="restaurantname">
+					<a href="index.php">chickenrice<span id="pagename">login</span> </a>
+				</div>
+				<?php include("include/nav.php") ?>
+				<div id="content">
+					<h1>signmeup</h1>
+					<form name="loginnew" method="post" action="controller/addperson.php">
+						<label for="email">email: </label><input type="text" name="email">
+						<br /> <label for="password">password: </label><input
+							type="password" name="password"> <br /> <br /> <label
+							for="firstname">firstname:</label><input type="text"
+							name="firstname"> <br /> <label for="middle">middleinitial:</label><input
+							type="text" name="middle"> <br /> <label for="lastname">lastname:</label><input
+							type="text" name="lastname"> <br /> <label for="addressline1">addressline1:</label><input
+							type="text" name="addressline1"> <br /> <label for="addressline2">addressline2:</label><input
+							type="text" name="addressline2"> <br /> <label for="city">city:</label><input
+							type="text" name="city"> <br /> <label for="state">state:</label><input
+							type="text" name="state"> <br /> <label for="zip">zip:</label><input
+							type="text" name="zip"> <br /> <label for="telephone">telephone:</label><input
+							type="tel" name="telephone"> <br /> <label for="isstaff">staff?:</label><input
+							type="checkbox" name="isstaff"> <br /> <label for="sendemail">sendemail?:</label><input
+							type="checkbox" name="sendemail"> <br /> <input type="submit"
+							value="login"> <input type="reset" value="reset">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php include("include/footer.php") ?>
+</body>
 </html>
 
