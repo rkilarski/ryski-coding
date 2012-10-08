@@ -23,12 +23,12 @@
 </head>
 <body>
 	<div id="bodywrapper">
-	<?php include("include/header.php") ?>
+	<?php include("include/homeheader.php") ?>
 		<div id="outerframe">
 		<?php include("include/location.php") ?>
 			<div id="innerframe">
 				<div id="restaurantname">
-					<a href="index.php">chickenrice<span id="pagename">home</span> </a>
+					<a href="index.php">chickenrice</a>
 				</div>
 				<?php include("include/nav.php") ?>
 				<div id="content">

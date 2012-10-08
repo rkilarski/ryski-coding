@@ -16,7 +16,7 @@
 
 			<div id="innerframe">
 				<div id="restaurantname">
-					<a href="index.php">chickenrice<span id="pagename">menu</span> </a>
+					<a href="index.php">chickenrice</a>
 				</div>
 				<?php include("include/nav.php") ?>
 				<div id="content">
