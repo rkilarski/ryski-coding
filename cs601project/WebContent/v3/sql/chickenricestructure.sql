@@ -9,12 +9,6 @@ CREATE DATABASE chickenrice;
 USE chickenrice;
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
-
 CREATE TABLE IF NOT EXISTS `events` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `dateStart` varchar(10) NOT NULL,
@@ -24,7 +18,6 @@ CREATE TABLE IF NOT EXISTS `events` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-
 CREATE TABLE IF NOT EXISTS `food` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(25) NOT NULL,
@@ -33,7 +26,6 @@ CREATE TABLE IF NOT EXISTS `food` (
   `isVegetarian` varchar(1) NOT NULL DEFAULT 'N',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
 
 CREATE TABLE IF NOT EXISTS `menu` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -46,13 +38,11 @@ CREATE TABLE IF NOT EXISTS `menu` (
   KEY `foodItem` (`foodItem`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-
 CREATE TABLE IF NOT EXISTS `menutype` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(25) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 CREATE TABLE IF NOT EXISTS `person` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -72,11 +62,8 @@ CREATE TABLE IF NOT EXISTS `person` (
   `blacklistReason` varchar(255) DEFAULT NULL,
   `sendEmail` varchar(1) NOT NULL DEFAULT 'N',
   PRIMARY KEY (`id`),
-  KEY `emailAddress` (`emailAddress`)
+  KEY `email` (`email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
-INSERT INTO `person` (`id`, `firstName`, `middleName`, `lastName`, `email`, `password`, `addressLine1`, `addressLine2`, `city`, `state`, `zip`, `telephone`, `isStaff`, `blacklistFlag`, `blacklistReason`, `sendEmail`) VALUES
-(1, 'manager', NULL, 'manager', 'manager@chickenrice.com', 'password', '895 Commonwealth Ave', NULL, 'Boston', 'MA', '02445', '6173535000', 'Y', NULL, NULL, 'N');
 
 CREATE TABLE IF NOT EXISTS `reservations` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -87,7 +74,6 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   PRIMARY KEY (`id`),
   KEY `person` (`person`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
 
 CREATE TABLE IF NOT EXISTS `specials` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -100,7 +86,6 @@ CREATE TABLE IF NOT EXISTS `specials` (
   KEY `menuType` (`menuType`),
   KEY `foodItem` (`foodItem`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
 
 
 ALTER TABLE `menu`

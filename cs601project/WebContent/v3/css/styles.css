@@ -2,8 +2,9 @@
 Stylesheet for client-side restaurant.
 
 Need to use
-Descendant Selector [p div]
-YESChild Selector ['p > div']
+
+YESDescendant Selector [p div]
+Child Selector ['p > div']
 YESAttribute Selector ['att=value']
 YESType or Element Selector ['p']
 Adjacent sibling Selector ['p + div']
@@ -32,8 +33,8 @@ body {
 	/*Background image begin*/
 	background: url("img/bg/bg-01.jpg") no-repeat fixed center center;
 	/*For IE8*/
-	filter: progid : DXImageTransform.Microsoft.AlphaImageLoader ( src =
-		"img/bg/bg-01.jpg", sizingMethod = "scale" );
+	filter: progid:   DXImageTransform.Microsoft.AlphaImageLoader(   src=  
+		"img/bg/bg-01.jpg", sizingMethod=   "scale" );
 	/*For IE8?
 	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="img/bg/bg-01.jpg", sizingMethod="scale");*/
 	-webkit-background-size: cover;
@@ -68,7 +69,7 @@ table {
 }
 
 footer {
-	background-color: #FFFFFF; 
+	background-color: #FFFFFF;
 	color: #000000;
 	width: 100%;
 	height: 2em;
@@ -98,8 +99,8 @@ form[name="login"] {
 	float: left;
 }
 
-form[name="loginnew"] {
-	/*float: right;*/	
+form[name="loginnew"] { /*float: right;*/
+	
 }
 /*------------------------------Class Section------------------------------*/
 .menuheader {
@@ -150,8 +151,7 @@ td+td+td:hover{
 */
 
 /*------------------------------ID Section------------------------------*/
-input, #innerframe,#outerframe,#logo{ 
-	/*Border radius section*/
+input,#innerframe,#outerframe,#logo { /*Border radius section*/
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-khtml-border-radius: 10px;
@@ -161,7 +161,7 @@ input, #innerframe,#outerframe,#logo{
 
 #outerframe,#logo { /*Set opacity for image */
 	opacity: 0.85;
-	filter: alpha(opacity = 80);
+	filter: alpha(opacity =     80);
 	/* For IE8 and earlier */
 	border: 1px solid black;
 }
@@ -180,8 +180,7 @@ input, #innerframe,#outerframe,#logo{
 	background-color: #FFFFFF;
 }
 
-#logo {
-	/*position: absolute;
+#logo { /*position: absolute;
 	left: 30px;
 	top: 0px;*/
 	width: 200px;
@@ -201,12 +200,6 @@ input, #innerframe,#outerframe,#logo{
 #tagline {
 	font-size: 15px;
 	color: #FF6600;
-}
-
-#navigation {
-	width: 100%%;
-	text-align: center;
-	margin: 5px 5px 5px 5px;
 }
 
 #content {
@@ -263,22 +256,47 @@ input, #innerframe,#outerframe,#logo{
 #mailinglist label {
 	color: #FF6600; /*orange*/
 }
-/*------------------------------Pseudo-class Section------------------------------*/
-#navigation>a:nth-of-type(even) {
-	color: #000000; /*black*/
+
+/*------------------------------Navigation Section------------------------------*/
+.navigation {
+	text-align: center;
+	font-size: 20px;
+	margin: 0px;
 }
 
-#navigation>a:nth-of-type(odd) {
-	color: #FFFFFF; /*white*/
+ul.navigation {
+	list-style: none;
 }
 
-#navigation>a:hover {
+ul.navigation li {
+	display: inline-block;
+	background: #FF6600;
+	margin: 0px;
+}
+
+ul.navigation li:nth-of-type(even) a {
+	/*color: #000000; black*/
+}
+
+ul.navigation>li:nth-of-type(odd) a {
+	/*color: #FFFFFF; white*/
+}
+
+ul.navigation li:hover {
 	background-color: #FFFFFF;
 	color: #FF6600;
 }
 
-#restaurantname>a:hover {
-	color: #FFFF00; /*yellow*/
-	/*border-top: 1px solid;*/
-	border-bottom: 1px solid;
+ul.navigation a:hover {
+	background-color: #FFFFFF;
+	color: #FF6600;
+}
+
+ul.navigation li.highlight {
+	background-color: #FFFFFF;
+}
+
+ul.navigation li.highlight a {
+	color: #FF6600;  
+	cursor: default;
 }
