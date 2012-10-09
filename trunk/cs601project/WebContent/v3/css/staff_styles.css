@@ -26,3 +26,19 @@ input[type="button"] {
 #tagline {
 	color: #CC6600;
 }
+
+ul.navigation li {
+	background: #CC6600;
+}
+
+ul.navigation li:hover {
+	color: #CC6600;
+}
+
+ul.navigation a:hover {
+	color: #CC6600;
+}
+
+ul.navigation li.highlight a {
+	color: #CC6600;  
+}

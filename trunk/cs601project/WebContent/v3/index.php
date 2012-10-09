@@ -10,12 +10,28 @@ if (isset($_POST['action'])) {
 	$action = 'home';
 }
 
+if (isset($_SESSION['isloggedin'])){
+	$isLoggedIn=$_SESSION['isloggedin'];
+}else {
+	$isLoggedIn=false;
+}
+
+if (isset($_SESSION['isstaff'])){
+	$isStaff=$_SESSION['isstaff'];
+}else {
+	$isStaff=false;
+}
+
 switch ($action) {
 	case 'home':
 		include('home.php');
 		break;
 	case  'checkout':
-		include('checkout.php');
+		if (!$isStaff||!$isLoggedIn){
+			include('login.php');
+		}else {
+			include('checkout.php');
+		}
 		break;
 	case 'contact':
 		include('contact.php');
@@ -39,7 +55,11 @@ switch ($action) {
 		include('menu.php');
 		break;
 	case 'cart':
-		include('cart.php');
+		if (!$isLoggedIn){
+			include('login.php');
+		}else {
+			include('cart.php');
+		}
 		break;
 	case 'reservations':
 		include('reservations.php');
@@ -48,19 +68,39 @@ switch ($action) {
 		include('specials.php');
 		break;
 	case 'staff_blacklist':
-		include('staff_blacklist.php');
+		if (!$isStaff||!$isLoggedIn){
+			include('login.php');
+		}else {
+			include('staff_blacklist.php');
+		}
 		break;
 	case 'staff_ordersearch':
-		include('staff_ordersearch.php');
+		if (!$isStaff||!$isLoggedIn){
+			include('login.php');
+		}else {
+			include('staff_ordersearch.php');
+		}
 		break;
 	case 'staff_reservations':
-		include('staff_reservations.php');
+		if (!$isStaff||!$isLoggedIn){
+			include('login.php');
+		}else {
+			include('staff_reservations.php');
+		}
 		break;
 	case 'staff_reservationsearch':
-		include('staff_reservationsearch.php');
+		if (!$isStaff||!$isLoggedIn){
+			include('login.php');
+		}else {
+			include('staff_reservationsearch.php');
+		}
 		break;
 	case 'staff_takeout':
-		include('staff_takeout.php');
+		if (!$isStaff||!$isLoggedIn){
+			include('login.php');
+		}else {
+			include('staff_takeout.php');
+		}
 		break;
 }
 ?>
