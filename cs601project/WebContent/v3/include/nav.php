@@ -17,6 +17,18 @@
   <li><a href="index.php?action=cart">mycart</a></li>
   <li><a href="index.php?action=reservations">reservations</a></li>
   <li><a href="index.php?action=contact">contact</a></li>
+<?php
+	if (isset($_SESSION['hascart'])){
+		$hasCart=$_SESSION['hascart'];
+	}else {
+		$hasCart=false;
+	}
+  	if ($hasCart) { 
+		echo ' <li><a href="index.php?action=checkout">checkout</a></li>';
+	} 
+?>
+ </ul>
+
 <?php 
 	if (isset($_SESSION['isstaff'])){
 		$isStaff=$_SESSION['isstaff'];
@@ -24,21 +36,12 @@
 		$isStaff=false;
 	}
 	if ($isStaff) { 
-		echo '<li><a href="index.php?action=staff_takeout">takeout</a></li>';
-		echo '<li><a href="index.php?action=staff_reservations">reservations</a></li>';
-		echo '<li><a href="index.php?action=staff_reservationsearch">searchreservations</a></li>';
-		echo '<li><a href="index.php?action=staff_ordersearch">searchorders</a></li>';
-		echo '<li><a href="index.php?action=staff_blacklist">blacklist</a></li>';
+		echo '<ul class="navigation">';
+		echo ' <li><a href="index.php?action=staff_takeout">takeout</a></li>';
+		echo ' <li><a href="index.php?action=staff_reservations">reservations</a></li>';
+		echo ' <li><a href="index.php?action=staff_reservationsearch">searchreservations</a></li>';
+		echo ' <li><a href="index.php?action=staff_ordersearch">searchorders</a></li>';
+		echo ' <li><a href="index.php?action=staff_blacklist">blacklist</a></li>';
+		echo '</ul>';
 	} 
 ?>
-  <?php 
-	if (isset($_SESSION['hascart'])){
-		$hasCart=$_SESSION['hascart'];
-	}else {
-		$hasCart=false;
-	}
-	if ($hasCart) { 
-		echo '<li><a href="index.php?action=checkout">checkout</a></li>';
-	} 
-?>
-</ul>
