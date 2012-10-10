@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php session_start(); 
+require_once('controller/secureform.php');
+secureForm('cart');
+?>
 <!DOCTYPE html>
 <html>
 <head>
