@@ -95,12 +95,14 @@ label {
 	padding-right: 10px;
 }
 
-form[name="login"] {
-	float: left;
+form[name="login"] input {
+	background-color: #FFFFFF; /*white*/
+	color: #FF6600; /*orange*/
 }
 
-form[name="loginnew"] { /*float: right;*/
-	
+select, option, form[name="loginnew"] input { 
+	background-color: #FFFFFF; /*white*/
+	color: #FF6600; /*orange*/	
 }
 /*------------------------------Class Section------------------------------*/
 .menuheader {
@@ -151,7 +153,7 @@ td+td+td:hover{
 */
 
 /*------------------------------ID Section------------------------------*/
-input,#innerframe,#outerframe,#logo { /*Border radius section*/
+select, input,#innerframe,#outerframe,#logo { /*Border radius section*/
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-khtml-border-radius: 10px;
