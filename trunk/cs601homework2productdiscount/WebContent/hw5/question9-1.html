@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="description"
+	content="Submitted by Ryszard Kilarski, BU ID: U81-39-8560">
+<title>Question 9-1 Homework Due 10/16/2012</title>
+<style>
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+label{
+	width: 300px;
+	float: left;
+	display: block;
+	clear: left;
+	text-align: right;
+	padding-right: 10px;
+}
+input[type="radio"] {
+	margin-left: 300px;
+	padding-right: 1em;
+	text-align: right;
+	padding-right: 10px;
+}
+fieldset {
+	clear: both;
+	width: 75%;
+}
+
+form {
+	width: 800px;
+	padding: 10px;
+}
+
+#wrapper {
+	width: 75%;
+	margin-left: auto;
+	margin-right: auto;
+}
+</style>
+</head>
+<body>
+	<div id="wrapper">
+		<form method="post"
+			action="http://webdevfoundations.net/scripts/mydemo.asp">
+			<label for="username">Username:</label> <input type="text"
+				name="username" maxlength="30"> <br> <label
+				for="favday">Favorite Day of the Week:</label> <br> <input
+				type="radio" name="favday" value="Monday">Monday<br> <input
+				type="radio" name="favday" value="Tuesday">Tuesday<br>
+			<input type="radio" name="favday" value="Wednesday">Wednesday<br>
+			<input type="radio" name="favday" value="Thursday">Thursday<br>
+			<input type="radio" name="favday" value="Friday">Friday<br>
+			<input type="radio" name="favday" value="Saturday">Saturday<br>
+			<input type="radio" name="favday" value="Sunday">Sunday<br>
+			<label for="favsocsite">Favorite Social Site:</label> <select
+				name="favsocsite" size="1">
+				<option value="Facebook">Facebook</option>
+				<option value="MySpace">MySpace</option>
+				<option value="Google+">Google+</option>
+			</select><br>
+			<fieldset>
+				<legend>Shipping Address</legend>
+				<label for="addressline1">Address Line 1:</label><input type="text"
+					name="addressline1"> <br> <label for="addressline2">Address
+					Line 2:</label><input type="text" name="addressline2"> <br> <label
+					for="city">City:</label><input type="text" name="city"> <br>
+				<label for="state">State:</label><input type="text" name="state">
+				<br> <label for="zip">Zip:</label><input type="text" name="zip">
+			</fieldset>
+			<input type="hidden" name="userid"> <label for="password">Password:</label>
+			<input type="password" name="pword"> <br> <input
+				type="image" src="signup.png">
+		</form>
+	</div>
+</body>
+</html>
+
