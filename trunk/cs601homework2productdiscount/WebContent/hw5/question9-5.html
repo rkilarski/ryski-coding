@@ -5,12 +5,15 @@
 <meta name="description"
 	content="Submitted by Ryszard Kilarski, BU ID: U81-39-8560">
 <title>Question 9-5 Homework Due 10/16/2012</title>
+
 <style type="text/css">
-body {
+body,html,#wrapper {
 	font-family: Arial, Helvetica, sans-serif;
+	height: 100%;
+	min-height: 100%;
 }
 
-h1 {
+h1,h2 {
 	text-align: center;
 }
 
@@ -37,28 +40,51 @@ form {
 	padding: 10px;
 }
 
+footer {
+	text-align: right;
+	font-size: 15px;
+	height: 15px;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
 #wrapper {
 	width: 80%;
 	margin-left: auto;
 	margin-right: auto;
 }
+
+#content {
+	min-height: 95%;
+	height: 95%;
+	padding-bottom: 10px; /*Size of footer*/
+}
 </style>
 </head>
 <body>
 	<div id="wrapper">
-		<form method="post"
-			action="http://webdevfoundations.net/scripts/mydemo.asp">
-			<h1>Please send us your information</h1>
-			<fieldset>
-				<legend>Your Information</legend>
-				<label for="name">Name:</label> <input type="text" name="name"><br>
- 				<label for="email">Email:</label><input type="email" name="email" placeholder="you@yourdomain.com"><br> 
-				<label for="birthdate">Birthdate:</label><input type="date" name="birthdate"><br>
-				
-			</fieldset>
-			<input type="image" src="signup.png">
-		</form>
-		From: Ryszard Kilarski, <a href="mailto=emrys@bu.edu">emrys@bu.edu</a>
+		<div id="content">
+			<form method="post"
+				action="http://webdevfoundations.net/scripts/mydemo.asp">
+				<h1>Please send us your information</h1>
+				<h2>So we can spam you. Incessantly.</h2>
+				<fieldset>
+					<legend>Your Information</legend>
+					<label for="name">Name:</label> <input type="text" name="name"><br>
+					<label for="email">Email:</label><input type="email" name="email"
+						placeholder="you@yourdomain.com"><br> <label
+						for="birthdate">Birthdate:</label><input type="date"
+						name="birthdate"><br>
+
+				</fieldset>
+				<input type="image" src="signup.png">
+			</form>
+		</div>
+		<footer>
+			From: Ryszard Kilarski, <a href="mailto=emrys@bu.edu">emrys@bu.edu</a>
+		</footer>
 	</div>
 </body>
 </html>
