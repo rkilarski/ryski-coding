@@ -1,0 +1,12 @@
+text=The Emperor's New Clothes
+text=Dark Diamond
+text=Look Ma, No Hands
+text=American Triangle
+text=Original Sin
+text=Birds
+text=I Want Love
+text=The Wasteland
+text=Ballad of the Boy in the Red Shoes
+text=Love Her Like Me
+text=Mansfield
+text=This Train Don't Stop There Anymore
