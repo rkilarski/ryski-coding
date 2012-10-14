@@ -10,41 +10,35 @@ body {
 	font-family: Arial, Helvetica, sans-serif;
 }
 
-h1,h2 {
+h1 {
 	text-align: center;
 }
 
 label {
 	width: 200px;
-	padding-right: 1em;
 	float: left;
 	display: block;
 	clear: left;
 	text-align: right;
 	padding-right: 10px;
-	margin-top: 10px;
 }
 
-input {
-	margin-top: 10px;
+input[type="image"] {
+	margin-left: auto;
 	display: block;
 }
 
-input[type="radio"] {
-	margin-left: 40px;
-}
-
 fieldset {
-	width: 50%;
+	width: 100%;
 }
 
 form {
-	width: 1000px;
+	width: 500px;
 	padding: 10px;
 }
 
 #wrapper {
-	width: 75%;
+	width: 80%;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -54,16 +48,14 @@ form {
 	<div id="wrapper">
 		<form method="post"
 			action="http://webdevfoundations.net/scripts/mydemo.asp">
-			<h1>Sign Up</h1>
-			<h2>For our FREE brochure!</h2>
+			<h1>Sign Up For Our FREE brochure!</h1>
 			<fieldset>
 				<legend>Shipping Address</legend>
-				<label for="name">Name:</label> <input type="text" name="name">
-				<label for="addressline1">Address Line 1:</label><input type="text"
-					name="addressline1"><br> <label for="addressline2">Address
-					Line 2:</label><input type="text" name="addressline2"><br> <label
-					for="city">City:</label><input type="text" name="city"><br>
-				<label for="state">state:</label> <select name="state" size="1">
+				<label for="name">Name:</label> <input type="text" name="name"><br>
+ 				<label for="addressline1">Address Line 1:</label><input type="text" name="addressline1"><br> 
+				<label for="addressline2">Address Line 2:</label><input type="text" name="addressline2"><br>
+				<label for="city">City:</label><input type="text" name="city"><br>
+				<label for="state">State:</label> <select name="state" size="1">
 					<option value="AL">Alabama</option>
 					<option value="AK">Alaska</option>
 					<option value="AZ">Arizona</option>
