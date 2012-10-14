@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="description"
 	content="Submitted by Ryszard Kilarski, BU ID: U81-39-8560">
-<title>Question 9-5 Homework Due 10/16/2012</title>
+<title>Question 9-4 Homework Due 10/16/2012</title>
 
 <style type="text/css">
 body,html,#wrapper {
@@ -68,15 +68,18 @@ footer {
 		<div id="content">
 			<form method="post"
 				action="http://webdevfoundations.net/scripts/mydemo.asp">
-				<h1>Please send us your information</h1>
-				<h2>So we can spam you. Incessantly.</h2>
+				<h1>Please send us your feedback!</h1>
+				<h2>We'll ignore it anyway.</h2>
 				<fieldset>
-					<legend>Your Information</legend>
+					<legend>Your Feedback</legend>
 					<label for="name">Name:</label> <input type="text" name="name"
-						id="name"><br> <label for="email">Email:</label><input
+						required="required" id="name"><br> <label for="email">Email:</label><input
 						type="email" name="email" placeholder="you@yourdomain.com"
-						id="email"><br> <label for="birthdate">Birthdate:</label><input
-						type="date" name="birthdate" id="birthdate"><br>
+						required="required" id="email"><br> <label
+						for="feedback">Comments:</label>
+					<textarea name="feedback" required="required" rows="5"
+						maxlength="1600" id="feedback">Enter your feedback here</textarea>
+					<br>
 
 				</fieldset>
 				<input type="image" src="signup.png" alt="Sign Up!">
