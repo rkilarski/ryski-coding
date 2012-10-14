@@ -61,17 +61,17 @@ form {
 		<form method="post"
 			action="http://webdevfoundations.net/scripts/mydemo.asp">
 			<label for="username">Username:</label> <input type="text"
-				name="username" maxlength="30"> <br> <label
+				name="username" maxlength="30" id="username"> <br> <label
 				for="favday">Favorite Day of the Week:</label> <br> <input
-				type="radio" name="favday" value="Monday">Monday<br> <input
-				type="radio" name="favday" value="Tuesday">Tuesday<br>
+				type="radio" name="favday" value="Monday" id="favday">Monday<br>
+			<input type="radio" name="favday" value="Tuesday">Tuesday<br>
 			<input type="radio" name="favday" value="Wednesday">Wednesday<br>
 			<input type="radio" name="favday" value="Thursday">Thursday<br>
 			<input type="radio" name="favday" value="Friday">Friday<br>
 			<input type="radio" name="favday" value="Saturday">Saturday<br>
 			<input type="radio" name="favday" value="Sunday">Sunday<br>
 			<label for="favsocsite">Favorite Social Site:</label> <select
-				name="favsocsite" size="1">
+				name="favsocsite" size="1" id="favsocsite">
 				<option value="Facebook">Facebook</option>
 				<option value="MySpace">MySpace</option>
 				<option value="Google+">Google+</option>
@@ -79,16 +79,18 @@ form {
 			<fieldset>
 				<legend>Shipping Address</legend>
 				<label for="addressline1">Address Line 1:</label><input type="text"
-					name="addressline1"> <br> <label for="addressline2">Address
-					Line 2:</label><input type="text" name="addressline2"> <br> <label
-					for="city">City:</label><input type="text" name="city"> <br>
-				<label for="state">State:</label><input type="text" name="state">
-				<br> <label for="zip">Zip:</label><input type="text" name="zip">
+					name="addressline1" id="addressline1"> <br> <label
+					for="addressline2">Address Line 2:</label><input type="text"
+					name="addressline2" id="addressline2"> <br> <label
+					for="city">City:</label><input type="text" name="city" id="city">
+				<br> <label for="state">State:</label><input type="text"
+					name="state" id="state"> <br> <label for="zip">Zip:</label><input
+					type="text" name="zip" id="zip">
 			</fieldset>
-			<input type="hidden" name="userid"> <br>
-			<label for="password">Password:</label> <input type="password"
-				name="pword"> <br> <br> <input type="image"
-				src="signup.png">
+			<input type="hidden" name="userid"> <br> <label
+				for="pword">Password:</label> <input type="password" name="pword"
+				id="pword"> <br> <br> <input type="image"
+				src="signup.png" alt="Sign Up!">
 		</form>
 	</div>
 </body>
