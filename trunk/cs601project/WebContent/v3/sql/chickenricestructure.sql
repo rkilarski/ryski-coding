@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `food` (
   `description` varchar(255) NOT NULL,
   `isSpecial` varchar(1) NOT NULL DEFAULT 'N',
   `isVegetarian` varchar(1) NOT NULL DEFAULT 'N',
+  `imageName` varchar(255) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
