@@ -19,7 +19,7 @@
 					<h1>login</h1>
 					<form name="login" action="controller/authenticate.php">
 						<h2>existingusers</h2>
-						<label for="email">login:</label> <input type="text" name="email"
+						<label for="email">login:</label> <input type="email" name="email"
 							placeholder="username"> <br /> <label for="password">password:</label><input
 							type="password" name="password" placeholder="password"> <br /> <input
 							type="submit" value="login"> <input type="reset" value="reset"><br />
@@ -27,7 +27,7 @@
 					<form name="loginnew" method="post"
 						action="controller/addperson.php">
 						<h2>newusers</h2>
-						<label for="email">email: </label><input type="text" name="email">
+						<label for="email">email: </label><input type="email" name="email">
 						<br /> <label for="password">password: </label><input
 							type="password" name="password"> <br /> <br /> <label
 							for="firstname">firstname:</label><input type="text"
