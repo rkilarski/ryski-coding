@@ -238,6 +238,7 @@ select, input,#innerframe,#outerframe,#logo { /*Border radius section*/
 	height: auto !important;
 	height: 100%;
 	margin: 0 auto -2em;
+	padding-bottom: 18px;
 }
 
 #mailinglist {
