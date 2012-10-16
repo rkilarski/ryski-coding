@@ -66,12 +66,12 @@ INSERT INTO `menu` (`id`, `menuType`, `foodItem`, `price`, `cost`) VALUES
 (22, 7, 22, 10, 5),
 (23, 7, 23, 10, 5);
 
-INSERT INTO `specials` (`id`, `menuType`, `foodItem`, `price`, `cost`, 'specialDay') VALUES
-(1, 1, 3, 10, 5), 
-(2, 2, 6, 10, 5),
-(3, 3, 10, 10, 5),
-(4, 3, 11, 10, 5),
-(5, 7, 23, 10, 5);
+INSERT INTO `specials` (`id`, `menuType`, `foodItem`, `price`, `cost`, `specialDay`) VALUES
+(1, 1, 3, 10, 5,'M'), 
+(2, 2, 6, 10, 5,'T'),
+(3, 3, 10, 10, 5,'W'),
+(4, 3, 11, 10, 5,'R'),
+(5, 7, 23, 10, 5,'F');
 
 INSERT INTO `person` (`id`, `firstName`, `middleName`, `lastName`, `email`, `password`, `addressLine1`, `addressLine2`, `city`, `state`, `zip`, `telephone`, `isStaff`, `blacklistFlag`, `blacklistReason`, `sendEmail`) VALUES
 (1, 'manager', NULL, 'manager', aes_encrypt('manager@chickenrice.com','chickenrice'), aes_encrypt('password','chickenrice'), '895 Commonwealth Ave', NULL, 'Boston', 'MA', '02445', '6173535000', 'Y', NULL, NULL, 'N');
