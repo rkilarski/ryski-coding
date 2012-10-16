@@ -68,7 +68,7 @@
 			</div>
 			<div id="mailinglist">
 				<form name="mailinglist" action="" method="post">
-					<label for="emailaddress">joinourmailinglist:</label> <input type="text" name="emailaddress"
+					<label for="emailaddress">joinourmailinglist:</label> <input type="email" name="emailaddress"
 						placeholder="emailaddress" size="50"> <input type="submit"
 						value="Submit">
 				</form>
