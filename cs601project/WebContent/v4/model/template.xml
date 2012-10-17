@@ -31,8 +31,19 @@
   <method name="loadById" static="true" visibility="public">
     <body>
       $OBJECT_NAME = new CLASS_NAME($this->db);
-      $rows = mysql_query("select * from OBJECT_NAME where PK_WHERE", $this->db);
-      $OBJECT_NAME->init(mysql_fetch_array($rows));
+      $rows = $this->db->exec("select * from OBJECT_NAME where PK_WHERE");
+      $OBJECT_NAME->init($rows);
+      return $OBJECT_NAME;
+    </body>
+  </method>
+  <method name="loadByValue" static="true" visibility="public">
+  	<arg name="db"/>
+    <arg name="value"/>
+    <arg name="valueId"/>
+    <body>
+      $OBJECT_NAME = new CLASS_NAME($db);
+      $rows = $db->exec("select * from OBJECT_NAME where `$value`='$valueId'");
+      $OBJECT_NAME->init($rows);
       return $OBJECT_NAME;
     </body>
   </method>

@@ -1,23 +1,34 @@
 <?php
-	require_once("../model/database.php");
-	require_once('../model/person_db.php');
+if(session_id() == '') {
+	session_set_cookie_params(31536000,'/');
+	session_start();
+}
+require_once("../model/database.php");
 
-	$email = $_POST['email'];
-	$pswd =  $_POST['password'];
-	$key = 'chickenrice';
+$email = $_POST['email'];
+$pswd =  $_POST['password'];
+$key = 'chickenrice';
+$db=Database::getDB();
 
-	$users = $db->query("select count(1) person from users where aes_decrypt(email,$key) = '$email' and aes_decrypt(password, $key) = '$pswd'", $resource);
+$rows = $db->query("select id,isStaff from person where aes_decrypt(email,'$key') = '$email' and aes_decrypt(password, '$key') = '$pswd'");
+$row = $rows->fetch();
 
-	if ( $row['numUsers'] == 1 ) {
-		$person=getPersonByEmail($email);
-		$_SESSION=array();  //Initialize session
-		$_SESSION('isstaff')=$person['isStaff'];
-		$_SESSION('hascart')=false;
-		$_SESSION('userId')=$person['id'];
-		$_SESSION('isloggedin')=true;
-		header("Location: index.php?action=$action");
-	} else {
-		echo "Authentication Failed";
-		$_SESSION('isloggedin')=false;
+$_SESSION=array();  //Initialize session
+
+if (isset($row)) {
+	if ($row['isStaff']=='Y'){
+		$_SESSION['isstaff']=true;
+	}else{
+		$_SESSION['isstaff']=false;
 	}
+	$_SESSION['hascart']=false;
+	$_SESSION['userid']=$row['id'];
+	$_SESSION['isloggedin']=true;
+	
+	header("Location: ../index.php?action=$action");
+} else {
+		echo "Authentication Failed";
+		$_SESSION['isloggedin']=false;
+		header("Location: ../index.php?action=$action");
+}
 ?>

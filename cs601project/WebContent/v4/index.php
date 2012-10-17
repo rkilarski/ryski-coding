@@ -1,6 +1,9 @@
-<?php
-//require('../model/database.php');
-require_once('model/person_db.php');
+<?php 
+if(session_id() == '') {
+	session_set_cookie_params(31536000,'/');
+	session_start();
+}
+require_once('model/database.php');
 require_once('model/person.php');
 
 if (isset($_POST['action'])) {
@@ -24,6 +27,9 @@ if (isset($_SESSION['isstaff'])){
 }
 
 switch ($action) {
+	case '':
+		include('home.php');
+		break;
 	case 'home':
 		include('home.php');
 		break;
@@ -44,6 +50,7 @@ switch ($action) {
 		include('itemdetail.php');
 		break;
 	case 'login':
+		$action='';
 		include('login.php');
 		break;
 	case 'logoff':
@@ -72,35 +79,35 @@ switch ($action) {
 		if (!$isStaff||!$isLoggedIn){
 			include('login.php');
 		}else {
-			include('staff/staff_blacklist.php');
+			include('staff/blacklist/staff_blacklist.php');
 		}
 		break;
 	case 'staff_ordersearch':
 		if (!$isStaff||!$isLoggedIn){
 			include('login.php');
 		}else {
-			include('staff/staff_ordersearch.php');
+			include('staff/ordersearch/staff_ordersearch.php');
 		}
 		break;
 	case 'staff_reservations':
 		if (!$isStaff||!$isLoggedIn){
 			include('login.php');
 		}else {
-			include('staff/staff_reservations.php');
+			include('staff/reservations/staff_reservations.php');
 		}
 		break;
 	case 'staff_reservationsearch':
 		if (!$isStaff||!$isLoggedIn){
 			include('login.php');
 		}else {
-			include('staff/staff_reservationsearch.php');
+			include('staff/reservationsearch/staff_reservationsearch.php');
 		}
 		break;
 	case 'staff_takeout':
 		if (!$isStaff||!$isLoggedIn){
 			include('login.php');
 		}else {
-			include('staff/staff_takeout.php');
+			include('staff/takeout/staff_takeout.php');
 		}
 		break;
 }

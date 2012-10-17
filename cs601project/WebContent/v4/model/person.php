@@ -419,11 +419,20 @@ public function loadAll(){
     
 }
 
-public function LOAD_BY_ID(){
+public function loadById(){
 
       $person = new Person($this->db);
-      $rows = mysql_query("select * from person where `id`='$id'", $this->db);
-      $person->init(mysql_fetch_array($rows));
+      $rows = $this->db->exec("select * from person where `id`='$id'");
+      $person->init($rows);
+      return $person;
+    
+}
+
+public static function loadByValue($db, $value, $valueId){
+
+      $person = new Person($db);
+      $rows = $db->exec("select * from person where `$value`='$valueId'");
+      $person->init($rows);
       return $person;
     
 }
