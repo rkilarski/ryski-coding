@@ -1,0 +1,302 @@
+/*
+Stylesheet for client-side restaurant.
+
+Need to use
+
+YESDescendant Selector [p div]
+Child Selector ['p > div']
+YESAttribute Selector ['att=value']
+YESType or Element Selector ['p']
+Adjacent sibling Selector ['p + div']
+
+*/
+
+/*------------------------------Universal Section------------------------------*/
+* {
+	font-family: Arial, sans-serif;
+	color: #FFFFFF; /*white*/
+}
+
+/*------------------------------Element Section------------------------------*/
+a {
+	text-decoration: none;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	background-color: #000000;
+	margin: 0;
+	height: 100%;
+	min-height: 100%;
+	padding-bottom: 18px;
+	scrollbar-base-color: #FF6600; scrollbar-arrow-color : #FF6600;
+	scrollbar-DarkShadow-Color : #FF6600;
+	/*Background image begin*/
+	background: url("img/bg/bg-01.jpg") no-repeat fixed center center;
+	/*For IE8*/
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="img/bg/bg-01.jpg", sizingMethod="scale" );
+	/*For IE8?
+	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="img/bg/bg-01.jpg", sizingMethod="scale");*/
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	scrollbar-arrow-color: #FF6600;
+	scrollbar-DarkShadow-Color: #FF6600;
+	/*Background image end*/
+}
+
+h1 {
+	font-size: 30px;
+}
+
+h2 {
+	font-size: 15px;
+}
+
+h1,h2 {
+	clear: both;
+	text-align: center;
+}
+
+input {
+	background-color: #FF6600; /*orange*/
+	color: #FFFFFF; /*white*/
+	padding-left: 5px;
+}
+
+table {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+footer {
+	background-color: #FFFFFF;
+	color: #000000;
+	width: 100%;
+	height: 2em;
+	text-align: center;
+	font-weight: normal;
+	font-size: 18px;
+}
+
+form {
+	margin: auto;
+	width: 400px;
+	padding;
+	10
+	px;
+}
+
+label {
+	float: left;
+	width: 100px;
+	display: block;
+	clear: left;
+	text-align: right;
+	padding-right: 10px;
+}
+
+form[name="login"] input {
+	background-color: #FFFFFF; /*white*/
+	color: #FF6600; /*orange*/
+}
+
+select,option,form[name="loginnew"] input {
+	background-color: #FFFFFF; /*white*/
+	color: #FF6600; /*orange*/
+}
+/*------------------------------Class Section------------------------------*/
+.menuheader {
+	text-align: center;
+	font-size: 20px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+
+.menuitem {
+	
+}
+
+.menudesc {
+	
+}
+
+.menuprice {
+	text-align: center;
+	color: #FFFFFF; /*black*/
+}
+
+.menuitem:hover,.menudesc:hover {
+	color: #FFFF00; /*yellow*/
+}
+/*
+tr:hover{
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+}
+*/
+/*
+td:hover{
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+}
+
+
+td+td:hover{
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+}
+
+td+td+td:hover{
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+}
+*/
+
+/*------------------------------ID Section------------------------------*/
+select,input,#innerframe,#outerframe,#logo { /*Border radius section*/
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	border-radius: 10px;
+	/*End border radius section*/
+}
+
+#outerframe,#logo { /*Set opacity for image */
+	opacity: 0.80;
+	filter: alpha(opacity = 80);
+	/* For IE8 and earlier */
+	border: 1px solid black;
+}
+
+#innerframe {
+	width: 95%;
+	height: 100%;
+	min-height: 100px;
+	background-color: #FF6600;
+	margin: 25px auto;
+}
+
+#outerframe {
+	width: 95%;
+	margin: 50px auto;
+	background-color: #FFFFFF;
+}
+
+#logo { /*position: absolute;
+	left: 30px;
+	top: 0px;*/
+	width: 200px;
+	margin: auto;
+	text-align: center;
+	background-color: #FFFFFF;
+	color: #FF6600;
+	padding: 10px 10px 10px 10px;
+	margin-top: 20px;
+}
+
+#largerestaurantname {
+	font-size: 30px;
+	color: #FF6600;
+}
+
+#tagline {
+	font-size: 15px;
+	color: #FF6600;
+}
+
+#content {
+	float: clear;
+	margin: 5px 5px 5px 5px;
+	padding: 10px 10px 10px 10px;
+}
+
+#location {
+	text-align: center;
+	color: #000000;
+	padding-top: 10px;
+	padding-right: 10px;
+}
+
+#location a {
+	color: #000000;
+}
+
+#favorites {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+
+#dhonis {
+	margin-left: auto;
+	margin-right: auto;
+	float: clear;
+}
+
+#bodywrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -2em;
+	padding-bottom: 18px;
+}
+
+#mailinglist input[type="email"] {
+	background-color: #FFFFFF; 
+}
+
+#mailinglist {
+	width: 100%;
+	padding: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/*------------------------------Navigation Section------------------------------*/
+.navigation {
+	text-align: center;
+	font-size: 20px;
+	margin: 0px;
+}
+
+ul.navigation {
+	list-style: none;
+}
+
+ul.navigation li {
+	display: inline-block;
+	background: #FF6600;
+	margin: 0px;
+}
+
+ul.navigation li:nth-of-type(even) a { /*color: #000000; black*/
+	
+}
+
+ul.navigation>li:nth-of-type(odd) a { /*color: #FFFFFF; white*/
+	
+}
+
+ul.navigation li:hover {
+	background-color: #FFFFFF;
+	color: #FF6600;
+}
+
+ul.navigation a:hover {
+	background-color: #FFFFFF;
+	color: #FF6600;
+}
+
+ul.navigation li.highlight {
+	background-color: #FFFFFF;
+}
+
+ul.navigation li.highlight a {
+	color: #FF6600;
+	cursor: default;
+}
