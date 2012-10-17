@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `person` (
   `addressLine1` varchar(255) DEFAULT NULL,
   `addressLine2` varchar(255) DEFAULT NULL,
   `city` varchar(25) DEFAULT NULL,
-  `state` varchar(2) DEFAULT NULL,
+  `st` varchar(2) DEFAULT NULL,
   `zip` varchar(10) DEFAULT NULL,
   `telephone` varchar(10) DEFAULT NULL,
   `isStaff` varchar(1) NOT NULL DEFAULT 'N',
@@ -70,8 +70,8 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `person` int(10) NOT NULL,
   `tableSize` int(2) NOT NULL,
-  `date` varchar(10) NOT NULL,
-  `time` varchar(10) NOT NULL,
+  `reservationDate` varchar(10) NOT NULL,
+  `reservationTime` varchar(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `person` (`person`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
