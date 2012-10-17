@@ -34,13 +34,6 @@ class PersonDB {
         return $product;
     }
 
-    public static function deleteProduct($product_id) {
-        $db = Database::getDB();
-        $query = "DELETE FROM products
-                  WHERE productID = '$product_id'";
-        $row_count = $db->exec($query);
-        return $row_count;
-    }
 	function addPerson($person) {
 		$db = Database::getDB();
 		$query = $person->insert();

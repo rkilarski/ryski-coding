@@ -4,20 +4,8 @@
 <meta charset="utf-8">
 <meta name="description" content="Ryszard Kilarski, BU ID: U81-39-8560">
 <title>chickenrice</title>
-<link rel="shortcut icon" type="image/ico"
-	href="img/favicon/favicon1.ico" />
-<link rel="stylesheet" type="text/css" href="css/styles.css">
-<link rel="stylesheet" href="dhonishow/dhonishow.css" type="text/css"
-	media="screen" />
-
-<link rel="stylesheet" type="text/css" media="screen"
-	href="dhonishow/style/dhonishow_screen.css" />
-<link rel="stylesheet" type="text/css" media="screen"
-	href="dhonishow/style/dhonishow.css" />
-<script type="text/javascript" src="dhonishow/javascript/prototype.js"></script>
-<script type="text/javascript" src="dhonishow/javascript/effects.js"></script>
-<script type="text/javascript" src="dhonishow/javascript/dhonishow.js"></script>
-
+<link type="text/css" rel="stylesheet" href="css/styles.css">
+<link type="text/css" rel="stylesheet" href="css/staff_styles.css">
 <?php include("include/bgstyle.php") ?>
 </head>
 <body>

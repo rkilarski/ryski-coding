@@ -1,4 +1,8 @@
-<?php session_start(); ?>
-	<?php include("include/header.php") ?>
-				<h1>itemdetail</h1>
-	<?php include("include/footer.php") ?>
+<?php 
+if(session_id() == '') {
+	session_set_cookie_params(31536000,'/');
+	session_start();
+}
+include("include/header.php") ?>
+<h1>itemdetail</h1>
+<?php include("include/footer.php") ?>
