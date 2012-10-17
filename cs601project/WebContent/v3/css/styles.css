@@ -30,17 +30,20 @@ body {
 	background-color: #000000;
 	margin: 0;
 	height: 100%;
+	scrollbar-base-color: #FF6600; scrollbar-arrow-color : #FF6600;
+	scrollbar-DarkShadow-Color : #FF6600;
 	/*Background image begin*/
 	background: url("img/bg/bg-01.jpg") no-repeat fixed center center;
 	/*For IE8*/
-	filter: progid:   DXImageTransform.Microsoft.AlphaImageLoader(   src=  
-		"img/bg/bg-01.jpg", sizingMethod=   "scale" );
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="img/bg/bg-01.jpg", sizingMethod="scale" );
 	/*For IE8?
 	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="img/bg/bg-01.jpg", sizingMethod="scale");*/
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
+	scrollbar-arrow-color: #FF6600;
+	scrollbar-DarkShadow-Color: #FF6600;
 	/*Background image end*/
 }
 
@@ -100,9 +103,9 @@ form[name="login"] input {
 	color: #FF6600; /*orange*/
 }
 
-select, option, form[name="loginnew"] input { 
+select,option,form[name="loginnew"] input {
 	background-color: #FFFFFF; /*white*/
-	color: #FF6600; /*orange*/	
+	color: #FF6600; /*orange*/
 }
 /*------------------------------Class Section------------------------------*/
 .menuheader {
@@ -153,7 +156,7 @@ td+td+td:hover{
 */
 
 /*------------------------------ID Section------------------------------*/
-select, input,#innerframe,#outerframe,#logo { /*Border radius section*/
+select,input,#innerframe,#outerframe,#logo { /*Border radius section*/
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-khtml-border-radius: 10px;
@@ -163,7 +166,7 @@ select, input,#innerframe,#outerframe,#logo { /*Border radius section*/
 
 #outerframe,#logo { /*Set opacity for image */
 	opacity: 0.85;
-	filter: alpha(opacity =     80);
+	filter: alpha(opacity =         80);
 	/* For IE8 and earlier */
 	border: 1px solid black;
 }
@@ -277,12 +280,12 @@ ul.navigation li {
 	margin: 0px;
 }
 
-ul.navigation li:nth-of-type(even) a {
-	/*color: #000000; black*/
+ul.navigation li:nth-of-type(even) a { /*color: #000000; black*/
+	
 }
 
-ul.navigation>li:nth-of-type(odd) a {
-	/*color: #FFFFFF; white*/
+ul.navigation>li:nth-of-type(odd) a { /*color: #FFFFFF; white*/
+	
 }
 
 ul.navigation li:hover {
@@ -300,6 +303,6 @@ ul.navigation li.highlight {
 }
 
 ul.navigation li.highlight a {
-	color: #FF6600;  
+	color: #FF6600;
 	cursor: default;
 }
