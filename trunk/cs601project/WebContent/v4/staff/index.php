@@ -31,39 +31,39 @@ switch ($action) {
 		if (!$isStaff||!$isLoggedIn){
 			include('../login.php');
 		}else {
-			include('staff/staff_blacklist.php');
+			include('blacklist/blacklist.php');
 		}
 		break;
 	case 'staff_ordersearch':
 		if (!$isStaff||!$isLoggedIn){
 			include('../login.php');
 		}else {
-			include('staff/staff_ordersearch.php');
+			include('ordersearch/ordersearch.php');
 		}
 		break;
 	case 'staff_reservations':
 		if (!$isStaff||!$isLoggedIn){
 			include('../login.php');
 		}else {
-			include('staff/staff_reservations.php');
+			include('reservations/reservations.php');
 		}
 		break;
 	case 'staff_reservationsearch':
 		if (!$isStaff||!$isLoggedIn){
 			include('../login.php');
 		}else {
-			include('staff/staff_reservationsearch.php');
+			include('reservationsearch/reservationsearch.php');
 		}
 		break;
 	case 'staff_takeout':
 		if (!$isStaff||!$isLoggedIn){
 			include('../login.php');
 		}else {
-			include('staff/staff_takeout.php');
+			include('takeout/takeout.php');
 		}
 		break;
 	default:
-		include("../index.php?$action");
+		header("Location: ../index.php?action=$action");
 		break;
 }
 ?>
