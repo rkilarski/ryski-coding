@@ -21,11 +21,12 @@
 		$isLoggedIn=false;
 	}
 	if ($isLoggedIn){
-		echo '<li><a href="index.php?action=logoff">logoff</a></li>';
+		echo '<li class="login"><a href="index.php?action=logoff">logoff</a></li>';
 	}else {
-		echo '<li><a href="index.php?action=login">login</a></li>';
+		echo '<li class="login"><a href="index.php?action=login">login</a></li>';
 	}
- ?> </ul>
+ ?> 
+ </ul>
 
 <?php 
 	if (isset($_SESSION['isstaff'])){

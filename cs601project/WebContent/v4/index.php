@@ -55,7 +55,7 @@ switch ($action) {
 		break;
 	case 'logoff':
 		$action='';
-                include('controller/logout.php');
+                include('controller/logoff.php');
 		break;
 	case 'loginnew':
 		include('loginnew.php');
