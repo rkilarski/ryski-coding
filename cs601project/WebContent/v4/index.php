@@ -54,7 +54,8 @@ switch ($action) {
 		include('login.php');
 		break;
 	case 'logoff':
-		include('controller/logout.php');
+		$action='';
+                include('controller/logout.php');
 		break;
 	case 'loginnew':
 		include('loginnew.php');
@@ -79,36 +80,40 @@ switch ($action) {
 		if (!$isStaff||!$isLoggedIn){
 			include('login.php');
 		}else {
-			include('staff/blacklist/staff_blacklist.php');
+			header("Location: staff/index.php?action=$action");
 		}
 		break;
 	case 'staff_ordersearch':
 		if (!$isStaff||!$isLoggedIn){
 			include('login.php');
 		}else {
-			include('staff/ordersearch/staff_ordersearch.php');
+			header("Location: staff/index.php?action=$action");
 		}
 		break;
 	case 'staff_reservations':
 		if (!$isStaff||!$isLoggedIn){
 			include('login.php');
 		}else {
-			include('staff/reservations/staff_reservations.php');
+			header("Location: staff/index.php?action=$action");
 		}
 		break;
 	case 'staff_reservationsearch':
 		if (!$isStaff||!$isLoggedIn){
 			include('login.php');
 		}else {
-			include('staff/reservationsearch/staff_reservationsearch.php');
+			header("Location: staff/index.php?action=$action");
 		}
 		break;
 	case 'staff_takeout':
 		if (!$isStaff||!$isLoggedIn){
 			include('login.php');
 		}else {
-			include('staff/takeout/staff_takeout.php');
+			header("Location: staff/index.php?action=$action");
 		}
 		break;
+        default:
+                include('home.php');
+		break;
+
 }
 ?>

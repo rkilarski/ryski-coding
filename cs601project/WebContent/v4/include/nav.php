@@ -1,16 +1,4 @@
 <ul class="navigation">
-<?php
-	if (isset($_SESSION['isloggedin'])){
-		$isLoggedIn=$_SESSION['isloggedin'];
-	}else {
-		$isLoggedIn=false;
-	}
-	if ($isLoggedIn){
-		echo '<li><a href="index.php?action=logoff">logoff</a></li>';
-	}else {
-		echo '<li><a href="index.php?action=login">login</a></li>';
-	}
- ?>
   <li class="highlight"><a href="index.php?action=menu">menu</a></li>
   <li><a href="index.php?action=specials">specials</a></li>
   <li><a href="index.php?action=events">events</a></li>
@@ -26,8 +14,18 @@
   	if ($hasCart) { 
 		echo ' <li><a href="index.php?action=checkout">checkout</a></li>';
 	} 
-?>
- </ul>
+
+        if (isset($_SESSION['isloggedin'])){
+		$isLoggedIn=$_SESSION['isloggedin'];
+	}else {
+		$isLoggedIn=false;
+	}
+	if ($isLoggedIn){
+		echo '<li><a href="index.php?action=logoff">logoff</a></li>';
+	}else {
+		echo '<li><a href="index.php?action=login">login</a></li>';
+	}
+ ?> </ul>
 
 <?php 
 	if (isset($_SESSION['isstaff'])){
