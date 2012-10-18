@@ -5,6 +5,7 @@ if(session_id() == '') {
 }
 require_once('model/database.php');
 require_once('model/person.php');
+require_once('model/menu.php');
 
 if (isset($_POST['action'])) {
 	$action = $_POST['action'];
@@ -61,6 +62,7 @@ switch ($action) {
 		include('loginnew.php');
 		break;
 	case 'menu':
+		$menu=Menu::getMenu(Database::getDB());
 		include('menu.php');
 		break;
 	case 'cart':

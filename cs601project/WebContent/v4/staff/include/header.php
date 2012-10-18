@@ -6,7 +6,7 @@
 <title>chickenrice</title>
 <link type="text/css" rel="stylesheet" href="../css/styles.css">
 <link type="text/css" rel="stylesheet" href="../css/staff_styles.css">
-<?php include("../include/bgstyle.php") ?>
+<?php include("include/bgstyle.php"); ?>
 </head>
 <body>
 	<div id="bodywrapper">
@@ -20,11 +20,11 @@
 		<div id="favorites">
 			<ul>
 				<li class="facebook"><a href="#non" title="like us on facebook">Facebook</a></li>
-				<li><img src="../img/map.png" width="20px" alt="find us on a map"></li>
+				<li><img src="img/map.png" width="20px" alt="find us on a map"></li>
 			</ul>
 		</div>
 		<div id="outerframe">
-		<?php include("../include/location.php") ?>
+		<?php include("../include/location.php"); ?>
 			<div id="innerframe">
-				<?php include("../include/nav.php") ?>
+				<?php include("../include/nav.php"); ?>
 				<div id="content">
