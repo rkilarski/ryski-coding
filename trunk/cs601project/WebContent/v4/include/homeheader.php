@@ -30,9 +30,10 @@
 		</div>
 
 		<div id="favorites">
-			<img src="img/icon-facebook-white.png" width="30px"
-				alt="like us on facebook"><img src="img/map.png" width="20px"
-				alt="find us on a map">
+			<ul>
+				<li class="facebook"><a href="#non" title="like us on facebook">Facebook</a></li>
+				<li><img src="img/map.png" width="20px" alt="find us on a map"></li>
+			</ul>
 		</div>
 		<div id="outerframe">
 		<?php include("include/location.php") ?>

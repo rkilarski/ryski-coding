@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `person` (
   `city` varchar(25) DEFAULT NULL,
   `st` varchar(2) DEFAULT NULL,
   `zip` varchar(10) DEFAULT NULL,
-  `telephone` varchar(10) DEFAULT NULL,
+  `telephone` varchar(15) DEFAULT NULL,
   `isStaff` varchar(1) NOT NULL DEFAULT 'N',
   `blacklistFlag` varchar(1) DEFAULT NULL,
   `blacklistReason` varchar(255) DEFAULT NULL,
