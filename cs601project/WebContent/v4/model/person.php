@@ -259,10 +259,10 @@ class Person {
 		return $persons;
 	}
 
-	public static function loadById($db){
+	public static function loadById($db, $id){
 		$person = new Person($db);
-		$rows = $db->exec("select * from person where `id`='$id'");
-		$person->init($rows);
+		$row = $db->exec("select * from person where `id`='$id'");
+		$person->init($row);
 		return $person;
 	}
 
@@ -283,7 +283,7 @@ class Person {
 				$sql .= "$value, ";
 		}
 		$sql = substr($sql, 0, -2).")";
-		return $this->$db->exec($sql);
+		return $this->db->exec($sql);
 	}
 
 	public function update(){
@@ -296,7 +296,7 @@ class Person {
 				$sql .= "$key=$value, ";
 		}
 		$sql = substr($sql, 0, -2)." where `id`='$id'";
-		return $this->$db->exec($sql);
+		return $this->db->exec($sql);
 	}
 
 	public function delete(){

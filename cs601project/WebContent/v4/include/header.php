@@ -1,3 +1,9 @@
+<?php
+if(session_id() == '') {
+	session_set_cookie_params(31536000,'/');
+	session_start();
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,7 +11,10 @@
 <meta name="description" content="Ryszard Kilarski, BU ID: U81-39-8560">
 <title>chickenrice</title>
 <link type="text/css" rel="stylesheet" href="../css/styles.css">
-<?php include("../include/bgstyle.php") ?>
+<?php 
+	include("../include/bgstyle.php") ;
+	require_once("../model/person.php");
+?>
 </head>
 <body>
 	<div id="bodywrapper">
@@ -23,7 +32,14 @@
 			</ul>
 		</div>
 		<div id="outerframe">
-		<?php include("../include/location.php") ?>
+		<?php 
+			include("../include/location.php");
+			if (isset($_SESSION['firstname'])){
+				$firstName = $_SESSION['firstname'];
+				echo "<div id=\"greeting\">hello, $firstName</div>";
+			}
+		?>
+		
 			<div id="innerframe">
 				<?php include("../include/nav.php") ?>
 				<div id="content">

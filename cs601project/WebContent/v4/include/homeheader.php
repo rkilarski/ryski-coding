@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../dhonishow/javascript/effects.js"></script>
 <script type="text/javascript" src="../dhonishow/javascript/dhonishow.js"></script>
 
-<?php include("../include/bgstyle.php") ?>
+<?php include("../include/bgstyle.php"); ?>
 </head>
 <body>
 	<div id="bodywrapper">
@@ -31,7 +31,12 @@
 			</ul>
 		</div>
 		<div id="outerframe">
-		<?php include("../include/location.php") ?>
+		<?php include("../include/location.php");
+			if (isset($_SESSION['firstname'])){
+				$firstName = $_SESSION['firstname'];
+				echo "<div id=\"greeting\">hello, $firstName</div>";
+			}
+		?>
 			<div id="innerframe">
-				<?php include("../include/nav.php") ?>
+				<?php include("../include/nav.php"); ?>
 				<div id="content">
