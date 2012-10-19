@@ -29,92 +29,78 @@ if (isset($_SESSION['isstaff'])){
 
 switch ($action) {
 	case '':
-		include('home.php');
+		header('Location: home/index.php');
 		break;
 	case 'home':
-		include('home.php');
-		break;
-	case  'checkout':
-		if (!$isStaff||!$isLoggedIn){
-			include('login.php');
-		}else {
-			include('checkout.php');
-		}
+		header('Location: home/index.php');
 		break;
 	case 'contact':
-		include('contact.php');
+		header('Location: contact/index.php');
 		break;
 	case 'events':
-		include('events.php');
-		break;
-	case 'detail':
-		include('itemdetail.php');
+		header("Location: events/index.php?action=$action");
 		break;
 	case 'login':
 		$action='';
-		include('login.php');
+		header("Location: login/index.php?action=$action");
 		break;
 	case 'logoff':
 		$action='';
-                include('controller/logoff.php');
-		break;
-	case 'loginnew':
-		include('loginnew.php');
+		include('controller/logoff.php');
 		break;
 	case 'menu':
-		$menu=Menu::getMenu(Database::getDB());
-		include('menu.php');
+		header("Location: menu/index.php?action=$action");
 		break;
 	case 'cart':
 		if (!$isLoggedIn){
-			include('login.php');
+			header("Location: login/index.php?action=$action");
 		}else {
-			include('cart.php');
+			header("Location: cart/index.php?action=$action");
 		}
 		break;
 	case 'reservations':
-		include('reservations.php');
+		header("Location: reservations/index.php?action=$action");
 		break;
 	case 'specials':
-		include('specials.php');
+		header("Location: specials/index.php?action=$action");
 		break;
 	case 'staff_blacklist':
 		if (!$isStaff||!$isLoggedIn){
-			include('login.php');
+			header("Location: login/index.php?action=$action");
 		}else {
 			header("Location: staff/index.php?action=$action");
 		}
 		break;
 	case 'staff_ordersearch':
 		if (!$isStaff||!$isLoggedIn){
-			include('login.php');
+			header("Location: login/index.php?action=$action");
 		}else {
 			header("Location: staff/index.php?action=$action");
 		}
 		break;
 	case 'staff_reservations':
 		if (!$isStaff||!$isLoggedIn){
-			include('login.php');
+			header("Location: login/index.php?action=$action");
 		}else {
 			header("Location: staff/index.php?action=$action");
 		}
 		break;
 	case 'staff_reservationsearch':
 		if (!$isStaff||!$isLoggedIn){
-			include('login.php');
+			header("Location: login/index.php?action=$action");
 		}else {
 			header("Location: staff/index.php?action=$action");
 		}
 		break;
 	case 'staff_takeout':
 		if (!$isStaff||!$isLoggedIn){
-			include('login.php');
+			header("Location: login/index.php?action=$action");
 		}else {
 			header("Location: staff/index.php?action=$action");
 		}
 		break;
         default:
-                include('home.php');
+			header('Location: home/index.php');
 		break;
 
 }

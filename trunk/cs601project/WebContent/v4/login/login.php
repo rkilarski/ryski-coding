@@ -3,17 +3,17 @@ if(session_id() == '') {
 	session_set_cookie_params(31536000,'/');
 	session_start();
 }
-include("include/header.php");
+include("../include/header.php");
 ?>
 <h1>login</h1>
-<form name="login" action="controller/authenticate.php" method="post">
+<form name="login" action="../controller/authenticate.php" method="post">
 	<h2>existingusers</h2>
 	<label for="email">login:</label> <input type="email" name="email"
 		placeholder="username" maxlength="255"> <br /> <label for="password">password:</label><input
 		type="password" name="password" placeholder="password" maxlength="255"> <br /> <input
 		type="submit" value="login"> <input type="reset" value="reset"><br />
 </form>
-<form name="loginnew" method="post" action="controller/addperson.php">
+<form name="loginnew" method="post" action="../controller/addperson.php">
 	<h2>newusers</h2>
 	<label for="email">email: </label><input type="email" name="email" maxlength="255"> <br />
 	<label for="password">password: </label><input type="password"
@@ -83,4 +83,4 @@ include("include/header.php");
 		type="checkbox" name="sendemail"> <br /> <input type="submit"
 		value="login"> <input type="reset" value="reset">
 </form>
-<?php include("include/footer.php"); ?>
+<?php include("../include/footer.php"); ?>

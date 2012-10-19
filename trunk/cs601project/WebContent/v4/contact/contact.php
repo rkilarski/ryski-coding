@@ -3,7 +3,7 @@ if(session_id() == '') {
 	session_set_cookie_params(31536000,'/');
 	session_start();
 }
-include("include/header.php") 
+include("../include/header.php");
 ?>
 <h1>contact</h1>
 <h2>Do you Feel Like Chicken Tonight?</h2>
@@ -62,4 +62,4 @@ include("include/header.php")
 	montes, nascetur ridiculus mus. Cum sociis natoque penatibus et magnis
 	dis parturient montes, nascetur ridiculus mus. Mauris eu justo ut felis
 	imperdiet aliquet eget et tellus.</p>
-<?php include("include/footer.php") ?>
+<?php include("../include/footer.php") ?>

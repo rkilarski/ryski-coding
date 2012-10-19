@@ -12,7 +12,6 @@
       $this->db = $db;
     </body>
   </method>
-  <method name="TO_STRING" visibility="public"/>
   <method name="INIT_LOAD" visibility="public"/>
   <method name="INIT_POST" visibility="public"/>
   <method name="INIT_GET" visibility="public"/>
