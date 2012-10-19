@@ -25,7 +25,7 @@ function secureStaffForm($action){
 	}
 	
 	if (!$isStaff){
-		header("Location: index.php?action=$action");
+		header("Location: ../index.php?action=$action");
 		return false;
 	}
 	return true;

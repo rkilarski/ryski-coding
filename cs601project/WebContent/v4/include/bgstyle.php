@@ -6,7 +6,7 @@
 ?>
 <style type="text/css">
 	body{
-		background: url("img/bg/<?php echo $selectedBg;?>") no-repeat fixed center center;
+		background: url("../img/bg/<?php echo $selectedBg;?>") no-repeat fixed center center;
 		/*For IE8*/
 		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="url("img/bg/<?php echo $selectedBg;?>")",sizingMethod="scale" );
 		/*For IE8?

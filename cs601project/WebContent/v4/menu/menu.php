@@ -4,9 +4,9 @@
 		session_start();
 	}
 	if (!isset($menu)){
-		header("Location: index.php?action=menu");
+		header("Location: ../index.php?action=menu");
 	}
-	include("include/header.php");
+	include("../include/header.php");
 ?>
 <h1>menu</h1>
 <table>
@@ -26,4 +26,4 @@
 	}
 ?>
 </table>
-<?php include("include/footer.php"); ?>
+<?php include("../include/footer.php"); ?>
