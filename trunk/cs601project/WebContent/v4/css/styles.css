@@ -11,13 +11,12 @@ Adjacent sibling Selector ['p + div']
 
 */
 
-/*------------------------------Universal Section------------------------------*/
+/*------------------------------General Section------------------------------*/
 * {
 	font-family: Arial, sans-serif;
 	color: #FFFFFF; /*white*/
 }
 
-/*------------------------------Element Section------------------------------*/
 a {
 	text-decoration: none;
 }
@@ -89,30 +88,146 @@ footer {
 form {
 	margin: auto;
 	width: 400px;
-	padding;
-	10
-	px;
+	padding: 10px;
 }
 
 label {
-	float: left;
-	width: 100px;
-	display: block;
-	clear: left;
-	text-align: right;
 	padding-right: 10px;
 }
 
-form[name="login"] input {
+#greeting {
+	color: #FF6600;
+	text-align: center;
+	margin-top: 10px;
+	font-size: 20px;
+}
+
+.center {
+	width: 100px; margin-left : auto;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+select,input,#innerframe,#outerframe,#logo { /*Border radius section*/
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	border-radius: 10px;
+	/*End border radius section*/
+}
+
+#logo {
+	width: 200px;
+	margin: auto;
+	text-align: center;
+	background-color: #FFFFFF;
+	color: #FF6600;
+	padding: 10px 10px 10px 10px;
+	margin-top: 20px;
+}
+
+#largerestaurantname {
+	font-size: 30px;
+	color: #FF6600;
+}
+
+#tagline {
+	font-size: 15px;
+	color: #FF6600;
+}
+
+#content {
+	float: clear;
+	margin: 5px 5px 5px 5px;
+	padding: 10px 10px 10px 10px;
+}
+
+#outerframe,#logo { /*Set opacity for image */
+	opacity: 0.80;
+	filter: alpha(opacity =     80);
+	/* For IE8 and earlier */
+	border: 1px solid #FF6600;
+}
+
+#innerframe {
+	width: 95%;
+	height: 100%;
+	min-height: 100px;
+	background-color: #FF6600;
+	margin: 25px auto;
+}
+
+#outerframe {
+	width: 95%;
+	margin: 50px auto;
+	background-color: #FFFFFF;
+}
+
+#bodywrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -2em;
+	padding-bottom: 18px;
+}
+
+#location {
+	text-align: center;
+	color: #000000;
+	padding-top: 10px;
+	padding-right: 10px;
+}
+
+#location a {
+	color: #000000;
+}
+
+#dhonis {
+	margin-left: auto;
+	margin-right: auto;
+	float: clear;
+}
+
+/*------------------------------Login Form Section------------------------------*/
+form[name="login"] label,form[name="loginnew"] label {
+	float: left;
+	width: 130px;
+	display: block;
+	clear: left;
+	text-align: right;
+}
+form[name="loginnew"] input, form[name="login"] input {
+	background-color: #FFFFFF; /*white*/
+	color: #FF6600; /*orange*/
+}
+form[name="loginnew"] select, form[name="login"] select{
 	background-color: #FFFFFF; /*white*/
 	color: #FF6600; /*orange*/
 }
 
-select,option,form[name="loginnew"] input {
+form[name="loginnew"] option, form[name="loginnew"] option{
 	background-color: #FFFFFF; /*white*/
 	color: #FF6600; /*orange*/
 }
-/*------------------------------Class Section------------------------------*/
+/*------------------------------Mailing List Section------------------------------*/
+#mailinglist input[type="email"] {
+	background-color: #FFFFFF;
+}
+
+form[name="mailinglist"] {
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	width: 100%;
+}
+
+#mailinglist {
+	width: 600px; margin-left : auto;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+/*------------------------------Menu Section------------------------------*/
 .menuheader {
 	text-align: center;
 	font-size: 20px;
@@ -159,98 +274,6 @@ td+td+td:hover{
 	border-bottom: 1px solid;
 }
 */
-
-/*------------------------------ID Section------------------------------*/
-select,input,#innerframe,#outerframe,#logo { /*Border radius section*/
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	-khtml-border-radius: 10px;
-	border-radius: 10px;
-	/*End border radius section*/
-}
-
-#outerframe,#logo { /*Set opacity for image */
-	opacity: 0.80;
-	filter: alpha(opacity =   80);
-	/* For IE8 and earlier */
-	border: 1px solid #FF6600;
-}
-
-#innerframe {
-	width: 95%;
-	height: 100%;
-	min-height: 100px;
-	background-color: #FF6600;
-	margin: 25px auto;
-}
-
-#outerframe {
-	width: 95%;
-	margin: 50px auto;
-	background-color: #FFFFFF;
-}
-
-#logo {
-	width: 200px;
-	margin: auto;
-	text-align: center;
-	background-color: #FFFFFF;
-	color: #FF6600;
-	padding: 10px 10px 10px 10px;
-	margin-top: 20px;
-}
-
-#largerestaurantname {
-	font-size: 30px;
-	color: #FF6600;
-}
-
-#tagline {
-	font-size: 15px;
-	color: #FF6600;
-}
-
-#content {
-	float: clear;
-	margin: 5px 5px 5px 5px;
-	padding: 10px 10px 10px 10px;
-}
-
-#location {
-	text-align: center;
-	color: #000000;
-	padding-top: 10px;
-	padding-right: 10px;
-}
-
-#location a {
-	color: #000000;
-}
-
-#dhonis {
-	margin-left: auto;
-	margin-right: auto;
-	float: clear;
-}
-
-#bodywrapper {
-	min-height: 100%;
-	height: auto !important;
-	height: 100%;
-	margin: 0 auto -2em;
-	padding-bottom: 18px;
-}
-
-#mailinglist input[type="email"] {
-	background-color: #FFFFFF;
-}
-
-#mailinglist {
-	width: 100%;
-	padding: 10px;
-	margin-left: auto;
-	margin-right: auto;
-}
 
 /*------------------------------Navigation Section------------------------------*/
 .navigation {
@@ -312,7 +335,7 @@ http://www.1stwebdesigner.com/css/css-icons-logos/
 	text-indent: 17px; /*34px;*/
 	letter-spacing: 5px; /*10px;*/
 	font-weight: bold;
-	font-size: 32px;  /*64px*/
+	font-size: 32px; /*64px*/
 	line-height: 33px; /*66px*/
 	color: #fff;
 	background: #3c5a98;
