@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="description"
+	content="Submitted by Ryszard Kilarski, BU ID: U81-39-8560">
+<title>Homework Due 10/23/2012</title>
+<style>
+#wrapper {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+}
+</style>
+<script type="text/javascript">
+	function countDaysToEOY() {
+		var today = new Date();
+		var yearEnd = new Date(today.getFullYear(), 12, 31);
+		var label = document.getElementById("daysTillEOY");
+		label.innerHTML = Math.round(daysBetweenDates(today, yearEnd));
+
+	}
+
+	function daysBetweenDates(date1, date2) {
+		var difference = date2.getTime() - date1.getTime(); //Milliseconds
+		return (difference / 1000 / 60 / 60 / 24); //Convert to days.
+	}
+
+	function convertToKelvin() {
+		var textField = document.getElementById("tempvalue");
+		var value = parseInt(textField.value, 10);
+
+		farenheitField = document.getElementById("fromFarenheit");
+		celciusField = document.getElementById("fromCelcius");
+		farenheitField.value = farenheitToKelvin(value);
+		celciusField.value = celciusToKelvin(value);
+	}
+	function farenheitToKelvin(value){
+		return ((value - 32) * 5 / 9) + 273.15;
+	}
+	function celciusToKelvin(value){
+		return value + 273.15;
+	}
+</script>
+</head>
+<body onload="countDaysToEOY();">
+	<div id="wrapper">
+		<h1>Homework for Ryszard Kilarski (BU ID: U81-39-8560)</h1>
+		<fieldset>
+			<legend>Question 1</legend>
+			<p>Create a web page that has a textfield for the users' email
+				address and a submit button. Include a pre-submission validation
+				function that verifies that the textfield value has the @ symbol
+				found before allowing the form to be sent.</p>
+		</fieldset>
+		<fieldset>
+			<legend>Question 2</legend>
+			<p>Create a small program that allows the user to indicate a
+				temperature and you convert it to Kelvin.</p>
+			<label for="value">Number:</label> <input type="text" id="tempvalue">
+			<input type="button" value="Convert" onclick="convertToKelvin();">
+			<input type="button" value="Reset" onclick="tempvalue.value='';">
+			<br> <label>Results</label> <br> <input type="text"
+				id="fromFarenheit">Kelvin from Farenheit<br> <input
+				type="text" id="fromCelcius">Kelvin from Celcius
+		</fieldset>
+		<fieldset>
+			<legend>Question 3</legend>
+			<p>Display the number of days between today and December 31st,
+				dynamically, using the Math object.</p>
+			<p>
+				Number of days until Dec 31 is <span id="daysTillEOY">xxx</span>
+				days.
+			</p>
+		</fieldset>
+		<fieldset>
+			<legend>Question 4</legend>
+			<p>Create a small program that allows the user to indicate a HTML
+				element to search the current page. Output the total number of
+				elements you found that match in a div. Make sure you test your
+				program.</p>
+		</fieldset>
+		<fieldset>
+			<legend>Question 5</legend>
+			<p>Create a document that lets user's enter a planet's (like
+				Jupiter, Saturn, Mars...) name (via a select or input field), and at
+				the click of a button (or when the selected option was chosen), have
+				the distance (from the Sun or Earth) appear next to that select box
+				or textfield (which ever you choose to implement for the input from
+				the user.) Please use Google to find the distances.</p>
+			<select>
+
+			</select>
+		</fieldset>
+	</div>
+</body>
+</html>
