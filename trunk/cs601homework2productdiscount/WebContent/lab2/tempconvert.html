@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Convert to Celcius and Farenheit</title>
+<script type="text/javascript">
+	function run() {
+		var textField = document.getElementById("tempvalue");
+		var value = textField.value;
+		var celcius = (value - 32) * 5 / 9;
+		var farenheit = (value * 1.8) + 32;
+		
+		farenheitField=document.getElementById("farenheit");
+		celciusField=document.getElementById("celcius");
+		farenheitField.value=farenheit;
+		celciusField.value=celcius;
+	}
+</script>
+</head>
+<body>
+	<label for="value">Number:</label>
+	<input type="text" id="tempvalue">
+	<input type="button" value="Run" onclick="run();">
+	<input type="button" value="Reset" onclick="tempvalue.value='';">
+	<br>
+	<label>Results</label>
+	<br>
+	<input type="text" id="farenheit">farenheit<br>
+	<input type="text" id="celcius">celcius
+</body>
+</html>

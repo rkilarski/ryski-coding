@@ -1,0 +1,28 @@
+* {
+	font-family: "Trebuchet MS";
+}
+
+.required {
+	color: darkred;
+}
+
+input {
+	border: 1px solid #000000;
+}
+
+input[type=password] {
+	border: 1px dotted;
+}
+
+input[type=submit],input[type=reset] {
+	font-weight: bold;
+	background-color: #F8F8F8;
+}
+
+#form, #message {
+	margin: 200px auto;
+	width: 50%;
+}
+#message {
+	color: darkred;
+}
