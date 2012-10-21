@@ -1,14 +1,35 @@
+//Validate the form to have an input with a '@' symbol.
+function validateEmailForm() {
+	var field = document.getElementById("email");
+	if (!containsCharacter(field.value, "@")) {
+		alert("Address missing '@' symbol.");
+		return false;
+	}
+	return true;
+}
+
+// Get the days to end of the year from today.
 function setDaysToEOY() {
 	var today = new Date();
 	var yearEnd = new Date(today.getFullYear(), 12, 31);
 	var result = document.getElementById("daysTillEOY");
 	result.innerHTML = Math.round(daysBetweenDates(today, yearEnd));
-
 }
 
+// Get the number of elements on the form.
+function setElementCount() {
+	var field = document.getElementById("htmlElement");
+	var element = field.value;
+
+	var result = document.getElementById("elementCount");
+	result.innerHTML = "Number of " + element + " elements: "
+			+ countHTMLElements(element);
+}
+
+// Convert a value into kelvin.
 function setConvertToKelvin() {
-	var textField = document.getElementById("tempvalue");
-	var value = parseInt(textField.value, 10);
+	var field = document.getElementById("tempValue");
+	var value = parseInt(field.value, 10);
 
 	resultFarenheit = document.getElementById("fromFarenheit");
 	resultCelcius = document.getElementById("fromCelcius");
@@ -16,18 +37,20 @@ function setConvertToKelvin() {
 	resultCelcius.innerHTML = celciusToKelvin(value);
 }
 
+// Get the distance from the sun to a particular planet.
+function setPlanetDistance() {
+	var result = document.getElementById("planetDistance");
+	var planet = document.getElementById("planets").value;
+	result.innerHTML = getPlanetDistance(planet);
+}
+
+/* Library Functions */
 function farenheitToKelvin(value) {
 	return ((value - 32) * 5 / 9) + 273.15;
 }
 
 function celciusToKelvin(value) {
 	return value + 273.15;
-}
-
-function setPlanetDistance() {
-	var result = document.getElementById("planetDistance");
-	var planet = document.getElementById("planets").value;
-	result.innerHTML = getPlanetDistance(planet);
 }
 
 function daysBetweenDates(date1, date2) {
@@ -67,4 +90,15 @@ function getPlanetDistance(planet) {
 		break;
 	}
 	return distance;
+}
+
+function containsCharacter(string, character) {
+	if (string.indexOf(character) == -1) {
+		return false;
+	}
+	return true;
+}
+function countHTMLElements(element) {
+	var elements = document.getElementsByTagName(element);
+	return elements.length;
 }
