@@ -17,15 +17,21 @@
 				address and a submit button. Include a pre-submission validation
 				function that verifies that the textfield value has the @ symbol
 				found before allowing the form to be sent.</p>
+			<form method="post" action="javascript:alert('Form submitted');"
+				onsubmit="return validateEmailForm()">
+				<label for="email">Enter an email address:</label><input type="text"
+					id="email" size="30" placeholder="youremail@something.com">
+				<input type="submit" value="Submit">
+			</form>
 		</fieldset>
 		<fieldset>
 			<legend>Question 2</legend>
 			<p>Create a small program that allows the user to indicate a
 				temperature and you convert it to Kelvin.</p>
 			<label for="value">Temperature To Convert:</label> <input type="text"
-				id="tempvalue"> <input type="button" value="Convert"
+				id="tempValue"> <input type="button" value="Convert"
 				onclick="setConvertToKelvin();"> <input type="button"
-				value="Reset" onclick="tempvalue.value='';"><br> <br>
+				value="Reset" onclick="tempValue.value='';"><br> <br>
 			<span class="answer" id="fromFarenheit">0</span> Kelvin from
 			Farenheit<br> <span class="answer" id="fromCelcius">0</span>
 			Kelvin from Celcius
@@ -45,6 +51,12 @@
 				HTML element to search the current page. Output the total number of
 				elements you found that match in a div. Make sure you test your
 				program.</p>
+			<p>
+				<label for="htmlElement">Enter an HTML element:</label><input
+					type="text" id="htmlElement" size="20"> <input
+					type="button" value="Search" onclick="setElementCount();"><br>
+			</p>
+			<div class="answer" id="elementCount"></div>
 		</fieldset>
 		<fieldset>
 			<legend>Question 5</legend>
