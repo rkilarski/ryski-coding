@@ -1,3 +1,6 @@
+h1, h2{
+	text-align: center;
+}
 #wrapper {
 	width: 80%;
 	margin-left: auto;
@@ -6,4 +9,12 @@
 
 .answer {
 	font-weight: bold;
+}
+
+fieldset{
+	margin-bottom: 20px;
+}
+
+label{
+	padding-right: 10px;
 }
