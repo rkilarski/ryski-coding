@@ -28,6 +28,7 @@ if(session_id() == '') {
 		<div id="favorites">
 			<ul>
 				<li class="facebook"><a href="#non" title="like us on facebook">Facebook</a></li>
+				<li class="twitter"><a href="#non" title="follow us on twitter">Twitter</a></li>
 				<li><img src="../img/map.png" width="20px" alt="find us on a map"></li>
 			</ul>
 		</div>
