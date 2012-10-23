@@ -103,7 +103,8 @@ label {
 }
 
 .center {
-	width: 100px; margin-left : auto;
+	width: 100px;
+	margin-left: auto;
 	margin-right: auto;
 	margin-left: auto;
 }
@@ -144,7 +145,7 @@ select,input,#innerframe,#outerframe,#logo { /*Border radius section*/
 
 #outerframe,#logo { /*Set opacity for image */
 	opacity: 0.80;
-	filter: alpha(opacity =     80);
+	filter: alpha(opacity =       80);
 	/* For IE8 and earlier */
 	border: 1px solid #FF6600;
 }
@@ -196,16 +197,18 @@ form[name="login"] label,form[name="loginnew"] label {
 	clear: left;
 	text-align: right;
 }
-form[name="loginnew"] input, form[name="login"] input {
-	background-color: #FFFFFF; /*white*/
-	color: #FF6600; /*orange*/
-}
-form[name="loginnew"] select, form[name="login"] select{
+
+form[name="loginnew"] input,form[name="login"] input {
 	background-color: #FFFFFF; /*white*/
 	color: #FF6600; /*orange*/
 }
 
-form[name="loginnew"] option, form[name="loginnew"] option{
+form[name="loginnew"] select,form[name="login"] select {
+	background-color: #FFFFFF; /*white*/
+	color: #FF6600; /*orange*/
+}
+
+form[name="loginnew"] option,form[name="loginnew"] option {
 	background-color: #FFFFFF; /*white*/
 	color: #FF6600; /*orange*/
 }
@@ -222,7 +225,8 @@ form[name="mailinglist"] {
 }
 
 #mailinglist {
-	width: 600px; margin-left : auto;
+	width: 600px;
+	margin-left: auto;
 	margin-right: auto;
 	margin-left: auto;
 }
@@ -343,6 +347,30 @@ http://www.1stwebdesigner.com/css/css-icons-logos/
 	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 	box-shadow: 0 0 4px rgba(0, 0, 0, 0.4); /* standards version last */
+}
+/*
+CSS Twitter icon
+*/
+.twitter a {
+	position: relative;
+	border-color: #a8eaec;
+	text-transform: lowercase;
+	text-indent: 10px;
+	letter-spacing: 10px;
+	font: bold 32px/1 Tahoma, sans-serif;
+	line-height: 33px;
+	color: #76DDF8;
+	background: #daf6f7;
+	/* css3 */
+	text-shadow: 3px 3px 1px #fff, -3px -3px 1px #fff, 3px -3px 1px #fff,
+		-3px 3px 1px #fff;
+	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.4); /* standards version last */
+	/* NOTE: webkit gradient implementation is not as per spec */
+	background: -webkit-gradient(linear, left top, left bottom, from(#dbf7f8),
+		to(#88e1e6) );
+	background: -moz-linear-gradient(top, #dbf7f8, #88e1e6);
 }
 
 #favorites {
