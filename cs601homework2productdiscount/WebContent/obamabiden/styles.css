@@ -1,0 +1,49 @@
+*{
+	font-family: sans-serif;
+}
+h1, h2{
+	text-align: center;
+}
+h2{
+	font-size: 10px;
+}
+#wrapper {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+td{
+	width: 50%;
+}
+p:first-letter{
+	font-size: 30px;
+}
+
+td+td{
+	border-left: 1px solid;
+}
+
+table{
+	padding: 0;
+}
+
+td{
+	padding-right: 10px;
+	padding-left: 10px;
+	vertical-align: top;
+}
+
+img{
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.positive{
+	color: blue;	
+}
+
+.negative{
+	color: red;	
+}
