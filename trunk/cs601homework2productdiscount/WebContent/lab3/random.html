@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Guess a number!</title>
+<script type="text/javascript">
+	function runProgram() {
+		var randomNumber = Math.floor(Math.random() * 21);
+		var numberOfTries = 5;
+		var guessedRight = false;
+
+		while (numberOfTries != 0) {
+			numberOfTries--;
+			var guess = prompt(randomNumber + "Guess a number!  You have "
+					+ (numberOfTries + 1) + " tries!", "");
+			guessedRight = (guess == randomNumber);
+			if (guessedRight) {
+				break;
+			}
+		}
+		if (guessedRight) {
+			alert("You guessed right in " + (5 - numberOfTries) + " tries!");
+		} else {
+			alert("You did not guess the random number " + randomNumber
+					+ ". Sad face");
+		}
+	}
+</script>
+</head>
+<body>
+	<input type="button" value="Run" onclick="runProgram();">
+</body>
+</html>
