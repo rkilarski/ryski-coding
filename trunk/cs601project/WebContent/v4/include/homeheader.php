@@ -12,6 +12,8 @@
 <script type="text/javascript" src="../dhonishow/javascript/prototype.js"></script>
 <script type="text/javascript" src="../dhonishow/javascript/effects.js"></script>
 <script type="text/javascript" src="../dhonishow/javascript/dhonishow.js"></script>
+<script type="text/javascript" src="../javascript/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="../javascript/highlightnav.js"></script>
 
 <?php include("../include/bgstyle.php"); ?>
 </head>
