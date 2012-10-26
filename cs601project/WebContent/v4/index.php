@@ -35,7 +35,7 @@ switch ($action) {
 		header('Location: home/index.php');
 		break;
 	case 'contact':
-		header('Location: contact/index.php');
+		header("Location: contact/index.php?action=$action");
 		break;
 	case 'events':
 		header("Location: events/index.php?action=$action");
