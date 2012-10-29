@@ -1,0 +1,47 @@
+* {
+	font-family: sans-serif;
+}
+
+#wrapper {
+	width: 80%;
+	margin: 0 auto;
+}
+
+#details {
+	visibility: hidden;
+	margin-top: 100px;
+}
+
+input[type="button"] {
+	background-color: navy;
+	color: white;
+	margin-top: 20px;
+}
+
+h1,h2 {
+	color: green;
+	font-weight: normal;
+}
+
+label {
+	color: navy;
+}
+
+#albumImg {
+	float: left;
+	width: 30%;
+}
+
+#albumInfo {
+	float: right;
+	width: 70%;
+}
+br.clear{
+	clear: both;
+}
+#albumName{
+	font-size: 20px;
+}
+#albumYear{
+	font-size: 20px;
+}

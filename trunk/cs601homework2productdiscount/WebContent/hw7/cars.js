@@ -136,5 +136,4 @@ function addOption(text, value, selectItem, selectedFlag) {
 	opt.value = value;
 	opt.selected = selectedFlag;
 	selectItem.options.add(opt);
-
 }
