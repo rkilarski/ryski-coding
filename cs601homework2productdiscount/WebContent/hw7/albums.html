@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Album Information</title>
+<link type="text/css" rel="stylesheet" href="albums.css">
+<script type="text/javascript" src="albums.js"></script>
+</head>
+<body onload="onLoadBody();">
+	<div id="wrapper">
+		<h1>Welcome to the Elton John Album service.</h1>
+		<p>Once you choose an Elton John album, information about that
+			album.</p>
+		<select id="album" onchange="selectAlbum();"><option
+				value="select" selected>Select One</option></select>
+
+		<div id="details">
+			<div id="albumImg"><img id="albumImage"></div>
+			<div id="albumInfo">
+				<div id="albumName"></div>
+				<div id="albumYear"></div>
+				<p id="albumReview"></p>
+			</div>
+		</div>
+		<br class="clear"> <input type="button" value="Restart" onclick="resetForm();">
+	</div>
+</body>
+</html>
