@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Car Information</title>
+<link type="text/css" rel="stylesheet" href="cars.css">
+<script type="text/javascript" src="cars.js"></script>
+</head>
+<body onload="onLoadBody();">
+	<div id="wrapper">
+		<h1>Welcome to the car detail service.</h1>
+		<p>Once you choose from the list of manufacturers below, you will
+			then see a list of models.</p>
+		<p>Once you have made that final selection, you will see all the
+			information we have about your selected make and model.</p>
+		<select id="make" onchange="selectMake();"><option
+				value="select" selected>Select One</option></select><br>
+
+		<div id="modelInfo">
+			<h2>
+				You have selected to view all the models we know about regarding: [<span
+					id="makeName"></span>]
+			</h2>
+			<br> <select id="model" onchange="selectModel();"></select>
+		</div>
+
+		<div id="details">
+			<h2>Here are the details:</h2>
+			<span id="resultMake"></span> <span id="resultModel"></span><br>
+			<br> <label>cylinders: </label><span id="resultCylinders"></span><br>
+			<label>mpg: </label><span id="resultMpg"></span><br> <label>passengers:
+			</label><span id="resultPassengers"></span><br> <label>airbags:
+			</label><span id="resultAirbags"></span><br>
+		</div>
+		<br> <input type="button" value="Restart" onclick="resetForm();">
+	</div>
+</body>
+</html>
