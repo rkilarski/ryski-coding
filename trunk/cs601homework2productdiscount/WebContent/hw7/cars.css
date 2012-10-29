@@ -1,0 +1,31 @@
+* {
+	font-family: sans-serif;
+}
+
+#wrapper {
+	width: 80%;
+	margin: 0 auto;
+}
+
+#modelInfo,#details {
+	visibility: hidden;
+}
+
+input[type="button"] {
+	background-color: navy;
+	color: white;
+	margin-top: 20px;
+}
+
+h1,h2 {
+	color: green;
+	font-weight: normal;
+}
+
+label {
+	color: navy;
+}
+
+#makeName {
+	color: black;
+}
