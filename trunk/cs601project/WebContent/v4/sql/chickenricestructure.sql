@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `foodItem` int(10) NOT NULL,
   `price` int(5) NOT NULL,
   `cost` int(5) NOT NULL,
+  `specialDay` varchar(1) NULL,
   PRIMARY KEY (`id`),
   KEY `menuType` (`menuType`),
   KEY `foodItem` (`foodItem`)
@@ -84,18 +85,11 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   KEY `person` (`person`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-CREATE TABLE IF NOT EXISTS `specials` (
+CREATE TABLE IF NOT EXISTS `personorder`(
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `menuType` int(10) NOT NULL,
-  `foodItem` int(10) NOT NULL,
-  `specialDay` varchar(1) NOT NULL,
-  `price` int(5) NOT NULL,
-  `cost` int(5) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `menuType` (`menuType`),
-  KEY `foodItem` (`foodItem`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
+  `orderNumber` int(10) NOT NULL,
+  `person` int(10) NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 ALTER TABLE `menu`
   ADD CONSTRAINT `menuFoodItemFK` FOREIGN KEY (`foodItem`) REFERENCES `food` (`id`),
@@ -104,7 +98,3 @@ ALTER TABLE `menu`
 ALTER TABLE `reservations`
   ADD CONSTRAINT `reservationsPersonFK` FOREIGN KEY (`person`) REFERENCES `person` (`id`),
   ADD CONSTRAINT `reservationsDiningTableFK` FOREIGN KEY (`diningTable`) REFERENCES `diningTable` (`id`);
-
-ALTER TABLE `specials`
-  ADD CONSTRAINT `specialsFoodItemFK` FOREIGN KEY (`foodItem`) REFERENCES `food` (`id`),
-  ADD CONSTRAINT `specialsMenuTypeFK` FOREIGN KEY (`menuType`) REFERENCES `menutype` (`id`);
