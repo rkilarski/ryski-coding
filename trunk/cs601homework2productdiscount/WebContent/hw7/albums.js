@@ -19,9 +19,12 @@ function selectAlbum() {
 		document.getElementById("albumYear").innerHTML = albumInfo[0];
 		document.getElementById("albumReview").innerHTML = albumInfo[2];
 		document.getElementById("details").style.visibility = "visible";
+	} else {
+		document.getElementById("details").style.visibility = "hidden";
 	}
 }
 
+// Handle the form reset.
 function resetForm() {
 	var albumArray = getAlbumArray(dataArray);
 	var selectElement = document.getElementById("album");
@@ -36,6 +39,7 @@ function resetForm() {
 function getAlbumInformation(albumValue) {
 	return dataArray[albumValue];
 }
+
 function getAlbumArray(dataArray) {
 	var array = new Array();
 	// Create array for item
@@ -47,6 +51,7 @@ function getAlbumArray(dataArray) {
 	}
 	return array;
 }
+
 function initializeData(dataArray) {
 	var dataArray = new Array();
 
