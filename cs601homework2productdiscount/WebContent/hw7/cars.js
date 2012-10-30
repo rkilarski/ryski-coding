@@ -45,6 +45,7 @@ function selectModel() {
 	}
 }
 
+// Handle the form reset.
 function resetForm() {
 	var makeArray = getMakeArray(dataArray);
 	var selectElement = document.getElementById("make");
@@ -53,7 +54,10 @@ function resetForm() {
 	document.getElementById("modelInfo").style.visibility = "hidden";
 	document.getElementById("details").style.visibility = "hidden";
 }
-/* Data Services */
+
+/*
+ * Data Services
+ */
 function getMakeArray(dataArray) {
 	var array = new Array();
 	// Create array for item
@@ -65,6 +69,7 @@ function getMakeArray(dataArray) {
 	}
 	return array;
 }
+
 function getModelArray(dataArray, makeParam) {
 	var array = new Array();
 	// Create array for item
@@ -79,6 +84,7 @@ function getModelArray(dataArray, makeParam) {
 	}
 	return array;
 }
+
 function getCarInformation(makeParam, modelParam) {
 	// Create array for item
 	for ( var i = 0; i < dataArray.length; i++) {
@@ -90,6 +96,7 @@ function getCarInformation(makeParam, modelParam) {
 	}
 	return null;
 }
+
 function initializeData() {
 	var dataArray = new Array();
 	var element = [];
@@ -119,6 +126,7 @@ function initializeData() {
 	dataArray.push(element);
 	return dataArray;
 }
+
 function addArrayToSelect(arrayList, selectItem) {
 	selectItem.length = 0; // Reset select item.
 	addOption("Select One", "", selectItem, true); // Add first item.
