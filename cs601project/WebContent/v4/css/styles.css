@@ -132,7 +132,7 @@ select,input,#innerframe,#outerframe,#logo { /*Border radius section*/
 	color: #FF6600;
 }
 
-#tagline {
+#tagline, #de {
 	font-size: 15px;
 	color: #FF6600;
 }

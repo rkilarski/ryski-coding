@@ -9,4 +9,6 @@ $(document).ready(function() {
 			$(this).parent().addClass("highlight");
 		}
 	});
+	//$("de").hide("slide", {direction: "left"});
+	//$("de").show("slide", {direction: "right"});
 });

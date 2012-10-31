@@ -18,6 +18,8 @@ include("../include/homeheader.php") ?>
  	 <span data-weight="3">ravioli</span>
 	 <span data-weight="4">milanese</span>
 	 <span data-weight="5">creamy</span>
+	 <span data-weight="8">soup</span>
+	 <span data-weight="11">udon noodle</span>
 	 
     <span data-weight="15">chicken</span>
 	 <span data-weight="18">tonight</span>
@@ -31,6 +33,8 @@ include("../include/homeheader.php") ?>
  	 <span data-weight="19">ravioli</span>
 	 <span data-weight="7">milanese</span>
 	 <span data-weight="2">creamy</span>
+	 <span data-weight="4">soup</span>
+	 <span data-weight="1">udon noodle</span>
 </div>
 <script>
     var settings = {
