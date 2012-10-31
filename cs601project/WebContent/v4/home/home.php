@@ -53,7 +53,7 @@ include("../include/homeheader.php") ?>
 
 <form name="mailinglist" action="" method="post">
 	<div id="mailinglist">
-		<label for="emailaddress">joinourmailinglist:</label> <input
+		<label for="emailaddress">join our mailing list:</label> <input
 			type="email" name="emailaddress" placeholder="emailaddress" size="50">
 		<input type="submit" value="Submit">
 	</div>

@@ -4,8 +4,8 @@ if(session_id() == '') {
 	session_start();
 }
 require_once('../controller/secureform.php');
-secureStaffForm('staff_ordersearch');
+secureStaffForm('staff_blacklist');
 
-include("include/header.php"); ?>
-<h1>searchorders</h1>
+include("../include/staff_header.php"); ?>
+<h1>blacklist</h1>
 <?php include("../include/footer.php"); ?>
