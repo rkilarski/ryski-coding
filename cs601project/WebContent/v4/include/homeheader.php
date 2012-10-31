@@ -6,14 +6,9 @@
 <title>chickenrice</title>
 <link rel="shortcut icon" type="image/ico" href="../img/favicon/favicon1.ico" />
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
-<link rel="stylesheet" type="text/css" href="../dhonishow/dhonishow.css" media="screen" />
-<link rel="stylesheet" type="text/css" media="screen"	href="../dhonishow/style/dhonishow_screen.css" />
-<link rel="stylesheet" type="text/css" media="screen"	href="../dhonishow/style/dhonishow.css" />
-<script type="text/javascript" src="../dhonishow/javascript/prototype.js"></script>
-<script type="text/javascript" src="../dhonishow/javascript/effects.js"></script>
-<script type="text/javascript" src="../dhonishow/javascript/dhonishow.js"></script>
 <script type="text/javascript" src="../javascript/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="../javascript/highlightnav.js"></script>
+<script type="text/javascript" src="../javascript/jquery.highlightnav.js"></script>
+<script type="text/javascript" src="../javascript/jquery.awesomeCloud-0.2.js"></script>
 
 <?php include("../include/bgstyle.php"); ?>
 </head>

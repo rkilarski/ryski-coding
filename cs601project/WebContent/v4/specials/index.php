@@ -4,6 +4,7 @@ if(session_id() == '') {
 	session_start();
 }
 require_once('../model/database.php');
+require_once('../model/menu.php');
 
 if (isset($_POST['action'])) {
 	$action = $_POST['action'];
@@ -31,7 +32,7 @@ if (isset($_SESSION['isstaff'])){
 
 switch ($action) {
 	case 'specials':
-		//$menu=Menu::getMenu(Database::getDB());
+		$menu=Menu::getSpecials(Database::getDB());
 		include('specials.php');
 		break;
    default:

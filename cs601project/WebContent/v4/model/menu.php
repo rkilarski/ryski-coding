@@ -43,10 +43,12 @@ class Menu{
 				f.description as description,
 				f.isVegetarian as vegetarian,
 				m.price as price,
-				'' as specialday
+				m.specialDay as specialday
 
 				FROM `menu` m JOIN `menutype` t ON m.menuType=t.id
-									JOIN `food` f ON m.foodItem=f.id";
+									JOIN `food` f ON m.foodItem=f.id
+									
+				WHERE m.specialDay =''";
 											
 		$statement= $db->prepare($sql);
 		$statement->execute();
@@ -70,15 +72,17 @@ class Menu{
 				m.price as price,
 				m.specialDay as specialday
 
-				FROM `specials` m JOIN `menutype` t ON m.menuType=t.id
-									JOIN `food` f ON m.foodItem=f.id";
+				FROM `menu` m JOIN `menutype` t ON m.menuType=t.id
+									JOIN `food` f ON m.foodItem=f.id
+									
+				WHERE m.specialDay <>''";
 											
 		$statement= $db->prepare($sql);
 		$statement->execute();
 		$rows = $statement->fetchAll();
 		$menu = array();
 		foreach ($rows as $row) {
-			$d = new MenuItem($db);
+			$d = new Menu($db);
 			$d->init($row);
 			array_push($menu,$d);
 		}

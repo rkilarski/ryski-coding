@@ -1,5 +1,5 @@
 <ul class="navigation">
-  <li class="highlight"><a href="../index.php?action=menu">menu</a></li>
+  <li><a href="../index.php?action=menu">menu</a></li>
   <li><a href="../index.php?action=specials">specials</a></li>
   <li><a href="../index.php?action=events">events</a></li>
   <li><a href="../index.php?action=cart">mycart</a></li>
