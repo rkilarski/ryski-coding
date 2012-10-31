@@ -28,8 +28,8 @@ if (isset($row)) {
 	$_SESSION['firstname']=$row['firstName'];
 	header("Location: ../index.php?action=$action");
 } else {
-		echo "Authentication Failed";
-		$_SESSION['isloggedin']=false;
-		header("Location: ../index.php?action=$action");
+	echo "Authentication Failed";
+	$_SESSION['isloggedin']=false;
+	header("Location: ../index.php?action=$action");
 }
 ?>
