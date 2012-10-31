@@ -17,7 +17,7 @@
 		<div id="logo">
 			<a href="index.php">
 			<span id="largerestaurantname">chickenrice</span><br> <span
-				id="tagline">chicken.re(de)fined</span>
+				id="tagline">chicken.re<span id="de">(de)</span>fined</span>
 			</a>
 		</div>
 
