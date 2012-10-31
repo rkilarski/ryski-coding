@@ -22,7 +22,6 @@ CREATE TABLE IF NOT EXISTS `food` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(25) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `isSpecial` varchar(1) NOT NULL DEFAULT 'N',
   `isVegetarian` varchar(1) NOT NULL DEFAULT 'N',
   `imageName` varchar(255) NULL,
   PRIMARY KEY (`id`)
@@ -85,10 +84,13 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   KEY `person` (`person`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-CREATE TABLE IF NOT EXISTS `personorder`(
+CREATE TABLE IF NOT EXISTS `takeoutorder`(
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `orderNumber` int(10) NOT NULL,
-  `person` int(10) NOT NULL
+  `person` int(10) NOT NULL, 
+  `menuItem` int(10) NOT NULL,
+   PRIMARY KEY (`id`),
+   KEY `orderNumber` (`orderNumber`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 ALTER TABLE `menu`
@@ -98,3 +100,7 @@ ALTER TABLE `menu`
 ALTER TABLE `reservations`
   ADD CONSTRAINT `reservationsPersonFK` FOREIGN KEY (`person`) REFERENCES `person` (`id`),
   ADD CONSTRAINT `reservationsDiningTableFK` FOREIGN KEY (`diningTable`) REFERENCES `diningTable` (`id`);
+
+ALTER TABLE `takeoutorder`
+  ADD CONSTRAINT `takoutorderPersonFK` FOREIGN KEY (`person`) REFERENCES `person` (`id`),
+  ADD CONSTRAINT `menuItemFK` FOREIGN KEY (`menuItem`) REFERENCES `menu` (`id`);

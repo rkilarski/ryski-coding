@@ -4,42 +4,49 @@ if(session_id() == '') {
 	session_start();
 }
 include("../include/homeheader.php") ?>
-<div id="dhonis">
-	<div
-		class="dhonishow effect_blind duration_2 autoplay_5 hide_navigation">
-		<img src="../img/bg/bg-01.jpg" width="550" height="352" alt="" /> <img
-			src="../img/bg/bg-02.jpg" width="492" height="330" alt="" /> <img
-			src="../img/bg/bg-03.jpg" width="2592" height="1936" alt="" /> <img
-			src="../img/bg/bg-04.jpg" width="3008" height="2000" alt="" />
-	</div>
-	<div
-		class="dhonishow middle effect_appear duration_2 autoplay_5 hide_navigation">
-		<img src="../img/bg/bg-03.jpg" width="2592" height="1936" alt="" /> <img
-			src="../img/bg/bg-04.jpg" width="3008" height="2000" alt="" /> <img
-			src="../img/bg/bg-01.jpg" width="550" height="352" alt="" /> <img
-			src="../img/bg/bg-02.jpg" width="492" height="330" alt="" />
-	</div>
-	<div
-		class="dhonishow effect_horizontal duration_2 autoplay_5 hide_navigation">
-		<img src="../img/bg/bg-02.jpg" width="492" height="330" alt="" /> <img
-			src="../img/bg/bg-03.jpg" width="2592" height="1936" alt="" /> <img
-			src="../img/bg/bg-04.jpg" width="3008" height="2000" alt="" /> <img
-			src="../img/bg/bg-01.jpg" width="550" height="352" alt="" />
-	</div>
-	<div
-		class="dhonishow effect_horizontal duration_2 autoplay_5 hide_navigation">
-		<img src="../img/bg/bg-04.jpg" width="3008" height="2000" alt="" /> <img
-			src="../img/bg/bg-02.jpg" width="492" height="330" alt="" /> <img
-			src="../img/bg/bg-01.jpg" width="550" height="352" alt="" /> <img
-			src="../img/bg/bg-03.jpg" width="2592" height="1936" alt="" />
-	</div>
+
+<div id="wordcloud">
+    <span data-weight="25">chicken</span>
+	 <span data-weight="22">tonight</span>
+	 <span data-weight="12">yum</span>
+	 <span data-weight="5">rice</span>
+	 <span data-weight="18">paella</span>
+	 <span data-weight="16">empanadas</span>
+	 <span data-weight="9">rotisserie</span>
+	 <span data-weight="3">grill</span>
+	 <span data-weight="5">basmati</span>
+ 	 <span data-weight="3">ravioli</span>
+	 <span data-weight="4">milanese</span>
+	 <span data-weight="5">creamy</span>
+	 
+    <span data-weight="15">chicken</span>
+	 <span data-weight="18">tonight</span>
+	 <span data-weight="7">yum</span>
+	 <span data-weight="1">rice</span>
+	 <span data-weight="20">paella</span>
+	 <span data-weight="13">empanadas</span>
+	 <span data-weight="4">rotisserie</span>
+	 <span data-weight="6">grill</span>
+	 <span data-weight="8">basmati</span>
+ 	 <span data-weight="19">ravioli</span>
+	 <span data-weight="7">milanese</span>
+	 <span data-weight="2">creamy</span>
 </div>
 <script>
-				window.onload = function() {
-					var a = new SearchDhonishow();
-				}
-			</script>
-</div>
+    var settings = {
+        "size" : {
+            "grid" : 0
+        },
+        "options" : {
+            "color" : "random-light",
+            "printMultiplier" : 3
+        },
+        "font" : "sans-serif",
+        "shape" : "square"
+    }
+    $( "#wordcloud" ).awesomeCloud( settings );
+</script>
+
 <form name="mailinglist" action="" method="post">
 	<div id="mailinglist">
 		<label for="emailaddress">joinourmailinglist:</label> <input

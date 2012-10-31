@@ -145,7 +145,7 @@ select,input,#innerframe,#outerframe,#logo { /*Border radius section*/
 
 #outerframe,#logo { /*Set opacity for image */
 	opacity: 0.80;
-	filter: alpha(opacity =       80);
+	filter: alpha(opacity =         80);
 	/* For IE8 and earlier */
 	border: 1px solid #FF6600;
 }
@@ -187,6 +187,14 @@ select,input,#innerframe,#outerframe,#logo { /*Border radius section*/
 	margin-left: auto;
 	margin-right: auto;
 	float: clear;
+}
+
+/* Word Cloud */
+#wordcloud {
+	border: 0px;
+	height: 600px;
+	width: 100%;
+	margin: auto;
 }
 
 /*------------------------------Login Form Section------------------------------*/
