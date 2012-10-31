@@ -2,7 +2,16 @@
   <li><a href="../index.php?action=menu">menu</a></li>
   <li><a href="../index.php?action=specials">specials</a></li>
   <li><a href="../index.php?action=events">events</a></li>
-  <li><a href="../index.php?action=cart">mycart</a></li>
+  <li><a href="../index.php?action=cart">cart<?php 
+  if (isset($_SESSION['cart'])){
+	  $count = count($_SESSION['cart']);
+		if ($count > 0) {
+			echo "($count)";
+		}
+	}
+	?>
+  </a></li>
+  
   <li><a href="../index.php?action=reservations">reservations</a></li>
   <li><a href="../index.php?action=contact">contact</a></li>
 <?php

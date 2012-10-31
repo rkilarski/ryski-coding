@@ -85,12 +85,6 @@ footer {
 	border-top: 1px solid #FF6600; /*orange*/
 }
 
-form {
-	margin: auto;
-	width: 400px;
-	padding: 10px;
-}
-
 label {
 	padding-right: 10px;
 }
@@ -132,7 +126,7 @@ select,input,#innerframe,#outerframe,#logo { /*Border radius section*/
 	color: #FF6600;
 }
 
-#tagline, #de {
+#tagline,#de {
 	font-size: 15px;
 	color: #FF6600;
 }
@@ -145,7 +139,7 @@ select,input,#innerframe,#outerframe,#logo { /*Border radius section*/
 
 #outerframe,#logo { /*Set opacity for image */
 	opacity: 0.80;
-	filter: alpha(opacity =         80);
+	filter: alpha(opacity =           80);
 	/* For IE8 and earlier */
 	border: 1px solid #FF6600;
 }
@@ -192,6 +186,12 @@ select,input,#innerframe,#outerframe,#logo { /*Border radius section*/
 }
 
 /*------------------------------Login Form Section------------------------------*/
+form[name="login"],form[name="loginnew"] {
+	margin: auto;
+	width: 400px;
+	padding: 10px;
+}
+
 form[name="login"] label,form[name="loginnew"] label {
 	float: left;
 	width: 130px;

@@ -31,7 +31,6 @@ if (isset($_SESSION['isstaff'])){
 
 switch ($action) {
 	case 'cart':
-		$menu=Menu::getMenu(Database::getDB());
 		include('cart.php');
 		break;
    default:
