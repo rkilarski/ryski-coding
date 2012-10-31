@@ -52,11 +52,7 @@ switch ($action) {
 		header("Location: menu/index.php?action=$action");
 		break;
 	case 'cart':
-		if (!$isLoggedIn){
-			header("Location: login/index.php?action=$action");
-		}else {
-			header("Location: cart/index.php?action=$action");
-		}
+		header("Location: cart/index.php?action=$action");
 		break;
 	case 'reservations':
 		header("Location: reservations/index.php?action=$action");
