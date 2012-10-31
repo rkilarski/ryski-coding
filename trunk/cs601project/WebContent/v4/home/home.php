@@ -51,11 +51,11 @@ include("../include/homeheader.php") ?>
     $( "#wordcloud" ).awesomeCloud( settings );
 </script>
 
-<form name="mailinglist" action="" method="post">
+<form name="mailinglist" action="../controller/joinmailinglist.php" method="post">
 	<div id="mailinglist">
 		<label for="emailaddress">join our mailing list:</label> <input
 			type="email" name="emailaddress" placeholder="emailaddress" size="50">
-		<input type="submit" value="Submit">
+		<input type="submit" value="submit">
 	</div>
 </form>
 <?php include("../include/footer.php") ?>
