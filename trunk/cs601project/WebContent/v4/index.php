@@ -68,35 +68,35 @@ switch ($action) {
 		if (!$isStaff||!$isLoggedIn){
 			header("Location: login/index.php?action=$action");
 		}else {
-			header("Location: staff/index.php?action=$action");
+			header("Location: staff_blacklist/index.php?action=$action");
 		}
 		break;
 	case 'staff_ordersearch':
 		if (!$isStaff||!$isLoggedIn){
 			header("Location: login/index.php?action=$action");
 		}else {
-			header("Location: staff/index.php?action=$action");
+			header("Location: staff_ordersearch/index.php?action=$action");
 		}
 		break;
 	case 'staff_reservations':
 		if (!$isStaff||!$isLoggedIn){
 			header("Location: login/index.php?action=$action");
 		}else {
-			header("Location: staff/index.php?action=$action");
+			header("Location: staff_reservations/index.php?action=$action");
 		}
 		break;
 	case 'staff_reservationsearch':
 		if (!$isStaff||!$isLoggedIn){
 			header("Location: login/index.php?action=$action");
 		}else {
-			header("Location: staff/index.php?action=$action");
+			header("Location: staff_reservationsearch/index.php?action=$action");
 		}
 		break;
 	case 'staff_takeout':
 		if (!$isStaff||!$isLoggedIn){
 			header("Location: login/index.php?action=$action");
 		}else {
-			header("Location: staff/index.php?action=$action");
+			header("Location: staff_takeout/index.php?action=$action");
 		}
 		break;
         default:

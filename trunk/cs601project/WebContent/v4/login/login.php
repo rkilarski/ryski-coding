@@ -7,7 +7,7 @@ include("../include/header.php");
 ?>
 <h1>login</h1>
 <form name="login" action="../controller/authenticate.php" method="post">
-	<h2>existingusers</h2>
+	<h2>existing users</h2>
 	<label for="email">login:</label> <input type="email" name="email"
 		placeholder="username" maxlength="255" size="30" required="required"> <br /> <label for="password">password:</label><input
 		type="password" name="password" placeholder="password" maxlength="255" size="30" required="required"> <br /> 
@@ -17,7 +17,7 @@ include("../include/header.php");
 </form>
 <br/>
 <form name="loginnew" method="post" action="../controller/addperson.php">
-	<h2>newusers</h2>
+	<h2>new users</h2>
 	<label for="email">email:</label><input type="email" name="email" maxlength="255" size="30" placeholder="username" required="required"> <br />
 	<label for="password">password:</label><input type="password"
 		name="password" maxlength="255" size="30" placeholder="password" required="required"> <br /> <br /> <label for="firstname">firstname:</label><input

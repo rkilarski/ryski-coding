@@ -5,8 +5,8 @@ if(session_id() == '') {
 }
 include("../include/header.php");
 ?>
-<h1>contact</h1>
-<h2>Do you Feel Like Chicken Tonight?</h2>
+<h1>contact us</h1>
+<h2>do you feel like chicken tonight?</h2>
 
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
 	ligula tortor, facilisis a rutrum a, ullamcorper quis urna. Praesent

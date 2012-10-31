@@ -21,9 +21,9 @@
 		$isLoggedIn=false;
 	}
 	if ($isLoggedIn){
-		echo '<li class="login"><a href="../index.php?action=logoff">logoff</a></li>';
+		echo '<li id="login"><a href="../index.php?action=logoff">logoff</a></li>';
 	}else {
-		echo '<li class="login"><a href="../index.php?action=login">login</a></li>';
+		echo '<li id="login"><a href="../index.php?action=login">login</a></li>';
 	}
  ?> 
  </ul>

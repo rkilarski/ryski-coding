@@ -183,12 +183,6 @@ select,input,#innerframe,#outerframe,#logo { /*Border radius section*/
 	color: #000000;
 }
 
-#dhonis {
-	margin-left: auto;
-	margin-right: auto;
-	float: clear;
-}
-
 /* Word Cloud */
 #wordcloud {
 	border: 0px;
@@ -331,9 +325,9 @@ ul.navigation li.highlight a {
 	cursor: default;
 }
 
-.login {
+#login {
 	float: right;
-	margin-right: 10px;
+	margin-right: 20px;
 }
 
 /*
