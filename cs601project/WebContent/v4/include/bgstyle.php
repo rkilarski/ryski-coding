@@ -8,9 +8,9 @@
 	body{
 		background: url("../img/bg/<?php echo $selectedBg;?>") no-repeat fixed center center;
 		/*For IE8*/
-		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="url("img/bg/<?php echo $selectedBg;?>")",sizingMethod="scale" );
+		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="url("../img/bg/<?php echo $selectedBg;?>")",sizingMethod="scale" );
 		/*For IE8?
-		-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="url("img/bg/<?php echo $selectedBg;?>")", sizingMethod="scale");*/
+		-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="url("../img/bg/<?php echo $selectedBg;?>")", sizingMethod="scale");*/
 		-webkit-background-size: cover;
 		-moz-background-size: cover;
 		-o-background-size: cover;
