@@ -141,7 +141,7 @@ select,input,#innerframe,#outerframe,#logo { /*Border radius section*/
 	opacity: 0.80;
 	filter: alpha(opacity =           80);
 	/* For IE8 and earlier */
-	border: 1px solid #FF6600;
+	border: 1px solid #000000;
 }
 
 #innerframe {
@@ -298,20 +298,15 @@ ul.navigation li {
 	margin: 0px;
 }
 
-ul.navigation li:nth-of-type(even) a { /*color: #000000; black*/
-	
+ul.navigation li:nth-of-type(even) a { 
+	color: #000000; 
 }
 
-ul.navigation>li:nth-of-type(odd) a { /*color: #FFFFFF; white*/
-	
+ul.navigation>li:nth-of-type(odd) a { 
+	color: #FFFFFF; 
 }
 
-ul.navigation li:hover {
-	background-color: #FFFFFF;
-	color: #FF6600;
-}
-
-ul.navigation a:hover {
+ul.navigation>li a:hover {
 	background-color: #FFFFFF;
 	color: #FF6600;
 }
