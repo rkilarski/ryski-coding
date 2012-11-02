@@ -88,7 +88,37 @@ class Menu{
 		}
 		return $menu;
 	}
+	public static function getMenuItem($db, $id){
+		$sql="SELECT 
+				m.id as menuId,  
+				t.name as menuType, 
+				f.name as foodName,
+				f.description as description,
+				f.isVegetarian as vegetarian,
+				m.price as price,
+				m.specialDay as specialday
+
+				FROM `menu` m JOIN `menutype` t ON m.menuType=t.id
+									JOIN `food` f ON m.foodItem=f.id
+									
+				WHERE m.specialDay ='' AND m.id=$id";
+											
+		$statement= $db->prepare($sql);
+		$statement->execute();
+		$row = $statement->fetch();
+		$d = new Menu($db);
+		$d->init($row);
+		return $d;
+	}
 	
+	//Given a cart, return details for that cart.
+	public static function getCart($db, $cart){
+		$cartlist = array();
+		foreach($cart as $menuId){
+			array_push($cartlist, Menu::getMenuItem($db, $menuId));
+		}
+		return $cartlist;
+	}
 	private function init($row){
 		$this->menuId = $row['menuId'];
 		$this->menuType = $row['menuType'];

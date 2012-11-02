@@ -4,6 +4,7 @@ if(session_id() == '') {
 	session_start();
 }
 require_once('../model/database.php');
+require_once('../model/Menu.php');
 
 if (isset($_POST['action'])) {
 	$action = $_POST['action'];
@@ -31,7 +32,20 @@ if (isset($_SESSION['isstaff'])){
 
 switch ($action) {
 	case 'cart':
+		$cart=null;
+		if (isset($_SESSION['cart'])){
+			$cartList=$_SESSION['cart'];
+			$cart=Menu::getCart(Database::getDB(), $cartList);
+		}
 		include('cart.php');
+		break;
+	case 'checkout':
+		$cart=null;
+		if (isset($_SESSION['cart'])){
+			$cartList=$_SESSION['cart'];
+			$cart=Menu::getCart(Database::getDB(), $cartList);
+		}
+		include('checkout.php');
 		break;
    default:
 		header("Location: ../index.php?action=$action");
