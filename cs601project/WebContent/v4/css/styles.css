@@ -1,10 +1,8 @@
 /*
 Stylesheet for client-side restaurant.
 
-Need to use
-
 YESDescendant Selector [p div]
-Child Selector ['p > div']
+YESChild Selector ['p > div']
 YESAttribute Selector ['att=value']
 YESType or Element Selector ['p']
 Adjacent sibling Selector ['p + div']
@@ -185,14 +183,13 @@ select,input,#innerframe,#outerframe,#logo { /*Border radius section*/
 	margin: auto;
 }
 
-/*------------------------------Login Form Section------------------------------*/
-form[name="login"],form[name="loginnew"] {
+/*------------------------------Form Section------------------------------*/
+.addressform{
 	margin: auto;
 	width: 400px;
 	padding: 10px;
 }
-
-form[name="login"] label,form[name="loginnew"] label {
+.addressform label{
 	float: left;
 	width: 130px;
 	display: block;
@@ -200,20 +197,15 @@ form[name="login"] label,form[name="loginnew"] label {
 	text-align: right;
 }
 
-form[name="loginnew"] input,form[name="login"] input {
+.addressform input, .addressform select,.addressform option{
 	background-color: #FFFFFF; /*white*/
 	color: #FF6600; /*orange*/
+}
+.addressform input[type="submit"], .addressform input[type="reset"]{
+	background-color: #FF6600; 
+	color: #FFFFFF; 
 }
 
-form[name="loginnew"] select,form[name="login"] select {
-	background-color: #FFFFFF; /*white*/
-	color: #FF6600; /*orange*/
-}
-
-form[name="loginnew"] option,form[name="loginnew"] option {
-	background-color: #FFFFFF; /*white*/
-	color: #FF6600; /*orange*/
-}
 /*------------------------------Mailing List Section------------------------------*/
 #mailinglist input[type="email"] {
 	background-color: #FFFFFF;
@@ -249,13 +241,35 @@ form[name="mailinglist"] {
 	
 }
 
-.menuprice {
-	text-align: center;
+.menuprice, .totalprice {
+	text-align: right;
 	color: #FFFFFF; /*black*/
+	width: 100px;
 }
 
+.menuquantity{
+	width: 100px;
+	text-align: right;
+}
 .menuitem:hover,.menudesc:hover {
 	color: #FFFF00; /*yellow*/
+}
+
+.totaldesc{
+	text-align: right;
+	font-weight: bold;
+}
+.totalprice{
+	font-weight: bold;
+}
+
+tr:not(:first-child).menuheader>td{
+	padding-top: 25px;
+}
+
+tr.spaceabove>td
+{
+	padding-top: 20px;
 }
 /*
 tr:hover{

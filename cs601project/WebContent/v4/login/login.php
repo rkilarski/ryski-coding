@@ -6,7 +6,7 @@ if(session_id() == '') {
 include("../include/header.php");
 ?>
 <h1>login</h1>
-<form name="login" action="../controller/authenticate.php" method="post">
+<form name="login" class="addressform" action="../controller/authenticate.php" method="post">
 	<h2>existing users</h2>
 	<label for="email">login:</label> <input type="email" name="email"
 		placeholder="username" maxlength="255" size="30" required="required"> <br /> <label for="password">password:</label><input
@@ -16,15 +16,15 @@ include("../include/header.php");
 		</div>
 </form>
 <br/>
-<form name="loginnew" method="post" action="../controller/addperson.php">
+<form name="loginnew" class="addressform" method="post" action="../controller/addperson.php">
 	<h2>new users</h2>
 	<label for="email">email:</label><input type="email" name="email" maxlength="255" size="30" placeholder="username" required="required"> <br />
 	<label for="password">password:</label><input type="password"
-		name="password" maxlength="255" size="30" placeholder="password" required="required"> <br /> <br /> <label for="firstname">firstname:</label><input
-		type="text" name="firstname" maxlength="255" required="required"> <br /> <label for="middle">middleinitial:</label><input
-		type="text" name="middle" maxlength="255" size="1"> <br /> <label for="lastname">lastname:</label><input
-		type="text" name="lastname" maxlength="255" required="required"> <br /> <label for="addressline1">addressline1:</label><input
-		type="text" name="addressline1" maxlength="255" required="required"> <br /> <label for="addressline2">addressline2:</label><input
+		name="password" maxlength="255" size="30" placeholder="password" required="required"> <br /> <br /> <label for="firstname">first name:</label><input
+		type="text" name="firstname" maxlength="255" required="required"> <br /> <label for="middle">middle initial:</label><input
+		type="text" name="middle" maxlength="255" size="1"> <br /> <label for="lastname">last name:</label><input
+		type="text" name="lastname" maxlength="255" required="required"> <br /> <label for="addressline1">address line 1:</label><input
+		type="text" name="addressline1" maxlength="255" required="required"> <br /> <label for="addressline2">address line 2:</label><input
 		type="text" name="addressline2" maxlength="255"> <br /> <label for="city">city:</label><input
 		type="text" name="city" maxlength="25" required="required"> <br /> <label for="state">state:</label> <select
 		name="state" size="1">
@@ -81,8 +81,8 @@ include("../include/header.php");
 		<option value="WY">Wyoming</option>
 	</select> <br /> <label for="zip">zip:</label><input type="text"
 		name="zip" maxlength="10" size="10" required="required"> <br /> <label for="telephone">telephone:</label><input
-		type="tel" name="telephone" maxlength="15" required="required"> <br /> <label for="isstaff">staff?:</label><input
-		type="checkbox" name="isstaff"> <br /> <label for="sendemail">sendemail?:</label><input
+		type="tel" name="telephone" maxlength="15" required="required"> <br /> <label for="isstaff">are you staff?:</label><input
+		type="checkbox" name="isstaff"> <br /> <label for="sendemail">send email?:</label><input
 		type="checkbox" name="sendemail"> <br /> 
 		<div class="center"><input type="submit" value="add"> <input type="reset" value="reset"></div>
 </form>
