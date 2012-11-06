@@ -1,0 +1,15 @@
+* {
+	font-family: trebouchet;
+}
+div#Main{
+	width: 600px;
+	text-align: center;
+	
+}
+
+ul.navBtns{
+	list-style-type: none;
+}
+navBtns.li, ul.navBtns div{
+inline
+}
