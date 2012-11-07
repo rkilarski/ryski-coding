@@ -3,9 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <title>Answer to Question 22</title>
+<style>
+table,td {
+	border: 1px solid;
+}
+</style>
 <link type="text/css" rel="stylesheet" href="styles.css">
 </head>
 <body>
+	<table>
+		<tr>
+			<td>Item</td>
+			<td>Fixed Code</td>
+			<td>How will it loop?</td>
+		</tr>
 
+		<tr>
+			<td>i</td>
+			<td><pre>
+var x = 10;
+while (x &gt;= 4){
+	alert(x);
+	x-=2;
+}
+			</pre></td>
+			<td>This will loop 4 times.</td>
+		</tr>
+		<tr>
+			<td>ii</td>
+			<td><pre>
+var x = 10;
+var y = 4;
+do {
+	x += y;
+	y--;
+}while (x &lt; 20);
+			</pre></td>
+			<td>This will loop 4 times.</td>
+		</tr>
+		<tr>
+			<td>iii</td>
+			<td><pre>
+var count = 1;
+while (count &lt; 0){
+	count--;
+}
+			</pre></td>
+			<td>This will loop 0 times.</td>
+		</tr>
+		<tr>
+			<td>iv</td>
+			<td><pre>
+var count = 1;
+do {
+	count--;
+}while (count &lt; 0);
+			</pre></td>
+			<td>This is an infinite loop.</td>
+		</tr>
+
+	</table>
 </body>
 </html>

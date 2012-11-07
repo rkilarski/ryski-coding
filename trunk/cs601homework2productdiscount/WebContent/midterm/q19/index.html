@@ -3,9 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <title>Answer to Question 19</title>
-<link type="text/css" rel="stylesheet" href="styles.css">
+<script type="text/javascript">
+	function getAnswer() {
+		document.getElementById("answer").innerHTML = printStretched("Method");
+	}
+
+	function printStretched(text) {
+		return stretchText(text, 1);
+	}
+
+	function stretchText(text, number) {
+		if (text == "") {
+			return "";
+		}
+		var firstChar = text.charAt(0);
+		return repeatString(firstChar, number)
+				+ stretchText(text.substring(1, text.length), ++number);
+	}
+	function repeatString(character, times) {
+		var result = [];
+		for ( var i = 0; i < times; i++) {
+			result.push(character);
+		}
+		return result.join("");
+	}
+</script>
+
 </head>
-<body>
+<body onload="getAnswer();">
+	<h1>Answer to Question 19</h1>
+	<div id="answer"></div>
 
 </body>
 </html>
