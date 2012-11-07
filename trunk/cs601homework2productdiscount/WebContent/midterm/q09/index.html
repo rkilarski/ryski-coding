@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Answer to Question 9</title>
+<link href="../js/css/smoothness/jquery-ui-1.9.1.custom.css"
+	rel="stylesheet">
+<link href="styles.css" rel="stylesheet">
+<script type="text/javascript" src="../js/jquery-1.8.2.js"></script>
+<script type="text/javascript" src="../js/jquery-ui-1.9.1.custom.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#dialog").click(function() {
+			$("#SysInfo").dialog();
+		});
+	});
+</script>
+</head>
+<body>
+	<h1>Answer to Question 9</h1>
+	<input id="dialog" type="button" value="Show Dialog">
+
+	<div id="SysInfo" title="System Information">Your hard drive will
+		crash in 2 days.</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Answer to Question 14</title>
+</head>
+<body>
+	<h1>Answer To Question 14</h1>
+	<p>What are the differences between GET and POST methods when an
+		HTML 5 form to your server?</p>
+	<p>Many differences:</p>
+	<ol>
+		<li>The GET method encodes the form parameters into the URL of
+			the call, the POST method encodes the form parameters into the HTTP
+			header.</li>
+		<li>For that reason, the parameters are visible in the URL on a
+			GET, not on a POST.</li>
+		<li>With POSTs, the browser will usually alert the user about
+			re-posting the data.</li>
+		<li>Since GETs are part of the URL, they can be bookmarked,
+			including the parameters.</li>
+		<li>The GET method has limitations on the URL length. IE has the
+			lowest allowed length at 2k or so.</li>
+		<li>The back-end has to use different functions to access POST
+			and GET data.</li>
+	</ol>
+</body>
+</html>

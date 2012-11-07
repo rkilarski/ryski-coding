@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Answer to Question 6</title>
+<script type="text/javascript">
+	function generateCapitalized() {
+		var input = document.getElementById("uncapitalized").innerHTML;
+		var result = capitalizeLine(input);
+
+		var response = document.getElementById("capitalized");
+		response.innerHTML = result;
+
+	}
+	function capitalizeLine(line) {
+		var newLine = '';
+		var arrayLine = line.split(' '); //Convert to array.
+
+		//Loop through array and assemble new line.
+		for ( var i = 0; i < arrayLine.length; i++) {
+			newLine += capitalizeWord(arrayLine[i]) + ' ';
+		}
+		return newLine;
+	}
+
+	function capitalizeWord(word) {
+		return word.substring(0, 1).toUpperCase() + word.substring(1, word.length).toLowerCase();
+	}
+</script>
+</head>
+<body onload="generateCapitalized();">
+	<h1>Answer to question 6</h1>
+	<h2>Uncapitalized</h2>
+
+	<div id="uncapitalized">Roses are RED.<br> Violets ARE blue.<br> If I am caught cheating on this TeST,<br> I WILL be in VERY BIG trouble.<br>
+	</div>
+	<br>
+
+	<h2>Capitalized</h2>
+	<div id="capitalized"></div>
+</body>
+</html>
