@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Answer to Question 10</title>
+<script type="text/javascript">
+	function A() {
+		C();
+		document.getElementById("target").innerHTML += "<div>Shake</div>";
+	}
+	function B() {
+		document.getElementById("target").innerHTML += "<div>Rattle</div>";
+		A();
+	}
+	function C() {
+		document.getElementById("target").innerHTML += "<div>Roll</div>";
+	}
+	function D() {
+		C()
+		A();
+	}
+	function run() {
+		A()
+		B();
+		D();
+	}
+</script>
+
+</head>
+<body>
+	<h1>Answer to Question 10</h1>
+	<button onclick="run()">Run Program</button>
+	<h2>Output of the program</h2>
+	<div id="target"></div>
+	<p>The answer is that this program will add new divs containing the
+		words Shake, Rattle, and Roll, but in the following order: Roll,
+		Shake, Rattle, Roll, Shake, Roll, Roll, Shake.
+</body>
+</html>

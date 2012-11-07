@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Answer to Question 15</title>
+<link type="text/css" rel="stylesheet" href="styles.css">
+<script type="text/javascript" src="../js/jquery-1.8.2.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#spancount").html("There are " + $("span").size() + " spans");
+	});
+	$(document).ready(function() {
+		$("span").each(function() {
+			var html = $("#spanlist").html();
+			$("#spanlist").html(html + "<p>" + this.innerHTML + "</p>");
+		});
+	});
+</script>
+</head>
+<body>
+	<h1>Answer to Question 15</h1>
+
+	<p>
+		<span>If</span> you <span>need</span> to <span>retrieve</span> every,
+		single <span>span</span> element in your <span>HTML page</span>, what
+		is <span>the way</span> you would do it? Write the code that will do
+		it.
+	</p>
+	<p>
+		This document has several spans in <span>bold</span>.
+	</p>
+
+	<h3>How many, do you ask? This many:</h3>
+	<div id="spancount"></div>
+	<h3>And they are:</h3>
+	<div id="spanlist"></div>
+</body>
+</html>

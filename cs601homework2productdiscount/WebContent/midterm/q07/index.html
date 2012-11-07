@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Answer to Question 7</title>
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<h1>Answer to Question 7</h1>
+	<h2>Descendant Selector Example</h2>
+	<div>
+		<div>
+			<p>This is the paragraph in the first div. It is red because of
+				the descendant selector.</p>
+		</div>
+	</div>
+	<div>
+		<p>This is a whole 'nother div entirely separate from the top div.
+			It is NOT red because this div is not part of the descendant
+			selector.</p>
+	</div>
+
+	<br>
+
+	<h2>Adjacent Selector Example</h2>
+	<div>
+		<p>This is the first paragraph in the div. It is NOT green because
+			it is not the target of an adjacent selector (it needs to be adjacent
+			to a previous paragraph to be a target).</p>
+		<p>This is the second paragraph in the div. It is green because it
+			is the target of the two paragraph adjacent selector.</p>
+		<p>This is the third paragraph in the div. It is green because it
+			is the target of the two paragraph adjacent selector.</p>
+	</div>
+
+</body>
+</html>
