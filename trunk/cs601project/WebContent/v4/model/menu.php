@@ -8,11 +8,14 @@ class Menu{
 	private $vegetarian;
 	private $price;
 	private $specialDay;
+	private $imageName;
 	
 	public function __construct($db){
 		$this->db = $db;
-    }
-	
+   }
+	public function getImageName(){
+		return $this->imageName;
+	}
 	public function getMenuId(){
 		return $this->menuId;
 	}
@@ -43,7 +46,8 @@ class Menu{
 				f.description as description,
 				f.isVegetarian as vegetarian,
 				m.price as price,
-				m.specialDay as specialday
+				m.specialDay as specialday,
+				f.imageName as image
 
 				FROM `menu` m JOIN `menutype` t ON m.menuType=t.id
 									JOIN `food` f ON m.foodItem=f.id
@@ -70,7 +74,8 @@ class Menu{
 				f.description as description,
 				f.isVegetarian as vegetarian,
 				m.price as price,
-				m.specialDay as specialday
+				m.specialDay as specialday,
+				f.imageName as image
 
 				FROM `menu` m JOIN `menutype` t ON m.menuType=t.id
 									JOIN `food` f ON m.foodItem=f.id
@@ -96,7 +101,8 @@ class Menu{
 				f.description as description,
 				f.isVegetarian as vegetarian,
 				m.price as price,
-				m.specialDay as specialday
+				m.specialDay as specialday,
+				f.imageName as image
 
 				FROM `menu` m JOIN `menutype` t ON m.menuType=t.id
 									JOIN `food` f ON m.foodItem=f.id
@@ -127,6 +133,7 @@ class Menu{
 		$this->vegetarian = $row['vegetarian'];
 		$this->price = $row['price'];
 		$this->specialDay = $row['specialday'];
+		$this->imageName = $row['image'];
 	}
 }
 ?>
