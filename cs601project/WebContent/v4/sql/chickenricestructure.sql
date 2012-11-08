@@ -73,6 +73,13 @@ CREATE TABLE IF NOT EXISTS `person` (
   KEY `email` (`email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
+CREATE TABLE IF NOT EXISTS `emailaddress` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `email` (`email`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
 CREATE TABLE IF NOT EXISTS `reservations` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `person` int(10) NOT NULL,

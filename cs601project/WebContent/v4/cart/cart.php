@@ -12,7 +12,7 @@ include("../include/header.php") ?>
 		echo "<tr><td class=\"menuitem\">name</td>";
 		echo "<td class=\"menudesc\">description</td>";
 		echo "<td class=\"menuprice\">price</td>";
-		echo "<td class=\"menuquantity\">quantity (update)</td>";
+		echo "<td class=\"menuquantity\">quantity</td>";
 		echo "<td>&nbsp;</td></tr>";
 		
 		//Get counts of items.
@@ -28,19 +28,20 @@ include("../include/header.php") ?>
 		$subtotal=0.00;
 		$hasprinted = array();
 		foreach($cart as $item){
-			if(!isset($hasprinted[$item->getMenuId()])){
-				$hasprinted[$item->getMenuId()]=1;
+			$itemId = $item->getMenuId();
+			if(!isset($hasprinted[$itemId])){
+				$hasprinted[$itemId]=1;
 				$name = $item->getFoodname();
 				$desc = $item->getDescription();
 				$price = $item->getPrice();
 				$subtotal+=$price;
 				$price=number_format($price, 2);
-				$count=$countarray[$item->getMenuId()];
+				$count=$countarray[$itemId];
 				echo "<tr><td class=\"menuitem\">$name</td>";
 				echo "<td class=\"menudesc\">$desc</td>";
 				echo "<td class=\"menuprice\">\$$price</td>";
-				echo "<td class=\"menuquantity\"><input type=\"number\" value=$count min=\"0\" size=\"3\"></td>";
-				echo "<td>X</td>";
+				echo "<td class=\"menuquantity\">$count</td>";
+				echo "<td><a href=\"../controller/removefromcart.php?menuId=$itemId\">X</a></td>";
 				echo "</tr>";
 			}
 		}
