@@ -209,6 +209,7 @@ select,input,#innerframe,#outerframe,#logo { /*Border radius section*/
 /*------------------------------Mailing List Section------------------------------*/
 #mailinglist input[type="email"] {
 	background-color: #FFFFFF;
+	color: #FF6600; /*orange*/
 }
 
 form[name="mailinglist"] {
