@@ -11,7 +11,7 @@ function validateEmailForm() {
 // Get the days to end of the year from today.
 function setDaysToEOY() {
 	var today = new Date();
-	var yearEnd = new Date(today.getFullYear(), 12, 31);
+	var yearEnd = new Date(today.getFullYear(), 11, 31);
 	var result = document.getElementById("daysTillEOY");
 	result.innerHTML = Math.round(daysBetweenDates(today, yearEnd));
 }
