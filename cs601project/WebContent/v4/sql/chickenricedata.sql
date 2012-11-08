@@ -6,30 +6,30 @@
 -- create and select the database
 USE chickenrice;
 
-INSERT INTO `food` (`id`, `name`, `description`, `isVegetarian`) VALUES
-(1, 'empanadas', 'two perfect pastries stuffed with chicken and cheese', 'N'),
-(2, 'ravioli', 'steamed or fried chicken and ricotta ravioli served in a light broth', 'N'),
-(3, 'espicy curry coconut soup', 'a lovely spicy and thick soup', 'N'),
-(4, 'risotto', 'creamy classic dish with bits of chicken, topped with parmesan and truffles', 'N'),
-(5, 'paella', 'the spanish rice dish with a lovely long-grain rice from galicia and the best saffron, cooked with onions and spices in a delicious broth', 'N'),
-(6, 'tallarin verde', 'a milanese-style chicken topped with noodles tossed in a spinach sauce', 'N'),
-(7, 'rotisseried', 'breast and leg rubbed with our special spices and served with a choice of sides', 'N'),
-(8, 'fried', 'on-the-bone chicken breast, leg, and wing, battered and fried', 'N'),
-(9, 'milanese', 'a flattened chicken breast, dipped in our spices and breadcrumbs, and then fried', 'N'),
-(10, 'chicoletipan', 'open-faced sandwich served on our freshly baked bread with provolone cheese and vegetables of the day', 'N'),
-(11, 'udon noodle', 'pan-fried noodles with bits of chicken and grilled vegetables of the month', 'N'),
-(12, 'brown', 'whole-grain rice cooked in a smooth chicken broth for additional flavor', 'N'),
-(13, 'medium grain', 'normally for risotto, a medium-grain white rice is a wonderful creamy alternative to the long-grain standard', 'N'),
-(14, 'basmati', 'an aromatic long-grain', 'N'),
-(15, 'filet mignion', 'just salt and pepper is all that''s needed to highlight this delicious cut of beef', 'N'),
-(16, 'sully''s salmon', 'not to be missed, this british invasion dish will bring up all sorts of happy memories', 'N'),
-(17, 'roast vegetables', 'a seasonal set of vegetables, tossed with our special spices, and grilled', 'N'),
-(18, 'mashed', 'creamy mashed potatoes, finished with butter, sour cream, and topped with shredded cheese', 'N'),
-(19, 'biscuit', 'a perfectly baked and buttery buiscuit', 'N'),
-(20, 'polenta', 'corn meal cooked over a long flame and fried to flaky goodness', 'N'),
-(21, 'babka', 'a slice of a traditional polish chocolate cake topped with a butter and cocoa liqueur', 'N'),
-(22, 'flan', 'delicious vanilla custard topped with caramel and a dollop of home-made dulce de leche', 'N'),
-(23, 'chocotorta', 'thin chocolate wafers layered with a mixture of dulce-de-leche and sour cream, topped with a chocolate sauce', 'N');
+INSERT INTO `food` (`id`, `name`, `description`, `isVegetarian`, `imageName`) VALUES
+(1, 'empanadas', 'two perfect pastries stuffed with chicken and cheese', 'N', 'bg-04.jpg'),
+(2, 'ravioli', 'steamed or fried chicken and ricotta ravioli served in a light broth', 'N', null),
+(3, 'espicy curry coconut soup', 'a lovely spicy and thick soup', ', 'N', null),
+(4, 'risotto', 'creamy classic dish with bits of chicken, topped with parmesan and truffles', ', 'N', 'bg-03.jpg'),
+(5, 'paella', 'the spanish rice dish with a lovely long-grain rice from galicia and the best saffron, cooked with onions and spices in a delicious broth', ', 'N', null),
+(6, 'tallarin verde', 'a milanese-style chicken topped with noodles tossed in a spinach sauce', ', 'N', 'bg-08.jpg'),
+(7, 'rotisseried', 'breast and leg rubbed with our special spices and served with a choice of sides', ', 'N', 'bg-01.jpg'),
+(8, 'fried', 'on-the-bone chicken breast, leg, and wing, battered and fried', ', 'N', null),
+(9, 'milanese', 'a flattened chicken breast, dipped in our spices and breadcrumbs, and then fried', ', 'N', null),
+(10, 'chicoletipan', 'open-faced sandwich served on our freshly baked bread with provolone cheese and vegetables of the day', ', 'N', null),
+(11, 'udon noodle', 'pan-fried noodles with bits of chicken and grilled vegetables of the month', ', 'N', null),
+(12, 'brown', 'whole-grain rice cooked in a smooth chicken broth for additional flavor', ', 'N', null),
+(13, 'medium grain', 'normally for risotto, a medium-grain white rice is a wonderful creamy alternative to the long-grain standard', ', 'N', null),
+(14, 'basmati', 'an aromatic long-grain', ', 'N', null),
+(15, 'filet mignion', 'just salt and pepper is all that''s needed to highlight this delicious cut of beef', ', 'N', null),
+(16, 'sully''s salmon', 'not to be missed, this british invasion dish will bring up all sorts of happy memories', ', 'N', null),
+(17, 'roast vegetables', 'a seasonal set of vegetables, tossed with our special spices, and grilled', ', 'N', null),
+(18, 'mashed', 'creamy mashed potatoes, finished with butter, sour cream, and topped with shredded cheese', ', 'N', null),
+(19, 'biscuit', 'a perfectly baked and buttery buiscuit', ', 'N', null),
+(20, 'polenta', 'corn meal cooked over a long flame and fried to flaky goodness', ', 'N', null),
+(21, 'babka', 'a slice of a traditional polish chocolate cake topped with a butter and cocoa liqueur', ', 'N', null),
+(22, 'flan', 'delicious vanilla custard topped with caramel and a dollop of home-made dulce de leche', ', 'N', 'bg-07.jpg'),
+(23, 'chocotorta', 'thin chocolate wafers layered with a mixture of dulce-de-leche and sour cream, topped with a chocolate sauce', 'N', null);
 
 
 INSERT INTO `menutype` (`id`, `name`) VALUES

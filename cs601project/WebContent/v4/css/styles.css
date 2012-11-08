@@ -241,7 +241,14 @@ form[name="mailinglist"] {
 .menudesc {
 	
 }
-
+.menuimagerow{
+	display: none;
+}
+.menuimage{
+	width: 300px;
+	height: 200px;
+	margin: auto;
+}
 .menuprice, .totalprice {
 	text-align: right;
 	color: #FFFFFF; /*black*/
