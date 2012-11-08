@@ -13,9 +13,9 @@ if(session_id() == '') {
 	
 	//Delete email from email database if it was there before.
 	$email = EmailAddress::loadByValue(Database::getDB(), 'email', $person->getEmail());
-	if (isset($email->getId())){
+	if (isset($email)){
 		$email->delete();
 	}
 	
-	include('../controller/authenticate.php');
+	//include('../controller/authenticate.php');
 ?>

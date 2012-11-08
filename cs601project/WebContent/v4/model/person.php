@@ -274,13 +274,21 @@ class Person {
 	}
 
 	public function insert(){
-		$list = array("id"=>$this->id, "firstName"=>$this->firstname, "middleName"=>$this->middlename, "lastName"=>$this->lastname, "email"=>$this->email, "password"=>$this->password, "addressLine1"=>$this->addressline1, "addressLine2"=>$this->addressline2, "city"=>$this->city, "st"=>$this->st, "zip"=>$this->zip, "telephone"=>$this->telephone, "isStaff"=>$this->isstaff, "blacklistFlag"=>$this->blacklistflag, "blacklistReason"=>$this->blacklistreason, "sendEmail"=>$this->sendemail);
-		$sql = "insert into person values (";
+		$list = array("firstName"=>$this->firstname, "middleName"=>$this->middlename, "lastName"=>$this->lastname, "email"=>$this->email, "password"=>$this->password, "addressLine1"=>$this->addressline1, "addressLine2"=>$this->addressline2, "city"=>$this->city, "st"=>$this->st, "zip"=>$this->zip, "telephone"=>$this->telephone, "isStaff"=>$this->isstaff, "blacklistFlag"=>$this->blacklistflag, "blacklistReason"=>$this->blacklistreason, "sendEmail"=>$this->sendemail);
+		$sql = "insert into person ";
+		$columns = '';
 		foreach ($list as $key => $value){
-			if(is_string($value))
+			$columns .= "$key, ";
+		}
+		$columns  = substr($columns, 0, -2);
+		
+		$sql.="($columns) values (";
+		foreach ($list as $key => $value){
+			if (($key=='email')||($key=='password')){
+				$sql .= "aes_encrypt('$value','chickenrice'),";
+			}else {
 				$sql .= "'$value', ";
-			else
-				$sql .= "$value, ";
+			}
 		}
 		$sql = substr($sql, 0, -2).")";
 		return $this->db->exec($sql);
