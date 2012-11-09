@@ -8,10 +8,10 @@ require_once("../model/person.php");
 
 $email = $_POST['email'];
 $pswd =  $_POST['password'];
-$key = 'chickenrice';
+$encryptionKey = Database::getEncryptionKey();
 $db=Database::getDB();
 
-$rows = $db->query("select id,isStaff,firstName from person where aes_decrypt(email,'$key') = '$email' and aes_decrypt(password, '$key') = '$pswd'");
+$rows = $db->query("select id,isStaff,firstName from person where aes_decrypt(email,'$encryptionKey') = '$email' and aes_decrypt(password, '$encryptionKey') = '$pswd'");
 $row = $rows->fetch();
 
 $_SESSION=array();  //Initialize session

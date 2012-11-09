@@ -1,4 +1,5 @@
 <?php
+require('database.php');
 
 class Person {
 
@@ -277,10 +278,11 @@ class Person {
 		$list = array("firstName"=>$this->firstname, "middleName"=>$this->middlename, "lastName"=>$this->lastname, "email"=>$this->email, "password"=>$this->password, "addressLine1"=>$this->addressline1, "addressLine2"=>$this->addressline2, "city"=>$this->city, "st"=>$this->st, "zip"=>$this->zip, "telephone"=>$this->telephone, "isStaff"=>$this->isstaff, "blacklistFlag"=>$this->blacklistflag, "blacklistReason"=>$this->blacklistreason, "sendEmail"=>$this->sendemail);
 		$columns = '';
 		$values = '';
+		$encryptionKey = Database::getEncryptionKey();
 		foreach ($list as $key => $value){
 			$columns .= "$key, ";
 			if (($key=='email')||($key=='password')){
-				$values .= "aes_encrypt('$value','chickenrice'),";
+				$values .= "aes_encrypt('$value','$encryptionKey'),";
 			}else {
 				$values .= "'$value', ";
 			}

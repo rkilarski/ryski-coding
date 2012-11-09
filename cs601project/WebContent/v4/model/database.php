@@ -4,6 +4,7 @@ class Database {
     private static $username = 'rkilarski';
     private static $password = 'password';
     private static $db;
+	 private static $encryptionKey = 'chickenrice';
 
     private function __construct() {}
 
@@ -21,5 +22,9 @@ class Database {
         }
         return self::$db;
     }
+	 
+	public static function getEncryptionKey(){
+			return $encryptionKey;
+	}
 }
 ?>
