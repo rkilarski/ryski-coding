@@ -95,8 +95,8 @@ switch ($action) {
 			header("Location: staff_takeout/index.php?action=$action");
 		}
 		break;
-        default:
-			header('Location: home/index.php');
+	default:
+		header('Location: home/index.php');
 		break;
 
 }
