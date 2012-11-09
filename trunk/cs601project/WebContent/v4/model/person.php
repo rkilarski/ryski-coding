@@ -121,8 +121,8 @@ class Person {
 	}
 
 	/**
-	* Initialize from $row.
-	*/
+	 * Initialize from $row.
+	 */
 	public function init($row){
 		$this->id = $row['id'];
 		$this->firstname = $row['firstName'];
@@ -142,8 +142,8 @@ class Person {
 		$this->sendemail = $row['sendEmail'];
 	}
 	/**
-	* Initialize from $_POST
-	*/
+	 * Initialize from $_POST
+	 */
 	public function initPOST(){
 		if (isset($_POST['id'])){
 			$this->id = $_POST['id'];
@@ -195,8 +195,8 @@ class Person {
 		}
 	}
 	/**
-	* Initialize from $_GET
-	*/
+	 * Initialize from $_GET
+	 */
 	public function initGET(){
 		if (isset($_GET['id'])){
 			$this->id = $_GET['id'];
@@ -275,22 +275,20 @@ class Person {
 
 	public function insert(){
 		$list = array("firstName"=>$this->firstname, "middleName"=>$this->middlename, "lastName"=>$this->lastname, "email"=>$this->email, "password"=>$this->password, "addressLine1"=>$this->addressline1, "addressLine2"=>$this->addressline2, "city"=>$this->city, "st"=>$this->st, "zip"=>$this->zip, "telephone"=>$this->telephone, "isStaff"=>$this->isstaff, "blacklistFlag"=>$this->blacklistflag, "blacklistReason"=>$this->blacklistreason, "sendEmail"=>$this->sendemail);
-		$sql = "insert into person ";
 		$columns = '';
+		$values = '';
 		foreach ($list as $key => $value){
 			$columns .= "$key, ";
-		}
-		$columns  = substr($columns, 0, -2);
-		
-		$sql.="($columns) values (";
-		foreach ($list as $key => $value){
 			if (($key=='email')||($key=='password')){
-				$sql .= "aes_encrypt('$value','chickenrice'),";
+				$values .= "aes_encrypt('$value','chickenrice'),";
 			}else {
-				$sql .= "'$value', ";
+				$values .= "'$value', ";
 			}
 		}
-		$sql = substr($sql, 0, -2).")";
+		$columns  = substr($columns, 0, -2);
+		$values = substr($values, 0, -2);
+
+		$sql="insert into person ($columns) values ($values)";
 		return $this->db->exec($sql);
 	}
 
@@ -299,9 +297,9 @@ class Person {
 		$sql = "update person set ";
 		foreach ($list as $key => $value){
 			if(is_string($value))
-				$sql .= "$key='$value', ";
+			$sql .= "$key='$value', ";
 			else
-				$sql .= "$key=$value, ";
+			$sql .= "$key=$value, ";
 		}
 		$sql = substr($sql, 0, -2)." where `id`='$id'";
 		return $this->db->exec($sql);

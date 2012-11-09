@@ -6,15 +6,19 @@ if(session_id() == '') {
 
 include("../include/header.php"); ?>
 <h1>checkout</h1>
-<form name="checkout" class="addressform" method="post" action="../controller/finalize.php">
-	<label for="firstname">first name:</label><input
-		type="text" name="firstname" maxlength="255" required="required"> <br /> <label for="middle">middle initial:</label><input
-		type="text" name="middle" maxlength="255" size="1"> <br /> <label for="lastname">last name:</label><input
-		type="text" name="lastname" maxlength="255" required="required"> <br /> <label for="addressline1">address line 1:</label><input
-		type="text" name="addressline1" maxlength="255" required="required"> <br /> <label for="addressline2">address line 2:</label><input
-		type="text" name="addressline2" maxlength="255"> <br /> <label for="city">city:</label><input
-		type="text" name="city" maxlength="25" required="required"> <br /> <label for="state">state:</label> <select
-		name="state" size="1">
+<form name="checkout" class="addressform" method="post"
+	action="../controller/finalize.php">
+	<label for="firstname">first name:</label><input type="text"
+		name="firstname" maxlength="255" required="required"> <br /> <label
+		for="middle">middle initial:</label><input type="text" name="middle"
+		maxlength="255" size="1"> <br /> <label for="lastname">last name:</label><input
+		type="text" name="lastname" maxlength="255" required="required"> <br />
+	<label for="addressline1">address line 1:</label><input type="text"
+		name="addressline1" maxlength="255" required="required"> <br /> <label
+		for="addressline2">address line 2:</label><input type="text"
+		name="addressline2" maxlength="255"> <br /> <label for="city">city:</label><input
+		type="text" name="city" maxlength="25" required="required"> <br /> <label
+		for="state">state:</label> <select name="state" size="1">
 		<option value="AL">Alabama</option>
 		<option value="AK">Alaska</option>
 		<option value="AZ">Arizona</option>
@@ -67,14 +71,50 @@ include("../include/header.php"); ?>
 		<option value="WI">Wisconsin</option>
 		<option value="WY">Wyoming</option>
 	</select> <br /> <label for="zip">zip:</label><input type="text"
-		name="zip" maxlength="10" size="10" required="required"> <br /> <label for="telephone">telephone:</label><input
-		type="tel" name="telephone" maxlength="15" required="required">
-		<br /><br />
-	<div class="center"><input type="submit" value="finalize your order"></div>
-		<br>
+		name="zip" maxlength="10" size="10" required="required"> <br /> <label
+		for="telephone">telephone:</label><input type="tel" name="telephone"
+		maxlength="15" required="required"> <br /> <br /> <label
+		for="creditcard">Credit Card Type</label><select name="creditcard"
+		size="1" required="required"><option value="Visa">Visa</option>
+		<option value="MasterCard">MasterCard</option>
+		<option value="American Express">American Express</option>
+		<option value="Discover">Discover</option>
+		<option value="Diners">Diner's Club Card</option>
+	</select> <br> <label for="expire">Expiration Date (Month/Year):</label><select
+		name="expiremonth" required="required"><option value="January">January</option>
+		<option value="February">February</option>
+		<option value="March">March</option>
+		<option value="April">April</option>
+		<option value="May">May</option>
+		<option value="June">June</option>
+		<option value="July">July</option>
+		<option value="August">August</option>
+		<option value="September">September</option>
+		<option value="October">October</option>
+		<option value="November">November</option>
+		<option value="December">December</option>
+	</select>/<select name="expireyear" required="required"><option
+			value="2012">2012</option>
+		<option value="2013">2013</option>
+		<option value="2014">2014</option>
+		<option value="2015">2015</option>
+		<option value="2016">2016</option>
+		<option value="2017">2017</option>
+		<option value="2018">2018</option>
+		<option value="2019">2019</option>
+		<option value="2020">2020</option>
+		<option value="2021">2021</option>
+		<option value="2022">2022</option>
+		<option value="2023">2023</option>
+	</select> <br /> <br />
+	<div class="center">
+		<input type="submit" value="finalize your order">
+	</div>
+	<br>
+
 </form>
 <table>
-<?php
+	<?php
 	if (isset($cart)){
 		echo "<tr><td class=\"menuitem\">name</td>";
 		echo "<td class=\"menudesc\">description</td>";
@@ -82,7 +122,7 @@ include("../include/header.php"); ?>
 		echo "<td class=\"menuquantity\">quantity</td>";
 		echo "</tr>";
 		$subtotal=0.00;
-		
+
 		foreach($cart as $item){
 			$name = $item->getFoodname();
 			$desc = $item->getDescription();
@@ -96,7 +136,7 @@ include("../include/header.php"); ?>
 			echo "<td class=\"menuquantity\">$count</td>";
 			echo "</tr>";
 		}
-		
+
 		echo "<tr class=\"spaceabove\"><td class=\"menuitem\">&nbsp;</td>";
 		echo "<td class=\"totaldesc\">Subtotal:</td>";
 		$subtotal=number_format($subtotal, 2);
@@ -111,10 +151,10 @@ include("../include/header.php"); ?>
 		echo "<td class=\"totaldesc\">Total:</td>";
 		$total=$subtotal+$tax;
 		echo "<td class=\"totalprice\">\$$total</td></tr>";
-		
+
 	}else {
 		echo '<tr><td>Your cart is empty</td></tr>';
 	}
-?>
+	?>
 </table>
 <?php include("../include/footer.php"); ?>
