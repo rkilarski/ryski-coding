@@ -13,7 +13,7 @@ include("../include/header.php") ?>
 		echo "<td class=\"menudesc\">description</td>";
 		echo "<td class=\"menuprice\">price</td>";
 		echo "<td class=\"menuquantity\">quantity</td>";
-		echo "<td>&nbsp;</td></tr>";
+		echo "<td class=\"menuremove\">&nbsp;</td></tr>";
 		
 		//Get counts of items.
 		$countarray = array();
@@ -41,7 +41,7 @@ include("../include/header.php") ?>
 				echo "<td class=\"menudesc\">$desc</td>";
 				echo "<td class=\"menuprice\">\$$price</td>";
 				echo "<td class=\"menuquantity\">$count</td>";
-				echo "<td><a href=\"../controller/removefromcart.php?menuId=$itemId\">X</a></td>";
+				echo "<td><a href=\"../controller/removefromcart.php?menuId=$itemId\" alt=\"Remove Item\">X</a></td>";
 				echo "</tr>";
 			}
 		}

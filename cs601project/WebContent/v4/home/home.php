@@ -6,35 +6,35 @@ if(session_id() == '') {
 include("../include/homeheader.php") ?>
 
 <div id="wordcloud">
-    <span data-weight="25">chicken</span>
-	 <span data-weight="22">tonight</span>
-	 <span data-weight="12">yum</span>
-	 <span data-weight="5">rice</span>
-	 <span data-weight="18">paella</span>
-	 <span data-weight="16">empanadas</span>
-	 <span data-weight="9">rotisserie</span>
-	 <span data-weight="3">grill</span>
-	 <span data-weight="5">basmati</span>
- 	 <span data-weight="3">ravioli</span>
-	 <span data-weight="4">milanese</span>
-	 <span data-weight="5">creamy</span>
-	 <span data-weight="8">soup</span>
-	 <span data-weight="11">udon noodle</span>
-	 
-    <span data-weight="15">chicken</span>
-	 <span data-weight="18">tonight</span>
-	 <span data-weight="7">yum</span>
-	 <span data-weight="1">rice</span>
-	 <span data-weight="20">paella</span>
-	 <span data-weight="13">empanadas</span>
-	 <span data-weight="4">rotisserie</span>
-	 <span data-weight="6">grill</span>
-	 <span data-weight="8">basmati</span>
- 	 <span data-weight="19">ravioli</span>
-	 <span data-weight="7">milanese</span>
-	 <span data-weight="2">creamy</span>
-	 <span data-weight="4">soup</span>
-	 <span data-weight="1">udon noodle</span>
+    <span data-weight="<?php echo rand(1, 24);?>">chicken</span>
+	<span data-weight="<?php echo rand(1, 24);?>">tonight</span>
+	<span data-weight="<?php echo rand(1, 24);?>">yum</span>
+ 	<span data-weight="<?php echo rand(1, 24);?>">rice</span>
+	<span data-weight="<?php echo rand(1, 24);?>">paella</span>
+	<span data-weight="<?php echo rand(1, 24);?>">empanadas</span>
+	<span data-weight="<?php echo rand(1, 24);?>">rotisserie</span>
+	<span data-weight="<?php echo rand(1, 24);?>">grill</span>
+	<span data-weight="<?php echo rand(1, 24);?>">basmati</span>
+ 	<span data-weight="<?php echo rand(1, 24);?>">ravioli</span>
+	<span data-weight="<?php echo rand(1, 24);?>">milanese</span>
+	<span data-weight="<?php echo rand(1, 24);?>">creamy</span>
+	<span data-weight="<?php echo rand(1, 24);?>">soup</span>
+	<span data-weight="<?php echo rand(1, 24);?>">udon noodle</span>
+		 
+    <span data-weight="<?php echo rand(1, 24);?>">chicken</span>
+	<span data-weight="<?php echo rand(1, 24);?>">tonight</span>
+	<span data-weight="<?php echo rand(1, 24);?>">yum</span>
+ 	<span data-weight="<?php echo rand(1, 24);?>">rice</span>
+	<span data-weight="<?php echo rand(1, 24);?>">paella</span>
+	<span data-weight="<?php echo rand(1, 24);?>">empanadas</span>
+	<span data-weight="<?php echo rand(1, 24);?>">rotisserie</span>
+	<span data-weight="<?php echo rand(1, 24);?>">grill</span>
+	<span data-weight="<?php echo rand(1, 24);?>">basmati</span>
+ 	<span data-weight="<?php echo rand(1, 24);?>">ravioli</span>
+	<span data-weight="<?php echo rand(1, 24);?>">milanese</span>
+	<span data-weight="<?php echo rand(1, 24);?>">creamy</span>
+	<span data-weight="<?php echo rand(1, 24);?>">soup</span>
+	<span data-weight="<?php echo rand(1, 24);?>">udon noodle</span>
 </div>
 <script>
     var settings = {
