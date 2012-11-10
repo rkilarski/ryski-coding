@@ -79,7 +79,7 @@ footer {
 	height: 2em;
 	text-align: center;
 	font-weight: normal;
-	font-size: 18px;
+	font-size: 15px;
 	border-top: 1px solid #FF6600; /*orange*/
 }
 
@@ -255,8 +255,11 @@ form[name="mailinglist"] {
 	width: 100px;
 }
 
+.menuremove{
+	text-align: right;
+}
 .menuquantity{
-	width: 100px;
+	width: 80px;
 	text-align: right;
 }
 .menuitem:hover,.menudesc:hover {

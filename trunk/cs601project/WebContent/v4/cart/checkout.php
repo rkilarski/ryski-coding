@@ -74,14 +74,18 @@ include("../include/header.php"); ?>
 		name="zip" maxlength="10" size="10" required="required"> <br /> <label
 		for="telephone">telephone:</label><input type="tel" name="telephone"
 		maxlength="15" required="required"> <br /> <br /> <label
-		for="creditcard">Credit Card Type</label><select name="creditcard"
+		for="creditcard">Credit Card Type:</label><select name="creditcard"
 		size="1" required="required"><option value="Visa">Visa</option>
 		<option value="MasterCard">MasterCard</option>
 		<option value="American Express">American Express</option>
 		<option value="Discover">Discover</option>
 		<option value="Diners">Diner's Club Card</option>
-	</select> <br> <label for="expire">Expiration Date (Month/Year):</label><select
-		name="expiremonth" required="required"><option value="January">January</option>
+	</select><br> <label for="ccnumber1">Credit Card Number:</label><input
+		type="text" size="4" name="ccnumber1"> <input type="text" size="4"
+		name="ccnumber2"><input type="text" size="4" name="ccnumber3"><input
+		type="text" size="4" name="ccnumber4"> <br> <label for="expiremonth">Expiration
+		Date (Month/Year):</label><select name="expiremonth"
+		required="required"><option value="January">January</option>
 		<option value="February">February</option>
 		<option value="March">March</option>
 		<option value="April">April</option>
