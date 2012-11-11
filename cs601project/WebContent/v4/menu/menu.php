@@ -6,7 +6,8 @@
 	if (!isset($menu)){
 		header("Location: ../index.php?action=menu");
 	}
-	include("../include/header.php");
+	include('../include/header.php');
+	include('../include/body.php');
 ?>
 <h1>menu</h1>
 <table>
@@ -32,4 +33,4 @@
 	}
 ?>
 </table>
-<?php include("../include/footer.php"); ?>
+<?php include('../include/footer.php'); ?>

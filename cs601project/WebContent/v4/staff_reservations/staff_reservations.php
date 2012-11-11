@@ -6,6 +6,7 @@ if(session_id() == '') {
 require_once('../controller/secureform.php');
 secureStaffForm('staff_reservations');
 
-include("../include/staff_header.php"); ?>
+include('../include/staff_header.php');
+include('../include/body.php'); ?>
 <h1>reservations</h1>
-<?php include("../include/footer.php"); ?>
+<?php include('../include/footer.php'); ?>
