@@ -9,18 +9,23 @@ include('../include/body.php');
 ?>
 <h1>checkout</h1>
 <form name="checkout" class="addressform" method="post"
-	action="../controller/finalize.php">
+	action="../controller/submitorder.php">
+	<label for="ordertype">order type:</label>
+	<select name="ordertype"><option value="1">take out</option>
+	<option value="2" selected>delivery</option><option value="3">dine in</option>
+	</select>
+	<br><br>
 	<label for="firstname">first name:</label><input type="text"
-		name="firstname" maxlength="255" required="required"> <br /> <label
-		for="middle">middle initial:</label><input type="text" name="middle"
-		maxlength="255" size="1"> <br /> <label for="lastname">last name:</label><input
-		type="text" name="lastname" maxlength="255" required="required"> <br />
+		name="firstname" maxlength="255" required="required"> <br> <label
+		for="middlename">middle initial:</label><input type="text" name="middle"
+		maxlength="255" size="1"> <br> <label for="lastname">last name:</label><input
+		type="text" name="lastname" maxlength="255" required="required"> <br>
 	<label for="addressline1">address line 1:</label><input type="text"
-		name="addressline1" maxlength="255" required="required"> <br /> <label
+		name="addressline1" maxlength="255" required="required"> <br> <label
 		for="addressline2">address line 2:</label><input type="text"
-		name="addressline2" maxlength="255"> <br /> <label for="city">city:</label><input
-		type="text" name="city" maxlength="25" required="required"> <br /> <label
-		for="state">state:</label> <select name="state" size="1">
+		name="addressline2" maxlength="255"> <br> <label for="city">city:</label><input
+		type="text" name="city" maxlength="25" required="required"> <br> <label
+		for="st">state:</label> <select name="state" size="1">
 		<option value="AL">Alabama</option>
 		<option value="AK">Alaska</option>
 		<option value="AZ">Arizona</option>
@@ -72,21 +77,21 @@ include('../include/body.php');
 		<option value="WV">West Virginia</option>
 		<option value="WI">Wisconsin</option>
 		<option value="WY">Wyoming</option>
-	</select> <br /> <label for="zip">zip:</label><input type="text"
-		name="zip" maxlength="10" size="10" required="required"> <br /> <label
+	</select> <br> <label for="zip">zip:</label><input type="text"
+		name="zip" maxlength="10" size="10" required="required"> <br> <label
 		for="telephone">telephone:</label><input type="tel" name="telephone"
-		maxlength="15" required="required"> <br /> <br /> <label
-		for="creditcard">Credit Card Type:</label><select name="creditcard"
-		size="1" required="required"><option value="Visa">Visa</option>
-		<option value="MasterCard">MasterCard</option>
-		<option value="American Express">American Express</option>
-		<option value="Discover">Discover</option>
-		<option value="Diners">Diner's Club Card</option>
-	</select><br> <label for="ccnumber1">Credit Card Number:</label><input
+		maxlength="15" required="required"> <br> <br> <label
+		for="cctype">credit card type:</label><select name="cctype"
+		size="1" required="required"><option value="Visa">visa</option>
+		<option value="MasterCard">mastercard</option>
+		<option value="American Express">american express</option>
+		<option value="Discover">discover</option>
+		<option value="Diners">diner's club card</option>
+	</select><br> <label for="ccnumber1">credit card number:</label><input
 		type="text" size="4" name="ccnumber1"> <input type="text" size="4"
 		name="ccnumber2"><input type="text" size="4" name="ccnumber3"><input
-		type="text" size="4" name="ccnumber4"> <br> <label for="expiremonth">Expiration
-		Date (Month/Year):</label><select name="expiremonth"
+		type="text" size="4" name="ccnumber4"> <br> <label for="ccexpmonth">expiration
+		date (month/year):</label><select name="ccexpmonth"
 		required="required"><option value="January">January</option>
 		<option value="February">February</option>
 		<option value="March">March</option>
@@ -99,7 +104,7 @@ include('../include/body.php');
 		<option value="October">October</option>
 		<option value="November">November</option>
 		<option value="December">December</option>
-	</select>/<select name="expireyear" required="required"><option
+	</select>/<select name="ccexpyear" required="required"><option
 			value="2012">2012</option>
 		<option value="2013">2013</option>
 		<option value="2014">2014</option>
@@ -112,9 +117,9 @@ include('../include/body.php');
 		<option value="2021">2021</option>
 		<option value="2022">2022</option>
 		<option value="2023">2023</option>
-	</select> <br /> <br />
+	</select> <br> <br>
 	<div class="center">
-		<input type="submit" value="finalize your order">
+		<input type="submit" value="finalize your order" >
 	</div>
 	<br>
 
