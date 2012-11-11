@@ -19,10 +19,6 @@ input[type="button"] {
 	background-color: #CC6600;
 }
 
-#outerframe,#logo { /*Set opacity for image */
-	border: 1px solid #CC6600;
-}
-
 #largerestaurantname {
 	color: #CC6600;
 }
