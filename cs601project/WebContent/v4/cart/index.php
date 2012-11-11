@@ -47,7 +47,16 @@ switch ($action) {
 		}
 		include('checkout.php');
 		break;
-   default:
+	case 'order_summary':
+		$cart=null;
+		if (isset($_SESSION['ordernumber'])){
+			$ordernumber = $_SESSION['ordernumber'];
+			$order=Order::loadById(Database::getDB(), $ordernumber);
+			$cart=Menu::getCart(Database::getDB(), $order->getOrderItems());
+		}
+		include('order_summary.php');
+		break;
+		default:
 		header("Location: ../index.php?action=$action");
 		break;
 }

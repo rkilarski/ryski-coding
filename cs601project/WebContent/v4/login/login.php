@@ -10,8 +10,8 @@ include('../include/body.php');
 <form name="login" class="addressform" action="../controller/authenticate.php" method="post">
 	<h2>existing users</h2>
 	<label for="email">login:</label> <input type="email" name="email"
-		placeholder="username" maxlength="255" size="30" required="required"> <br /> <label for="password">password:</label><input
-		type="password" name="password" placeholder="password" maxlength="255" size="30" required="required"> <br /> 
+		placeholder="username" maxlength="255" size="30" required="required"> <br> <label for="password">password:</label><input
+		type="password" name="password" placeholder="password" maxlength="255" size="30" required="required"> <br> 
 		<div class="center">
 		<input type="submit" value="login"> <input type="reset" value="reset">
 		</div>
@@ -19,15 +19,15 @@ include('../include/body.php');
 <br/>
 <form name="loginnew" class="addressform" method="post" action="../controller/addperson.php">
 	<h2>new users</h2>
-	<label for="email">email:</label><input type="email" name="email" maxlength="255" size="30" placeholder="username" required="required"> <br />
+	<label for="email">email:</label><input type="email" name="email" maxlength="255" size="30" placeholder="username" required="required"> <br>
 	<label for="password">password:</label><input type="password"
-		name="password" maxlength="255" size="30" placeholder="password" required="required"> <br /> <br /> <label for="firstname">first name:</label><input
-		type="text" name="firstname" maxlength="255" required="required"> <br /> <label for="middle">middle initial:</label><input
-		type="text" name="middle" maxlength="255" size="1"> <br /> <label for="lastname">last name:</label><input
-		type="text" name="lastname" maxlength="255" required="required"> <br /> <label for="addressline1">address line 1:</label><input
-		type="text" name="addressline1" maxlength="255" required="required"> <br /> <label for="addressline2">address line 2:</label><input
-		type="text" name="addressline2" maxlength="255"> <br /> <label for="city">city:</label><input
-		type="text" name="city" maxlength="25" required="required"> <br /> <label for="state">state:</label> <select
+		name="password" maxlength="255" size="30" placeholder="password" required="required"> <br> <br> <label for="firstname">first name:</label><input
+		type="text" name="firstname" maxlength="255" required="required"> <br> <label for="middle">middle initial:</label><input
+		type="text" name="middle" maxlength="255" size="1"> <br> <label for="lastname">last name:</label><input
+		type="text" name="lastname" maxlength="255" required="required"> <br> <label for="addressline1">address line 1:</label><input
+		type="text" name="addressline1" maxlength="255" required="required"> <br> <label for="addressline2">address line 2:</label><input
+		type="text" name="addressline2" maxlength="255"> <br> <label for="city">city:</label><input
+		type="text" name="city" maxlength="25" required="required"> <br> <label for="state">state:</label> <select
 		name="state" size="1">
 		<option value="AL">Alabama</option>
 		<option value="AK">Alaska</option>
@@ -80,11 +80,11 @@ include('../include/body.php');
 		<option value="WV">West Virginia</option>
 		<option value="WI">Wisconsin</option>
 		<option value="WY">Wyoming</option>
-	</select> <br /> <label for="zip">zip:</label><input type="text"
-		name="zip" maxlength="10" size="10" required="required"> <br /> <label for="telephone">telephone:</label><input
-		type="tel" name="telephone" maxlength="15" required="required"> <br /> <label for="isstaff">are you staff?:</label><input
-		type="checkbox" name="isstaff"> <br /> <label for="sendemail">send email?:</label><input
-		type="checkbox" name="sendemail"> <br /> 
+	</select> <br> <label for="zip">zip:</label><input type="text"
+		name="zip" maxlength="10" size="10" required="required"> <br> <label for="telephone">telephone:</label><input
+		type="tel" name="telephone" maxlength="15" required="required"> <br> <label for="isstaff">are you staff?:</label><input
+		type="checkbox" name="isstaff"> <br> <label for="sendemail">send email?:</label><input
+		type="checkbox" name="sendemail"> <br> 
 		<div class="center"><input type="submit" value="add"> <input type="reset" value="reset"></div>
 </form>
 <?php include('../include/footer.php'); ?>

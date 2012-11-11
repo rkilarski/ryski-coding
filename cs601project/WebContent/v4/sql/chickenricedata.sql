@@ -41,6 +41,17 @@ INSERT INTO `menutype` (`id`, `name`) VALUES
 (6, 'side'),
 (7, 'dessert');
 
+INSERT INTO `orderstatus` (`id`, `name`) VALUES
+(1, 'new'),
+(2, 'in progress'),
+(3, 'ready for pickup/delivery'),
+(4, 'out for delivery'),
+(5, 'closed');
+
+INSERT INTO `ordertype` (`id`, `name`) VALUES
+(1, 'takeout'),
+(2, 'delivery'),
+(3, 'dine in');
 
 INSERT INTO `menu` (`id`, `menuType`, `foodItem`, `price`, `cost`, `specialDay`) VALUES
 (1, 1, 1, 10, 5, ''),
