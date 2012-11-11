@@ -4,7 +4,9 @@ if(session_id() == '') {
 	session_start();
 }
 
-include("../include/header.php"); ?>
+include('../include/header.php'); 
+include('../include/body.php');
+?>
 <h1>checkout</h1>
 <form name="checkout" class="addressform" method="post"
 	action="../controller/finalize.php">
@@ -161,4 +163,4 @@ include("../include/header.php"); ?>
 	}
 	?>
 </table>
-<?php include("../include/footer.php"); ?>
+<?php include('../include/footer.php'); ?>

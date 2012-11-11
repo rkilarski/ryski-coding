@@ -3,7 +3,8 @@ if(session_id() == '') {
 	session_set_cookie_params(31536000,'/');
 	session_start();
 }
-include("../include/header.php");
+include('../include/header.php');
+include('../include/body.php');
 ?>
 <h1>login</h1>
 <form name="login" class="addressform" action="../controller/authenticate.php" method="post">
@@ -86,4 +87,4 @@ include("../include/header.php");
 		type="checkbox" name="sendemail"> <br /> 
 		<div class="center"><input type="submit" value="add"> <input type="reset" value="reset"></div>
 </form>
-<?php include("../include/footer.php"); ?>
+<?php include('../include/footer.php'); ?>

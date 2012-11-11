@@ -4,7 +4,9 @@ if(session_id() == '') {
 	session_start();
 }
 
-include("../include/header.php") ?>
+include('../include/header.php');
+include('../include/body.php');
+?>
 <h1>cart</h1>
 <table>
 <?php
@@ -69,4 +71,4 @@ include("../include/header.php") ?>
 <form name="checkout">
 	<input type="button" value="check out" onclick="parent.location='index.php?action=checkout'">
 </form>
-<?php include("../include/footer.php") ?>
+<?php include('../include/footer.php') ?>

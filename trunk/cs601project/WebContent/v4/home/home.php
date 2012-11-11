@@ -3,7 +3,9 @@ if(session_id() == '') {
 	session_set_cookie_params(31536000,'/');
 	session_start();
 }
-include("../include/homeheader.php") ?>
+include('../include/homeheader.php');
+include('../include/body.php');
+?>
 
 <div id="wordcloud">
     <span data-weight="<?php echo rand(1, 24);?>">chicken</span>
@@ -58,4 +60,4 @@ include("../include/homeheader.php") ?>
 		<input type="submit" value="submit">
 	</div>
 </form>
-<?php include("../include/footer.php") ?>
+<?php include('../include/footer.php') ?>
