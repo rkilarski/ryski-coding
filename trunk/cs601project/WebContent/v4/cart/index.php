@@ -4,8 +4,8 @@ if(session_id() == '') {
 	session_start();
 }
 require_once('../model/database.php');
-require_once('../model/menu.php');
 require_once('../model/order.php');
+require_once('../model/menu.php');
 require_once('../model/person.php');
 
 if (isset($_POST['action'])) {

@@ -98,10 +98,9 @@ label {
 	width: 100px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-left: auto;
 }
 
-select,input,#innerframe,#outerframe,#logo { /*Border radius section*/
+select,input,#innerframe,#outerframe,#logo, textarea { /*Border radius section*/
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-khtml-border-radius: 10px;
@@ -197,7 +196,7 @@ select,input,#innerframe,#outerframe,#logo { /*Border radius section*/
 	text-align: right;
 }
 
-.addressform input, .addressform select,.addressform option{
+.addressform input, .addressform select,.addressform option, textarea{
 	background-color: #FFFFFF; /*white*/
 	color: #FF6600; /*orange*/
 }
@@ -239,7 +238,6 @@ form[name="cart"] input{
 }
 
 .menuitem {
-	
 }
 
 .menudesc {
@@ -255,7 +253,7 @@ form[name="cart"] input{
 }
 .menuprice, .totalprice {
 	text-align: right;
-	color: #FFFFFF; /*black*/
+	color: #FFFFFF;
 	width: 100px;
 }
 
@@ -267,9 +265,12 @@ form[name="cart"] input{
 	text-align: right;
 }
 .menuitem:hover,.menudesc:hover {
-	color: #FFFF00; /*yellow*/
+	color: #FFFF00; 
 }
-
+.customerrequest{
+	padding-left: 50px;
+	padding-right: 50px;
+}
 .totaldesc{
 	text-align: right;
 	font-weight: bold;

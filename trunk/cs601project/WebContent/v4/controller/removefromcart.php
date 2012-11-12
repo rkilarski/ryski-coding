@@ -4,25 +4,25 @@ if(session_id() == '') {
 	session_start();
 }
 
-	if (!isset($_SESSION['cart'])){
-		$_SESSION['cart'] = array();
+if (!isset($_SESSION['cart'])){
+	$_SESSION['cart'] = array();
+}
+
+$cart = $_SESSION['cart'];
+$menuId = $_GET['menuId'];  //Item to delete.
+
+foreach ($cart as $key=>$item){
+	if ($item['menuId']==$menuId){
+		unset($cart[$key]);
+		break;  //Exit the loop.
 	}
-	
-	$cart = $_SESSION['cart'];
-	$menuId = $_GET['menuId'];  //Item to delete.
-	
-	foreach ($cart as $key=>$item){
-		if ($item==$menuId){
-			unset($cart[$key]);
-			break;  //Exit the loop.
-		}
-	}
-	if (count($cart)>0){
-		$_SESSION['hascart']=true;
-		$_SESSION['cart']=$cart;
-	}else {
-		$_SESSION['hascart']=false;
-		unset($_SESSION['cart']);
-	}
-	header("Location: ../index.php?action=cart");
+}
+if (count($cart)>0){
+	$_SESSION['hascart']=true;
+	$_SESSION['cart']=$cart;
+}else {
+	$_SESSION['hascart']=false;
+	unset($_SESSION['cart']);
+}
+header("Location: ../index.php?action=cart");
 ?>

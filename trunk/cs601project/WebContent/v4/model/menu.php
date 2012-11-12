@@ -9,6 +9,7 @@ class Menu{
 	private $price;
 	private $specialDay;
 	private $imageName;
+	private $customerRequest;
 	
 	public function __construct($db){
 		$this->db = $db;
@@ -37,7 +38,12 @@ class Menu{
 	public function getSpecialDay(){
 		return $this->specialDay;
 	}
-
+	public function getCustomerRequest(){
+		return $this->customerRequest;
+	}
+	public function setCustomerRequest($customerRequest){
+		$this->customerRequest=$customerRequest;
+	}
 	public static function getMenu($db) {
 		$sql="SELECT 
 				m.id as menuId,  
@@ -93,38 +99,7 @@ class Menu{
 		}
 		return $menu;
 	}
-	public static function getMenuItem($db, $id){
-		$sql="SELECT 
-				m.id as menuId,  
-				t.name as menuType, 
-				f.name as foodName,
-				f.description as description,
-				f.isVegetarian as vegetarian,
-				m.price as price,
-				m.specialDay as specialday,
-				f.imageName as image
 
-				FROM `menu` m JOIN `menutype` t ON m.menuType=t.id
-									JOIN `food` f ON m.foodItem=f.id
-									
-				WHERE m.specialDay ='' AND m.id=$id";
-											
-		$statement= $db->prepare($sql);
-		$statement->execute();
-		$row = $statement->fetch();
-		$d = new Menu($db);
-		$d->init($row);
-		return $d;
-	}
-	
-	//Given a cart, return details for that cart.
-	public static function getCart($db, $cart){
-		$cartlist = array();
-		foreach($cart as $menuId){
-			array_push($cartlist, Menu::getMenuItem($db, $menuId));
-		}
-		return $cartlist;
-	}
 	private function init($row){
 		$this->menuId = $row['menuId'];
 		$this->menuType = $row['menuType'];
@@ -134,6 +109,41 @@ class Menu{
 		$this->price = $row['price'];
 		$this->specialDay = $row['specialday'];
 		$this->imageName = $row['image'];
+	}
+	public static function getMenuItem($db, $id, $customerRequest){
+		$sql="SELECT
+		m.id as menuId,
+		t.name as menuType,
+		f.name as foodName,
+		f.description as description,
+		f.isVegetarian as vegetarian,
+		m.price as price,
+		m.specialDay as specialday,
+		f.imageName as image
+	
+		FROM `menu` m JOIN `menutype` t ON m.menuType=t.id
+		JOIN `food` f ON m.foodItem=f.id
+			
+		WHERE m.specialDay ='' AND m.id=$id";
+			
+		$statement= $db->prepare($sql);
+		$statement->execute();
+		$row = $statement->fetch();
+		$d = new Menu($db);
+		$d->init($row);
+		$d->setCustomerRequest($customerRequest);
+		return $d;
+	}
+	
+	//Given a cart, return details for that cart.
+	//$item['menuId']
+	//$item['customerRequest']
+	public static function getCart($db, $cart){
+		$cartlist = array();
+		foreach($cart as $menuItem){
+			array_push($cartlist, Menu::getMenuItem($db, $menuItem['menuId'], $menuItem['customerRequest']));
+		}
+		return $cartlist;
 	}
 }
 ?>

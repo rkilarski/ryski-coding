@@ -27,9 +27,13 @@ class Order {
 	private $ccexpmonth;
 	private $ccexpyear;
 	private $customeraddressid;
+	private $customerRequest;
 
 	public function __construct($db){
 		$this->db = $db;
+	}
+	public function getCustomerRequest(){
+		$this->customerRequest;
 	}
 	public function getId(){
 		return $this->id;
@@ -166,7 +170,9 @@ class Order {
 	public function setOrderType($ordertype){
 		$this->ordertype=$ordertype;
 	}
-
+	public function setCustomerRequest($customerRequest){
+		$this->customerRequest=$customerRequest;
+	}
 	public function initOrder($row){
 		$this->id = $row['id'];
 		$this->customeraddressid = $row['customerAddress'];
@@ -190,7 +196,10 @@ class Order {
 	public function initOrderItems($rows){
 		$this->orderitems = array();
 		foreach ($rows as $row){
-			array_push($this->orderitems, $row['menuItem']);
+			$item = array();
+			$item['menuId']=$row['menuItem'];
+			$item['customerRequest']=$row['customerRequest'];
+			array_push($this->orderitems, $item);
 		}
 	}
 	/**
@@ -278,7 +287,7 @@ class Order {
 		$row = $statement->fetch();
 		$order->initAddress($row);
 
-		$statement= $db->prepare("select menuItem from customerOrderDetail where `ordernumber`='$id'");
+		$statement= $db->prepare("select menuItem,customerRequest from customerOrderDetail where `ordernumber`='$id'");
 		$statement->execute();
 		$row = $statement->fetchAll();
 		$order->initOrderItems($row);
@@ -320,7 +329,9 @@ class Order {
 	private function insertOrderItems(){
 		$orderNumber = $this->id;
 		foreach ($this->orderitems as $item){
-			$sql = "insert into customerorderdetail (ordernumber, menuitem) values ('$orderNumber','$item')";
+			$menuId = $item['menuId'];
+			$customerRequest = $item['customerRequest'];
+			$sql = "insert into customerorderdetail (ordernumber, menuitem, customerRequest) values ('$orderNumber','$menuId', '$customerRequest')";
 			$this->db->exec($sql);
 		}
 	}
@@ -334,5 +345,6 @@ class Order {
 		$this->insertOrderItems();
 		return $this->id;
 	}
+
 }
 ?>

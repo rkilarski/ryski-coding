@@ -8,7 +8,7 @@ function secureForm($action){
 		$isLoggedIn=false;
 	}
 	if (!$isLoggedIn){
-		header("Location: index.php?action=$action");
+		header("Location: ../index.php?action=$action");
 		return false;
 	}
 	return true;
