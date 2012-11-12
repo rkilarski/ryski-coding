@@ -177,7 +177,7 @@ class Order {
 		$this->orderstatus = $row['orderStatus'];
 		$this->ordertype = $row['orderType'];
 		$this->paidflag = $row['paidflag'];
-		
+
 	}
 	private function initAddress($row){
 		$this->firstname = $row['firstName'];
@@ -200,7 +200,7 @@ class Order {
 	/**
 	 * Initialize from $_POST
 	 */
-	public function initPOST(){
+	public function initPOST($cart){
 		if (isset($_POST['id'])){
 			$this->id = $_POST['id'];
 		}
@@ -262,9 +262,8 @@ class Order {
 			$this->ccexpyear = $_POST['ccexpyear'];
 		}
 
-
-		if (isset($_SESSION['order'])){
-			$this->orderitems= $_SESSION['order'];
+		if (isset($cart)){
+			$this->orderitems= $cart;
 		}
 		$this->orderstatus = 1;  //New order status
 	}
@@ -275,12 +274,12 @@ class Order {
 		$order->initOrder($row);
 		$row = $db->exec("select * from customerOrderAddress where `id`='$order->getCustomerAddressId()'");
 		$order->initAddress($row);
-		
+
 		$statement= $db->prepare("select menuItem from customerOrderDetails where `ordernumber`='$id'");
 		$statement->execute();
 		$row = $statement->fetchall();
 		$order->initOrderItems($row);
-		
+
 		return $order;
 	}
 
@@ -318,7 +317,7 @@ class Order {
 
 	private function insertOrderItems(){
 		$orderNumber = $this->id;
-		foreach ($orderitems as $item){
+		foreach ($this->orderitems as $item){
 			$sql = "insert into customerorderdetail (ordernumber, menuitem) values ('$orderNumber','$item')";
 			$this->db->exec($sql);
 		}
@@ -326,11 +325,11 @@ class Order {
 
 	public function submitOrder(){
 		//First insert the customer address and get its id.
-		$this->customerAddressId = insertCustomerOrderAddress();
+		$this->customerAddressId = $this->insertCustomerOrderAddress();
 		//Then create the order.
-		$this->id=insertCustomerOrder();
+		$this->id=$this->insertCustomerOrder();
 		//Finally, insert the order items.
-		insertOrderItems();
+		$this->insertOrderItems();
 		return $this->id;
 	}
 }

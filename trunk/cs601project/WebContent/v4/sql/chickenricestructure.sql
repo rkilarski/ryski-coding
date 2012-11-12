@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `reservations` (
 
 CREATE TABLE IF NOT EXISTS `orderStatus` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `status` varchar(25) NOT NULL,
+  `orderStatus` varchar(25) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
