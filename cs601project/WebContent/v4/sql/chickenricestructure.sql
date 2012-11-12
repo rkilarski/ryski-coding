@@ -116,6 +116,7 @@ CREATE TABLE IF NOT EXISTS `customerOrderDetail`(
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `orderNumber` int(10) NOT NULL,
   `menuItem` int(10) NOT NULL,
+  `customerRequest` varchar(255) NULL,
    PRIMARY KEY (`id`),
    KEY `orderNumber` (`orderNumber`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

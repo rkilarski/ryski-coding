@@ -35,7 +35,12 @@ switch ($action) {
 		$menu=Menu::getMenu(Database::getDB());
 		include('menu.php');
 		break;
-   default:
+	case 'itemdetail':
+		$item = $_GET['menuid'];
+		$menuItem=Menu::getMenuItem(Database::getDB(), $item,'');
+		include('itemdetail.php');
+		break;
+		default:
 		header("Location: ../index.php?action=$action");
 		break;
 }

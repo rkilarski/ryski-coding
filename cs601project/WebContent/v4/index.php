@@ -38,7 +38,11 @@ switch ($action) {
 		header("Location: contact/index.php?action=$action");
 		break;
 	case 'events':
-		header("Location: events/index.php?action=$action");
+		if (!$isLoggedIn){
+			header("Location: login/index.php?action=$action");
+		}else {
+			header("Location: events/index.php?action=$action");
+		}
 		break;
 	case 'login':
 		$action='';

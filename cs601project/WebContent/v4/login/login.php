@@ -6,7 +6,7 @@ if(session_id() == '') {
 include('../include/header.php');
 include('../include/body.php');
 ?>
-<h1>login</h1>
+<h1>please login to access the full features of our site</h1>
 <form name="login" class="addressform" action="../controller/authenticate.php" method="post">
 	<h2>existing users</h2>
 	<label for="email">login:</label> <input type="email" name="email"
