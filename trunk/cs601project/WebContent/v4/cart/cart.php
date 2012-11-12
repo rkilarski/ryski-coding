@@ -9,14 +9,14 @@ include('../include/body.php');
 ?>
 <h1>cart</h1>
 <table>
-<?php
-	if (isset($cart)){
+	<?php
+	if (isset($cart) && count($cart)>0){
 		echo "<tr><td class=\"menuitem\">name</td>";
 		echo "<td class=\"menudesc\">description</td>";
 		echo "<td class=\"menuprice\">price</td>";
 		echo "<td class=\"menuquantity\">quantity</td>";
 		echo "<td class=\"menuremove\">&nbsp;</td></tr>";
-		
+
 		//Get counts of items.
 		$countarray = array();
 		foreach($cart as $item){
@@ -62,13 +62,14 @@ include('../include/body.php');
 		echo "<td class=\"totaldesc\">Total:</td>";
 		$total=$subtotal+$tax;
 		echo "<td class=\"totalprice\">\$$total</td><td>&nbsp;</td><td>&nbsp;</td></tr>";
-		
+
 	}else {
 		echo '<tr><td>&nbsp;</td><td>Your cart is empty</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
 	}
-?>
+	?>
 </table>
 <form name="checkout">
-	<input type="button" value="check out" onclick="parent.location='index.php?action=checkout'">
+	<input type="button" value="check out"
+		onclick="parent.location='index.php?action=checkout'">
 </form>
 <?php include('../include/footer.php') ?>

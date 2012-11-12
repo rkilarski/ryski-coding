@@ -262,7 +262,9 @@ class Person {
 
 	public static function loadById($db, $id){
 		$person = new Person($db);
-		$row = $db->exec("select * from person where `id`='$id'");
+		$statement= $db->prepare("select * from person where `id`='$id'");
+		$statement->execute();
+		$row = $statement->fetch();
 		$person->init($row);
 		return $person;
 	}

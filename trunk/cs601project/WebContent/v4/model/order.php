@@ -174,7 +174,7 @@ class Order {
 		$this->ordertype = $row['orderType'];
 		$this->paidflag = $row['paidFlag'];
 	}
-	
+
 	public function initAddress($row){
 		$this->firstname = $row['firstName'];
 		$this->middlename = $row['middleName'];
@@ -266,13 +266,14 @@ class Order {
 
 	public static function loadById($db, $id){
 		$order = new Order($db);
-		
-		$statement= $db->prepare("select * from customerOrder where `id`='$id'");
+
+		$statement= $db->prepare("select O.id, O.customerAddress, T.orderType, S.orderStatus, O.paidFlag from customerOrder O left join orderType T ON (O.orderType=T.id) left join orderStatus S ON (O.orderStatus=S.id)where O.id='$id'");
 		$statement->execute();
 		$row = $statement->fetch();
 		$order->initOrder($row);
-		
-		$statement= $db->prepare("select * from customerOrderAddress where `id`='$order->getCustomerAddressId()'");
+
+		$address=$order->getCustomerAddressId();
+		$statement= $db->prepare("select * from customerOrderAddress where `id`='$address'");
 		$statement->execute();
 		$row = $statement->fetch();
 		$order->initAddress($row);
