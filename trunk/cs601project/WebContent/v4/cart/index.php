@@ -4,7 +4,8 @@ if(session_id() == '') {
 	session_start();
 }
 require_once('../model/database.php');
-require_once('../model/Menu.php');
+require_once('../model/menu.php');
+require_once('../model/order.php');
 
 if (isset($_POST['action'])) {
 	$action = $_POST['action'];
@@ -50,13 +51,14 @@ switch ($action) {
 	case 'order_summary':
 		$cart=null;
 		if (isset($_SESSION['ordernumber'])){
-			$ordernumber = $_SESSION['ordernumber'];
+			$ordernumber = 9;  //$_SESSION['ordernumber'];
 			$order=Order::loadById(Database::getDB(), $ordernumber);
+			echo $order->getId();
 			$cart=Menu::getCart(Database::getDB(), $order->getOrderItems());
 		}
-		include('order_summary.php');
+		//include('order_summary.php');
 		break;
-		default:
+	default:
 		header("Location: ../index.php?action=$action");
 		break;
 }

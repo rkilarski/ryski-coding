@@ -87,7 +87,4 @@ include('../include/body.php');
 	}
 ?>
 </table>
-<form name="checkout">
-	<input type="button" value="check out" onclick="parent.location='index.php?action=checkout'">
-</form>
 <?php include('../include/footer.php') ?>

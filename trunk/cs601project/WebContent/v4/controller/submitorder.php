@@ -12,5 +12,7 @@
 	//Submit order.
 	$ordernumber = $order->submitOrder();
 	$_SESSION['ordernumber']=$ordernumber;
+	$_SESSION['hascart']=false;
+	$_SESSION['cart']=array();
 	header("Location: ../cart/index.php?action=order_summary");
 ?>
