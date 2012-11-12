@@ -41,14 +41,14 @@ INSERT INTO `menutype` (`id`, `name`) VALUES
 (6, 'side'),
 (7, 'dessert');
 
-INSERT INTO `orderstatus` (`id`, `name`) VALUES
+INSERT INTO `orderstatus` (`id`, `orderStatus`) VALUES
 (1, 'new'),
 (2, 'in progress'),
 (3, 'ready for pickup/delivery'),
 (4, 'out for delivery'),
 (5, 'closed');
 
-INSERT INTO `ordertype` (`id`, `name`) VALUES
+INSERT INTO `ordertype` (`id`, `orderType`) VALUES
 (1, 'takeout'),
 (2, 'delivery'),
 (3, 'dine in');
