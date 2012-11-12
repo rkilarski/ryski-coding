@@ -206,7 +206,6 @@ select,input,#innerframe,#outerframe,#logo { /*Border radius section*/
 	color: #FFFFFF; 
 }
 
-/*------------------------------Mailing List Section------------------------------*/
 #mailinglist input[type="email"] {
 	background-color: #FFFFFF;
 	color: #FF6600; /*orange*/
@@ -225,7 +224,12 @@ form[name="mailinglist"] {
 	margin-right: auto;
 	margin-left: auto;
 }
-
+form[name="cart"]{
+	width: 100%;
+}
+form[name="cart"] input{
+	float: right;
+}
 /*------------------------------Menu Section------------------------------*/
 .menuheader {
 	text-align: center;

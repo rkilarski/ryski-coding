@@ -68,8 +68,8 @@ include('../include/body.php');
 	}
 	?>
 </table>
-<form name="checkout">
+<form name="cart">
 	<input type="button" value="check out"
 		onclick="parent.location='index.php?action=checkout'">
-</form>
+</form><br>
 <?php include('../include/footer.php') ?>
