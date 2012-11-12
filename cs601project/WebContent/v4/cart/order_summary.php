@@ -8,23 +8,23 @@ include('../include/header.php');
 include('../include/body.php');
 ?>
 <h1>order summary</h1>
-<h2>your order number is <?php $order->getId(); ?></h2>
+<h2>your order number is <?php echo $order->getId(); ?></h2>
 <h3>please print this for your records</h3>
 
-	<label for="ordertype">order type:</label>
+	<label for="ordertype">order type:</label><?php echo $order->getOrderType(); ?>
 	<br><br>
-	<label>first name:</label><?php $order->getFirstname();?><br>
-	<label>middle initial:</label><?php $order->getMiddlename();?><br>
-	<label>last name:</label><?php $order->getLastname();?><br>
-	<label>address line 1:</label><?php $order->getAddressline1();?><br> 
-	<label>address line 2:</label><?php $order->getAddressline2();?><br> 
-	<label>city:</label><?php $order->getCity();?><br> 
-	<label>state:</label><?php $order->getSt();?><br> 
-	<label for="zip">zip:</label><?php $order->getZip();?><br> 
-	<label>telephone:</label><br><?php $order->getTelephone();?> <br> 
-	<label>credit card type:</label><?php $order->getCCType();?><br>
-	<label for="ccnumber1">credit card number:</label>XXXX-XXXX-XXXX-<?php $order->getCCNumber4();?><br>
-	<label for="ccexpmonth">expiration date (Month/Year):</label><?php $order->getCCExpMonth()."/".$order->getCCExpYear();?>
+	<label>first name:</label><?php echo $order->getFirstname();?><br>
+	<label>middle initial:</label><?php echo $order->getMiddlename();?><br>
+	<label>last name:</label><?php echo $order->getLastname();?><br>
+	<label>address line 1:</label><?php echo $order->getAddressline1();?><br> 
+	<label>address line 2:</label><?php echo $order->getAddressline2();?><br> 
+	<label>city:</label><?php echo $order->getCity();?><br> 
+	<label>state:</label><?php echo $order->getSt();?><br> 
+	<label for="zip">zip:</label><?php echo $order->getZip();?><br> 
+	<label>telephone:</label><br><?php echo $order->getTelephone();?> <br> 
+	<label>credit card type:</label><?php echo $order->getCCType();?><br>
+	<label for="ccnumber1">credit card number:</label>XXXX-XXXX-XXXX-<?php echo $order->getCCNumber4();?><br>
+	<label for="ccexpmonth">expiration date (Month/Year):</label><?php echo $order->getCCExpMonth()."/".$order->getCCExpYear();?>
 	<br><br>
 	
 <table>
