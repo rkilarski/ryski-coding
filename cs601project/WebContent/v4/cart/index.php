@@ -6,6 +6,7 @@ if(session_id() == '') {
 require_once('../model/database.php');
 require_once('../model/menu.php');
 require_once('../model/order.php');
+require_once('../model/person.php');
 
 if (isset($_POST['action'])) {
 	$action = $_POST['action'];
@@ -45,6 +46,9 @@ switch ($action) {
 		if (isset($_SESSION['cart'])){
 			$cartList=$_SESSION['cart'];
 			$cart=Menu::getCart(Database::getDB(), $cartList);
+		}
+		if (isset($_SESSION['userid'])){
+			$person=Person::loadById(Database::getDB(), $_SESSION['userid']);
 		}
 		include('checkout.php');
 		break;

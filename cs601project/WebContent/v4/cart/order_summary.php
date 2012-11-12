@@ -11,8 +11,8 @@ include('../include/body.php');
 <h2>your order number is <?php echo $order->getId(); ?></h2>
 <h3>please print this for your records</h3>
 
-	<label for="ordertype">order type:</label><?php echo $order->getOrderType(); ?>
-	<br><br>
+	<div class="addressform">
+	<label for="ordertype">order type:</label><?php echo $order->getOrderType(); ?><br>
 	<label>first name:</label><?php echo $order->getFirstname();?><br>
 	<label>middle initial:</label><?php echo $order->getMiddlename();?><br>
 	<label>last name:</label><?php echo $order->getLastname();?><br>
@@ -21,11 +21,11 @@ include('../include/body.php');
 	<label>city:</label><?php echo $order->getCity();?><br> 
 	<label>state:</label><?php echo $order->getSt();?><br> 
 	<label for="zip">zip:</label><?php echo $order->getZip();?><br> 
-	<label>telephone:</label><br><?php echo $order->getTelephone();?> <br> 
+	<label>telephone:</label><?php echo $order->getTelephone();?> <br> 
 	<label>credit card type:</label><?php echo $order->getCCType();?><br>
 	<label for="ccnumber1">credit card number:</label>XXXX-XXXX-XXXX-<?php echo $order->getCCNumber4();?><br>
 	<label for="ccexpmonth">expiration date (Month/Year):</label><?php echo $order->getCCExpMonth()."/".$order->getCCExpYear();?>
-	<br><br>
+	</div><br><br>
 	
 <table>
 <?php
