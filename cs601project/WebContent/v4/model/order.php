@@ -87,7 +87,7 @@ class Order {
 		return $this->cctype;
 	}
 	public function getOrderItems(){
-		return $this->menuitems;
+		return $this->orderitems;
 	}
 	public function getPaidFlag(){
 		return $this->paidflag;
@@ -168,17 +168,14 @@ class Order {
 		$this->ordertype=$ordertype;
 	}
 
-	/**
-	 * Initialize from $row.
-	 */
 	private function initOrder($row){
 		$this->id = $row['id'];
 		$this->customeraddressid = $row['customerAddress'];
 		$this->orderstatus = $row['orderStatus'];
 		$this->ordertype = $row['orderType'];
-		$this->paidflag = $row['paidflag'];
-
+		$this->paidflag = $row['paidFlag'];
 	}
+	
 	private function initAddress($row){
 		$this->firstname = $row['firstName'];
 		$this->middlename = $row['middleName'];
@@ -192,9 +189,9 @@ class Order {
 		$this->telephone = $row['telephone'];
 	}
 	private function initOrderItems($rows){
-		$this->orderItem = array();
+		$this->orderItems = array();
 		foreach ($rows as $row){
-			array_push($this->orderItem, $row['menuItem']);
+			array_push($this->orderItems, $row['menuItem']);
 		}
 	}
 	/**
@@ -272,6 +269,7 @@ class Order {
 		$order = new Order($db);
 		$row = $db->exec("select * from customerOrder where `id`='$id'");
 		$order->initOrder($row);
+		
 		$row = $db->exec("select * from customerOrderAddress where `id`='$order->getCustomerAddressId()'");
 		$order->initAddress($row);
 
@@ -279,7 +277,6 @@ class Order {
 		$statement->execute();
 		$row = $statement->fetchall();
 		$order->initOrderItems($row);
-
 		return $order;
 	}
 
@@ -294,9 +291,9 @@ class Order {
 		$columns  = substr($columns, 0, -2);
 		$values = substr($values, 0, -2);
 
-		$sql="insert into customerorderaddress ($columns) values ($values)";
+		$sql="insert into customerOrderAddress ($columns) values ($values)";
 		$this->db->exec($sql);
-		return mysql_insert_id();
+		return $this->db->lastInsertId();
 	}
 
 	private function insertCustomerOrder(){
@@ -310,9 +307,9 @@ class Order {
 		$columns  = substr($columns, 0, -2);
 		$values = substr($values, 0, -2);
 
-		$sql="insert into customerorder ($columns) values ($values)";
+		$sql="insert into customerOrder ($columns) values ($values)";
 		$this->db->exec($sql);
-		return mysql_insert_id();
+		return $this->db->lastInsertId();
 	}
 
 	private function insertOrderItems(){
