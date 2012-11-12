@@ -26,8 +26,7 @@ class Order {
 	private $ccnumber4;
 	private $ccexpmonth;
 	private $ccexpyear;
-
-	private $customerAddressId;
+	private $customeraddressid;
 
 	public function __construct($db){
 		$this->db = $db;
@@ -99,7 +98,7 @@ class Order {
 		return $this->ordertype;
 	}
 	public function getCustomerAddressId(){
-		return $this->customerAddressId;
+		return $this->customeraddressid;
 	}
 	public function setId($id){
 		$this->id = $id;
@@ -168,7 +167,7 @@ class Order {
 		$this->ordertype=$ordertype;
 	}
 
-	private function initOrder($row){
+	public function initOrder($row){
 		$this->id = $row['id'];
 		$this->customeraddressid = $row['customerAddress'];
 		$this->orderstatus = $row['orderStatus'];
@@ -176,7 +175,7 @@ class Order {
 		$this->paidflag = $row['paidFlag'];
 	}
 	
-	private function initAddress($row){
+	public function initAddress($row){
 		$this->firstname = $row['firstName'];
 		$this->middlename = $row['middleName'];
 		$this->lastname = $row['lastName'];
@@ -188,10 +187,10 @@ class Order {
 		$this->zip = $row['zip'];
 		$this->telephone = $row['telephone'];
 	}
-	private function initOrderItems($rows){
-		$this->orderItems = array();
+	public function initOrderItems($rows){
+		$this->orderitems = array();
 		foreach ($rows as $row){
-			array_push($this->orderItems, $row['menuItem']);
+			array_push($this->orderitems, $row['menuItem']);
 		}
 	}
 	/**
@@ -267,15 +266,20 @@ class Order {
 
 	public static function loadById($db, $id){
 		$order = new Order($db);
-		$row = $db->exec("select * from customerOrder where `id`='$id'");
+		
+		$statement= $db->prepare("select * from customerOrder where `id`='$id'");
+		$statement->execute();
+		$row = $statement->fetch();
 		$order->initOrder($row);
 		
-		$row = $db->exec("select * from customerOrderAddress where `id`='$order->getCustomerAddressId()'");
+		$statement= $db->prepare("select * from customerOrderAddress where `id`='$order->getCustomerAddressId()'");
+		$statement->execute();
+		$row = $statement->fetch();
 		$order->initAddress($row);
 
-		$statement= $db->prepare("select menuItem from customerOrderDetails where `ordernumber`='$id'");
+		$statement= $db->prepare("select menuItem from customerOrderDetail where `ordernumber`='$id'");
 		$statement->execute();
-		$row = $statement->fetchall();
+		$row = $statement->fetchAll();
 		$order->initOrderItems($row);
 		return $order;
 	}
