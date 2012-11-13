@@ -345,6 +345,17 @@ class Order {
 		$this->insertOrderItems();
 		return $this->id;
 	}
-
+	public static function getPendingOrders(){
+		$sql="SELECT O.id, S.orderStatus, T.orderType, O.paidFlag, D.customerRequest,
+A.firstName, A.middleName, A.lastName, A.addressLine1, A.addressLine2, A.city, A.st, A.zip, A.telephone,
+F.name, M.price
+FROM customerOrder O 
+LEFT JOIN orderStatus S ON O.orderStatus=S.id 
+LEFT JOIN orderType T ON O.orderType=T.id 
+LEFT JOIN customerOrderDetail D ON O.id=D.orderNumber
+LEFT JOIN customerOrderAddress A ON O.customerAddress=A.id
+LEFT JOIN menu M ON D.menuItem=M.id
+LEFT JOIN food F ON M.foodItem=F.id";
+	}
 }
 ?>

@@ -61,6 +61,10 @@ switch ($action) {
 		}
 		include('order_summary.php');
 		break;
+	case 'resetcart':
+		include('../controller/resetcart.php');
+		include('cart.php');
+		break;
 	default:
 		header("Location: ../index.php?action=$action");
 		break;
