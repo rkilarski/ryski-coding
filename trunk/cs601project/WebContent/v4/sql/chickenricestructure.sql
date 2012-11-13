@@ -9,10 +9,10 @@ CREATE DATABASE chickenrice;
 USE chickenrice;
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
-CREATE TABLE IF NOT EXISTS `events` (
+CREATE TABLE IF NOT EXISTS `event` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `dateStart` varchar(10) NOT NULL,
-  `dateEnd` varchar(10) NOT NULL,
+  `reservationDate` varchar(10) NOT NULL,
+  `person` int(10) NOT NULL,
   `name` varchar(25) NOT NULL,
   `description` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
@@ -52,6 +52,12 @@ CREATE TABLE IF NOT EXISTS `menutype` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
+CREATE TABLE IF NOT EXISTS `eventType` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(25) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
 CREATE TABLE IF NOT EXISTS `person` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `firstName` varchar(255) DEFAULT NULL,
@@ -80,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `emailAddress` (
   KEY `email` (`email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
-CREATE TABLE IF NOT EXISTS `reservations` (
+CREATE TABLE IF NOT EXISTS `reservation` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `person` int(10) NOT NULL,
   `tableSize` int(2) NOT NULL,
@@ -136,13 +142,16 @@ CREATE TABLE IF NOT EXISTS `customerOrderAddress` (
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+ALTER TABLE `event`
+  ADD CONSTRAINT `eventPersonFK` FOREIGN KEY (`person`) REFERENCES `person` (`id`);
+
 ALTER TABLE `menu`
   ADD CONSTRAINT `menuFoodItemFK` FOREIGN KEY (`foodItem`) REFERENCES `food` (`id`),
   ADD CONSTRAINT `menuMenuTypeFK` FOREIGN KEY (`menuType`) REFERENCES `menutype` (`id`);
 
-ALTER TABLE `reservations`
-  ADD CONSTRAINT `reservationsPersonFK` FOREIGN KEY (`person`) REFERENCES `person` (`id`),
-  ADD CONSTRAINT `reservationsDiningTableFK` FOREIGN KEY (`diningTable`) REFERENCES `diningTable` (`id`);
+ALTER TABLE `reservation`
+  ADD CONSTRAINT `reservationPersonFK` FOREIGN KEY (`person`) REFERENCES `person` (`id`),
+  ADD CONSTRAINT `reservationDiningTableFK` FOREIGN KEY (`diningTable`) REFERENCES `diningTable` (`id`);
 
 ALTER TABLE `customerOrder`
   ADD CONSTRAINT `orderStatusFK` FOREIGN KEY (`orderStatus`) REFERENCES `orderStatus` (`id`),

@@ -3,6 +3,9 @@ if(session_id() == '') {
 	session_set_cookie_params(31536000,'/');
 	session_start();
 }
+require_once('../controller/secureform.php');
+secureForm('events');
+
 include('../include/header.php');
 include('../include/body.php');
 ?>

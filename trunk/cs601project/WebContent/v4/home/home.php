@@ -44,12 +44,12 @@ include('../include/body.php');
             "grid" : 0
         },
         "options" : {
-            "color" : "random-light",
+            "color" : (Math.random()<.5)?"random-dark":"random-light",
             "printMultiplier" : 3
         },
         "font" : "sans-serif",
         "shape" : "square"
-    }
+    };
     $( "#wordcloud" ).awesomeCloud( settings );
 </script>
 

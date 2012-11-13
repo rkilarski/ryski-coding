@@ -41,6 +41,14 @@ INSERT INTO `menutype` (`id`, `name`) VALUES
 (6, 'side'),
 (7, 'dessert');
 
+INSERT INTO `eventType` (`id`, `name`) VALUES
+(1, 'birthday'),
+(2, 'wedding'),
+(3, 'bar/bat mitzvah'),
+(4, 'office party'),
+(5, 'reunion'),
+(6, 'other');
+
 INSERT INTO `orderstatus` (`id`, `orderStatus`) VALUES
 (1, 'new'),
 (2, 'in progress'),

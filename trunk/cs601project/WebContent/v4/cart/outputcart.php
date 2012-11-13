@@ -43,7 +43,7 @@
 		echo "<td class=\"totalprice\">\$$total</td><td>&nbsp;</td></tr>";
 
 	}else {
-		echo '<tr><td>&nbsp;</td><td>Your cart is empty</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
+		echo '<tr><td>&nbsp;</td><td>your cart is empty</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
 	}
 	?>
 </table>

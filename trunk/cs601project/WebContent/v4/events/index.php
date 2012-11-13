@@ -31,7 +31,6 @@ if (isset($_SESSION['isstaff'])){
 
 switch ($action) {
 	case 'events':
-		//$menu=Menu::getMenu(Database::getDB());
 		include('events.php');
 		break;
    default:
