@@ -9,6 +9,12 @@ CREATE DATABASE chickenrice;
 USE chickenrice;
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
+-- Create services user.
+GRANT SELECT, INSERT, UPDATE, DELETE
+ON *
+TO chickenrice@localhost
+IDENTIFIED BY 'password';
+
 CREATE TABLE IF NOT EXISTS `event` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `reservationDate` varchar(10) NOT NULL,
