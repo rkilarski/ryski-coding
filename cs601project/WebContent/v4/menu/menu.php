@@ -1,8 +1,8 @@
 <?php 
-//if(session_id() == '') {
-//session_set_cookie_params(31536000,'/');
-session_start();
-//}
+if(session_id() == '') {
+	session_set_cookie_params(31536000,'/');
+	session_start();
+}
 if (!isset($menu)){
 	header("Location: ../index.php?action=menu");
 }
