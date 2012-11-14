@@ -4,8 +4,9 @@ if(session_id() == '') {
 	session_start();
 }
 include('../include/homeheader.php');
-include('../include/body.php');
 ?>
+<script type="text/javascript" src="../javascript/jquery.bodyresize.js"></script>
+<?php include('../include/body.php');?>
 
 <div id="wordcloud">
     <span data-weight="<?php echo rand(1, 24);?>">chicken</span>
@@ -39,18 +40,7 @@ include('../include/body.php');
 	<span data-weight="<?php echo rand(1, 24);?>">udon noodle</span>
 </div>
 <script>
-    var settings = {
-        "size" : {
-            "grid" : 0
-        },
-        "options" : {
-            "color" : (Math.random()<.5)?"random-dark":"random-light",
-            "printMultiplier" : 3
-        },
-        "font" : "sans-serif",
-        "shape" : "square"
-    };
-    $( "#wordcloud" ).awesomeCloud( settings );
+	resizeWordCloud();
 </script>
 
 <form name="mailinglist" action="../controller/addemailaddress.php" method="post">
