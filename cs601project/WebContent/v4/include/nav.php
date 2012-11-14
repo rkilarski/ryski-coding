@@ -6,7 +6,9 @@
   if (isset($_SESSION['cart'])){
 	  $count = count($_SESSION['cart']);
 		if ($count > 0) {
-			echo "($count)";
+			echo "<span id=\"cartcount\">($count)</span>";
+		}else{
+			echo '<span id=\"cartcount\"></span>';
 		}
 	}
 	?>

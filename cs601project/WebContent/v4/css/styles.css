@@ -100,7 +100,8 @@ label {
 	margin-right: auto;
 }
 
-select,input,#innerframe,#outerframe,#logo, textarea { /*Border radius section*/
+select,input,#innerframe,#outerframe,#logo,textarea {
+	/*Border radius section*/
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-khtml-border-radius: 10px;
@@ -136,7 +137,7 @@ select,input,#innerframe,#outerframe,#logo, textarea { /*Border radius section*/
 
 #outerframe,#logo { /*Set opacity for image */
 	opacity: 0.80;
-	filter: alpha(opacity =           80);
+	filter: alpha(opacity =             80);
 	/* For IE8 and earlier */
 	border: 1px solid #000000;
 }
@@ -183,12 +184,13 @@ select,input,#innerframe,#outerframe,#logo, textarea { /*Border radius section*/
 }
 
 /*------------------------------Form Section------------------------------*/
-.addressform{
+.addressform {
 	margin: auto;
 	width: 400px;
 	padding: 10px;
 }
-.addressform label{
+
+.addressform label {
 	float: left;
 	width: 130px;
 	display: block;
@@ -196,13 +198,14 @@ select,input,#innerframe,#outerframe,#logo, textarea { /*Border radius section*/
 	text-align: right;
 }
 
-.addressform input, .addressform select,.addressform option, textarea{
+.addressform input,.addressform select,.addressform option,textarea {
 	background-color: #FFFFFF; /*white*/
 	color: #FF6600; /*orange*/
 }
-.addressform input[type="submit"], .addressform input[type="reset"]{
-	background-color: #FF6600; 
-	color: #FFFFFF; 
+
+.addressform input[type="submit"],.addressform input[type="reset"] {
+	background-color: #FF6600;
+	color: #FFFFFF;
 }
 
 #mailinglist input[type="email"] {
@@ -223,10 +226,12 @@ form[name="mailinglist"] {
 	margin-right: auto;
 	margin-left: auto;
 }
-form[name="cart"]{
+
+form[name="cart"] {
 	width: 100%;
 }
-form[name="cart"] input{
+
+form[name="cart"] input {
 	float: right;
 }
 /*------------------------------Menu Section------------------------------*/
@@ -238,53 +243,61 @@ form[name="cart"] input{
 }
 
 .menuitem {
+	
 }
 
 .menudesc {
 	
 }
-.menuimagerow{
+
+.menuimagerow {
 	display: none;
 }
-.menuimage{
+
+.menuimage {
 	width: 300px;
 	height: 200px;
 	margin: auto;
 }
-.menuprice, .totalprice {
+
+.menuprice,.totalprice {
 	text-align: right;
 	color: #FFFFFF;
 	width: 100px;
 }
 
-.menuremove{
+.menuremove {
 	text-align: right;
 }
-.menuquantity{
+
+.menuquantity {
 	width: 80px;
 	text-align: right;
 }
+
 .menuitem:hover,.menudesc:hover {
-	color: #FFFF00; 
+	color: #FFFF00;
 }
-.customerrequest{
+
+.customerrequest {
 	padding-left: 50px;
 	padding-right: 50px;
 }
-.totaldesc{
+
+.totaldesc {
 	text-align: right;
 	font-weight: bold;
 }
-.totalprice{
+
+.totalprice {
 	font-weight: bold;
 }
 
-tr:not(:first-child).menuheader>td{
+tr:not (:first-child ).menuheader>td {
 	padding-top: 25px;
 }
 
-tr.spaceabove>td
-{
+tr.spaceabove>td {
 	padding-top: 20px;
 }
 /*
@@ -310,7 +323,13 @@ td+td+td:hover{
 	border-bottom: 1px solid;
 }
 */
-
+iframe#googlemap {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	width: 525px;
+	height: 450px;
+}
 /*------------------------------Navigation Section------------------------------*/
 .navigation {
 	text-align: center;
@@ -328,12 +347,12 @@ ul.navigation li {
 	margin: 0px;
 }
 
-ul.navigation li:nth-of-type(even) a { 
-	color: #000000; 
+ul.navigation li:nth-of-type(even) a {
+	color: #000000;
 }
 
-ul.navigation>li:nth-of-type(odd) a { 
-	color: #FFFFFF; 
+ul.navigation>li:nth-of-type(odd) a {
+	color: #FFFFFF;
 }
 
 ul.navigation>li a:hover {
@@ -348,6 +367,10 @@ ul.navigation li.highlight {
 ul.navigation li.highlight a {
 	color: #FF6600;
 	cursor: default;
+}
+
+ul li>a>span {
+	color: inherit;
 }
 
 #login {
