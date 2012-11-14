@@ -1,7 +1,7 @@
 <?php
 class Database {
     private static $dsn = 'mysql:host=localhost;dbname=chickenrice';
-    private static $username = 'rkilarski';
+    private static $username = 'chickenrice';
     private static $password = 'password';
     private static $db;
 	private static $encryptionKey = 'chickenrice';

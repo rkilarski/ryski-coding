@@ -4,12 +4,31 @@ if(session_id() == '') {
 	session_start();
 }
 include('../include/header.php');
+?>
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8vY8Gf7DQ32NxxSqrclMlUZZ-nZTVInI&sensor=false">
+</script>
+<script type="text/javascript">
+      function initialize() {
+        var mapOptions = {
+          center: new google.maps.LatLng(42.351231,-71.117575),
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            mapOptions);
+      }
+</script>
+<script>
+	$(document).ready(function() {initialize;});
+</script>
+<?php
 include('../include/body.php');
-
 ?>
 <h1>contact us</h1>
 <h2>do you feel like chicken tonight?</h2>
-
+<div id="map_canvas"
+	style="width: 100%; height: 100%"></div>
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
 	ligula tortor, facilisis a rutrum a, ullamcorper quis urna. Praesent
 	faucibus imperdiet nibh a luctus. Phasellus ac sem nisl, in imperdiet

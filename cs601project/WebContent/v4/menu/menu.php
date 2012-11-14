@@ -1,17 +1,17 @@
 <?php 
-	if(session_id() == '') {
-		session_set_cookie_params(31536000,'/');
-		session_start();
-	}
-	if (!isset($menu)){
-		header("Location: ../index.php?action=menu");
-	}
-	include('../include/header.php');
-	include('../include/body.php');
+//if(session_id() == '') {
+//session_set_cookie_params(31536000,'/');
+session_start();
+//}
+if (!isset($menu)){
+	header("Location: ../index.php?action=menu");
+}
+include('../include/header.php');
+include('../include/body.php');
 ?>
 <h1>menu</h1>
 <table>
-<?php
+	<?php
 	$previousType='';
 	foreach($menu as $menuItem){
 		if($previousType!=$menuItem->getMenuType()){
@@ -21,7 +21,7 @@
 		$foodName=$menuItem->getFoodName();
 		$desc=$menuItem->getDescription();
 		$price=number_format($menuItem->getPrice(),2);
-		$menuId=$menuItem->getMenuId();		
+		$menuId=$menuItem->getMenuId();
 		$image=$menuItem->getImageName();
 		echo "<tr><td class=\"menuitem\"><a href=\"index.php?action=itemdetail&menuid=$menuId\">$foodName</a></td>";
 		echo "<td class=\"menudesc\">$desc</td>";
@@ -30,6 +30,6 @@
 		echo "  <input type=\"hidden\" name=\"action\" value=\"$action\">";
 		echo "  </form></td></tr>";
 	}
-?>
+	?>
 </table>
 <?php include('../include/footer.php'); ?>
