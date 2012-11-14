@@ -9,18 +9,12 @@ include('../include/header.php');
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8vY8Gf7DQ32NxxSqrclMlUZZ-nZTVInI&sensor=false">
 </script>
 <script type="text/javascript">
-      function initialize() {
         var mapOptions = {
           center: new google.maps.LatLng(42.351231,-71.117575),
           zoom: 8,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-        var map = new google.maps.Map(document.getElementById("map_canvas"),
-            mapOptions);
-      }
-</script>
-<script>
-	$(document).ready(function() {initialize;});
+        var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 </script>
 <?php
 include('../include/body.php');
@@ -28,7 +22,8 @@ include('../include/body.php');
 <h1>contact us</h1>
 <h2>do you feel like chicken tonight?</h2>
 <div id="map_canvas"
-	style="width: 100%; height: 100%"></div>
+	style="width: 600; height: 400"></div>
+	<iframe id="googlemap" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=928+commonwealth+avenue+boston+ma&amp;aq=&amp;sll=42.31435,-70.970284&amp;sspn=0.414829,0.668793&amp;t=v&amp;ie=UTF8&amp;hq=&amp;hnear=928+Commonwealth+Ave,+Brookline,+Massachusetts+02446&amp;z=14&amp;ll=42.351231,-71.117575&amp;output=embed"></iframe><br /><small><a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=928+commonwealth+avenue+boston+ma&amp;aq=&amp;sll=42.31435,-70.970284&amp;sspn=0.414829,0.668793&amp;t=v&amp;ie=UTF8&amp;hq=&amp;hnear=928+Commonwealth+Ave,+Brookline,+Massachusetts+02446&amp;z=14&amp;ll=42.351231,-71.117575" style="color:#0000FF;text-align:left">View Larger Map</a></small>
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
 	ligula tortor, facilisis a rutrum a, ullamcorper quis urna. Praesent
 	faucibus imperdiet nibh a luctus. Phasellus ac sem nisl, in imperdiet

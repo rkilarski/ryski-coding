@@ -13,7 +13,7 @@ if (isset($person)){
 	$addrl1 = $person->getAddressline1();
 	$addrl2 = $person->getAddressline2();
 	$city = $person->getCity();
-	$st = $person->getSt();
+	$state = $person->getSt();
 	$zip = $person->getZip();
 	$tel = $person->getTelephone();
 }else{
@@ -31,11 +31,9 @@ if (isset($person)){
 <h1>checkout</h1>
 <form name="checkout" class="addressform" method="post"
 	action="../controller/submitorder.php">
-	<label for="ordertype">order type:</label> <select name="ordertype"><option
-			value="1">take out</option>
-		<option value="2" selected>delivery</option>
-		<option value="3">dine in</option>
-	</select> <br> <br> <label for="firstname">first name:</label><input
+	<label for="ordertype">order type:</label>
+	<?php include('../include/ordertypeselect.php'); ?>
+		<br> <br> <label for="firstname">first name:</label><input
 		type="text" name="firstname" maxlength="255" required="required"
 		value="<?php echo $first;?>"> <br> <label for="middlename">middle
 		initial:</label><input type="text" name="middle" maxlength="255"
@@ -48,60 +46,11 @@ if (isset($person)){
 		line 2:</label><input type="text" name="addressline2" maxlength="255"
 		value="<?php echo $addrl2;?>"> <br> <label for="city">city:</label><input
 		type="text" name="city" maxlength="25" required="required"
-		value="<?php echo $city;?>"> <br> <label for="st">state:</label> <select
-		name="state" size="1">
-		<option value="AL">alabama</option>
-		<option value="AK">alaska</option>
-		<option value="AZ">arizona</option>
-		<option value="AR">arkansas</option>
-		<option value="CA">california</option>
-		<option value="CO">colorado</option>
-		<option value="CT">connecticut</option>
-		<option value="DE">delaware</option>
-		<option value="DC">district of columbia</option>
-		<option value="FL">florida</option>
-		<option value="GA">georgia</option>
-		<option value="HI">hawaii</option>
-		<option value="ID">idaho</option>
-		<option value="IL">illinois</option>
-		<option value="IN">indiana</option>
-		<option value="IA">iowa</option>
-		<option value="KS">kansas</option>
-		<option value="KY">kentucky</option>
-		<option value="LA">louisiana</option>
-		<option value="ME">maine</option>
-		<option value="MD">maryland</option>
-		<option value="MA" selected>massachusetts</option>
-		<option value="MI">michigan</option>
-		<option value="MN">minnesota</option>
-		<option value="MS">mississippi</option>
-		<option value="MO">missouri</option>
-		<option value="MT">montana</option>
-		<option value="NE">nebraska</option>
-		<option value="NV">nevada</option>
-		<option value="NH">new hampshire</option>
-		<option value="NJ">new jersey</option>
-		<option value="NM">new mexico</option>
-		<option value="NY">new york</option>
-		<option value="NC">north carolina</option>
-		<option value="ND">north dakota</option>
-		<option value="OH">ohio</option>
-		<option value="OK">oklahoma</option>
-		<option value="OR">oregon</option>
-		<option value="PA">oennsylvania</option>
-		<option value="RI">rhode island</option>
-		<option value="SC">south carolina</option>
-		<option value="SD">south dakota</option>
-		<option value="TN">tennessee</option>
-		<option value="TX">texas</option>
-		<option value="UT">utah</option>
-		<option value="VT">vermont</option>
-		<option value="VA">virginia</option>
-		<option value="WA">washington</option>
-		<option value="WV">west virginia</option>
-		<option value="WI">wisconsin</option>
-		<option value="WY">wyoming</option>
-	</select> <br> <label for="zip">zip:</label><input type="text"
+		value="<?php echo $city;?>"> <br> <label for="st">state:</label> 
+		
+		<?php include('../include/stateselect.php');?>
+		
+		<br> <label for="zip">zip:</label><input type="text"
 		name="zip" maxlength="10" size="10" required="required"
 		value="<?php echo $zip;?>"> <br> <label for="telephone">telephone:</label><input
 		type="tel" name="telephone" maxlength="15" required="required"

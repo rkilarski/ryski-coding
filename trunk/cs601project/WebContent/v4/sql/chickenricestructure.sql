@@ -148,6 +148,13 @@ CREATE TABLE IF NOT EXISTS `customerOrderAddress` (
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+CREATE TABLE IF NOT EXISTS `states` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `st` varchar(2) NOT NULL,
+  `stateName` varchar(25) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
 ALTER TABLE `event`
   ADD CONSTRAINT `eventPersonFK` FOREIGN KEY (`person`) REFERENCES `person` (`id`);
 
