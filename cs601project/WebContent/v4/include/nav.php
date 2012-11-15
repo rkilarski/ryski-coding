@@ -38,11 +38,9 @@
 	}
 	if ($isStaff) { 
 		echo '<ul class="navigation">';
-		echo ' <li><a href="../index.php?action=staff_takeout">takeout</a></li>';
+		echo ' <li><a href="../index.php?action=staff_orders">orders</a></li>';
 		echo ' <li><a href="../index.php?action=staff_reservations">reservations</a></li>';
-		echo ' <li><a href="../index.php?action=staff_reservationsearch">searchreservations</a></li>';
-		echo ' <li><a href="../index.php?action=staff_ordersearch">searchorders</a></li>';
-		echo ' <li><a href="../index.php?action=staff_blacklist">blacklist</a></li>';
+		echo ' <li><a href="../index.php?action=staff_customers">customers</a></li>';
 		echo '</ul>';
 	} 
 ?>

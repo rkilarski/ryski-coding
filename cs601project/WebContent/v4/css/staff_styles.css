@@ -9,7 +9,11 @@ Staff stylesheet, which presents a darker-toned set of colors to differentiate i
 }
 
 /*------------------------------Element Section------------------------------*/
-input[type="button"] {
+input,select,option,textarea {
+	color: #CC6600;
+}
+
+input[type="submit"],input[type="reset"] {
 	background-color: #CC6600;
 }
 /*------------------------------Class Section------------------------------*/

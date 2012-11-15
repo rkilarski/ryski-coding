@@ -11,11 +11,11 @@ if (isset($_POST['action'])) {
 } else if (isset($_GET['action'])) {
 	$action = $_GET['action'];
 } else {
-	$action = 'staff_reservationsearch';
+	$action = 'staff_orders';
 }
 
 if ($action==''){
-	$action='staff_reservationsearch';
+	$action='staff_orders';
 }
 
 if (isset($_SESSION['isloggedin'])){
@@ -31,8 +31,8 @@ if (isset($_SESSION['isstaff'])){
 }
 
 switch ($action) {
-	case 'staff_reservationsearch':
-		include('staff_reservationsearch.php');
+	case 'staff_orders':
+		include('staff_orders.php');
 		break;
    default:
 		header("Location: ../index.php?action=$action");
