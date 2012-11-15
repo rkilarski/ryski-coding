@@ -298,12 +298,16 @@ class Person {
 
 	public function update(){
 		$list = array("id"=>$this->id, "firstName"=>$this->firstname, "middleName"=>$this->middlename, "lastName"=>$this->lastname, "email"=>$this->email, "password"=>$this->password, "addressLine1"=>$this->addressline1, "addressLine2"=>$this->addressline2, "city"=>$this->city, "st"=>$this->st, "zip"=>$this->zip, "telephone"=>$this->telephone, "isStaff"=>$this->isstaff, "blacklistFlag"=>$this->blacklistflag, "blacklistReason"=>$this->blacklistreason, "sendEmail"=>$this->sendemail);
-		$sql = "update person set ";
+		$sql = 'update person set ';
+		$id=$this->id;
+		$encryptionKey = Database::getEncryptionKey();
 		foreach ($list as $key => $value){
-			if(is_string($value))
-			$sql .= "$key='$value', ";
-			else
-			$sql .= "$key=$value, ";
+			if (($key=='email')||($key=='password')){
+				$value = "aes_encrypt('$value','$encryptionKey'), ";
+			}else {
+				$value = "'$value', ";
+			}
+			$sql .= "$key=$value";		
 		}
 		$sql = substr($sql, 0, -2)." where `id`='$id'";
 		return $this->db->exec($sql);
@@ -318,6 +322,100 @@ class Person {
 	public static function deleteById($db, $id){
 		$sql = "delete from person where `id`='$id'";
 		return $db->exec($sql);
+	}
+	
+	public function getByQuery(){
+		$encryptKey = Database::getEncryptionKey();
+		$sql = 'SELECT id, firstName, middleName, lastName, aes_decrypt(email,\''.$encryptKey.'\') as email, password, addressLine1, addressLine2, city, st, zip, telephone, isStaff, blacklistFlag, blacklistReason, sendEmail FROM person';
+	
+		$email = $this->email;
+		$firstName = $this->firstname;
+		$middleName = $this->middlename;
+		$lastName = $this->lastname;
+		$addressLine1 = $this->addressline1;
+		$addressLine2 = $this->addressline2;
+		$city = $this->city;
+		$state = $this->st;
+		$zip = $this->zip;
+		$telephone = $this->telephone;
+		$isStaff = $this->isstaff;
+		$blacklistFlag = $this->blacklistflag;
+		
+		$where = '';
+		if ($email!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (email = aes_encrypt('$email','.$encryptKey.'))";
+		}
+		if ($firstName!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (firstName LIKE '$firstName%')";
+		}
+		if ($middleName!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (middleName = '$middleName')";
+		}
+		if ($lastName!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (lastName LIKE '$lastName%')";
+		}		
+		if ($addressLine1!='') {
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (addressLine1 LIKE '$addressLine1%')";
+		}
+		if ($addressLine2!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (addressLine2 LIKE '$addressLine2')";
+		}
+		if ($telephone!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (telephone LIKE '$telephone%')";
+		}
+		if ($zip!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (zip LIKE '$zip%')";
+		}
+		if ($blacklistFlag!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (blacklistFlag = '$blacklistFlag')";
+		}
+		if ($isStaff!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (isStaff = '$isStaff')";
+		}
+		if ($where !=''){
+			$sql .= ' WHERE '.$where;
+		}
+
+		$statement= $this->db->prepare($sql);
+		$statement->execute();
+		$rows = $statement->fetchAll();
+		$persons=array();
+		foreach($rows as $row){
+			$d = new Person($this->db);
+			$d->init($row);
+			array_push($persons,$d);
+		}
+		return $persons;
 	}
 }
 ?>

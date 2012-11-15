@@ -100,7 +100,7 @@ label {
 	margin-right: auto;
 }
 
-select,input,#innerframe,#outerframe,#logo,textarea {
+select,input,#innerframe,#outerframe,#logo,textarea,fieldset {
 	/*Border radius section*/
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -115,7 +115,7 @@ select,input,#innerframe,#outerframe,#logo,textarea {
 	text-align: center;
 	background-color: #FFFFFF;
 	color: #FF6600;
-	padding: 10px 10px 10px 10px;
+	padding: 10px;
 	margin-top: 20px;
 }
 
@@ -131,8 +131,8 @@ select,input,#innerframe,#outerframe,#logo,textarea {
 
 #content {
 	float: clear;
-	margin: 5px 5px 5px 5px;
-	padding: 10px 10px 10px 10px;
+	margin: 5px;
+	padding: 10px;
 }
 
 #outerframe,#logo { /*Set opacity for image */
@@ -177,13 +177,17 @@ select,input,#innerframe,#outerframe,#logo,textarea {
 
 /* Word Cloud */
 #wordcloud {
-	border: 0px;
+	border: 0;
 	height: 600px;
 	width: 100%;
 	margin: auto;
 }
 
 /*------------------------------Form Section------------------------------*/
+fieldset.searchcriteria{
+	width: 40%;
+	margin: auto;
+}
 .addressform {
 	margin: auto;
 	width: 400px;
@@ -198,19 +202,14 @@ select,input,#innerframe,#outerframe,#logo,textarea {
 	text-align: right;
 }
 
-.addressform input,.addressform select,.addressform option,textarea {
+input,select,option,textarea {
 	background-color: #FFFFFF; /*white*/
 	color: #FF6600; /*orange*/
 }
 
-.addressform input[type="submit"],.addressform input[type="reset"] {
+input[type="submit"],input[type="reset"] {
 	background-color: #FF6600;
 	color: #FFFFFF;
-}
-
-#mailinglist input[type="email"] {
-	background-color: #FFFFFF;
-	color: #FF6600; /*orange*/
 }
 
 form[name="mailinglist"] {
@@ -233,6 +232,18 @@ form[name="cart"] {
 
 form[name="cart"] input {
 	float: right;
+}
+
+.right{
+	float: right;
+}
+.customergrid{
+	padding: 10px;
+	vertical-align: top;	
+}
+
+.blacklist{
+	color: #FF0000;
 }
 /*------------------------------Menu Section------------------------------*/
 .menuheader {
@@ -334,7 +345,7 @@ iframe#googlemap {
 .navigation {
 	text-align: center;
 	font-size: 20px;
-	margin: 0px;
+	margin: 0;
 }
 
 ul.navigation {
@@ -344,7 +355,7 @@ ul.navigation {
 ul.navigation li {
 	display: inline-block;
 	background: #FF6600;
-	margin: 0px;
+	margin: 0;
 }
 
 ul.navigation li:nth-of-type(even) a {
@@ -425,8 +436,8 @@ CSS Twitter icon
 
 #favorites {
 	position: absolute;
-	top: 0px;
-	right: 0px;
+	top: 0;
+	right: 0;
 }
 
 #favorites ul {

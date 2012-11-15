@@ -9,5 +9,5 @@ secureStaffForm('staff_takeout');
 include('../include/staff_header.php');
 include('../include/body.php'); ?>
 
-<h1>takeout</h1>
+<h1>orders</h1>
 <?php include('../include/footer.php'); ?>
