@@ -2,12 +2,13 @@
 require_once('../model/database.php');
 require_once('../model/states.php');
 
-if (!isset($state)){
+if (!isset($state)||($state='')){
 	$state="ma";
 }
 $states = State::loadAll(Database::getDB());
 ?>
 <select name="state" size="1">
+<option value="">state</option>
 <?php 
 foreach ($states as $stateItem) {
 	$selected='';

@@ -34,7 +34,9 @@ switch ($action) {
 	case 'staff_customers':
 		$person = new Person(Database::getDB());
 		$person->initGET();  //Initialize person query seed by the GET values.
-		$persons = $person->getByQuery();  //Run the query and get the list of people.
+		if ((isset($_GET['search']))&&($_GET['search']=='search')){
+			$persons = $person->getByQuery();  //Run the query and get the list of people.
+		}
 		include('staff_customers.php');
 		break;
    default:

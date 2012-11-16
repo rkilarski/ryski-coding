@@ -124,7 +124,7 @@ class Menu{
 		FROM `menu` m JOIN `menutype` t ON m.menuType=t.id
 		JOIN `food` f ON m.foodItem=f.id
 			
-		WHERE m.specialDay ='' AND m.id=$id";
+		WHERE m.id=$id";
 			
 		$statement= $db->prepare($sql);
 		$statement->execute();

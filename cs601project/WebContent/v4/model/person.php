@@ -378,17 +378,29 @@ class Person {
 			}
 			$where .= " (addressLine2 LIKE '$addressLine2')";
 		}
-		if ($telephone!=''){
+		if ($city!=''){
 			if ($where !=''){
 				$where .= ' AND ';
 			}
-			$where .= " (telephone LIKE '$telephone%')";
+			$where .= " (city LIKE '$city%')";
+		}
+		if ($state!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (st LIKE '$state%')";
 		}
 		if ($zip!=''){
 			if ($where !=''){
 				$where .= ' AND ';
 			}
 			$where .= " (zip LIKE '$zip%')";
+		}
+		if ($telephone!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (telephone LIKE '$telephone%')";
 		}
 		if ($blacklistFlag!=''){
 			if ($where !=''){
@@ -402,10 +414,14 @@ class Person {
 			}
 			$where .= " (isStaff = '$isStaff')";
 		}
+		
 		if ($where !=''){
 			$sql .= ' WHERE '.$where;
 		}
 
+		$orderby = ' ORDER BY lastName, firstName';
+		
+		$sql .= $orderby;
 		$statement= $this->db->prepare($sql);
 		$statement->execute();
 		$rows = $statement->fetchAll();

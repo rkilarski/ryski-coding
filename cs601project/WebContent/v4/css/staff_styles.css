@@ -13,7 +13,7 @@ input,select,option,textarea {
 	color: #CC6600;
 }
 
-input[type="submit"],input[type="reset"] {
+input[type="submit"],input[type="reset"],input[type="button"] {
 	background-color: #CC6600;
 }
 /*------------------------------Class Section------------------------------*/
@@ -48,5 +48,17 @@ ul.navigation a:hover {
 }
 
 ul.navigation li.highlight a {
-	color: #CC6600;  
+	color: #CC6600;
 }
+
+fieldset.searchcriteria{
+	width: 40%;
+	margin: auto;
+}
+
+.customergrid{
+	padding: 10px;
+	vertical-align: top;
+	float: left;
+}
+

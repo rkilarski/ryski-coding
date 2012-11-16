@@ -5,6 +5,10 @@ if(session_id() == '') {
 }
 
 include('../include/header.php');
+?>
+<script type="text/javascript" src="../javascript/jquery.telephone.js"></script>
+<script type="text/javascript" src="../javascript/jquery.checkout.js"></script>
+<?php
 include('../include/body.php');
 if (isset($person)){
 	$first = $person->getFirstname();
@@ -29,7 +33,7 @@ if (isset($person)){
 }
 ?>
 <h1>checkout</h1>
-<form name="checkout" class="addressform" method="post"
+<form name="checkout" id="checkout" class="addressform" method="post"
 	action="../controller/submitorder.php">
 	<label for="ordertype">order type:</label>
 	<?php include('../include/ordertypeselect.php'); ?>
@@ -53,7 +57,7 @@ if (isset($person)){
 		<br> <label for="zip">zip:</label><input type="text"
 		name="zip" maxlength="10" size="10" required="required"
 		value="<?php echo $zip;?>"> <br> <label for="telephone">telephone:</label><input
-		type="tel" name="telephone" maxlength="15" required="required"
+		type="tel" class="telephone" id="telephone" name="telephone" maxlength="15" required="required"
 		value="<?php echo $tel;?>"> <br> <br> <label for="cctype">credit card
 		type:</label><select name="cctype" size="1" required="required"><option
 			value="Visa">visa</option>
@@ -93,7 +97,7 @@ if (isset($person)){
 		<option value="2023">2023</option>
 	</select> <br> <br>
 	<div class="center">
-		<input type="submit" value="finalize your order">
+		<input type="submit" value="submit your order">
 	</div>
 	<br>
 
