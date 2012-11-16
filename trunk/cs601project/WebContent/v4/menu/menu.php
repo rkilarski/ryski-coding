@@ -24,7 +24,7 @@ include('../include/body.php');
 		$menuId=$menuItem->getMenuId();
 		$image=$menuItem->getImageName();
 		echo "<tr><td class=\"menuitem\"><a href=\"index.php?action=itemdetail&menuid=$menuId\">$foodName</a></td>";
-		echo "<td class=\"menudesc\">$desc</td>";
+		echo "<td class=\"menudesc\"><a href=\"index.php?action=itemdetail&menuid=$menuId\">$desc</a></td>";
 		echo "<td><form name=\"addtocart\" method=\"POST\" action=\"../controller/addtocart.php\"><input type=\"submit\" value=\"\$$price - Add to Cart\">";
 		echo "  <input type=\"hidden\" name=\"menuId\" value=\"$menuId\">";
 		echo "  <input type=\"hidden\" name=\"action\" value=\"$action\">";

@@ -1,0 +1,4 @@
+<script type="text/javascript" src="../javascript/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="../javascript/jquery.maskedinput-1.3.js"></script>
+<script type="text/javascript" src="../javascript/jquery.highlightnav.js"></script>
+<script type="text/javascript" src="../javascript/validation.js"></script>

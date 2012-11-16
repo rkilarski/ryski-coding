@@ -4,8 +4,10 @@ if(session_id() == '') {
 	session_start();
 }
 include('../include/header.php');
-include('../include/body.php');
 ?>
+<script type="text/javascript" src="../javascript/jquery.telephone.js"></script>
+<script type="text/javascript" src="../javascript/jquery.login.js"></script>
+<?php include('../include/body.php');?>
 <h1>please login to access the full features of our site</h1>
 <form name="login" class="addressform" action="../controller/authenticate.php" method="post">
 	<h2>existing users</h2>
@@ -17,7 +19,7 @@ include('../include/body.php');
 		</div>
 </form>
 <br/>
-<form name="loginnew" class="addressform" method="post" action="../controller/addperson.php">
+<form name="login" id="loginform" class="addressform" method="post" action="../controller/addperson.php">
 	<h2>new users</h2>
 	<label for="email">email:</label><input type="email" name="email" maxlength="255" size="30" placeholder="username" required="required"> <br>
 	<label for="password">password:</label><input type="password"
@@ -33,7 +35,7 @@ include('../include/body.php');
 
 		<br> <label for="zip">zip:</label><input type="text"
 		name="zip" maxlength="10" size="10" required="required"> <br> <label for="telephone">telephone:</label><input
-		type="tel" name="telephone" maxlength="15" required="required"> <br> <label for="isstaff">are you staff?:</label><input
+		type="tel" name="telephone" id="telephone" class="telephone" maxlength="15" required="required"> <br> <label for="isstaff">are you staff?:</label><input
 		type="checkbox" name="isstaff"> <br> <label for="sendemail">send email?:</label><input
 		type="checkbox" name="sendemail"> <br> 
 		<div class="center"><input type="submit" value="add"> <input type="reset" value="reset"></div>

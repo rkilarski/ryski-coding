@@ -183,11 +183,11 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset {
 	margin: auto;
 }
 
-/*------------------------------Form Section------------------------------*/
-fieldset.searchcriteria{
-	width: 40%;
-	margin: auto;
+.clear{
+	clear: both;
 }
+
+/*------------------------------Form Section------------------------------*/
 .addressform {
 	margin: auto;
 	width: 400px;
@@ -207,7 +207,7 @@ input,select,option,textarea {
 	color: #FF6600; /*orange*/
 }
 
-input[type="submit"],input[type="reset"] {
+input[type="submit"],input[type="reset"],input[type="button"] {
 	background-color: #FF6600;
 	color: #FFFFFF;
 }
@@ -236,10 +236,6 @@ form[name="cart"] input {
 
 .right{
 	float: right;
-}
-.customergrid{
-	padding: 10px;
-	vertical-align: top;	
 }
 
 .blacklist{
@@ -286,15 +282,13 @@ form[name="cart"] input {
 	text-align: right;
 }
 
-.menuitem:hover,.menudesc:hover {
-	color: #FFFF00;
-}
-
 .customerrequest {
 	padding-left: 50px;
 	padding-right: 50px;
 }
-
+div.customerrequest+div.customerrequest{
+	border-left: 1px black;
+}
 .totaldesc {
 	text-align: right;
 	font-weight: bold;

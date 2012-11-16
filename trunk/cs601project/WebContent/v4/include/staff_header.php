@@ -12,9 +12,8 @@ if(session_id() == '') {
 <title>chickenrice</title>
 <link type="text/css" rel="stylesheet" href="../css/styles.css">
 <link type="text/css" rel="stylesheet" href="../css/staff_styles.css">
-<script type="text/javascript" src="../javascript/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="../javascript/jquery.highlightnav.js"></script>
 <?php 
+	include('../include/commonjs.php'); 
 	include('../include/bgstyle.php'); 
 	require_once('../model/person.php');
 ?>

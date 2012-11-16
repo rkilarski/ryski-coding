@@ -15,6 +15,5 @@ if(session_id() == '') {
 <?php 
 include('../include/bgstyle.php') ;
 require_once('../model/person.php');
+include('../include/commonjs.php'); 
 ?>
-<script type="text/javascript" src="../javascript/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="../javascript/jquery.highlightnav.js"></script>
