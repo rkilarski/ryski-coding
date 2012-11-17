@@ -12,3 +12,4 @@ require_once('../model/person.php');
 include('../include/commonjs.php'); 
 ?>
 <script type="text/javascript" src="../javascript/jquery.awesomeCloud-0.2.js"></script>
+<script type="text/javascript" src="../javascript/jquery.airport-1.1.source.js"></script>
