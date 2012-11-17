@@ -124,11 +124,15 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset {
 	color: #FF6600;
 }
 
-#tagline,#de {
+#tagline {
 	font-size: 15px;
 	color: #FF6600;
 }
 
+#tagline>span {
+	font-size: 15px;
+	color: #FF6600;
+}
 #content {
 	float: clear;
 	margin: 5px;
