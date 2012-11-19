@@ -11,6 +11,7 @@ include('../include/header.php');
 <?php
 include('../include/body.php');
 if (isset($person)){
+	$email = $person->getEmail();
 	$first = $person->getFirstname();
 	$middle = $person->getMiddlename();
 	$last = $person->getLastname();
@@ -37,7 +38,9 @@ if (isset($person)){
 	action="../controller/submitorder.php">
 	<label for="ordertype">order type:</label>
 	<?php include('../include/ordertypeselect.php'); ?>
-		<br> <br> <label for="firstname">first name:</label><input
+		<br> <br> <label for="email">email:</label><input
+		type="email" name="email" maxlength="255" required="required"
+		value="<?php echo $email;?>"> <br> <label for="firstname">first name:</label><input
 		type="text" name="firstname" maxlength="255" required="required"
 		value="<?php echo $first;?>"> <br> <label for="middlename">middle
 		initial:</label><input type="text" name="middle" maxlength="255"

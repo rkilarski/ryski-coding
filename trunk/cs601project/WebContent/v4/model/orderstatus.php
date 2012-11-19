@@ -21,7 +21,7 @@ class OrderStatus {
 	*/
 	public function init($row){
 		$this->id=$row['id'];
-		$this->orderType=$row['orderStatus'];
+		$this->orderStatus=$row['orderStatus'];
 	}
 
 	public static function loadAll($db){

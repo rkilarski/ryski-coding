@@ -4,10 +4,98 @@ if(session_id() == '') {
 	session_start();
 }
 require_once('../controller/secureform.php');
+require_once('../model/menu.php');
 secureStaffForm('staff_takeout');
 
 include('../include/staff_header.php');
-include('../include/body.php'); ?>
+?>
+<script type="text/javascript" src="../javascript/jquery.staff_orders.js"></script>
+<script type="text/javascript" src="../javascript/jquery.telephone.js"></script>
+<?php include('../include/body.php'); ?>
 
 <h1>orders</h1>
+	<fieldset class="searchcriteria">
+		<legend>
+			search criteria
+		</legend>
+			<form name="ordersearch" id="ordersearch" method="GET" action="index.php">
+				<input type="hidden" name="search" value="search">
+				<label for="datetimeOrder">date ordered:</label><input type="date" class="clearform" name="datetimeOrder" placeholder="date ordered" value="<?php echo $order->getDateTimeOrdered();?>"><br>
+				<label for="orderstatus">order status:</label><?php $orderStatus=$order->getOrderStatus(); $allstatusesflag=true; include('../include/orderstatusselect.php');?>
+				<label for="ordertype">order type:</label><?php $orderType=$order->getOrderType(); $alltypesflag=true; include('../include/ordertypeselect.php');?>
+				<br><br>
+				<input type="email" class="clearform" name="email" size="50" placeholder="email address" value="<?php echo $order->getEmail();?>">
+				<br>
+				<input type="text" class="clearform" name="firstname" placeholder="first name" value="<?php echo $order->getFirstname();?>">
+				<input type="text" class="clearform" name="middlename" size="1" placeholder="m" value="<?php echo $order->getMiddlename();?>">
+				<input type="text" class="clearform" name="lastname" placeholder="last name" value="<?php echo $order->getLastname();?>">
+				<br>
+				<input type="text" class="clearform" name="addressline1" placeholder="address line 1" value="<?php echo $order->getAddressline1();?>">
+				<input type="text" class="clearform" name="addressline2" placeholder="address line 2" value="<?php echo $order->getAddressline2();?>"><br>
+				<input type="text" class="clearform" name="city" placeholder="city" value="<?php echo $order->getCity();?>"> <?php $state=$order->getSt(); include('../include/stateselect.php');?>
+				<input type="text" class="clearform" name="zip" size="5" placeholder="zip" value="<?php echo $order->getZip();?>">
+				<br><br>
+				<input type="text" id="telephonesearch" class="telephone" name="telephone" placeholder="telephone" value="<?php echo $order->getTelephone();?>">
+				<br><br>
+				<input type="submit" class="right" value="search">
+				<input type="button" id="reset" class="right" value="reset">
+			</form>
+	</fieldset>
+	<br>
+	<?php
+	if (isset($orders)){	
+		foreach($orders as $orderItem){
+			$cart=Menu::getCart(Database::getDB(), $orderItem->getOrderItems());
+
+			$orderid = $orderItem->getId();
+			$firstName = $orderItem->getFirstname();
+			$middleName = $orderItem->getMiddlename();
+			$lastName = $orderItem->getLastname();
+			$email = $orderItem->getEmail();
+			$telephone = $orderItem->getTelephone();
+			$addrl1 = $orderItem->getAddressline1();
+			$addrl2 = $orderItem->getAddressline2();
+			$city = $orderItem->getCity();
+			$state = $orderItem->getSt();
+			$zip = $orderItem->getZip();
+			$orderStatus = $orderItem->getOrderStatus();
+			$orderType = $orderItem->getOrderType();
+			echo '<div class="ordergrid">';
+?>
+	<fieldset>
+		<legend>
+			order id: <?php echo $orderid; ?>
+		</legend>
+			<div class="customerinfo">
+			<?php echo $firstName.' '.$middleName.' '.$lastName;?>
+			<?php if ($email!='') {echo '<br>'.$email;}?>
+			<br>
+			<?php echo $addrl1;?>
+			<?php if ($addrl2!='') {echo '<br>'.$addrl2;}?>
+			<br>
+			<?php echo $city.' '.$state.'  '.$zip;?>
+			<br>
+			<span class="telephone"><?php echo $telephone;?></span>
+			<br>
+			<?php echo $orderType; ?>
+			<form name="orderstatusupdate<?php echo $orderid; ?>" method="POST" action="../controller/updateorderstatus.php">
+			<input type="hidden" name="id" value="<?php echo $orderid; ?>">
+			<br><?php include('../include/orderstatusselect.php'); ?><input type="submit" value="update">
+			</form>
+			<br>
+			</div>
+			<?php $readonlycart=true; include('../cart/outputcart.php'); ?>
+		</fieldset>
+<?php
+			echo '</div>';
+		}
+	}else{
+		if ((isset($_GET['search']))&&($_GET['search']=='search')){
+			echo '<h2>no results found</h2>';
+		}else{
+			echo '<h2>please enter your search criteria</h2>';
+		}
+	}
+	?>
+	<div class="clear"></div>
 <?php include('../include/footer.php'); ?>

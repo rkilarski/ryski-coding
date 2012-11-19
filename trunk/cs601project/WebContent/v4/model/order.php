@@ -28,6 +28,7 @@ class Order {
 	private $ccexpyear;
 	private $customeraddressid;
 	private $customerRequest;
+	private $datetimeOrdered;
 
 	public function __construct($db){
 		$this->db = $db;
@@ -104,6 +105,9 @@ class Order {
 	public function getCustomerAddressId(){
 		return $this->customeraddressid;
 	}
+	public function getDateTimeOrdered(){
+		return $this->datetimeOrdered;
+	}
 	public function setId($id){
 		$this->id = $id;
 	}
@@ -179,6 +183,7 @@ class Order {
 		$this->orderstatus = $row['orderStatus'];
 		$this->ordertype = $row['orderType'];
 		$this->paidflag = $row['paidFlag'];
+		$this->datetimeOrdered = $row['datetimeOrdered'];
 	}
 
 	public function initAddress($row){
@@ -266,23 +271,91 @@ class Order {
 		if (isset($_POST['ccexpyear'])){
 			$this->ccexpyear = $_POST['ccexpyear'];
 		}
+		if (isset($_POST['orderstatus'])){
+			$this->orderstatus = $_POST['orderstatus'];
+		}else{
+			$this->orderstatus = 1;  //New order status
+		}
 
 		if (isset($cart)){
 			$this->orderitems= $cart;
 		}
-		$this->orderstatus = 1;  //New order status
 	}
 
+		/**
+	 * Initialize from $_GET
+	 */
+	public function initGET(){
+		if (isset($_GET['id'])){
+			$this->id = $_GET['id'];
+		}
+		if (isset($_GET['firstname'])){
+			$this->firstname = $_GET['firstname'];
+		}
+		if (isset($_GET['middlename'])){
+			$this->middlename = $_GET['middlename'];
+		}
+		if (isset($_GET['lastname'])){
+			$this->lastname = $_GET['lastname'];
+		}
+		if (isset($_GET['email'])){
+			$this->email = $_GET['email'];
+		}
+		if (isset($_GET['addressline1'])){
+			$this->addressline1 = $_GET['addressline1'];
+		}
+		if (isset($_GET['addressline2'])){
+			$this->addressline2 = $_GET['addressline2'];
+		}
+		if (isset($_GET['city'])){
+			$this->city = $_GET['city'];
+		}
+		if (isset($_GET['st'])){
+			$this->st = $_GET['st'];
+		}
+		if (isset($_GET['zip'])){
+			$this->zip = $_GET['zip'];
+		}
+		if (isset($_GET['telephone'])){
+			$this->telephone = $_GET['telephone'];
+		}
+		if (isset($_GET['ordertype'])){
+			$this->ordertype = $_GET['ordertype'];
+		}
+		if (isset($_GET['orderstatus'])){
+			$this->orderstatus = $_GET['orderstatus'];
+		}
+		if (isset($_GET['paidflag'])){
+			$this->paidflag = $_GET['paidflag'];
+		}
+		if (isset($_GET['datetimeOrdered'])){
+			$this->datetimeOrdered = $_GET['datetimeOrdered'];
+		}else {
+			$this->datetimeOrdered =  date('Y-m-d');
+
+		}
+	}
 	public static function loadById($db, $id){
 		$order = new Order($db);
 
-		$statement= $db->prepare("select O.id, O.customerAddress, T.orderType, S.orderStatus, O.paidFlag from customerOrder O left join orderType T ON (O.orderType=T.id) left join orderStatus S ON (O.orderStatus=S.id)where O.id='$id'");
+		$statement= $db->prepare("select O.id, O.customerAddress, T.orderType, S.orderStatus, O.paidFlag,O.datetimeOrdered from customerOrder O left join orderType T ON (O.orderType=T.id) left join orderStatus S ON (O.orderStatus=S.id)where O.id='$id'");
 		$statement->execute();
 		$row = $statement->fetch();
 		$order->initOrder($row);
 
+		$list = $order->getCustomerOrderAddressFields();
+		$encryptionKey = Database::getEncryptionKey();
+		$columns = '';
+		foreach ($list as $key=>$value){
+			if (($key=='email')||($key=='password')){
+				$columns .= "aes_decrypt($key,'$encryptionKey') as $key, ";
+			}else{
+				$columns .= "$key, ";
+			}
+		}
+		$columns  = substr($columns, 0, -2);
 		$address=$order->getCustomerAddressId();
-		$statement= $db->prepare("select * from customerOrderAddress where `id`='$address'");
+		$statement= $db->prepare("select $columns from customerOrderAddress where `id`='$address'");
 		$statement->execute();
 		$row = $statement->fetch();
 		$order->initAddress($row);
@@ -293,18 +366,25 @@ class Order {
 		$order->initOrderItems($row);
 		return $order;
 	}
-
+	public function getCustomerOrderAddressFields(){
+		return array("id"=>$this->id, "firstName"=>$this->firstname, "middleName"=>$this->middlename, "lastName"=>$this->lastname, "email"=>$this->email, "addressLine1"=>$this->addressline1, "addressLine2"=>$this->addressline2, "city"=>$this->city, "st"=>$this->st, "zip"=>$this->zip, "telephone"=>$this->telephone);
+	}
 	private function insertCustomerOrderAddress(){
-		$list = array("firstName"=>$this->firstname, "middleName"=>$this->middlename, "lastName"=>$this->lastname, "email"=>$this->email, "addressLine1"=>$this->addressline1, "addressLine2"=>$this->addressline2, "city"=>$this->city, "st"=>$this->st, "zip"=>$this->zip, "telephone"=>$this->telephone);
+		$list = $this->getCustomerOrderAddressFields();
 		$columns = '';
 		$values = '';
+		$encryptionKey = Database::getEncryptionKey();
+
 		foreach ($list as $key => $value){
 			$columns .= "$key, ";
-			$values .= "'$value', ";
+			if (($key=='email')||($key=='password')){
+				$values .= "aes_encrypt('$value','$encryptionKey'), ";
+			}else {
+				$values .= "'$value', ";
+			}
 		}
 		$columns  = substr($columns, 0, -2);
 		$values = substr($values, 0, -2);
-
 		$sql="insert into customerOrderAddress ($columns) values ($values)";
 		$this->db->exec($sql);
 		return $this->db->lastInsertId();
@@ -337,6 +417,7 @@ class Order {
 	}
 
 	public function submitOrder(){
+		$this->datetimeOrdered = date('Y-m-d H:i:s');
 		//First insert the customer address and get its id.
 		$this->customerAddressId = $this->insertCustomerOrderAddress();
 		//Then create the order.
@@ -345,17 +426,63 @@ class Order {
 		$this->insertOrderItems();
 		return $this->id;
 	}
-	public static function getPendingOrders(){
-		$sql="SELECT O.id, S.orderStatus, T.orderType, O.paidFlag, D.customerRequest,
-A.firstName, A.middleName, A.lastName, A.addressLine1, A.addressLine2, A.city, A.st, A.zip, A.telephone,
-F.name, M.price
-FROM customerOrder O 
-LEFT JOIN orderStatus S ON O.orderStatus=S.id 
-LEFT JOIN orderType T ON O.orderType=T.id 
-LEFT JOIN customerOrderDetail D ON O.id=D.orderNumber
-LEFT JOIN customerOrderAddress A ON O.customerAddress=A.id
-LEFT JOIN menu M ON D.menuItem=M.id
-LEFT JOIN food F ON M.foodItem=F.id";
+	public function getByQuery(){
+		$sql="SELECT O.id as id FROM customerOrder O";
+		$encryptKey = Database::getEncryptionKey();
+		
+		$orderstatus = $this->orderstatus;
+		$ordertype = $this->ordertype;
+		$datetimeOrdered = $this->datetimeOrdered	;
+		
+		$where = '';
+		if (($orderstatus!='')&&($orderstatus!='all')){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " orderStatus = '$orderstatus'";
+		}
+		if (($ordertype!='')&&($ordertype!='all')){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " orderType = '$ordertype'";
+		}
+		if ($datetimeOrdered!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$date = substr($datetimeOrdered, 0, 10);
+			$where .= " dateTimeOrdered BETWEEN '$date 00:00:00' AND '$date 23:59:59'";
+		}
+		
+		if ($where !=''){
+			$sql .= ' WHERE '.$where;
+		}
+
+		//$orderby = ' ORDER BY lastName, firstName';
+		//$sql .= $orderby;
+		$statement= $this->db->prepare($sql);
+		$statement->execute();
+		$rows = $statement->fetchAll();
+		$orders=array();
+		foreach($rows as $row){
+			$d = Order::loadbyid($this->db, $row['id']);
+			array_push($orders,$d);
+		}
+		return $orders;
 	}
+	public function updateOrderStatus(){
+		$list = array("orderStatus"=>$this->orderstatus);
+		$sql = 'update customerorder set ';
+		$id=$this->id;
+		$encryptionKey = Database::getEncryptionKey();
+		foreach ($list as $key => $value){
+			$value = "'$value', ";
+			$sql .= "$key=$value";		
+		}
+		$sql = substr($sql, 0, -2)." where `id`='$id'";
+		return $this->db->exec($sql);
+	}
+
 }
 ?>

@@ -262,7 +262,18 @@ class Person {
 
 	public static function loadById($db, $id){
 		$person = new Person($db);
-		$statement= $db->prepare("select * from person where `id`='$id'");
+		$list = $person->getPersonFields();
+		$columns = '';
+		$encryptionKey = Database::getEncryptionKey();
+		foreach ($list as $key=>$value){
+			if (($key=='email')||($key=='password')){
+				$columns .= "aes_decrypt($key,'$encryptionKey') as $key,";
+			}else {
+				$columns .= "$key, ";
+			}
+		}
+		$columns  = substr($columns, 0, -2);
+		$statement= $db->prepare("select $columns from person where `id`='$id'");
 		$statement->execute();
 		$row = $statement->fetch();
 		$person->init($row);
@@ -271,20 +282,33 @@ class Person {
 
 	public static function loadByValue($db, $value, $valueId){
 		$person = new Person($db);
-		$rows = $db->exec("select * from person where `$value`='$valueId'");
+		$list = $this->getPersonFields();
+		$columns = '';
+		$encryptionKey = Database::getEncryptionKey();
+		foreach ($list as $key=>$value){
+			if (($key=='email')||($key=='password')){
+				$columns .= "aes_decrypt($key,'$encryptionKey') as $key,";
+			}else {
+				$columns .= "$key, ";
+			}
+		}
+		$columns  = substr($columns, 0, -2);
+		$rows = $db->exec("select $columns from person where `$value`='$valueId'");
 		$person->init($rows);
 		return $person;
 	}
-
+	public function getPersonFields(){
+		return array("id"=>$this->id, "firstName"=>$this->firstname, "middleName"=>$this->middlename, "lastName"=>$this->lastname, "email"=>$this->email, "password"=>$this->password, "addressLine1"=>$this->addressline1, "addressLine2"=>$this->addressline2, "city"=>$this->city, "st"=>$this->st, "zip"=>$this->zip, "telephone"=>$this->telephone, "isStaff"=>$this->isstaff, "blacklistFlag"=>$this->blacklistflag, "blacklistReason"=>$this->blacklistreason, "sendEmail"=>$this->sendemail);
+	}
 	public function insert(){
-		$list = array("firstName"=>$this->firstname, "middleName"=>$this->middlename, "lastName"=>$this->lastname, "email"=>$this->email, "password"=>$this->password, "addressLine1"=>$this->addressline1, "addressLine2"=>$this->addressline2, "city"=>$this->city, "st"=>$this->st, "zip"=>$this->zip, "telephone"=>$this->telephone, "isStaff"=>$this->isstaff, "blacklistFlag"=>$this->blacklistflag, "blacklistReason"=>$this->blacklistreason, "sendEmail"=>$this->sendemail);
+		$list = $this->getPersonFields();
 		$columns = '';
 		$values = '';
 		$encryptionKey = Database::getEncryptionKey();
 		foreach ($list as $key => $value){
 			$columns .= "$key, ";
 			if (($key=='email')||($key=='password')){
-				$values .= "aes_encrypt('$value','$encryptionKey'),";
+				$values .= "aes_encrypt('$value','$encryptionKey'), ";
 			}else {
 				$values .= "'$value', ";
 			}

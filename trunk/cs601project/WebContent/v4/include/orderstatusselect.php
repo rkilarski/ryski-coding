@@ -9,11 +9,15 @@ $list = OrderStatus::loadAll(Database::getDB());
 ?>
 <select name="orderstatus" size="1">
 <?php 
+if (isset($allstatusesflag)&&$allstatusesflag){
+	echo "<option value=\"all\">all</option>";
+}
+
 foreach ($list as $item) {
 	$selected='';
 	$val=$item->getId();
-	$name=$item->getOrderType();
-	if ($val==$orderStatus){
+	$name=$item->getOrderStatus();
+	if (($val==$orderStatus)||($name==$orderStatus)){
 		$selected='selected';
 	}
 	echo "<option value=\"$val\" $selected>$name</option>";
