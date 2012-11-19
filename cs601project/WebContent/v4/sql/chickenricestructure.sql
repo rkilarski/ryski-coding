@@ -121,7 +121,9 @@ CREATE TABLE IF NOT EXISTS `customerOrder`(
   `orderStatus` int(10) NOT NULL,
   `orderType` int(10) NOT NULL,
   `paidFlag` varchar(1) DEFAULT 'N',
-   PRIMARY KEY (`id`)
+   `datetimeOrdered` datetime NOT NULL,
+   PRIMARY KEY (`id`),
+   KEY `datetimeOrdered` (`datetimeOrdered`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `customerOrderDetail`(

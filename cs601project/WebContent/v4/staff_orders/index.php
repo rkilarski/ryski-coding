@@ -4,7 +4,7 @@ if(session_id() == '') {
 	session_start();
 }
 require_once('../model/database.php');
-require_once('../model/menu.php');
+require_once('../model/order.php');
 
 if (isset($_POST['action'])) {
 	$action = $_POST['action'];
@@ -32,6 +32,11 @@ if (isset($_SESSION['isstaff'])){
 
 switch ($action) {
 	case 'staff_orders':
+		$order = new Order(Database::getDB());
+		$order->initGET();  //Initialize person query seed by the GET values.
+		if ((isset($_GET['search']))&&($_GET['search']=='search')){
+			$orders = $order->getByQuery();  //Run the query and get the list of orders.
+		}
 		include('staff_orders.php');
 		break;
    default:

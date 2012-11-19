@@ -1,6 +1,7 @@
 <table>
 	<?php
 	if (isset($cart) && count($cart)>0){
+		echo '<div class=\"cart\">';
 		echo "<tr><td class=\"menuitem\">name</td>";
 		echo "<td class=\"menudesc\">description</td>";
 		echo "<td class=\"menuprice\">price</td>";
@@ -41,6 +42,7 @@
 		echo "<td class=\"totaldesc\">Total:</td>";
 		$total=$subtotal+$tax;
 		echo "<td class=\"totalprice\">\$$total</td><td>&nbsp;</td></tr>";
+		echo '</div>';
 
 	}else {
 		echo '<tr><td>&nbsp;</td><td>your cart is empty</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
