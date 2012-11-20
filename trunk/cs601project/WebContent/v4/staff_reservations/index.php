@@ -4,7 +4,7 @@ if(session_id() == '') {
 	session_start();
 }
 require_once('../model/database.php');
-require_once('../model/menu.php');
+require_once('../model/reservation.php');
 
 if (isset($_POST['action'])) {
 	$action = $_POST['action'];
@@ -32,6 +32,13 @@ if (isset($_SESSION['isstaff'])){
 
 switch ($action) {
 	case 'staff_reservations':
+		$reservation = new Reservation(Database::getDB());
+		$reservation->initGET();  //Initialize reservation seed by the GET values.
+		if ((isset($_GET['search']))&&($_GET['search']=='search')){
+			$reservations= $reservation->getByQuery();  //Run the query and get the list of orders.
+		}else{
+			$reservation->setDateTime(date('m-d-Y'));  //Default today's date.
+		}
 		include('staff_reservations.php');
 		break;
    default:

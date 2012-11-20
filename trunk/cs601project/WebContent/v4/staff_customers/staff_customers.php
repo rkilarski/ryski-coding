@@ -61,7 +61,7 @@ include('../include/staff_header.php');
 			customer id: <?php echo $customerid; ?>
 		</legend>
 			<form name="custchange<?php echo $customerid; ?>" method="POST" action="../controller/updateperson.php">
-			
+			<input type="hidden" name="getvariables" value="<?php echo $_SERVER['QUERY_STRING']; ?>">
 			<input type="hidden" name="id" value="<?php echo $customerid; ?>">
 			<input type="text" name="firstname" placeholder="first name" value="<?php echo $firstName;?>">
 			<input type="text" name="middlename" size="1" placeholder="m" value="<?php echo $middleName;?>">

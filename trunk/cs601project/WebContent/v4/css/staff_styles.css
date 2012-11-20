@@ -3,12 +3,6 @@ Staff stylesheet, which presents a darker-toned set of colors to differentiate i
 */
 @import url("styles.css");
 
-/*------------------------------Universal Section------------------------------*/
-* {
-	color: #FFFFFF;
-}
-
-/*------------------------------Element Section------------------------------*/
 input,select,option,textarea {
 	color: #CC6600;
 }
@@ -54,7 +48,7 @@ fieldset.searchcriteria {
 	margin: auto;
 }
 
-.customergrid {
+.reservationgrid,.customergrid {
 	padding: 10px;
 	vertical-align: top;
 	float: left;

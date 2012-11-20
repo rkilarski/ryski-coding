@@ -96,11 +96,16 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `person` int(10) NOT NULL,
   `tableSize` int(2) NOT NULL,
-  `diningTable` int(2) NOT NULL,
-  `reservationDate` varchar(10) NOT NULL,
-  `reservationTime` varchar(10) NOT NULL,
+  `dateTime` datetime NOT NULL,
+  `reservationStatus` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `person` (`person`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `reservationStatus` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `reservationStatus` varchar(25) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `orderStatus` (
@@ -166,7 +171,7 @@ ALTER TABLE `menu`
 
 ALTER TABLE `reservation`
   ADD CONSTRAINT `reservationPersonFK` FOREIGN KEY (`person`) REFERENCES `person` (`id`),
-  ADD CONSTRAINT `reservationDiningTableFK` FOREIGN KEY (`diningTable`) REFERENCES `diningTable` (`id`);
+  ADD CONSTRAINT `reservationStatusFK` FOREIGN KEY (`reservationStatus`) REFERENCES `reservationStatus` (`id`);
 
 ALTER TABLE `customerOrder`
   ADD CONSTRAINT `orderStatusFK` FOREIGN KEY (`orderStatus`) REFERENCES `orderStatus` (`id`),

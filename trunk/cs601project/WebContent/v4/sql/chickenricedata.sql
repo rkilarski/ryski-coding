@@ -56,6 +56,11 @@ INSERT INTO `orderstatus` (`id`, `orderStatus`) VALUES
 (4, 'out for delivery'),
 (5, 'closed');
 
+INSERT INTO `reservationstatus` (`id`, `reservationStatus`) VALUES
+(1, 'new'),
+(2, 'cancelled'),
+(3, 'seated');
+
 INSERT INTO `ordertype` (`id`, `orderType`) VALUES
 (1, 'takeout'),
 (2, 'delivery'),

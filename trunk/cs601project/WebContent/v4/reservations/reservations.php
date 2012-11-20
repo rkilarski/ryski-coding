@@ -7,9 +7,28 @@ require_once('../controller/secureform.php');
 secureForm('reservations');
 
 include('../include/header.php');
-include('../include/body.php');
+?>
+<link rel="stylesheet" href="../javascript/css/chickenrice/jquery-ui-1.9.1.custom.css" />
+<script src="../javascript/jquery-ui-1.9.1.custom.js"></script>
+<script src="../javascript/jquery.reservation.js"></script>
+<?php include('../include/body.php');
 ?>
 <h1>reservations</h1>
-
+<fieldset id="addreservation">
+<legend>
+add a reservation
+</legend>
+<h2>please make a reservation</h2>
+<form id="addreservation" method="POST" action="../controller/addreservation.php">
+<input type="hidden" name="person" value="<?php echo $user; ?>">
+<input type="hidden" name="reservationStatus" value="1">
+<label for="date">for date:</label><input type="text" class="clearform" name="date" id="datepicker" value="<?php echo date('m-d-Y'); ?>"><br>
+<label for="time">for time:</label><?php include('../include/timeselect.php');?><br>
+<label for="tableSize">for how many guests?</label><input type="number" name="tableSize" min="1" max="10" value="2">
+<br><br>
+<input type="submit" class="right" value="make reservation">
+<input type="button" class="right" id="reset" value="reset">
+</form>
+</fieldset>
 
 <?php include('../include/footer.php'); ?>

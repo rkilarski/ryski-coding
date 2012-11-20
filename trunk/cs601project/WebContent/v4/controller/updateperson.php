@@ -10,5 +10,9 @@ if(session_id() == '') {
 	$person->initPOST();
 	$person->update();
 	
-	header("Location: ../index.php?action=staff_custlist");
+	$action='action=staff_custlist';
+	if (isset($_POST['getvariables'])){
+		$action.='&'.$_POST['getvariables'];
+	}
+	header("Location: ../staff_customers/index.php?$action");
 ?>

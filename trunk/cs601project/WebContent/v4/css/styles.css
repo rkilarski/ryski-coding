@@ -12,7 +12,6 @@ Adjacent sibling Selector ['p + div']
 /*------------------------------General Section------------------------------*/
 * {
 	font-family: Arial, sans-serif;
-	color: #FFFFFF; /*white*/
 }
 
 a {
@@ -56,14 +55,19 @@ h2 {
 	font-size: 15px;
 }
 
+p {
+	color: #FFFFFF;
+}
+
 h1,h2,h3 {
 	clear: both;
 	text-align: center;
+	color: #FFFFFF;
 }
 
 input {
-	background-color: #FF6600; /*orange*/
-	color: #FFFFFF; /*white*/
+	background-color: #FF6600;
+	color: #FFFFFF;
 	padding-left: 5px;
 }
 
@@ -85,6 +89,11 @@ footer {
 
 label {
 	padding-right: 10px;
+	color: #FFFFFF;
+}
+
+fieldset,fieldset>legend {
+	color: #FFFFFF;
 }
 
 #greeting {
@@ -133,6 +142,7 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset {
 	font-size: 15px;
 	color: #FF6600;
 }
+
 #content {
 	float: clear;
 	margin: 5px;
@@ -141,7 +151,7 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset {
 
 #outerframe,#logo { /*Set opacity for image */
 	opacity: 0.80;
-	filter: alpha(opacity =             80);
+	filter: alpha(opacity = 80);
 	/* For IE8 and earlier */
 	border: 1px solid #000000;
 }
@@ -187,7 +197,7 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset {
 	margin: auto;
 }
 
-.clear{
+.clear {
 	clear: both;
 }
 
@@ -238,12 +248,17 @@ form[name="cart"] input {
 	float: right;
 }
 
-.right{
+.right {
 	float: right;
 }
 
-.blacklist{
+.blacklist {
 	color: #FF0000;
+}
+
+fieldset#addreservation {
+	width: 50%;
+	margin: auto;
 }
 /*------------------------------Menu Section------------------------------*/
 .menuheader {
@@ -251,14 +266,20 @@ form[name="cart"] input {
 	font-size: 20px;
 	margin-bottom: 20px;
 	margin-top: 20px;
+	color: #FFFFFF;
 }
 
 .menuitem {
-	width: 150px;	
+	width: 150px;
+	color: #FFFFFF;
+}
+
+.menuitem a,.menudesc a {
+	color: #FFFFFF;
 }
 
 .menudesc {
-
+	color: #FFFFFF;
 }
 
 .menuimagerow {
@@ -277,8 +298,9 @@ form[name="cart"] input {
 	width: 100px;
 }
 
-.menuremove {
+.menuremove a {
 	text-align: right;
+	color: #FFFFFF;
 }
 
 .menuquantity {
@@ -290,48 +312,30 @@ form[name="cart"] input {
 	padding-left: 50px;
 	padding-right: 50px;
 }
-div.customerrequest+div.customerrequest{
+
+div.customerrequest+div.customerrequest {
 	border-left: 1px black;
 }
+
 .totaldesc {
 	text-align: right;
 	font-weight: bold;
+	color: #FFFFFF;
 }
 
 .totalprice {
 	font-weight: bold;
+	color: #FFFFFF;
 }
 
-tr:not (:first-child ).menuheader>td {
+tr:not  (:first-child  ).menuheader>td {
 	padding-top: 25px;
 }
 
 tr.spaceabove>td {
 	padding-top: 20px;
 }
-/*
-tr:hover{
-	border-top: 1px solid;
-	border-bottom: 1px solid;
-}
-*/
-/*
-td:hover{
-	border-top: 1px solid;
-	border-bottom: 1px solid;
-}
 
-
-td+td:hover{
-	border-top: 1px solid;
-	border-bottom: 1px solid;
-}
-
-td+td+td:hover{
-	border-top: 1px solid;
-	border-bottom: 1px solid;
-}
-*/
 iframe#googlemap {
 	margin-left: auto;
 	margin-right: auto;
@@ -388,7 +392,7 @@ ul li>a>span {
 }
 
 /*
-CSS Facebook icon from:
+CSS Facebook and Twitter icons from:
 http://www.1stwebdesigner.com/css/css-icons-logos/
 */
 .facebook a {
