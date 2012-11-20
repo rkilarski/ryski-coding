@@ -29,6 +29,7 @@ class Order {
 	private $customeraddressid;
 	private $customerRequest;
 	private $datetimeOrdered;
+	private $sortorder;
 
 	public function __construct($db){
 		$this->db = $db;
@@ -107,6 +108,9 @@ class Order {
 	}
 	public function getDateTimeOrdered(){
 		return $this->datetimeOrdered;
+	}
+	public function getSortOrder(){
+		return $this->sortorder;
 	}
 	public function setId($id){
 		$this->id = $id;
@@ -276,6 +280,9 @@ class Order {
 		}else{
 			$this->orderstatus = 1;  //New order status
 		}
+		if (isset($_POST['sortorder'])){
+			$this->sortorder = $_POST['sortorder'];
+		}
 
 		if (isset($cart)){
 			$this->orderitems= $cart;
@@ -332,8 +339,11 @@ class Order {
 			$this->datetimeOrdered = $_GET['datetimeOrdered'];
 		}else {
 			$this->datetimeOrdered =  date('Y-m-d');
-
 		}
+		if (isset($_GET['sortorder'])){
+			$this->sortorder = $_GET['sortorder'];
+		}
+
 	}
 	public static function loadById($db, $id){
 		$order = new Order($db);
@@ -459,8 +469,9 @@ class Order {
 			$sql .= ' WHERE '.$where;
 		}
 
-		//$orderby = ' ORDER BY lastName, firstName';
-		//$sql .= $orderby;
+		$sortorder=$this->sortorder;
+		$orderby = " ORDER BY O.id $sortorder";
+		$sql .= $orderby;
 		$statement= $this->db->prepare($sql);
 		$statement->execute();
 		$rows = $statement->fetchAll();

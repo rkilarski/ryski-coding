@@ -20,7 +20,7 @@ include('../include/staff_header.php');
 		</legend>
 			<form name="ordersearch" id="ordersearch" method="GET" action="index.php">
 				<input type="hidden" name="search" value="search">
-				<label for="datetimeOrder">date ordered:</label><input type="date" class="clearform" name="datetimeOrder" placeholder="date ordered" value="<?php echo $order->getDateTimeOrdered();?>"><br>
+				<label for="datetimeOrder">date ordered:</label><input type="date" class="clearform" name="datetimeOrdered" placeholder="date ordered" value="<?php echo $order->getDateTimeOrdered();?>"><br>
 				<label for="orderstatus">order status:</label><?php $orderStatus=$order->getOrderStatus(); $allstatusesflag=true; include('../include/orderstatusselect.php');?>
 				<label for="ordertype">order type:</label><?php $orderType=$order->getOrderType(); $alltypesflag=true; include('../include/ordertypeselect.php');?>
 				<br><br>
@@ -35,7 +35,12 @@ include('../include/staff_header.php');
 				<input type="text" class="clearform" name="city" placeholder="city" value="<?php echo $order->getCity();?>"> <?php $state=$order->getSt(); include('../include/stateselect.php');?>
 				<input type="text" class="clearform" name="zip" size="5" placeholder="zip" value="<?php echo $order->getZip();?>">
 				<br><br>
-				<input type="text" id="telephonesearch" class="telephone" name="telephone" placeholder="telephone" value="<?php echo $order->getTelephone();?>">
+				<input type="text" id="telephonesearch" class="telephone" name="telephone" placeholder="telephone" value="<?php echo $order->getTelephone();?>"><br>
+				<label for="sortorder">display in order:</label>
+				<select name="sortorder" size="1">
+				<option value="ASC" <?php echo ($order->getSortOrder()=='ASC')?'selected':'';?>>ascending</option>
+				<option value="DESC" <?php echo ($order->getSortOrder()=='DESC')?'selected':'';?>>descending</option>
+				</select>
 				<br><br>
 				<input type="submit" class="right" value="search">
 				<input type="button" id="reset" class="right" value="reset">
