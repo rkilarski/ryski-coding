@@ -5,8 +5,9 @@ if(session_id() == '') {
 }
 
 include('../include/header.php');
-include('../include/body.php');
 ?>
+<script type="text/javascript" src="../javascript/jquery.telephone.js"></script>
+<?php include('../include/body.php');?>
 <h1>order summary</h1>
 <h2>
 	your order number is
@@ -34,7 +35,7 @@ include('../include/body.php');
 	<br> <label for="zip">zip:</label>
 	<?php echo $order->getZip();?>
 	<br> <label>telephone:</label>
-	<?php echo $order->getTelephone();?>
+	<span class="telephone"><?php echo $order->getTelephone();?></span>
 	<br> <label>credit card type:</label>
 	<?php echo $order->getCCType();?>
 	<br> <label for="ccnumber1">credit card number:</label>XXXX-XXXX-XXXX-

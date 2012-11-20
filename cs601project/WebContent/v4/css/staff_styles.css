@@ -62,10 +62,12 @@ fieldset.searchcriteria {
 
 .customerinfo {
 	float: left;
-	display: inline:
+	display: inline;
+	width: 20%;
 }
 
 .cart {
 	float: right;
-	display: inline:
+	display: inline;
+	width: 80%;
 }

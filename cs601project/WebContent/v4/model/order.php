@@ -401,7 +401,7 @@ class Order {
 	}
 
 	private function insertCustomerOrder(){
-		$list = array("customerAddress"=>$this->customerAddressId, "orderStatus"=>$this->orderstatus, "orderType"=>$this->ordertype, "paidFlag"=>$this->paidflag);
+		$list = array("customerAddress"=>$this->customerAddressId, "orderStatus"=>$this->orderstatus, "orderType"=>$this->ordertype, "paidFlag"=>$this->paidflag, "datetimeOrdered"=>$this->datetimeOrdered);
 		$columns = '';
 		$values = '';
 		foreach ($list as $key => $value){
