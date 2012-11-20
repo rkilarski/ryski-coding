@@ -1,7 +1,7 @@
 <table>
 	<?php
 	if (isset($cart) && count($cart)>0){
-		echo '<div class=\"cart\">';
+		echo '<div class="cart">';
 		echo "<tr><td class=\"menuitem\">name</td>";
 		echo "<td class=\"menudesc\">description</td>";
 		echo "<td class=\"menuprice\">price</td>";

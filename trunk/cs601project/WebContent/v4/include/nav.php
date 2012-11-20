@@ -8,7 +8,7 @@
 		if ($count > 0) {
 			echo "<span id=\"cartcount\">($count)</span>";
 		}else{
-			echo '<span id=\"cartcount\"></span>';
+			echo '<span id="cartcount"></span>';
 		}
 	}
 	?>
