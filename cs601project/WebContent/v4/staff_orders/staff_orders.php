@@ -20,6 +20,8 @@ include('../include/staff_header.php');
 		</legend>
 			<form name="ordersearch" id="ordersearch" method="GET" action="index.php">
 				<input type="hidden" name="search" value="search">
+				<input type="hidden" name="getvariables" value="<?php echo $_SERVER['QUERY_STRING']; ?>">
+
 				<label for="datetimeOrder">date ordered:</label><input type="date" class="clearform" name="datetimeOrdered" placeholder="date ordered" value="<?php echo $order->getDateTimeOrdered();?>"><br>
 				<label for="orderstatus">order status:</label><?php $orderStatus=$order->getOrderStatus(); $allstatusesflag=true; include('../include/orderstatusselect.php');?>
 				<label for="ordertype">order type:</label><?php $orderType=$order->getOrderType(); $alltypesflag=true; include('../include/ordertypeselect.php');?>

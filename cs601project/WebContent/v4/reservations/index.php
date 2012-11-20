@@ -31,7 +31,7 @@ if (isset($_SESSION['isstaff'])){
 
 switch ($action) {
 	case 'reservations':
-		//$menu=Menu::getMenu(Database::getDB());
+		$user = $_SESSION['userid']; 
 		include('reservations.php');
 		break;
    default:

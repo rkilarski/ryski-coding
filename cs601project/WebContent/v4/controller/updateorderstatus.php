@@ -9,6 +9,9 @@ if(session_id() == '') {
 	$order = new Order(Database::getDB());
 	$order->initPOST(null);
 	$order->updateOrderStatus();
-	
-	header("Location: ../index.php?action=staff_orders");
+		$action='action=staff_orders';
+	if (isset($_POST['getvariables'])){
+		$action.='&'.$_POST['getvariables'];
+	}
+	header("Location: ../staff_orders/index.php?$action");
 ?>

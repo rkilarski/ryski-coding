@@ -22,7 +22,7 @@
 			if ($readonlycart){
 				echo "<td>&nbsp;</td>";
 			}else {
-				echo "<td><a href=\"../controller/removefromcart.php?menuId=$itemId\" alt=\"Remove Item\">X</a></td>";
+				echo "<td class=\"menuremove\"><a href=\"../controller/removefromcart.php?menuId=$itemId\" alt=\"Remove Item\">X</a></td>";
 			}
 			echo "</tr>";
 			echo "<tr><td class=\"customerrequest\" colspan=\"4\">$customerRequest</td></tr>";
