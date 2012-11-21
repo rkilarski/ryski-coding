@@ -9,7 +9,7 @@ if (!isset($_SESSION['cart'])){
 }
 
 $cart = $_SESSION['cart'];
-$menuId = $_GET['menuId'];  //Item to delete.
+$menuId = $_POST['menuId'];  //Item to delete.
 
 foreach ($cart as $key=>$item){
 	if ($item['menuId']==$menuId){
