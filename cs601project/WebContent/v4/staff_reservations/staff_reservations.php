@@ -79,7 +79,50 @@ include('../include/staff_header.php');
 <?php
 			echo '</div>';
 		}
-	}else{
+	}
+	echo '<br><br>';
+	if (isset($events)){	
+		foreach($events as $event){
+			$eventid = $event->getId();
+			$reservationStatus = $event->getReservationStatus();
+			$hours = $event->getHours();
+			$datetime = $event->getDateTime();
+
+			$person=Person::loadById(Database::getDB(), $event->getPerson());
+			$firstName = $person->getFirstname();
+			$middleName = $person->getMiddlename();
+			$lastName = $person->getLastname();
+			$email = $person->getEmail();
+			$telephone = $person->getTelephone();
+			echo '<div class="reservationgrid">';
+?>
+	<fieldset>
+		<legend>
+			event id: <?php echo $eventid; ?>
+			for: <span class="datetime"><?php echo $datetime; ?></span>
+		</legend>
+			<div>
+				<?php echo $firstName.' '.$middleName.' '.$lastName;?>
+				<?php if ($email!='') {echo '<br>'.$email;}?>
+				<br>
+				<span class="telephone"><?php echo $telephone;?></span>
+				<br><br>
+				hours: <?php echo $hours;?>
+				<br>
+				<form name="resstatusupdate<?php echo $eventid; ?>" method="POST" action="../controller/updateeventstatus.php">
+				<input type="hidden" name="id" value="<?php echo $eventid; ?>">
+				<input type="hidden" name="getvariables" value="<?php echo $_SERVER['QUERY_STRING']; ?>">
+				<br><?php include('../include/reservationstatusselect.php'); ?>
+				<input type="submit" value="update">
+				</form>
+				<br>
+			</div>
+		</fieldset>
+<?php
+			echo '</div>';
+		}
+	}
+	if (!isset($events)&&!isset($reservations)){
 		if ((isset($_GET['search']))&&($_GET['search']=='search')){
 			echo '<h2>no results found</h2>';
 		}else{

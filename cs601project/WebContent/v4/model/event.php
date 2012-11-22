@@ -5,7 +5,7 @@ class Event {
 
 	private $db;
 	private $id  = 0;
-	private $datetime;
+	private $dateTime;
 	private $person;
 	private $description;
 	private $eventType;
@@ -19,7 +19,7 @@ class Event {
 		return $this->id;
 	}
 	public function getDatetime(){
-		return $this->datetime;
+		return $this->dateTime;
 	}
 	public function getPerson(){
 		return $this->person;
@@ -39,8 +39,8 @@ class Event {
 	public function setId($id){
 		$this->id = $id;
 	}
-	public function setDatetime($datetime){
-		$this->datetime = $datetime;
+	public function setDatetime($dateTime){
+		$this->dateTime = $dateTime;
 	}
 	public function setPerson($person){
 		$this->person = $person;
@@ -111,13 +111,13 @@ class Event {
 			$this->person = $_GET['person'];
 		}
 		if (isset($_GET['dateTime'])){
-			$this->dateTime = $_GET['dateTime'];
+			$this->dateTime = date('Y-m-d',strtotime(str_replace('-','/',$_GET['dateTime'])));
 		}elseif (isset($_GET['date'])){
 			$date = $_GET['date'];
-			if ($date!=''){
-				$date = DateTime::createFromFormat('m-d-Y', $date);
-				$date = $date->format('Y-m-d');
-				$this->dateTime = $date;  //.' '.$_GET['time'];
+			if ($date != ''){
+				$this->dateTime = date('Y-m-d',strtotime(str_replace('-','/',$date)));
+			}else {
+				$this->dateTime =  '';
 			}
 		}
 		if (isset($_GET['description'])){
@@ -162,7 +162,7 @@ class Event {
 		return $event;
 	}
 	public function getEventFields(){
-		return array("id"=>$this->id, "person"=>$this->person, "description"=>$this->description, "datetime"=>$this->datetime, "eventType"=>$this->eventType, "reservationStatus"=>$this->reservationStatus, "hours"=>$this->hours);
+		return array("id"=>$this->id, "person"=>$this->person, "description"=>$this->description, "dateTime"=>$this->dateTime, "eventType"=>$this->eventType, "reservationStatus"=>$this->reservationStatus, "hours"=>$this->hours);
 	}
 	public function insert(){
 		$list = $this->getEventFields();
@@ -192,40 +192,55 @@ class Event {
 	}
 	
 	public function getByQuery(){
-		$list = $this->getEventFields();
-		$sql = 'SELECT ';
-		foreach ($list as $key => $value){
-			$sql .= "$key, ";
-		}
-		$sql = substr($sql, 0, -2);
-		$sql .= ' FROM event ';
-		$email = $this->email;
+		$sql="SELECT id FROM event";
+		$encryptKey = Database::getEncryptionKey();
 		
+		$dateTime = $this->dateTime;
+		$reservationStatus = $this->reservationStatus;
 		$where = '';
-		if ($email!=''){
+		if (($reservationStatus!='')&&($reservationStatus!='all')){
 			if ($where !=''){
 				$where .= ' AND ';
 			}
-			$where .= " (email = aes_encrypt('$email','.$encryptKey.'))";
+			$where .= " reservationStatus = '$reservationStatus'";
+		}
+		if ($dateTime!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$date = substr($dateTime, 0, 10);
+			$where .= " dateTime BETWEEN '$date 00:00:00' AND '$date 23:59:59'";
 		}
 		
 		if ($where !=''){
 			$sql .= ' WHERE '.$where;
 		}
 
-		//$orderby = ' ORDER BY lastName, firstName';
-		
-		//$sql .= $orderby;
+		$sortorder=$this->sortorder;
+		$orderby = " ORDER BY datetime $sortorder";
+		$sql .= $orderby;
+
 		$statement= $this->db->prepare($sql);
 		$statement->execute();
 		$rows = $statement->fetchAll();
 		$events=array();
 		foreach($rows as $row){
-			$d = new Event($this->db);
-			$d->init($row);
+			$d = Event::loadById($this->db, $row['id']);
 			array_push($events,$d);
 		}
 		return $events;
+	}
+	public function updateEventStatus(){
+		$list = array("reservationStatus"=>$this->reservationStatus);
+		$sql = 'update event set ';
+		$id=$this->id;
+		$encryptionKey = Database::getEncryptionKey();
+		foreach ($list as $key => $value){
+			$value = "'$value', ";
+			$sql .= "$key=$value";		
+		}
+		$sql = substr($sql, 0, -2)." where `id`='$id'";
+		return $this->db->exec($sql);
 	}
 }
 ?>

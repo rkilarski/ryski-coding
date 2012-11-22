@@ -95,10 +95,11 @@ class Reservation {
 			$this->person = $_GET['person'];
 		}
 		if (isset($_GET['dateTime'])){
-			$this->dateTime= date('Y-m-d',strtotime(str_replace('-','/',$_GET['dateTime'])));
+			$this->dateTime = date('Y-m-d',strtotime(str_replace('-','/',$_GET['dateTime'])));
 		}elseif (isset($_GET['date'])){
-			if ($_GET['date']!=''){
-				$this->dateTime = date('Y-m-d',strtotime(str_replace('-','/',$_GET['date'])));
+			$date = $_GET['date'];
+			if ($date != ''){
+				$this->dateTime = date('Y-m-d',strtotime(str_replace('-','/',$date)));
 			}else {
 				$this->dateTime =  '';
 			}
