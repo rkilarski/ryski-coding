@@ -17,10 +17,12 @@ IDENTIFIED BY 'password';
 
 CREATE TABLE IF NOT EXISTS `event` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `reservationDate` varchar(10) NOT NULL,
+  `dateTime` datetime NOT NULL,
   `person` int(10) NOT NULL,
-  `name` varchar(25) NOT NULL,
   `description` varchar(255) NOT NULL,
+  `eventType` int(10) NOT NULL,
+  `reservationStatus` int(10) NOT NULL,
+  `hours` int(2) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -60,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `menutype` (
 
 CREATE TABLE IF NOT EXISTS `eventType` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(25) NOT NULL,
+  `eventType` varchar(25) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
@@ -163,7 +165,9 @@ CREATE TABLE IF NOT EXISTS `states` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 ALTER TABLE `event`
-  ADD CONSTRAINT `eventPersonFK` FOREIGN KEY (`person`) REFERENCES `person` (`id`);
+  ADD CONSTRAINT `eventPersonFK` FOREIGN KEY (`person`) REFERENCES `person` (`id`),
+  ADD CONSTRAINT `eventTypeFK` FOREIGN KEY (`eventType`) REFERENCES `eventType` (`id`),
+  ADD CONSTRAINT `eventReservationStatusFK` FOREIGN KEY (`reservationStatus`) REFERENCES `reservationStatus` (`id`);
 
 ALTER TABLE `menu`
   ADD CONSTRAINT `menuFoodItemFK` FOREIGN KEY (`foodItem`) REFERENCES `food` (`id`),

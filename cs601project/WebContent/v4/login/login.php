@@ -9,17 +9,14 @@ include('../include/header.php');
 <script type="text/javascript" src="../javascript/jquery.login.js"></script>
 <?php include('../include/body.php');?>
 <h1>please login to access the full features of our site</h1>
-<form name="login" class="addressform" action="../controller/authenticate.php" method="post">
+<form name="login" id="loginform" class="addressform" action="../controller/authenticate.php" method="post">
 	<h2>existing users</h2>
 	<label for="email">login:</label> <input type="email" name="email"
 		placeholder="username" maxlength="255" size="30" required="required"> <br> <label for="password">password:</label><input
 		type="password" name="password" placeholder="password" maxlength="255" size="30" required="required"> <br> 
-		<div class="center">
-		<input type="submit" value="login"> <input type="reset" value="reset">
-		</div>
+		<input type="submit" class="right" value="login"> <input type="reset" class="right" value="reset">
 </form>
-<br/>
-<form name="login" id="loginform" class="addressform" method="post" action="../controller/addperson.php">
+<form name="login" id="newloginform" class="addressform" method="post" action="../controller/addperson.php">
 	<h2>new users</h2>
 	<label for="email">email:</label><input type="email" name="email" maxlength="255" size="30" placeholder="username" required="required"> <br>
 	<label for="password">password:</label><input type="password"
@@ -38,6 +35,8 @@ include('../include/header.php');
 		type="tel" name="telephone" id="telephone" class="telephone" maxlength="15" required="required"> <br> <label for="isstaff">are you staff?:</label><input
 		type="checkbox" name="isstaff"> <br> <label for="sendemail">send email?:</label><input
 		type="checkbox" name="sendemail"> <br> 
-		<div class="center"><input type="submit" value="add"> <input type="reset" value="reset"></div>
+		<input type="submit" class="right" value="add"> <input type="reset" class="right" value="reset">
 </form>
+<div class="clear"></div>
+<br>
 <?php include('../include/footer.php'); ?>

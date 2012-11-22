@@ -31,6 +31,7 @@ if (isset($_SESSION['isstaff'])){
 
 switch ($action) {
 	case 'events':
+		$user = $_SESSION['userid']; 
 		include('events.php');
 		break;
    default:

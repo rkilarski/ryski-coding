@@ -11,7 +11,11 @@ $(function() {
 	$('#datepicker').datepicker({
 		beforeShowDay : noSunday,
 		minDate: 0,
-		dateFormat: "mm-dd-yy"
+		dateFormat: "mm-dd-yy",
+		showAnim: "slideDown",
+		showOn: "both",
+		buttonImage: "../img/calendar.gif",
+		buttonImageOnly: true
 	});
 
 });

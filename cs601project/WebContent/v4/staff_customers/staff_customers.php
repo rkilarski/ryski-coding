@@ -14,10 +14,12 @@ include('../include/staff_header.php');
 <h1>customers</h1>
 	<fieldset class="searchcriteria">
 		<legend>
-			search criteria
+			customer search criteria
 		</legend>
 			<form name="customersearch" id="customersearch" method="GET" action="index.php">
 				<input type="hidden" name="search" value="search">
+				<input type="hidden" name="action" value="staff_customers">
+
 				<input type="email" class="clearform" name="email" size="50" placeholder="email address" value="<?php echo $person->getEmail();?>">
 				<br><br>
 				<input type="text" class="clearform" name="firstname" placeholder="first name" value="<?php echo $person->getFirstname();?>">

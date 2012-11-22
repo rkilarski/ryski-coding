@@ -181,6 +181,9 @@ class Order {
 	public function setCustomerRequest($customerRequest){
 		$this->customerRequest=$customerRequest;
 	}
+	public function setDateTimeOrdered($datetimeOrdered){
+		$this->datetimeOrdered = $datetimeOrdered;
+	}
 	public function initOrder($row){
 		$this->id = $row['id'];
 		$this->customeraddressid = $row['customerAddress'];
@@ -336,9 +339,11 @@ class Order {
 			$this->paidflag = $_GET['paidflag'];
 		}
 		if (isset($_GET['datetimeOrdered'])){
-			$this->datetimeOrdered = $_GET['datetimeOrdered'];
-		}else {
-			$this->datetimeOrdered =  date('Y-m-d');
+			if ($_GET['datetimeOrdered']!=''){
+				$this->datetimeOrdered = date('Y-m-d',strtotime(str_replace('-','/',$_GET['datetimeOrdered'])));
+			}else {
+				$this->datetimeOrdered = '';
+			}
 		}
 		if (isset($_GET['sortorder'])){
 			$this->sortorder = $_GET['sortorder'];

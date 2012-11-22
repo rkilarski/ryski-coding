@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	$("#reset").click(function() {
-		var $inputs = $("#addreservation .clearform");
+		var $inputs = $("#addevent .clearform");
 		$inputs.each(function() {
 			$(this).val('');
 		});
@@ -8,13 +8,15 @@ $(document).ready(function() {
 });
 
 $(function() {
-	$('#datepicker').datepicker({
+	$("#datepicker").datepicker({
 		beforeShowDay : noSunday,
+		minDate: 0,
 		dateFormat: "mm-dd-yy",
 		showAnim: "slideDown",
 		showOn: "both",
 		buttonImage: "../img/calendar.gif",
 		buttonImageOnly: true
+
 	});
 
 });

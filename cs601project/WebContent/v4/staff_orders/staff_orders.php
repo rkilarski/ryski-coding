@@ -9,20 +9,22 @@ secureStaffForm('staff_takeout');
 
 include('../include/staff_header.php');
 ?>
-<script type="text/javascript" src="../javascript/jquery.staff_orders.js"></script>
+<link rel="stylesheet" href="../javascript/css/chickenrice/jquery-ui-1.9.1.custom.css" />
+<script type="text/javascript" src="../javascript/jquery-ui-1.9.1.custom.js"></script>
 <script type="text/javascript" src="../javascript/jquery.telephone.js"></script>
+<script type="text/javascript" src="../javascript/jquery.staff_orders.js"></script>
+<script src="../javascript/jquery.datetime.js"></script>
 <?php include('../include/body.php'); ?>
 
 <h1>orders</h1>
 	<fieldset class="searchcriteria">
 		<legend>
-			search criteria
+			order search criteria
 		</legend>
 			<form name="ordersearch" id="ordersearch" method="GET" action="index.php">
 				<input type="hidden" name="search" value="search">
-				<input type="hidden" name="getvariables" value="<?php echo $_SERVER['QUERY_STRING']; ?>">
-
-				<label for="datetimeOrder">date ordered:</label><input type="date" class="clearform" name="datetimeOrdered" placeholder="date ordered" value="<?php echo $order->getDateTimeOrdered();?>"><br>
+				<input type="hidden" name="action" value="staff_orders">
+				<label for="datetimeOrder">date ordered:</label><input type="text" class="clearform" name="datetimeOrdered" placeholder="date ordered" id="datepicker" value="<?php echo ($order->getDateTimeOrdered()!='')?date('m-d-Y',strtotime($order->getDateTimeOrdered())):'';?>"><br>
 				<label for="orderstatus">order status:</label><?php $orderStatus=$order->getOrderStatus(); $allstatusesflag=true; include('../include/orderstatusselect.php');?>
 				<label for="ordertype">order type:</label><?php $orderType=$order->getOrderType(); $alltypesflag=true; include('../include/ordertypeselect.php');?>
 				<br><br>
@@ -37,7 +39,7 @@ include('../include/staff_header.php');
 				<input type="text" class="clearform" name="city" placeholder="city" value="<?php echo $order->getCity();?>"> <?php $state=$order->getSt(); include('../include/stateselect.php');?>
 				<input type="text" class="clearform" name="zip" size="5" placeholder="zip" value="<?php echo $order->getZip();?>">
 				<br><br>
-				<input type="text" id="telephonesearch" class="telephone" name="telephone" placeholder="telephone" value="<?php echo $order->getTelephone();?>"><br>
+				<input type="text" id="telephonesearch" class="telephone" name="telephone" placeholder="telephone" value="<?php echo $order->getTelephone();?>"><br><br>
 				<label for="sortorder">display in order:</label>
 				<select name="sortorder" size="1">
 				<option value="ASC" <?php echo ($order->getSortOrder()=='ASC')?'selected':'';?>>ascending</option>
@@ -67,6 +69,7 @@ include('../include/staff_header.php');
 			$zip = $orderItem->getZip();
 			$orderStatus = $orderItem->getOrderStatus();
 			$orderType = $orderItem->getOrderType();
+			$datetime = $orderItem->getDateTimeOrdered();
 			echo '<div class="ordergrid">';
 ?>
 	<fieldset>
@@ -83,10 +86,12 @@ include('../include/staff_header.php');
 			<?php echo $city.' '.$state.'  '.$zip;?>
 			<br>
 			<span class="telephone"><?php echo $telephone;?></span>
-			<br>
-			<?php echo $orderType; ?>
+			<br><br>
+			<?php echo $orderType; ?><br>
+			placed on: <span class="datetime"><?php echo $datetime; ?></span>
 			<form name="orderstatusupdate<?php echo $orderid; ?>" method="POST" action="../controller/updateorderstatus.php">
 			<input type="hidden" name="id" value="<?php echo $orderid; ?>">
+			<input type="hidden" name="getvariables" value="<?php echo $_SERVER['QUERY_STRING']; ?>">
 			<br><?php include('../include/orderstatusselect.php'); ?><input type="submit" value="update">
 			</form>
 			<br>

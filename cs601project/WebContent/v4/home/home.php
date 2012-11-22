@@ -23,8 +23,12 @@ include('../include/homeheader.php');
 	<span data-weight="<?php echo rand(1, 24);?>">creamy</span>
 	<span data-weight="<?php echo rand(1, 24);?>">soup</span>
 	<span data-weight="<?php echo rand(1, 24);?>">udon noodle</span>
-		 
-    <span data-weight="<?php echo rand(1, 24);?>">chicken</span>
+	<span data-weight="<?php echo rand(1, 24);?>">babka</span>
+	<span data-weight="<?php echo rand(1, 24);?>">chocolate</span>
+	<span data-weight="<?php echo rand(1, 24);?>">flan</span>
+	<span data-weight="<?php echo rand(1, 24);?>">chocotorta</span>
+
+   <span data-weight="<?php echo rand(1, 24);?>">chicken</span>
 	<span data-weight="<?php echo rand(1, 24);?>">tonight</span>
 	<span data-weight="<?php echo rand(1, 24);?>">yum</span>
  	<span data-weight="<?php echo rand(1, 24);?>">rice</span>
@@ -38,6 +42,10 @@ include('../include/homeheader.php');
 	<span data-weight="<?php echo rand(1, 24);?>">creamy</span>
 	<span data-weight="<?php echo rand(1, 24);?>">soup</span>
 	<span data-weight="<?php echo rand(1, 24);?>">udon noodle</span>
+	<span data-weight="<?php echo rand(1, 24);?>">babka</span>
+	<span data-weight="<?php echo rand(1, 24);?>">chocolate</span>
+	<span data-weight="<?php echo rand(1, 24);?>">flan</span>
+	<span data-weight="<?php echo rand(1, 24);?>">chocotorta</span>
 </div>
 <script>
 	resizeWordCloud();

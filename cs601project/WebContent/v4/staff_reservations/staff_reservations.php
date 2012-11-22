@@ -9,20 +9,22 @@ secureStaffForm('staff_reservations');
 include('../include/staff_header.php');
 ?>
 <link rel="stylesheet" href="../javascript/css/chickenrice/jquery-ui-1.9.1.custom.css" />
-<script src="../javascript/jquery-ui-1.9.1.custom.js"></script>
-<script src="../javascript/jquery.staff_reservation.js"></script>
-<script src="../javascript/jquery.datetime.js"></script>
+<script type="text/javascript" src="../javascript/jquery-ui-1.9.1.custom.js"></script>
+<script type="text/javascript" src="../javascript/jquery.staff_reservation.js"></script>
+<script type="text/javascript" src="../javascript/jquery.datetime.js"></script>
 <script type="text/javascript" src="../javascript/jquery.telephone.js"></script>
 
 <?php include('../include/body.php'); ?>
 <h1>reservations</h1>
 	<fieldset class="searchcriteria">
 		<legend>
-			search criteria
+			reservation search criteria
 		</legend>
 			<form name="reservationsearch" id="reservationsearch" method="GET" action="index.php">
 				<input type="hidden" name="search" value="search">
-				<label for="date">reservation date:</label><input type="text" class="clearform" name="date" id="datepicker" value="<?php echo $reservation->getDateTime(); ?>"><br>
+				<input type="hidden" name="action" value="staff_reservations">
+
+				<label for="date">reservation date:</label><input type="text" class="clearform" name="date" id="datepicker" placeholder="reservation date" value="<?php echo ($reservation->getDateTime()!='')?date('m-d-Y',strtotime($reservation->getDateTime())):'';?>"><br>
 			
 				<label for="reservationstatus">reservation status:</label><?php $reservationStatus=$reservation->getReservationStatus(); $allstatusesflag=true; include('../include/reservationstatusselect.php');?>
 				<br><br>
