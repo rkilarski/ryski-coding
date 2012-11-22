@@ -41,7 +41,7 @@ INSERT INTO `menutype` (`id`, `name`) VALUES
 (6, 'side'),
 (7, 'dessert');
 
-INSERT INTO `eventType` (`id`, `name`) VALUES
+INSERT INTO `eventType` (`id`, `eventType`) VALUES
 (1, 'birthday'),
 (2, 'wedding'),
 (3, 'bar/bat mitzvah'),

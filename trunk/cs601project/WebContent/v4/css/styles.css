@@ -151,7 +151,7 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset {
 
 #outerframe,#logo { /*Set opacity for image */
 	opacity: 0.80;
-	filter: alpha(opacity = 80);
+	filter: alpha(opacity =   80);
 	/* For IE8 and earlier */
 	border: 1px solid #000000;
 }
@@ -202,15 +202,26 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset {
 }
 
 /*------------------------------Form Section------------------------------*/
+#loginform,#newloginform {
+	float: left;
+	display: inline;
+	width: 450px;
+}
+
+#loginform label, #newloginform label{
+	width: 150px;
+}
+
 .addressform {
 	margin: auto;
-	width: 400px;
+	width: 450px;
 	padding: 10px;
+	color: #FFFFFF;
 }
 
 .addressform label {
 	float: left;
-	width: 130px;
+	width: 225px;
 	display: block;
 	clear: left;
 	text-align: right;
@@ -256,9 +267,14 @@ form[name="cart"] input {
 	color: #FF0000;
 }
 
-fieldset#addreservation {
+fieldset#addreservation,fieldset#addevent,fieldset#contactinfo,fieldset#createdby
+	{
 	width: 50%;
 	margin: auto;
+}
+
+fieldset#createdby a {
+	color: #FFFFFF;
 }
 /*------------------------------Menu Section------------------------------*/
 .menuheader {
@@ -328,7 +344,7 @@ div.customerrequest+div.customerrequest {
 	color: #FFFFFF;
 }
 
-tr:not  (:first-child  ).menuheader>td {
+tr:not   (:first-child   ).menuheader>td {
 	padding-top: 25px;
 }
 

@@ -22,7 +22,7 @@ add a reservation
 <form id="addreservation" method="POST" action="../controller/addreservation.php">
 <input type="hidden" name="person" value="<?php echo $user; ?>">
 <input type="hidden" name="reservationStatus" value="1">
-<label for="date">for date:</label><input type="text" class="clearform" name="date" id="datepicker" value="<?php echo date('m-d-Y'); ?>"><br>
+<label for="date">for date:</label><input type="text" class="clearform" name="date" id="datepicker" placeholder="reservation date" value="<?php echo date('m-d-Y'); ?>"><br>
 <label for="time">for time:</label><?php include('../include/timeselect.php');?><br>
 <label for="tableSize">for how many guests?</label><input type="number" name="tableSize" min="1" max="10" value="2">
 <br><br>

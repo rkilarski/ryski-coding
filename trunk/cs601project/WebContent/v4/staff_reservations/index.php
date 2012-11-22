@@ -37,7 +37,7 @@ switch ($action) {
 		if ((isset($_GET['search']))&&($_GET['search']=='search')){
 			$reservations= $reservation->getByQuery();  //Run the query and get the list of orders.
 		}else{
-			$reservation->setDateTime(date('m-d-Y'));  //Default today's date.
+			$reservation->setDateTime(date('Y-m-d'));  //Default today's date.
 		}
 		include('staff_reservations.php');
 		break;

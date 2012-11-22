@@ -36,6 +36,8 @@ switch ($action) {
 		$order->initGET();  //Initialize person query seed by the GET values.
 		if ((isset($_GET['search']))&&($_GET['search']=='search')){
 			$orders = $order->getByQuery();  //Run the query and get the list of orders.
+		}else{
+			$order->setDateTimeOrdered(date('Y-m-d'));
 		}
 		include('staff_orders.php');
 		break;

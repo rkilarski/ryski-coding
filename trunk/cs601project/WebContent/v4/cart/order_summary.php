@@ -32,15 +32,15 @@ include('../include/header.php');
 	<?php echo $order->getCity();?>
 	<br> <label>state:</label>
 	<?php echo $order->getSt();?>
-	<br> <label for="zip">zip:</label>
+	<br> <label>zip:</label>
 	<?php echo $order->getZip();?>
 	<br> <label>telephone:</label>
 	<span class="telephone"><?php echo $order->getTelephone();?></span>
 	<br> <label>credit card type:</label>
 	<?php echo $order->getCCType();?>
-	<br> <label for="ccnumber1">credit card number:</label>XXXX-XXXX-XXXX-
+	<br> <label>credit card number:</label>XXXX-XXXX-XXXX-
 	<?php echo $order->getCCNumber4();?>
-	<br> <label for="ccexpmonth">expiration date (Month/Year):</label>
+	<br> <label>expiration date (Month/Year):</label>
 	<?php echo $order->getCCExpMonth()."/".$order->getCCExpYear();?>
 </div>
 <br>
