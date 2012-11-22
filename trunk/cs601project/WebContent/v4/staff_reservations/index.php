@@ -5,6 +5,7 @@ if(session_id() == '') {
 }
 require_once('../model/database.php');
 require_once('../model/reservation.php');
+require_once('../model/event.php');
 
 if (isset($_POST['action'])) {
 	$action = $_POST['action'];
@@ -34,10 +35,14 @@ switch ($action) {
 	case 'staff_reservations':
 		$reservation = new Reservation(Database::getDB());
 		$reservation->initGET();  //Initialize reservation seed by the GET values.
+		$event = new Event(Database::getDB());
+		$event->initGET();  //Initialize event seed by the GET values.
 		if ((isset($_GET['search']))&&($_GET['search']=='search')){
 			$reservations= $reservation->getByQuery();  //Run the query and get the list of orders.
+			$events= $event->getByQuery();  //Run the query and get the list of orders.
 		}else{
 			$reservation->setDateTime(date('Y-m-d'));  //Default today's date.
+			$event->setDateTime(date('Y-m-d'));  //Default today's date.
 		}
 		include('staff_reservations.php');
 		break;
