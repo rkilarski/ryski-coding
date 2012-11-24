@@ -11,6 +11,7 @@ class Event {
 	private $eventType;
 	private $reservationStatus;
 	private $hours;
+	private $personCount;
 
 	public function __construct($db){
 		$this->db = $db;
@@ -36,6 +37,9 @@ class Event {
 	public function getHours(){
 		return $this->hours;
 	}
+	public function getPersonCount(){
+		return $this->personCount;
+	}
 	public function setId($id){
 		$this->id = $id;
 	}
@@ -57,6 +61,9 @@ class Event {
 	public function setHours($hours){
 		$this->hours = $hours;
 	}
+	public function setPersonCount($personCount){
+		$this->personCount = $personCount;
+	}
 
 	/**
 	 * Initialize from $row.
@@ -68,6 +75,7 @@ class Event {
 		$this->eventType = $row['eventType'];
 		$this->reservationStatus = $row['reservationStatus'];
 		$this->hours = $row['hours'];
+		$this->personCount = $row['personCount'];
 	}
 	/**
 	 * Initialize from $_POST
@@ -98,6 +106,9 @@ class Event {
 		}
 		if (isset($_POST['hours'])){
 			$this->hours = $_POST['hours'];
+		}
+		if (isset($_POST['personCount'])){
+			$this->personCount = $_POST['personCount'];
 		}
 	}
 	/**
@@ -132,6 +143,9 @@ class Event {
 		if (isset($_GET['hours'])){
 			$this->hours = $_GET['hours'];
 		}
+		if (isset($_GET['personCount'])){
+			$this->personCount = $_GET['personCount'];
+		}
 	}
 
 	public function loadAll(){
@@ -162,7 +176,7 @@ class Event {
 		return $event;
 	}
 	public function getEventFields(){
-		return array("id"=>$this->id, "person"=>$this->person, "description"=>$this->description, "dateTime"=>$this->dateTime, "eventType"=>$this->eventType, "reservationStatus"=>$this->reservationStatus, "hours"=>$this->hours);
+		return array("id"=>$this->id, "person"=>$this->person, "description"=>$this->description, "dateTime"=>$this->dateTime, "eventType"=>$this->eventType, "reservationStatus"=>$this->reservationStatus, "hours"=>$this->hours, "personCount"=>$this->personCount);
 	}
 	public function insert(){
 		$list = $this->getEventFields();

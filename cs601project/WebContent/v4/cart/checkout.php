@@ -73,18 +73,18 @@ if (isset($person)){
 		size="4" name="ccnumber2"><input type="password" size="4"
 		name="ccnumber3"><input type="password" size="4" name="ccnumber4"> <br>
 	<label for="ccexpmonth">expiration date (month/year):</label><select
-		name="ccexpmonth" required="required"><option value="January">january</option>
-		<option value="February">february</option>
-		<option value="March">march</option>
-		<option value="April">april</option>
-		<option value="May">may</option>
-		<option value="June">june</option>
-		<option value="July">july</option>
-		<option value="August">august</option>
-		<option value="September">september</option>
-		<option value="October">october</option>
-		<option value="November">november</option>
-		<option value="December">december</option>
+		name="ccexpmonth" required="required"><option value="01">january</option>
+		<option value="02">february</option>
+		<option value="03">march</option>
+		<option value="04">april</option>
+		<option value="05">may</option>
+		<option value="06">june</option>
+		<option value="07">july</option>
+		<option value="08">august</option>
+		<option value="09">september</option>
+		<option value="10">october</option>
+		<option value="11">november</option>
+		<option value="12">december</option>
 	</select>/<select name="ccexpyear" required="required"><option
 			value="2012">2012</option>
 		<option value="2013">2013</option>

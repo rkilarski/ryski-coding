@@ -25,6 +25,7 @@ schedule an event
 <label for="date">for date:</label><input type="text" class="clearform" name="date" id="datepicker" required="required" value="<?php echo date('m-d-Y'); ?>"><br>
 <label for="time">for time:</label><?php include('../include/timeselect.php');?><br>
 <label for="hours">for how many hours?</label><input type="number" class="clearform" name="hours" required="required" min="4" max="11" value="4"><br>
+<label for="personCount">for how many people?</label><input type="number" class="clearform" name="personCount" required="required" min="10" max="40" value="10"><br>
 <label for="eventType">event type:</label><?php include('../include/eventtypeselect.php'); ?><br>
 <textarea name="description" class="clearform" maxlength="255" placeholder="event details" rows="4" cols="50"></textarea>
 
