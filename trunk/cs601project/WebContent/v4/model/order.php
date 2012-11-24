@@ -158,10 +158,10 @@ class Order {
 		$this->ccnumber2=$ccnum2;
 	}
 	public function setCCNumber3($ccnum3){
-		$this->ccnumber3=$ccnum1;
+		$this->ccnumber3=$ccnum3;
 	}
 	public function setCCNumber4($ccnum4){
-		$this->ccnumber4=$ccnum1;
+		$this->ccnumber4=$ccnum4;
 	}
 	public function setCCType($cctype){
 		$this->cctype=$cctype;
@@ -204,6 +204,9 @@ class Order {
 		$this->st = $row['st'];
 		$this->zip = $row['zip'];
 		$this->telephone = $row['telephone'];
+		$this->ccnumber4 = $row['ccnumber4'];
+		$this->ccexpmonth = $row['ccexpmonth'];
+		$this->ccexpyear = $row['ccexpyear'];
 	}
 	public function initOrderItems($rows){
 		$this->orderitems = array();
@@ -362,7 +365,7 @@ class Order {
 		$encryptionKey = Database::getEncryptionKey();
 		$columns = '';
 		foreach ($list as $key=>$value){
-			if (($key=='email')||($key=='password')){
+			if (($key=='email')||($key=='password')||($key=='ccnumber4')||($key=='ccexpmonth')||($key=='ccexpyear')){
 				$columns .= "aes_decrypt($key,'$encryptionKey') as $key, ";
 			}else{
 				$columns .= "$key, ";
@@ -382,7 +385,7 @@ class Order {
 		return $order;
 	}
 	public function getCustomerOrderAddressFields(){
-		return array("id"=>$this->id, "firstName"=>$this->firstname, "middleName"=>$this->middlename, "lastName"=>$this->lastname, "email"=>$this->email, "addressLine1"=>$this->addressline1, "addressLine2"=>$this->addressline2, "city"=>$this->city, "st"=>$this->st, "zip"=>$this->zip, "telephone"=>$this->telephone);
+		return array("id"=>$this->id, "firstName"=>$this->firstname, "middleName"=>$this->middlename, "lastName"=>$this->lastname, "email"=>$this->email, "addressLine1"=>$this->addressline1, "addressLine2"=>$this->addressline2, "city"=>$this->city, "st"=>$this->st, "zip"=>$this->zip, "telephone"=>$this->telephone, "ccnumber4"=>$this->ccnumber4, "ccexpmonth"=>$this->ccexpmonth, "ccexpyear"=>$this->ccexpyear);
 	}
 	private function insertCustomerOrderAddress(){
 		$list = $this->getCustomerOrderAddressFields();
@@ -392,7 +395,7 @@ class Order {
 
 		foreach ($list as $key => $value){
 			$columns .= "$key, ";
-			if (($key=='email')||($key=='password')){
+			if (($key=='email')||($key=='password')||($key=='ccnumber4')||($key=='ccexpmonth')||($key=='ccexpyear')){
 				$values .= "aes_encrypt('$value','$encryptionKey'), ";
 			}else {
 				$values .= "'$value', ";
@@ -401,6 +404,7 @@ class Order {
 		$columns  = substr($columns, 0, -2);
 		$values = substr($values, 0, -2);
 		$sql="insert into customerOrderAddress ($columns) values ($values)";
+		echo $sql;
 		$this->db->exec($sql);
 		return $this->db->lastInsertId();
 	}
