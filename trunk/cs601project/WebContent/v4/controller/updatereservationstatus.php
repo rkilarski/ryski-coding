@@ -9,6 +9,7 @@ if(session_id() == '') {
 	$res = new Reservation(Database::getDB());
 	$res->initPOST();
 	$res->updateReservationStatus();
+	$res->updateDiningTable();
 	$action='action=staff_reservations';
 	if (isset($_POST['getvariables'])){
 		$action.='&'.$_POST['getvariables'];

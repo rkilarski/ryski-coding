@@ -6,10 +6,11 @@ class Reservation {
 	private $db;
 	private $id  = 0;
 	private $person;
-	private $dateTime;
+	private $reservationDateTime;
 	private $tableSize;
 	private $reservationStatus;
 	private $sortorder;
+	private $diningTable;
 
 	public function __construct($db){
 		$this->db = $db;
@@ -20,8 +21,8 @@ class Reservation {
 	public function getPerson(){
 		return $this->person;
 	}
-	public function getDateTime(){
-		return $this->dateTime;
+	public function getReservationDateTime(){
+		return $this->reservationDateTime;
 	}
 	public function getTableSize(){
 		return $this->tableSize;
@@ -29,14 +30,17 @@ class Reservation {
 	public function getReservationStatus(){
 		return $this->reservationStatus;
 	}
+	public function getDiningTable(){
+		return $this->diningTable;
+	}
 	public function setId($id){
 		$this->id = $id;
 	}
 	public function setPerson($person){
 		$this->person = $person;
 	}
-	public function setDateTime($dateTime){
-		$this->dateTime = $dateTime;
+	public function setReservationDateTime($reservationDateTime){
+		$this->reservationDateTime = $reservationDateTime;
 	}
 	public function setTableSize($tableSize){
 		$this->tableSize = $tableSize;
@@ -47,13 +51,21 @@ class Reservation {
 	public function getSortOrder(){
 		return $this->sortorder;
 	}
+	public function setDiningTable(){
+		return $this->diningTable;
+	}
 
 	public function init($row){
 		$this->id = $row['id'];
 		$this->person = $row['person'];
 		$this->tableSize = $row['tableSize'];
-		$this->dateTime = $row['dateTime'];
+		$this->reservationDateTime = $row['reservationDateTime'];
 		$this->reservationStatus = $row['reservationStatus'];
+		if (isset($row['diningTable'])){
+			$this->diningTable = $row['diningTable'];
+		}else{
+			$this->diningTable = '';
+		}
 	}
 	/**
 	 * Initialize from $_POST
@@ -65,22 +77,25 @@ class Reservation {
 		if (isset($_POST['person'])){
 			$this->person = $_POST['person'];
 		}
-		if (isset($_POST['dateTime'])){
-			$this->dateTime = $_POST['dateTime'];
+		if (isset($_POST['reservationDateTime'])){
+			$this->reservationDateTime = $_POST['reservationDateTime'];
 		}elseif (isset($_POST['date'])&&isset($_POST['time'])){
 			$date = $_POST['date'];
 			$date = DateTime::createFromFormat('m-d-Y', $date);
 			$date = $date->format('Y-m-d');
-			$this->dateTime = $date.' '.$_POST['time'];
+			$this->reservationDateTime = $date.' '.$_POST['time'];
 		}
 		if (isset($_POST['tableSize'])){
 			$this->tableSize = $_POST['tableSize'];
 		}
-		if (isset($_POST['reservationstatus'])){
-			$this->reservationStatus = $_POST['reservationstatus'];
+		if (isset($_POST['reservationStatus'])){
+			$this->reservationStatus = $_POST['reservationStatus'];
 		}
 		if (isset($_POST['sortorder'])){
 			$this->sortorder = $_POST['sortorder'];
+		}
+		if (isset($_POST['diningTable'])){
+			$this->sortorder = $_POST['diningTable'];
 		}
 	}
 
@@ -94,24 +109,27 @@ class Reservation {
 		if (isset($_GET['person'])){
 			$this->person = $_GET['person'];
 		}
-		if (isset($_GET['dateTime'])){
-			$this->dateTime = date('Y-m-d',strtotime(str_replace('-','/',$_GET['dateTime'])));
+		if (isset($_GET['reservationDateTime'])){
+			$this->reservationDateTime = date('Y-m-d',strtotime(str_replace('-','/',$_GET['reservationDateTime'])));
 		}elseif (isset($_GET['date'])){
 			$date = $_GET['date'];
 			if ($date != ''){
-				$this->dateTime = date('Y-m-d',strtotime(str_replace('-','/',$date)));
+				$this->reservationDateTime = date('Y-m-d',strtotime(str_replace('-','/',$date)));
 			}else {
-				$this->dateTime =  '';
+				$this->reservationDateTime =  '';
 			}
 		}
 		if (isset($_GET['tableSize'])){
 			$this->tableSize = $_GET['tableSize'];
 		}
-		if (isset($_GET['reservationstatus'])){
-			$this->reservationStatus = $_GET['reservationstatus'];
+		if (isset($_GET['reservationStatus'])){
+			$this->reservationStatus = $_GET['reservationStatus'];
 		}
 		if (isset($_GET['sortorder'])){
 			$this->sortorder = $_GET['sortorder'];
+		}
+		if (isset($_GET['diningTable'])){
+			$this->sortorder = $_GET['diningTable'];
 		}
 	}
 	public static function loadById($db, $id){
@@ -129,7 +147,7 @@ class Reservation {
 	}
 
 	public function insert(){
-		$list = array("id"=>$this->id, "person"=>$this->person, "tableSize"=>$this->tableSize, "dateTime"=>$this->dateTime, "reservationStatus"=>$this->reservationStatus);
+		$list = array("id"=>$this->id, "person"=>$this->person, "tableSize"=>$this->tableSize, "reservationDateTime"=>$this->reservationDateTime, "reservationStatus"=>$this->reservationStatus); //, "diningTable"=>$this->diningTable);
 		$columns = '';
 		$values = '';
 		foreach ($list as $key => $value){
@@ -148,7 +166,7 @@ class Reservation {
 		$sql="SELECT id FROM reservation";
 		$encryptKey = Database::getEncryptionKey();
 		
-		$dateTime = $this->dateTime;
+		$reservationDateTime = $this->reservationDateTime;
 		$reservationStatus = $this->reservationStatus;
 		$where = '';
 		if (($reservationStatus!='')&&($reservationStatus!='all')){
@@ -157,12 +175,12 @@ class Reservation {
 			}
 			$where .= " reservationStatus = '$reservationStatus'";
 		}
-		if ($dateTime!=''){
+		if ($reservationDateTime!=''){
 			if ($where !=''){
 				$where .= ' AND ';
 			}
-			$date = substr($dateTime, 0, 10);
-			$where .= " dateTime BETWEEN '$date 00:00:00' AND '$date 23:59:59'";
+			$date = substr($reservationDateTime, 0, 10);
+			$where .= " reservationDateTime BETWEEN '$date 00:00:00' AND '$date 23:59:59'";
 		}
 		
 		if ($where !=''){
@@ -170,7 +188,7 @@ class Reservation {
 		}
 
 		$sortorder=$this->sortorder;
-		$orderby = " ORDER BY datetime $sortorder";
+		$orderby = " ORDER BY reservationDateTime $sortorder";
 		$sql .= $orderby;
 
 		$statement= $this->db->prepare($sql);
@@ -185,6 +203,18 @@ class Reservation {
 	}
 	public function updateReservationStatus(){
 		$list = array("reservationStatus"=>$this->reservationStatus);
+		$sql = 'update reservation set ';
+		$id=$this->id;
+		$encryptionKey = Database::getEncryptionKey();
+		foreach ($list as $key => $value){
+			$value = "'$value', ";
+			$sql .= "$key=$value";		
+		}
+		$sql = substr($sql, 0, -2)." where `id`='$id'";
+		return $this->db->exec($sql);
+	}
+	public function updateDiningTable(){
+		$list = array("diningTable"=>$this->diningTable);
 		$sql = 'update reservation set ';
 		$id=$this->id;
 		$encryptionKey = Database::getEncryptionKey();
