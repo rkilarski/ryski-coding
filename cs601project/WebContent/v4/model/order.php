@@ -404,7 +404,6 @@ class Order {
 		$columns  = substr($columns, 0, -2);
 		$values = substr($values, 0, -2);
 		$sql="insert into customerOrderAddress ($columns) values ($values)";
-		echo $sql;
 		$this->db->exec($sql);
 		return $this->db->lastInsertId();
 	}

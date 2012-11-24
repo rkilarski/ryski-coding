@@ -5,13 +5,14 @@ class Event {
 
 	private $db;
 	private $id  = 0;
-	private $dateTime;
+	private $eventDateTime;
 	private $person;
 	private $description;
 	private $eventType;
 	private $reservationStatus;
 	private $hours;
 	private $personCount;
+	private $sortorder;
 
 	public function __construct($db){
 		$this->db = $db;
@@ -19,8 +20,8 @@ class Event {
 	public function getId(){
 		return $this->id;
 	}
-	public function getDatetime(){
-		return $this->dateTime;
+	public function getEventDateTime(){
+		return $this->eventDateTime;
 	}
 	public function getPerson(){
 		return $this->person;
@@ -40,11 +41,14 @@ class Event {
 	public function getPersonCount(){
 		return $this->personCount;
 	}
+	public function getSortOrder(){
+		return $this->sortorder;
+	}
 	public function setId($id){
 		$this->id = $id;
 	}
-	public function setDatetime($dateTime){
-		$this->dateTime = $dateTime;
+	public function setEventDateTime($eventDateTime){
+		$this->eventDateTime = $eventDateTime;
 	}
 	public function setPerson($person){
 		$this->person = $person;
@@ -64,7 +68,9 @@ class Event {
 	public function setPersonCount($personCount){
 		$this->personCount = $personCount;
 	}
-
+	public function setSortOrder($sortorder){
+		$this->sortorder = $sortorder;
+	}
 	/**
 	 * Initialize from $row.
 	 */
@@ -76,6 +82,7 @@ class Event {
 		$this->reservationStatus = $row['reservationStatus'];
 		$this->hours = $row['hours'];
 		$this->personCount = $row['personCount'];
+		$this->eventDateTime = $row['eventDateTime'];
 	}
 	/**
 	 * Initialize from $_POST
@@ -84,13 +91,13 @@ class Event {
 		if (isset($_POST['id'])){
 			$this->id = $_POST['id'];
 		}
-		if (isset($_POST['dateTime'])){
-			$this->dateTime = $_POST['dateTime'];
+		if (isset($_POST['eventDateTime'])){
+			$this->dateTime = $_POST['eventDateTime'];
 		}elseif (isset($_POST['date'])&&isset($_POST['time'])){
 			$date = $_POST['date'];
 			$date = DateTime::createFromFormat('m-d-Y', $date);
 			$date = $date->format('Y-m-d');
-			$this->dateTime = $date.' '.$_POST['time'];
+			$this->eventDateTime = $date.' '.$_POST['time'];
 		}
 		if (isset($_POST['person'])){
 			$this->person = $_POST['person'];
@@ -121,14 +128,14 @@ class Event {
 		if (isset($_GET['person'])){
 			$this->person = $_GET['person'];
 		}
-		if (isset($_GET['dateTime'])){
-			$this->dateTime = date('Y-m-d',strtotime(str_replace('-','/',$_GET['dateTime'])));
+		if (isset($_GET['eventDateTime'])){
+			$this->eventDateTime = date('Y-m-d',strtotime(str_replace('-','/',$_GET['eventDateTime'])));
 		}elseif (isset($_GET['date'])){
 			$date = $_GET['date'];
 			if ($date != ''){
-				$this->dateTime = date('Y-m-d',strtotime(str_replace('-','/',$date)));
+				$this->eventDateTime = date('Y-m-d',strtotime(str_replace('-','/',$date)));
 			}else {
-				$this->dateTime =  '';
+				$this->eventDateTime =  '';
 			}
 		}
 		if (isset($_GET['description'])){
@@ -145,6 +152,9 @@ class Event {
 		}
 		if (isset($_GET['personCount'])){
 			$this->personCount = $_GET['personCount'];
+		}
+		if (isset($_GET['sortorder'])){
+			$this->sortorder = $_GET['sortorder'];
 		}
 	}
 
@@ -163,20 +173,17 @@ class Event {
 		return Event::loadByValue($db, 'id', $id);
 	}
 
-	public static function loadByValue($db, $value, $valueId){
+	public static function loadByValue($db, $value, $id){
 		$event = new Event($db);
-		$list = $event->getEventFields();
-		$columns = '';
-		foreach ($list as $key=>$value){
-			$columns .= "$key, ";
-		}
-		$columns  = substr($columns, 0, -2);
-		$rows = $db->exec("select $columns from event where `$value`='$valueId'");
-		$event->init($rows);
+
+		$statement= $db->prepare("select * from event where $value='$id'");
+		$statement->execute();
+		$row = $statement->fetch();
+		$event->init($row);
 		return $event;
 	}
 	public function getEventFields(){
-		return array("id"=>$this->id, "person"=>$this->person, "description"=>$this->description, "dateTime"=>$this->dateTime, "eventType"=>$this->eventType, "reservationStatus"=>$this->reservationStatus, "hours"=>$this->hours, "personCount"=>$this->personCount);
+		return array("id"=>$this->id, "person"=>$this->person, "description"=>$this->description, "eventDateTime"=>$this->eventDateTime, "eventType"=>$this->eventType, "reservationStatus"=>$this->reservationStatus, "hours"=>$this->hours, "personCount"=>$this->personCount);
 	}
 	public function insert(){
 		$list = $this->getEventFields();
@@ -209,7 +216,7 @@ class Event {
 		$sql="SELECT id FROM event";
 		$encryptKey = Database::getEncryptionKey();
 		
-		$dateTime = $this->dateTime;
+		$eventDateTime = $this->eventDateTime;
 		$reservationStatus = $this->reservationStatus;
 		$where = '';
 		if (($reservationStatus!='')&&($reservationStatus!='all')){
@@ -218,12 +225,12 @@ class Event {
 			}
 			$where .= " reservationStatus = '$reservationStatus'";
 		}
-		if ($dateTime!=''){
+		if ($eventDateTime!=''){
 			if ($where !=''){
 				$where .= ' AND ';
 			}
-			$date = substr($dateTime, 0, 10);
-			$where .= " dateTime BETWEEN '$date 00:00:00' AND '$date 23:59:59'";
+			$date = substr($eventDateTime, 0, 10);
+			$where .= " eventDateTime BETWEEN '$date 00:00:00' AND '$date 23:59:59'";
 		}
 		
 		if ($where !=''){
@@ -231,7 +238,7 @@ class Event {
 		}
 
 		$sortorder=$this->sortorder;
-		$orderby = " ORDER BY datetime $sortorder";
+		$orderby = " ORDER BY eventDateTime $sortorder";
 		$sql .= $orderby;
 
 		$statement= $this->db->prepare($sql);

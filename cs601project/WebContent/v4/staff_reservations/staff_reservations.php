@@ -24,7 +24,7 @@ include('../include/staff_header.php');
 				<input type="hidden" name="search" value="search">
 				<input type="hidden" name="action" value="staff_reservations">
 
-				<label for="date">reservation date:</label><input type="text" class="clearform" name="date" id="datepicker" placeholder="reservation date" value="<?php echo ($reservation->getDateTime()!='')?date('m-d-Y',strtotime($reservation->getDateTime())):'';?>"><br>
+				<label for="date">reservation date:</label><input type="text" class="clearform" name="date" id="datepicker" placeholder="reservation date" value="<?php echo ($reservation->getReservationDateTime()!='')?date('m-d-Y',strtotime($reservation->getReservationDateTime())):'';?>"><br>
 			
 				<label for="reservationstatus">reservation status:</label><?php $reservationStatus=$reservation->getReservationStatus(); $allstatusesflag=true; include('../include/reservationstatusselect.php');?>
 				<br><br>
@@ -44,7 +44,8 @@ include('../include/staff_header.php');
 			$resid = $reservation->getId();
 			$reservationStatus = $reservation->getReservationStatus();
 			$tableSize = $reservation->getTableSize();
-			$datetime = $reservation->getDateTime();
+			$datetime = $reservation->getReservationDateTime();
+			$diningTable = $reservation->getDiningTable();
 
 			$person=Person::loadById(Database::getDB(), $reservation->getPerson());
 			$firstName = $person->getFirstname();
@@ -70,8 +71,9 @@ include('../include/staff_header.php');
 				<form name="resstatusupdate<?php echo $resid; ?>" method="POST" action="../controller/updatereservationstatus.php">
 				<input type="hidden" name="id" value="<?php echo $resid; ?>">
 				<input type="hidden" name="getvariables" value="<?php echo $_SERVER['QUERY_STRING']; ?>">
-				<br><?php include('../include/reservationstatusselect.php'); ?>
-				<input type="submit" value="update">
+				<br><label for="reservationStatus">status:</label><?php include('../include/reservationstatusselect.php'); ?>
+				<br><label for="diningTable">table:</label><?php include('../include/diningtableselect.php'); ?>
+				<input type="submit" class="right" value="update">
 				</form>
 				<br>
 			</div>
@@ -80,13 +82,13 @@ include('../include/staff_header.php');
 			echo '</div>';
 		}
 	}
-	echo '<br><br>';
+	echo '<div class="clear"></div><br><br>';
 	if (isset($events)){	
 		foreach($events as $event){
 			$eventid = $event->getId();
 			$reservationStatus = $event->getReservationStatus();
 			$hours = $event->getHours();
-			$datetime = $event->getDateTime();
+			$datetime = $event->getEventDateTime();
 
 			$person=Person::loadById(Database::getDB(), $event->getPerson());
 			$firstName = $person->getFirstname();

@@ -41,8 +41,8 @@ switch ($action) {
 			$reservations= $reservation->getByQuery();  //Run the query and get the list of orders.
 			$events= $event->getByQuery();  //Run the query and get the list of orders.
 		}else{
-			$reservation->setDateTime(date('Y-m-d'));  //Default today's date.
-			$event->setDateTime(date('Y-m-d'));  //Default today's date.
+			$reservation->setReservationDateTime(date('Y-m-d'));  //Default today's date.
+			$event->setEventDateTime(date('Y-m-d'));  //Default today's date.
 		}
 		include('staff_reservations.php');
 		break;

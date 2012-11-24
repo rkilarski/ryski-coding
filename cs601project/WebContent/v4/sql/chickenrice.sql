@@ -17,7 +17,7 @@ IDENTIFIED BY 'password';
 
 CREATE TABLE IF NOT EXISTS `event` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `dateTime` datetime NOT NULL,
+  `eventDateTime` datetime NOT NULL,
   `person` int(10) NOT NULL,
   `description` varchar(255) NOT NULL,
   `eventType` int(10) NOT NULL,
@@ -99,8 +99,9 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `person` int(10) NOT NULL,
   `tableSize` int(2) NOT NULL,
-  `dateTime` datetime NOT NULL,
+  `reservationDateTime` datetime NOT NULL,
   `reservationStatus` int(10) NOT NULL,
+  `diningTable` int(10) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `person` (`person`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -179,7 +180,8 @@ ALTER TABLE `menu`
 
 ALTER TABLE `reservation`
   ADD CONSTRAINT `reservationPersonFK` FOREIGN KEY (`person`) REFERENCES `person` (`id`),
-  ADD CONSTRAINT `reservationStatusFK` FOREIGN KEY (`reservationStatus`) REFERENCES `reservationStatus` (`id`);
+  ADD CONSTRAINT `reservationStatusFK` FOREIGN KEY (`reservationStatus`) REFERENCES `reservationStatus` (`id`),
+  ADD CONSTRAINT `reservationDiningTableFK` FOREIGN KEY (`diningTable`) REFERENCES `diningTable` (`id`);
 
 ALTER TABLE `customerOrder`
   ADD CONSTRAINT `orderStatusFK` FOREIGN KEY (`orderStatus`) REFERENCES `orderStatus` (`id`),
@@ -250,7 +252,8 @@ INSERT INTO `orderstatus` (`id`, `orderStatus`) VALUES
 INSERT INTO `reservationstatus` (`id`, `reservationStatus`) VALUES
 (1, 'new'),
 (2, 'cancelled'),
-(3, 'seated');
+(3, 'seated'),
+(3, 'done');
 
 INSERT INTO `ordertype` (`id`, `orderType`) VALUES
 (1, 'takeout'),
