@@ -19,7 +19,7 @@
 		header("Location: ../cart/index.php?action=order_summary");
 	} catch (Exception $e) {
 		$error = $e->getMessage();
-		header('Location: ../errors/error.php?error=$error");
+		header("Location: ../errors/error.php?error=$error");
 	}
 
 ?>
