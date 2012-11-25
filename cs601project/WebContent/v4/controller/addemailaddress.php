@@ -5,8 +5,14 @@
 	}
 	require('../model/database.php');
 	require('../model/emailaddress.php');
-	$email = new EmailAddress(Database::getDB());
-	$email->initPOST();
-	$email->insert();
-	header('Location: ../index.php');
+	try{
+		$email = new EmailAddress(Database::getDB());
+		$email->initPOST();
+		$email->insert();
+		header('Location: ../index.php');
+	} catch (Exception $e) {
+		$error = $e->getMessage();
+		header('Location: ../errors/error.php?error=$error");
+	}
+}
 ?>

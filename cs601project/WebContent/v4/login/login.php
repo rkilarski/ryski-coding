@@ -4,12 +4,20 @@ if(session_id() == '') {
 	session_start();
 }
 include('../include/header.php');
+if (isset($_POST['action'])) {
+	$action = $_POST['action'];
+} else if (isset($_GET['action'])) {
+	$action = $_GET['action'];
+} else {
+	$action = 'staff_orders';
+}
 ?>
 <script type="text/javascript" src="../javascript/jquery.telephone.js"></script>
 <script type="text/javascript" src="../javascript/jquery.login.js"></script>
 <?php include('../include/body.php');?>
 <h1>please login to access the full features of our site</h1>
 <form name="login" id="loginform" class="addressform" action="../controller/authenticate.php" method="post">
+	<input type="hidden" name="action" value="<?php echo $action;?>">
 	<h2>existing users</h2>
 	<label for="email">login:</label> <input type="email" name="email"
 		placeholder="username" maxlength="255" size="30" required="required"> <br> <label for="password">password:</label><input

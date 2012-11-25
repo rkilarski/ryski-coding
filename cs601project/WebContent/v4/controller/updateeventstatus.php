@@ -5,13 +5,18 @@ if(session_id() == '') {
 }
 	require('../model/database.php');
 	require('../model/event.php');
-	
-	$event = new Event(Database::getDB());
-	$event->initPOST();
-	$event->updateReservationStatus();
-	$action='action=staff_reservations';
-	if (isset($_POST['getvariables'])){
-		$action.='&'.$_POST['getvariables'];
+	try{
+		$event = new Event(Database::getDB());
+		$event->initPOST();
+		$event->updateReservationStatus();
+		$action='action=staff_reservations';
+		if (isset($_POST['getvariables'])){
+			$action.='&'.$_POST['getvariables'];
+		}
+		header("Location: ../staff_reservations/index.php?$action");
+	} catch (Exception $e) {
+		$error = $e->getMessage();
+		header('Location: ../errors/error.php?error=$error");
 	}
-	header("Location: ../staff_reservations/index.php?$action");
+
 ?>
