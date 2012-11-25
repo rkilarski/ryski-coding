@@ -5,7 +5,7 @@ if(session_id() == '') {
 }
 require_once('../controller/secureform.php');
 require_once('../model/menu.php');
-secureStaffForm('staff_takeout');
+secureStaffForm('staff_orders');
 
 include('../include/staff_header.php');
 ?>

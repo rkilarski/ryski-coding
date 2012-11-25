@@ -5,14 +5,20 @@ if(session_id() == '') {
 }
 	require('../model/database.php');
 	require('../model/person.php');
-	
-	$person = new Person(Database::getDB());
-	$person->initPOST();
-	$person->update();
-	
-	$action='action=staff_custlist';
-	if (isset($_POST['getvariables'])){
-		$action.='&'.$_POST['getvariables'];
+
+	try{
+		$person = new Person(Database::getDB());
+		$person->initPOST();
+		$person->update();
+		
+		$action='action=staff_custlist';
+		if (isset($_POST['getvariables'])){
+			$action.='&'.$_POST['getvariables'];
+		}
+		header("Location: ../staff_customers/index.php?$action");
+	} catch (Exception $e) {
+		$error = $e->getMessage();
+		header('Location: ../errors/error.php?error=$error");
 	}
-	header("Location: ../staff_customers/index.php?$action");
+
 ?>

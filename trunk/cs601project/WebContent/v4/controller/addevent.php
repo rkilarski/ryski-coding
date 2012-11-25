@@ -5,8 +5,13 @@
 	}
 	require('../model/database.php');
 	require('../model/event.php');
-	$event = new Event(Database::getDB());
-	$event->initPOST();
-	$event->insert();
-	header('Location: ../index.php');
+	try{
+		$event = new Event(Database::getDB());
+		$event->initPOST();
+		$event->insert();
+		header('Location: ../index.php');
+	} catch (Exception $e) {
+		$error = $e->getMessage();
+		header('Location: ../errors/error.php?error=$error");
+	}
 ?>
