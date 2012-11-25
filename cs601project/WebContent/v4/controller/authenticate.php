@@ -38,7 +38,7 @@ if(session_id() == '') {
 		}
 	} catch (Exception $e) {
 		$error = $e->getMessage();
-		header('Location: ../errors/error.php?error=$error");
+		header("Location: ../errors/error.php?error=$error");
 	}
 
 ?>

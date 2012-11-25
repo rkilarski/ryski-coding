@@ -202,6 +202,10 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset {
 }
 
 /*------------------------------Form Section------------------------------*/
+#loginforms{
+	width: 80%;
+	margin: auto;
+}
 #loginform,#newloginform {
 	float: left;
 	display: inline;
@@ -489,4 +493,7 @@ CSS Twitter icon
 	{
 	opacity: 0.8;
 	border-color: #000;
+}
+#tweets{
+	/*display: none;*/
 }

@@ -16,6 +16,7 @@ if (isset($_POST['action'])) {
 <script type="text/javascript" src="../javascript/jquery.login.js"></script>
 <?php include('../include/body.php');?>
 <h1>please login to access the full features of our site</h1>
+<div id="loginforms">
 <form name="login" id="loginform" class="addressform" action="../controller/authenticate.php" method="post">
 	<input type="hidden" name="action" value="<?php echo $action;?>">
 	<h2>existing users</h2>
@@ -40,11 +41,11 @@ if (isset($_POST['action'])) {
 
 		<br> <label for="zip">zip:</label><input type="text"
 		name="zip" maxlength="10" size="10" required="required"> <br> <label for="telephone">telephone:</label><input
-		type="tel" name="telephone" id="telephone" class="telephone" maxlength="15" required="required"> <br> <label for="isstaff">are you staff?:</label><input
-		type="checkbox" name="isstaff"> <br> <label for="sendemail">send email?:</label><input
+		type="tel" name="telephone" id="telephone" class="telephone" maxlength="15" required="required"> <br> <label for="sendemail">send email?:</label><input
 		type="checkbox" name="sendemail"> <br> 
 		<input type="submit" class="right" value="add"> <input type="reset" class="right" value="reset">
 </form>
+</div>
 <div class="clear"></div>
 <br>
 <?php include('../include/footer.php'); ?>

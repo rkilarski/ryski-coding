@@ -8,7 +8,7 @@ if(session_id() == '') {
 		unset($_SESSION['cart']);
 	} catch (Exception $e) {
 		$error = $e->getMessage();
-		header('Location: ../errors/error.php?error=$error");
+		header("Location: ../errors/error.php?error=$error");
 	}
 
 ?>

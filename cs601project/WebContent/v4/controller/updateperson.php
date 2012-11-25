@@ -18,7 +18,7 @@ if(session_id() == '') {
 		header("Location: ../staff_customers/index.php?$action");
 	} catch (Exception $e) {
 		$error = $e->getMessage();
-		header('Location: ../errors/error.php?error=$error");
+		header("Location: ../errors/error.php?error=$error");
 	}
 
 ?>
