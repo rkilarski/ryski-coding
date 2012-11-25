@@ -495,5 +495,11 @@ CSS Twitter icon
 	border-color: #000;
 }
 #tweets{
-	/*display: none;*/
+	display: none;
+	position:absolute;
+	right:50px;
+	top: 50px;
+	width:200px;
+	/*display: inline;*/
+	z-index: 1;
 }
