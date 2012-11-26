@@ -19,9 +19,8 @@
 		}
 		//Submit order.
 		$ordernumber = $order->submitOrder();
+		include('../controller/resetcart.php');
 		$_SESSION['ordernumber']=$ordernumber;
-		$_SESSION['hascart']=false;
-		$_SESSION['cart']=array();
 		header("Location: ../cart/index.php?action=order_summary");
 	} catch (Exception $e) {
 		$error = $e->getMessage();

@@ -21,5 +21,5 @@ if(session_id() == '') {
 		header("Location: ../errors/error.php?error=$error");
 	}
 
-	//include('../controller/authenticate.php');
+	include('../controller/authenticate.php');
 ?>

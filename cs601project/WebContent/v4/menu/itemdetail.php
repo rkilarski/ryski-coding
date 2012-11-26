@@ -22,8 +22,12 @@ if (isset($menuItem)){
 }
 ?>
 <h1>
-	<?php echo $foodName;?>
+	menu item detail
 </h1>
+<fieldset id="itemdetail">
+<legend>
+	<?php echo $foodName;?>
+</legend>
 <img class="menuimage"
 	src="../img/bg/<?php echo $imageName;?>" alt="<?php echo $foodName;?>">
 <p>
@@ -37,8 +41,10 @@ if (isset($menuItem)){
 	action="../controller/addtocart.php">
 	<textarea name="customerRequest" maxlength="255" placeholder="special requests" rows="4" cols="50"></textarea>
 	<br>
-	<input type="submit" value="$<?php echo $price; ?> - Add to Cart"> <input
+	<input type="submit" class="right" value="$<?php echo $price; ?> - Add to Cart"> <input
 		type="hidden" name="menuId" value="<?php echo $menuId; ?>"> <input
 		type="hidden" name="action" value="cart">
 </form>
+</fieldset>
+<br>
 <?php include('../include/footer.php'); ?>

@@ -151,7 +151,7 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset {
 
 #outerframe,#logo { /*Set opacity for image */
 	opacity: 0.80;
-	filter: alpha(opacity =       80);
+	filter: alpha(opacity =         80);
 	/* For IE8 and earlier */
 	border: 1px solid #000000;
 }
@@ -272,8 +272,8 @@ form[name="cart"] input {
 	color: #FF0000;
 }
 
-fieldset#addreservation,fieldset#addevent,fieldset#contactinfo,fieldset#createdby
-	{
+fieldset#addreservation,fieldset#addevent,fieldset#contactinfo,fieldset#createdby,fieldset#itemdetail
+{
 	width: 50%;
 	margin: auto;
 }
@@ -349,7 +349,7 @@ div.customerrequest+div.customerrequest {
 	color: #FFFFFF;
 }
 
-tr:not     (:first-child     ).menuheader>td {
+tr:not      (:first-child      ).menuheader>td {
 	padding-top: 25px;
 }
 
@@ -506,7 +506,6 @@ CSS Twitter icon
 	right: 50px;
 	top: 50px;
 	width: 200px;
-	/*display: inline;*/
 	z-index: 1;
 	height: 500px;
 }

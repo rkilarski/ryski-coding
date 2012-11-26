@@ -5,7 +5,8 @@ if(session_id() == '') {
 }
 	try{
 		$_SESSION['hascart']=false;
-		unset($_SESSION['cart']);
+		$_SESSION['cart']=array();
+		unset($_SESSION['event']);
 	} catch (Exception $e) {
 		$error = $e->getMessage();
 		header("Location: ../errors/error.php?error=$error");
