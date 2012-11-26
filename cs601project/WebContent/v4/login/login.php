@@ -21,20 +21,20 @@ if (isset($_POST['action'])) {
 	<input type="hidden" name="action" value="<?php echo $action;?>">
 	<h2>existing users</h2>
 	<label for="email">login:</label> <input type="email" name="email"
-		placeholder="username" maxlength="255" size="30" required="required"> <br> <label for="password">password:</label><input
-		type="password" name="password" placeholder="password" maxlength="255" size="30" required="required"> <br> 
+		placeholder="username" maxlength="255" size="40" required="required"> <br> <label for="password">password:</label><input
+		type="password" name="password" placeholder="password" maxlength="255" size="40" required="required"> <br> 
 		<input type="submit" class="right" value="login"> <input type="reset" class="right" value="reset">
 </form>
 <form name="login" id="newloginform" class="addressform" method="post" action="../controller/addperson.php">
 	<h2>new users</h2>
-	<label for="email">email:</label><input type="email" name="email" maxlength="255" size="30" placeholder="username" required="required"> <br>
+	<label for="email">email:</label><input type="email" name="email" maxlength="255" size="40" placeholder="username" required="required"> <br>
 	<label for="password">password:</label><input type="password"
-		name="password" maxlength="255" size="30" placeholder="password" required="required"> <br> <br> <label for="firstname">first name:</label><input
+		name="password" maxlength="255" size="40" placeholder="password" required="required"> <br> <br> <label for="firstname">first name:</label><input
 		type="text" name="firstname" maxlength="255" required="required"> <br> <label for="middle">middle initial:</label><input
 		type="text" name="middle" maxlength="255" size="1"> <br> <label for="lastname">last name:</label><input
 		type="text" name="lastname" maxlength="255" required="required"> <br> <label for="addressline1">address line 1:</label><input
-		type="text" name="addressline1" maxlength="255" required="required"> <br> <label for="addressline2">address line 2:</label><input
-		type="text" name="addressline2" maxlength="255"> <br> <label for="city">city:</label><input
+		type="text" name="addressline1" size="40" maxlength="255" required="required"> <br> <label for="addressline2">address line 2:</label><input
+		type="text" name="addressline2" size="40" maxlength="255"> <br> <label for="city">city:</label><input
 		type="text" name="city" maxlength="25" required="required"> <br> <label for="state">state:</label> 
 
 		<?php include('../include/stateselect.php');?>

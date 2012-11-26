@@ -39,7 +39,7 @@ if (isset($person)){
 	<label for="ordertype">order type:</label>
 	<?php include('../include/ordertypeselect.php'); ?>
 		<br> <br> <label for="email">email:</label><input
-		type="email" name="email" maxlength="255" required="required"
+		type="email" size="40" name="email" maxlength="255" required="required"
 		value="<?php echo $email;?>"> <br> <label for="firstname">first name:</label><input
 		type="text" name="firstname" maxlength="255" required="required"
 		value="<?php echo $first;?>"> <br> <label for="middlename">middle
@@ -48,13 +48,13 @@ if (isset($person)){
 		name:</label><input type="text" name="lastname" maxlength="255"
 		required="required" value="<?php echo $last;?>"> <br> <label
 		for="addressline1">address line 1:</label><input type="text"
-		name="addressline1" maxlength="255" required="required"
+		name="addressline1" size="40" maxlength="255" required="required"
 		value="<?php echo $addrl1;?>"> <br> <label for="addressline2">address
-		line 2:</label><input type="text" name="addressline2" maxlength="255"
+		line 2:</label><input type="text" name="addressline2" size="40" maxlength="255"
 		value="<?php echo $addrl2;?>"> <br> <label for="city">city:</label><input
 		type="text" name="city" maxlength="25" required="required"
 		value="<?php echo $city;?>"> <br> <label for="state">state:</label> 
-		
+	
 		<?php include('../include/stateselect.php');?>
 		
 		<br> <label for="zip">zip:</label><input type="text"
