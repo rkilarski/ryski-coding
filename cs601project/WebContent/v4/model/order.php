@@ -378,7 +378,7 @@ class Order {
 		$encryptionKey = Database::getEncryptionKey();
 		$columns = '';
 		foreach ($list as $key=>$value){
-			if (($key=='email')||($key=='password')||($key=='ccnumber4')||($key=='ccexpmonth')||($key=='ccexpyear')){
+			if (($key=='email')||($key=='password')||($key=='ccnumber4')||($key=='ccexpmonth')||($key=='ccexpyear')||($key=='addressLine1')||($key=='addressLine2')){
 				$columns .= "aes_decrypt($key,'$encryptionKey') as $key, ";
 			}else{
 				$columns .= "$key, ";
@@ -408,7 +408,7 @@ class Order {
 
 		foreach ($list as $key => $value){
 			$columns .= "$key, ";
-			if (($key=='email')||($key=='password')||($key=='ccnumber4')||($key=='ccexpmonth')||($key=='ccexpyear')){
+			if (($key=='email')||($key=='password')||($key=='ccnumber4')||($key=='ccexpmonth')||($key=='ccexpyear')||($key=='addressLine1')||($key=='addressLine2')){
 				$values .= "aes_encrypt('$value','$encryptionKey'), ";
 			}else {
 				$values .= "'$value', ";
