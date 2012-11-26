@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `event` (
   `reservationStatus` int(10) NOT NULL,
   `hours` int(2) NOT NULL,
   `personCount` int(2) NOT NULL,
+  `price` int(6) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -130,7 +131,8 @@ CREATE TABLE IF NOT EXISTS `customerOrder`(
   `orderStatus` int(10) NOT NULL,
   `orderType` int(10) NOT NULL,
   `paidFlag` varchar(1) DEFAULT 'N',
-   `datetimeOrdered` datetime NOT NULL,
+  `datetimeOrdered` datetime NOT NULL,
+  `event` int(10) NULL,
    PRIMARY KEY (`id`),
    KEY `datetimeOrdered` (`datetimeOrdered`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -146,19 +148,19 @@ CREATE TABLE IF NOT EXISTS `customerOrderDetail`(
 
 CREATE TABLE IF NOT EXISTS `customerOrderAddress` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `firstName` varchar(255) DEFAULT NULL,
+  `firstName` varchar(255) NOT NULL,
   `middleName` varchar(255) DEFAULT NULL,
-  `lastName` varchar(255) DEFAULT NULL,
+  `lastName` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `addressLine1` varchar(255) DEFAULT NULL,
+  `addressLine1` varchar(255) NOT NULL,
   `addressLine2` varchar(255) DEFAULT NULL,
-  `city` varchar(25) DEFAULT NULL,
-  `st` varchar(2) DEFAULT NULL,
-  `zip` varchar(10) DEFAULT NULL,
-  `telephone` varchar(15) DEFAULT NULL,
-  `ccnumber4` varchar(255) NULL,
-  `ccexpmonth` varchar(255) NULL,
-  `ccexpyear` varchar(255) NULL,
+  `city` varchar(25) NOT NULL,
+  `st` varchar(2) NOT NULL,
+  `zip` varchar(10) NOT NULL,
+  `telephone` varchar(15) NOT NULL,
+  `ccnumber4` varchar(255) NOT NULL,
+  `ccexpmonth` varchar(255) NOT NULL,
+  `ccexpyear` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -186,7 +188,8 @@ ALTER TABLE `reservation`
 ALTER TABLE `customerOrder`
   ADD CONSTRAINT `orderStatusFK` FOREIGN KEY (`orderStatus`) REFERENCES `orderStatus` (`id`),
   ADD CONSTRAINT `orderTypeFK` FOREIGN KEY (`orderType`) REFERENCES `orderType` (`id`),
-  ADD CONSTRAINT `customerAddressFK` FOREIGN KEY (`customerAddress`) REFERENCES `customerOrderAddress` (`id`);
+  ADD CONSTRAINT `customerAddressFK` FOREIGN KEY (`customerAddress`) REFERENCES `customerOrderAddress` (`id`),
+  ADD CONSTRAINT `orderEventFK` FOREIGN KEY (`event`) REFERENCES `event` (`id`);
   
  ALTER TABLE `customerOrderDetail`
   ADD CONSTRAINT `menuItemFK` FOREIGN KEY (`menuItem`) REFERENCES `menu` (`id`),
@@ -222,7 +225,8 @@ INSERT INTO `food` (`id`, `name`, `description`, `isVegetarian`, `imageName`) VA
 (20, 'polenta', 'corn meal cooked over a long flame and fried to flaky goodness', 'N', 'npa.jpg'),
 (21, 'babka', 'a slice of a traditional polish chocolate cake topped with a butter and cocoa liqueur', 'N', 'bg-12.jpg'),
 (22, 'flan', 'delicious vanilla custard topped with caramel and a dollop of home-made dulce de leche', 'N', 'bg-07.jpg'),
-(23, 'chocotorta', 'thin chocolate wafers layered with a mixture of dulce-de-leche and sour cream, topped with a chocolate sauce', 'N', 'npa.jpg');
+(23, 'chocotorta', 'thin chocolate wafers layered with a mixture of dulce-de-leche and sour cream, topped with a chocolate sauce', 'N', 'npa.jpg'),
+(24, 'event', 'event', 'N', 'npa.jpg');
 
 
 INSERT INTO `menutype` (`id`, `name`) VALUES
@@ -232,7 +236,8 @@ INSERT INTO `menutype` (`id`, `name`) VALUES
 (4, 'rice'),
 (5, 'notchicken'),
 (6, 'side'),
-(7, 'dessert');
+(7, 'dessert'),
+(8, 'event');
 
 INSERT INTO `eventType` (`id`, `eventType`) VALUES
 (1, 'birthday'),
@@ -253,7 +258,7 @@ INSERT INTO `reservationstatus` (`id`, `reservationStatus`) VALUES
 (1, 'new'),
 (2, 'cancelled'),
 (3, 'seated'),
-(3, 'done');
+(4, 'done');
 
 INSERT INTO `ordertype` (`id`, `orderType`) VALUES
 (1, 'takeout'),
@@ -283,7 +288,8 @@ INSERT INTO `menu` (`id`, `menuType`, `foodItem`, `price`, `cost`, `specialDay`)
 (20, 6, 20, 10, 5, ''),
 (21, 7, 21, 6, 5, ''),
 (22, 7, 22, 5, 5, ''),
-(23, 7, 23, 7, 5,'F');
+(23, 7, 23, 7, 5,'F'),
+(24, 8, 24, 25, 15,'');
 
 INSERT INTO `diningTable` (`id`, `name`, `seatCount`) VALUES
 (1, '1', 2),

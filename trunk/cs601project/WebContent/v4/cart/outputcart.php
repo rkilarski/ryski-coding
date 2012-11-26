@@ -1,6 +1,42 @@
 <table>
 	<?php
-	if (isset($cart) && count($cart)>0){
+	if (isset($event)){
+		$item = array_pop($cart);
+		echo '<div class="cart">';
+		echo "<tr><td class=\"menuitem\">name</td>";
+		echo "<td class=\"menudesc\">description</td>";
+		echo "<td class=\"menuprice\">price</td>";
+
+		$subtotal=0.00;
+		$itemId = $item->getMenuId();
+		$desc = $event['description'];
+		$personCount = $event['personCount'];
+		$eventDateTime=$event['eventDateTime'];
+		$price = $item->getPrice()* $personCount;
+		$name = "event for $personCount people on <span id=\"datetime\">$eventDateTime</span>";
+		$subtotal+=$price;
+		$price=number_format($price, 2);
+		echo "<tr><td class=\"menuitem\">$name</td>";
+		echo "<td class=\"menudesc\">$desc</td>";
+		echo "<td class=\"menuprice\">\$$price</td>";
+		echo "</tr>";
+
+		echo "<tr class=\"spaceabove\"><td class=\"menuitem\">&nbsp;</td>";
+		echo "<td class=\"totaldesc\">Subtotal:</td>";
+		$subtotal=number_format($subtotal, 2);
+		echo "<td class=\"totalprice\">\$$subtotal</td><td>&nbsp;</td></tr>";
+
+		echo "<tr><td class=\"menuitem\">&nbsp;</td>";
+		echo "<td class=\"totaldesc\">Tax (5.3%):</td>";
+		$tax=number_format($subtotal*.053, 2);
+		echo "<td class=\"totalprice\">\$$tax</td></tr>";
+
+		echo "<tr><td class=\"menuitem\">&nbsp;</td>";
+		echo "<td class=\"totaldesc\">Total:</td>";
+		$total=$subtotal+$tax;
+		echo "<td class=\"totalprice\">\$$total</td></tr>";
+		echo '</div>';
+	}else if (isset($cart) && count($cart)>0){
 		echo '<div class="cart">';
 		echo "<tr><td class=\"menuitem\">name</td>";
 		echo "<td class=\"menudesc\">description</td>";
@@ -45,7 +81,6 @@
 		$total=$subtotal+$tax;
 		echo "<td class=\"totalprice\">\$$total</td><td>&nbsp;</td></tr>";
 		echo '</div>';
-
 	}else {
 		echo '<tr><td>&nbsp;</td><td>your cart is empty</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
 	}

@@ -5,20 +5,29 @@ if(session_id() == '') {
 }
 include('../include/header.php');
 include('../include/body.php');
-if (isset($_POST['error'])) {
-	$error = $_POST['error'];
-} else if (isset($_GET['error'])) {
-	$error = $_GET['error'];
+
+$error='';
+if (isset($_POST['message'])) {
+	$message = $_POST['message'];
+} else if (isset($_GET['message'])) {
+	$message = $_GET['message'];
 } else {
-	$error = 'this is an uncaught error';
+	$message = '';
+	if (isset($_POST['error'])) {
+		$error = $_POST['error'];
+	} else if (isset($_GET['error'])) {
+		$error = $_GET['error'];
+	} else {
+		$error = 'this is an uncaught error';
+	}
 }
-?>
-<h1>error</h1>
-    <h1>you have stumbled upon an error on our website!</h1>
-	<fieldset>
-	<legend>
-	error message
-	</legend>
-    <p><?php echo $error; ?></p>
-	 </fieldset>
-<?php include '../include/footer.php'; ?>
+
+if ($error!=''){
+	echo '<h1>error</h1><h1>you have stumbled upon an error on our website!</h1><fieldset><legend>error message</legend>';
+   echo "<p>$error</p></fieldset>";
+}
+if ($message!=''){
+	echo '<h1>message</h1><fieldset><legend>message</legend>';
+   echo "<p>$message</p></fieldset>";
+}
+include '../include/footer.php'; ?>
