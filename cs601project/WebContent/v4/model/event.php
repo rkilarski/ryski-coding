@@ -13,7 +13,8 @@ class Event {
 	private $hours;
 	private $personCount;
 	private $sortorder;
-
+	private $price;
+	
 	public function __construct($db){
 		$this->db = $db;
 	}
@@ -37,6 +38,9 @@ class Event {
 	}
 	public function getHours(){
 		return $this->hours;
+	}
+	public function getPrice(){
+		return $this->price;
 	}
 	public function getPersonCount(){
 		return $this->personCount;
@@ -65,6 +69,9 @@ class Event {
 	public function setHours($hours){
 		$this->hours = $hours;
 	}
+	public function setPrice($price){
+		$this->price = $price;
+	}
 	public function setPersonCount($personCount){
 		$this->personCount = $personCount;
 	}
@@ -83,6 +90,22 @@ class Event {
 		$this->hours = $row['hours'];
 		$this->personCount = $row['personCount'];
 		$this->eventDateTime = $row['eventDateTime'];
+		$this->price = $row['price'];
+	}
+	/**
+	 *Create row from event.
+	 */
+	public function eventToArray(){
+		$row['id'] = $this->id;
+		$row['person'] = $this->person;
+		$row['description'] = $this->description;
+		$row['eventType'] = $this->eventType;
+		$row['reservationStatus'] = $this->reservationStatus;
+		$row['hours'] = $this->hours;
+		$row['personCount'] = $this->personCount;
+		$row['eventDateTime'] = $this->eventDateTime;
+		$row['price'] = $this->price;
+		return $row;
 	}
 	/**
 	 * Initialize from $_POST
@@ -116,6 +139,9 @@ class Event {
 		}
 		if (isset($_POST['personCount'])){
 			$this->personCount = $_POST['personCount'];
+		}
+		if (isset($_POST['price'])){
+			$this->price = $_POST['price'];
 		}
 	}
 	/**
@@ -156,6 +182,9 @@ class Event {
 		if (isset($_GET['sortorder'])){
 			$this->sortorder = $_GET['sortorder'];
 		}
+		if (isset($_GET['price'])){
+			$this->price = $_GET['price'];
+		}
 	}
 
 	public function loadAll(){
@@ -183,7 +212,7 @@ class Event {
 		return $event;
 	}
 	public function getEventFields(){
-		return array("id"=>$this->id, "person"=>$this->person, "description"=>$this->description, "eventDateTime"=>$this->eventDateTime, "eventType"=>$this->eventType, "reservationStatus"=>$this->reservationStatus, "hours"=>$this->hours, "personCount"=>$this->personCount);
+		return array("id"=>$this->id, "person"=>$this->person, "description"=>$this->description, "eventDateTime"=>$this->eventDateTime, "eventType"=>$this->eventType, "reservationStatus"=>$this->reservationStatus, "hours"=>$this->hours, "personCount"=>$this->personCount, "price"=>$this->price);
 	}
 	public function insert(){
 		$list = $this->getEventFields();
@@ -197,7 +226,8 @@ class Event {
 		$values = substr($values, 0, -2);
 
 		$sql="insert into event ($columns) values ($values)";
-		return $this->db->exec($sql);
+		$this->db->exec($sql);
+		return $this->db->lastInsertId();
 	}
 
 	public function update(){
@@ -262,6 +292,15 @@ class Event {
 		}
 		$sql = substr($sql, 0, -2)." where `id`='$id'";
 		return $this->db->exec($sql);
+	}
+	public function eventExists($datetime, $hours){
+		$sql='SELECT id FROM `event` WHERE ';
+		$sql.="eventDateTime BETWEEN '$datetime' AND DATE_ADD('$datetime', INTERVAL $hours HOUR) ";
+		$sql.="OR '$datetime' BETWEEN eventDateTime AND DATE_ADD(eventDateTime, INTERVAL hours HOUR)";
+		$statement= $this->db->prepare($sql);
+		$statement->execute();
+		$rows = $statement->fetchAll();
+		return count($rows);
 	}
 }
 ?>

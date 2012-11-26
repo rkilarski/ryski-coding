@@ -53,7 +53,7 @@ if (isset($person)){
 		line 2:</label><input type="text" name="addressline2" maxlength="255"
 		value="<?php echo $addrl2;?>"> <br> <label for="city">city:</label><input
 		type="text" name="city" maxlength="25" required="required"
-		value="<?php echo $city;?>"> <br> <label for="st">state:</label> 
+		value="<?php echo $city;?>"> <br> <label for="state">state:</label> 
 		
 		<?php include('../include/stateselect.php');?>
 		

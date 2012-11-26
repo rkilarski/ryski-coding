@@ -58,7 +58,7 @@ class Menu{
 				FROM `menu` m JOIN `menutype` t ON m.menuType=t.id
 									JOIN `food` f ON m.foodItem=f.id
 									
-				WHERE m.specialDay =''";
+				WHERE m.specialDay ='' AND f.name <>'event'";
 											
 		$statement= $db->prepare($sql);
 		$statement->execute();
@@ -86,7 +86,7 @@ class Menu{
 				FROM `menu` m JOIN `menutype` t ON m.menuType=t.id
 									JOIN `food` f ON m.foodItem=f.id
 									
-				WHERE m.specialDay <>''";
+				WHERE m.specialDay <>'' AND f.name <>'event'";
 											
 		$statement= $db->prepare($sql);
 		$statement->execute();
@@ -144,6 +144,17 @@ class Menu{
 			array_push($cartlist, Menu::getMenuItem($db, $menuItem['menuId'], $menuItem['customerRequest']));
 		}
 		return $cartlist;
+	}
+	public static function getEventId($db){
+		$sql="SELECT m.id as menuId
+			FROM `menu` m JOIN `menutype` t ON m.menuType=t.id
+			JOIN `food` f ON m.foodItem=f.id
+			WHERE f.name='event'";
+			
+		$statement= $db->prepare($sql);
+		$statement->execute();
+		$row = $statement->fetch();
+		return $row['menuId'];
 	}
 }
 ?>

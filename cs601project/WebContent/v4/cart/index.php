@@ -7,6 +7,7 @@ require_once('../model/database.php');
 require_once('../model/order.php');
 require_once('../model/menu.php');
 require_once('../model/person.php');
+require_once('../model/event.php');
 
 if (isset($_POST['action'])) {
 	$action = $_POST['action'];
@@ -43,6 +44,9 @@ switch ($action) {
 		break;
 	case 'checkout':
 		$cart=null;
+		if (isset($_SESSION['event'])){
+			$event = $_SESSION['event'];
+		}
 		if (isset($_SESSION['cart'])){
 			$cartList=$_SESSION['cart'];
 			$cart=Menu::getCart(Database::getDB(), $cartList);
@@ -57,6 +61,11 @@ switch ($action) {
 		if (isset($_SESSION['ordernumber'])){
 			$ordernumber = $_SESSION['ordernumber'];
 			$order=Order::loadById(Database::getDB(), $ordernumber);
+			$eventId=$order->getEvent();
+			if ($eventId!=''){
+				$eventObject = Event::loadById(Database::getDB(), $eventId);
+				$event=$eventObject->eventToArray();
+			}
 			$cart=Menu::getCart(Database::getDB(), $order->getOrderItems());
 		}
 		include('order_summary.php');

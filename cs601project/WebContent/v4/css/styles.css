@@ -151,7 +151,7 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset {
 
 #outerframe,#logo { /*Set opacity for image */
 	opacity: 0.80;
-	filter: alpha(opacity =   80);
+	filter: alpha(opacity =       80);
 	/* For IE8 and earlier */
 	border: 1px solid #000000;
 }
@@ -202,17 +202,18 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset {
 }
 
 /*------------------------------Form Section------------------------------*/
-#loginforms{
+#loginforms {
 	width: 80%;
 	margin: auto;
 }
+
 #loginform,#newloginform {
 	float: left;
 	display: inline;
 	width: 450px;
 }
 
-#loginform label, #newloginform label{
+#loginform label,#newloginform label {
 	width: 150px;
 }
 
@@ -348,7 +349,7 @@ div.customerrequest+div.customerrequest {
 	color: #FFFFFF;
 }
 
-tr:not   (:first-child   ).menuheader>td {
+tr:not     (:first-child     ).menuheader>td {
 	padding-top: 25px;
 }
 
@@ -494,12 +495,18 @@ CSS Twitter icon
 	opacity: 0.8;
 	border-color: #000;
 }
-#tweets{
+
+.twitter-timeline {
+	height: 100%
+}
+
+#tweets {
 	display: none;
-	position:absolute;
-	right:50px;
+	position: absolute;
+	right: 50px;
 	top: 50px;
-	width:200px;
+	width: 200px;
 	/*display: inline;*/
 	z-index: 1;
+	height: 500px;
 }

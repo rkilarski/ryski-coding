@@ -16,7 +16,7 @@ id="tagline">chicken.re(de)fined</span>
 </ul>
 </div>
 <div id="tweets">
-	<a class="twitter-timeline" height="350" href="https://twitter.com/chickenriceyum" data-widget-id="272501428952629248">Tweets by @chickenriceyum</a>
+	<a class="twitter-timeline" href="https://twitter.com/chickenriceyum" data-widget-id="272501428952629248">Tweets by @chickenriceyum</a>
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 </div>
 

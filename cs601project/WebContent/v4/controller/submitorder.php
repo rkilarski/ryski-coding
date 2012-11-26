@@ -5,12 +5,18 @@
 	}
 	require('../model/database.php');
 	require('../model/order.php');
-
+	require('../model/event.php');
 	try{
+		$cart = $_SESSION['cart'];		
 		$order = new Order(Database::getDB());
-		$cart = $_SESSION['cart'];
 		$order->initPOST($cart);
-		
+
+		if (isset($_SESSION['event'])){
+			$event = new Event(Database::getDB());
+			$event->init($_SESSION['event']);
+			$eventId=$event->insert();
+			$order->setEvent($eventId);
+		}
 		//Submit order.
 		$ordernumber = $order->submitOrder();
 		$_SESSION['ordernumber']=$ordernumber;

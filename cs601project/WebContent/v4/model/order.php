@@ -30,6 +30,7 @@ class Order {
 	private $customerRequest;
 	private $datetimeOrdered;
 	private $sortorder;
+	private $event;
 
 	public function __construct($db){
 		$this->db = $db;
@@ -112,6 +113,9 @@ class Order {
 	public function getSortOrder(){
 		return $this->sortorder;
 	}
+	public function getEvent(){
+		return $this->event;
+	}
 	public function setId($id){
 		$this->id = $id;
 	}
@@ -184,6 +188,9 @@ class Order {
 	public function setDateTimeOrdered($datetimeOrdered){
 		$this->datetimeOrdered = $datetimeOrdered;
 	}
+	public function setEvent($event){
+		$this->event = $event;
+	}
 	public function initOrder($row){
 		$this->id = $row['id'];
 		$this->customeraddressid = $row['customerAddress'];
@@ -191,6 +198,7 @@ class Order {
 		$this->ordertype = $row['orderType'];
 		$this->paidflag = $row['paidFlag'];
 		$this->datetimeOrdered = $row['datetimeOrdered'];
+		$this->event = $row['event'];
 	}
 
 	public function initAddress($row){
@@ -245,8 +253,8 @@ class Order {
 		if (isset($_POST['city'])){
 			$this->city = $_POST['city'];
 		}
-		if (isset($_POST['st'])){
-			$this->st = $_POST['st'];
+		if (isset($_POST['state'])){
+			$this->st = $_POST['state'];
 		}
 		if (isset($_POST['zip'])){
 			$this->zip = $_POST['zip'];
@@ -289,6 +297,9 @@ class Order {
 		if (isset($_POST['sortorder'])){
 			$this->sortorder = $_POST['sortorder'];
 		}
+		if (isset($_POST['event'])){
+			$this->event = $_POST['event'];
+		}
 
 		if (isset($cart)){
 			$this->orderitems= $cart;
@@ -323,8 +334,8 @@ class Order {
 		if (isset($_GET['city'])){
 			$this->city = $_GET['city'];
 		}
-		if (isset($_GET['st'])){
-			$this->st = $_GET['st'];
+		if (isset($_GET['state'])){
+			$this->st = $_GET['state'];
 		}
 		if (isset($_GET['zip'])){
 			$this->zip = $_GET['zip'];
@@ -351,12 +362,14 @@ class Order {
 		if (isset($_GET['sortorder'])){
 			$this->sortorder = $_GET['sortorder'];
 		}
-
+		if (isset($_GET['event'])){
+			$this->event = $_GET['event'];
+		}
 	}
 	public static function loadById($db, $id){
 		$order = new Order($db);
 
-		$statement= $db->prepare("select O.id, O.customerAddress, T.orderType, S.orderStatus, O.paidFlag,O.datetimeOrdered from customerOrder O left join orderType T ON (O.orderType=T.id) left join orderStatus S ON (O.orderStatus=S.id)where O.id='$id'");
+		$statement= $db->prepare("select O.id, O.customerAddress, T.orderType, S.orderStatus, O.paidFlag,O.datetimeOrdered, O.event from customerOrder O left join orderType T ON (O.orderType=T.id) left join orderStatus S ON (O.orderStatus=S.id)where O.id='$id'");
 		$statement->execute();
 		$row = $statement->fetch();
 		$order->initOrder($row);
@@ -409,7 +422,7 @@ class Order {
 	}
 
 	private function insertCustomerOrder(){
-		$list = array("customerAddress"=>$this->customerAddressId, "orderStatus"=>$this->orderstatus, "orderType"=>$this->ordertype, "paidFlag"=>$this->paidflag, "datetimeOrdered"=>$this->datetimeOrdered);
+		$list = array("customerAddress"=>$this->customerAddressId, "orderStatus"=>$this->orderstatus, "orderType"=>$this->ordertype, "paidFlag"=>$this->paidflag, "datetimeOrdered"=>$this->datetimeOrdered, "event"=>$this->event);
 		$columns = '';
 		$values = '';
 		foreach ($list as $key => $value){
@@ -452,7 +465,7 @@ class Order {
 		$ordertype = $this->ordertype;
 		$datetimeOrdered = $this->datetimeOrdered	;
 		
-		$where = '';
+		$where = "event=''";
 		if (($orderstatus!='')&&($orderstatus!='all')){
 			if ($where !=''){
 				$where .= ' AND ';
@@ -502,6 +515,5 @@ class Order {
 		$sql = substr($sql, 0, -2)." where `id`='$id'";
 		return $this->db->exec($sql);
 	}
-
 }
 ?>

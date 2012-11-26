@@ -3,13 +3,30 @@
 		session_set_cookie_params(31536000,'/');
 		session_start();
 	}
-	require('../model/database.php');
-	require('../model/event.php');
+	require_once('../model/database.php');
+	require_once('../model/menu.php');
+	require_once('../model/event.php');
 	try{
-		$event = new Event(Database::getDB());
+		$db = Database::getDB();
+		$event = new Event($db);
 		$event->initPOST();
-		$event->insert();
-		header('Location: ../index.php');
+		if ($event->eventExists($event->getEventDateTime(), $event->getHours())){
+			$message = 'your requested event overlaps with an existing event; it cannot be scheduled.';
+			header("Location: ../errors/error.php?message=$message");			
+		}else{
+		   //Add event to cart item.
+			$_SESSION['event']=$event->eventToArray();
+			
+			//Add menu item as well.
+			$item = array();
+			$item['menuId'] = Menu::getEventId($db);
+			$item['customerRequest'] = $event->getDescription();
+			$cart = array();
+			$cart[] = $item;   //Add item to array.
+			$_SESSION['cart']=$cart;
+
+			header('Location: ../cart/index.php?action=checkout');
+		}
 	} catch (Exception $e) {
 		$error = $e->getMessage();
 		header("Location: ../errors/error.php?error=$error");
