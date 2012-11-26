@@ -2,9 +2,10 @@
 require_once('../model/database.php');
 require_once('../model/states.php');
 
-if (!isset($state)||($state='')){
+if (!isset($state)||($state=='')){
 	$state="ma";
 }
+$state = strtolower($state);
 $states = State::loadAll(Database::getDB());
 ?>
 <select name="state" size="1">
