@@ -1,7 +1,7 @@
-<table>
 	<?php
 	if (isset($event)){
 		$item = array_pop($cart);
+		echo '<table>';
 		echo '<div class="cart">';
 		echo "<tr><td class=\"menuitem\">name</td>";
 		echo "<td class=\"menudesc\">description</td>";
@@ -35,9 +35,10 @@
 		echo "<td class=\"totaldesc\">Total:</td>";
 		$total=$subtotal+$tax;
 		echo "<td class=\"totalprice\">\$$total</td></tr>";
-		echo '</div>';
+		echo '</table></div>';
 	}else if (isset($cart) && count($cart)>0){
 		echo '<div class="cart">';
+		echo '<table>';
 		echo "<tr><td class=\"menuitem\">name</td>";
 		echo "<td class=\"menudesc\">description</td>";
 		echo "<td class=\"menuprice\">price</td>";
@@ -78,11 +79,10 @@
 
 		echo "<tr><td class=\"menuitem\">&nbsp;</td>";
 		echo "<td class=\"totaldesc\">Total:</td>";
-		$total=$subtotal+$tax;
+		$total=number_format($subtotal+$tax,2);
 		echo "<td class=\"totalprice\">\$$total</td><td>&nbsp;</td></tr>";
-		echo '</div>';
+		echo '</table></div>';
 	}else {
-		echo '<tr><td>&nbsp;</td><td>your cart is empty</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
+		echo '<h2>your cart is empty<h2>';
 	}
 	?>
-</table>

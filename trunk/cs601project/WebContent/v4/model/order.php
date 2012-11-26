@@ -426,8 +426,12 @@ class Order {
 		$columns = '';
 		$values = '';
 		foreach ($list as $key => $value){
+			if (($key=='event')&&($value=='')){
+				$values .= "null, ";			
+			}else {
+				$values .= "'$value', ";
+			}
 			$columns .= "$key, ";
-			$values .= "'$value', ";
 		}
 		$columns  = substr($columns, 0, -2);
 		$values = substr($values, 0, -2);
@@ -465,7 +469,7 @@ class Order {
 		$ordertype = $this->ordertype;
 		$datetimeOrdered = $this->datetimeOrdered	;
 		
-		$where = "event=''";
+		$where = "event IS NULL";
 		if (($orderstatus!='')&&($orderstatus!='all')){
 			if ($where !=''){
 				$where .= ' AND ';
