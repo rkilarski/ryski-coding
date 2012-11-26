@@ -266,7 +266,7 @@ class Person {
 		$columns = '';
 		$encryptionKey = Database::getEncryptionKey();
 		foreach ($list as $key=>$value){
-			if (($key=='email')||($key=='password')){
+			if (($key=='email')||($key=='password')||($key=='addressLine1')||($key=='addressLine2')){
 				$columns .= "aes_decrypt($key,'$encryptionKey') as $key,";
 			}else {
 				$columns .= "$key, ";
@@ -286,7 +286,7 @@ class Person {
 		$columns = '';
 		$encryptionKey = Database::getEncryptionKey();
 		foreach ($list as $key=>$value){
-			if (($key=='email')||($key=='password')){
+			if (($key=='email')||($key=='password')||($key=='addressLine1')||($key=='addressLine2')){
 				$columns .= "aes_decrypt($key,'$encryptionKey') as $key,";
 			}else {
 				$columns .= "$key, ";
@@ -307,7 +307,7 @@ class Person {
 		$encryptionKey = Database::getEncryptionKey();
 		foreach ($list as $key => $value){
 			$columns .= "$key, ";
-			if (($key=='email')||($key=='password')){
+			if (($key=='email')||($key=='password')||($key=='addressLine1')||($key=='addressLine2')){
 				$values .= "aes_encrypt('$value','$encryptionKey'), ";
 			}else {
 				$values .= "'$value', ";
@@ -326,7 +326,7 @@ class Person {
 		$id=$this->id;
 		$encryptionKey = Database::getEncryptionKey();
 		foreach ($list as $key => $value){
-			if (($key=='email')||($key=='password')){
+			if (($key=='email')||($key=='password')||($key=='addressLine1')||($key=='addressLine2')){
 				$value = "aes_encrypt('$value','$encryptionKey'), ";
 			}else {
 				$value = "'$value', ";
@@ -350,7 +350,7 @@ class Person {
 	
 	public function getByQuery(){
 		$encryptKey = Database::getEncryptionKey();
-		$sql = 'SELECT id, firstName, middleName, lastName, aes_decrypt(email,\''.$encryptKey.'\') as email, password, addressLine1, addressLine2, city, st, zip, telephone, isStaff, blacklistFlag, blacklistReason, sendEmail FROM person';
+		$sql = 'SELECT id, firstName, middleName, lastName, aes_decrypt(email,\''.$encryptKey.'\') as email, aes_decrypt(password,\''.$encryptKey.'\') as password, aes_decrypt(addressLine1,\''.$encryptKey.'\') as addressLine1, aes_decrypt(addressLine2,\''.$encryptKey.'\') as addressLine2, city, st, zip, telephone, isStaff, blacklistFlag, blacklistReason, sendEmail FROM person';
 	
 		$email = $this->email;
 		$firstName = $this->firstname;
@@ -394,13 +394,13 @@ class Person {
 			if ($where !=''){
 				$where .= ' AND ';
 			}
-			$where .= " (addressLine1 LIKE '$addressLine1%')";
+			$where .= " (addressLine1 LIKE aes_encrypt('$addressLine1%','.$encryptKey.'))";
 		}
 		if ($addressLine2!=''){
 			if ($where !=''){
 				$where .= ' AND ';
 			}
-			$where .= " (addressLine2 LIKE '$addressLine2')";
+			$where .= " (addressLine2 LIKE aes_encrypt('$addressLine2','.$encryptKey.'))";
 		}
 		if ($city!=''){
 			if ($where !=''){
