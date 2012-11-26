@@ -1,15 +1,9 @@
 /*
 Stylesheet for client-side restaurant.
 
-YESDescendant Selector [p div]
-YESChild Selector ['p > div']
-YESAttribute Selector ['att=value']
-YESType or Element Selector ['p']
 Adjacent sibling Selector ['p + div']
 
 */
-
-/*------------------------------General Section------------------------------*/
 * {
 	font-family: Arial, sans-serif;
 }
@@ -84,7 +78,7 @@ footer {
 	text-align: center;
 	font-weight: normal;
 	font-size: 15px;
-	border-top: 1px solid #FF6600; /*orange*/
+	border-top: 1px solid #FF6600;
 }
 
 label {
@@ -110,12 +104,10 @@ fieldset,fieldset>legend {
 }
 
 select,input,#innerframe,#outerframe,#logo,textarea,fieldset {
-	/*Border radius section*/
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-khtml-border-radius: 10px;
 	border-radius: 10px;
-	/*End border radius section*/
 }
 
 #logo {
@@ -149,9 +141,9 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset {
 	padding: 10px;
 }
 
-#outerframe,#logo { /*Set opacity for image */
+#outerframe,#logo {
 	opacity: 0.80;
-	filter: alpha(opacity =         80);
+	filter: alpha(opacity =   80);
 	/* For IE8 and earlier */
 	border: 1px solid #000000;
 }
@@ -189,7 +181,6 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset {
 	color: #000000;
 }
 
-/* Word Cloud */
 #wordcloud {
 	border: 0;
 	height: 600px;
@@ -201,7 +192,6 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset {
 	clear: both;
 }
 
-/*------------------------------Form Section------------------------------*/
 #loginforms {
 	width: 80%;
 	margin: auto;
@@ -233,8 +223,8 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset {
 }
 
 input,select,option,textarea {
-	background-color: #FFFFFF; /*white*/
-	color: #FF6600; /*orange*/
+	background-color: #FFFFFF;
+	color: #FF6600;
 }
 
 input[type="submit"],input[type="reset"],input[type="button"] {
@@ -273,7 +263,7 @@ form[name="cart"] input {
 }
 
 fieldset#addreservation,fieldset#addevent,fieldset#contactinfo,fieldset#createdby,fieldset#itemdetail
-{
+	{
 	width: 50%;
 	margin: auto;
 }
@@ -281,7 +271,7 @@ fieldset#addreservation,fieldset#addevent,fieldset#contactinfo,fieldset#createdb
 fieldset#createdby a {
 	color: #FFFFFF;
 }
-/*------------------------------Menu Section------------------------------*/
+
 .menuheader {
 	text-align: center;
 	font-size: 20px;
@@ -349,7 +339,7 @@ div.customerrequest+div.customerrequest {
 	color: #FFFFFF;
 }
 
-tr:not      (:first-child      ).menuheader>td {
+tr:not (:first-child ).menuheader>td {
 	padding-top: 25px;
 }
 
@@ -364,7 +354,7 @@ iframe#googlemap {
 	width: 525px;
 	height: 450px;
 }
-/*------------------------------Navigation Section------------------------------*/
+
 .navigation {
 	text-align: center;
 	font-size: 20px;
@@ -420,11 +410,11 @@ http://www.1stwebdesigner.com/css/css-icons-logos/
 	position: relative;
 	border-color: #3c5a98;
 	text-transform: lowercase;
-	text-indent: 17px; /*34px;*/
-	letter-spacing: 5px; /*10px;*/
+	text-indent: 17px; 
+	letter-spacing: 5px;
 	font-weight: bold;
-	font-size: 32px; /*64px*/
-	line-height: 33px; /*66px*/
+	font-size: 32px; 
+	line-height: 33px;
 	color: #fff;
 	background: #3c5a98;
 	/* css3 */
