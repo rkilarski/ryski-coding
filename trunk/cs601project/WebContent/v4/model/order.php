@@ -14,6 +14,11 @@ class Order {
 	private $city;
 	private $st;
 	private $zip;
+	private $billingAddressline1;
+	private $billingAddressline2;
+	private $billingCity;
+	private $billingSt;
+	private $billingZip;
 	private $telephone;
 	private $ordertype;
 	private $orderstatus;
@@ -67,6 +72,21 @@ class Order {
 	}
 	public function getZip(){
 		return $this->zip;
+	}
+	public function getBillingAddressline1(){
+		return $this->billingAddressline1;
+	}
+	public function getBillingAddressline2(){
+		return $this->billingAddressline2;
+	}
+	public function getBillingCity(){
+		return $this->billingCity;
+	}
+	public function getBillingSt(){
+		return $this->billingSt;
+	}
+	public function getBillingZip(){
+		return $this->billingZip;
 	}
 	public function getTelephone(){
 		return $this->telephone;
@@ -146,6 +166,21 @@ class Order {
 	public function setZip($zip){
 		$this->zip = $zip;
 	}
+	public function setBillingAddressline1($billingAddressline1){
+		$this->billingAddressline1 = $billingAddressline1;
+	}
+	public function setBillingAddressline2($billingAddressline2){
+		$this->billingAddressline2 = $billingAddressline2;
+	}
+	public function setBillingCity($billingCity){
+		$this->billingCity = $billingCity;
+	}
+	public function setBillingSt($billingSt){
+		$this->billingSt = $billingSt;
+	}
+	public function setBillingZip($billingZip){
+		$this->billingZip = $billingZip;
+	}
 	public function setTelephone($telephone){
 		$this->telephone = $telephone;
 	}
@@ -211,6 +246,11 @@ class Order {
 		$this->city = $row['city'];
 		$this->st = $row['st'];
 		$this->zip = $row['zip'];
+		$this->billingAddressline1 = $row['billingAddressLine1'];
+		$this->billingAddressline2 = $row['billingAddressLine2'];
+		$this->billingCity = $row['billingCity'];
+		$this->billingSt = $row['billingSt'];
+		$this->billingZip = $row['billingZip'];
 		$this->telephone = $row['telephone'];
 		$this->ccnumber4 = $row['ccnumber4'];
 		$this->ccexpmonth = $row['ccexpmonth'];
@@ -258,6 +298,21 @@ class Order {
 		}
 		if (isset($_POST['zip'])){
 			$this->zip = $_POST['zip'];
+		}
+		if (isset($_POST['billingAddressline1'])){
+			$this->billingAddressline1 = $_POST['billingAddressline1'];
+		}
+		if (isset($_POST['billingAddressline2'])){
+			$this->billingAddressline2 = $_POST['billingAddressline2'];
+		}
+		if (isset($_POST['billingCity'])){
+			$this->billingCity = $_POST['billingCity'];
+		}
+		if (isset($_POST['billingState'])){
+			$this->billingSt = $_POST['billingState'];
+		}
+		if (isset($_POST['billingZip'])){
+			$this->billingZip = $_POST['billingZip'];
 		}
 		if (isset($_POST['telephone'])){
 			$this->telephone = $_POST['telephone'];
@@ -340,6 +395,21 @@ class Order {
 		if (isset($_GET['zip'])){
 			$this->zip = $_GET['zip'];
 		}
+		if (isset($_GET['billingAddressline1'])){
+			$this->billingAddressline1 = $_GET['billingAddressline1'];
+		}
+		if (isset($_GET['billingAddressline2'])){
+			$this->billingAddressline2 = $_GET['billingAddressline2'];
+		}
+		if (isset($_GET['billingCity'])){
+			$this->billingCity = $_GET['billingCity'];
+		}
+		if (isset($_GET['billingState'])){
+			$this->billingSt = $_GET['billingState'];
+		}
+		if (isset($_GET['billingZip'])){
+			$this->billingZip = $_GET['billingZip'];
+		}
 		if (isset($_GET['telephone'])){
 			$this->telephone = $_GET['telephone'];
 		}
@@ -378,7 +448,7 @@ class Order {
 		$encryptionKey = Database::getEncryptionKey();
 		$columns = '';
 		foreach ($list as $key=>$value){
-			if (($key=='email')||($key=='password')||($key=='ccnumber4')||($key=='ccexpmonth')||($key=='ccexpyear')||($key=='addressLine1')||($key=='addressLine2')){
+			if (($key=='email')||($key=='password')||($key=='ccnumber4')||($key=='ccexpmonth')||($key=='ccexpyear')||($key=='addressLine1')||($key=='addressLine2')||($key=='billingAddressLine1')||($key=='billingAddressLine2')||($key=='billingCity')||($key=='billingSt')||($key=='billingZip')){
 				$columns .= "aes_decrypt($key,'$encryptionKey') as $key, ";
 			}else{
 				$columns .= "$key, ";
@@ -398,7 +468,7 @@ class Order {
 		return $order;
 	}
 	public function getCustomerOrderAddressFields(){
-		return array("id"=>$this->id, "firstName"=>$this->firstname, "middleName"=>$this->middlename, "lastName"=>$this->lastname, "email"=>$this->email, "addressLine1"=>$this->addressline1, "addressLine2"=>$this->addressline2, "city"=>$this->city, "st"=>$this->st, "zip"=>$this->zip, "telephone"=>$this->telephone, "ccnumber4"=>$this->ccnumber4, "ccexpmonth"=>$this->ccexpmonth, "ccexpyear"=>$this->ccexpyear);
+		return array("id"=>$this->id, "firstName"=>$this->firstname, "middleName"=>$this->middlename, "lastName"=>$this->lastname, "email"=>$this->email, "addressLine1"=>$this->addressline1, "addressLine2"=>$this->addressline2, "city"=>$this->city, "st"=>$this->st, "zip"=>$this->zip, "telephone"=>$this->telephone, "ccnumber4"=>$this->ccnumber4, "ccexpmonth"=>$this->ccexpmonth, "ccexpyear"=>$this->ccexpyear, "billingAddressLine1"=>$this->billingAddressline1, "billingAddressLine2"=>$this->billingAddressline2, "billingCity"=>$this->billingCity, "billingSt"=>$this->billingSt, "billingZip"=>$this->billingZip);
 	}
 	private function insertCustomerOrderAddress(){
 		$list = $this->getCustomerOrderAddressFields();
@@ -408,7 +478,7 @@ class Order {
 
 		foreach ($list as $key => $value){
 			$columns .= "$key, ";
-			if (($key=='email')||($key=='password')||($key=='ccnumber4')||($key=='ccexpmonth')||($key=='ccexpyear')||($key=='addressLine1')||($key=='addressLine2')){
+			if (($key=='email')||($key=='password')||($key=='ccnumber4')||($key=='ccexpmonth')||($key=='ccexpyear')||($key=='addressLine1')||($key=='addressLine2')||($key=='billingAddressLine1')||($key=='billingAddressLine2')||($key=='billingCity')||($key=='billingSt')||($key=='billingZip')){
 				$values .= "aes_encrypt('$value','$encryptionKey'), ";
 			}else {
 				$values .= "'$value', ";
