@@ -94,9 +94,9 @@ if ((isset($cart)&&($cart!=null))||(isset($event)&&($event!=null))){
 			<option value="Discover">discover</option>
 			<option value="Diners">diner's club card</option>
 		</select><br> <label for="ccnumber1">credit card number:</label><input
-			type="password" size="4" required="required" name="ccnumber1"> <input type="password"
-			size="4" required="required" name="ccnumber2"><input type="password" size="4" required="required" 
-			name="ccnumber3"><input type="password" size="4" required="required" name="ccnumber4"> <br>
+			type="password" size="4" required="required" name="ccnumber1" maxlength="4"> <input type="password"
+			size="4" required="required" name="ccnumber2" maxlength="4"><input type="password" size="4" required="required" 
+			name="ccnumber3" maxlength="4"><input type="password" size="4" required="required" name="ccnumber4" maxlength="4"> <br>
 		<label for="ccexpmonth">expiration date (month/year):</label><select
 			name="ccexpmonth" required="required"><option value="01">january</option>
 			<option value="02">february</option>
