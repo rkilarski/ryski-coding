@@ -207,9 +207,13 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset {
 	width: 150px;
 }
 
+form#checkout{
+	width: 1250px;
+	margin: auto;
+}
 .addressform {
 	margin: auto;
-	width: 500px;
+	width: 600px;
 	padding: 10px;
 	color: #FFFFFF;
 }
@@ -222,6 +226,16 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset {
 	text-align: right;
 }
 
+#billingaddress{
+	float: left;
+}
+
+#deliveryaddress{
+	float: left;
+}
+#deliveryaddress>fieldset, #billingaddress>fieldset{
+	height: 350px;
+}
 input,select,option,textarea {
 	background-color: #FFFFFF;
 	color: #FF6600;
