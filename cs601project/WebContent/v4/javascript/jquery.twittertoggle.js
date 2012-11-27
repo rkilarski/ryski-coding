@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	$("#twitter a").click(function() {
-		$("#tweets").toggle();
+		$("#tweets").toggle("explode");
 	});
 	$(document).mouseup(function(e) {
 		var container = $("#tweets");
