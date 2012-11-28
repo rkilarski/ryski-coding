@@ -6,6 +6,8 @@
 <title>chickenrice</title>
 <link rel="shortcut icon" type="image/ico" href="../img/favicon/favicon1.ico" />
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
+<link type="text/css" rel="stylesheet" href="../javascript/css/chickenrice/jquery-ui-1.9.1.custom.css" />
+
 <?php 
 include('../include/bgstyle.php') ;
 require_once('../model/person.php');

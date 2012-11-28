@@ -4,6 +4,7 @@ if(session_id() == '') {
 	session_start();
 }
 require_once('../model/database.php');
+require_once('../model/keyword.php');
 
 if (isset($_POST['action'])) {
 	$action = $_POST['action'];
@@ -31,7 +32,7 @@ if (isset($_SESSION['isstaff'])){
 
 switch ($action) {
 	case 'home':
-		//$menu=Menu::getMenu(Database::getDB());
+		$keywords=Keyword::loadAll(Database::getDB());
 		include('home.php');
 		break;
    default:

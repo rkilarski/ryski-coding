@@ -9,8 +9,6 @@ secureStaffForm('staff_orders');
 
 include('../include/staff_header.php');
 ?>
-<link rel="stylesheet" href="../javascript/css/chickenrice/jquery-ui-1.9.1.custom.css" />
-<script type="text/javascript" src="../javascript/jquery-ui-1.9.1.custom.js"></script>
 <script type="text/javascript" src="../javascript/jquery.telephone.js"></script>
 <script type="text/javascript" src="../javascript/jquery.staff_orders.js"></script>
 <script src="../javascript/jquery.datetime.js"></script>
