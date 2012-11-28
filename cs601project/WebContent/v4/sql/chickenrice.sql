@@ -37,6 +37,13 @@ CREATE TABLE IF NOT EXISTS `food` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+CREATE TABLE IF NOT EXISTS `keyword` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `keyword` varchar(25) NOT NULL,
+  `weight` int(2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
 CREATE TABLE IF NOT EXISTS `diningTable` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(25) NOT NULL,
@@ -233,6 +240,25 @@ INSERT INTO `food` (`id`, `name`, `description`, `isVegetarian`, `imageName`) VA
 (23, 'chocotorta', 'thin chocolate wafers layered with a mixture of dulce-de-leche and sour cream, topped with a chocolate sauce', 'n', 'npa.jpg'),
 (24, 'event', 'event', 'n', 'npa.jpg');
 
+INSERT INTO `keyword` (`id`, `keyword`, `weight`) VALUES
+(1, 'chicken', 0),
+(2, 'tonight', 0),
+(3, 'yum', 0),
+(4, 'rice', 0),
+(5, 'paella', 0),
+(6, 'empanadas', 0),
+(7, 'rotisserie', 0),
+(8, 'grill', 0),
+(9, 'basmati', 0),
+(10, 'ravioli', 0),
+(11, 'milanese', 0),
+(12, 'creamy', 0),
+(13, 'soup', 0),
+(14, 'udon noodle', 0),
+(15, 'babka', 0),
+(16, 'chocolate', 0),
+(17, 'flan', 0),
+(18, 'chocotorta', 0);
 
 INSERT INTO `menutype` (`id`, `name`) VALUES
 (1, 'appetizer'),

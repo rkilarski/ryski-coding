@@ -9,43 +9,22 @@ include('../include/homeheader.php');
 <?php include('../include/body.php');?>
 
 <div id="wordcloud">
-    <span data-weight="<?php echo rand(1, 24);?>">chicken</span>
-	<span data-weight="<?php echo rand(1, 24);?>">tonight</span>
-	<span data-weight="<?php echo rand(1, 24);?>">yum</span>
- 	<span data-weight="<?php echo rand(1, 24);?>">rice</span>
-	<span data-weight="<?php echo rand(1, 24);?>">paella</span>
-	<span data-weight="<?php echo rand(1, 24);?>">empanadas</span>
-	<span data-weight="<?php echo rand(1, 24);?>">rotisserie</span>
-	<span data-weight="<?php echo rand(1, 24);?>">grill</span>
-	<span data-weight="<?php echo rand(1, 24);?>">basmati</span>
- 	<span data-weight="<?php echo rand(1, 24);?>">ravioli</span>
-	<span data-weight="<?php echo rand(1, 24);?>">milanese</span>
-	<span data-weight="<?php echo rand(1, 24);?>">creamy</span>
-	<span data-weight="<?php echo rand(1, 24);?>">soup</span>
-	<span data-weight="<?php echo rand(1, 24);?>">udon noodle</span>
-	<span data-weight="<?php echo rand(1, 24);?>">babka</span>
-	<span data-weight="<?php echo rand(1, 24);?>">chocolate</span>
-	<span data-weight="<?php echo rand(1, 24);?>">flan</span>
-	<span data-weight="<?php echo rand(1, 24);?>">chocotorta</span>
-
-   <span data-weight="<?php echo rand(1, 24);?>">chicken</span>
-	<span data-weight="<?php echo rand(1, 24);?>">tonight</span>
-	<span data-weight="<?php echo rand(1, 24);?>">yum</span>
- 	<span data-weight="<?php echo rand(1, 24);?>">rice</span>
-	<span data-weight="<?php echo rand(1, 24);?>">paella</span>
-	<span data-weight="<?php echo rand(1, 24);?>">empanadas</span>
-	<span data-weight="<?php echo rand(1, 24);?>">rotisserie</span>
-	<span data-weight="<?php echo rand(1, 24);?>">grill</span>
-	<span data-weight="<?php echo rand(1, 24);?>">basmati</span>
- 	<span data-weight="<?php echo rand(1, 24);?>">ravioli</span>
-	<span data-weight="<?php echo rand(1, 24);?>">milanese</span>
-	<span data-weight="<?php echo rand(1, 24);?>">creamy</span>
-	<span data-weight="<?php echo rand(1, 24);?>">soup</span>
-	<span data-weight="<?php echo rand(1, 24);?>">udon noodle</span>
-	<span data-weight="<?php echo rand(1, 24);?>">babka</span>
-	<span data-weight="<?php echo rand(1, 24);?>">chocolate</span>
-	<span data-weight="<?php echo rand(1, 24);?>">flan</span>
-	<span data-weight="<?php echo rand(1, 24);?>">chocotorta</span>
+<?php
+	//Outout the word cloud code.
+	if (isset($keywords)){
+		foreach ($keywords as $keyword){
+			$weight = $keyword->getWeight();
+			$word = $keyword->getKeyword();
+			echo "<span data-weight=\"$weight\">$word</span>";
+		}
+		//Output it twice to make it nice.
+		foreach ($keywords as $keyword){
+			$weight = $keyword->getWeight();
+			$word = $keyword->getKeyword();
+			echo "<span data-weight=\"$weight\">$word</span>";
+		}
+	}
+?>
 </div>
 <script>
 	resizeWordCloud();

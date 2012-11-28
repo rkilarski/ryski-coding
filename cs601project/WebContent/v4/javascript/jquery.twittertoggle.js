@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	$("#twitter a").click(function() {
-		$("#tweets").toggle("explode");
+		// $("#tweets").toggle();
+		$("#tweets").slideToggle("slow");
 	});
 	$(document).mouseup(function(e) {
 		var container = $("#tweets");
