@@ -8,7 +8,7 @@ secureForm('reservations');
 
 include('../include/header.php');
 ?>
-<script src="../javascript/jquery.reservation.js"></script>
+<script type="text/javascript" src="../javascript/jquery.reservation.js"></script>
 <?php include('../include/body.php');
 ?>
 <h1>reservations</h1>
