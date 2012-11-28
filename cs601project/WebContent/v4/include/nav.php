@@ -2,7 +2,7 @@
   <li><a href="../index.php?action=menu">menu</a></li>
   <li><a href="../index.php?action=specials">specials</a></li>
   <li><a href="../index.php?action=events">events</a></li>
-  <li><a href="../index.php?action=cart">cart<?php 
+  <li><a href="../index.php?action=cart" id="cartmenuitem">cart<?php 
   if (isset($_SESSION['cart'])){
 	  $count = count($_SESSION['cart']);
 		if ($count > 0) {

@@ -103,13 +103,12 @@ fieldset,fieldset>legend {
 	margin-right: auto;
 }
 
-select,input,#innerframe,#outerframe,#logo,textarea,fieldset {
+select,input,#innerframe,#outerframe,#logo,textarea,fieldset, #cartcount {
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-khtml-border-radius: 10px;
 	border-radius: 10px;
 }
-
 #logo {
 	width: 200px;
 	margin: auto;
@@ -393,13 +392,42 @@ ul.navigation>li:nth-of-type(odd) a {
 	color: #FFFFFF;
 }
 
+#cartmenuitem, #cartcount {
+	-webkit-border-bottom-right-radius:5px;
+	-webkit-border-bottom-left-radius:5px;
+	-moz-border-radius-bottomright:5px;
+	-moz-border-radius-bottomleft:5px;
+	-khtml-border-bottom-right-radius:5px;
+	-khtm-border-bottom-left-radius:5px;
+	border-bottom-right-radius:5px;
+	border-bottom-left-radius:5px;
+}
+
 ul.navigation>li a:hover {
 	background-color: #FFFFFF;
 	color: #FF6600;
+
+	-webkit-border-bottom-right-radius:5px;
+	-webkit-border-bottom-left-radius:5px;
+	-moz-border-radius-bottomright:5px;
+	-moz-border-radius-bottomleft:5px;
+	-khtml-border-bottom-right-radius:5px;
+	-khtm-border-bottom-left-radius:5px;
+	border-bottom-right-radius:5px;
+	border-bottom-left-radius:5px;
 }
 
 ul.navigation li.highlight {
 	background-color: #FFFFFF;
+
+	-webkit-border-bottom-right-radius:5px;
+	-webkit-border-bottom-left-radius:5px;
+	-moz-border-radius-bottomright:5px;
+	-moz-border-radius-bottomleft:5px;
+	-khtml-border-bottom-right-radius:5px;
+	-khtm-border-bottom-left-radius:5px;
+	border-bottom-right-radius:5px;
+	border-bottom-left-radius:5px;
 }
 
 ul.navigation li.highlight a {
