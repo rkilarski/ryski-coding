@@ -64,17 +64,17 @@ class EmailAddress {
 	}
 
 	public static function loadById($db, $id){
-		$person = new Person($db);
+		$email = new EmailAddress($db);
 		$row = $db->exec("select * from emailaddress where `id`='$id'");
-		$person->init($row);
-		return $person;
+		$email->init($row);
+		return $email;
 	}
 
 	public static function loadByValue($db, $value, $valueId){
-		$person = new Person($db);
+		$email = new EmailAddress($db);
 		$rows = $db->exec("select * from emailaddress where `$value`='$valueId'");
-		$person->init($rows);
-		return $person;
+		$email->init($rows);
+		return $email;
 	}
 
 	public function insert(){
@@ -90,19 +90,6 @@ class EmailAddress {
 		return $this->db->exec($sql);
 	}
 
-	public function update(){
-		$list = array("id"=>$this->id, "email"=>$this->email);
-		$sql = "update emailaddress set ";
-		foreach ($list as $key => $value){
-			if(is_string($value))
-				$sql .= "$key='$value', ";
-			else
-				$sql .= "$key=$value, ";
-		}
-		$sql = substr($sql, 0, -2)." where `id`='$id'";
-		return $this->db->exec($sql);
-	}
-
 	public function delete(){
 		$id = $this->id;
 		$sql = "delete from emailaddress where `id`='$id'";
@@ -113,5 +100,19 @@ class EmailAddress {
 		$sql = "delete from emailaddress where `id`='$id'";
 		return $db->exec($sql);
 	}
+	public static function exists($db, $email){
+		$sql="SELECT * FROM emailaddress WHERE `email`='$email'";
+		
+		$statement= $db->prepare($sql);
+		$statement->execute();
+		$rows = $statement->fetchAll();
+		$emails=array();
+		foreach($rows as $row){
+			$d = EmailAddress::loadById($db, $row['id']);
+			array_push($emails,$d);
+		}
+		return count($emails);
+	}
+
 }
 ?>

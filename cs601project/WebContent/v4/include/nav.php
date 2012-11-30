@@ -12,6 +12,8 @@
 		}else{
 			echo '<span id="cartcount"></span>';
 		}
+	}else{
+		echo '<span id="cartcount"></span>';
 	}
 	?>
   </a></li>
