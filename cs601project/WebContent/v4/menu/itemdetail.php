@@ -4,6 +4,11 @@ if(session_id() == '') {
 	session_start();
 }
 include('../include/header.php');
+?>
+<link type="text/css" rel="stylesheet" href="../javascript/lightbox/css/lightbox.css">
+<script type="text/javascript" src="../javascript/jquery.menu.js"></script>
+<script type="text/javascript" src="../javascript/lightbox/js/lightbox.js"></script>
+<?php
 include('../include/body.php');
 if (isset($menuItem)){
 	$menuId=$menuItem->getMenuId();
@@ -28,8 +33,9 @@ if (isset($menuItem)){
 <legend>
 	<?php echo $foodName;?>
 </legend>
-<img class="menuimage"
-	src="../img/bg/<?php echo $imageName;?>" alt="<?php echo $foodName;?>">
+<a href="../img/bg/<?php echo $imageName;?>" rel="lightbox" class="menuimage" title="<?php echo $foodName;?>"><img class="menuimage"
+	src="../img/bg/<?php echo $imageName;?>" alt="<?php echo $foodName;?>"></a>
+<br>
 <p>
 	<?php echo $description;?>
 </p>

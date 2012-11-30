@@ -8,8 +8,10 @@ $(document).ready(function() {
 				data : $(this).closest("form").serialize(),
 				success : function(data, textStatus, jqXHR) {
 					// Update count.
-					if (data > 0) {
-						data = "(" + data + ")";
+					if (data > 1) {
+						data = "(" + data + " items)";
+					} else if (data ==1 ) {
+						data = "(" + data + " item)";
 					} else {
 						data = "";
 					}

@@ -103,7 +103,7 @@ fieldset,fieldset>legend {
 	margin-right: auto;
 }
 
-select,input,#innerframe,#outerframe,#logo,textarea,fieldset, #cartcount {
+select,input,#innerframe,#outerframe,#logo,textarea,fieldset, #cartcount, .menuimage {
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-khtml-border-radius: 10px;
@@ -140,11 +140,11 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset, #cartcount {
 	padding: 10px;
 }
 
-#outerframe,#logo {
+#outerframe, #logo {
 	opacity: 0.80;
 	filter: alpha(opacity =   80);
 	/* For IE8 and earlier */
-	border: 1px solid #000000;
+	border: 1px solid #D3D3D3;
 }
 
 #innerframe {
@@ -245,6 +245,12 @@ input[type="submit"],input[type="reset"],input[type="button"] {
 	color: #FFFFFF;
 }
 
+input[type="submit"]:hover,input[type="reset"]:hover,input[type="button"]:hover{
+ filter:progid:DXImageTransform.Microsoft.Alpha(opacity=80);
+ -moz-opacity: 0.8;
+ opacity: 0.8;
+ }
+ 
 form[name="mailinglist"] {
 	margin-left: auto;
 	margin-right: auto;
@@ -313,6 +319,7 @@ fieldset#createdby a {
 .menuimage {
 	width: 300px;
 	height: 200px;
+	display: block;
 	margin: auto;
 }
 
