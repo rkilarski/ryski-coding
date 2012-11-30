@@ -5,8 +5,10 @@
   <li><a href="../index.php?action=cart" id="cartmenuitem">cart<?php 
   if (isset($_SESSION['cart'])){
 	  $count = count($_SESSION['cart']);
-		if ($count > 0) {
-			echo "<span id=\"cartcount\">($count)</span>";
+		if ($count > 1) {
+			echo "<span id=\"cartcount\">($count items)</span>";
+		}else	if ($count == 1) {
+			echo "<span id=\"cartcount\">($count item)</span>";
 		}else{
 			echo '<span id="cartcount"></span>';
 		}
