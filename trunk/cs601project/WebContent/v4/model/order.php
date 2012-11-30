@@ -448,7 +448,7 @@ class Order {
 		$encryptionKey = Database::getEncryptionKey();
 		$columns = '';
 		foreach ($list as $key=>$value){
-			if (($key=='email')||($key=='password')||($key=='ccnumber4')||($key=='ccexpmonth')||($key=='ccexpyear')||($key=='addressLine1')||($key=='addressLine2')||($key=='billingAddressLine1')||($key=='billingAddressLine2')||($key=='billingCity')||($key=='billingSt')||($key=='billingZip')){
+			if (($key=='email')||($key=='password')||($key=='ccnumber4')||($key=='ccexpmonth')||($key=='ccexpyear')||($key=='addressLine1')||($key=='addressLine2')||($key=='city')||($key=='st')||($key=='zip')||($key=='billingAddressLine1')||($key=='billingAddressLine2')||($key=='billingCity')||($key=='billingSt')||($key=='billingZip')){
 				$columns .= "aes_decrypt($key,'$encryptionKey') as $key, ";
 			}else{
 				$columns .= "$key, ";
@@ -478,7 +478,7 @@ class Order {
 
 		foreach ($list as $key => $value){
 			$columns .= "$key, ";
-			if (($key=='email')||($key=='password')||($key=='ccnumber4')||($key=='ccexpmonth')||($key=='ccexpyear')||($key=='addressLine1')||($key=='addressLine2')||($key=='billingAddressLine1')||($key=='billingAddressLine2')||($key=='billingCity')||($key=='billingSt')||($key=='billingZip')){
+			if (($key=='email')||($key=='password')||($key=='ccnumber4')||($key=='ccexpmonth')||($key=='ccexpyear')||($key=='addressLine1')||($key=='addressLine2')||($key=='city')||($key=='st')||($key=='zip')||($key=='billingAddressLine1')||($key=='billingAddressLine2')||($key=='billingCity')||($key=='billingSt')||($key=='billingZip')){
 				$values .= "aes_encrypt('$value','$encryptionKey'), ";
 			}else {
 				$values .= "'$value', ";

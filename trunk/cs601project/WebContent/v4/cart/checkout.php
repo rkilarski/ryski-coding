@@ -22,13 +22,14 @@ if (isset($person)){
 	$zip = $person->getZip();
 	$tel = $person->getTelephone();
 }else{
+	$email = '';
 	$first = '';
 	$middle = '';
 	$last = '';
 	$addrl1 = '';
 	$addrl2 = '';
 	$city = '';
-	$st = '';
+	$state = '';
 	$zip = '';
 	$tel = '';
 }

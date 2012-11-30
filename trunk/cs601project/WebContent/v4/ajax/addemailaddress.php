@@ -8,11 +8,13 @@
 	try{
 		$email = new EmailAddress(Database::getDB());
 		$email->initPOST();
-		$email->insert();
-		header('Location: ../index.php');
+		if (EmailAddress::exists(Database::getDB(), $email->getEmail())>0){
+			echo 0;
+		}else {
+			$email->insert();
+			echo 1;
+		}
 	} catch (Exception $e) {
-		$error = $e->getMessage();
-		header("Location: ../errors/error.php?error=$error");
+		echo $e->getMessage();
 	}
-}
 ?>

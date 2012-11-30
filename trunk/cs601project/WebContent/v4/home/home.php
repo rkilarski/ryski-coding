@@ -6,6 +6,7 @@ if(session_id() == '') {
 include('../include/homeheader.php');
 ?>
 <script type="text/javascript" src="../javascript/jquery.bodyresize.js"></script>
+<script type="text/javascript" src="../javascript/jquery.home.js"></script>
 <?php include('../include/body.php');?>
 
 <div id="wordcloud">
@@ -33,8 +34,10 @@ include('../include/homeheader.php');
 <form name="mailinglist" action="../controller/addemailaddress.php" method="post">
 	<div id="mailinglist">
 		<label for="emailaddress">join our mailing list:</label> <input
-			type="email" name="email" placeholder="email address" size="50">
-		<input type="submit" value="submit">
+			type="email" name="email" id="email" placeholder="email address" size="50">
+		<input type="button" value="submit" id="submitmailinglist">
 	</div>
 </form>
 <?php include('../include/footer.php') ?>
+<div class="dialogdiv" id="emailsubmitted" title="thank you!">thank you for signing up for our email mailing list.</div>
+<div class="dialogdiv" id="emailduplicate" title="stop! in the name of love!">you have already signed up for our mailing list.  you can only do that once.  for shame.</div>
