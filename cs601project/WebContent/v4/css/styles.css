@@ -207,13 +207,13 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset, #cartcount, .menui
 }
 
 form#checkout{
-	width: 1250px;
+	width: 1150px;
 	margin: auto;
 }
 .addressform {
 	margin: auto;
-	width: 600px;
-	padding: 10px;
+	width: 550px;
+	padding: 5px;
 	color: #FFFFFF;
 }
 
@@ -233,7 +233,7 @@ form#checkout{
 	float: left;
 }
 #deliveryaddress>fieldset, #billingaddress>fieldset{
-	height: 350px;
+	height: 300px;
 }
 input,select,option,textarea {
 	background-color: #FFFFFF;
@@ -302,7 +302,7 @@ fieldset#createdby a {
 	width: 125px;
 }
 .menuitem {
-	width: 150px;
+	width: 200px;
 	color: #FFFFFF;
 }
 
