@@ -7,7 +7,6 @@ if(session_id() == '') {
 include('../include/header.php');
 include('../include/body.php');
 ?>
-<h1>cart</h1>
 <?php 
 $readonlycart=false;
 include('outputcart.php');

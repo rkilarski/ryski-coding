@@ -9,7 +9,7 @@ include('../include/header.php');
 <?php
 include('../include/body.php');
 ?>
-<h1>specials</h1>
+
 <table>
 <?php
 	$previousType='';

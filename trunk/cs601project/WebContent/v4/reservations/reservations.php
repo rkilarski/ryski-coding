@@ -11,7 +11,7 @@ include('../include/header.php');
 <script type="text/javascript" src="../javascript/jquery.reservation.js"></script>
 <?php include('../include/body.php');
 ?>
-<h1>reservations</h1>
+
 <fieldset id="addreservation">
 <legend>
 add a reservation

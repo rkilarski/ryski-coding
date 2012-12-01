@@ -32,7 +32,7 @@ try{
 		$_SESSION['hascart']=false;
 		$_SESSION['userid']=$row['id'];
 		$_SESSION['isloggedin']=true;
-		$_SESSION['firstname']=$row['firstName'];
+		$_SESSION['firstname']=strtolower($row['firstName']);
 		header("Location: ../index.php?action=$action");
 	} else {
 		$error = "incorrect username or password.  bad user.  bad, bad user.";
