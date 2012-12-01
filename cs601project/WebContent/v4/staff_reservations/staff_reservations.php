@@ -13,7 +13,7 @@ include('../include/staff_header.php');
 <script type="text/javascript" src="../javascript/jquery.telephone.js"></script>
 
 <?php include('../include/body.php'); ?>
-<h1>reservations</h1>
+
 	<fieldset class="searchcriteria">
 		<legend>
 			reservation search criteria

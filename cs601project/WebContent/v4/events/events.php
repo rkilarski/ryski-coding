@@ -11,7 +11,7 @@ include('../include/header.php');
 <script type="text/javascript" src="../javascript/jquery.event.js"></script>
 <?php include('../include/body.php');
 ?>
-<h1>events</h1>
+
 <fieldset id="addevent">
 <legend>
 schedule an event

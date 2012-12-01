@@ -19,7 +19,6 @@ include('../include/header.php');
 <?php
 include('../include/body.php');
 ?>
-<h1>contact us</h1>
 <h2>do you feel like chicken tonight?</h2>
 <fieldset id="contactinfo">
 <legend>

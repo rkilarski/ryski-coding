@@ -15,7 +15,7 @@ include('../include/header.php');
 <?php
 include('../include/body.php');
 ?>
-<h1>menu</h1>
+
 <table>
 	<?php
 	$previousType='';

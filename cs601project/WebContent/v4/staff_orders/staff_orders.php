@@ -17,7 +17,6 @@ include('../include/staff_header.php');
 	src="../javascript/jquery.datetime.js"></script>
 <?php include('../include/body.php'); ?>
 
-<h1>orders</h1>
 <fieldset class="searchcriteria">
 	<legend> order search criteria </legend>
 	<form name="ordersearch" id="ordersearch" method="GET"

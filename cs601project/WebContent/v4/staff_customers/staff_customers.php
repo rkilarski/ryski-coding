@@ -11,7 +11,7 @@ include('../include/staff_header.php');
 <script type="text/javascript" src="../javascript/jquery.telephone.js"></script>
 <script type="text/javascript" src="../javascript/jquery.staff_customers.js"></script>
 <?php include('../include/body.php'); ?>
-<h1>customers</h1>
+
 	<fieldset class="searchcriteria">
 		<legend>
 			customer search criteria
