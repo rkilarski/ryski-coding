@@ -5,7 +5,6 @@ if(session_id() == '') {
 }
 include('../include/homeheader.php');
 ?>
-<script type="text/javascript" src="../javascript/jquery.bodyresize.js"></script>
 <script type="text/javascript" src="../javascript/jquery.home.js"></script>
 <?php include('../include/body.php');?>
 
