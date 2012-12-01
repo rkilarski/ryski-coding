@@ -4,7 +4,7 @@ if(session_id() == '') {
 	session_start();
 }
 	try{
-		include('../controller/resetcart.php');
+		include('resetcart.php');
 		session_destroy();
 		header('Location: index.php');
 	} catch (Exception $e) {

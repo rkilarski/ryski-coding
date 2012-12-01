@@ -106,12 +106,11 @@ class EmailAddress {
 		$statement= $db->prepare($sql);
 		$statement->execute();
 		$rows = $statement->fetchAll();
-		$emails=array();
+		$count=0;
 		foreach($rows as $row){
-			$d = EmailAddress::loadById($db, $row['id']);
-			array_push($emails,$d);
+			$count++;
 		}
-		return count($emails);
+		return $count;
 	}
 
 }

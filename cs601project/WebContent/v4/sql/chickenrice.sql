@@ -41,7 +41,8 @@ CREATE TABLE IF NOT EXISTS `keyword` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `keyword` varchar(25) NOT NULL,
   `weight` int(2) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `keyword` (`keyword`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `diningTable` (
@@ -93,14 +94,14 @@ CREATE TABLE IF NOT EXISTS `person` (
   `blacklistReason` varchar(255) DEFAULT NULL,
   `sendEmail` varchar(1) NOT NULL DEFAULT 'N',
   PRIMARY KEY (`id`),
-  KEY `email` (`email`)
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 CREATE TABLE IF NOT EXISTS `emailAddress` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `email` (`email`)
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 CREATE TABLE IF NOT EXISTS `reservation` (
