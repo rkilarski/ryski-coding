@@ -3,7 +3,7 @@ require_once('../model/database.php');
 require_once('../model/orderstatus.php');
 
 if (!isset($orderStatus)){
-	$orderStatus=2;
+	$orderStatus='new';
 }
 $list = OrderStatus::loadAll(Database::getDB());
 ?>

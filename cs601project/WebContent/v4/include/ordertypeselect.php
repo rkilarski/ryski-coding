@@ -3,7 +3,7 @@ require_once('../model/database.php');
 require_once('../model/ordertype.php');
 
 if (!isset($orderType)){
-	$orderType=2;
+	$orderType='all';
 }
 $list = OrderType::loadAll(Database::getDB());
 ?>
