@@ -389,6 +389,6 @@ INSERT INTO `states` (`id`, `st`, `stateName`) VALUES
 (51,'wy','wyoming');
 
 INSERT INTO `person` (`id`, `firstName`, `middleName`, `lastName`, `email`, `password`, `addressLine1`, `addressLine2`, `city`, `st`, `zip`, `telephone`, `isStaff`, `blacklistFlag`, `blacklistReason`, `sendEmail`) VALUES
-(1, 'manager', NULL, 'manager', aes_encrypt('manager@chickenrice.com','chickenrice'), aes_encrypt('password','chickenrice'), aes_encrypt('895 Commonwealth Ave','chickenrice'), NULL, 'Boston', 'ma', '02445', '6173535000', 'Y', NULL, NULL, 'N'),
-(2, 'Ryszard', NULL, 'Kilarski', aes_encrypt('rkilarski@gmail.com','chickenrice'), aes_encrypt('password','chickenrice'), aes_encrypt('99 Pond Ave Apt 701','chickenrice'), NULL, 'Brookline', 'ma', '02445', '6179534258', 'Y', NULL, NULL, 'N'),
+(1, 'manager', NULL, 'manager', aes_encrypt('manager@chickenrice.com','chickenrice'), aes_encrypt('password','chickenrice'), aes_encrypt('895 Commonwealth Ave','chickenrice'), NULL, aes_encrypt('Boston','chickenrice'), aes_encrypt('ma','chickenrice'), aes_encrypt('02445','chickenrice'), '6173535000', 'Y', NULL, NULL, 'N'),
+(2, 'Ryszard', NULL, 'Kilarski', aes_encrypt('rkilarski@gmail.com','chickenrice'), aes_encrypt('password','chickenrice'), aes_encrypt('99 Pond Ave Apt 701','chickenrice'), NULL, aes_encrypt('Brookline','chickenrice'), aes_encrypt('ma','chickenrice'), aes_encrypt('02445','chickenrice'), '6179534258', 'Y', NULL, NULL, 'N'),
 (3, 'Bad', 'C', 'Customer', aes_encrypt('badcustomer@gmail.com','chickenrice'), aes_encrypt('password','chickenrice'), aes_encrypt('No address','chickenrice'), NULL, 'Boston', 'ma', '02445', '6179534258', 'Y', 'Y', 'This is a bad client, never pays.', 'N');
