@@ -23,7 +23,7 @@ if (isset($_POST['message'])) {
 }
 
 if ($error!=''){
-	echo '<h1>error</h1><h1>you have stumbled upon an error on our website!</h1><fieldset><legend>error message</legend>';
+	echo '<h1>we have a no-no</h1><h1>you have stumbled upon an error on our website</h1><fieldset><legend>error message</legend>';
    echo "<p>$error</p></fieldset>";
 }
 if ($message!=''){

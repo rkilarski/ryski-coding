@@ -20,11 +20,10 @@ try{
 		if (isset($email)){
 			$email->delete();
 		}
+		include('../login/index.php');
 	}
 } catch (Exception $e) {
 	$error = $e->getMessage();
 	header("Location: ../errors/error.php?error=$error");
 }
-
-//include('../controller/authenticate.php');
 ?>
