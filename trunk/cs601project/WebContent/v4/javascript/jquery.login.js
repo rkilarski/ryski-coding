@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$("#loginform").submit(function() {
+	$("#newloginform").submit(function() {
 		massageTelephone("#telephone");
 	});
 });

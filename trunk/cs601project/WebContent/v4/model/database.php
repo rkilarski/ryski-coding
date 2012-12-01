@@ -1,9 +1,9 @@
 <?php
 class Database {
-   private static $dsn = 'mysql:host=localhost;dbname=chickenrice';
-   private static $username = 'chickenrice';
-   private static $password = 'password';
-   private static $db;
+	private static $dsn = 'mysql:host=localhost;dbname=chickenrice';
+  	private static $username = 'chickenrice';
+  	private static $password = 'password';
+  	private static $db;
 	private static $encryptionKey = 'chickenrice';
 
     private function __construct() {}
@@ -28,8 +28,8 @@ class Database {
 	}
 	
 	public static function authenticate($email, $pswd){
-		$encryptionKey=Database::getEncryptionKey();
-		$db = Database::getDB();
+		$encryptionKey=self::getEncryptionKey();
+		$db = self::getDB();
 		$rows = $db->query("select id,isStaff,firstName from person where aes_decrypt(email,'$encryptionKey') = '$email' and aes_decrypt(password, '$encryptionKey') = '$pswd'");
 		$row = $rows->fetch();
 		return $row;

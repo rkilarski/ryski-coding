@@ -457,5 +457,18 @@ class Person {
 		}
 		return $persons;
 	}
+	public static function exists($db, $email){
+		$encryptKey = Database::getEncryptionKey();
+		$sql="SELECT * FROM person WHERE email = aes_encrypt('$email','$encryptKey')";
+		$statement= $db->prepare($sql);
+		$statement->execute();
+		$rows = $statement->fetchAll();
+		$count=0;
+		foreach($rows as $row){
+			$count++;
+		}
+		return $count;
+	}
+	
 }
 ?>
