@@ -33,7 +33,7 @@ include('../include/body.php');
 		$image=$menuItem->getImageName();
 		echo "<tr><td class=\"menuitem\"><a href=\"../menu/index.php?action=itemdetail&menuid=$menuId\">$foodName</a></td>";
 		echo "<td class=\"menudesc\"><a href=\"../menu/index.php?action=itemdetail&menuid=$menuId\">$desc</a></td>";
-		echo "<td><form name=\"addtocart\" method=\"POST\" action=\"../controller/addtocart.php\"><input type=\"button\" class=\"submitbutton\" value=\"\$$price - Add to Cart\">";
+		echo "<td><form name=\"addtocart\" method=\"POST\" action=\"../controller/addtocart.php\"><input type=\"button\" class=\"submitbutton menubutton\" value=\"\$$price - Add to Cart\">";
 		echo "  <input type=\"hidden\" name=\"menuId\" value=\"$menuId\">";
 		echo '  <input type="hidden" name="customerRequest" value="">';
 		echo "  <input type=\"hidden\" name=\"action\" value=\"$action\">";
