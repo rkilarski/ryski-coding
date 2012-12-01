@@ -131,7 +131,7 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset, #cartcount, .menui
 
 #tagline>span {
 	font-size: 15px;
-	color: #FF6600;
+	color: #000000;
 }
 
 #content {
@@ -298,7 +298,9 @@ fieldset#createdby a {
 	margin-top: 20px;
 	color: #FFFFFF;
 }
-
+.menubutton{
+	width: 125px;
+}
 .menuitem {
 	width: 150px;
 	color: #FFFFFF;
@@ -342,6 +344,7 @@ fieldset#createdby a {
 .customerrequest {
 	padding-left: 50px;
 	padding-right: 50px;
+	color: #FFFFFF;
 }
 
 div.customerrequest+div.customerrequest {
@@ -359,12 +362,12 @@ div.customerrequest+div.customerrequest {
 	color: #FFFFFF;
 }
 
-tr:not (:first-child ).menuheader>td {
-	padding-top: 25px;
+tr>td.menuheader {
+	padding-top: 30px;
 }
 
 tr.spaceabove>td {
-	padding-top: 20px;
+	padding-top: 30px;
 }
 
 iframe#googlemap {

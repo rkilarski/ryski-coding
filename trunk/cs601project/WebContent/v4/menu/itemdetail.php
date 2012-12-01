@@ -41,13 +41,13 @@ if (isset($menuItem)){
 </p>
 <p>
 	is this vegetarian?
-	<?php echo $vegetarian;?>
+	<?php echo ($vegetarian=='y')?'yes': 'no';?>
 </p>
 <form name="addtocart" method="POST"
 	action="../controller/addtocart.php">
 	<textarea name="customerRequest" maxlength="255" placeholder="special requests" rows="4" cols="50"></textarea>
 	<br>
-	<input type="submit" class="right" value="$<?php echo $price; ?> - Add to Cart"> <input
+	<input type="submit" class="right menubutton" value="$<?php echo $price; ?> - Add to Cart"> <input
 		type="hidden" name="menuId" value="<?php echo $menuId; ?>"> <input
 		type="hidden" name="action" value="cart">
 </form>
