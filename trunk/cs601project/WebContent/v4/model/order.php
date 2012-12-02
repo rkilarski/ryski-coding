@@ -361,7 +361,7 @@ class Order {
 		}
 	}
 
-		/**
+	/**
 	 * Initialize from $_GET
 	 */
 	public function initGET(){
@@ -456,7 +456,7 @@ class Order {
 		}
 		$columns  = substr($columns, 0, -2);
 		$address=$order->getCustomerAddressId();
-		$statement= $db->prepare("select $columns from customerOrderAddress where `id`='$address'");
+		$statement= $db->prepare("select $columns from customerOrderAddress where id='$address'");
 		$statement->execute();
 		$row = $statement->fetch();
 		$order->initAddress($row);
@@ -497,7 +497,7 @@ class Order {
 		$values = '';
 		foreach ($list as $key => $value){
 			if (($key=='event')&&($value=='')){
-				$values .= "null, ";			
+				$values .= "null, ";
 			}else {
 				$values .= "'$value', ";
 			}
@@ -532,13 +532,23 @@ class Order {
 		return $this->id;
 	}
 	public function getByQuery(){
-		$sql="SELECT O.id as id FROM customerOrder O";
+		$sql="SELECT O.id as id FROM customerOrder O left join customerOrderAddress A ON O.customerAddress=A.id";
 		$encryptKey = Database::getEncryptionKey();
-		
+
 		$orderstatus = $this->orderstatus;
 		$ordertype = $this->ordertype;
-		$datetimeOrdered = $this->datetimeOrdered	;
-		
+		$datetimeOrdered = $this->datetimeOrdered;
+		$email = $this->email;
+		$firstName = strtoupper($this->firstname);
+		$middleName = strtoupper($this->middlename);
+		$lastName = strtoupper($this->lastname);
+		$addressLine1 = strtoupper($this->addressline1);
+		$addressLine2 = strtoupper($this->addressline2);
+		$city = strtoupper($this->city);
+		$state = strtoupper($this->st);
+		$zip = $this->zip;
+		$telephone = $this->telephone;
+
 		$where = "event IS NULL";
 		if (($orderstatus!='')&&($orderstatus!='all')){
 			if ($where !=''){
@@ -559,7 +569,67 @@ class Order {
 			$date = substr($datetimeOrdered, 0, 10);
 			$where .= " dateTimeOrdered BETWEEN '$date 00:00:00' AND '$date 23:59:59'";
 		}
-		
+		if ($email!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (A.email = aes_encrypt('$email','$encryptKey'))";
+		}
+		if ($firstName!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (upper(A.firstName) LIKE '$firstName%')";
+		}
+		if ($middleName!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (upper(A.middleName) = '$middleName')";
+		}
+		if ($lastName!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (upper(A.lastName) LIKE '$lastName%')";
+		}
+		if ($addressLine1!='') {
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (upper(CONVERT(aes_decrypt(A.addressLine1,'$encryptKey') USING latin1)) LIKE '$addressLine1%')";
+		}
+		if ($addressLine2!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (upper(CONVERT(aes_decrypt(A.addressLine2,'$encryptKey') USING latin1)) LIKE '$addressLine2%')";
+		}
+		if ($city!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (upper(CONVERT(aes_decrypt(A.city,'$encryptKey') USING latin1)) LIKE '$city%')";
+		}
+		if ($state!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (upper(CONVERT(aes_decrypt(A.st,'$encryptKey') USING latin1)) LIKE '$state%')";
+		}
+		if ($zip!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (aes_decrypt(A.zip,'$encryptKey') LIKE '$zip')";
+		}
+		if ($telephone!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " (A.telephone LIKE '$telephone%')";
+		}
+
 		if ($where !=''){
 			$sql .= ' WHERE '.$where;
 		}
@@ -567,6 +637,7 @@ class Order {
 		$sortorder=$this->sortorder;
 		$orderby = " ORDER BY O.id $sortorder";
 		$sql .= $orderby;
+		
 		$statement= $this->db->prepare($sql);
 		$statement->execute();
 		$rows = $statement->fetchAll();
@@ -584,7 +655,7 @@ class Order {
 		$encryptionKey = Database::getEncryptionKey();
 		foreach ($list as $key => $value){
 			$value = "'$value', ";
-			$sql .= "$key=$value";		
+			$sql .= "$key=$value";
 		}
 		$sql = substr($sql, 0, -2)." where `id`='$id'";
 		return $this->db->exec($sql);

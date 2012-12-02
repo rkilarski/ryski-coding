@@ -7,7 +7,7 @@ if (!isset($orderType)){
 }
 $list = OrderType::loadAll(Database::getDB());
 ?>
-<select name="ordertype" size="1">
+<select name="ordertype" size="1" title="select the order type">
 <?php
 if (isset($alltypesflag)&&$alltypesflag){
 	echo "<option value=\"all\">all</option>";

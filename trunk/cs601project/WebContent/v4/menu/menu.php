@@ -32,7 +32,7 @@ include('../include/body.php');
 		echo "<tr><td class=\"menuitem\"><a href=\"index.php?action=itemdetail&menuid=$menuId\">$foodName</a></td>";
 		echo "<td class=\"menudesc\"><a href=\"index.php?action=itemdetail&menuid=$menuId\">$desc</a></td>";
 		echo "<td><form name=\"addtocart\" method=\"POST\" action=\"#\">";
-		echo "  <input type=\"button\" class=\"submitbutton menubutton\" value=\"\$$price - Add to Cart\">";
+		echo "  <input type=\"button\" class=\"submitbutton menubutton\" title=\"add $foodName to your cart\" value=\"\$$price - Add to Cart\">";
 		echo "  <input type=\"hidden\" name=\"menuId\" value=\"$menuId\">";
 		echo '  <input type="hidden" name="customerRequest" value="">';
 		echo "  <input type=\"hidden\" name=\"action\" value=\"$action\">";

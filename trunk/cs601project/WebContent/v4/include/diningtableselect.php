@@ -7,14 +7,14 @@ if (!isset($diningTable)){
 }
 $list = DiningTable::loadAll(Database::getDB());
 ?>
-<select name="diningTable" size="1">
-<?php 
-echo "<option value=\"\">not assigned</option>";
-if (isset($alltables)&&$alltables){
-	echo "<option value=\"all\">all</option>";
-}
+<select name="diningTable" size="1" title="select the dining table">
+	<?php 
+	echo "<option value=\"\">not assigned</option>";
+	if (isset($alltables)&&$alltables){
+		echo "<option value=\"all\">all</option>";
+	}
 
-foreach ($list as $item) {
+	foreach ($list as $item) {
 	$selected='';
 	$val=$item->getId();
 	$name=$item->getName();
@@ -25,4 +25,4 @@ foreach ($list as $item) {
 	echo "<option value=\"$val\" $selected>Table $name ($seatCount)</option>";
 }
 ?>
-</select> 
+</select>

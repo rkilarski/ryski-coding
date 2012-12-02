@@ -7,7 +7,7 @@ if (!isset($orderStatus)){
 }
 $list = OrderStatus::loadAll(Database::getDB());
 ?>
-<select name="orderstatus" size="1">
+<select name="orderstatus" size="1" title="select the order status">
 <?php 
 if (isset($allstatusesflag)&&$allstatusesflag){
 	echo "<option value=\"all\">all</option>";
@@ -23,4 +23,4 @@ foreach ($list as $item) {
 	echo "<option value=\"$val\" $selected>$name</option>";
 }
 ?>
-</select> 
+</select>

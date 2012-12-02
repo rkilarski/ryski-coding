@@ -11,7 +11,7 @@ if (!isset($stateLabel)||($stateLabel=='')){
 $state = strtolower($state);
 $states = State::loadAll(Database::getDB());
 ?>
-<select name="<?php echo $stateLabel; ?>" id="<?php echo $stateLabel; ?>" size="1">
+<select name="<?php echo $stateLabel; ?>" id="<?php echo $stateLabel; ?>" required="required" size="1" title="select the state">
 <option value="">state</option>
 <?php 
 foreach ($states as $stateItem) {

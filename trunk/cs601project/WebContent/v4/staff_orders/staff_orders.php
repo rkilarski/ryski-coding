@@ -62,7 +62,7 @@ include('../include/staff_header.php');
 </fieldset>
 <br>
 <?php
-if (isset($orders)){
+if (isset($orders)&&(count($orders)>0)){
 		foreach($orders as $orderItem){
 			$cart=Menu::getCart(Database::getDB(), $orderItem->getOrderItems());
 
