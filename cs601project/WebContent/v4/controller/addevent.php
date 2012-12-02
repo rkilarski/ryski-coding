@@ -14,6 +14,10 @@
 			$message = 'your requested event overlaps with an existing event; it cannot be scheduled.';
 			header("Location: ../errors/error.php?message=$message");			
 		}else{
+			if (isset($_SESSION['cart'])){
+				$_SESSION['cart'] = array();
+			}
+				
 		   //Add event to cart item.
 			$_SESSION['event']=$event->eventToArray();
 			

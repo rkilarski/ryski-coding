@@ -353,14 +353,14 @@ class Person {
 		$sql = 'SELECT id, firstName, middleName, lastName, aes_decrypt(email,\''.$encryptKey.'\') as email, aes_decrypt(password,\''.$encryptKey.'\') as password, aes_decrypt(addressLine1,\''.$encryptKey.'\') as addressLine1, aes_decrypt(addressLine2,\''.$encryptKey.'\') as addressLine2, aes_decrypt(city,\''.$encryptKey.'\') as city, aes_decrypt(st,\''.$encryptKey.'\') as st, aes_decrypt(zip,\''.$encryptKey.'\') as zip, telephone, isStaff, blacklistFlag, blacklistReason, sendEmail FROM person';
 	
 		$email = $this->email;
-		$firstName = $this->firstname;
-		$middleName = $this->middlename;
-		$lastName = $this->lastname;
-		$addressLine1 = $this->addressline1;
-		$addressLine2 = $this->addressline2;
-		$city = $this->city;
-		$state = $this->st;
-		$zip = $this->zip;
+		$firstName = strtoupper($this->firstname);
+		$middleName = strtoupper($this->middlename);
+		$lastName = strtoupper($this->lastname);
+		$addressLine1 = strtoupper($this->addressline1);
+		$addressLine2 = strtoupper($this->addressline2);
+		$city = strtoupper($this->city);
+		$state = strtoupper($this->st);
+		$zip = strtoupper($this->zip);
 		$telephone = $this->telephone;
 		$isStaff = $this->isstaff;
 		$blacklistFlag = $this->blacklistflag;
@@ -370,55 +370,55 @@ class Person {
 			if ($where !=''){
 				$where .= ' AND ';
 			}
-			$where .= " (email = aes_encrypt('$email','.$encryptKey.'))";
+			$where .= " (email = aes_encrypt('$email','$encryptKey'))";
 		}
 		if ($firstName!=''){
 			if ($where !=''){
 				$where .= ' AND ';
 			}
-			$where .= " (firstName LIKE '$firstName%')";
+			$where .= " (upper(firstName) LIKE '$firstName%')";
 		}
 		if ($middleName!=''){
 			if ($where !=''){
 				$where .= ' AND ';
 			}
-			$where .= " (middleName = '$middleName')";
+			$where .= " (upper(middleName) = '$middleName')";
 		}
 		if ($lastName!=''){
 			if ($where !=''){
 				$where .= ' AND ';
 			}
-			$where .= " (lastName LIKE '$lastName%')";
+			$where .= " (upper(lastName) LIKE '$lastName%')";
 		}		
 		if ($addressLine1!='') {
 			if ($where !=''){
 				$where .= ' AND ';
 			}
-			$where .= " (addressLine1 LIKE aes_encrypt('$addressLine1','.$encryptKey.'))";
+			$where .= " (upper(CONVERT(aes_decrypt(addressLine1,'$encryptKey') USING latin1)) LIKE '$addressLine1%')";
 		}
 		if ($addressLine2!=''){
 			if ($where !=''){
 				$where .= ' AND ';
 			}
-			$where .= " (addressLine2 LIKE aes_encrypt('$addressLine2','.$encryptKey.'))";
+			$where .= " (upper(CONVERT(aes_decrypt(addressLine2,'$encryptKey') USING latin1)) LIKE '$addressLine2%')";
 		}
 		if ($city!=''){
 			if ($where !=''){
 				$where .= ' AND ';
 			}
-			$where .= " (city LIKE aes_encrypt('$city','.$encryptKey.'))";  
+			$where .= " (upper(CONVERT(aes_decrypt(city,'$encryptKey') USING latin1)) LIKE '$city%')";  
 		}
 		if ($state!=''){
 			if ($where !=''){
 				$where .= ' AND ';
 			}
-			$where .= " (st LIKE aes_encrypt('$state','.$encryptKey.'))";  
+			$where .= " (upper(CONVERT(aes_decrypt(st,'$encryptKey') USING latin1)) LIKE '$state%')";  
 		}
 		if ($zip!=''){
 			if ($where !=''){
 				$where .= ' AND ';
 			}
-			$where .= " (zip LIKE aes_encrypt('$zip','.$encryptKey.'))";  
+			$where .= " (aes_decrypt(zip,'$encryptKey') LIKE '$zip%')";  
 		}
 		if ($telephone!=''){
 			if ($where !=''){

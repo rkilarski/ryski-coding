@@ -7,7 +7,7 @@ if (!isset($eventType)){
 }
 $list = EventType::loadAll(Database::getDB());
 ?>
-<select name="eventType" size="1">
+<select name="eventType" size="1" title="select the event type">
 <?php 
 if (isset($allstatusesflag)&&$allstatusesflag){
 	echo "<option value=\"all\">all</option>";

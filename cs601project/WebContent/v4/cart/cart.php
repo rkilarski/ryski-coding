@@ -13,9 +13,9 @@ include('outputcart.php');
 ?>
 <?php if (isset($cart) && count($cart)>0): ?>
 <form name="cart">
-	<input type="button" value="check out"
+	<input type="button" title="begin the checkout process" value="check out"
 		onclick="parent.location='index.php?action=checkout'"> <input
-		type="button" value="remove all"
+		type="button" title="remove all items from your cart" value="remove all"
 		onclick="parent.location='index.php?action=resetcart'">
 </form>
 <?php endif;?>

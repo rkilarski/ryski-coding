@@ -85,9 +85,9 @@ CREATE TABLE IF NOT EXISTS `person` (
   `password` varchar(255) NULL,
   `addressLine1` varchar(255) DEFAULT NULL,
   `addressLine2` varchar(255) DEFAULT NULL,
-  `city` varchar(25) DEFAULT NULL,
-  `st` varchar(2) DEFAULT NULL,
-  `zip` varchar(10) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `st` varchar(255) DEFAULT NULL,
+  `zip` varchar(255) DEFAULT NULL,
   `telephone` varchar(15) DEFAULT NULL,
   `isStaff` varchar(1) NULL DEFAULT 'N',
   `blacklistFlag` varchar(1) DEFAULT NULL,
@@ -162,14 +162,14 @@ CREATE TABLE IF NOT EXISTS `customerOrderAddress` (
   `email` varchar(255) NOT NULL,
   `addressLine1` varchar(255) NOT NULL,
   `addressLine2` varchar(255) DEFAULT NULL,
-  `city` varchar(25) NOT NULL,
-  `st` varchar(2) NOT NULL,
-  `zip` varchar(10) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `st` varchar(255) NOT NULL,
+  `zip` varchar(255) NOT NULL,
   `billingAddressLine1` varchar(255) NOT NULL,
   `billingAddressLine2` varchar(255) DEFAULT NULL,
-  `billingCity` varchar(25) NOT NULL,
-  `billingSt` varchar(2) NOT NULL,
-  `billingZip` varchar(10) NOT NULL,
+  `billingCity` varchar(255) NOT NULL,
+  `billingSt` varchar(255) NOT NULL,
+  `billingZip` varchar(255) NOT NULL,
   `telephone` varchar(15) NOT NULL,
   `ccnumber4` varchar(255) NOT NULL,
   `ccexpmonth` varchar(255) NOT NULL,
@@ -389,6 +389,6 @@ INSERT INTO `states` (`id`, `st`, `stateName`) VALUES
 (51,'wy','wyoming');
 
 INSERT INTO `person` (`id`, `firstName`, `middleName`, `lastName`, `email`, `password`, `addressLine1`, `addressLine2`, `city`, `st`, `zip`, `telephone`, `isStaff`, `blacklistFlag`, `blacklistReason`, `sendEmail`) VALUES
-(1, 'manager', NULL, 'manager', aes_encrypt('manager@chickenrice.com','chickenrice'), aes_encrypt('password','chickenrice'), aes_encrypt('895 Commonwealth Ave','chickenrice'), NULL, aes_encrypt('Boston','chickenrice'), aes_encrypt('ma','chickenrice'), aes_encrypt('02445','chickenrice'), '6173535000', 'Y', NULL, NULL, 'N'),
-(2, 'Ryszard', NULL, 'Kilarski', aes_encrypt('rkilarski@gmail.com','chickenrice'), aes_encrypt('password','chickenrice'), aes_encrypt('99 Pond Ave Apt 701','chickenrice'), NULL, aes_encrypt('Brookline','chickenrice'), aes_encrypt('ma','chickenrice'), aes_encrypt('02445','chickenrice'), '6179534258', 'Y', NULL, NULL, 'N'),
-(3, 'Bad', 'C', 'Customer', aes_encrypt('badcustomer@gmail.com','chickenrice'), aes_encrypt('password','chickenrice'), aes_encrypt('No address','chickenrice'), NULL, aes_encrypt('Boston','chickenrice'), aes_encrypt('ma','chickenrice'), aes_encrypt('02445','chickenrice'), '6179534258', 'Y', 'Y', 'This is a bad client, never pays.', 'N');
+(1, 'manager', NULL, 'manager', aes_encrypt('manager@chickenrice.com','chickenrice'), aes_encrypt('password','chickenrice'), aes_encrypt('928 commonwealth ave','chickenrice'), NULL, aes_encrypt('boston','chickenrice'), aes_encrypt('ma','chickenrice'), aes_encrypt('02445','chickenrice'), '6173535000', 'Y', NULL, NULL, 'N'),
+(2, 'Ryszard', NULL, 'Kilarski', aes_encrypt('rkilarski@gmail.com','chickenrice'), aes_encrypt('password','chickenrice'), aes_encrypt('99 pond ave apt 701','chickenrice'), NULL, aes_encrypt('brookline','chickenrice'), aes_encrypt('ma','chickenrice'), aes_encrypt('02445','chickenrice'), '6179534258', 'Y', NULL, NULL, 'N'),
+(3, 'Bad', 'C', 'Customer', aes_encrypt('badcustomer@gmail.com','chickenrice'), aes_encrypt('password','chickenrice'), aes_encrypt('no address','chickenrice'), NULL, aes_encrypt('boston','chickenrice'), aes_encrypt('ma','chickenrice'), aes_encrypt('02445','chickenrice'), '6179534258', 'Y', 'Y', 'This is a bad client, never pays.', 'N');
