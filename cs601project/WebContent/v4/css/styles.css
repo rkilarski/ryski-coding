@@ -1,9 +1,3 @@
-/*
-Stylesheet for client-side restaurant.
-
-Adjacent sibling Selector ['p + div']
-
-*/
 * {
 	font-family: Arial, sans-serif;
 }
@@ -402,7 +396,7 @@ ul.navigation>li:nth-of-type(odd) a {
 	color: #FFFFFF;
 }
 
-#cartmenuitem, #cartcount {
+#cartmenuitem, #cartcount, ul.navigation>li a:hover, ul.navigation li.highlight {
 	-webkit-border-bottom-right-radius:5px;
 	-webkit-border-bottom-left-radius:5px;
 	-moz-border-radius-bottomright:5px;
@@ -416,28 +410,10 @@ ul.navigation>li:nth-of-type(odd) a {
 ul.navigation>li a:hover {
 	background-color: #FFFFFF;
 	color: #FF6600;
-
-	-webkit-border-bottom-right-radius:5px;
-	-webkit-border-bottom-left-radius:5px;
-	-moz-border-radius-bottomright:5px;
-	-moz-border-radius-bottomleft:5px;
-	-khtml-border-bottom-right-radius:5px;
-	-khtm-border-bottom-left-radius:5px;
-	border-bottom-right-radius:5px;
-	border-bottom-left-radius:5px;
 }
 
 ul.navigation li.highlight {
 	background-color: #FFFFFF;
-
-	-webkit-border-bottom-right-radius:5px;
-	-webkit-border-bottom-left-radius:5px;
-	-moz-border-radius-bottomright:5px;
-	-moz-border-radius-bottomleft:5px;
-	-khtml-border-bottom-right-radius:5px;
-	-khtm-border-bottom-left-radius:5px;
-	border-bottom-right-radius:5px;
-	border-bottom-left-radius:5px;
 }
 
 ul.navigation li.highlight a {
