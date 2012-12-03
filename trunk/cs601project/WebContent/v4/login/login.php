@@ -17,7 +17,7 @@ if (isset($_POST['action'])) {
 <script
 	type="text/javascript" src="../javascript/jquery.login.js"></script>
 <?php include('../include/body.php');?>
-<h1>please login to access the full features of our site</h1>
+<h1>please log in to access the full features of our site</h1>
 <div id="loginforms">
 	<form name="login" id="loginform" class="addressform"
 		action="../controller/authenticate.php" method="post">
