@@ -21,26 +21,18 @@ include('../include/body.php');
 ?>
 <h2>do you feel like chicken tonight?</h2>
 <fieldset id="contactinfo">
-<legend>
-contact information
-</legend>
-telephone.617.353.5000<br>
-fax.617.353.5000<br>
-email: <a href="mailto:chickenrice@gmail.com">chickenriceyum@gmail.com</a><br>
-<div id="map_canvas"
-	style="width: 600; height: 400"></div>
-	<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=928+Commonwealth+Avenue,+Boston,+MA&amp;aq=0&amp;oq=928+Commonwealth+ave,+Boston,+MA&amp;sll=42.367337,-71.05793&amp;sspn=0.01132,0.021415&amp;t=m&amp;g=928+Commercial+Street,+Boston,+MA&amp;ie=UTF8&amp;hq=&amp;hnear=928+Commonwealth+Ave,+Brookline,+Massachusetts+02446&amp;ll=42.359876,-71.116219&amp;spn=0.022198,0.036478&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe><br /><small><a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=928+Commonwealth+Avenue,+Boston,+MA&amp;aq=0&amp;oq=928+Commonwealth+ave,+Boston,+MA&amp;sll=42.367337,-71.05793&amp;sspn=0.01132,0.021415&amp;t=m&amp;g=928+Commercial+Street,+Boston,+MA&amp;ie=UTF8&amp;hq=&amp;hnear=928+Commonwealth+Ave,+Brookline,+Massachusetts+02446&amp;ll=42.359876,-71.116219&amp;spn=0.022198,0.036478&amp;z=14&amp;iwloc=A" style="color:#0000FF;text-align:left">View Larger Map</a></small>
-	</fieldset>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-	ligula tortor, facilisis a rutrum a, ullamcorper quis urna. Praesent
-	faucibus imperdiet nibh a luctus. Phasellus ac sem nisl, in imperdiet
-	augue. In turpis erat, pharetra ut aliquet vitae, suscipit vitae massa.
-	Integer mattis congue mi vel sollicitudin. Praesent feugiat, dui at
-	laoreet sodales, ante libero faucibus augue, in gravida libero nulla et
-	lectus. Fusce ultricies eleifend commodo. Vivamus a elit justo, ut
-	vulputate massa. Etiam quis nibh ut eros vulputate lobortis. Proin
-	sapien urna, auctor et fringilla vitae, commodo et nisi. Proin sed
-	mattis nisi.</p>
+	<legend> contact information </legend>
+	telephone.617.353.5000<br> fax.617.353.5000<br> email: <a
+		href="mailto:chickenrice@gmail.com">chickenriceyum@gmail.com</a><br>
+	<div id="map_canvas" style="width: 600; height: 400"></div>
+	<iframe width="425" height="350" frameborder="0" scrolling="no"
+		marginheight="0" marginwidth="0"
+		src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=928+Commonwealth+Avenue,+Boston,+MA&amp;aq=0&amp;oq=928+Commonwealth+ave,+Boston,+MA&amp;sll=42.367337,-71.05793&amp;sspn=0.01132,0.021415&amp;t=m&amp;g=928+Commercial+Street,+Boston,+MA&amp;ie=UTF8&amp;hq=&amp;hnear=928+Commonwealth+Ave,+Brookline,+Massachusetts+02446&amp;ll=42.359876,-71.116219&amp;spn=0.022198,0.036478&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe>
+	<br /> <small><a
+		href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=928+Commonwealth+Avenue,+Boston,+MA&amp;aq=0&amp;oq=928+Commonwealth+ave,+Boston,+MA&amp;sll=42.367337,-71.05793&amp;sspn=0.01132,0.021415&amp;t=m&amp;g=928+Commercial+Street,+Boston,+MA&amp;ie=UTF8&amp;hq=&amp;hnear=928+Commonwealth+Ave,+Brookline,+Massachusetts+02446&amp;ll=42.359876,-71.116219&amp;spn=0.022198,0.036478&amp;z=14&amp;iwloc=A"
+		style="color: #0000FF; text-align: left">View Larger Map</a> </small>
+</fieldset>
+<p>it started with a man, a chicken, and a dream. </p>
 
 <p>Donec venenatis ante eu sem imperdiet feugiat. Lorem ipsum dolor sit
 	amet, consectetur adipiscing elit. Donec diam augue, rhoncus vitae
@@ -85,11 +77,8 @@ email: <a href="mailto:chickenrice@gmail.com">chickenriceyum@gmail.com</a><br>
 	montes, nascetur ridiculus mus. Cum sociis natoque penatibus et magnis
 	dis parturient montes, nascetur ridiculus mus. Mauris eu justo ut felis
 	imperdiet aliquet eget et tellus.</p>
-	<fieldset id="createdby">
-	<legend>
-	created by
-	</legend>
-	created by: ryszard kilarski<br>
-	email: <a href="mailto:emrys@bu.edu">emrys@bu.edu</a>
-	</fieldset>
+<fieldset id="createdby">
+	<legend> created by </legend>
+	created by: ryszard kilarski<br> email: <a href="mailto:emrys@bu.edu">emrys@bu.edu</a>
+</fieldset>
 <?php include('../include/footer.php'); ?>
