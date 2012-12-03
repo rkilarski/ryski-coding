@@ -64,7 +64,9 @@
 				echo '<input type="submit" value="remove from cart"></form></td>';
 			}
 			echo "</tr>";
-			echo "<tr><td class=\"customerrequest\" colspan=\"4\">$customerRequest</td></tr>";
+			if ($customerRequest!=''){
+				echo "<tr><td class=\"customerrequest\" colspan=\"4\">customer request: $customerRequest</td></tr>";
+			}
 		}
 
 		echo "<tr class=\"spaceabove\"><td class=\"menuitem\">&nbsp;</td>";

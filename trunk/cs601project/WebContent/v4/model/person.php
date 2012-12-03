@@ -321,7 +321,8 @@ class Person {
 	}
 
 	public function update(){
-		$list = array("id"=>$this->id, "firstName"=>$this->firstname, "middleName"=>$this->middlename, "lastName"=>$this->lastname, "email"=>$this->email, "password"=>$this->password, "addressLine1"=>$this->addressline1, "addressLine2"=>$this->addressline2, "city"=>$this->city, "st"=>$this->st, "zip"=>$this->zip, "telephone"=>$this->telephone, "isStaff"=>$this->isstaff, "blacklistFlag"=>$this->blacklistflag, "blacklistReason"=>$this->blacklistreason, "sendEmail"=>$this->sendemail);
+		$list = array("id"=>$this->id, "firstName"=>$this->firstname, "middleName"=>$this->middlename, "lastName"=>$this->lastname, "email"=>$this->email, "addressLine1"=>$this->addressline1, "addressLine2"=>$this->addressline2, "city"=>$this->city, "st"=>$this->st, "zip"=>$this->zip, "telephone"=>$this->telephone, "isStaff"=>$this->isstaff, "blacklistFlag"=>$this->blacklistflag, "blacklistReason"=>$this->blacklistreason, "sendEmail"=>$this->sendemail);
+		//"password"=>$this->password, Do not update password.
 		$sql = 'update person set ';
 		$id=$this->id;
 		$encryptionKey = Database::getEncryptionKey();
