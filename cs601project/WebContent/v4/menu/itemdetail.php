@@ -25,10 +25,18 @@ if (isset($menuItem)){
 	$price='';
 	$imageName='';
 }
+
 ?>
 <h1>
 	menu item detail
 </h1>
+<?php
+$dayofweek = date('w');
+//If it is Sunday, we do not allow ordering today.
+if ($dayofweek==0){
+	echo '<h2>we are sorry to say that we are closed on sunday, and therefore do not offer takeout or delivery.</h2>';
+}
+?>
 <fieldset id="itemdetail">
 <legend>
 	<?php echo $foodName;?>
@@ -47,9 +55,11 @@ if (isset($menuItem)){
 	action="../controller/addtocart.php">
 	<textarea name="customerRequest" maxlength="255" placeholder="special requests" rows="4" cols="50"></textarea>
 	<br>
+<?php if($dayofweek!=0): ?>
 	<input type="submit" class="right menubutton" value="$<?php echo $price; ?> - Add to Cart"> <input
 		type="hidden" name="menuId" value="<?php echo $menuId; ?>"> <input
 		type="hidden" name="action" value="cart">
+<?php endif; ?>
 </form>
 </fieldset>
 <br>

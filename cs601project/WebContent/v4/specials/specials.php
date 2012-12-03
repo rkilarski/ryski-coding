@@ -12,6 +12,12 @@ include('../include/body.php');
 
 <table>
 <?php
+	$dayofweek = date('w');
+	//If it is Sunday, we do not allow ordering today.
+	if ($dayofweek==0){
+		echo '<h2>we are sorry to say that we are closed on sunday, and therefore do not offer takeout or delivery.</h2>';
+	}
+
 	$previousType='';
 	$specialDayMap['M']='monday';
 	$specialDayMap['T']='tuesday';
@@ -34,7 +40,10 @@ include('../include/body.php');
 		echo "<tr><td class=\"menuitem\"><a href=\"../menu/index.php?action=itemdetail&menuid=$menuId\">$foodName</a></td>";
 		echo "<td class=\"menudesc\"><a href=\"../menu/index.php?action=itemdetail&menuid=$menuId\">$desc</a></td>";
 		echo "<td><form name=\"addtocart\" method=\"POST\" action=\"../controller/addtocart.php\">";
-		echo "  <input type=\"button\" class=\"submitbutton menubutton\" title=\"add $foodName to your cart\" value=\"\$$price - Add to Cart\">";
+		if ($dayofweek!=0){
+			echo "  <input type=\"button\" class=\"submitbutton menubutton\" title=\"add $foodName to your cart\" value=\"\$$price - Add to Cart\">";
+		}
+
 		echo "  <input type=\"hidden\" name=\"menuId\" value=\"$menuId\">";
 		echo '  <input type="hidden" name="customerRequest" value="">';
 		echo "  <input type=\"hidden\" name=\"action\" value=\"$action\">";

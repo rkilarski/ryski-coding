@@ -103,9 +103,7 @@ if (isset($persons)&&(count($persons)>0)){
 			name="blacklistflag" value="Y"
 			<?php echo ($isblacklist=='Y')?'checked':''; ?>> <br>
 		<textarea name="blacklistreason" placeholder="blacklist reason"
-			maxlength="255" rows="3" cols="50">
-			<?php echo $blacklistreason; ?>
-		</textarea>
+			maxlength="255" rows="3" cols="50"><?php echo $blacklistreason; ?></textarea>
 		<br> <input class="right" type="submit" value="update">
 	</form>
 </fieldset>
