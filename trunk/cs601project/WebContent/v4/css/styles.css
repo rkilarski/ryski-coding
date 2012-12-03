@@ -454,6 +454,17 @@ ul li>a>span {
 	margin-right: 20px;
 }
 
+.customerinfo {
+	float: left;
+	display: inline;
+	width: 20%;
+}
+
+.cart {
+	float: right;
+	display: inline;
+	width: 80%;
+}
 /*
 CSS Facebook and Twitter icons from:
 http://www.1stwebdesigner.com/css/css-icons-logos/
