@@ -49,15 +49,3 @@ fieldset.searchcriteria {
 	vertical-align: top;
 	float: left;
 }
-
-.customerinfo {
-	float: left;
-	display: inline;
-	width: 20%;
-}
-
-.cart {
-	float: right;
-	display: inline;
-	width: 80%;
-}

@@ -82,6 +82,7 @@
 		$total=number_format($subtotal+$tax,2);
 		echo "<td class=\"totalprice\">\$$total</td><td>&nbsp;</td></tr>";
 		echo '</table></div>';
+		echo '<div class="clear"></div>';
 	}else {
 		echo '<h2>your cart is empty<h2>';
 	}

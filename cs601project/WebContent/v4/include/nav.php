@@ -20,7 +20,9 @@
   
   <li><a href="../index.php?action=reservations" title="navigate to make a reservation">reservations</a></li>
   <li><a href="../index.php?action=contact" title="navigate to contact us">contact</a></li>
-<?php
+  <li><a href="../index.php?action=orders" title="navigate to review your orders">order history</a></li>
+  
+  <?php
    if (isset($_SESSION['isloggedin'])){
 		$isLoggedIn=$_SESSION['isloggedin'];
 	}else {
