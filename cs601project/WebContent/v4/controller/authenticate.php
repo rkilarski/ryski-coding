@@ -33,7 +33,13 @@ try{
 		$_SESSION['userid']=$row['id'];
 		$_SESSION['isloggedin']=true;
 		$_SESSION['firstname']=strtolower($row['firstName']);
-		header('Location: ../index.php?'.$_POST['getvariables']);
+		
+		setcookie('email', $email, strtotime('+1 year'), '/');
+		$actions=$_POST['getvariables'];
+		if ($actions=='action=login'){
+			$actions='';
+		}
+		header('Location: ../index.php?'.$actions);
 	} else {
 		$error = "incorrect username or password.  bad user.  bad, bad user.";
 		$_SESSION['isloggedin']=false;

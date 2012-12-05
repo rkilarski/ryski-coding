@@ -14,10 +14,14 @@ Installation
 	-This will also install user manager@chickenrice.com with password 'password'.
 	
 Notable Items
-	-Ajax is used in the "add to mailing list" functionality on the home page and the "add to cart" functionality on the Menu/Specials pages.
-	-Note the Twitter integration on the upper right.
-	-No Facebook integration: I didn't feel comfortable creating a fake restaurant page on Facebook because it might look too real.
-	-Events page checks for conflicts when scheduling new event.
 	-Home page word cloud is database-driven and randomized to produce different results each refresh.
 	-Background images are randomized every page refresh.
-	-You cannot place a regular order on a Sunday; events and reservations for another day are fine.
+
+	-Every time you log in, a cookie is set with your email address, and then defaulted on the login form.
+	-Note the Twitter integration on the upper right on every page.
+	-No Facebook integration: I didn't feel comfortable creating a fake restaurant page on Facebook because it might look too real.
+	
+	-Ajax is used in the "add to mailing list" functionality on the home page and the "add to cart" functionality on the Menu/Specials pages.
+	-You cannot place a regular order on a Sunday; events and reservations placed on Sunday but for another day are fine.
+	
+	-Events page checks for conflicts when scheduling new event.
