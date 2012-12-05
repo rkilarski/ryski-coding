@@ -38,8 +38,8 @@ include('../include/body.php');
 		$menuId=$menuItem->getMenuId();
 		$image=$menuItem->getImageName();
 	
-		echo "<tr><td class=\"menuitem\"><a href=\"../menu/index.php?action=itemdetail&menuid=$menuId\" title=\"click to see more information about $foodName\">$foodName</a></td>";
-		echo "<td class=\"menudesc\"><a href=\"../menu/index.php?action=itemdetail&menuid=$menuId\" title=\"click to see more information about $foodName\">$desc</a></td>";
+		echo "<tr><td class=\"menuitem\"><a href=\"../menu/index.php?action=itemdetail&menuid=$menuId&type=specials\" title=\"click to see more information about $foodName\">$foodName</a></td>";
+		echo "<td class=\"menudesc\"><a href=\"../menu/index.php?action=itemdetail&menuid=$menuId&type=specials\" title=\"click to see more information about $foodName\">$desc</a></td>";
 
 		echo "<td><form name=\"addtocart\" method=\"POST\" action=\"../controller/addtocart.php\">";
 		if ($dayofweek!=0){

@@ -10,6 +10,7 @@ include('../include/header.php');
 <script type="text/javascript" src="../javascript/lightbox/js/lightbox.js"></script>
 <?php
 include('../include/body.php');
+$type=$_GET['type'];
 if (isset($menuItem)){
 	$menuId=$menuItem->getMenuId();
 	$foodName=$menuItem->getFoodName();
@@ -53,6 +54,7 @@ if ($dayofweek==0){
 </p>
 <form name="addtocart" method="POST"
 	action="../controller/addtocart.php">
+	<input type="hidden" name="type" value="<?php echo $type; ?>">
 	<textarea name="customerRequest" maxlength="255" placeholder="special requests" rows="4" cols="50"></textarea>
 	<br>
 <?php if($dayofweek!=0): ?>
