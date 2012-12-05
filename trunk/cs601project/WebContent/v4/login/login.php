@@ -11,6 +11,11 @@ if (isset($_POST['action'])) {
 } else {
 	$action = 'staff_orders';
 }
+if (isset($_COOKIE['email'])){
+	$email = $_COOKIE['email'];
+}else{
+	$email='';
+}
 ?>
 <script
 	type="text/javascript" src="../javascript/jquery.telephone.js"></script>
@@ -25,7 +30,8 @@ if (isset($_POST['action'])) {
 		<h2>existing users</h2>
 		<label for="email">login:</label> <input type="email" name="email"
 			title="your username" placeholder="username" maxlength="255"
-			size="40" required="required"> <br> <label for="password">password:</label><input
+			size="40" required="required" value="<?php echo $email;?>"> <br> 
+			<label for="password">password:</label><input
 			type="password" name="password" title="your password"
 			placeholder="password" maxlength="255" size="40" required="required">
 		<br> <input type="submit" class="right" value="login"> <input
