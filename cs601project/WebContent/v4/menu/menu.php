@@ -34,8 +34,8 @@ include('../include/body.php');
 		$price=number_format($menuItem->getPrice(),2);
 		$menuId=$menuItem->getMenuId();
 		$image=$menuItem->getImageName();
-		echo "<tr><td class=\"menuitem\"><a href=\"index.php?action=itemdetail&menuid=$menuId\" title=\"click to see more information about $foodName\">$foodName</a></td>";
-		echo "<td class=\"menudesc\"><a href=\"index.php?action=itemdetail&menuid=$menuId\" title=\"click to see more information about $foodName\">$desc</a></td>";
+		echo "<tr><td class=\"menuitem\"><a href=\"index.php?action=itemdetail&menuid=$menuId&type=menu\" title=\"click to see more information about $foodName\">$foodName</a></td>";
+		echo "<td class=\"menudesc\"><a href=\"index.php?action=itemdetail&menuid=$menuId&type=menu\" title=\"click to see more information about $foodName\">$desc</a></td>";
 		echo "<td><form name=\"addtocart\" method=\"POST\" action=\"#\">";
 		if ($dayofweek!=0){
 			echo "  <input type=\"button\" class=\"submitbutton menubutton\" title=\"add $foodName to your cart\" value=\"\$$price - Add to Cart\">";
