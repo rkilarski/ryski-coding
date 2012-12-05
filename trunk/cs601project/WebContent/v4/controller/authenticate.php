@@ -33,7 +33,7 @@ try{
 		$_SESSION['userid']=$row['id'];
 		$_SESSION['isloggedin']=true;
 		$_SESSION['firstname']=strtolower($row['firstName']);
-		header("Location: ../index.php?action=$action");
+		header('Location: ../index.php?'.$_POST['getvariables']);
 	} else {
 		$error = "incorrect username or password.  bad user.  bad, bad user.";
 		$_SESSION['isloggedin']=false;

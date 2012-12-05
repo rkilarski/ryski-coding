@@ -35,65 +35,65 @@ switch ($action) {
 		header('Location: home/index.php');
 		break;
 	case 'contact':
-		header("Location: contact/index.php?action=$action");
+		header('Location: contact/index.php?'.$_SERVER['QUERY_STRING']);
 		break;
 	case 'events':
 		if (!$isLoggedIn){
-			header("Location: login/index.php?action=$action");
+			header('Location: login/index.php?'.$_SERVER['QUERY_STRING']);
 		}else {
-			header("Location: events/index.php?action=$action");
+			header('Location: events/index.php?'.$_SERVER['QUERY_STRING']);
 		}
 		break;
 	case 'login':
 		$action='';
-		header("Location: login/index.php?action=$action");
+		header('Location: login/index.php?'.$_SERVER['QUERY_STRING']);
 		break;
 	case 'logoff':
 		$action='';
 		include('controller/logoff.php');
 		break;
 	case 'menu':
-		header("Location: menu/index.php?action=$action");
+		header('Location: menu/index.php?'.$_SERVER['QUERY_STRING']);
 		break;
 	case 'cart':
-		header("Location: cart/index.php?action=$action");
+		header('Location: cart/index.php?'.$_SERVER['QUERY_STRING']);
 		break;
 	case 'reservations':
 		if (!$isLoggedIn){
-			header("Location: login/index.php?action=$action");
+			header('Location: login/index.php?'.$_SERVER['QUERY_STRING']);
 		}else {
-			header("Location: reservations/index.php?action=$action");
+			header('Location: reservations/index.php?'.$_SERVER['QUERY_STRING']);
 		}
 		break;
 	case 'orders':
 		if (!$isLoggedIn){
-			header("Location: login/index.php?action=$action");
+			header('Location: login/index.php?'.$_SERVER['QUERY_STRING']);
 		}else {
-			header("Location: orders/index.php?action=$action");
+			header('Location: orders/index.php?'.$_SERVER['QUERY_STRING']);
 		}
 		break;
 	case 'specials':
-		header("Location: specials/index.php?action=$action");
+		header('Location: specials/index.php?'.$_SERVER['QUERY_STRING']);
 		break;
 	case 'staff_customers':
 		if (!$isStaff||!$isLoggedIn){
-			header("Location: login/index.php?action=$action");
+			header('Location: login/index.php?'.$_SERVER['QUERY_STRING']);
 		}else {
-			header("Location: staff_customers/index.php?action=$action");
+			header('Location: staff_customers/index.php?'.$_SERVER['QUERY_STRING']);
 		}
 		break;
 	case 'staff_reservations':
 		if (!$isStaff||!$isLoggedIn){
-			header("Location: login/index.php?action=$action");
+			header('Location: login/index.php?'.$_SERVER['QUERY_STRING']);
 		}else {
-			header("Location: staff_reservations/index.php?action=$action");
+			header('Location: staff_reservations/index.php?'.$_SERVER['QUERY_STRING']);
 		}
 		break;
 	case 'staff_orders':
 		if (!$isStaff||!$isLoggedIn){
-			header("Location: login/index.php?action=$action");
+			header('Location: login/index.php?'.$_SERVER['QUERY_STRING']);
 		}else {
-			header("Location: staff_orders/index.php?action=$action");
+			header('Location: staff_orders/index.php?'.$_SERVER['QUERY_STRING']);
 		}
 		break;
 	default:

@@ -30,6 +30,8 @@ if (isset($_POST['action'])) {
 			placeholder="password" maxlength="255" size="40" required="required">
 		<br> <input type="submit" class="right" value="login"> <input
 			type="reset" class="right" value="reset">
+			<input type="hidden" name="getvariables"
+				value="<?php echo $_SERVER['QUERY_STRING']; ?>">
 	</form>
 	<form name="login" id="newloginform" class="addressform" method="post"
 		action="../controller/addperson.php">
