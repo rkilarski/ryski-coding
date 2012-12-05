@@ -7,7 +7,7 @@ if (!isset($reservationStatus)){
 }
 $list = ReservationStatus::loadAll(Database::getDB());
 ?>
-<select name="reservationstatus" size="1" title="select the reservation status">
+<select name="reservationStatus" size="1" title="select the reservation status">
 <?php 
 if (isset($allstatusesflag)&&$allstatusesflag){
 	echo "<option value=\"all\">all</option>";

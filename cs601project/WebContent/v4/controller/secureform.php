@@ -8,7 +8,8 @@ function secureForm($action){
 		$isLoggedIn=false;
 	}
 	if (!$isLoggedIn){
-		header("Location: ../index.php?action=$action");
+		$action=$_SERVER['QUERY_STRING'];
+		header("Location: ../index.php?$action");
 		return false;
 	}
 	return true;
@@ -25,7 +26,8 @@ function secureStaffForm($action){
 	}
 	
 	if (!$isStaff){
-		header("Location: ../index.php?action=$action");
+		$action=$_SERVER['QUERY_STRING'];
+		header("Location: ../index.php?$action");
 		return false;
 	}
 	return true;
