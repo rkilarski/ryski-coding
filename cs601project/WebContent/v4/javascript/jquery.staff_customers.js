@@ -1,4 +1,22 @@
 $(document).ready(function() {
+	$(".updateperson").each(function() {
+		$(this).click(function() {
+			$.ajax({
+				type : "POST",
+				url : "../ajax/updateperson.php",
+				async : true,
+				data : $(this).closest("form").serialize(),
+				success : function(data, textStatus, jqXHR) {
+					$("#updatesuccessful").dialog();
+				},
+				failure : function(data, textStatus, jqXHR) {
+					alert("error");
+				}
+			});
+		});
+	});
+	
+	
 	$("#customersearch").submit(function() {
 		massageTelephone("#telephonesearch");
 	});

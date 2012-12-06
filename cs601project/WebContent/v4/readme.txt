@@ -13,7 +13,7 @@ Installation
 	-Import the /sql/chickenrice.sql file on the MySql server to import the database.
 	-This will also install user manager@chickenrice.com with password 'password'.
 	
-Notable Items
+Notable Items, if you're curious.
 	-Home page word cloud is database-driven and randomized to produce different results each refresh.
 	-Background images are randomized every page refresh.
 
@@ -22,6 +22,12 @@ Notable Items
 	-No Facebook integration: I didn't feel comfortable creating a fake restaurant page on Facebook because it might look too real.
 	
 	-Ajax is used in the "add to mailing list" functionality on the home page and the "add to cart" functionality on the Menu/Specials pages.
+	-Ajax is also used in all the "update" buttons on all staff forms.
 	-You cannot place a regular order on a Sunday; events and reservations placed on Sunday but for another day are fine.
 	
 	-Events page checks for conflicts when scheduling new event.
+
+Bugs FIXED from Presentation
+	-Crash upon Add to Cart from detail page.
+	-Automatically run search after login, from saved-off link.
+	-Update reservation status.
