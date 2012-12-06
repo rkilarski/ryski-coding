@@ -108,7 +108,7 @@ if (isset($orders)&&(count($orders)>0)){
 				type="hidden" name="getvariables"
 				value="<?php echo $_SERVER['QUERY_STRING']; ?>"> <br>
 			<?php include('../include/orderstatusselect.php'); ?>
-			<input type="submit" value="update">
+			<input type="button" class="updateorder" value="update">
 		</form>
 		<br>
 	</div>
@@ -126,4 +126,5 @@ echo '</div>';
 	}
 	?>
 <div class="clear"></div>
+<div class="dialogdiv" id="updatesuccessful" title="update successful">your update was successful. your listing will not update until you refresh the form</div>
 <?php include('../include/footer.php'); ?>

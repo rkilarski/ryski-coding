@@ -45,7 +45,7 @@
 	if ($isStaff) { 
 		echo '<ul class="navigation">';
 		echo ' <li><a href="../index.php?action=staff_orders" title="navigate to review customer orders">orders</a></li>';
-		echo ' <li><a href="../index.php?action=staff_reservations" title="navigate to review customer reservations">reservations</a></li>';
+		echo ' <li><a href="../index.php?action=staff_reservations" title="navigate to review customer reservations and events">reservations & events</a></li>';
 		echo ' <li><a href="../index.php?action=staff_customers" title="navigate to review customers">customers</a></li>';
 		echo '</ul>';
 	} 

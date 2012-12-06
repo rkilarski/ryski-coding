@@ -18,17 +18,17 @@ include('../include/staff_header.php');
 <?php include('../include/body.php'); ?>
 
 <fieldset class="searchcriteria">
-	<legend> reservation search criteria </legend>
+	<legend> reservation & event search criteria </legend>
 	<form name="reservationsearch" id="reservationsearch" method="GET"
 		action="index.php">
 		<input type="hidden" name="search" value="search"> <input
 			type="hidden" name="action" value="staff_reservations"> <label
-			for="date">reservation date:</label><input type="text"
+			for="date">reservation or event date:</label><input type="text"
 			class="clearform" name="date" id="datepicker"
-			placeholder="reservation date"
+			placeholder="reservation or event date"
 			value="<?php echo ($reservation->getReservationDateTime()!='')?date('m-d-Y',strtotime($reservation->getReservationDateTime())):'';?>"><br>
 
-		<label for="reservationstatus">reservation status:</label>
+		<label for="reservationstatus">reservation or event status:</label>
 		<?php $reservationStatus=$reservation->getReservationStatus(); $allstatusesflag=true; include('../include/reservationstatusselect.php');?>
 		<br> <br> <label for="sortorder">display in order:</label> <select
 			name="sortorder" size="1">
@@ -81,7 +81,7 @@ if (isset($reservations)&&(count($reservations)>0)){
 			<?php include('../include/reservationstatusselect.php'); ?>
 			<br> <label for="diningTable">table:</label>
 			<?php include('../include/diningtableselect.php'); ?>
-			<input type="submit" class="right" value="update">
+			<input type="button" class="updatereservation right" value="update">
 		</form>
 		<br>
 	</div>
@@ -127,7 +127,7 @@ echo '</div>';
 				type="hidden" name="getvariables"
 				value="<?php echo $_SERVER['QUERY_STRING']; ?>"> <br>
 			<?php include('../include/reservationstatusselect.php'); ?>
-			<input type="submit" value="update">
+			<input type="button" class="updateevent right" value="update">
 		</form>
 		<br>
 	</div>
@@ -145,4 +145,6 @@ echo '</div>';
 	}
 	?>
 <div class="clear"></div>
+<div class="dialogdiv" id="updatesuccessful" title="update successful">your update was successful. your listing will not update until you refresh the form</div>
+
 <?php include('../include/footer.php'); ?>

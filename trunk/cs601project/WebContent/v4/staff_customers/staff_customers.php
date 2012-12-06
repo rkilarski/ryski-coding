@@ -104,7 +104,7 @@ if (isset($persons)&&(count($persons)>0)){
 			<?php echo ($isblacklist=='Y')?'checked':''; ?>> <br>
 		<textarea name="blacklistreason" placeholder="blacklist reason"
 			maxlength="255" rows="3" cols="50"><?php echo $blacklistreason; ?></textarea>
-		<br> <input class="right" type="submit" value="update">
+		<br> <input type="button" class="updateperson right" value="update">
 	</form>
 </fieldset>
 <?php
@@ -119,4 +119,5 @@ echo '</div>';
 	}
 	?>
 <div class="clear"></div>
+<div class="dialogdiv" id="updatesuccessful" title="update successful">your update was successful. your listing will not update until you refresh the form</div>
 <?php include('../include/footer.php'); ?>

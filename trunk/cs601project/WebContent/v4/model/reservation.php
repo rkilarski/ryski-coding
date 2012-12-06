@@ -95,7 +95,7 @@ class Reservation {
 			$this->sortorder = $_POST['sortorder'];
 		}
 		if (isset($_POST['diningTable'])){
-			$this->sortorder = $_POST['diningTable'];
+			$this->diningTable = $_POST['diningTable'];
 		}
 	}
 
@@ -129,7 +129,7 @@ class Reservation {
 			$this->sortorder = $_GET['sortorder'];
 		}
 		if (isset($_GET['diningTable'])){
-			$this->sortorder = $_GET['diningTable'];
+			$this->diningTable = $_GET['diningTable'];
 		}
 	}
 	public static function loadById($db, $id){
