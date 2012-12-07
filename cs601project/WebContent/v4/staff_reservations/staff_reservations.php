@@ -73,7 +73,7 @@ if (isset($reservations)&&(count($reservations)>0)){
 		<?php echo $tableSize;?>
 		<br>
 		<form name="resstatusupdate<?php echo $resid; ?>" method="POST"
-			action="../controller/updatereservationstatus.php">
+			action="#">
 			<input type="hidden" name="id" value="<?php echo $resid; ?>"> <input
 				type="hidden" name="getvariables"
 				value="<?php echo $_SERVER['QUERY_STRING']; ?>"> <br> <label
@@ -122,7 +122,7 @@ echo '</div>';
 		<?php echo $hours;?>
 		<br>
 		<form name="resstatusupdate<?php echo $eventid; ?>" method="POST"
-			action="../controller/updateeventstatus.php">
+			action="#">
 			<input type="hidden" name="id" value="<?php echo $eventid; ?>"> <input
 				type="hidden" name="getvariables"
 				value="<?php echo $_SERVER['QUERY_STRING']; ?>"> <br>
