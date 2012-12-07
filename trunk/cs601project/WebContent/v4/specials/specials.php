@@ -41,7 +41,7 @@ include('../include/body.php');
 		echo "<tr><td class=\"menuitem\"><a href=\"../menu/index.php?action=itemdetail&menuid=$menuId&type=specials\" title=\"click to see more information about $foodName\">$foodName</a></td>";
 		echo "<td class=\"menudesc\"><a href=\"../menu/index.php?action=itemdetail&menuid=$menuId&type=specials\" title=\"click to see more information about $foodName\">$desc</a></td>";
 
-		echo "<td><form name=\"addtocart\" method=\"POST\" action=\"../controller/addtocart.php\">";
+		echo "<td><form name=\"addtocart\" method=\"POST\" action=\"#\">";
 		if ($dayofweek!=0){
 			echo "  <input type=\"button\" class=\"submitbutton menubutton\" title=\"add $foodName to your cart\" value=\"\$$price - Add to Cart\">";
 		}

@@ -16,8 +16,7 @@ include('../include/header.php');
 <fieldset id="addreservation">
 	<legend> add a reservation </legend>
 	<h2>please make a reservation</h2>
-	<form id="addreservation" method="POST"
-		action="../controller/addreservation.php">
+	<form id="addreservation" method="POST" action="#">
 		<input type="hidden" name="person" value="<?php echo $user; ?>"> <input
 			type="hidden" name="reservationStatus" value="1"> <label for="date">for
 			date:</label><input type="text" class="clearform" name="date"
@@ -27,10 +26,13 @@ include('../include/header.php');
 		<?php include('../include/timeselect.php');?>
 		<br> <label for="tableSize">for how many guests?</label><input
 			type="number" title="enter the number of guests" name="tableSize"
-			min="1" max="10" value="2"> <br> <br> <input type="submit"
-			class="right" value="make reservation"> <input type="button"
-			class="right" id="reset" value="reset">
+			min="1" max="10" value="2"> <br> <br> <input type="button"
+			class="right" id="addreservationsubmit" value="make reservation"> <input
+			type="button" class="right" id="reset" value="reset">
 	</form>
 </fieldset>
+<div class="dialogdiv" id="messagesuccessful"
+	title="reservation successful">your reservation was added successfully.
+	please check your email in a few minutes for a confirmation from us.</div>
 
 <?php include('../include/footer.php'); ?>

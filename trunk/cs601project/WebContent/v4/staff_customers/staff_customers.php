@@ -76,7 +76,7 @@ if (isset($persons)&&(count($persons)>0)){
 		<?php echo $customerid; ?>
 	</legend>
 	<form name="custchange<?php echo $customerid; ?>" method="POST"
-		action="../controller/updateperson.php">
+		action="#">
 		<input type="hidden" name="getvariables"
 			value="<?php echo $_SERVER['QUERY_STRING']; ?>"> <input type="hidden"
 			name="id" value="<?php echo $customerid; ?>"> <input type="text"

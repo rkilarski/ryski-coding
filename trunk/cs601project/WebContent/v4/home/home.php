@@ -31,7 +31,7 @@ include('../include/homeheader.php');
 	resizeWordCloud();
 </script>
 
-<form name="mailinglist" action="../controller/addemailaddress.php"
+<form name="mailinglist" action="#"
 	method="post">
 	<div id="mailinglist">
 		<label for="emailaddress">join our mailing list:</label> <input

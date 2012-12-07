@@ -103,7 +103,7 @@ if (isset($orders)&&(count($orders)>0)){
 		<?php echo $orderType; ?>
 		<br> placed on: <span class="datetime"><?php echo $datetime; ?> </span>
 		<form name="orderstatusupdate<?php echo $orderid; ?>" method="POST"
-			action="../controller/updateorderstatus.php">
+			action="#">
 			<input type="hidden" name="id" value="<?php echo $orderid; ?>"> <input
 				type="hidden" name="getvariables"
 				value="<?php echo $_SERVER['QUERY_STRING']; ?>"> <br>
