@@ -97,12 +97,19 @@ fieldset,fieldset>legend {
 	margin-right: auto;
 }
 
-select,input,#innerframe,#outerframe,#logo,textarea,fieldset, #cartcount, .menuimage {
+.registertoggle {
+	margin: auto;
+	display: block;
+}
+
+select,input,#innerframe,#outerframe,#logo,textarea,fieldset,#cartcount,.menuimage
+	{
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-khtml-border-radius: 10px;
 	border-radius: 10px;
 }
+
 #logo {
 	width: 200px;
 	margin: auto;
@@ -134,9 +141,9 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset, #cartcount, .menui
 	padding: 10px;
 }
 
-#outerframe, #logo {
+#outerframe,#logo {
 	opacity: 0.80;
-	filter: alpha(opacity =   80);
+	filter: alpha(opacity =       80);
 	/* For IE8 and earlier */
 	border: 1px solid #D3D3D3;
 }
@@ -160,7 +167,7 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset, #cartcount, .menui
 	height: auto !important;
 	height: 100%;
 	margin: 0 auto -2em;
-	padding-bottom: 10px;  /*18px*/
+	padding-bottom: 10px; /*18px*/
 }
 
 #location {
@@ -185,25 +192,28 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset, #cartcount, .menui
 	clear: both;
 }
 
-#loginforms {
-	width: 80%;
+div.dialogdiv,div#registrationsection {
+	display: none;
+}
+
+div#loginsection {
+	display: block;
+}
+
+#loginform,#registrationform {
+	width: 450px;
 	margin: auto;
 }
 
-#loginform,#newloginform {
-	float: left;
-	display: inline;
-	width: 450px;
-}
-
-#loginform label,#newloginform label {
+#loginform label,#registrationform label {
 	width: 150px;
 }
 
-form#checkout{
+form#checkout {
 	width: 1150px;
 	margin: auto;
 }
+
 .addressform {
 	margin: auto;
 	width: 550px;
@@ -219,16 +229,18 @@ form#checkout{
 	text-align: right;
 }
 
-#billingaddress{
+#billingaddress {
 	float: left;
 }
 
-#deliveryaddress{
+#deliveryaddress {
 	float: left;
 }
-#deliveryaddress>fieldset, #billingaddress>fieldset{
+
+#deliveryaddress>fieldset,#billingaddress>fieldset {
 	height: 300px;
 }
+
 input,select,option,textarea {
 	background-color: #FFFFFF;
 	color: #FF6600;
@@ -239,12 +251,13 @@ input[type="submit"],input[type="reset"],input[type="button"] {
 	color: #FFFFFF;
 }
 
-input[type="submit"]:hover,input[type="reset"]:hover,input[type="button"]:hover{
- filter:progid:DXImageTransform.Microsoft.Alpha(opacity=80);
- -moz-opacity: 0.8;
- opacity: 0.8;
- }
- 
+input[type="submit"]:hover,input[type="reset"]:hover,input[type="button"]:hover
+	{
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80 );
+	-moz-opacity: 0.8;
+	opacity: 0.8;
+}
+
 form[name="mailinglist"] {
 	margin-left: auto;
 	margin-right: auto;
@@ -292,9 +305,11 @@ fieldset#createdby a {
 	margin-top: 20px;
 	color: #FFFFFF;
 }
-.menubutton{
+
+.menubutton {
 	width: 125px;
 }
+
 .menuitem {
 	width: 200px;
 	color: #FFFFFF;
@@ -396,15 +411,16 @@ ul.navigation>li:nth-of-type(odd) a {
 	color: #FFFFFF;
 }
 
-#cartmenuitem, #cartcount, ul.navigation>li a:hover, ul.navigation li.highlight {
-	-webkit-border-bottom-right-radius:5px;
-	-webkit-border-bottom-left-radius:5px;
-	-moz-border-radius-bottomright:5px;
-	-moz-border-radius-bottomleft:5px;
-	-khtml-border-bottom-right-radius:5px;
-	-khtm-border-bottom-left-radius:5px;
-	border-bottom-right-radius:5px;
-	border-bottom-left-radius:5px;
+#cartmenuitem,#cartcount,ul.navigation>li a:hover,ul.navigation li.highlight
+	{
+	-webkit-border-bottom-right-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	-khtml-border-bottom-right-radius: 5px;
+	-khtm-border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
 }
 
 ul.navigation>li a:hover {
@@ -449,10 +465,10 @@ http://www.1stwebdesigner.com/css/css-icons-logos/
 	position: relative;
 	border-color: #3c5a98;
 	text-transform: lowercase;
-	text-indent: 17px; 
+	text-indent: 17px;
 	letter-spacing: 5px;
 	font-weight: bold;
-	font-size: 32px; 
+	font-size: 32px;
 	line-height: 33px;
 	color: #fff;
 	background: #3c5a98;
@@ -537,8 +553,4 @@ CSS Twitter icon
 	width: 200px;
 	z-index: 1;
 	height: 500px;
-}
-
-div.dialogdiv{
-	display: none;
 }

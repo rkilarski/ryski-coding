@@ -22,26 +22,33 @@ if (isset($_COOKIE['email'])){
 <script
 	type="text/javascript" src="../javascript/jquery.login.js"></script>
 <?php include('../include/body.php');?>
+
 <h1>please log in to access the full features of our site</h1>
-<div id="loginforms">
+<div id="loginsection">
 	<form name="login" id="loginform" class="addressform"
 		action="../controller/authenticate.php" method="post">
 		<input type="hidden" name="action" value="<?php echo $action;?>">
-		<h2>existing users</h2>
+		<h2>are you a new user?</h2>
+		<input type="button" class="registertoggle"
+			value="register as a new user">
+		<h2>existing users, please log in</h2>
 		<label for="email">login:</label> <input type="email" name="email"
 			title="your username" placeholder="username" maxlength="255"
-			size="40" required="required" value="<?php echo $email;?>"> <br> 
-			<label for="password">password:</label><input
-			type="password" name="password" title="your password"
-			placeholder="password" maxlength="255" size="40" required="required">
-		<br> <input type="submit" class="right" value="login"> <input
-			type="reset" class="right" value="reset">
-			<input type="hidden" name="getvariables"
-				value="<?php echo $_SERVER['QUERY_STRING']; ?>">
+			size="40" required="required" value="<?php echo $email;?>"> <br> <label
+			for="password">password:</label><input type="password"
+			name="password" title="your password" placeholder="password"
+			maxlength="255" size="40" required="required"> <br> <input
+			type="submit" class="right" value="login"> <input type="reset"
+			class="right" value="reset"> <input type="hidden" name="getvariables"
+			value="<?php echo $_SERVER['QUERY_STRING']; ?>"> <br> <br>
 	</form>
-	<form name="login" id="newloginform" class="addressform" method="post"
+</div>
+<div id="registrationsection">
+	<form name="login" id="registrationform" class="addressform" method="post"
 		action="../controller/addperson.php">
-		<h2>new users</h2>
+		<h2>are you already registered?</h2>
+		<input type="button" class="registertoggle" value="log in">
+		<h2>new users, please register</h2>
 		<label for="email">email:</label><input type="email" name="email"
 			maxlength="255" size="40" title="your new username"
 			placeholder="username" required="required"> <br> <label
@@ -76,7 +83,7 @@ if (isset($_COOKIE['email'])){
 			name="sendemail" value="Y"
 			title="would you like to be on our mailing list?"> <br> <input
 			type="submit" class="right" value="add"> <input type="reset"
-			class="right" value="reset">
+			class="right" value="reset"> <br> <br>
 	</form>
 </div>
 <div class="clear"></div>
