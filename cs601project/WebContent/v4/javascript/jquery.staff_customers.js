@@ -7,7 +7,14 @@ $(document).ready(function() {
 				async : true,
 				data : $(this).closest("form").serialize(),
 				success : function(data, textStatus, jqXHR) {
-					$("#updatesuccessful").dialog();
+					$("#updatesuccessful").dialog({
+						modal : true,
+						buttons : {
+							"ok" : function() {
+								$(this).dialog("close");
+							}
+						}
+					});
 				},
 				failure : function(data, textStatus, jqXHR) {
 					alert("error");
@@ -15,17 +22,15 @@ $(document).ready(function() {
 			});
 		});
 	});
-	
-	
+
 	$("#customersearch").submit(function() {
 		massageTelephone("#telephonesearch");
 	});
-	
+
 	$("#reset").click(function() {
-	    var $inputs = $("#customersearch .clearform");
-	    $inputs.each(function() {
-	        $(this).val('');
-	    });
+		var $inputs = $("#customersearch .clearform");
+		$inputs.each(function() {
+			$(this).val('');
+		});
 	});
 });
-

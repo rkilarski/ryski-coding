@@ -9,7 +9,7 @@ $(document).ready(function() {
 				$("#messagesuccessful").dialog({
 					modal : true,
 					buttons : {
-						"OK" : function() {
+						"ok" : function() {
 							$(this).dialog("close");
 							window.location = "../index.php";
 						}
