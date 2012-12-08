@@ -143,7 +143,7 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset,#cartcount,.menuima
 
 #outerframe,#logo {
 	opacity: 0.80;
-	filter: alpha(opacity =       80);
+	filter: alpha(opacity =         80);
 	/* For IE8 and earlier */
 	border: 1px solid #D3D3D3;
 }
@@ -553,4 +553,9 @@ CSS Twitter icon
 	width: 200px;
 	z-index: 1;
 	height: 500px;
+}
+
+fieldset.searchcriteria {
+	width: 50%;
+	margin: auto;
 }

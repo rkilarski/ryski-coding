@@ -39,11 +39,6 @@ ul.navigation li.highlight a {
 	color: #CC6600;
 }
 
-fieldset.searchcriteria {
-	width: 50%;
-	margin: auto;
-}
-
 .reservationgrid,.customergrid {
 	padding: 10px;
 	vertical-align: top;

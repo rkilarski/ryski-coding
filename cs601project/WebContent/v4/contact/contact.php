@@ -5,17 +5,7 @@ if(session_id() == '') {
 }
 include('../include/header.php');
 ?>
-<script type="text/javascript"
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8vY8Gf7DQ32NxxSqrclMlUZZ-nZTVInI&sensor=false">
-</script>
-<script type="text/javascript">
-        var mapOptions = {
-          center: new google.maps.LatLng(42.351231,-71.117575),
-          zoom: 8,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-</script>
+
 <?php
 include('../include/body.php');
 ?>
@@ -24,7 +14,6 @@ include('../include/body.php');
 	<legend> contact information </legend>
 	telephone.617.353.5000<br> fax.617.353.5000<br> email: <a
 		href="mailto:chickenrice@gmail.com">chickenriceyum@gmail.com</a><br>
-	<div id="map_canvas" style="width: 600; height: 400"></div>
 	<iframe width="425" height="350" frameborder="0" scrolling="no"
 		marginheight="0" marginwidth="0"
 		src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=928+Commonwealth+Avenue,+Boston,+MA&amp;aq=0&amp;oq=928+Commonwealth+ave,+Boston,+MA&amp;sll=42.367337,-71.05793&amp;sspn=0.01132,0.021415&amp;t=m&amp;g=928+Commercial+Street,+Boston,+MA&amp;ie=UTF8&amp;hq=&amp;hnear=928+Commonwealth+Ave,+Brookline,+Massachusetts+02446&amp;ll=42.359876,-71.116219&amp;spn=0.022198,0.036478&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe>
@@ -32,7 +21,7 @@ include('../include/body.php');
 		href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=928+Commonwealth+Avenue,+Boston,+MA&amp;aq=0&amp;oq=928+Commonwealth+ave,+Boston,+MA&amp;sll=42.367337,-71.05793&amp;sspn=0.01132,0.021415&amp;t=m&amp;g=928+Commercial+Street,+Boston,+MA&amp;ie=UTF8&amp;hq=&amp;hnear=928+Commonwealth+Ave,+Brookline,+Massachusetts+02446&amp;ll=42.359876,-71.116219&amp;spn=0.022198,0.036478&amp;z=14&amp;iwloc=A"
 		style="color: #0000FF; text-align: left">View Larger Map</a> </small>
 </fieldset>
-<p>it started with a man, a chicken, and a dream. </p>
+<p>it started with a man, a chicken, and a dream.</p>
 
 <p>Donec venenatis ante eu sem imperdiet feugiat. Lorem ipsum dolor sit
 	amet, consectetur adipiscing elit. Donec diam augue, rhoncus vitae
