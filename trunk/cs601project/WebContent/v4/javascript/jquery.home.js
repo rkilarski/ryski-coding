@@ -7,9 +7,23 @@ $(document).ready(function() {
 			data : $(this).closest("form").serialize(),
 			success : function(data, textStatus, jqXHR) {
 				if (data == 1) {
-					$("#emailsubmitted").dialog();
+					$("#emailsubmitted").dialog({
+						modal : true,
+						buttons : {
+							"ok" : function() {
+								$(this).dialog("close");
+							}
+						}
+					});
 				} else if (data == 0) {
-					$("#emailduplicate").dialog();
+					$("#emailduplicate").dialog({
+						modal : true,
+						buttons : {
+							"ok" : function() {
+								$(this).dialog("close");
+							}
+						}
+					});
 				}
 				$("#email").val("");
 			},
