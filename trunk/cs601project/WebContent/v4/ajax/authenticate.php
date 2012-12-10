@@ -39,8 +39,7 @@ try{
 		if ($actions=='action=login'){
 			$actions='';
 		}
-		//how do I handle this via ajax?
-		header('Location: ../index.php?'.$actions);
+		echo $actions;
 	} else {
 		$_SESSION['isloggedin']=false;
 		$_SESSION['isstaff']=false;
