@@ -4,6 +4,7 @@
 
 a {
 	text-decoration: none;
+	color: #FFFFFF;
 }
 
 html {
@@ -263,6 +264,9 @@ form[name="mailinglist"] {
 	margin-right: auto;
 	padding: 10px;
 	width: 100%;
+}
+iframe.googlemap{
+	margin: auto;
 }
 
 #mailinglist {
