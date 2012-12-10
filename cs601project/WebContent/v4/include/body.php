@@ -1,12 +1,12 @@
 </head>
 <body>
 <div id="bodywrapper">
-<div id="logo">
 <a href="../index.php">
+<div id="logo">
 <span id="largerestaurantname">chickenrice</span><br> <span
 id="tagline">chicken.re(de)fined</span>
-</a>
 </div>
+</a>
 
 <div id="favorites">
 <ul>
