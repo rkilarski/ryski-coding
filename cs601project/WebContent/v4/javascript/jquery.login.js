@@ -43,4 +43,31 @@ $(document).ready(function() {
 			}
 		});
 	});
+	$("#submitlogin").click(function() {
+		$.ajax({
+			type : "POST",
+			url : "../ajax/authenticate.php",
+			async : false,
+			data : $(this).closest("form").serialize(),
+			success : function(data, textStatus, jqXHR) {
+				if (data === "0") {
+					$("#messagebadlogin").dialog({
+						modal : true,
+						buttons : {
+							"ok" : function() {
+								$(this).dialog("close");
+								$("#email").val("");
+							}
+						}
+					});
+				} else {
+					// Login success.
+					window.location = "../index.php?" + data;
+				}
+			},
+			failure : function(data, textStatus, jqXHR) {
+				alert("error");
+			}
+		});
+	});
 });

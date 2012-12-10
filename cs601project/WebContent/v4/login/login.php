@@ -26,7 +26,7 @@ if (isset($_COOKIE['email'])){
 <h1>please log in to access the full features of our site</h1>
 <div id="loginsection">
 	<form name="login" id="loginform" class="addressform"
-		action="../controller/authenticate.php" method="post">
+		action="#" method="post">
 		<input type="hidden" name="action" value="<?php echo $action;?>">
 		<h2>are you a new user?</h2>
 		<input type="button" class="registertoggle"
@@ -36,9 +36,9 @@ if (isset($_COOKIE['email'])){
 			name="email" title="your username" placeholder="username"
 			maxlength="255" size="40" required="required"
 			value="<?php echo $email;?>"> <br> <label for="password">password:</label><input
-			type="password" name="password" title="your password"
+			type="password" id="password" name="password" title="your password"
 			placeholder="password" maxlength="255" size="40" required="required">
-		<br> <input type="submit" class="right" value="login"> <input
+		<br> <input type="button" id="submitlogin" class="right" value="login"> <input
 			type="reset" class="right" value="reset"> <input type="hidden"
 			name="getvariables" value="<?php echo $_SERVER['QUERY_STRING']; ?>">
 		<br> <br>

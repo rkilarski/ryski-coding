@@ -21,10 +21,10 @@ Notable Items, if you're curious.
 	-Note the Twitter integration on the upper right on every page.
 	-No Facebook integration: I didn't feel comfortable creating a fake restaurant page on Facebook because it might look too real.
 	
-	-Ajax is used in the "add to mailing list" functionality on the home page and the "add to cart" functionality on the Menu/Specials pages.
-	-Ajax is also used in all the "update" buttons on all staff forms.
-	-You cannot place a regular order on a Sunday; events and reservations placed on Sunday but for another day are fine.
+	-Ajax is used in all the "update" buttons on all staff forms; login, registration, adding to mailing list, adding items to cart, et. al.
+	-The only places Ajax is not used are either navigation, the checkout process, and the "Search" buttons on the query forms.
 	
+	-You cannot place a regular order on a Sunday; events and reservations placed on Sunday but for another day are fine.
 	-Events page checks for conflicts when scheduling new event.
 
 Bugs FIXED from Presentation
