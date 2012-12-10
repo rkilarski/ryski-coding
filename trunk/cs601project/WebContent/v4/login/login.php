@@ -32,27 +32,28 @@ if (isset($_COOKIE['email'])){
 		<input type="button" class="registertoggle"
 			value="register as a new user">
 		<h2>existing users, please log in</h2>
-		<label for="email">login:</label> <input type="email" name="email"
-			title="your username" placeholder="username" maxlength="255"
-			size="40" required="required" value="<?php echo $email;?>"> <br> <label
-			for="password">password:</label><input type="password"
-			name="password" title="your password" placeholder="password"
-			maxlength="255" size="40" required="required"> <br> <input
-			type="submit" class="right" value="login"> <input type="reset"
-			class="right" value="reset"> <input type="hidden" name="getvariables"
-			value="<?php echo $_SERVER['QUERY_STRING']; ?>"> <br> <br>
+		<label for="email">login:</label> <input type="email" id="email"
+			name="email" title="your username" placeholder="username"
+			maxlength="255" size="40" required="required"
+			value="<?php echo $email;?>"> <br> <label for="password">password:</label><input
+			type="password" name="password" title="your password"
+			placeholder="password" maxlength="255" size="40" required="required">
+		<br> <input type="submit" class="right" value="login"> <input
+			type="reset" class="right" value="reset"> <input type="hidden"
+			name="getvariables" value="<?php echo $_SERVER['QUERY_STRING']; ?>">
+		<br> <br>
 	</form>
 </div>
 <div id="registrationsection">
-	<form name="login" id="registrationform" class="addressform" method="post"
-		action="../controller/addperson.php">
+	<form name="login" id="registrationform" class="addressform"
+		method="post" action="#">
 		<h2>are you already registered?</h2>
 		<input type="button" class="registertoggle" value="log in">
 		<h2>new users, please register</h2>
-		<label for="email">email:</label><input type="email" name="email"
-			maxlength="255" size="40" title="your new username"
-			placeholder="username" required="required"> <br> <label
-			for="password">password:</label><input type="password"
+		<label for="email">email:</label><input type="email"
+			id="registrationemail" name="email" maxlength="255" size="40"
+			title="your new username" placeholder="username" required="required">
+		<br> <label for="password">password:</label><input type="password"
 			name="password" maxlength="255" size="40" title="your new password"
 			placeholder="password" required="required"> <br> <br> <label
 			for="firstname">first name:</label><input type="text"
@@ -82,10 +83,20 @@ if (isset($_COOKIE['email'])){
 		<label for="sendemail">send email?:</label><input type="checkbox"
 			name="sendemail" value="Y"
 			title="would you like to be on our mailing list?"> <br> <input
-			type="submit" class="right" value="add"> <input type="reset"
-			class="right" value="reset"> <br> <br>
+			type="button" id="submitregistration" class="right" value="add"> <input
+			type="reset" class="right" value="reset"> <br> <br>
 	</form>
 </div>
 <div class="clear"></div>
 <br>
+<div class="dialogdiv" id="messagesuccess"
+	title="registration successful">welcome to chickenrice! your
+	registration was processed successfully. please check your email in a
+	few minutes for a confirmation from us, and feel free to log in using
+	your new username and password.</div>
+<div class="dialogdiv" id="messageduplicate"
+	title="registration unsuccessful">you are already registered in our
+	database. we cannot add you twice, you silly goose.</div>
+<div class="dialogdiv" id="messagebadlogin" title="login unsuccessful">incorrect
+	username or password. bad user. bad, bad user.</div>
 <?php include('../include/footer.php'); ?>
