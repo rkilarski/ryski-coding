@@ -8,7 +8,7 @@ if(session_id() == '') {
 	try{
 		$event = new Event(Database::getDB());
 		$event->initPOST();
-		$event->updateReservationStatus();
+		$event->updateEventStatus();
 		echo 1;
 	} catch (Exception $e) {
 		echo $e->getMessage();
