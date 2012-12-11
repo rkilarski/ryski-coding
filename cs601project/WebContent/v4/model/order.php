@@ -522,6 +522,7 @@ class Order {
 	}
 
 	public function submitOrder(){
+		date_default_timezone_set('America/New_York');
 		$this->datetimeOrdered = date('Y-m-d H:i:s');
 		//First insert the customer address and get its id.
 		$this->customerAddressId = $this->insertCustomerOrderAddress();
