@@ -12,6 +12,7 @@ Requirements:
 Installation
 	-Import the /sql/chickenrice.sql file on the MySql server to import the database.
 	-This will also install user manager@chickenrice.com with password 'password'.
+	-Timezones have not been taken into account yet.  All time is in UTC.
 	
 Notable Items, if you're curious.
 	-Home page word cloud is database-driven and randomized to produce different results each refresh.
