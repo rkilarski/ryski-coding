@@ -230,7 +230,7 @@ INSERT INTO `food` (`id`, `name`, `description`, `isVegetarian`, `imageName`) VA
 (12, 'brown', 'whole-grain rice cooked in a smooth chicken broth for additional flavor', 'n', 'npa.jpg'),
 (13, 'medium grain', 'normally for risotto, a medium-grain white rice is a wonderful creamy alternative to the long-grain standard', 'n', 'npa.jpg'),
 (14, 'basmati', 'an aromatic long-grain', 'n', 'npa.jpg'),
-(15, 'filet mignion', 'just salt and pepper is all that''s needed to highlight this deliciously hunky cut of beef', 'n', 'npa.jpg'),
+(15, 'filet mignion', 'just salt and pepper is all that''s needed to highlight this deliciously hunky cut of beef', 'n', 'bg-19.jpg'),
 (16, 'sully''s salmon', 'not to be missed, this british invasion dish will bring up all sorts of happy memories', 'n', 'npa.jpg'),
 (17, 'roast vegetables', 'a seasonal set of vegetables, tossed with our special spices, and grilled', 'n', 'npa.jpg'),
 (18, 'mashed', 'creamy mashed potatoes, finished with butter, sour cream, and topped with shredded cheese', 'n', 'npa.jpg'),
