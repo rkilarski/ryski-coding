@@ -97,6 +97,8 @@ echo '</div>';
 			$reservationStatus = $event->getReservationStatus();
 			$hours = $event->getHours();
 			$datetime = $event->getEventDateTime();
+			$description = $event->getDescription();
+			$type = $event->getEventType();
 
 			$person=Person::loadById(Database::getDB(), $event->getPerson());
 			$firstName = $person->getFirstname();
@@ -119,7 +121,9 @@ echo '</div>';
 }?>
 		<br> <span class="telephone"><?php echo $telephone;?> </span> <br> <br>
 		hours:
-		<?php echo $hours;?>
+		<?php echo $hours;?><br>
+		<?php echo $type;?><br>
+		<?php echo $description;?>
 		<br>
 		<form name="resstatusupdate<?php echo $eventid; ?>" method="POST"
 			action="#">
