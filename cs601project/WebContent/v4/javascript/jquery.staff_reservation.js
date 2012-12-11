@@ -41,7 +41,7 @@ $(document).ready(function() {
 	});
 
 	$("#reset").click(function() {
-		var $inputs = $("#addreservation .clearform");
+		var $inputs = $("#reservationsearch .clearform");
 		$inputs.each(function() {
 			$(this).val('');
 		});

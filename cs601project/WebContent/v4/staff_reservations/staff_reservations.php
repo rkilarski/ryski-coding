@@ -18,7 +18,7 @@ include('../include/staff_header.php');
 <?php include('../include/body.php'); ?>
 
 <fieldset class="searchcriteria">
-	<legend> reservation & event search criteria </legend>
+	<legend> reservation &amp; event search criteria </legend>
 	<form name="reservationsearch" id="reservationsearch" method="GET"
 		action="index.php">
 		<input type="hidden" name="search" value="search"> <input
