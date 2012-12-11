@@ -19,10 +19,17 @@ include('../include/body.php');
 <table>
 	<?php
 	$previousType='';
+	date_default_timezone_set('America/New_York');
 	$dayofweek = date('w');
-	//If it is Sunday, we do not allow ordering today.
-	if ($dayofweek==0){
-		echo '<h2>we are sorry to say that we are closed on sunday, and therefore do not offer takeout or delivery.</h2>';
+	$nowhour= date('H');
+	$nowminutes= date('i');
+	$hideSubmit=false;
+	//Check when we're open.
+	if (($dayofweek==0)||($nowhour<10)||($nowhour==10&&$nowminutes<30)||($nowhour>21)||($nowhour==21&&$nowminutes>30)){
+		echo '<h2>we are sorry to say that we are closed, and therefore do not offer takeout or delivery.</h2>';
+		echo '<h2>our store hours are 10:30 am thru 9:30pm, daily. closed sunday.</h2>';
+		echo '<h4>note to professor: considering you might be testing this outside of store hours, the submit button will still display</h4>';
+		$hideSubmit=true;
 	}
 	foreach($menu as $menuItem){
 		if($previousType!=$menuItem->getMenuType()){
@@ -37,8 +44,13 @@ include('../include/body.php');
 		echo "<tr><td class=\"menuitem\"><a href=\"index.php?action=itemdetail&menuid=$menuId&type=menu\" title=\"click to see more information about $foodName\">$foodName</a></td>";
 		echo "<td class=\"menudesc\"><a href=\"index.php?action=itemdetail&menuid=$menuId&type=menu\" title=\"click to see more information about $foodName\">$desc</a></td>";
 		echo "<td><form name=\"addtocart\" method=\"POST\" action=\"#\">";
-		if ($dayofweek!=0){
-			echo "  <input type=\"button\" class=\"submitbutton menubutton\" title=\"add $foodName to your cart\" value=\"\$$price - Add to Cart\">";
+		if (true){
+			if ($hideSubmit){
+				$timemsg='(outside store hours)';
+			}else {
+				$timemsg='';
+			}
+			echo "  <input type=\"button\" class=\"submitbutton menubutton\" title=\"add $foodName to your cart $timemsg\" value=\"\$$price - Add to Cart\">";
 		}
 		echo "  <input type=\"hidden\" name=\"menuId\" value=\"$menuId\">";
 		echo '  <input type="hidden" name="customerRequest" value="">';

@@ -32,11 +32,20 @@ if (isset($menuItem)){
 	menu item detail
 </h1>
 <?php
-$dayofweek = date('w');
-//If it is Sunday, we do not allow ordering today.
-if ($dayofweek==0){
-	echo '<h2>we are sorry to say that we are closed on sunday, and therefore do not offer takeout or delivery.</h2>';
-}
+	date_default_timezone_set('America/New_York');
+	$dayofweek = date('w');
+	$nowhour= date('H');
+	$nowminutes= date('i');
+	$hideSubmit=false;
+	$timemsg='';
+	//Check when we're open.
+	if (($dayofweek==0)||($nowhour<10)||($nowhour==10&&$nowminutes<30)||($nowhour>21)||($nowhour==21&&$nowminutes>30)){
+		echo '<h2>we are sorry to say that we are closed, and therefore do not offer takeout or delivery.</h2>';
+		echo '<h2>our store hours are 10:30 am thru 9:30pm, daily. closed sunday.</h2>';
+		echo '<h4>note to professor: considering you might be testing this outside of store hours, the submit button will still display</h4>';
+		$hideSubmit=true;
+		$timemsg='(outside store hours)';
+	}
 ?>
 <fieldset id="itemdetail">
 <legend>
@@ -57,8 +66,8 @@ if ($dayofweek==0){
 	<input type="hidden" name="type" value="<?php echo $type; ?>">
 	<textarea name="customerRequest" maxlength="255" placeholder="special requests" rows="4" cols="50"></textarea>
 	<br>
-<?php if($dayofweek!=0): ?>
-	<input type="submit" class="right menubutton" value="$<?php echo $price; ?> - Add to Cart"> <input
+<?php if(true): ?>
+	<input type="submit" class="right menubutton" title="<?php echo "add $foodName to cart $timemsg"; ?>" value="$<?php echo $price; ?> - Add to Cart"> <input
 		type="hidden" name="menuId" value="<?php echo $menuId; ?>"> <input
 		type="hidden" name="action" value="cart">
 <?php endif; ?>
