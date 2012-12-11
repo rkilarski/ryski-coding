@@ -6,6 +6,7 @@ if(session_id() == '') {
 require_once('../model/database.php');
 require_once('../model/reservation.php');
 require_once('../model/event.php');
+require_once('../model/person.php');
 
 if (isset($_POST['action'])) {
 	$action = $_POST['action'];
