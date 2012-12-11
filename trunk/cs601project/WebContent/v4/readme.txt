@@ -31,3 +31,4 @@ Bugs FIXED from Presentation
 	-Crash upon Add to Cart from detail page.
 	-Automatically run search after login, from saved-off link.
 	-Update reservation status.
+	-Fixed image sizes to be smaller.
