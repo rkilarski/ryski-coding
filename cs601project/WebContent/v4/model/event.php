@@ -204,13 +204,26 @@ class Event {
 
 	public static function loadByValue($db, $value, $id){
 		$event = new Event($db);
-
-		$statement= $db->prepare("select * from event where $value='$id'");
+		$list = $event->getEventFields();
+		$columns = '';
+		foreach ($list as $key => $value){
+			if ($key=='reservationStatus'){
+				$columns .= "S.reservationStatus as reservationStatus, ";
+			}else	if ($key=='eventType'){
+				$columns .= "T.eventType as eventType, ";
+			}else {
+				$columns .= "E.$key, ";
+			}
+		}
+		$columns  = substr($columns, 0, -2);
+		$sql = "select $columns from event E left join reservationStatus S ON (E.reservationStatus=S.id) left join eventType T ON (E.eventType=T.id) where E.id='$id'";
+		$statement= $db->prepare($sql);
 		$statement->execute();
 		$row = $statement->fetch();
 		$event->init($row);
 		return $event;
 	}
+	
 	public function getEventFields(){
 		return array("id"=>$this->id, "person"=>$this->person, "description"=>$this->description, "eventDateTime"=>$this->eventDateTime, "eventType"=>$this->eventType, "reservationStatus"=>$this->reservationStatus, "hours"=>$this->hours, "personCount"=>$this->personCount, "price"=>$this->price);
 	}
@@ -247,6 +260,7 @@ class Event {
 		$encryptKey = Database::getEncryptionKey();
 		
 		$eventDateTime = $this->eventDateTime;
+		$person = $this->person;
 		$reservationStatus = $this->reservationStatus;
 		$where = '';
 		if (($reservationStatus!='')&&($reservationStatus!='all')){
@@ -254,6 +268,12 @@ class Event {
 				$where .= ' AND ';
 			}
 			$where .= " reservationStatus = '$reservationStatus'";
+		}
+		if ($person!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " person = '$person'";
 		}
 		if ($eventDateTime!=''){
 			if ($where !=''){

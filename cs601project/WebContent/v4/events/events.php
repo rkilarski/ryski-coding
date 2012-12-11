@@ -35,7 +35,7 @@ include('../include/header.php');
 			placeholder="event details" rows="4" cols="50"></textarea>
 
 		<br> <br> <input type="button" id="addeventsubmit" class="right"
-			value="schedule event"> <input type="button" class="right" id="reset"
+			value="schedule event and check out"> <input type="button" class="right" id="reset"
 			value="reset">
 	</form>
 </fieldset>

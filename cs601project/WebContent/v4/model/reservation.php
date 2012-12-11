@@ -138,16 +138,29 @@ class Reservation {
 
 	public static function loadByValue($db, $value, $id){
 		$res = new Reservation($db);
-
-		$statement= $db->prepare("select * from reservation where $value='$id'");
+		$list = $res->getReservationFields();
+		$columns = '';
+		foreach ($list as $key => $value){
+			if ($key=='reservationStatus'){
+				$columns .= "S.orderStatus as reservationStatus, ";
+			}else {
+				$columns .= "R.$key, ";
+			}
+		}
+		$columns  = substr($columns, 0, -2);
+		$sql = "select $columns from reservation R left join orderStatus S ON (R.reservationStatus=S.id) where R.id='$id'";
+		$statement= $db->prepare($sql);
 		$statement->execute();
 		$row = $statement->fetch();
 		$res->init($row);
 		return $res;
 	}
+	public function getReservationFields(){
+		return array("id"=>$this->id, "person"=>$this->person, "tableSize"=>$this->tableSize, "reservationDateTime"=>$this->reservationDateTime, "reservationStatus"=>$this->reservationStatus);  //, "diningTable"=>$this->diningTable);
+	}
 
 	public function insert(){
-		$list = array("id"=>$this->id, "person"=>$this->person, "tableSize"=>$this->tableSize, "reservationDateTime"=>$this->reservationDateTime, "reservationStatus"=>$this->reservationStatus); //, "diningTable"=>$this->diningTable);
+		$list = $this->getReservationFields();
 		$columns = '';
 		$values = '';
 		foreach ($list as $key => $value){
@@ -168,12 +181,19 @@ class Reservation {
 		
 		$reservationDateTime = $this->reservationDateTime;
 		$reservationStatus = $this->reservationStatus;
+		$person = $this->person;
 		$where = '';
 		if (($reservationStatus!='')&&($reservationStatus!='all')){
 			if ($where !=''){
 				$where .= ' AND ';
 			}
 			$where .= " reservationStatus = '$reservationStatus'";
+		}
+		if ($person!=''){
+			if ($where !=''){
+				$where .= ' AND ';
+			}
+			$where .= " person = '$person'";
 		}
 		if ($reservationDateTime!=''){
 			if ($where !=''){

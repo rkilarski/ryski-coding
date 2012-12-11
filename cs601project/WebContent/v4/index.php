@@ -65,11 +65,11 @@ switch ($action) {
 			header('Location: reservations/index.php?'.$_SERVER['QUERY_STRING']);
 		}
 		break;
-	case 'orders':
+	case 'history':
 		if (!$isLoggedIn){
 			header('Location: login/index.php?'.$_SERVER['QUERY_STRING']);
 		}else {
-			header('Location: orders/index.php?'.$_SERVER['QUERY_STRING']);
+			header('Location: history/index.php?'.$_SERVER['QUERY_STRING']);
 		}
 		break;
 	case 'specials':

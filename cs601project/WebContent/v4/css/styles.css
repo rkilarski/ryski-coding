@@ -152,7 +152,7 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset,#cartcount,.menuima
 
 #outerframe,#logo {
 	opacity: 0.80;
-	filter: alpha(opacity = 80);
+	filter: alpha(opacity =   80);
 	/* For IE8 and earlier */
 	border: 1px solid #D3D3D3;
 }
@@ -223,6 +223,12 @@ form#checkout {
 	margin: auto;
 }
 
+@media screen and (min-width: 320px) and (max-width:1150px) {
+	form#checkout { 
+		width: 100%;
+	}
+}
+
 .addressform {
 	margin: auto;
 	width: 550px;
@@ -240,10 +246,12 @@ form#checkout {
 
 #billingaddress {
 	float: left;
+	margin-left: auto;
 }
 
 #deliveryaddress {
 	float: left;
+	margin-right: auto;
 }
 
 #deliveryaddress>fieldset,#billingaddress>fieldset {
@@ -261,10 +269,9 @@ input[type="submit"],input[type="reset"],input[type="button"] {
 }
 
 input[type="submit"]:hover,input[type="reset"]:hover,input[type="button"]:hover
-	{
-	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80 );
-	-moz-opacity: 0.8;
-	opacity: 0.8;
+{
+	background-color: #FFFFFF;
+	color: #FF6600;
 }
 
 form[name="mailinglist"] {
@@ -571,4 +578,10 @@ CSS Twitter icon
 fieldset.searchcriteria {
 	width: 50%;
 	margin: auto;
+}
+
+.reservationgrid,.customergrid {
+	padding: 10px;
+	vertical-align: top;
+	float: left;
 }

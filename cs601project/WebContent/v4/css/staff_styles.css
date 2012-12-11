@@ -9,8 +9,14 @@ input,select,option,textarea {
 
 input[type="submit"],input[type="reset"],input[type="button"] {
 	background-color: #CC6600;
+	color: #FFFFFF;
 }
 
+input[type="submit"]:hover,input[type="reset"]:hover,input[type="button"]:hover
+{
+	background-color: #FFFFFF;
+	color: #CC6600;
+}
 #innerframe {
 	background-color: #CC6600;
 }
@@ -37,10 +43,4 @@ ul.navigation a:hover {
 
 ul.navigation li.highlight a {
 	color: #CC6600;
-}
-
-.reservationgrid,.customergrid {
-	padding: 10px;
-	vertical-align: top;
-	float: left;
 }

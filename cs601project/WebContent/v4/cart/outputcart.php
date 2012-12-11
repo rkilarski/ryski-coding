@@ -1,5 +1,5 @@
 	<?php
-	if (isset($event)){
+	if (isset($event)&&(is_array($event))){
 		$item = array_pop($cart);
 		echo '<table>';
 		echo '<div class="cart">';
