@@ -9,9 +9,6 @@ if (!isset($menu)){
 include('../include/header.php');
 ?>
 <script type="text/javascript" src="../javascript/jquery.menu.js"></script>
-<style>
-	.ui-effects-transfer { border: 2px dotted gray; }
-</style>
 <?php
 include('../include/body.php');
 ?>

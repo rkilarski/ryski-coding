@@ -17,22 +17,12 @@ body {
 	height: 100%;
 	min-height: 100%;
 	padding-bottom: 18px;
-	scrollbar-base-color: #FF6600;
-	scrollbar-arrow-color: #FF6600;
-	scrollbar-DarkShadow-Color: #FF6600;
 	/*Background image begin*/
 	background: url("img/bg/bg-01.jpg") no-repeat fixed center center;
-	/*For IE8*/
-	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="img/bg/bg-01.jpg",
-		sizingMethod="scale" );
-	/*For IE8?
-	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="img/bg/bg-01.jpg", sizingMethod="scale");*/
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-	scrollbar-arrow-color: #FF6600;
-	scrollbar-DarkShadow-Color: #FF6600;
 	/*Background image end*/
 }
 
@@ -145,15 +135,13 @@ select,input,#innerframe,#outerframe,#logo,textarea,fieldset,#cartcount,.menuima
 }
 
 #content {
-	float: clear;
+	clear: both;
 	margin: 5px;
 	padding: 10px;
 }
 
 #outerframe,#logo {
 	opacity: 0.80;
-	filter: alpha(opacity =   80);
-	/* For IE8 and earlier */
 	border: 1px solid #D3D3D3;
 }
 
@@ -224,7 +212,7 @@ form#checkout {
 }
 
 @media screen and (min-width: 320px) and (max-width:1150px) {
-	form#checkout { 
+	form#checkout {
 		width: 100%;
 	}
 }
@@ -269,7 +257,7 @@ input[type="submit"],input[type="reset"],input[type="button"] {
 }
 
 input[type="submit"]:hover,input[type="reset"]:hover,input[type="button"]:hover
-{
+	{
 	background-color: #FFFFFF;
 	color: #FF6600;
 }
@@ -584,4 +572,12 @@ fieldset.searchcriteria {
 	padding: 10px;
 	vertical-align: top;
 	float: left;
+}
+
+.ui-effects-transfer { 
+	border: 2px solid #ffffff;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	border-radius: 10px;
 }
