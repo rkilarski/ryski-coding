@@ -48,7 +48,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/cuisine_label" />
+        android:layout_below="@+id/cuisine_label"
+        android:entries="@array/cuisines" />
 
     <Button
         android:id="@+id/button1"

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/item1" android:visible="true" android:title="Options" android:enabled="true" android:showAsAction="always" android:icon="@drawable/action_settings">
+        <menu>
+            <item android:id="@+id/item2" android:title="Title 1"/>
+        </menu>
+    </item>
+    
+
+</menu>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Restaurant Finder</string>
+    <string name="app_name">RestoFind!</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="intro_blurb_criteria">Enter review criteria</string>
@@ -9,5 +9,19 @@
     <string name="cuisine_label">Cuisine:</string>
     <string name="hint_location">Enter a location</string>
     <string name="button_get_reviews">Get Reviews</string>
+    <string-array name="cuisines">
+        <item >ANY</item>
+        <item >American</item>
+        <item >Barbeque</item>
+        <item >Chinese</item>
+        <item >French</item>
+        <item >German</item>
+        <item >Indian</item>
+        <item >Italian</item>
+        <item >Mexican</item>
+        <item >Thai</item>
+        <item >Vegetarian</item>
+        <item >Kosher</item>
+    </string-array>
 
 </resources>
