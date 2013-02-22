@@ -30,6 +30,26 @@
             android:name="edu.metcs683.walkabout.Settings"
             android:label="@string/title_activity_settings" >
         </activity>
+        <activity
+            android:name="edu.metcs683.walkabout.WaypointMap"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_waypoint_map"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name="edu.metcs683.walkabout.MovePhotosBetweenWaypoints"
+            android:label="@string/title_activity_move_photos_between_waypoints" >
+        </activity>
+        <activity
+            android:name="edu.metcs683.walkabout.PhotoViewer"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_photo_viewer"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name="edu.metcs683.walkabout.PhotoDetail"
+            android:label="@string/title_activity_photo_detail" >
+        </activity>
     </application>
 
 </manifest>
