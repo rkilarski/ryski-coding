@@ -4,8 +4,10 @@ import java.util.List;
 
 public interface Database<T> {
 
-	public T load(long id);
-	public void save(T object);
+	public T get(long id);
+	public void insert(T object);
 	public List<T> getList(long id);
+	public void delete(long id);
+	public void update(T object);
 	
 }

@@ -7,13 +7,13 @@ import edu.metcs683.walkabout.model.Image;
 public class ImageDAO implements Database<Image> {
 
 	@Override
-	public Image load(long id) {
+	public Image get(long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void save(Image object) {
+	public void insert(Image object) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -22,6 +22,18 @@ public class ImageDAO implements Database<Image> {
 	public List<Image> getList(long id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void delete(long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(Image object) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
