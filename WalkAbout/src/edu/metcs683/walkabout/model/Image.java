@@ -1,6 +1,10 @@
 package edu.metcs683.walkabout.model;
 
-public class Image {
+import java.io.Serializable;
+
+public class Image implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private long id;
 	private Image image;
