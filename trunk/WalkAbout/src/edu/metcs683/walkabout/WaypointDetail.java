@@ -9,7 +9,7 @@ public class WaypointDetail extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_waypoint_detail);
+		initializeUI();
 	}
 
 	@Override
@@ -17,6 +17,10 @@ public class WaypointDetail extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_waypoint_detail, menu);
 		return true;
+	}
+
+	private void initializeUI(){
+		setContentView(R.layout.activity_waypoint_detail);
 	}
 
 }
