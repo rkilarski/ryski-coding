@@ -11,5 +11,9 @@
     <string name="title_activity_move_photos_between_waypoints">MovePhotosBetweenWaypoints</string>
     <string name="title_activity_photo_viewer">PhotoViewer</string>
     <string name="title_activity_photo_detail">PhotoDetail</string>
+    <string name="description_label">Description:</string>
+    <string name="date_label">Date:</string>
+    <string name="OK_button_label">OK</string>
+    <string name="cancel_button_label">Cancel</string>
 
 </resources>

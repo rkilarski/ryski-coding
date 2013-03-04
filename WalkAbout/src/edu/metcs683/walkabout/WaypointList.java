@@ -9,7 +9,7 @@ public class WaypointList extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_waypoint_list);
+		initializeUI();
 	}
 
 	@Override
@@ -19,4 +19,7 @@ public class WaypointList extends Activity {
 		return true;
 	}
 
+	private void initializeUI(){
+		setContentView(R.layout.activity_waypoint_list);
+	}
 }
