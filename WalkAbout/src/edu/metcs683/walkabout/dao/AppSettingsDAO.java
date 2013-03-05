@@ -1,19 +1,24 @@
 package edu.metcs683.walkabout.dao;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import edu.metcs683.walkabout.model.AppSettings;
-
-public class AppSettingsDAO implements Database<AppSettings> {
+/**
+ * Data access object for the model data.
+ * @author Ryszard Kilarski
+ *
+ */
+public class AppSettingsDAO {
 
 	private static final String PREFERENCES_NAME = "edu.metcs683.walkabout";
-	private static final String PREFERENCES_PREFERENCE1 = "edu.metcs683.walkabout.preference1";
-	private static final String PREFERENCES_PREFERENCE1_DEFAULT = "";
+	
+	private static final String PREFERENCES_WAYPOINT_ORDER_ASCENDING_FLAG = "edu.metcs683.walkabout.waypointorderascendingflag";
+	private static final boolean PREFERENCES_WAYPOINT_ORDER_ASCENDING_FLAG_DEFAULT = true;
+	
+	private static final String PREFERENCES_WAYPOINT_PHOTO_ORDER_ASCENDING_FLAG = "edu.metcs683.walkabout.waypointphotoorderascendingflag";
+	private static final boolean PREFERENCES_WAYPOINT_PHOTO_ORDER_ASCENDING_FLAG_DEFAULT = true;
 
 	private SharedPreferences preferences;
 
@@ -23,55 +28,54 @@ public class AppSettingsDAO implements Database<AppSettings> {
 	}
 
 	/**
-	 * Getter for the Preference1 item.
+	 * Getter for the Waypoint order ascending flag item.
 	 * 
 	 * @return - The preference1 item.
 	 */
-	public String getPreference1() {
-		return preferences.getString(AppSettingsDAO.PREFERENCES_PREFERENCE1,
-				AppSettingsDAO.PREFERENCES_PREFERENCE1_DEFAULT);
+	public boolean getWaypointOrderAscendingFlag() {
+		return preferences
+				.getBoolean(
+						AppSettingsDAO.PREFERENCES_WAYPOINT_ORDER_ASCENDING_FLAG,
+						AppSettingsDAO.PREFERENCES_WAYPOINT_ORDER_ASCENDING_FLAG_DEFAULT);
 	}
 
 	/**
-	 * Setter for the Preference1 item.
+	 * Setter for the Waypoint order ascending flag item.
 	 * 
 	 * @param preference1
 	 */
-	public void setPreference1(String preference1) {
+	public void setWaypointOrderAscendingFlag(boolean setting) {
 		Editor editor = preferences.edit();
-		editor.putString(AppSettingsDAO.PREFERENCES_PREFERENCE1, preference1);
+		editor.putBoolean(
+				AppSettingsDAO.PREFERENCES_WAYPOINT_ORDER_ASCENDING_FLAG,
+				setting);
 		editor.commit();
 		return;
 	}
 
-	@Override
-	public AppSettings get(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Getter for the Waypoint order ascending flag item.
+	 * 
+	 * @return - The preference1 item.
+	 */
+	public boolean getWaypointPhotoOrderAscendingFlag() {
+		return preferences
+				.getBoolean(
+						AppSettingsDAO.PREFERENCES_WAYPOINT_PHOTO_ORDER_ASCENDING_FLAG,
+						AppSettingsDAO.PREFERENCES_WAYPOINT_PHOTO_ORDER_ASCENDING_FLAG_DEFAULT);
 	}
 
-	@Override
-	public void insert(AppSettings object) {
-		// TODO Auto-generated method stub
-
+	/**
+	 * Setter for the Waypoint order ascending flag item.
+	 * 
+	 * @param preference1
+	 */
+	public void setWaypointPhotoOrderAscendingFlag(boolean setting) {
+		Editor editor = preferences.edit();
+		editor.putBoolean(
+				AppSettingsDAO.PREFERENCES_WAYPOINT_PHOTO_ORDER_ASCENDING_FLAG,
+				setting);
+		editor.commit();
+		return;
 	}
-
-	@Override
-	public List<AppSettings> getList(long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void delete(long id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void update(AppSettings object) {
-		// TODO Auto-generated method stub
-
-	}
-
 }
