@@ -1,0 +1,10 @@
+img {
+	width: 400px;
+	height: 400px;
+}
+
+#logo_image {
+	text-align: center;
+	margin-left: 0 auto;
+	margin-right: 0 auto;
+}
