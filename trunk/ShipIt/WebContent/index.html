@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShipIt!</title>
+<link type="text/css" rel="stylesheet"
+	href="js/jquery.mobile-1.2.0/jquery.mobile-1.2.0.css">
+<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript"
+	src="js/jquery.mobile-1.2.0/jquery.mobile-1.2.0.js"></script>
+<script type="text/javascript" src="js/shipitui.js"></script>
+<script type="text/javascript" src="js/shipitmaps.js"></script>
+<script type="text/javascript" src="js/shipitservices.js"></script>
+</head>
+
+<body>
+	<div data-role="page" id="one" data-theme="c">
+		<div data-role="header" data-theme="a">
+			<h1>ShipIt!</h1>
+		</div>
+		<div data-role="content">
+			Welcome to ShipIt, the app that allows you to create, register, and view ShipIt projects
+		</div>
+		<div data-role="footer" data-theme="b">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#addproject" data-icon="plus">Add Project</a></li>
+					<li><a href="#joinproject" data-icon="star">Join Project</a></li>
+					<li><a href="#listprojects" data-icon="grid">View Projects</a></li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+
+
+	<div data-role="page" id="addproject" data-theme="c"
+		data-add-back-btn="true">
+		<div data-role="header" data-theme="a">
+			<h1>Add ShipIt! Project</h1>
+		</div>
+		<div data-role="content">
+			<form id="addprojectform">
+				<label for="eventdate">Event Date:</label><input type="date" name="eventdate" id="eventdate" value="">
+				<label for="teamname">Team Name:</label><input name="teamname" id="teamname" value="" type="text">
+				<label for="projectname">Project Name:</label><input name="projectname" id="projectname" name="text-basic" value="" type="text">
+				<label for="description">Description:</label><textarea name="description" id="description" cols="40" rows="8"></textarea>
+				<label for="participantname">Participant Name</label><input id="participantname" name="participantname" value="" type="text">
+				<label for="officelocation">Office Location:</label>
+					<select name="officelocation" id="officelocation" data-native-menu="false" data-mini="true" data-inline="true">
+					    <option value="boston">Boston</option>
+					    <option value="burlington">Burlington</option>
+					</select>
+					<fieldset data-role="controlgroup">
+					    <legend>Office Location attendance:</legend>
+					    <input type="checkbox" name="monday" id="monday">
+					    <label for="monday">Monday</label>
+					    <input type="checkbox" name="tuesday" id="tuesday">
+					    <label for="tuesday">Tuesday</label>
+					    <input type="checkbox" name="wednesday" id="wednesday">
+					    <label for="wednesday">Wednesday</label>
+					    <input type="checkbox" name="thursday" id="thursday">
+					    <label for="thursday">Thursday</label>
+					    <input type="checkbox" name="friday" id="friday">
+					    <label for="friday">Friday</label>
+					</fieldset>
+				<label for="dietaryneeds">Dietary Needs:</label><textarea name="dietaryneeds" id="dietaryneeds" cols="40" rows="8"></textarea>
+				<button id="savenewprojectbutton" data-icon="grid" data-iconpos="right" data-mini="true" data-theme="e">Save</button>
+			</form>
+		</div>
+	</div>
+
+	<div data-role="page" id="editproject" data-theme="c"
+		data-add-back-btn="true">
+		<div data-role="header" data-theme="a">
+			<h1>Edit ShipIt! Project</h1>
+		</div>
+		<div data-role="content">
+			<label for="eventdate">Event Date:</label><input type="date" name="eventdate" id="eventdate" value="">
+			<label for="teamname">Team Name (? Lookup):</label><input name="teamname" id="teamname" value="" type="text">
+			<label for="projectname">Project Name (? Lookup) </label><input name="projectname" id="projectname" name="text-basic" value="" type="text">
+			<label for="description">Project Description:</label><textarea name="description" id="description" cols="40" rows="8"></textarea>
+			<label for="participantname">Participant Name</label><input id="participantname" name="participantname" value="" type="text">
+				<select name="officelocation" id="officelocation" data-native-menu="false">
+				    <option value="boston">Boston</option>
+				    <option value="burlington">Burlington</option>
+				</select>
+			<label for="officelocationattendance">Office Location attendance: (If office location attendance per day should be acknowledge, should be configurable for each event)</label>
+				<input id="officelocationattendance" name="officelocationattendance" value="" type="text">
+			<label for="dietaryneeds">Dietary Needs:</label><textarea name="dietaryneeds" id="dietaryneeds" cols="40" rows="8"></textarea>
+			<button id="saveeditedprojectbutton" data-icon="grid" data-iconpos="right" data-mini="true" data-theme="e">Save</button>
+		</div>
+	</div>
+
+
+	<div data-role="page" id="viewproject" data-theme="c"
+		data-add-back-btn="true">
+		<div data-role="header" data-theme="a">
+			<h1>View ShipIt! Project</h1>
+		</div>
+		<div data-role="content">
+			<label for="eventdate">Event Date:</label><input type="date" name="eventdate" id="eventdate" disabled>
+			<label for="teamname">Team Name (? Lookup):</label><input id="text-basic" name="text-basic" type="text" disabled>
+			<label for="projectname">Project Name (? Lookup) </label><input id="text-basic" name="text-basic" value="" type="text"disabled>
+			<label for="description">Project Description:</label><textarea id="description" cols="40" rows="8" name="textarea" disabled></textarea>
+			<label for="participantname">Participant Name</label><input id="text-basic" name="text-basic" value="" type="text" disabled>
+			<label for="officelocation">Office Location (Drop Down type):</label>
+				<select name="officelocation" id="officelocation" disabled>
+				    <option value="boston">Boston</option>
+				    <option value="burlington">Burlington</option>
+				</select>
+			<label for="officelocationattendance" >Office Location attendance: (If office location attendance per day should be acknowledge, should be configurable for each event)</label><input id="text-basic" name="text-basic" value="" type="text" disabled>
+			<label for="dietaryneeds">Dietary Needs Description (optional)</label><input id="text-basic" name="text-basic" value="" type="text" disabled>
+		</div>
+	</div>
+
+	<div data-role="page" id="joinproject" data-theme="c"
+		data-add-back-btn="true">
+		<div data-role="header" data-theme="a">
+			<h1>Join a ShipIt! Project</h1>
+		</div>
+		<div data-role="content">
+				<ul id="projectlistjoin" data-role="listview" data-filter="true" data-filter-placeholder="Search projects..." data-inset="true">
+				</ul>
+		</div>
+	</div>
+
+	<div data-role="page" id="joinprojectparticipant" data-theme="c"
+		data-add-back-btn="true">
+		<div data-role="header" data-theme="a">
+			<h1>Add Participant</h1>
+		</div>
+		<div data-role="content">
+			<label for="eventdate">Event Date:</label><input type="date" name="eventdate" id="eventdate" value="">
+			<label for="teamname">Team Name (? Lookup):</label><input id="text-basic" name="text-basic" value="" type="text">
+			<label for="projectname">Project Name (? Lookup) </label><input id="text-basic" name="text-basic" value="" type="text">
+			<label for="description">Project Description:</label><textarea id="description" cols="40" rows="8" name="textarea"></textarea>
+			<label for="participantname">Participant Name</label><input id="text-basic" name="text-basic" value="" type="text">
+			<label for="officelocation">Office Location (Drop Down type):</label>
+				<select name="officelocation" id="officelocation">
+				    <option value="boston">Boston</option>
+				    <option value="burlington">Burlington</option>
+				</select>
+			<label for="officelocationattendance">Office Location attendance: (If office location attendance per day should be acknowledge, should be configurable for each event)</label><input id="text-basic" name="text-basic" value="" type="text">
+			<label for="dietaryneeds">Dietary Needs Description (optional)</label><input id="text-basic" name="text-basic" value="" type="text">
+			<input type="button" id="saveparticipantbutton" value="Save" data-icon="grid" data-iconpos="right" data-mini="true" data-theme="e">
+		</div>
+	</div>
+
+	<div data-role="page" id="listprojects" data-theme="c" data-add-back-btn="true">
+		<div data-role="header" data-theme="a">
+			<h1>ShipIt! Projects</h1>
+		</div>
+		<div data-role="content">
+			<ul id="projectlist" data-role="listview" data-filter="true" data-filter-placeholder="Search projects..." data-inset="true">
+			</ul>
+		</div>
+	</div>
+
+
+</body>
+</html>
