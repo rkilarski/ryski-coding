@@ -1,56 +1,51 @@
-//------------------------------------------Form loaders------------------------------------------
-$('#addeditviewproject').live('pageinit', function(event) {
+// -------------------------Form loaders----------------------------------------
+$("#splash").live('pageinit', function() {
+	setTimeout(function() {
+		$.mobile.changePage("#projectmain", {
+			transition : "fade"
+		});
+	}, 2000);
+});
+
+$('#projectmain').live('pageinit', function(event) {
+	loadProjectListToForm();
+});
+
+$('#projectdetail').live('pageinit', function(event) {
 	var id = getParameterByName('projectId');
-	var addeditMode = getParameterByName('mode');
-	if (addeditMode == "add") {
-		$("#addeditmode").html = "Add";
-		$('#saveprojectbutton').click(function() {
-			saveProjectButton();
-		});
-	} else if (addeditMode == "edit") {
-		$("#addeditmode").html = "Edit";
-		$('#saveprojectbutton').click(function() {
-			saveProjectButton();
-		});
-	} else {
-		$("#addeditmode").html = "View";
-		$('#saveprojectbutton').style.visible = false;
-	}
+	loadEventDates("#eventdate");
+	loadLocationList("#officelocation");
+	$('#saveprojectbutton').click(function() {
+		saveProjectButton();
+	});
 	if ((id != null) && (id != '')) {
-		loadProjectToForm(id);
+		var project = loadProject(id);
+		mapProjectToForm(project);
 	}
 });
 
-$('#viewproject').live('pageinit', function(event) {
-	loadProjectToForm();
-});
-
-$('#joinproject').live('pageinit', function(event) {
-	loadProjectListToForm("#projectlistjoin", "#joinprojectparticipant?");
-});
-
-$('#joinprojectparticipant').live('pageinit', function(event) {
-	alert('This page was just enhanced by jQuery Mobile!');
+$('#participantdetail').live('pageinit', function(event) {
 	$('#saveparticipantbutton').click(function() {
 		saveParticipantButton();
 	});
 });
 
-$('#listprojects').live('pageinit', function(event) {
-	loadProjectListToForm("#projectlist", "#addeditviewproject?mode=view&");
-});
-
-// ------------------------------------------UI handler support
-// code------------------------------------------
+// -------------------------UI handler support code-----------------------------
 function saveProjectButton() {
-	var project = saveProjectFromForm()
+	var project = mapFormToProject();
 	saveProject(project);
-	alert("Project has been saved");
+	$.mobile.changePage("#projectmain", {
+		transition : "fade",
+		reloadPage : true
+	});
+
 }
 
 function saveParticipantButton() {
-	saveParticipant();
-	alert("Participant has been saved");
+	project = saveParticipant(project); // Add participant to project object.
+	$.mobile.changePage("#projectdetail", {
+		transition : "fade"
+	});
 }
 
 function getParameterByName(name) {
