@@ -6,8 +6,8 @@ function loadProjectToForm() {
 	// Map project to fields.
 }
 
-function saveProjectFromForm(){
-	
+function saveProjectFromForm() {
+
 }
 
 function loadProjectListToForm(element, action) {
@@ -17,8 +17,9 @@ function loadProjectListToForm(element, action) {
 	list.empty();
 
 	for ( var i = 0; i < projects.length; i++) {
-		list.append("<li><a href='?projectId=" + projects[i].id + action + "'>"
-				+ projects[i].name + "</a></li>");
+		var listItem = "<li><a href='" + action + "projectId="
+				+ projects[i].id + "'>" + projects[i].name + "</a></li>"
+		list.append(listItem);
 	}
 
 	list.listview('refresh');
