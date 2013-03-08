@@ -7,4 +7,10 @@ img {
 	text-align: center;
 	margin-left: 0 auto;
 	margin-right: 0 auto;
+	margin-top: 100px;
+}
+
+#splash {
+	background-color: #430080;
+	color: #430080;
 }
