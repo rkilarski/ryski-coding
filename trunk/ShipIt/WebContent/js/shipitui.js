@@ -14,6 +14,7 @@ $('#addeditviewproject').live('pageinit', function(event) {
 		});
 	} else {
 		$("#addeditmode").html = "View";
+		$('#saveprojectbutton').style.visible = false;
 	}
 	if ((id != null) && (id != '')) {
 		loadProjectToForm(id);
@@ -53,6 +54,6 @@ function saveParticipantButton() {
 }
 
 function getParameterByName(name) {
-    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
-    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+	var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+	return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
