@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+
 <title>ShipIt!</title>
 <link type="text/css" rel="stylesheet"
 	href="js/jquery.mobile/jquery.mobile-1.3.0/jquery.mobile-1.3.0.css">
@@ -30,14 +32,17 @@
 			<a href="#projectdetail" data-icon="add" data-transition="slidedown">New Project</a>
 			<a href="#about" data-icon="add" data-transition="flip">About</a>
 		</div>
-		<div data-role="content">
-			<div data-role="collapsible-set" data-inset="false" id="quarterslist">
-			    <div data-role="collapsible" data-collapsed="false">
-			        <h3>Q1 2013</h3>
-					<ul id="projectlist" data-role="listview" data-filter="true" data-filter-placeholder="Search projects..." data-inset="true" >
-					</ul>
-			    </div>
-			</div>
+		<div data-role="content" id="projectlist">
+		    <div data-role="collapsible" data-collapsed="false" data-inset="false" data-theme="b" data-content-theme="d">
+		        <h3>Q1 2013</h3>
+				<ul id="q12013" data-role="listview" data-filter="true" data-filter-placeholder="Search Projects..." data-inset="true" >
+				</ul>
+		    </div>
+		    <div data-role="collapsible" data-collapsed="false" data-inset="false" data-theme="b" data-content-theme="d">
+		        <h3>Q2 2013</h3>
+				<ul id="q22013" data-role="listview" data-filter="true" data-filter-placeholder="Search Projects..." data-inset="true" >
+				</ul>
+		    </div>
 		</div>
 	</div>
 
