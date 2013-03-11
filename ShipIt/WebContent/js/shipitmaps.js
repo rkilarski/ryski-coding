@@ -67,7 +67,7 @@ function loadProjectListToForm(action) {
 		// TODO: Need a loop through events first to build quarters.
 		for ( var j = 0; j < projects.length; j++) {
 			var listItem = "<li><a href='" + "?projectId=" + projects[j].id
-					+ action + "'>" + projects[j].name + "</a></li>"
+					+ "#projectdetail" + "'>" + projects[j].name + "</a></li>"
 			list.append(listItem);
 		}
 		list.listview('refresh');
