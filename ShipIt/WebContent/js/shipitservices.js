@@ -1,7 +1,7 @@
 //------------------------------------------Back-end code that calls web services for each function------------------------------------------
 function saveProject(project) {
 
-	var productServiceUrl = 'http://cachetest2.am.health.ge.com/csp/shipit/ShipIt.WS.ShipIt.cls?soap_method=Save';
+	var productServiceUrl = '/csp/shipit/ShipIt.WS.ShipIt.cls?soap_method=Save';
 	var soapMessage;
 	soapMessage = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org" xmlns:ship="http://gehcit.ge.com/cb/ShipIt.WS.ShipIt.DT.Container" xmlns:ship1="http://gehcit.ge.com/cb/ShipIt.DT.ShipIt" xmlns:dbms="http://gehcit.ge.com/cb/DBMS.NameValuePair" xmlns:ship2="http://gehcit.ge.com/cb/ShipIt.DT.ShipItEmployee">';
 	soapMessage += ' <soapenv:Header/>';
@@ -89,7 +89,7 @@ function loadProjectList2() {
 function loadProjectList() {
 	var projects = new Array();
 	// Preferably write this out from server side
-	var productServiceUrl = 'http://cachetest2.am.health.ge.com/csp/shipit/ShipIt.WS.ShipItList.cls?soap_method=LoadProjects';
+	var productServiceUrl = '/csp/shipit/ShipIt.WS.ShipItList.cls?soap_method=LoadProjects';
 
 	var soapMessage
 	soapMessage = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org">';
