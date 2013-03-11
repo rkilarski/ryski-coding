@@ -4,32 +4,32 @@ function saveProject(project) {
 	var productServiceUrl = 'http://cachetest2.am.health.ge.com/csp/shipit/ShipIt.WS.ShipIt.cls?soap_method=Save';
 	var soapMessage;
 	soapMessage = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org" xmlns:ship="http://gehcit.ge.com/cb/ShipIt.WS.ShipIt.DT.Container" xmlns:ship1="http://gehcit.ge.com/cb/ShipIt.DT.ShipIt" xmlns:dbms="http://gehcit.ge.com/cb/DBMS.NameValuePair" xmlns:ship2="http://gehcit.ge.com/cb/ShipIt.DT.ShipItEmployee">';
-	soapMessage = ' <soapenv:Header/>';
-	soapMessage = '  <soapenv:Body>';
-	soapMessage = '   <tem:Save>';
-	soapMessage = '   <tem:oContainer>';
-	soapMessage = '    <ship:Header>';
-	soapMessage = '     <ship1:EventDt>' + '' + '</ship1:EventDt>';
-	soapMessage = '     <ship1:Id>' + '' + '</ship1:Id>';
-	soapMessage = '     <ship1:OffLoc>' + project.officelocation
+	soapMessage += ' <soapenv:Header/>';
+	soapMessage += '  <soapenv:Body>';
+	soapMessage += '   <tem:Save>';
+	soapMessage += '   <tem:oContainer>';
+	soapMessage += '    <ship:Header>';
+	soapMessage += '     <ship1:EventDt>' + '' + '</ship1:EventDt>';
+	soapMessage += '     <ship1:Id>' + '' + '</ship1:Id>';
+	soapMessage += '     <ship1:OffLoc>' + project.officelocation
 			+ '</ship1:OffLoc>';
-	soapMessage = '     <ship1:Project>' + project.projectname
+	soapMessage += '     <ship1:Project>' + project.projectname
 			+ '</ship1:Project>';
-	soapMessage = '     <ship1:ProjDescr>' + project.description
+	soapMessage += '     <ship1:ProjDescr>' + project.description
 			+ '</ship1:ProjDescr>';
-	soapMessage = '     <ship1:Team>' + project.teamname + '</ship1:Team>';
-	soapMessage = '    </ship:Header>';
-	soapMessage = '    <ship:Employee>';
-	soapMessage = '     <ship:ShipItEmployee>';
-	soapMessage = '      <ship2:DietaryNeeds></ship2:DietaryNeeds>';
-	soapMessage = '      <ship2:Id></ship2:Id>';
-	soapMessage = '      <ship2:Name></ship2:Name>';
-	soapMessage = '     </ship:ShipItEmployee>';
-	soapMessage = '    </ship:Employee>';
-	soapMessage = '   </tem:oContainer>';
-	soapMessage = '  </tem:Save>';
-	soapMessage = ' </soapenv:Body>';
-	soapMessage = '</soapenv:Envelope>';
+	soapMessage += '     <ship1:Team>' + project.teamname + '</ship1:Team>';
+	soapMessage += '    </ship:Header>';
+	soapMessage += '    <ship:Employee>';
+	soapMessage += '     <ship:ShipItEmployee>';
+	soapMessage += '      <ship2:DietaryNeeds></ship2:DietaryNeeds>';
+	soapMessage += '      <ship2:Id></ship2:Id>';
+	soapMessage += '      <ship2:Name></ship2:Name>';
+	soapMessage += '     </ship:ShipItEmployee>';
+	soapMessage += '    </ship:Employee>';
+	soapMessage += '   </tem:oContainer>';
+	soapMessage += '  </tem:Save>';
+	soapMessage += ' </soapenv:Body>';
+	soapMessage += '</soapenv:Envelope>';
 
 	$.ajax({
 		url : productServiceUrl,
