@@ -116,7 +116,7 @@ function loadProjectList() {
 					'http://tempuri.org/LoadProjects');
 		},
 		complete : function(xmlHttpRequest, status) {
-			if (status = "error") {
+			if (status == "error") {
 				projects = loadProjectList2();
 			} else {
 				$(xmlHttpRequest.responseXML).find('ShipIt').each(function() {
