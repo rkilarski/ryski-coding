@@ -58,16 +58,54 @@ function mapParticipantToForm(project) {
 }
 
 function loadProjectListToForm(action) {
+	/*
+	 * Ideally this function needs to output what looks like this:
+	 
+    <div data-role="collapsible" data-collapsed="false" data-inset="false" data-theme="b" data-content-theme="d">
+    	<h3>Q1 2013</h3>
+		<ul id="q12013" data-role="listview" data-filter="true" data-filter-placeholder="Search Projects..." data-inset="true" >
+			<li><a href='?projectId=12345#projectdetail'>Project Name</a></li>
+		</ul>
+	</div>
+	*/
+
 	var projects = loadProjectList();
 	var events = loadEvents();
-
-	var list = $("#projectlist");
+	
+	//For each quarter:
+	/*
+	var div=document.createElement('div');
+	div.data-role="collapsible";
+	div.data-collapsed="false";
+	div.data-inset="false";
+	div.data-theme="b";
+	div.data-conent-theme="d";
+	$("#projectlist").appendChild(div);
+	
+	var h3=document.createElement('h3');
+	div.appendChild(h3);
+	var ul=document.createElement('ul');
+	ul.id="q12013";
+	ul.data-role="listview";
+	ul.data-filter="true";
+	ul.data-filter-placeholder="Search Projects...";
+	ul.data-inset="true";
+	div.appendChild(ul);
+	*/
+	//For each project in quarter:
+	/*
+	var li=document.createElement('li');
+	li.innerHTML = "<a href='" + "?projectId=" + projects[j].id + "#projectdetail" + "'>" + projects[j].name + "</a>";
+	ul.appendChild(li);
+	ul.listview('refresh');
+	*/
+	var list = $("#q12013");
 	list.empty();
 	if ((projects != undefined) && (projects != null) && (projects.length > 0)) {
 		// TODO: Need a loop through events first to build quarters.
 		for ( var j = 0; j < projects.length; j++) {
 			var listItem = "<li><a href='" + "?projectId=" + projects[j].id
-					+ "#projectdetail" + "'>" + projects[j].name + "</a></li>"
+					+ "#projectdetail" + "' data-transition='slide'>" + projects[j].name + "</a></li>"
 			list.append(listItem);
 		}
 		list.listview('refresh');
