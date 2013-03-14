@@ -7,10 +7,11 @@ public class Waypoint {
 
 	private static final long serialVersionUID = 1L;
 
+	private long id;
 	private String description;
 	private Date dateTime;
 	private boolean isExpanded;
-	private int gpsLocation;
+	private String gpsLocation;
 	private List<Image> images;
 
 	public String getDescription() {
@@ -37,11 +38,11 @@ public class Waypoint {
 		this.isExpanded = isExpanded;
 	}
 
-	public int getGpsLocation() {
+	public String getGpsLocation() {
 		return gpsLocation;
 	}
 
-	public void setGpsLocation(int gpsLocation) {
+	public void setGpsLocation(String gpsLocation) {
 		this.gpsLocation = gpsLocation;
 	}
 
@@ -55,6 +56,14 @@ public class Waypoint {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }
