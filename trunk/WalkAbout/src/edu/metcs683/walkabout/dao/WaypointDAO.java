@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -16,6 +17,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import edu.metcs683.walkabout.model.Waypoint;
+
+/**
+ * Data access object for the waypoint. This class controls the
+ * loading/saving/querying of waypoints in the database.
+ * 
+ * @author Ryszard Kilarski
+ * 
+ */
 
 public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> {
 
@@ -91,9 +100,9 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 	}
 
 	@Override
-	public void insert(Waypoint waypoint) {
+	public long insert(Waypoint waypoint) {
 		ContentValues values = getContentValuesFromWaypoint(waypoint);
-		db.insert(DATABASE_TABLE_NAME, null, values);
+		return db.insert(DATABASE_TABLE_NAME, null, values);
 	}
 
 	@Override
@@ -139,7 +148,8 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 
 	private Date getDateFromString(String string) {
 		Date date = null;
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat formatter = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss", Locale.US);
 		try {
 			date = formatter.parse(string);
 		} catch (ParseException e) {
@@ -149,17 +159,14 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 	}
 
 	private String getStringFromDate(Date date) {
-		Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+				Locale.US);
 		return formatter.format(date);
 	}
 
 	private Waypoint getWaypointFromCursor(Cursor cursor) {
-		Waypoint waypoint = new Waypoint();
-		waypoint.setId(cursor.getLong(0));
-		waypoint.setDescription(cursor.getString(1));
-		waypoint.setDateTime(getDateFromString(cursor.getString(2)));
-		waypoint.setExpanded(cursor.getInt(3) == 0 ? false : true);
-		waypoint.setGpsLocation(cursor.getString(4));
-		return waypoint;
+		return new Waypoint(cursor.getLong(0), cursor.getString(1),
+				getDateFromString(cursor.getString(2)),
+				(cursor.getInt(3) == 0 ? false : true), cursor.getString(4));
 	}
 }

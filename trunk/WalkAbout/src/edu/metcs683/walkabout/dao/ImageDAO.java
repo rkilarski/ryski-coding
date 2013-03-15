@@ -17,6 +17,13 @@ import android.util.Log;
 
 import edu.metcs683.walkabout.model.Image;
 
+/**
+ * Data access object for the image. This class controls the
+ * loading/saving/querying of images in the database.
+ * 
+ * @author Ryszard Kilarski
+ * 
+ */
 public class ImageDAO extends SQLiteOpenHelper implements Database<Image> {
 
 	private static final String DATABASE_TABLE_NAME = "waypoint_images";
@@ -95,9 +102,9 @@ public class ImageDAO extends SQLiteOpenHelper implements Database<Image> {
 		return images;
 	}
 
-	public void insert(Image image) {
+	public long insert(Image image) {
 		ContentValues values = getContentValuesFromImage(image);
-		db.insert(DATABASE_TABLE_NAME, null, values);
+		return db.insert(DATABASE_TABLE_NAME, null, values);
 	}
 
 	@Override
@@ -160,11 +167,8 @@ public class ImageDAO extends SQLiteOpenHelper implements Database<Image> {
 	}
 
 	private Image getImageFromCursor(Cursor cursor) {
-		Image image = new Image();
-		image.setId(cursor.getLong(0));
-		image.setWaypointId(cursor.getLong(1));
-		image.setImage(this.getImageFromBLOB(cursor.getBlob(1)));
-		return image;
+		return new Image(cursor.getLong(0), cursor.getLong(1),
+				getImageFromBLOB(cursor.getBlob(1)));
 	}
 
 }

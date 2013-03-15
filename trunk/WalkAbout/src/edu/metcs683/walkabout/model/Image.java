@@ -4,6 +4,12 @@ import java.io.Serializable;
 
 import android.graphics.Bitmap;
 
+/**
+ * POJO that describes the image.
+ * 
+ * @author Ryszard Kilarski
+ * 
+ */
 public class Image implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -12,12 +18,14 @@ public class Image implements Serializable {
 	private Bitmap image;
 	private long waypointId;
 
-	public long getId() {
-		return id;
+	public Image(long id, long waypointId, Bitmap image) {
+		this.id = id;
+		this.image = image;
+		this.waypointId = waypointId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public long getId() {
+		return id;
 	}
 
 	public Bitmap getImage() {

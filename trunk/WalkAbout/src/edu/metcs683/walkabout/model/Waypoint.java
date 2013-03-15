@@ -1,8 +1,15 @@
 package edu.metcs683.walkabout.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * POJO that describes the waypoint.
+ * 
+ * @author Ryszard Kilarski
+ * 
+ */
 public class Waypoint {
 
 	private static final long serialVersionUID = 1L;
@@ -12,7 +19,25 @@ public class Waypoint {
 	private Date dateTime;
 	private boolean isExpanded;
 	private String gpsLocation;
-	private List<Image> images;
+	private List<Image> images = new ArrayList<Image>();
+
+	public Waypoint(long id, String description, Date dateTime,
+			boolean isExpanded, String gpsLocation) {
+		this.id = id;
+		this.description = description;
+		this.dateTime = dateTime;
+		this.isExpanded = isExpanded;
+		this.gpsLocation = gpsLocation;
+	}
+
+	public void addImage(Image image) {
+		images.add(image);
+
+	}
+
+	public void removeImage(Image image) {
+		images.remove(image);
+	}
 
 	public String getDescription() {
 		return description;
@@ -60,10 +85,6 @@ public class Waypoint {
 
 	public long getId() {
 		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 }
