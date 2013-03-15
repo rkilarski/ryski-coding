@@ -8,7 +8,7 @@ public interface Database<T> {
 
 	
 	public T get(long id);
-	public void insert(T object);
+	public long insert(T object);
 	public List<T> getAll(long id);
 	public void delete(long id);
 	public void update(T object);
