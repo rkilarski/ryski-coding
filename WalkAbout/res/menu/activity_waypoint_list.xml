@@ -5,5 +5,8 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/menu_settings"/>
-
+    <item android:id="@+id/new_waypoint"
+          android:icon="@drawable/new_waypoint"
+          android:title=""
+          android:showAsAction="ifRoom|withText" />
 </menu>

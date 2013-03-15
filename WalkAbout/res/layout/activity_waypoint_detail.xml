@@ -1,24 +1,22 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="top|left"
+    android:orientation="vertical"
     tools:context=".WaypointDetail" >
 
     <TextView
         android:id="@+id/TextView01"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:text="@string/description_label" />
 
     <EditText
         android:id="@+id/editText1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/TextView01"
         android:ems="10" >
 
         <requestFocus />
@@ -28,40 +26,49 @@
         android:id="@+id/dateLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editText1"
         android:text="@string/date_label" />
 
     <DatePicker
         android:id="@+id/dateCreated"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/dateLabel" />
+        android:layout_height="wrap_content" />
 
-    <TimePicker
-        android:id="@+id/timePicker1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/dateCreated" />
+    <!-- neat trick to push the stuff below all the way to bottom -->
 
-    <Button
-        android:id="@+id/okButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="38dp"
-        android:text="@string/OK_button_label" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" />
+    <!-- divider -->
 
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/okButton"
-        android:layout_alignBottom="@+id/okButton"
-        android:layout_toRightOf="@+id/okButton"
-        android:text="@string/cancel_button_label" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="?android:attr/listDivider" />
 
-</RelativeLayout>
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/okButton"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/OK_button_label" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/cancel_button_label" />
+
+    </LinearLayout>
+
+</LinearLayout>
