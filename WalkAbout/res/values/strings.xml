@@ -15,5 +15,7 @@
     <string name="date_label">Date:</string>
     <string name="OK_button_label">OK</string>
     <string name="cancel_button_label">Cancel</string>
+    <string name="description_hint">waypoint description</string>
+    <string name="menu_new">New Waypoint</string>
 
 </resources>
