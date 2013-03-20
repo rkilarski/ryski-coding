@@ -12,8 +12,6 @@ import java.util.List;
  */
 public class Waypoint {
 
-	private static final long serialVersionUID = 1L;
-
 	private long id;
 	private String description;
 	private Date dateTime;
@@ -77,10 +75,6 @@ public class Waypoint {
 
 	public void setImages(List<Image> images) {
 		this.images = images;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	public long getId() {

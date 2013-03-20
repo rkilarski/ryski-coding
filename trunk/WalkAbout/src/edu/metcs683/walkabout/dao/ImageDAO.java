@@ -1,7 +1,5 @@
 package edu.metcs683.walkabout.dao;
 
-import java.nio.BufferUnderflowException;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +9,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import edu.metcs683.walkabout.model.Image;
@@ -29,10 +25,10 @@ public class ImageDAO extends SQLiteOpenHelper implements Database<Image> {
 	private static final String DATABASE_TABLE_NAME = "waypoint_images";
 	private static final String CLASSNAME = ImageDAO.class.getSimpleName();
 	private static final String[] COLUMN_LIST = new String[] { "_id",
-			"waypointId", "image" };
+			"waypointId", "imageURI" };
 	private static final String DATABASE_CREATE_STRING = "CREATE TABLE "
 			+ DATABASE_TABLE_NAME
-			+ " (_id INTEGER PRIMARY KEY, waypointId INTEGER NOT NULL, image BLOB);";
+			+ " (_id INTEGER PRIMARY KEY, waypointId INTEGER NOT NULL, imageURI TEXT);";
 	private static SQLiteDatabase db;
 
 	public static final String DEVICE_ALERT_ENABLED_ZIP = "DAEZ99";
@@ -141,34 +137,17 @@ public class ImageDAO extends SQLiteOpenHelper implements Database<Image> {
 		}
 	}
 
-	private byte[] getBLOBFromImage(Bitmap image) {
-		int size = image.getRowBytes() * image.getHeight();
-		ByteBuffer buffer = ByteBuffer.allocate(size);
-		image.copyPixelsToBuffer(buffer);
-		byte[] bytes = new byte[size];
-		try {
-			buffer.get(bytes, 0, bytes.length);
-		} catch (BufferUnderflowException e) {
-			// always happens
-		}
-		return bytes;
-	}
-
 	private ContentValues getContentValuesFromImage(Image image) {
 		ContentValues values = new ContentValues();
 		values.put("waypointId", image.getWaypointId());
-		values.put("image", this.getBLOBFromImage(image.getImage()));
+		values.put("image", image.getImageURI());
 		return values;
 	}
 
-	private Bitmap getImageFromBLOB(byte[] mBlob) {
-		byte[] bb = mBlob;
-		return BitmapFactory.decodeByteArray(bb, 0, bb.length);
-	}
 
 	private Image getImageFromCursor(Cursor cursor) {
 		return new Image(cursor.getLong(0), cursor.getLong(1),
-				getImageFromBLOB(cursor.getBlob(1)));
+				cursor.getString(1));
 	}
 
 }
