@@ -1,6 +1,9 @@
 package edu.metcs683.walkabout;
 
+import java.util.List;
+
 import edu.metcs683.walkabout.controller.WaypointListController;
+import edu.metcs683.walkabout.model.Waypoint;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 /**
@@ -51,6 +55,12 @@ public class WaypointList extends Activity {
 	}
 
 	private void loadData() {
+		// Get list of all waypoints.
+		List<Waypoint> waypoints = controller.getWaypoints();
+		ArrayAdapter<Waypoint> adapter = new ArrayAdapter<Waypoint>(this,
+				android.R.layout.simple_list_item_1, android.R.id.text1,
+				waypoints);
+		waypointList.setAdapter(adapter);
 		// TODO
 	}
 
@@ -60,10 +70,10 @@ public class WaypointList extends Activity {
 
 		switch (requestCode) {
 		case WaypointDetail.EDIT_WAYPOINT:
-			// TODO
+			loadData();
 			break;
 		case WaypointDetail.ADD_WAYPOINT:
-			// TODO
+			loadData();
 			break;
 		}
 

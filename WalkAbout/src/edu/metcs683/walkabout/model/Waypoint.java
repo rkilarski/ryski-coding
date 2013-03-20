@@ -81,4 +81,8 @@ public class Waypoint {
 		return id;
 	}
 
+	@Override
+	public String toString() {
+		return this.description;
+	}
 }

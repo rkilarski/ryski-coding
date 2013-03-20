@@ -72,6 +72,11 @@ public class ImageDAO extends SQLiteOpenHelper implements Database<Image> {
 		return image;
 	}
 
+	@Override
+	public List<Image> getAll() {
+		return null;
+	}
+
 	/**
 	 * Get a list of images given a waypoint.
 	 */
@@ -143,7 +148,6 @@ public class ImageDAO extends SQLiteOpenHelper implements Database<Image> {
 		values.put("image", image.getImageURI());
 		return values;
 	}
-
 
 	private Image getImageFromCursor(Cursor cursor) {
 		return new Image(cursor.getLong(0), cursor.getLong(1),

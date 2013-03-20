@@ -1,5 +1,8 @@
 package edu.metcs683.walkabout;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import edu.metcs683.walkabout.controller.WaypointDetailController;
 import edu.metcs683.walkabout.model.Waypoint;
 import android.os.Bundle;
@@ -9,6 +12,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 /**
@@ -26,6 +30,7 @@ public class WaypointDetail extends Activity {
 	private EditText description;
 	private Button okButton;
 	private Waypoint waypoint;
+	private DatePicker waypointDate;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -38,12 +43,30 @@ public class WaypointDetail extends Activity {
 		setContentView(R.layout.activity_waypoint_detail);
 		// Attach to UI elements
 		description = (EditText) this.findViewById(R.id.descriptionField);
+		waypointDate = (DatePicker) this.findViewById(R.id.dateCreated);
+
 		cancelButton = (Button) this.findViewById(R.id.cancelButton);
 		okButton = (Button) this.findViewById(R.id.okButton);
 
 		// Attach handlers
 		cancelButton.setOnClickListener(new CancelButtonListener());
 		okButton.setOnClickListener(new OKButtonListener());
+	}
+
+	// display current date
+	public void setCurrentDateIntoWaypoint() {
+		int year;
+		int month;
+		int day;
+
+		final Calendar c = Calendar.getInstance();
+		year = c.get(Calendar.YEAR);
+		month = c.get(Calendar.MONTH);
+		day = c.get(Calendar.DAY_OF_MONTH);
+
+		// set current date into datepicker
+		waypointDate.init(year, month, day, null);
+
 	}
 
 	/**
@@ -57,18 +80,31 @@ public class WaypointDetail extends Activity {
 			mapWaypointToForm(waypoint);
 		} else {
 			waypoint = new Waypoint(0, null, null, false, null);
+			setCurrentDateIntoWaypoint();
 		}
 	}
 
 	private Waypoint mapFormToWaypoint() {
 		waypoint.setDescription(description.getText().toString());
-		//TODO
+		waypoint.setDateTime(getDateFromWaypointDate());
+		// TODO
 		return waypoint;
+	}
+
+	private Date getDateFromWaypointDate() {
+		int day = waypointDate.getDayOfMonth();
+		int month = waypointDate.getMonth();
+		int year = waypointDate.getYear();
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(year, month, day);
+
+		return calendar.getTime();
 	}
 
 	private void mapWaypointToForm(Waypoint waypoint) {
 		description.setText(waypoint.getDescription());
-		//TODO
+		// TODO
 	}
 
 	@Override

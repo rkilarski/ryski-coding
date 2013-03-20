@@ -76,12 +76,12 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 	}
 
 	@Override
-	public List<Waypoint> getAll(long id) {
+	public List<Waypoint> getAll() {
 		List<Waypoint> waypoints = new ArrayList<Waypoint>();
 		Cursor cursor = null;
 		try {
-			cursor = db.query(DATABASE_TABLE_NAME, COLUMN_LIST,
-					"waypointId = '" + id + "'", null, null, null, null);
+			cursor = db.query(DATABASE_TABLE_NAME, COLUMN_LIST, null, null,
+					null, null, null);
 			int numRows = cursor.getCount();
 			cursor.moveToFirst();
 			for (int i = 0; i < numRows; ++i) {
@@ -97,6 +97,11 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 			}
 		}
 		return waypoints;
+	}
+
+	@Override
+	public List<Waypoint> getAll(long id) {
+		return null;
 	}
 
 	@Override
@@ -140,13 +145,17 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 	private ContentValues getContentValuesFromWaypoint(Waypoint waypoint) {
 		ContentValues values = new ContentValues();
 		values.put("description", waypoint.getDescription());
-		values.put("dateTime", getStringFromDate(waypoint.getDateTime()));
-		values.put("isExpanded", waypoint.isExpanded() ? 1 : 0);
-		values.put("gpsLocation", waypoint.getGpsLocation());
+		//TODO
+		//values.put("dateTime", getStringFromDate(waypoint.getDateTime()));
+		//values.put("isExpanded", waypoint.isExpanded() ? 1 : 0);
+		//values.put("gpsLocation", waypoint.getGpsLocation());
 		return values;
 	}
 
 	private Date getDateFromString(String string) {
+		if (string==null) {
+			return new Date();
+		}
 		Date date = null;
 		SimpleDateFormat formatter = new SimpleDateFormat(
 				"yyyy-MM-dd HH:mm:ss", Locale.US);
@@ -169,4 +178,5 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 				getDateFromString(cursor.getString(2)),
 				(cursor.getInt(3) == 0 ? false : true), cursor.getString(4));
 	}
+
 }
