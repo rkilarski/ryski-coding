@@ -10,6 +10,7 @@ public interface Database<T> {
 	public T get(long id);
 	public long insert(T object);
 	public List<T> getAll(long id);
+	public List<T> getAll();
 	public void delete(long id);
 	public void update(T object);
 	

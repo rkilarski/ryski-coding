@@ -16,4 +16,7 @@ public class WaypointListController {
 		waypointDAO = new WaypointDAO(context);
 	}
 
+	public List<Waypoint> getWaypoints(){
+		return waypointDAO.getAll();
+	}
 }
