@@ -10,6 +10,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
@@ -65,24 +66,6 @@ public class WaypointDetail extends Activity {
 	}
 
 	/**
-	 * Display current date
-	 */
-	public void setCurrentDateIntoWaypoint() {
-		int year;
-		int month;
-		int day;
-
-		final Calendar c = Calendar.getInstance();
-		year = c.get(Calendar.YEAR);
-		month = c.get(Calendar.MONTH);
-		day = c.get(Calendar.DAY_OF_MONTH);
-
-		// set current date into datepicker
-		waypointDate.init(year, month, day, null);
-
-	}
-
-	/**
 	 * Get data from intent and load into the form.
 	 */
 	private void loadData() {
@@ -93,8 +76,8 @@ public class WaypointDetail extends Activity {
 			mapWaypointToForm(waypoint);
 		} else {
 			Location location = getLocation();
-			waypoint = new Waypoint(0, null, null, false, location.toString());
-			setCurrentDateIntoWaypoint();
+			waypoint = new Waypoint(0, null, new Date(), false, location.toString());
+			mapWaypointToForm(waypoint);
 		}
 	}
 
@@ -168,8 +151,14 @@ public class WaypointDetail extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			Location location = getLocation();
-			waypoint.setLocation(location.toString());
-			locationButton.setText("Location: " + location.toString());
+			if (location != null) {
+				waypoint.setLocation(location.toString());
+				locationButton.setText(getString(R.string.locationButton) + " "
+						+ location.toString());
+			} else {
+				locationButton
+						.setText(getString(R.string.locationButtonUnknown));
+			}
 		}
 	}
 
@@ -197,14 +186,18 @@ public class WaypointDetail extends Activity {
 
 	private Location getLocation() {
 		Location location = null;
-		LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
-		boolean enabled = service
+		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		boolean enabled = locationManager
 				.isProviderEnabled(LocationManager.GPS_PROVIDER);
 		if (enabled) {
-			LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 			Criteria criteria = new Criteria();
 			String provider = locationManager.getBestProvider(criteria, false);
 			location = locationManager.getLastKnownLocation(provider);
+			if (location == null) {
+				// What do we do?
+				location = new Location("network"); // Try returning network
+													// location.
+			}
 		}
 		return location;
 	}
