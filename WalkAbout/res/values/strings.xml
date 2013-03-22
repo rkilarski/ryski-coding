@@ -17,5 +17,6 @@
     <string name="cancel_button_label">Cancel</string>
     <string name="description_hint">waypoint description</string>
     <string name="menu_new">New Waypoint</string>
+    <string name="locationButton">Location:</string>
 
 </resources>
