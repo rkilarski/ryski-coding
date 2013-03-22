@@ -18,5 +18,6 @@
     <string name="description_hint">waypoint description</string>
     <string name="menu_new">New Waypoint</string>
     <string name="locationButton">Location:</string>
+    <string name="locationButtonUnknown">Location: unknown</string>
 
 </resources>
