@@ -16,16 +16,16 @@ public class Waypoint {
 	private String description;
 	private Date dateTime;
 	private boolean isExpanded;
-	private String gpsLocation;
+	private String location;
 	private List<Image> images = new ArrayList<Image>();
 
 	public Waypoint(long id, String description, Date dateTime,
-			boolean isExpanded, String gpsLocation) {
+			boolean isExpanded, String location) {
 		this.id = id;
 		this.description = description;
 		this.dateTime = dateTime;
 		this.isExpanded = isExpanded;
-		this.gpsLocation = gpsLocation;
+		this.location = location;
 	}
 
 	public void addImage(Image image) {
@@ -61,12 +61,12 @@ public class Waypoint {
 		this.isExpanded = isExpanded;
 	}
 
-	public String getGpsLocation() {
-		return gpsLocation;
+	public String getLocation() {
+		return location;
 	}
 
-	public void setGpsLocation(String gpsLocation) {
-		this.gpsLocation = gpsLocation;
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	public List<Image> getImages() {
