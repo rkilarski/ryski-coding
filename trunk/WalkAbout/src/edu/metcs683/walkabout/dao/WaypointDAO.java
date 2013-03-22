@@ -31,10 +31,10 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 	private static final String DATABASE_TABLE_NAME = "waypoint";
 	private static final String CLASSNAME = WaypointDAO.class.getSimpleName();
 	private static final String[] COLUMN_LIST = new String[] { "_id",
-			"description", "dateTime", "isExpanded", "gpsLocation" };
+			"description", "dateTime", "isExpanded", "location" };
 	private static final String DATABASE_CREATE_STRING = "CREATE TABLE "
 			+ DATABASE_TABLE_NAME
-			+ " (_id INTEGER PRIMARY KEY, description TEXT, datetime TEXT, isExpanded SMALLINT, gpslocation INTEGER);";
+			+ " (_id INTEGER PRIMARY KEY, description TEXT, dateTime TEXT, isExpanded SMALLINT, location TEXT);";
 	private static SQLiteDatabase db;
 
 	public WaypointDAO(Context context) {
@@ -143,12 +143,12 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 	}
 
 	private ContentValues getContentValuesFromWaypoint(Waypoint waypoint) {
+		//TODO
 		ContentValues values = new ContentValues();
 		values.put("description", waypoint.getDescription());
-		//TODO
-		//values.put("dateTime", getStringFromDate(waypoint.getDateTime()));
+		values.put("dateTime", getStringFromDate(waypoint.getDateTime()));
+		values.put("location", waypoint.getLocation());
 		//values.put("isExpanded", waypoint.isExpanded() ? 1 : 0);
-		//values.put("gpsLocation", waypoint.getGpsLocation());
 		return values;
 	}
 

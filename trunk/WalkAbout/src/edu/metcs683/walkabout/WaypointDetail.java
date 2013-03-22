@@ -5,8 +5,12 @@ import java.util.Date;
 
 import edu.metcs683.walkabout.controller.WaypointDetailController;
 import edu.metcs683.walkabout.model.Waypoint;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -14,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * User interface for the Waypoint detail screen.
@@ -31,6 +36,7 @@ public class WaypointDetail extends Activity {
 	private Button okButton;
 	private Waypoint waypoint;
 	private DatePicker waypointDate;
+	private Button locationButton;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -39,6 +45,9 @@ public class WaypointDetail extends Activity {
 		return true;
 	}
 
+	/**
+	 * Initialize the UI objects and attach any handlers.
+	 */
 	private void initializeUI() {
 		setContentView(R.layout.activity_waypoint_detail);
 		// Attach to UI elements
@@ -47,13 +56,17 @@ public class WaypointDetail extends Activity {
 
 		cancelButton = (Button) this.findViewById(R.id.cancelButton);
 		okButton = (Button) this.findViewById(R.id.okButton);
+		locationButton = (Button) this.findViewById(R.id.locationButton);
 
 		// Attach handlers
 		cancelButton.setOnClickListener(new CancelButtonListener());
 		okButton.setOnClickListener(new OKButtonListener());
+		locationButton.setOnClickListener(new LocationButtonListener());
 	}
 
-	// display current date
+	/**
+	 * Display current date
+	 */
 	public void setCurrentDateIntoWaypoint() {
 		int year;
 		int month;
@@ -79,11 +92,17 @@ public class WaypointDetail extends Activity {
 			waypoint = controller.getWaypointById(id);
 			mapWaypointToForm(waypoint);
 		} else {
-			waypoint = new Waypoint(0, null, null, false, null);
+			Location location = getLocation();
+			waypoint = new Waypoint(0, null, null, false, location.toString());
 			setCurrentDateIntoWaypoint();
 		}
 	}
 
+	/**
+	 * Put the waypoint form data into a waypoint object.
+	 * 
+	 * @return
+	 */
 	private Waypoint mapFormToWaypoint() {
 		waypoint.setDescription(description.getText().toString());
 		waypoint.setDateTime(getDateFromWaypointDate());
@@ -91,6 +110,11 @@ public class WaypointDetail extends Activity {
 		return waypoint;
 	}
 
+	/**
+	 * Convert a datepicker date into a date object.
+	 * 
+	 * @return
+	 */
 	private Date getDateFromWaypointDate() {
 		int day = waypointDate.getDayOfMonth();
 		int month = waypointDate.getMonth();
@@ -102,8 +126,20 @@ public class WaypointDetail extends Activity {
 		return calendar.getTime();
 	}
 
+	/**
+	 * Put the waypoint data into the form.
+	 * 
+	 * @param waypoint
+	 */
 	private void mapWaypointToForm(Waypoint waypoint) {
 		description.setText(waypoint.getDescription());
+
+		Calendar c = Calendar.getInstance();
+		c.setTime(waypoint.getDateTime());
+		waypointDate.init(c.get(Calendar.YEAR), c.get(Calendar.MONTH),
+				c.get(Calendar.DAY_OF_MONTH), null);
+
+		locationButton.setText("Location: " + waypoint.getLocation());
 		// TODO
 	}
 
@@ -126,6 +162,18 @@ public class WaypointDetail extends Activity {
 	}
 
 	/**
+	 * Handler for the Cancel button.
+	 */
+	private class LocationButtonListener implements OnClickListener {
+		@Override
+		public void onClick(View arg0) {
+			Location location = getLocation();
+			waypoint.setLocation(location.toString());
+			locationButton.setText("Location: " + location.toString());
+		}
+	}
+
+	/**
 	 * Handler for the OK button.
 	 */
 	private class OKButtonListener implements OnClickListener {
@@ -139,7 +187,25 @@ public class WaypointDetail extends Activity {
 			intent.putExtra("waypointId", waypoint.getId());
 			setResult(Activity.RESULT_OK, intent);
 
+			Toast.makeText(
+					getApplicationContext(),
+					"Waypoint " + waypoint.getDescription()
+							+ " has been filed.", Toast.LENGTH_LONG).show();
 			finish();
 		}
+	}
+
+	private Location getLocation() {
+		Location location = null;
+		LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
+		boolean enabled = service
+				.isProviderEnabled(LocationManager.GPS_PROVIDER);
+		if (enabled) {
+			LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			Criteria criteria = new Criteria();
+			String provider = locationManager.getBestProvider(criteria, false);
+			location = locationManager.getLastKnownLocation(provider);
+		}
+		return location;
 	}
 }

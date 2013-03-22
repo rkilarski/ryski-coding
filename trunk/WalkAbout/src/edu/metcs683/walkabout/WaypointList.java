@@ -1,6 +1,9 @@
 package edu.metcs683.walkabout;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.metcs683.walkabout.controller.WaypointListController;
 import edu.metcs683.walkabout.model.Waypoint;
@@ -14,6 +17,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 /**
  * Main user interface for WalkAbout. This is the Waypoint List UI.
@@ -55,11 +59,25 @@ public class WaypointList extends Activity {
 	}
 
 	private void loadData() {
-		// Get list of all waypoints.
 		List<Waypoint> waypoints = controller.getWaypoints();
+		// Get list of all waypoints.
+		/*
 		ArrayAdapter<Waypoint> adapter = new ArrayAdapter<Waypoint>(this,
 				android.R.layout.simple_list_item_1, android.R.id.text1,
 				waypoints);
+		*/
+		List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+		for (Waypoint waypoint : waypoints) {
+		    Map<String, String> datum = new HashMap<String, String>(2);
+		    datum.put("description", waypoint.getDescription());
+		    datum.put("date", waypoint.getDateTime().toString());
+		    data.add(datum);
+		}
+		SimpleAdapter adapter = new SimpleAdapter(this, data,
+		                                          android.R.layout.simple_list_item_2,
+		                                          new String[] {"description", "date"},
+		                                          new int[] {android.R.id.text1,
+		                                                     android.R.id.text2});
 		waypointList.setAdapter(adapter);
 		// TODO
 	}
