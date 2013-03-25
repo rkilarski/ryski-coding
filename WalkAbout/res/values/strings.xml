@@ -6,8 +6,6 @@
     <string name="menu_settings">Settings</string>
     <string name="title_activity_waypoint_detail">WaypointDetail</string>
     <string name="title_activity_waypoint_map">WaypointMap</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="dummy_button">Dummy Button</string>
     <string name="title_activity_move_photos_between_waypoints">MovePhotosBetweenWaypoints</string>
     <string name="title_activity_photo_viewer">PhotoViewer</string>
     <string name="title_activity_photo_detail">PhotoDetail</string>
@@ -19,5 +17,9 @@
     <string name="menu_new">New Waypoint</string>
     <string name="locationButton">Location:</string>
     <string name="locationButtonUnknown">Location: unknown</string>
+    <string name="title_activity_photo_list">PhotoList</string>
+    <string name="action_settings">Settings</string>
+    <string name="dummy_content">Dummy Value</string>
+    <string name="dummy_button">Dummy Button</string>
 
 </resources>
