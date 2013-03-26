@@ -15,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -56,28 +58,28 @@ public class WaypointList extends Activity {
 		waypointList = (ListView) findViewById(R.id.waypointList);
 
 		// Attach handlers
+		waypointList.setOnItemClickListener(new ListItemClickListener());
 	}
 
 	private void loadData() {
 		List<Waypoint> waypoints = controller.getWaypoints();
 		// Get list of all waypoints.
 		/*
-		ArrayAdapter<Waypoint> adapter = new ArrayAdapter<Waypoint>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1,
-				waypoints);
-		*/
+		 * ArrayAdapter<Waypoint> adapter = new ArrayAdapter<Waypoint>(this,
+		 * android.R.layout.simple_list_item_1, android.R.id.text1, waypoints);
+		 */
 		List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 		for (Waypoint waypoint : waypoints) {
-		    Map<String, String> datum = new HashMap<String, String>(2);
-		    datum.put("description", waypoint.getDescription());
-		    datum.put("date", waypoint.getDateTime().toString());
-		    data.add(datum);
+			Map<String, String> datum = new HashMap<String, String>(2);
+			datum.put("description", waypoint.getDescription());
+			datum.put("date", waypoint.getDateTime().toString());
+			datum.put("id", Long.toString(waypoint.getId()));
+			data.add(datum);
 		}
 		SimpleAdapter adapter = new SimpleAdapter(this, data,
-		                                          android.R.layout.simple_list_item_2,
-		                                          new String[] {"description", "date"},
-		                                          new int[] {android.R.id.text1,
-		                                                     android.R.id.text2});
+				android.R.layout.simple_list_item_2, new String[] {
+						"description", "date" }, new int[] {
+						android.R.id.text1, android.R.id.text2 });
 		waypointList.setAdapter(adapter);
 		// TODO
 	}
@@ -129,4 +131,22 @@ public class WaypointList extends Activity {
 
 	}
 
+	/**
+	 * Handler to view photos for a particular Waypoint.
+	 */
+	private class ListItemClickListener implements OnItemClickListener {
+
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View v, int position,
+				long id) {
+			Intent intent = new Intent(getApplicationContext(), PhotoList.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			Bundle bundle = new Bundle();
+			//TODO:  Get right ID.
+			bundle.putLong("waypointId", id);
+			intent.putExtras(bundle);
+			startActivityForResult(intent, WaypointDetail.EDIT_WAYPOINT);
+		}
+
+	}
 }
