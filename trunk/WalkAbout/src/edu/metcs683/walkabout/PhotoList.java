@@ -52,21 +52,37 @@ public class PhotoList extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.camera:
-			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+			try {
+				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-			// create a file to save the image
-			Uri fileUri = getOutputImageFileUri();
-			// set the image file name
-			intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+				// create a file to save the image
+				Uri fileUri = getOutputImageFileUri();
+				// set the image file name
+				intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 
-			// start the image capture Intent
-			startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+				// start the image capture Intent
+				startActivityForResult(intent,
+						CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 
-			loadData();
+				loadData();
+			} catch (Exception ex) {
+				Toast.makeText(getApplicationContext(),
+						"The camera is not available on this device",
+						Toast.LENGTH_LONG).show();
+			}
 			break;
 		case R.id.import_image:
 			// import image
 			loadData();
+			break;
+		case R.id.edit_waypoint:
+			Intent intent = new Intent(this, WaypointDetail.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			Bundle bundle = new Bundle();
+			long id = this.getIntent().getLongExtra("waypointId", 0);
+			bundle.putLong("waypointId", id);
+			intent.putExtras(bundle);
+			startActivity(intent);
 			break;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -180,7 +196,7 @@ public class PhotoList extends Activity {
 		// Create the storage directory if it does not exist
 		if (!mediaStorageDir.exists()) {
 			if (!mediaStorageDir.mkdirs()) {
-				Log.d("WalkAbout", "failed to create directory");
+				Log.d("WalkAbout", "failed to create directory "+mediaStorageDir.getParentFile());
 				return null;
 			}
 		}
