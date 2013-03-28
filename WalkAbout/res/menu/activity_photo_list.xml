@@ -12,7 +12,13 @@
         android:title=""/>
     <item
         android:id="@+id/edit_waypoint"
-        android:showAsAction="ifRoom|withText"
+        android:showAsAction="always"
+        android:icon="@drawable/waypoint_edit"
         android:title="@string/edit_waypoint_text"/>
-
+    <item
+        android:id="@+id/menu_settings"
+        android:showAsAction="always"
+        android:icon="@drawable/action_settings"
+        android:title="@string/menu_settings"/>
+    
 </menu>
