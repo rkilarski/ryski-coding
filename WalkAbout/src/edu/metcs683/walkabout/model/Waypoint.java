@@ -16,16 +16,18 @@ public class Waypoint {
 	private String description;
 	private Date dateTime;
 	private boolean isExpanded;
-	private String location;
+	private double latitude;
+	private double longitude;
 	private List<Image> images = new ArrayList<Image>();
 
 	public Waypoint(long id, String description, Date dateTime,
-			boolean isExpanded, String location) {
+			boolean isExpanded, double latitude, double longitude) {
 		this.id = id;
 		this.description = description;
 		this.dateTime = dateTime;
 		this.isExpanded = isExpanded;
-		this.location = location;
+		this.setLatitude(latitude);
+		this.setLongitude(longitude);
 	}
 
 	public void addImage(Image image) {
@@ -61,14 +63,6 @@ public class Waypoint {
 		this.isExpanded = isExpanded;
 	}
 
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
 	public List<Image> getImages() {
 		return images;
 	}
@@ -84,5 +78,21 @@ public class Waypoint {
 	@Override
 	public String toString() {
 		return this.description;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
 	}
 }

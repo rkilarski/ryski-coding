@@ -12,7 +12,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.Camera;
 import android.util.Log;
@@ -55,6 +58,8 @@ public class PhotoList extends Activity {
 			try {
 				if (Camera.getNumberOfCameras() > 0) {
 					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+					// Intent intent = new
+					// Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
 
 					// create a file to save the image
 					Uri fileUri = getOutputImageFileUri();
@@ -78,7 +83,10 @@ public class PhotoList extends Activity {
 			}
 			break;
 		case R.id.import_image:
-			// import image
+			// TODO:
+			Toast.makeText(getApplicationContext(),
+					"Functionality Not Yet Implemented", Toast.LENGTH_SHORT)
+					.show();
 			loadData();
 			break;
 		case R.id.edit_waypoint:
@@ -90,26 +98,65 @@ public class PhotoList extends Activity {
 			intent.putExtras(bundle);
 			startActivity(intent);
 			break;
+		case R.id.delete_waypoint:
+			String title = "Delete Waypoint";
+			String message = "This action will delete the current waypoint and all associated images.  Are you sure?";
+			String yes = getString(R.string.yes);
+			String no = getString(R.string.no);
+			new AlertDialog.Builder(this)
+					.setTitle(title)
+					.setMessage(message)
+					.setPositiveButton(yes,
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									deleteWaypoint();
+									finish();
+								}
+							})
+					.setNegativeButton(no,
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									// Do nothing.
+								}
+							}).show();
+			break;
+		case R.id.map_waypoint:
+			Toast.makeText(getApplicationContext(),
+					"Functionality Not Yet Implemented", Toast.LENGTH_SHORT)
+					.show();
+			break;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 		return true;
 	}
 
+	private void deleteWaypoint() {
+		long id = this.getIntent().getLongExtra("waypointId", 0);
+		controller.deleteWaypoint(id);
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+		switch (requestCode) {
+		case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:
 			if (resultCode == RESULT_OK) {
 				// Image captured and saved to fileUri specified in the Intent
 				Toast.makeText(this, "Image saved to:\n" + data.getData(),
 						Toast.LENGTH_LONG).show();
 				// Add image to list.
+				//getContentResolver().notifyChange(data.getExtras().get(MediaStore.EXTRA_OUTPUT),null);
+				//ContentResolver cr = getContentResolver();
 
+				// TODO
 			} else if (resultCode == RESULT_CANCELED) {
 				// User cancelled the image capture
 			} else {
 				// Image capture failed, advise user
 			}
+			break;
 		}
 	}
 
@@ -124,6 +171,7 @@ public class PhotoList extends Activity {
 		long id = intent.getLongExtra("waypointId", 0);
 		List<Image> list = controller.getImageList(id);
 		photoList.setAdapter(new ImageAdapter(this, list));
+		this.setTitle(controller.getWaypointDescription(id));
 	}
 
 	@Override

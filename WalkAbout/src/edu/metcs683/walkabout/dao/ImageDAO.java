@@ -158,4 +158,14 @@ public class ImageDAO extends SQLiteOpenHelper implements Database<Image> {
 				cursor.getString(1));
 	}
 
+	@Override
+	public void deleteAll() {
+		db.delete(DATABASE_TABLE_NAME, null, null);
+	}
+
+	@Override
+	public void deleteAll(long id) {
+		db.delete(DATABASE_TABLE_NAME, "waypointId=" + id, null);		
+	}
+
 }
