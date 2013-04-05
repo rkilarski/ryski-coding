@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -31,6 +30,7 @@ public class WaypointList extends Activity {
 
 	private WaypointListController controller;
 	private ListView waypointList;
+	private SimpleAdapter listViewAdapter;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -76,11 +76,11 @@ public class WaypointList extends Activity {
 			datum.put("id", Long.toString(waypoint.getId()));
 			data.add(datum);
 		}
-		SimpleAdapter adapter = new SimpleAdapter(this, data,
+		listViewAdapter = new SimpleAdapter(this, data,
 				android.R.layout.simple_list_item_2, new String[] {
 						"description", "date" }, new int[] {
 						android.R.id.text1, android.R.id.text2 });
-		waypointList.setAdapter(adapter);
+		waypointList.setAdapter(listViewAdapter);
 		// TODO
 	}
 
@@ -142,8 +142,11 @@ public class WaypointList extends Activity {
 			Intent intent = new Intent(getApplicationContext(), PhotoList.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			Bundle bundle = new Bundle();
-			//TODO:  Get right ID.
-			bundle.putLong("waypointId", id);
+
+			// Get id from the listview adapter.
+			Map<String, String> row = (HashMap<String, String>) listViewAdapter
+					.getItem(position);
+			bundle.putLong("waypointId", Long.parseLong(row.get("id")));
 			intent.putExtras(bundle);
 			startActivityForResult(intent, WaypointDetail.EDIT_WAYPOINT);
 		}
