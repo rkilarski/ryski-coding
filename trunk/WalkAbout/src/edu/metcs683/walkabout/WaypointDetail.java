@@ -10,7 +10,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
@@ -76,7 +75,8 @@ public class WaypointDetail extends Activity {
 			mapWaypointToForm(waypoint);
 		} else {
 			Location location = getLocation();
-			waypoint = new Waypoint(0, null, new Date(), false, location.toString());
+			waypoint = new Waypoint(0, null, new Date(), false,
+					location.getLatitude(), location.getLongitude());
 			mapWaypointToForm(waypoint);
 		}
 	}
@@ -122,7 +122,8 @@ public class WaypointDetail extends Activity {
 		waypointDate.init(c.get(Calendar.YEAR), c.get(Calendar.MONTH),
 				c.get(Calendar.DAY_OF_MONTH), null);
 
-		locationButton.setText("Location: " + waypoint.getLocation());
+		locationButton.setText("Location: " + waypoint.getLatitude() + "(lat) "
+				+ waypoint.getLongitude() + "(long)");
 		// TODO
 	}
 
@@ -152,9 +153,10 @@ public class WaypointDetail extends Activity {
 		public void onClick(View arg0) {
 			Location location = getLocation();
 			if (location != null) {
-				waypoint.setLocation(location.toString());
-				locationButton.setText(getString(R.string.locationButton) + " "
-						+ location.toString());
+				waypoint.setLatitude(location.getLatitude());
+				waypoint.setLongitude(location.getLongitude());
+				locationButton.setText("Location: " + waypoint.getLatitude() + "(lat) "
+						+ waypoint.getLongitude() + "(long)");
 			} else {
 				locationButton
 						.setText(getString(R.string.locationButtonUnknown));
@@ -197,6 +199,10 @@ public class WaypointDetail extends Activity {
 				// What do we do?
 				location = new Location("network"); // Try returning network
 													// location.
+				Toast.makeText(
+						getApplicationContext(),
+						"Location Services are not enabled on this device, cannot access GPS.",
+						Toast.LENGTH_LONG).show();
 			}
 		}
 		return location;

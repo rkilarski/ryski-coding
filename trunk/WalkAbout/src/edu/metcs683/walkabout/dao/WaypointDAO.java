@@ -31,10 +31,10 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 	private static final String DATABASE_TABLE_NAME = "waypoint";
 	private static final String CLASSNAME = WaypointDAO.class.getSimpleName();
 	private static final String[] COLUMN_LIST = new String[] { "_id",
-			"description", "dateTime", "isExpanded", "location" };
+			"description", "dateTime", "isExpanded", "latitude", "longitude" };
 	private static final String DATABASE_CREATE_STRING = "CREATE TABLE "
 			+ DATABASE_TABLE_NAME
-			+ " (_id INTEGER PRIMARY KEY, description TEXT, dateTime TEXT, isExpanded SMALLINT, location TEXT);";
+			+ " (_id INTEGER PRIMARY KEY, description TEXT, dateTime TEXT, isExpanded SMALLINT, latitude TEXT, longitude TEXT);";
 	private static SQLiteDatabase db;
 
 	public WaypointDAO(Context context) {
@@ -105,7 +105,7 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 
 	@Override
 	public List<Waypoint> getAll(boolean orderAscending, long id) {
-		// This is deliberatly non functional.
+		// This is deliberately non functional.
 		return null;
 	}
 
@@ -152,7 +152,8 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 		ContentValues values = new ContentValues();
 		values.put("description", waypoint.getDescription());
 		values.put("dateTime", getStringFromDate(waypoint.getDateTime()));
-		values.put("location", waypoint.getLocation());
+		values.put("latitude", waypoint.getLatitude());
+		values.put("longitude", waypoint.getLongitude());
 		// values.put("isExpanded", waypoint.isExpanded() ? 1 : 0);
 		return values;
 	}
@@ -181,7 +182,19 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 	private Waypoint getWaypointFromCursor(Cursor cursor) {
 		return new Waypoint(cursor.getLong(0), cursor.getString(1),
 				getDateFromString(cursor.getString(2)),
-				(cursor.getInt(3) == 0 ? false : true), cursor.getString(4));
+				(cursor.getInt(3) == 0 ? false : true),
+				Double.parseDouble(cursor.getString(4)),
+				Double.parseDouble(cursor.getString(5)));
+	}
+
+	@Override
+	public void deleteAll() {
+		db.delete(DATABASE_TABLE_NAME, null, null);
+	}
+
+	@Override
+	public void deleteAll(long id) {
+		delete(id);
 	}
 
 }
