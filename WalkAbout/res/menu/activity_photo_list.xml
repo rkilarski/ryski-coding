@@ -3,22 +3,25 @@
     <item
         android:id="@+id/camera"
         android:icon="@drawable/camera"
-        android:showAsAction="ifRoom|withText"
-        android:title=""/>
-    <item
-        android:id="@+id/import_image"
-        android:icon="@drawable/add_picture"
-        android:showAsAction="ifRoom|withText"
-        android:title=""/>
-    <item
-        android:id="@+id/edit_waypoint"
         android:showAsAction="always"
-        android:icon="@drawable/waypoint_edit"
-        android:title="@string/edit_waypoint_text"/>
+        android:title=""/>
     <item
         android:id="@+id/menu_settings"
-        android:showAsAction="always"
         android:icon="@drawable/action_settings"
-        android:title="@string/menu_settings"/>
-    
+        android:showAsAction="always"
+        android:title="@string/menu_settings">
+        <menu>
+            <item
+                android:id="@+id/edit_waypoint"
+                android:icon="@drawable/waypoint_edit"
+                android:showAsAction="always"
+                android:title="@string/edit_waypoint_text"/>
+            <item
+                android:id="@+id/import_image"
+                android:icon="@drawable/add_picture"
+                android:showAsAction="always"
+                android:title="@string/import_image_text"/>
+        </menu>
+    </item>
+
 </menu>
