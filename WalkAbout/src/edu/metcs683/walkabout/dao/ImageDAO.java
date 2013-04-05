@@ -73,19 +73,23 @@ public class ImageDAO extends SQLiteOpenHelper implements Database<Image> {
 	}
 
 	@Override
-	public List<Image> getAll() {
+	public List<Image> getAll(boolean orderByAscending) {
 		return null;
 	}
 
 	/**
 	 * Get a list of images given a waypoint.
 	 */
-	public List<Image> getAll(long id) {
+	public List<Image> getAll(boolean orderByAscending, long id) {
 		List<Image> images = new ArrayList<Image>();
 		Cursor cursor = null;
 		try {
+			String orderBy = null;
+			if (!orderByAscending) {
+				orderBy += "_id DESC";
+			}
 			cursor = db.query(DATABASE_TABLE_NAME, COLUMN_LIST,
-					"waypointId = '" + id + "'", null, null, null, null);
+					"waypointId = '" + id + "'", null, null, null, orderBy);
 			int numRows = cursor.getCount();
 			cursor.moveToFirst();
 			for (int i = 0; i < numRows; ++i) {

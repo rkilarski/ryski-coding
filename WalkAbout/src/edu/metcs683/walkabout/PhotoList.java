@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.Camera;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,14 +38,13 @@ public class PhotoList extends Activity {
 	private PhotoListController controller;
 	private GridView photoList;
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-	private static final int MEDIA_TYPE_IMAGE = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_photo_list);
 		initializeUI();
-		controller = new PhotoListController(getApplicationContext());
+		controller = new PhotoListController(getApplicationContext(), this);
 		loadData();
 	}
 
@@ -53,18 +53,24 @@ public class PhotoList extends Activity {
 		switch (item.getItemId()) {
 		case R.id.camera:
 			try {
-				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+				if (Camera.getNumberOfCameras() > 0) {
+					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-				// create a file to save the image
-				Uri fileUri = getOutputImageFileUri();
-				// set the image file name
-				intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+					// create a file to save the image
+					Uri fileUri = getOutputImageFileUri();
+					// set the image file name
+					intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 
-				// start the image capture Intent
-				startActivityForResult(intent,
-						CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+					// start the image capture Intent
+					startActivityForResult(intent,
+							CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 
-				loadData();
+					loadData();
+				} else {
+					Toast.makeText(getApplicationContext(),
+							"The camera is not available on this device",
+							Toast.LENGTH_LONG).show();
+				}
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
 						"The camera is not available on this device",
@@ -196,7 +202,8 @@ public class PhotoList extends Activity {
 		// Create the storage directory if it does not exist
 		if (!mediaStorageDir.exists()) {
 			if (!mediaStorageDir.mkdirs()) {
-				Log.d("WalkAbout", "failed to create directory "+mediaStorageDir.getParentFile());
+				Log.d("WalkAbout", "failed to create directory "
+						+ mediaStorageDir.getParentFile());
 				return null;
 			}
 		}

@@ -103,7 +103,7 @@ public class WaypointList extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		initializeUI();
-		controller = new WaypointListController(getApplicationContext());
+		controller = new WaypointListController(getApplicationContext(), this);
 		loadData();
 	}
 

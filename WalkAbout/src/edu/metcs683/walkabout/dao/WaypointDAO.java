@@ -76,12 +76,16 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 	}
 
 	@Override
-	public List<Waypoint> getAll() {
+	public List<Waypoint> getAll(boolean orderByAscending) {
 		List<Waypoint> waypoints = new ArrayList<Waypoint>();
 		Cursor cursor = null;
 		try {
+			String orderBy = null;
+			if (!orderByAscending) {
+				orderBy += "_id DESC";
+			}
 			cursor = db.query(DATABASE_TABLE_NAME, COLUMN_LIST, null, null,
-					null, null, null);
+					null, null, orderBy);
 			int numRows = cursor.getCount();
 			cursor.moveToFirst();
 			for (int i = 0; i < numRows; ++i) {
@@ -100,7 +104,8 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 	}
 
 	@Override
-	public List<Waypoint> getAll(long id) {
+	public List<Waypoint> getAll(boolean orderByAscending, long id) {
+		// This is deliberatly non functional.
 		return null;
 	}
 
@@ -143,17 +148,17 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 	}
 
 	private ContentValues getContentValuesFromWaypoint(Waypoint waypoint) {
-		//TODO
+		// TODO
 		ContentValues values = new ContentValues();
 		values.put("description", waypoint.getDescription());
 		values.put("dateTime", getStringFromDate(waypoint.getDateTime()));
 		values.put("location", waypoint.getLocation());
-		//values.put("isExpanded", waypoint.isExpanded() ? 1 : 0);
+		// values.put("isExpanded", waypoint.isExpanded() ? 1 : 0);
 		return values;
 	}
 
 	private Date getDateFromString(String string) {
-		if (string==null) {
+		if (string == null) {
 			return new Date();
 		}
 		Date date = null;
