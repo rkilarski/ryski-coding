@@ -76,12 +76,12 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 	}
 
 	@Override
-	public List<Waypoint> getAll(boolean orderByAscending) {
+	public List<Waypoint> getAll(boolean orderAscending) {
 		List<Waypoint> waypoints = new ArrayList<Waypoint>();
 		Cursor cursor = null;
 		try {
 			String orderBy = null;
-			if (!orderByAscending) {
+			if (!orderAscending) {
 				orderBy += "_id DESC";
 			}
 			cursor = db.query(DATABASE_TABLE_NAME, COLUMN_LIST, null, null,
@@ -104,7 +104,7 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 	}
 
 	@Override
-	public List<Waypoint> getAll(boolean orderByAscending, long id) {
+	public List<Waypoint> getAll(boolean orderAscending, long id) {
 		// This is deliberatly non functional.
 		return null;
 	}
