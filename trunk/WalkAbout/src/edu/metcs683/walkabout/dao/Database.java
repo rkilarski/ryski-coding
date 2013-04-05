@@ -9,8 +9,8 @@ public interface Database<T> {
 	
 	public T get(long id);
 	public long insert(T object);
-	public List<T> getAll(long id);
-	public List<T> getAll();
+	public List<T> getAll(boolean orderByAscending, long id);
+	public List<T> getAll(boolean orderByAscending);
 	public void delete(long id);
 	public void update(T object);
 	
