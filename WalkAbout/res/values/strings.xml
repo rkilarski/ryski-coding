@@ -22,6 +22,11 @@
     <string name="dummy_content">Dummy Value</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="edit_waypoint_text">Edit Waypoint</string>
+    <string name="delete_waypoint_text">Delete Waypoint</string>
     <string name="import_image_text">Import Image</string>
+    <string name="map_waypoint_text">Map Waypoint</string>
+    <string name="delete_waypoint_message">This action will delete the current waypoint and all associated images.  Are you sure?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 </resources>
