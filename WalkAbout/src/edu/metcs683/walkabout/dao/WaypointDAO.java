@@ -34,7 +34,7 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 			"description", "dateTime", "isExpanded", "latitude", "longitude" };
 	private static final String DATABASE_CREATE_STRING = "CREATE TABLE "
 			+ DATABASE_TABLE_NAME
-			+ " (_id INTEGER PRIMARY KEY, description TEXT, dateTime TEXT, isExpanded SMALLINT, latitude TEXT, longitude TEXT);";
+			+ " (_id INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT, dateTime TEXT, isExpanded SMALLINT, latitude TEXT, longitude TEXT);";
 	private static SQLiteDatabase db;
 
 	public WaypointDAO(Context context) {

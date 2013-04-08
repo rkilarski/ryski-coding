@@ -28,10 +28,8 @@ public class ImageDAO extends SQLiteOpenHelper implements Database<Image> {
 			"waypointId", "imageURI" };
 	private static final String DATABASE_CREATE_STRING = "CREATE TABLE "
 			+ DATABASE_TABLE_NAME
-			+ " (_id INTEGER PRIMARY KEY, waypointId INTEGER NOT NULL, imageURI TEXT);";
+			+ " (_id INTEGER PRIMARY KEY AUTOINCREMENT, waypointId INTEGER NOT NULL, imageURI TEXT);";
 	private static SQLiteDatabase db;
-
-	public static final String DEVICE_ALERT_ENABLED_ZIP = "DAEZ99";
 
 	public ImageDAO(Context context) {
 		super(context, DB_NAME, null, DB_VERSION);
@@ -165,7 +163,11 @@ public class ImageDAO extends SQLiteOpenHelper implements Database<Image> {
 
 	@Override
 	public void deleteAll(long id) {
-		db.delete(DATABASE_TABLE_NAME, "waypointId=" + id, null);		
+		try {
+			db.delete(DATABASE_TABLE_NAME, "waypointId=" + id, null);
+		} catch (Exception ex) {
+			;
+		}
 	}
 
 }
