@@ -28,5 +28,7 @@
     <string name="delete_waypoint_message">This action will delete the current waypoint and all associated images.  Are you sure?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="camera_not_available_text">The camera is not available on this device.</string>
+    <string name="fnyi">Functionality Not Yet Implemented</string>
 
 </resources>
