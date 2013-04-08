@@ -1,6 +1,7 @@
 package edu.metcs683.walkabout;
 
 import java.io.File;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -53,8 +54,11 @@ public class PhotoList extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		String fnyi = getString(R.string.fnyi);
+
 		switch (item.getItemId()) {
 		case R.id.camera:
+			String cameraMessage = getString(R.string.camera_not_available_text);
 			try {
 				if (Camera.getNumberOfCameras() > 0) {
 					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -72,20 +76,17 @@ public class PhotoList extends Activity {
 
 					loadData();
 				} else {
-					Toast.makeText(getApplicationContext(),
-							"The camera is not available on this device",
+					Toast.makeText(getApplicationContext(), cameraMessage,
 							Toast.LENGTH_LONG).show();
 				}
 			} catch (Exception ex) {
-				Toast.makeText(getApplicationContext(),
-						"The camera is not available on this device",
+				Toast.makeText(getApplicationContext(), cameraMessage,
 						Toast.LENGTH_LONG).show();
 			}
 			break;
 		case R.id.import_image:
 			// TODO:
-			Toast.makeText(getApplicationContext(),
-					"Functionality Not Yet Implemented", Toast.LENGTH_SHORT)
+			Toast.makeText(getApplicationContext(), fnyi, Toast.LENGTH_SHORT)
 					.show();
 			loadData();
 			break;
@@ -123,8 +124,7 @@ public class PhotoList extends Activity {
 							}).show();
 			break;
 		case R.id.map_waypoint:
-			Toast.makeText(getApplicationContext(),
-					"Functionality Not Yet Implemented", Toast.LENGTH_SHORT)
+			Toast.makeText(getApplicationContext(), fnyi, Toast.LENGTH_SHORT)
 					.show();
 			break;
 		default:
@@ -147,8 +147,8 @@ public class PhotoList extends Activity {
 				Toast.makeText(this, "Image saved to:\n" + data.getData(),
 						Toast.LENGTH_LONG).show();
 				// Add image to list.
-				//getContentResolver().notifyChange(data.getExtras().get(MediaStore.EXTRA_OUTPUT),null);
-				//ContentResolver cr = getContentResolver();
+				// getContentResolver().notifyChange(data.getExtras().get(MediaStore.EXTRA_OUTPUT),null);
+				// ContentResolver cr = getContentResolver();
 
 				// TODO
 			} else if (resultCode == RESULT_CANCELED) {
@@ -188,8 +188,16 @@ public class PhotoList extends Activity {
 				long id) {
 			Toast.makeText(getApplicationContext(), "" + position,
 					Toast.LENGTH_SHORT).show();
-		}
 
+			// Get the image from the adapter...
+			Image image = (Image) parent.getAdapter().getItem(position);
+			// ...and get its URI.
+			Uri uri = Uri.parse(image.getImageURI());
+			Intent viewImageIntent = new Intent(
+					android.content.Intent.ACTION_VIEW);
+			viewImageIntent.setDataAndType(uri, "image/jpeg");
+			startActivity(viewImageIntent);
+		}
 	}
 
 	/**
@@ -208,8 +216,8 @@ public class PhotoList extends Activity {
 			return list.size();
 		}
 
-		public Object getItem(int position) {
-			return null;
+		public Image getItem(int position) {
+			return list.get(position);
 		}
 
 		public long getItemId(int position) {
