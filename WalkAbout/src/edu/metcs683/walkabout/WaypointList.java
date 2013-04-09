@@ -89,9 +89,6 @@ public class WaypointList extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 
 		switch (requestCode) {
-		case WaypointDetail.EDIT_WAYPOINT:
-			loadData();
-			break;
 		case WaypointDetail.ADD_WAYPOINT:
 			loadData();
 			break;
@@ -105,30 +102,6 @@ public class WaypointList extends Activity {
 		initializeUI();
 		controller = new WaypointListController(getApplicationContext(), this);
 		loadData();
-	}
-
-	/**
-	 * Handler to edit an existing waypoint.
-	 */
-	private class EditWaypointListener implements OnClickListener {
-		private Context context;
-		private long waypointId;
-
-		public EditWaypointListener(long waypointId, Context context) {
-			this.waypointId = waypointId;
-			this.context = context;
-		}
-
-		@Override
-		public void onClick(View v) {
-			Intent intent = new Intent(context, WaypointDetail.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			Bundle bundle = new Bundle();
-			bundle.putLong("waypointId", waypointId);
-			intent.putExtras(bundle);
-			startActivityForResult(intent, WaypointDetail.EDIT_WAYPOINT);
-		}
-
 	}
 
 	/**

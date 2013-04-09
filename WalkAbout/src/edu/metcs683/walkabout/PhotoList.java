@@ -42,6 +42,7 @@ public class PhotoList extends Activity {
 	private PhotoListController controller;
 	private GridView photoList;
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+	private Uri imageURI;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,20 +56,21 @@ public class PhotoList extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		String fnyi = getString(R.string.fnyi);
+		Intent intent = null;
 
 		switch (item.getItemId()) {
 		case R.id.camera:
 			String cameraMessage = getString(R.string.camera_not_available_text);
 			try {
 				if (Camera.getNumberOfCameras() > 0) {
-					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+					intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 					// Intent intent = new
 					// Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
 
 					// create a file to save the image
-					Uri fileUri = getOutputImageFileUri();
+					imageURI = getOutputImageFileUri();
 					// set the image file name
-					intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+					intent.putExtra(MediaStore.EXTRA_OUTPUT, imageURI);
 
 					// start the image capture Intent
 					startActivityForResult(intent,
@@ -85,13 +87,14 @@ public class PhotoList extends Activity {
 			}
 			break;
 		case R.id.import_image:
-			// TODO:
-			Toast.makeText(getApplicationContext(), fnyi, Toast.LENGTH_SHORT)
-					.show();
+			intent = new Intent(
+					Intent.ACTION_PICK,
+					android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+			startActivityForResult(intent, 0);
 			loadData();
 			break;
 		case R.id.edit_waypoint:
-			Intent intent = new Intent(this, WaypointDetail.class);
+			intent = new Intent(this, WaypointDetail.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			Bundle bundle = new Bundle();
 			long id = this.getIntent().getLongExtra("waypointId", 0);
@@ -140,23 +143,33 @@ public class PhotoList extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		String fnyi = getString(R.string.fnyi);
+
 		switch (requestCode) {
 		case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:
 			if (resultCode == RESULT_OK) {
 				// Image captured and saved to fileUri specified in the Intent
-				Toast.makeText(this, "Image saved to:\n" + data.getData(),
+				Toast.makeText(this, "Image saved to:\n" + imageURI.toString(),
 						Toast.LENGTH_LONG).show();
-				// Add image to list.
-				// getContentResolver().notifyChange(data.getExtras().get(MediaStore.EXTRA_OUTPUT),null);
-				// ContentResolver cr = getContentResolver();
+				// Save image to database.
+				long id = this.getIntent().getLongExtra("waypointId", 0);
+				Image image = new Image(0, id, imageURI.toString());
+				controller.saveImage(image);
 
-				// TODO
+				loadData();
 			} else if (resultCode == RESULT_CANCELED) {
 				// User cancelled the image capture
 			} else {
 				// Image capture failed, advise user
 			}
 			break;
+		}
+		if ((resultCode == RESULT_OK) && (data != null)
+				&& (data.getAction() == Intent.ACTION_PICK)) {
+			Toast.makeText(getApplicationContext(), fnyi, Toast.LENGTH_SHORT)
+					.show();
+			Toast.makeText(this, "Image saved to:\n" + data.getData(),
+					Toast.LENGTH_LONG).show();
 		}
 	}
 
