@@ -47,12 +47,6 @@
             android:label="@string/title_activity_move_photos_between_waypoints" >
         </activity>
         <activity
-            android:name="edu.metcs683.walkabout.PhotoViewer"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_photo_viewer"
-            android:theme="@style/FullscreenTheme" >
-        </activity>
-        <activity
             android:name="edu.metcs683.walkabout.PhotoDetail"
             android:label="@string/title_activity_photo_detail" >
         </activity>
