@@ -48,4 +48,8 @@ public class PhotoListController {
 		waypointDAO.delete(id);
 		imageDAO.deleteAll(id);
 	}
+	
+	public void saveImage(Image image){
+		imageDAO.insert(image);
+	}
 }
