@@ -90,10 +90,9 @@ public class WaypointList extends Activity {
 
 		switch (requestCode) {
 		case WaypointDetail.ADD_WAYPOINT:
-			loadData();
 			break;
 		}
-
+		loadData();
 	}
 
 	@Override

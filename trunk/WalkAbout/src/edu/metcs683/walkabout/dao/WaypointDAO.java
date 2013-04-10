@@ -13,7 +13,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import edu.metcs683.walkabout.model.Waypoint;
@@ -26,32 +25,22 @@ import edu.metcs683.walkabout.model.Waypoint;
  * 
  */
 
-public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> {
+public class WaypointDAO extends Database<Waypoint> {
 
 	private static final String DATABASE_TABLE_NAME = "waypoint";
 	private static final String CLASSNAME = WaypointDAO.class.getSimpleName();
 	private static final String[] COLUMN_LIST = new String[] { "_id",
 			"description", "dateTime", "isExpanded", "latitude", "longitude" };
-	private static final String DATABASE_CREATE_STRING = "CREATE TABLE "
-			+ DATABASE_TABLE_NAME
-			+ " (_id INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT, dateTime TEXT, isExpanded SMALLINT, latitude TEXT, longitude TEXT);";
-	private static SQLiteDatabase db;
 
 	public WaypointDAO(Context context) {
-		super(context, DB_NAME, null, DB_VERSION);
-		establishDb();
-	}
-
-	public void cleanup() {
-		if (db != null) {
-			db.close();
-			db = null;
-		}
+		super(context);
 	}
 
 	@Override
 	public void delete(long id) {
+		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(DATABASE_TABLE_NAME, "_id=" + id, null);
+		db.close();
 	}
 
 	@Override
@@ -59,6 +48,7 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 		Cursor cursor = null;
 		Waypoint waypoint = null;
 		try {
+			SQLiteDatabase db = this.getReadableDatabase();
 			cursor = db.query(true, DATABASE_TABLE_NAME, COLUMN_LIST, "_id = '"
 					+ id + "'", null, null, null, null, null);
 			if (cursor.getCount() > 0) {
@@ -84,6 +74,7 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 			if (!orderAscending) {
 				orderBy += "_id DESC";
 			}
+			SQLiteDatabase db = this.getReadableDatabase();
 			cursor = db.query(DATABASE_TABLE_NAME, COLUMN_LIST, null, null,
 					null, null, orderBy);
 			int numRows = cursor.getCount();
@@ -112,49 +103,28 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 	@Override
 	public long insert(Waypoint waypoint) {
 		ContentValues values = getContentValuesFromWaypoint(waypoint);
-		return db.insert(DATABASE_TABLE_NAME, null, values);
-	}
-
-	@Override
-	public void onCreate(SQLiteDatabase db) {
-		try {
-			db.execSQL(DATABASE_CREATE_STRING);
-		} catch (SQLException e) {
-			Log.e("ProviderWidgets", CLASSNAME, e);
-		}
-	}
-
-	@Override
-	public void onOpen(SQLiteDatabase db) {
-		super.onOpen(db);
-	}
-
-	@Override
-	public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
-		db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_NAME);
-		onCreate(db);
+		SQLiteDatabase db = this.getWritableDatabase();
+		long countInserted = db.insert(DATABASE_TABLE_NAME, null, values);
+		db.close();
+		return countInserted;
 	}
 
 	@Override
 	public void update(Waypoint waypoint) {
 		ContentValues values = getContentValuesFromWaypoint(waypoint);
+		SQLiteDatabase db = this.getWritableDatabase();
 		db.update(DATABASE_TABLE_NAME, values, "_id=" + waypoint.getId(), null);
-	}
-
-	private void establishDb() {
-		if (db == null) {
-			db = getWritableDatabase();
-		}
+		db.close();
 	}
 
 	private ContentValues getContentValuesFromWaypoint(Waypoint waypoint) {
 		// TODO
 		ContentValues values = new ContentValues();
-		values.put("description", waypoint.getDescription());
-		values.put("dateTime", getStringFromDate(waypoint.getDateTime()));
-		values.put("latitude", waypoint.getLatitude());
-		values.put("longitude", waypoint.getLongitude());
-		// values.put("isExpanded", waypoint.isExpanded() ? 1 : 0);
+		values.put(COLUMN_LIST[1], waypoint.getDescription());
+		values.put(COLUMN_LIST[2], getStringFromDate(waypoint.getDateTime()));
+		// values.put(COLUMN_LIST[4], waypoint.isExpanded() ? 1 : 0);
+		values.put(COLUMN_LIST[4], waypoint.getLatitude());
+		values.put(COLUMN_LIST[5], waypoint.getLongitude());
 		return values;
 	}
 
@@ -189,7 +159,9 @@ public class WaypointDAO extends SQLiteOpenHelper implements Database<Waypoint> 
 
 	@Override
 	public void deleteAll() {
+		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(DATABASE_TABLE_NAME, null, null);
+		db.close();
 	}
 
 	@Override
