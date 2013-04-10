@@ -1,7 +1,6 @@
 package edu.metcs683.walkabout;
 
 import java.io.File;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +13,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -128,6 +126,10 @@ public class PhotoList extends Activity {
 			Toast.makeText(getApplicationContext(), fnyi, Toast.LENGTH_SHORT)
 					.show();
 			break;
+		case R.id.change_sort:
+			controller.changeSortOrder();
+			loadData();
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -291,4 +293,5 @@ public class PhotoList extends Activity {
 	private static Uri getOutputImageFileUri() {
 		return Uri.fromFile(getOutputImageFile());
 	}
+
 }

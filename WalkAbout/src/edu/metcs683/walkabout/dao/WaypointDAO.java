@@ -72,7 +72,7 @@ public class WaypointDAO extends Database<Waypoint> {
 		try {
 			String orderBy = null;
 			if (!orderAscending) {
-				orderBy += "_id DESC";
+				orderBy = COLUMN_LIST[0] + " DESC";
 			}
 			SQLiteDatabase db = this.getReadableDatabase();
 			cursor = db.query(DATABASE_TABLE_NAME, COLUMN_LIST, null, null,

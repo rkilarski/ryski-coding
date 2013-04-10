@@ -52,4 +52,9 @@ public class PhotoListController {
 	public void saveImage(Image image){
 		imageDAO.insert(image);
 	}
+	
+	public void changeSortOrder() {
+		boolean order = !appSettingsDAO.getWaypointPhotoOrderAscendingFlag();
+		appSettingsDAO.setWaypointPhotoOrderAscendingFlag(order);
+	}
 }
