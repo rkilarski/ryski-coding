@@ -2,7 +2,6 @@ package edu.metcs683.walkabout.model;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URL;
 
 import android.content.Context;
 import android.graphics.Bitmap;

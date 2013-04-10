@@ -9,12 +9,10 @@ import edu.metcs683.walkabout.controller.WaypointListController;
 import edu.metcs683.walkabout.model.Waypoint;
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -47,6 +45,10 @@ public class WaypointList extends Activity {
 			startActivity(intent);
 			startActivityForResult(intent, WaypointDetail.ADD_WAYPOINT);
 			return true;
+		case R.id.change_sort:
+			controller.changeSortOrder();
+			loadData();
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -56,7 +58,7 @@ public class WaypointList extends Activity {
 		setContentView(R.layout.activity_waypoint_list);
 		// Attach to UI elements
 		waypointList = (ListView) findViewById(R.id.waypointList);
-
+		
 		// Attach handlers
 		waypointList.setOnItemClickListener(new ListItemClickListener());
 	}
