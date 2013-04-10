@@ -9,7 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
- * Abstract class for all database (DAO) classes.
+ * Abstract class for all database (DAO) classes. This class will take care of
+ * creating the database and all of its tables.
  * 
  * @author Ryszard Kilarski
  * 
@@ -28,7 +29,7 @@ public abstract class Database<T> extends SQLiteOpenHelper {
 	private static final String TABLE_CREATE_STRING_WAYPOINT = "CREATE TABLE "
 			+ DATABASE_TABLE_NAME_WAYPOINT
 			+ " (_id INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT, dateTime TEXT, isExpanded SMALLINT, latitude TEXT, longitude TEXT);";
-	
+
 	private static final String TABLE_CREATE_STRING_WAYPOINT_IMAGE = "CREATE TABLE "
 			+ DATABASE_TABLE_NAME_WAYPOINT_IMAGE
 			+ " (_id INTEGER PRIMARY KEY AUTOINCREMENT, waypointId INTEGER NOT NULL, imageURI TEXT);";
