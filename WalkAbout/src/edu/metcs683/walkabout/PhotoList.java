@@ -76,7 +76,6 @@ public class PhotoList extends Activity {
 					startActivityForResult(intent,
 							CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 
-					loadData();
 				} else {
 					Toast.makeText(getApplicationContext(), cameraMessage,
 							Toast.LENGTH_LONG).show();
@@ -91,7 +90,6 @@ public class PhotoList extends Activity {
 					Intent.ACTION_PICK,
 					android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 			startActivityForResult(intent, 0);
-			loadData();
 			break;
 		case R.id.edit_waypoint:
 			intent = new Intent(this, WaypointDetail.class);
@@ -100,7 +98,7 @@ public class PhotoList extends Activity {
 			long id = this.getIntent().getLongExtra("waypointId", 0);
 			bundle.putLong("waypointId", id);
 			intent.putExtras(bundle);
-			startActivity(intent);
+			startActivityForResult(intent, WaypointDetail.EDIT_WAYPOINT);
 			break;
 		case R.id.delete_waypoint:
 			String title = "Delete Waypoint";
@@ -156,7 +154,6 @@ public class PhotoList extends Activity {
 				Image image = new Image(0, id, imageURI.toString());
 				controller.saveImage(image);
 
-				loadData();
 			} else if (resultCode == RESULT_CANCELED) {
 				// User cancelled the image capture
 			} else {
@@ -171,6 +168,7 @@ public class PhotoList extends Activity {
 			Toast.makeText(this, "Image saved to:\n" + data.getData(),
 					Toast.LENGTH_LONG).show();
 		}
+		loadData();
 	}
 
 	private void initializeUI() {
@@ -199,9 +197,6 @@ public class PhotoList extends Activity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View v, int position,
 				long id) {
-			Toast.makeText(getApplicationContext(), "" + position,
-					Toast.LENGTH_SHORT).show();
-
 			// Get the image from the adapter...
 			Image image = (Image) parent.getAdapter().getItem(position);
 			// ...and get its URI.
@@ -234,7 +229,7 @@ public class PhotoList extends Activity {
 		}
 
 		public long getItemId(int position) {
-			return 0;
+			return list.get(position).getId();
 		}
 
 		// create a new ImageView for each item referenced by the Adapter
@@ -250,7 +245,8 @@ public class PhotoList extends Activity {
 				imageView = (ImageView) convertView;
 			}
 
-			imageView.setImageURI(Uri.parse(list.get(position).getImageURI()));
+			Uri uri = Uri.parse(list.get(position).getImageURI());
+			imageView.setImageURI(uri);
 			return imageView;
 		}
 

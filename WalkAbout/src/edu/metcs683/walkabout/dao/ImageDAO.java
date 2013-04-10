@@ -8,7 +8,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import edu.metcs683.walkabout.model.Image;
@@ -20,31 +19,21 @@ import edu.metcs683.walkabout.model.Image;
  * @author Ryszard Kilarski
  * 
  */
-public class ImageDAO extends SQLiteOpenHelper implements Database<Image> {
+public class ImageDAO extends Database<Image> {
 
-	private static final String DATABASE_TABLE_NAME = "waypoint_images";
+	private static final String DATABASE_TABLE_NAME = "waypoint_image";
 	private static final String CLASSNAME = ImageDAO.class.getSimpleName();
 	private static final String[] COLUMN_LIST = new String[] { "_id",
 			"waypointId", "imageURI" };
-	private static final String DATABASE_CREATE_STRING = "CREATE TABLE "
-			+ DATABASE_TABLE_NAME
-			+ " (_id INTEGER PRIMARY KEY AUTOINCREMENT, waypointId INTEGER NOT NULL, imageURI TEXT);";
-	private static SQLiteDatabase db;
 
 	public ImageDAO(Context context) {
-		super(context, DB_NAME, null, DB_VERSION);
-		establishDb();
-	}
-
-	public void cleanup() {
-		if (db != null) {
-			db.close();
-			db = null;
-		}
+		super(context);
 	}
 
 	public void delete(long id) {
+		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(DATABASE_TABLE_NAME, "_id=" + id, null);
+		db.close();
 	}
 
 	/**
@@ -54,6 +43,7 @@ public class ImageDAO extends SQLiteOpenHelper implements Database<Image> {
 		Cursor cursor = null;
 		Image image = null;
 		try {
+			SQLiteDatabase db = this.getReadableDatabase();
 			cursor = db.query(true, DATABASE_TABLE_NAME, COLUMN_LIST, "_id = '"
 					+ id + "'", null, null, null, null, null);
 			if (cursor.getCount() > 0) {
@@ -86,6 +76,7 @@ public class ImageDAO extends SQLiteOpenHelper implements Database<Image> {
 			if (!orderAscending) {
 				orderBy += "_id DESC";
 			}
+			SQLiteDatabase db = this.getReadableDatabase();
 			cursor = db.query(DATABASE_TABLE_NAME, COLUMN_LIST,
 					"waypointId = '" + id + "'", null, null, null, orderBy);
 			int numRows = cursor.getCount();
@@ -107,27 +98,10 @@ public class ImageDAO extends SQLiteOpenHelper implements Database<Image> {
 
 	public long insert(Image image) {
 		ContentValues values = getContentValuesFromImage(image);
-		return db.insert(DATABASE_TABLE_NAME, null, values);
-	}
-
-	@Override
-	public void onCreate(SQLiteDatabase db) {
-		try {
-			db.execSQL(DATABASE_CREATE_STRING);
-		} catch (SQLException e) {
-			Log.e("ProviderWidgets", CLASSNAME, e);
-		}
-	}
-
-	@Override
-	public void onOpen(SQLiteDatabase db) {
-		super.onOpen(db);
-	}
-
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_NAME);
-		onCreate(db);
+		SQLiteDatabase db = this.getWritableDatabase();
+		long countInserted = db.insert(DATABASE_TABLE_NAME, null, values);
+		db.close();
+		return countInserted;
 	}
 
 	/**
@@ -135,36 +109,36 @@ public class ImageDAO extends SQLiteOpenHelper implements Database<Image> {
 	 */
 	public void update(Image image) {
 		ContentValues values = getContentValuesFromImage(image);
+		SQLiteDatabase db = this.getWritableDatabase();
 		db.update(DATABASE_TABLE_NAME, values, "_id=" + image.getId(), null);
-	}
-
-	private void establishDb() {
-		if (db == null) {
-			db = getWritableDatabase();
-		}
+		db.close();
 	}
 
 	private ContentValues getContentValuesFromImage(Image image) {
 		ContentValues values = new ContentValues();
-		values.put("waypointId", image.getWaypointId());
-		values.put("image", image.getImageURI());
+		values.put(COLUMN_LIST[1], image.getWaypointId());
+		values.put(COLUMN_LIST[2], image.getImageURI());
 		return values;
 	}
 
 	private Image getImageFromCursor(Cursor cursor) {
 		return new Image(cursor.getLong(0), cursor.getLong(1),
-				cursor.getString(1));
+				cursor.getString(2));
 	}
 
 	@Override
 	public void deleteAll() {
+		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(DATABASE_TABLE_NAME, null, null);
+		db.close();
 	}
 
 	@Override
 	public void deleteAll(long id) {
 		try {
+			SQLiteDatabase db = this.getWritableDatabase();
 			db.delete(DATABASE_TABLE_NAME, "waypointId=" + id, null);
+			db.close();
 		} catch (Exception ex) {
 			;
 		}
