@@ -31,7 +31,12 @@
                 android:icon="@drawable/map"
                 android:showAsAction="always"
                 android:title="@string/map_waypoint_text"/>
-            </menu>
+            <item
+                android:id="@+id/change_sort"
+                android:icon="@drawable/resort"
+                android:showAsAction="always"
+                android:title="@string/change_ascending_text"/>
+        </menu>
     </item>
 
 </menu>
