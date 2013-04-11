@@ -44,6 +44,7 @@ public class WaypointList extends Activity {
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			startActivityForResult(intent, WaypointDetail.ADD_WAYPOINT);
+			overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
 			return true;
 		case R.id.change_sort:
 			controller.changeSortOrder();

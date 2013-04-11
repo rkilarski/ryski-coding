@@ -97,6 +97,7 @@ public class PhotoList extends Activity {
 			bundle.putLong("waypointId", id);
 			intent.putExtras(bundle);
 			startActivityForResult(intent, WaypointDetail.EDIT_WAYPOINT);
+			overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
 			break;
 		case R.id.delete_waypoint:
 			String title = "Delete Waypoint";
@@ -148,9 +149,6 @@ public class PhotoList extends Activity {
 		switch (requestCode) {
 		case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:
 			if (resultCode == RESULT_OK) {
-				// Image captured and saved to fileUri specified in the Intent
-				Toast.makeText(this, "Image saved to:\n" + imageURI.toString(),
-						Toast.LENGTH_LONG).show();
 				// Save image to database.
 				long id = this.getIntent().getLongExtra("waypointId", 0);
 				Image image = new Image(0, id, imageURI.toString());
@@ -293,5 +291,10 @@ public class PhotoList extends Activity {
 	private static Uri getOutputImageFileUri() {
 		return Uri.fromFile(getOutputImageFile());
 	}
-
+	
+	@Override
+	public void onBackPressed() {
+	    super.onBackPressed();
+	    overridePendingTransition(R.anim.slide_in,R.anim.slide_out);
+	}
 }
