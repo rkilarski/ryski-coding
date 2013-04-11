@@ -123,6 +123,7 @@ public class WaypointList extends Activity {
 			bundle.putLong("waypointId", Long.parseLong(row.get("id")));
 			intent.putExtras(bundle);
 			startActivityForResult(intent, WaypointDetail.EDIT_WAYPOINT);
+			overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 		}
 
 	}
