@@ -142,6 +142,7 @@ public class WaypointDetail extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			finish();
+			overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
 		}
 	}
 
@@ -183,6 +184,7 @@ public class WaypointDetail extends Activity {
 					"Waypoint " + waypoint.getDescription()
 							+ " has been filed.", Toast.LENGTH_LONG).show();
 			finish();
+			overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
 		}
 	}
 
@@ -207,4 +209,11 @@ public class WaypointDetail extends Activity {
 		}
 		return location;
 	}
+	
+	@Override
+	public void onBackPressed() {
+	    super.onBackPressed();
+		overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
+	}
+
 }
