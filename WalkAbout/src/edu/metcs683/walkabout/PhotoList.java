@@ -242,7 +242,7 @@ public class PhotoList extends Activity {
 				imageView = new ImageView(context);
 				imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
 				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				imageView.setPadding(8, 8, 8, 8);
+				imageView.setPadding(5, 5, 5, 5);
 			} else {
 				imageView = (ImageView) convertView;
 			}
