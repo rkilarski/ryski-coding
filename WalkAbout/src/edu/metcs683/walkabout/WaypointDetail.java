@@ -122,7 +122,7 @@ public class WaypointDetail extends Activity {
 		waypointDate.init(c.get(Calendar.YEAR), c.get(Calendar.MONTH),
 				c.get(Calendar.DAY_OF_MONTH), null);
 
-		locationButton.setText("Location: " + waypoint.getLatitude() + "(lat) "
+		locationButton.setText(waypoint.getLatitude() + "(lat) "
 				+ waypoint.getLongitude() + "(long)");
 		// TODO
 	}
@@ -156,7 +156,7 @@ public class WaypointDetail extends Activity {
 			if (location != null) {
 				waypoint.setLatitude(location.getLatitude());
 				waypoint.setLongitude(location.getLongitude());
-				locationButton.setText("Location: " + waypoint.getLatitude() + "(lat) "
+				locationButton.setText(waypoint.getLatitude() + "(lat) "
 						+ waypoint.getLongitude() + "(long)");
 			} else {
 				locationButton
@@ -209,10 +209,10 @@ public class WaypointDetail extends Activity {
 		}
 		return location;
 	}
-	
+
 	@Override
 	public void onBackPressed() {
-	    super.onBackPressed();
+		super.onBackPressed();
 		overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
 	}
 
