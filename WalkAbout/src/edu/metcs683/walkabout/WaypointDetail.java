@@ -195,7 +195,7 @@ public class WaypointDetail extends Activity {
 				.isProviderEnabled(LocationManager.GPS_PROVIDER);
 		if (enabled) {
 			Criteria criteria = new Criteria();
-			String provider = locationManager.getBestProvider(criteria, false);
+			String provider = locationManager.getBestProvider(criteria, true);
 			location = locationManager.getLastKnownLocation(provider);
 			if (location == null) {
 				// What do we do?
