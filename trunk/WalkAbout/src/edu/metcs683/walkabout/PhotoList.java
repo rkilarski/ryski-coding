@@ -34,6 +34,7 @@ import android.widget.Toast;
 public class PhotoList extends Activity {
 
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+
 	/** Create a File for saving an image or video */
 	private static File getOutputImageFile() {
 		// To be safe, you should check that the SDCard is mounted
@@ -64,6 +65,7 @@ public class PhotoList extends Activity {
 
 		return mediaFile;
 	}
+
 	/**
 	 * Create file URI for image.
 	 * 
@@ -72,6 +74,7 @@ public class PhotoList extends Activity {
 	private static Uri getOutputImageFileUri() {
 		return Uri.fromFile(getOutputImageFile());
 	}
+
 	private PhotoListController controller;
 
 	private Uri imageURI;
@@ -95,6 +98,8 @@ public class PhotoList extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		String fnyi = getString(R.string.fnyi);
 		Intent intent = null;
+		long id;
+		Bundle bundle;
 
 		switch (item.getItemId()) {
 		case R.id.camera:
@@ -130,11 +135,14 @@ public class PhotoList extends Activity {
 		case R.id.edit_waypoint:
 			intent = new Intent(this, WaypointDetail.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			Bundle bundle = new Bundle();
-			long id = this.getIntent().getLongExtra("waypointId", 0);
+			
+			bundle = new Bundle();
+			id = this.getIntent().getLongExtra("waypointId", 0);
 			bundle.putLong("waypointId", id);
 			intent.putExtras(bundle);
+			
 			startActivityForResult(intent, WaypointDetail.EDIT_WAYPOINT);
+			
 			overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
 			break;
 		case R.id.delete_waypoint:
@@ -169,6 +177,19 @@ public class PhotoList extends Activity {
 			controller.changeSortOrder();
 			loadData();
 			return true;
+		case R.id.move_photos:
+			intent = new Intent(this, MovePhotosBetweenWaypoints.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			
+			bundle = new Bundle();
+			id = this.getIntent().getLongExtra("waypointId", 0);
+			bundle.putLong("waypointId", id);
+			intent.putExtras(bundle);
+			
+			startActivityForResult(intent, WaypointDetail.EDIT_WAYPOINT);
+			
+			overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
+			break;
 		default:
 			return super.onOptionsItemSelected(item);
 		}

@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
@@ -57,7 +58,7 @@ public class MovePhotosBetweenWaypoints extends Activity {
 		cancelButton.setOnClickListener(new CancelButtonHandler());
 		okButton.setOnClickListener(new OKButtonHandler());
 		photoList.setOnItemClickListener(new ImageClickHandler());
-		moveToWaypoint.setOnItemClickListener(new SpinnerClickHandler());
+		moveToWaypoint.setOnItemSelectedListener(new SpinnerClickHandler());
 
 	}
 
@@ -119,11 +120,13 @@ public class MovePhotosBetweenWaypoints extends Activity {
 			Image image = (Image) parent.getAdapter().getItem(position);
 			// ...and get its URI.
 			Uri uri = Uri.parse(image.getImageURI());
+
+			// TODO: Here, add image to selected list.
+
 			Intent viewImageIntent = new Intent(
 					android.content.Intent.ACTION_VIEW);
 			viewImageIntent.setDataAndType(uri, "image/jpeg");
 			startActivity(viewImageIntent);
-			// TODO: Here, add image to selected list.
 		}
 	}
 
@@ -140,12 +143,21 @@ public class MovePhotosBetweenWaypoints extends Activity {
 		}
 	}
 
-	private class SpinnerClickHandler implements OnItemClickListener {
+	/**
+	 * Handler for the waypoint selector.
+	 * 
+	 */
+	private class SpinnerClickHandler implements OnItemSelectedListener {
 
 		@Override
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-			okButton.setEnabled(true);
+			okButton.setEnabled(true);	
+		}
+
+		@Override
+		public void onNothingSelected(AdapterView<?> arg0) {
+			okButton.setEnabled(false);
 		}
 
 	}
