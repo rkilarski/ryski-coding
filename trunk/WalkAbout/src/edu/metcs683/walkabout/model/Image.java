@@ -17,9 +17,9 @@ import android.util.Log;
 public class Image {
 
 	private long id;
+	private Bitmap image;
 	private String imageURI;
 	private long waypointId;
-	private Bitmap image;
 
 	public Image(long id, long waypointId, String image) {
 		this.id = id;
@@ -29,22 +29,6 @@ public class Image {
 
 	public long getId() {
 		return id;
-	}
-
-	public String getImageURI() {
-		return imageURI;
-	}
-
-	public void setImageURI(String image) {
-		this.imageURI = image;
-	}
-
-	public long getWaypointId() {
-		return waypointId;
-	}
-
-	public void setWaypointId(long waypointId) {
-		this.waypointId = waypointId;
 	}
 
 	/**
@@ -77,5 +61,21 @@ public class Image {
 			}
 		}
 		return this.image;
+	}
+
+	public String getImageURI() {
+		return imageURI;
+	}
+
+	public long getWaypointId() {
+		return waypointId;
+	}
+
+	public void setImageURI(String image) {
+		this.imageURI = image;
+	}
+
+	public void setWaypointId(long waypointId) {
+		this.waypointId = waypointId;
 	}
 }

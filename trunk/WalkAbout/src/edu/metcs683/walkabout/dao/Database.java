@@ -18,10 +18,10 @@ import android.util.Log;
  */
 public abstract class Database<T> extends SQLiteOpenHelper {
 
-	private static final String CLASSNAME = Database.class.getSimpleName();
+	public static final String DB_NAME = "edu.metcs683.walkabout";
 
 	public static final int DB_VERSION = 1;
-	public static final String DB_NAME = "edu.metcs683.walkabout";
+	private static final String CLASSNAME = Database.class.getSimpleName();
 
 	private static final String DATABASE_TABLE_NAME_WAYPOINT = "waypoint";
 	private static final String DATABASE_TABLE_NAME_WAYPOINT_IMAGE = "waypoint_image";
@@ -37,6 +37,20 @@ public abstract class Database<T> extends SQLiteOpenHelper {
 	public Database(Context context) {
 		super(context, DB_NAME, null, DB_VERSION);
 	}
+
+	abstract public void delete(long id);
+
+	abstract public void deleteAll();
+
+	abstract public void deleteAll(long id);
+
+	abstract public T get(long id);
+
+	abstract public List<T> getAll(boolean orderAscending);
+
+	abstract public List<T> getAll(boolean orderAscending, long id);
+
+	abstract public long insert(T object);
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
@@ -59,20 +73,6 @@ public abstract class Database<T> extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_NAME_WAYPOINT_IMAGE);
 		onCreate(db);
 	}
-
-	abstract public T get(long id);
-
-	abstract public long insert(T object);
-
-	abstract public List<T> getAll(boolean orderAscending, long id);
-
-	abstract public List<T> getAll(boolean orderAscending);
-
-	abstract public void delete(long id);
-
-	abstract public void deleteAll();
-
-	abstract public void deleteAll(long id);
 
 	abstract public void update(T object);
 

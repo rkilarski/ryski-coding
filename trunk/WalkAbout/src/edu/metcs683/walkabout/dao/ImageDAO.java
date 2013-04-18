@@ -21,10 +21,10 @@ import edu.metcs683.walkabout.model.Image;
  */
 public class ImageDAO extends Database<Image> {
 
-	private static final String DATABASE_TABLE_NAME = "waypoint_image";
 	private static final String CLASSNAME = ImageDAO.class.getSimpleName();
 	private static final String[] COLUMN_LIST = new String[] { "_id",
 			"waypointId", "imageURI" };
+	private static final String DATABASE_TABLE_NAME = "waypoint_image";
 
 	public ImageDAO(Context context) {
 		super(context);
@@ -34,6 +34,24 @@ public class ImageDAO extends Database<Image> {
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(DATABASE_TABLE_NAME, "_id=" + id, null);
 		db.close();
+	}
+
+	@Override
+	public void deleteAll() {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(DATABASE_TABLE_NAME, null, null);
+		db.close();
+	}
+
+	@Override
+	public void deleteAll(long id) {
+		try {
+			SQLiteDatabase db = this.getWritableDatabase();
+			db.delete(DATABASE_TABLE_NAME, "waypointId=" + id, null);
+			db.close();
+		} catch (Exception ex) {
+			;
+		}
 	}
 
 	/**
@@ -124,24 +142,6 @@ public class ImageDAO extends Database<Image> {
 	private Image getImageFromCursor(Cursor cursor) {
 		return new Image(cursor.getLong(0), cursor.getLong(1),
 				cursor.getString(2));
-	}
-
-	@Override
-	public void deleteAll() {
-		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(DATABASE_TABLE_NAME, null, null);
-		db.close();
-	}
-
-	@Override
-	public void deleteAll(long id) {
-		try {
-			SQLiteDatabase db = this.getWritableDatabase();
-			db.delete(DATABASE_TABLE_NAME, "waypointId=" + id, null);
-			db.close();
-		} catch (Exception ex) {
-			;
-		}
 	}
 
 }

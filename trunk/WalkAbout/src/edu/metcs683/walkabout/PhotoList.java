@@ -13,7 +13,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.Camera;
@@ -21,12 +20,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 /**
@@ -37,18 +33,62 @@ import android.widget.Toast;
  */
 public class PhotoList extends Activity {
 
-	private PhotoListController controller;
-	private GridView photoList;
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+	/** Create a File for saving an image or video */
+	private static File getOutputImageFile() {
+		// To be safe, you should check that the SDCard is mounted
+		// using Environment.getExternalStorageState() before doing this.
+
+		File mediaStorageDir = new File(
+				Environment
+						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+				"WalkAbout");
+		// This location works best if you want the created images to be shared
+		// between applications and persist after your app has been uninstalled.
+
+		// Create the storage directory if it does not exist
+		if (!mediaStorageDir.exists()) {
+			if (!mediaStorageDir.mkdirs()) {
+				Log.d("WalkAbout", "failed to create directory "
+						+ mediaStorageDir.getParentFile());
+				return null;
+			}
+		}
+
+		// Create a media file name
+		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+				.format(new Date());
+		File mediaFile;
+		mediaFile = new File(mediaStorageDir.getPath() + File.separator
+				+ "IMG_" + timeStamp + ".jpg");
+
+		return mediaFile;
+	}
+	/**
+	 * Create file URI for image.
+	 * 
+	 * @return
+	 */
+	private static Uri getOutputImageFileUri() {
+		return Uri.fromFile(getOutputImageFile());
+	}
+	private PhotoListController controller;
+
 	private Uri imageURI;
 
+	private GridView photoList;
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_photo_list);
-		initializeUI();
-		controller = new PhotoListController(getApplicationContext(), this);
-		loadData();
+	public void onBackPressed() {
+		super.onBackPressed();
+		overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.activity_photo_list, menu);
+		return true;
 	}
 
 	@Override
@@ -62,8 +102,6 @@ public class PhotoList extends Activity {
 			try {
 				if (Camera.getNumberOfCameras() > 0) {
 					intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-					// Intent intent = new
-					// Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
 
 					// create a file to save the image
 					imageURI = getOutputImageFileUri();
@@ -137,9 +175,32 @@ public class PhotoList extends Activity {
 		return true;
 	}
 
+	/**
+	 * Ability to delete this waypoint.
+	 */
 	private void deleteWaypoint() {
 		long id = this.getIntent().getLongExtra("waypointId", 0);
 		controller.deleteWaypoint(id);
+	}
+
+	/**
+	 * Initialize the UI and attach to any views.
+	 */
+
+	private void initializeUI() {
+		photoList = (GridView) findViewById(R.id.photoList);
+		photoList.setOnItemClickListener(new ImageClickHandler());
+	}
+
+	/**
+	 * Load the data into the UI.
+	 */
+	private void loadData() {
+		Intent intent = this.getIntent();
+		long id = intent.getLongExtra("waypointId", 0);
+		List<Image> list = controller.getImageList(id);
+		photoList.setAdapter(new ImageAdapter(this, list));
+		this.setTitle(controller.getWaypointDescription(id));
 	}
 
 	@Override
@@ -171,25 +232,13 @@ public class PhotoList extends Activity {
 		loadData();
 	}
 
-	private void initializeUI() {
-		photoList = (GridView) findViewById(R.id.photoList);
-
-		photoList.setOnItemClickListener(new ImageClickHandler());
-	}
-
-	private void loadData() {
-		Intent intent = this.getIntent();
-		long id = intent.getLongExtra("waypointId", 0);
-		List<Image> list = controller.getImageList(id);
-		photoList.setAdapter(new ImageAdapter(this, list));
-		this.setTitle(controller.getWaypointDescription(id));
-	}
-
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_photo_list, menu);
-		return true;
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_photo_list);
+		initializeUI();
+		controller = new PhotoListController(getApplicationContext(), this);
+		loadData();
 	}
 
 	private class ImageClickHandler implements OnItemClickListener {
@@ -206,95 +255,5 @@ public class PhotoList extends Activity {
 			viewImageIntent.setDataAndType(uri, "image/jpeg");
 			startActivity(viewImageIntent);
 		}
-	}
-
-	/**
-	 * Adapter class for the images.
-	 */
-	private class ImageAdapter extends BaseAdapter {
-		private Context context;
-		List<Image> list;
-
-		public ImageAdapter(Context context, List<Image> imageList) {
-			this.context = context;
-			this.list = imageList;
-		}
-
-		public int getCount() {
-			return list.size();
-		}
-
-		public Image getItem(int position) {
-			return list.get(position);
-		}
-
-		public long getItemId(int position) {
-			return list.get(position).getId();
-		}
-
-		// create a new ImageView for each item referenced by the Adapter
-		public View getView(int position, View convertView, ViewGroup parent) {
-			ImageView imageView;
-			if (convertView == null) { // if it's not recycled, initialize some
-										// attributes
-				imageView = new ImageView(context);
-				imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				imageView.setPadding(5, 5, 5, 5);
-			} else {
-				imageView = (ImageView) convertView;
-			}
-
-			Uri uri = Uri.parse(list.get(position).getImageURI());
-			imageView.setImageURI(uri);
-			return imageView;
-		}
-
-	}
-
-	/** Create a File for saving an image or video */
-	private static File getOutputImageFile() {
-		// To be safe, you should check that the SDCard is mounted
-		// using Environment.getExternalStorageState() before doing this.
-
-		File mediaStorageDir = new File(
-				Environment
-						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-				"WalkAbout");
-		// This location works best if you want the created images to be shared
-		// between applications and persist after your app has been uninstalled.
-
-		// Create the storage directory if it does not exist
-		if (!mediaStorageDir.exists()) {
-			if (!mediaStorageDir.mkdirs()) {
-				Log.d("WalkAbout", "failed to create directory "
-						+ mediaStorageDir.getParentFile());
-				return null;
-			}
-		}
-
-		// Create a media file name
-		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
-				.format(new Date());
-		File mediaFile;
-		mediaFile = new File(mediaStorageDir.getPath() + File.separator
-				+ "IMG_" + timeStamp + ".jpg");
-
-		return mediaFile;
-	}
-
-	/**
-	 * Create file URI for image.
-	 * 
-	 * @return
-	 */
-	private static Uri getOutputImageFileUri() {
-		return Uri.fromFile(getOutputImageFile());
-	}
-	
-	@Override
-	public void onBackPressed() {
-	    super.onBackPressed();
-	    overridePendingTransition(R.anim.slide_in,R.anim.slide_out);
 	}
 }

@@ -27,8 +27,8 @@ import android.widget.SimpleAdapter;
 public class WaypointList extends Activity {
 
 	private WaypointListController controller;
-	private ListView waypointList;
 	private SimpleAdapter listViewAdapter;
+	private ListView waypointList;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

@@ -11,22 +11,22 @@ import edu.metcs683.walkabout.model.Waypoint;
 
 public class WaypointListController {
 
-	private WaypointDAO waypointDAO;
 	private AppSettingsDAO appSettingsDAO;
+	private WaypointDAO waypointDAO;
 
 	public WaypointListController(Context context, Activity activity) {
 		waypointDAO = new WaypointDAO(context);
 		appSettingsDAO = new AppSettingsDAO(activity);
 	}
 
+	public void changeSortOrder() {
+		boolean order = !appSettingsDAO.getWaypointOrderAscendingFlag();
+		appSettingsDAO.setWaypointOrderAscendingFlag(order);
+	}
+
 	public List<Waypoint> getWaypoints() {
 		boolean orderByAscending = appSettingsDAO
 				.getWaypointOrderAscendingFlag();
 		return waypointDAO.getAll(orderByAscending);
-	}
-
-	public void changeSortOrder() {
-		boolean order = !appSettingsDAO.getWaypointOrderAscendingFlag();
-		appSettingsDAO.setWaypointOrderAscendingFlag(order);
 	}
 }
