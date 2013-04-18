@@ -36,6 +36,13 @@
                 android:icon="@drawable/resort"
                 android:showAsAction="always"
                 android:title="@string/change_ascending_text"/>
+            
+            <item
+                android:id="@+id/move_photos"
+                android:icon="@drawable/move_photos"
+                android:showAsAction="always"
+                android:title="@string/menu_move_photos"/>
+            
         </menu>
     </item>
 
