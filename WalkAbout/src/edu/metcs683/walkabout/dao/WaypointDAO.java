@@ -27,10 +27,10 @@ import edu.metcs683.walkabout.model.Waypoint;
 
 public class WaypointDAO extends Database<Waypoint> {
 
-	private static final String DATABASE_TABLE_NAME = "waypoint";
 	private static final String CLASSNAME = WaypointDAO.class.getSimpleName();
 	private static final String[] COLUMN_LIST = new String[] { "_id",
 			"description", "dateTime", "isExpanded", "latitude", "longitude" };
+	private static final String DATABASE_TABLE_NAME = "waypoint";
 
 	public WaypointDAO(Context context) {
 		super(context);
@@ -41,6 +41,18 @@ public class WaypointDAO extends Database<Waypoint> {
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(DATABASE_TABLE_NAME, "_id=" + id, null);
 		db.close();
+	}
+
+	@Override
+	public void deleteAll() {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(DATABASE_TABLE_NAME, null, null);
+		db.close();
+	}
+
+	@Override
+	public void deleteAll(long id) {
+		delete(id);
 	}
 
 	@Override
@@ -155,18 +167,6 @@ public class WaypointDAO extends Database<Waypoint> {
 				(cursor.getInt(3) == 0 ? false : true),
 				Double.parseDouble(cursor.getString(4)),
 				Double.parseDouble(cursor.getString(5)));
-	}
-
-	@Override
-	public void deleteAll() {
-		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(DATABASE_TABLE_NAME, null, null);
-		db.close();
-	}
-
-	@Override
-	public void deleteAll(long id) {
-		delete(id);
 	}
 
 }

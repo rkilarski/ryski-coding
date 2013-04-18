@@ -33,16 +33,60 @@ public class WaypointDetail extends Activity {
 	private Button cancelButton;
 	private WaypointDetailController controller;
 	private EditText description;
+	private Button locationButton;
 	private Button okButton;
 	private Waypoint waypoint;
 	private DatePicker waypointDate;
-	private Button locationButton;
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_waypoint_detail, menu);
 		return true;
+	}
+
+	/**
+	 * Convert a datepicker date into a date object.
+	 * 
+	 * @return
+	 */
+	private Date getDateFromWaypointDate() {
+		int day = waypointDate.getDayOfMonth();
+		int month = waypointDate.getMonth();
+		int year = waypointDate.getYear();
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(year, month, day);
+
+		return calendar.getTime();
+	}
+
+	private Location getLocation() {
+		Location location = null;
+		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		boolean enabled = locationManager
+				.isProviderEnabled(LocationManager.GPS_PROVIDER);
+		if (enabled) {
+			Criteria criteria = new Criteria();
+			String provider = locationManager.getBestProvider(criteria, true);
+			location = locationManager.getLastKnownLocation(provider);
+			if (location == null) {
+				// What do we do?
+				location = new Location("network"); // Try returning network
+													// location.
+				Toast.makeText(
+						getApplicationContext(),
+						"Location Services are not enabled on this device, cannot access GPS.",
+						Toast.LENGTH_LONG).show();
+			}
+		}
+		return location;
 	}
 
 	/**
@@ -91,22 +135,6 @@ public class WaypointDetail extends Activity {
 		waypoint.setDateTime(getDateFromWaypointDate());
 		// TODO
 		return waypoint;
-	}
-
-	/**
-	 * Convert a datepicker date into a date object.
-	 * 
-	 * @return
-	 */
-	private Date getDateFromWaypointDate() {
-		int day = waypointDate.getDayOfMonth();
-		int month = waypointDate.getMonth();
-		int year = waypointDate.getYear();
-
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(year, month, day);
-
-		return calendar.getTime();
 	}
 
 	/**
@@ -186,34 +214,6 @@ public class WaypointDetail extends Activity {
 			finish();
 			overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
 		}
-	}
-
-	private Location getLocation() {
-		Location location = null;
-		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		boolean enabled = locationManager
-				.isProviderEnabled(LocationManager.GPS_PROVIDER);
-		if (enabled) {
-			Criteria criteria = new Criteria();
-			String provider = locationManager.getBestProvider(criteria, true);
-			location = locationManager.getLastKnownLocation(provider);
-			if (location == null) {
-				// What do we do?
-				location = new Location("network"); // Try returning network
-													// location.
-				Toast.makeText(
-						getApplicationContext(),
-						"Location Services are not enabled on this device, cannot access GPS.",
-						Toast.LENGTH_LONG).show();
-			}
-		}
-		return location;
-	}
-
-	@Override
-	public void onBackPressed() {
-		super.onBackPressed();
-		overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
 	}
 
 }

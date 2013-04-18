@@ -14,16 +14,53 @@ import android.view.WindowManager;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class SystemUiHiderHoneycomb extends SystemUiHiderBase {
 	/**
+	 * Flags for {@link View#setSystemUiVisibility(int)} to use when hiding the
+	 * system UI.
+	 */
+	private int mHideFlags;
+
+	/**
 	 * Flags for {@link View#setSystemUiVisibility(int)} to use when showing the
 	 * system UI.
 	 */
 	private int mShowFlags;
 
-	/**
-	 * Flags for {@link View#setSystemUiVisibility(int)} to use when hiding the
-	 * system UI.
-	 */
-	private int mHideFlags;
+	private View.OnSystemUiVisibilityChangeListener mSystemUiVisibilityChangeListener = new View.OnSystemUiVisibilityChangeListener() {
+		@Override
+		public void onSystemUiVisibilityChange(int vis) {
+			// Test against mTestFlags to see if the system UI is visible.
+			if ((vis & mTestFlags) != 0) {
+				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+					// Pre-Jelly Bean, we must manually hide the action bar
+					// and use the old window flags API.
+					mActivity.getActionBar().hide();
+					mActivity.getWindow().setFlags(
+							WindowManager.LayoutParams.FLAG_FULLSCREEN,
+							WindowManager.LayoutParams.FLAG_FULLSCREEN);
+				}
+
+				// Trigger the registered listener and cache the visibility
+				// state.
+				mOnVisibilityChangeListener.onVisibilityChange(false);
+				mVisible = false;
+
+			} else {
+				mAnchorView.setSystemUiVisibility(mShowFlags);
+				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+					// Pre-Jelly Bean, we must manually show the action bar
+					// and use the old window flags API.
+					mActivity.getActionBar().show();
+					mActivity.getWindow().setFlags(0,
+							WindowManager.LayoutParams.FLAG_FULLSCREEN);
+				}
+
+				// Trigger the registered listener and cache the visibility
+				// state.
+				mOnVisibilityChangeListener.onVisibilityChange(true);
+				mVisible = true;
+			}
+		}
+	};
 
 	/**
 	 * Flags to test against the first parameter in
@@ -71,21 +108,8 @@ public class SystemUiHiderHoneycomb extends SystemUiHiderBase {
 
 	/** {@inheritDoc} */
 	@Override
-	public void setup() {
-		mAnchorView
-				.setOnSystemUiVisibilityChangeListener(mSystemUiVisibilityChangeListener);
-	}
-
-	/** {@inheritDoc} */
-	@Override
 	public void hide() {
 		mAnchorView.setSystemUiVisibility(mHideFlags);
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void show() {
-		mAnchorView.setSystemUiVisibility(mShowFlags);
 	}
 
 	/** {@inheritDoc} */
@@ -94,40 +118,16 @@ public class SystemUiHiderHoneycomb extends SystemUiHiderBase {
 		return mVisible;
 	}
 
-	private View.OnSystemUiVisibilityChangeListener mSystemUiVisibilityChangeListener = new View.OnSystemUiVisibilityChangeListener() {
-		@Override
-		public void onSystemUiVisibilityChange(int vis) {
-			// Test against mTestFlags to see if the system UI is visible.
-			if ((vis & mTestFlags) != 0) {
-				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-					// Pre-Jelly Bean, we must manually hide the action bar
-					// and use the old window flags API.
-					mActivity.getActionBar().hide();
-					mActivity.getWindow().setFlags(
-							WindowManager.LayoutParams.FLAG_FULLSCREEN,
-							WindowManager.LayoutParams.FLAG_FULLSCREEN);
-				}
+	/** {@inheritDoc} */
+	@Override
+	public void setup() {
+		mAnchorView
+				.setOnSystemUiVisibilityChangeListener(mSystemUiVisibilityChangeListener);
+	}
 
-				// Trigger the registered listener and cache the visibility
-				// state.
-				mOnVisibilityChangeListener.onVisibilityChange(false);
-				mVisible = false;
-
-			} else {
-				mAnchorView.setSystemUiVisibility(mShowFlags);
-				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-					// Pre-Jelly Bean, we must manually show the action bar
-					// and use the old window flags API.
-					mActivity.getActionBar().show();
-					mActivity.getWindow().setFlags(0,
-							WindowManager.LayoutParams.FLAG_FULLSCREEN);
-				}
-
-				// Trigger the registered listener and cache the visibility
-				// state.
-				mOnVisibilityChangeListener.onVisibilityChange(true);
-				mVisible = true;
-			}
-		}
-	};
+	/** {@inheritDoc} */
+	@Override
+	public void show() {
+		mAnchorView.setSystemUiVisibility(mShowFlags);
+	}
 }

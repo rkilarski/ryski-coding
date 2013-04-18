@@ -24,22 +24,6 @@ public class SystemUiHiderBase extends SystemUiHider {
 	}
 
 	@Override
-	public void setup() {
-		if ((mFlags & FLAG_LAYOUT_IN_SCREEN_OLDER_DEVICES) == 0) {
-			mActivity.getWindow().setFlags(
-					WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-							| WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-					WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-							| WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-		}
-	}
-
-	@Override
-	public boolean isVisible() {
-		return mVisible;
-	}
-
-	@Override
 	public void hide() {
 		if ((mFlags & FLAG_FULLSCREEN) != 0) {
 			mActivity.getWindow().setFlags(
@@ -48,6 +32,22 @@ public class SystemUiHiderBase extends SystemUiHider {
 		}
 		mOnVisibilityChangeListener.onVisibilityChange(false);
 		mVisible = false;
+	}
+
+	@Override
+	public boolean isVisible() {
+		return mVisible;
+	}
+
+	@Override
+	public void setup() {
+		if ((mFlags & FLAG_LAYOUT_IN_SCREEN_OLDER_DEVICES) == 0) {
+			mActivity.getWindow().setFlags(
+					WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+							| WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+					WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+							| WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+		}
 	}
 
 	@Override

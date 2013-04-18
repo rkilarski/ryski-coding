@@ -12,13 +12,13 @@ import java.util.List;
  */
 public class Waypoint {
 
-	private long id;
-	private String description;
 	private Date dateTime;
+	private String description;
+	private long id;
+	private List<Image> images = new ArrayList<Image>();
 	private boolean isExpanded;
 	private double latitude;
 	private double longitude;
-	private List<Image> images = new ArrayList<Image>();
 
 	public Waypoint(long id, String description, Date dateTime,
 			boolean isExpanded, double latitude, double longitude) {
@@ -35,64 +35,64 @@ public class Waypoint {
 
 	}
 
-	public void removeImage(Image image) {
-		images.remove(image);
+	public Date getDateTime() {
+		return dateTime;
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Date getDateTime() {
-		return dateTime;
-	}
-
-	public void setDateTime(Date dateTime) {
-		this.dateTime = dateTime;
-	}
-
-	public boolean isExpanded() {
-		return isExpanded;
-	}
-
-	public void setExpanded(boolean isExpanded) {
-		this.isExpanded = isExpanded;
+	public long getId() {
+		return id;
 	}
 
 	public List<Image> getImages() {
 		return images;
 	}
 
-	public void setImages(List<Image> images) {
-		this.images = images;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	@Override
-	public String toString() {
-		return this.description;
-	}
-
 	public double getLatitude() {
 		return latitude;
-	}
-
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
 	}
 
 	public double getLongitude() {
 		return longitude;
 	}
 
+	public boolean isExpanded() {
+		return isExpanded;
+	}
+
+	public void removeImage(Image image) {
+		images.remove(image);
+	}
+
+	public void setDateTime(Date dateTime) {
+		this.dateTime = dateTime;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setExpanded(boolean isExpanded) {
+		this.isExpanded = isExpanded;
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
+	}
+
+	@Override
+	public String toString() {
+		return this.description;
 	}
 }

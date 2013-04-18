@@ -40,6 +40,18 @@ public class AppSettingsDAO {
 	}
 
 	/**
+	 * Getter for the Waypoint order ascending flag item.
+	 * 
+	 * @return - The preference1 item.
+	 */
+	public boolean getWaypointPhotoOrderAscendingFlag() {
+		return preferences
+				.getBoolean(
+						AppSettingsDAO.PREFERENCES_WAYPOINT_PHOTO_ORDER_ASCENDING_FLAG,
+						AppSettingsDAO.PREFERENCES_WAYPOINT_PHOTO_ORDER_ASCENDING_FLAG_DEFAULT);
+	}
+
+	/**
 	 * Setter for the Waypoint order ascending flag item.
 	 * 
 	 * @param preference1
@@ -51,18 +63,6 @@ public class AppSettingsDAO {
 				setting);
 		editor.commit();
 		return;
-	}
-
-	/**
-	 * Getter for the Waypoint order ascending flag item.
-	 * 
-	 * @return - The preference1 item.
-	 */
-	public boolean getWaypointPhotoOrderAscendingFlag() {
-		return preferences
-				.getBoolean(
-						AppSettingsDAO.PREFERENCES_WAYPOINT_PHOTO_ORDER_ASCENDING_FLAG,
-						AppSettingsDAO.PREFERENCES_WAYPOINT_PHOTO_ORDER_ASCENDING_FLAG_DEFAULT);
 	}
 
 	/**

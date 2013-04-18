@@ -1,6 +1,7 @@
 package edu.metcs683.walkabout.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,14 +19,29 @@ import edu.metcs683.walkabout.model.Waypoint;
  */
 public class PhotoListController {
 
-	private WaypointDAO waypointDAO;
-	private ImageDAO imageDAO;
 	private AppSettingsDAO appSettingsDAO;
+	private ImageDAO imageDAO;
+	private WaypointDAO waypointDAO;
 
 	public PhotoListController(Context context, Activity activity) {
 		imageDAO = new ImageDAO(context);
 		waypointDAO = new WaypointDAO(context);
 		appSettingsDAO = new AppSettingsDAO(activity);
+	}
+
+	public void changeSortOrder() {
+		boolean order = !appSettingsDAO.getWaypointPhotoOrderAscendingFlag();
+		appSettingsDAO.setWaypointPhotoOrderAscendingFlag(order);
+	}
+
+	/**
+	 * Delete the waypoint and all its images.
+	 * 
+	 * @param id
+	 */
+	public void deleteWaypoint(long id) {
+		waypointDAO.delete(id);
+		imageDAO.deleteAll(id);
 	}
 
 	public List<Image> getImageList(long id) {
@@ -39,22 +55,8 @@ public class PhotoListController {
 		return waypoint.getDescription();
 	}
 
-	/**
-	 * Delete the waypoint and all its images.
-	 * 
-	 * @param id
-	 */
-	public void deleteWaypoint(long id) {
-		waypointDAO.delete(id);
-		imageDAO.deleteAll(id);
-	}
-	
-	public void saveImage(Image image){
+	public void saveImage(Image image) {
 		imageDAO.insert(image);
 	}
-	
-	public void changeSortOrder() {
-		boolean order = !appSettingsDAO.getWaypointPhotoOrderAscendingFlag();
-		appSettingsDAO.setWaypointPhotoOrderAscendingFlag(order);
-	}
+
 }
