@@ -11,13 +11,13 @@ import android.util.Log;
 /**
  * POJO that describes the image.
  * 
- * @author Ryszard Kilarski
+ * @author ryszardkilarski
  * 
  */
 public class Image {
 
-	private long id;
-	private Bitmap image;
+	private final long id;
+	private transient Bitmap image;
 	private String imageURI;
 	private long waypointId;
 
@@ -39,28 +39,27 @@ public class Image {
 	 * @throws IOException
 	 */
 	public Bitmap getImage(Context context) throws IOException {
-		if (this.image == null) {
+		if (image == null) {
 			FileInputStream fis = null;
 			try {
-				fis = context.openFileInput(this.imageURI);
-				byte[] data = new byte[fis.available()];
+				fis = context.openFileInput(imageURI);
+				final byte[] data = new byte[fis.available()];
 				while (fis.read(data) != -1) {
 				}
-				this.image = BitmapFactory
-						.decodeByteArray(data, 0, data.length);
-			} catch (IOException e) {
+				image = BitmapFactory.decodeByteArray(data, 0, data.length);
+			} catch (final IOException e) {
 				Log.e("ReadFile", e.getMessage(), e);
 			} finally {
 				if (fis != null) {
 					try {
 						fis.close();
-					} catch (IOException e) {
-						// swallow
+					} catch (final IOException e) {
+						// Swallow this exception.
 					}
 				}
 			}
 		}
-		return this.image;
+		return image;
 	}
 
 	public String getImageURI() {

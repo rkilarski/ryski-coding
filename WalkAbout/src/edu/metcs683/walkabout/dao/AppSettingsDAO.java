@@ -7,24 +7,24 @@ import android.content.SharedPreferences.Editor;
 
 /**
  * Data access object for the model data.
+ * 
  * @author Ryszard Kilarski
- *
+ * 
  */
 public class AppSettingsDAO {
 
 	private static final String PREFERENCES_NAME = "edu.metcs683.walkabout";
-	
+
 	private static final String PREFERENCES_WAYPOINT_ORDER_ASCENDING_FLAG = "edu.metcs683.walkabout.waypointorderascendingflag";
 	private static final boolean PREFERENCES_WAYPOINT_ORDER_ASCENDING_FLAG_DEFAULT = true;
-	
+
 	private static final String PREFERENCES_WAYPOINT_PHOTO_ORDER_ASCENDING_FLAG = "edu.metcs683.walkabout.waypointphotoorderascendingflag";
 	private static final boolean PREFERENCES_WAYPOINT_PHOTO_ORDER_ASCENDING_FLAG_DEFAULT = true;
 
-	private SharedPreferences preferences;
+	private final SharedPreferences preferences;
 
 	public AppSettingsDAO(Activity activity) {
-		preferences = activity.getSharedPreferences(
-				AppSettingsDAO.PREFERENCES_NAME, Context.MODE_PRIVATE);
+		preferences = activity.getSharedPreferences(AppSettingsDAO.PREFERENCES_NAME, Context.MODE_PRIVATE);
 	}
 
 	/**
@@ -33,10 +33,8 @@ public class AppSettingsDAO {
 	 * @return - The preference1 item.
 	 */
 	public boolean getWaypointOrderAscendingFlag() {
-		return preferences
-				.getBoolean(
-						AppSettingsDAO.PREFERENCES_WAYPOINT_ORDER_ASCENDING_FLAG,
-						AppSettingsDAO.PREFERENCES_WAYPOINT_ORDER_ASCENDING_FLAG_DEFAULT);
+		return preferences.getBoolean(AppSettingsDAO.PREFERENCES_WAYPOINT_ORDER_ASCENDING_FLAG,
+				AppSettingsDAO.PREFERENCES_WAYPOINT_ORDER_ASCENDING_FLAG_DEFAULT);
 	}
 
 	/**
@@ -45,10 +43,8 @@ public class AppSettingsDAO {
 	 * @return - The preference1 item.
 	 */
 	public boolean getWaypointPhotoOrderAscendingFlag() {
-		return preferences
-				.getBoolean(
-						AppSettingsDAO.PREFERENCES_WAYPOINT_PHOTO_ORDER_ASCENDING_FLAG,
-						AppSettingsDAO.PREFERENCES_WAYPOINT_PHOTO_ORDER_ASCENDING_FLAG_DEFAULT);
+		return preferences.getBoolean(AppSettingsDAO.PREFERENCES_WAYPOINT_PHOTO_ORDER_ASCENDING_FLAG,
+				AppSettingsDAO.PREFERENCES_WAYPOINT_PHOTO_ORDER_ASCENDING_FLAG_DEFAULT);
 	}
 
 	/**
@@ -57,10 +53,8 @@ public class AppSettingsDAO {
 	 * @param preference1
 	 */
 	public void setWaypointOrderAscendingFlag(boolean setting) {
-		Editor editor = preferences.edit();
-		editor.putBoolean(
-				AppSettingsDAO.PREFERENCES_WAYPOINT_ORDER_ASCENDING_FLAG,
-				setting);
+		final Editor editor = preferences.edit();
+		editor.putBoolean(AppSettingsDAO.PREFERENCES_WAYPOINT_ORDER_ASCENDING_FLAG, setting);
 		editor.commit();
 		return;
 	}
@@ -71,10 +65,8 @@ public class AppSettingsDAO {
 	 * @param preference1
 	 */
 	public void setWaypointPhotoOrderAscendingFlag(boolean setting) {
-		Editor editor = preferences.edit();
-		editor.putBoolean(
-				AppSettingsDAO.PREFERENCES_WAYPOINT_PHOTO_ORDER_ASCENDING_FLAG,
-				setting);
+		final Editor editor = preferences.edit();
+		editor.putBoolean(AppSettingsDAO.PREFERENCES_WAYPOINT_PHOTO_ORDER_ASCENDING_FLAG, setting);
 		editor.commit();
 		return;
 	}

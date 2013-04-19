@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
 import edu.metcs683.walkabout.model.Image;
 
 /**
@@ -22,126 +21,174 @@ import edu.metcs683.walkabout.model.Image;
 public class ImageDAO extends Database<Image> {
 
 	private static final String CLASSNAME = ImageDAO.class.getSimpleName();
-	private static final String[] COLUMN_LIST = new String[] { "_id",
-			"waypointId", "imageURI" };
+	private static final String[] COLUMN_LIST = new String[] { "_id", "waypointId", "imageURI" };
 	private static final String DATABASE_TABLE_NAME = "waypoint_image";
 
 	public ImageDAO(Context context) {
 		super(context);
 	}
 
+	/**
+	 * Given an id, delete the item from the database.
+	 * 
+	 * @param id
+	 */
+	@Override
 	public void delete(long id) {
-		SQLiteDatabase db = this.getWritableDatabase();
+		final SQLiteDatabase db = getWritableDatabase();
 		db.delete(DATABASE_TABLE_NAME, "_id=" + id, null);
 		db.close();
 	}
 
+	/**
+	 * Delete all rows from the database.
+	 */
 	@Override
 	public void deleteAll() {
-		SQLiteDatabase db = this.getWritableDatabase();
+		final SQLiteDatabase db = getWritableDatabase();
 		db.delete(DATABASE_TABLE_NAME, null, null);
 		db.close();
 	}
 
+	/**
+	 * Given an id, delete all items associated with that id from the database.
+	 * 
+	 * @param id
+	 */
 	@Override
 	public void deleteAll(long id) {
 		try {
-			SQLiteDatabase db = this.getWritableDatabase();
+			final SQLiteDatabase db = getWritableDatabase();
 			db.delete(DATABASE_TABLE_NAME, "waypointId=" + id, null);
 			db.close();
-		} catch (Exception ex) {
+		} catch (final Exception ex) {
 			;
 		}
 	}
 
 	/**
-	 * Get a particular image.
+	 * Given an id, get the item from the database.
+	 * 
+	 * @param id
+	 * @return
 	 */
+	@Override
 	public Image get(long id) {
 		Cursor cursor = null;
 		Image image = null;
 		try {
-			SQLiteDatabase db = this.getReadableDatabase();
-			cursor = db.query(true, DATABASE_TABLE_NAME, COLUMN_LIST, "_id = '"
-					+ id + "'", null, null, null, null, null);
+			final SQLiteDatabase db = getReadableDatabase();
+			cursor = db.query(true, DATABASE_TABLE_NAME, COLUMN_LIST, "_id = '" + id + "'", null, null, null, null,
+					null);
 			if (cursor.getCount() > 0) {
 				cursor.moveToFirst();
 				image = getImageFromCursor(cursor);
 			}
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			Log.v("ProviderWidgets", CLASSNAME, e);
 		} finally {
-			if (cursor != null && !cursor.isClosed()) {
+			if ((cursor != null) && !cursor.isClosed()) {
 				cursor.close();
 			}
 		}
 		return image;
 	}
 
+	/**
+	 * Get all of these items from the database, in a given order.
+	 * 
+	 * @param orderAscending
+	 * @return
+	 */
 	@Override
 	public List<Image> getAll(boolean orderAscending) {
 		return null;
 	}
 
 	/**
-	 * Get a list of images given a waypoint.
+	 * Get all the items associated with an id, in a given order.
+	 * 
+	 * @param orderAscending
+	 * @param id
+	 * @return
 	 */
+	@Override
 	public List<Image> getAll(boolean orderAscending, long id) {
-		List<Image> images = new ArrayList<Image>();
+		final List<Image> images = new ArrayList<Image>();
 		Cursor cursor = null;
 		try {
 			String orderBy = null;
 			if (!orderAscending) {
-				orderBy = COLUMN_LIST[0]+" DESC";
+				orderBy = COLUMN_LIST[0] + " DESC";
 			}
-			SQLiteDatabase db = this.getReadableDatabase();
-			cursor = db.query(DATABASE_TABLE_NAME, COLUMN_LIST,
-					"waypointId = '" + id + "'", null, null, null, orderBy);
-			int numRows = cursor.getCount();
+			final SQLiteDatabase db = getReadableDatabase();
+			cursor = db.query(DATABASE_TABLE_NAME, COLUMN_LIST, "waypointId = '" + id + "'", null, null, null, orderBy);
+			final int numRows = cursor.getCount();
 			cursor.moveToFirst();
 			for (int i = 0; i < numRows; ++i) {
-				Image image = getImageFromCursor(cursor);
+				final Image image = getImageFromCursor(cursor);
 				images.add(image);
 				cursor.moveToNext();
 			}
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			Log.v("ProviderWidgets", CLASSNAME, e);
 		} finally {
-			if (cursor != null && !cursor.isClosed()) {
+			if ((cursor != null) && !cursor.isClosed()) {
 				cursor.close();
 			}
 		}
 		return images;
 	}
 
+	/**
+	 * Insert the object into the database, and return its new id.
+	 * 
+	 * @param object
+	 * @return
+	 */
+	@Override
 	public long insert(Image image) {
-		ContentValues values = getContentValuesFromImage(image);
-		SQLiteDatabase db = this.getWritableDatabase();
-		long countInserted = db.insert(DATABASE_TABLE_NAME, null, values);
+		final ContentValues values = getContentValuesFromImage(image);
+		final SQLiteDatabase db = getWritableDatabase();
+		final long countInserted = db.insert(DATABASE_TABLE_NAME, null, values);
 		db.close();
 		return countInserted;
 	}
 
 	/**
-	 * Given an image, update it in the database.
+	 * Update the object in the database.
+	 * 
+	 * @param object
 	 */
+	@Override
 	public void update(Image image) {
-		ContentValues values = getContentValuesFromImage(image);
-		SQLiteDatabase db = this.getWritableDatabase();
+		final ContentValues values = getContentValuesFromImage(image);
+		final SQLiteDatabase db = getWritableDatabase();
 		db.update(DATABASE_TABLE_NAME, values, "_id=" + image.getId(), null);
 		db.close();
 	}
 
+	/**
+	 * Build a content value for a given image.
+	 * 
+	 * @param waypoint
+	 * @return
+	 */
 	private ContentValues getContentValuesFromImage(Image image) {
-		ContentValues values = new ContentValues();
+		final ContentValues values = new ContentValues();
 		values.put(COLUMN_LIST[1], image.getWaypointId());
 		values.put(COLUMN_LIST[2], image.getImageURI());
 		return values;
 	}
 
+	/**
+	 * Get the image from a Sql cursor.
+	 * 
+	 * @param cursor
+	 * @return
+	 */
 	private Image getImageFromCursor(Cursor cursor) {
-		return new Image(cursor.getLong(0), cursor.getLong(1),
-				cursor.getString(2));
+		return new Image(cursor.getLong(0), cursor.getLong(1), cursor.getString(2));
 	}
 
 }

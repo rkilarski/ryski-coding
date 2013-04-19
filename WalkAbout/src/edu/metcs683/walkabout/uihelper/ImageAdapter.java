@@ -1,4 +1,4 @@
-package edu.metcs683.walkabout;
+package edu.metcs683.walkabout.uihelper;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import edu.metcs683.walkabout.model.Image;
  * Adapter class for the images.
  */
 public class ImageAdapter extends BaseAdapter {
-	private Context context;
+	private final Context context;
 	List<Image> list;
 
 	public ImageAdapter(Context context, List<Image> imageList) {
@@ -23,24 +23,28 @@ public class ImageAdapter extends BaseAdapter {
 		this.list = imageList;
 	}
 
+	@Override
 	public int getCount() {
-		return list.size();
+		return this.list.size();
 	}
 
+	@Override
 	public Image getItem(int position) {
-		return list.get(position);
+		return this.list.get(position);
 	}
 
+	@Override
 	public long getItemId(int position) {
-		return list.get(position).getId();
+		return this.list.get(position).getId();
 	}
 
 	// create a new ImageView for each item referenced by the Adapter
+	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ImageView imageView;
 		if (convertView == null) { // if it's not recycled, initialize some
 									// attributes
-			imageView = new ImageView(context);
+			imageView = new ImageView(this.context);
 			imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
 			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 			imageView.setPadding(5, 5, 5, 5);
@@ -48,7 +52,7 @@ public class ImageAdapter extends BaseAdapter {
 			imageView = (ImageView) convertView;
 		}
 
-		Uri uri = Uri.parse(list.get(position).getImageURI());
+		final Uri uri = Uri.parse(this.list.get(position).getImageURI());
 		imageView.setImageURI(uri);
 		return imageView;
 	}

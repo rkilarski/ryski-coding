@@ -5,40 +5,46 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.metcs683.walkabout.controller.MovePhotosBetweenWaypointsController;
-import edu.metcs683.walkabout.model.Image;
-import edu.metcs683.walkabout.model.Waypoint;
-import android.net.Uri;
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
-import android.widget.AdapterView.OnItemClickListener;
+import edu.metcs683.walkabout.controller.MovePhotosBetweenWaypointsController;
+import edu.metcs683.walkabout.controller.PhotoListController;
+import edu.metcs683.walkabout.model.Image;
+import edu.metcs683.walkabout.model.Waypoint;
+import edu.metcs683.walkabout.uihelper.ImageAdapter;
 
+/**
+ * User interface for the move images between waypoints functionality.
+ * 
+ * @author ryszardkilarski
+ * 
+ */
 public class MovePhotosBetweenWaypoints extends Activity {
 
 	private Button cancelButton;
 	private MovePhotosBetweenWaypointsController controller;
 	private SimpleAdapter listViewAdapter;
-	private Spinner moveToWaypoint;
+	private Spinner targetWaypoint;
 	private Button okButton;
 	private GridView photoList;
-	private long sourceWaypointId;
-	private long targetWaypointId;
+	private final Map<Integer, Image> selectedPhotos = new HashMap<Integer, Image>();
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(
-				R.menu.activity_move_photos_between_waypoints, menu);
+		getMenuInflater().inflate(R.menu.activity_move_photos_between_waypoints, menu);
 		return true;
 	}
 
@@ -49,16 +55,16 @@ public class MovePhotosBetweenWaypoints extends Activity {
 		setContentView(R.layout.activity_move_photos_between_waypoints);
 		// Attach to UI elements
 		photoList = (GridView) findViewById(R.id.photoList);
-		moveToWaypoint = (Spinner) findViewById(R.id.moveToWaypoint);
+		targetWaypoint = (Spinner) findViewById(R.id.moveToWaypoint);
 
-		cancelButton = (Button) this.findViewById(R.id.cancelButton);
-		okButton = (Button) this.findViewById(R.id.okButton);
+		cancelButton = (Button) findViewById(R.id.cancelButton);
+		okButton = (Button) findViewById(R.id.okButton);
 
 		// Attach handlers
 		cancelButton.setOnClickListener(new CancelButtonHandler());
 		okButton.setOnClickListener(new OKButtonHandler());
 		photoList.setOnItemClickListener(new ImageClickHandler());
-		moveToWaypoint.setOnItemSelectedListener(new SpinnerClickHandler());
+		targetWaypoint.setOnItemSelectedListener(new SpinnerClickHandler());
 
 	}
 
@@ -66,38 +72,44 @@ public class MovePhotosBetweenWaypoints extends Activity {
 	 * Get data from intent and load into the form.
 	 */
 	private void loadData() {
-		Intent intent = this.getIntent();
-		sourceWaypointId = intent.getLongExtra("waypointId", 0);
+		final Intent intent = getIntent();
+		final long sourceWaypointId = intent.getLongExtra("waypointId", 0);
 
 		// Load waypoint list into spinner.
-		List<Waypoint> waypoints = controller.getWaypoints();
-		List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-		for (Waypoint waypoint : waypoints) {
+		final List<Waypoint> waypoints = controller.getWaypoints();
+		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+		for (final Waypoint waypoint : waypoints) {
 			// Exclude the source waypoint.
 			if (waypoint.getId() != sourceWaypointId) {
-				Map<String, String> datum = new HashMap<String, String>(2);
+				final Map<String, String> datum = new HashMap<String, String>(2);
 				datum.put("description", waypoint.getDescription());
 				datum.put("date", waypoint.getDateTime().toString());
 				datum.put("id", Long.toString(waypoint.getId()));
 				data.add(datum);
 			}
 		}
-		listViewAdapter = new SimpleAdapter(this, data,
-				android.R.layout.simple_list_item_2, new String[] {
-						"description", "date" }, new int[] {
-						android.R.id.text1, android.R.id.text2 });
-		moveToWaypoint.setAdapter(listViewAdapter);
+		listViewAdapter = new SimpleAdapter(this, data, android.R.layout.simple_list_item_2, new String[] {
+				"description", "date" }, new int[] { android.R.id.text1, android.R.id.text2 });
+		targetWaypoint.setAdapter(listViewAdapter);
 
-		List<Image> list = controller.getImageList(sourceWaypointId);
+		final List<Image> list = controller.getImageList(sourceWaypointId);
 		photoList.setAdapter(new ImageAdapter(this, list));
-		// this.setTitle(controller.getWaypointDescription(sourceWaypointId));
+		// setTitle(controller.getWaypointDescription(sourceWaypointId));
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		initializeUI();
+		initializeControllers();
 		loadData();
+	}
+
+	/**
+	 * Set up any needed controllers
+	 */
+	private void initializeControllers() {
+		controller = new MovePhotosBetweenWaypointsController(getApplicationContext(), this);
 	}
 
 	/**
@@ -111,22 +123,27 @@ public class MovePhotosBetweenWaypoints extends Activity {
 		}
 	}
 
+	/**
+	 * Click handler for when selecting/unselecting an image in the list.
+	 */
 	private class ImageClickHandler implements OnItemClickListener {
 
 		@Override
-		public void onItemClick(AdapterView<?> parent, View v, int position,
-				long id) {
+		public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 			// Get the image from the adapter...
-			Image image = (Image) parent.getAdapter().getItem(position);
-			// ...and get its URI.
-			Uri uri = Uri.parse(image.getImageURI());
+			final Image image = (Image) parent.getAdapter().getItem(position);
 
-			// TODO: Here, add image to selected list.
+			// And change the cell color to white or cyan, if selected.
+			if (selectedPhotos.containsKey(position)) {
+				selectedPhotos.remove(position);
+				View view = photoList.getChildAt(position);
+				view.setBackgroundColor(Color.WHITE);
+			} else {
+				selectedPhotos.put(position, image);
+				View view = photoList.getChildAt(position);
+				view.setBackgroundColor(Color.CYAN);
 
-			Intent viewImageIntent = new Intent(
-					android.content.Intent.ACTION_VIEW);
-			viewImageIntent.setDataAndType(uri, "image/jpeg");
-			startActivity(viewImageIntent);
+			}
 		}
 	}
 
@@ -136,10 +153,19 @@ public class MovePhotosBetweenWaypoints extends Activity {
 	private class OKButtonHandler implements OnClickListener {
 		@Override
 		public void onClick(View arg0) {
-			List<Image> images = new ArrayList<Image>();
-			controller.movePhotos(targetWaypointId, images);
+			final List<Image> images = new ArrayList<Image>();
+			// Get the list of images to move.
+			for (Image image : selectedPhotos.values()) {
+				images.add(image);
+			}
+			// Get target waypoint.
+			int selectedItemPosition = targetWaypoint.getSelectedItemPosition();
+			final Map<String, String> row = (HashMap<String, String>) listViewAdapter.getItem(selectedItemPosition);
+			long targetWaypoint = Long.parseLong(row.get("id"));
+
+			controller.movePhotos(targetWaypoint, images);
 			finish();
-			// overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
+			overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
 		}
 	}
 
@@ -150,9 +176,8 @@ public class MovePhotosBetweenWaypoints extends Activity {
 	private class SpinnerClickHandler implements OnItemSelectedListener {
 
 		@Override
-		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
-				long arg3) {
-			okButton.setEnabled(true);	
+		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+			okButton.setEnabled(true);
 		}
 
 		@Override

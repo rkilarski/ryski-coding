@@ -7,31 +7,30 @@ import java.util.List;
 /**
  * POJO that describes the waypoint.
  * 
- * @author Ryszard Kilarski
+ * @author ryszardkilarski
  * 
  */
 public class Waypoint {
 
 	private Date dateTime;
 	private String description;
-	private long id;
+	private final long id;
 	private List<Image> images = new ArrayList<Image>();
 	private boolean isExpanded;
 	private double latitude;
 	private double longitude;
 
-	public Waypoint(long id, String description, Date dateTime,
-			boolean isExpanded, double latitude, double longitude) {
+	public Waypoint(long id, String description, Date dateTime, boolean isExpanded, double latitude, double longitude) {
 		this.id = id;
 		this.description = description;
 		this.dateTime = dateTime;
 		this.isExpanded = isExpanded;
-		this.setLatitude(latitude);
-		this.setLongitude(longitude);
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 
 	public void addImage(Image image) {
-		images.add(image);
+		this.images.add(image);
 
 	}
 
@@ -64,7 +63,7 @@ public class Waypoint {
 	}
 
 	public void removeImage(Image image) {
-		images.remove(image);
+		this.images.remove(image);
 	}
 
 	public void setDateTime(Date dateTime) {
@@ -93,6 +92,6 @@ public class Waypoint {
 
 	@Override
 	public String toString() {
-		return this.description;
+		return description;
 	}
 }

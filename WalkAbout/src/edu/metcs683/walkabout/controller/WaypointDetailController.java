@@ -4,11 +4,17 @@ import android.content.Context;
 import edu.metcs683.walkabout.dao.WaypointDAO;
 import edu.metcs683.walkabout.model.Waypoint;
 
+/**
+ * Controller for the waypoint detail functionality.
+ * 
+ * @author ryszardkilarski
+ * 
+ */
 public class WaypointDetailController {
-	private WaypointDAO waypointDAO;
+	private final WaypointDAO waypointDAO;
 
 	public WaypointDetailController(Context context) {
-		waypointDAO = new WaypointDAO(context);
+		this.waypointDAO = new WaypointDAO(context);
 	}
 
 	public Waypoint getWaypointById(long id) {
