@@ -1,7 +1,6 @@
 package edu.metcs683.walkabout.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,18 +18,18 @@ import edu.metcs683.walkabout.model.Waypoint;
  */
 public class PhotoListController {
 
-	private AppSettingsDAO appSettingsDAO;
-	private ImageDAO imageDAO;
-	private WaypointDAO waypointDAO;
+	private final AppSettingsDAO appSettingsDAO;
+	private final ImageDAO imageDAO;
+	private final WaypointDAO waypointDAO;
 
 	public PhotoListController(Context context, Activity activity) {
-		imageDAO = new ImageDAO(context);
-		waypointDAO = new WaypointDAO(context);
-		appSettingsDAO = new AppSettingsDAO(activity);
+		this.imageDAO = new ImageDAO(context);
+		this.waypointDAO = new WaypointDAO(context);
+		this.appSettingsDAO = new AppSettingsDAO(activity);
 	}
 
 	public void changeSortOrder() {
-		boolean order = !appSettingsDAO.getWaypointPhotoOrderAscendingFlag();
+		final boolean order = !appSettingsDAO.getWaypointPhotoOrderAscendingFlag();
 		appSettingsDAO.setWaypointPhotoOrderAscendingFlag(order);
 	}
 
@@ -45,13 +44,12 @@ public class PhotoListController {
 	}
 
 	public List<Image> getImageList(long id) {
-		boolean orderByAscending = appSettingsDAO
-				.getWaypointPhotoOrderAscendingFlag();
+		final boolean orderByAscending = appSettingsDAO.getWaypointPhotoOrderAscendingFlag();
 		return imageDAO.getAll(orderByAscending, id);
 	}
 
 	public String getWaypointDescription(long id) {
-		Waypoint waypoint = waypointDAO.get(id);
+		final Waypoint waypoint = waypointDAO.get(id);
 		return waypoint.getDescription();
 	}
 

@@ -38,18 +38,56 @@ public abstract class Database<T> extends SQLiteOpenHelper {
 		super(context, DB_NAME, null, DB_VERSION);
 	}
 
+	/**
+	 * Given an id, delete the item from the database.
+	 * 
+	 * @param id
+	 */
 	abstract public void delete(long id);
 
+	/**
+	 * Delete all rows from the database.
+	 */
 	abstract public void deleteAll();
 
+	/**
+	 * Given an id, delete all items associated with that id from the database.
+	 * 
+	 * @param id
+	 */
 	abstract public void deleteAll(long id);
 
+	/**
+	 * Given an id, get the item from the database.
+	 * 
+	 * @param id
+	 * @return
+	 */
 	abstract public T get(long id);
 
+	/**
+	 * Get all of these items from the database, in a given order.
+	 * 
+	 * @param orderAscending
+	 * @return
+	 */
 	abstract public List<T> getAll(boolean orderAscending);
 
+	/**
+	 * Get all the items associated with an id, in a given order.
+	 * 
+	 * @param orderAscending
+	 * @param id
+	 * @return
+	 */
 	abstract public List<T> getAll(boolean orderAscending, long id);
 
+	/**
+	 * Insert the object into the database, and return its new id.
+	 * 
+	 * @param object
+	 * @return
+	 */
 	abstract public long insert(T object);
 
 	@Override
@@ -57,7 +95,7 @@ public abstract class Database<T> extends SQLiteOpenHelper {
 		try {
 			db.execSQL(TABLE_CREATE_STRING_WAYPOINT);
 			db.execSQL(TABLE_CREATE_STRING_WAYPOINT_IMAGE);
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			Log.e("ProviderWidgets", CLASSNAME, e);
 		}
 	}
@@ -71,9 +109,14 @@ public abstract class Database<T> extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
 		db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_NAME_WAYPOINT);
 		db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_NAME_WAYPOINT_IMAGE);
-		onCreate(db);
+		this.onCreate(db);
 	}
 
+	/**
+	 * Update the object in the database.
+	 * 
+	 * @param object
+	 */
 	abstract public void update(T object);
 
 }

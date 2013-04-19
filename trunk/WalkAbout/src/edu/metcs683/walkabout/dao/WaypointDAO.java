@@ -14,7 +14,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
 import edu.metcs683.walkabout.model.Waypoint;
 
 /**
@@ -28,110 +27,158 @@ import edu.metcs683.walkabout.model.Waypoint;
 public class WaypointDAO extends Database<Waypoint> {
 
 	private static final String CLASSNAME = WaypointDAO.class.getSimpleName();
-	private static final String[] COLUMN_LIST = new String[] { "_id",
-			"description", "dateTime", "isExpanded", "latitude", "longitude" };
+	private static final String[] COLUMN_LIST = new String[] { "_id", "description", "dateTime", "isExpanded",
+			"latitude", "longitude" };
 	private static final String DATABASE_TABLE_NAME = "waypoint";
 
 	public WaypointDAO(Context context) {
 		super(context);
 	}
 
+	/**
+	 * Given an id, delete the item from the database.
+	 * 
+	 * @param id
+	 */
 	@Override
 	public void delete(long id) {
-		SQLiteDatabase db = this.getWritableDatabase();
+		final SQLiteDatabase db = getWritableDatabase();
 		db.delete(DATABASE_TABLE_NAME, "_id=" + id, null);
 		db.close();
 	}
 
+	/**
+	 * Delete all rows from the database.
+	 */
 	@Override
 	public void deleteAll() {
-		SQLiteDatabase db = this.getWritableDatabase();
+		final SQLiteDatabase db = getWritableDatabase();
 		db.delete(DATABASE_TABLE_NAME, null, null);
 		db.close();
 	}
 
+	/**
+	 * Given an id, delete all items associated with that id from the database.
+	 * 
+	 * @param id
+	 */
 	@Override
 	public void deleteAll(long id) {
 		delete(id);
 	}
 
+	/**
+	 * Given an id, get the item from the database.
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@Override
 	public Waypoint get(long id) {
 		Cursor cursor = null;
 		Waypoint waypoint = null;
 		try {
-			SQLiteDatabase db = this.getReadableDatabase();
-			cursor = db.query(true, DATABASE_TABLE_NAME, COLUMN_LIST, "_id = '"
-					+ id + "'", null, null, null, null, null);
+			final SQLiteDatabase db = getReadableDatabase();
+			cursor = db.query(true, DATABASE_TABLE_NAME, COLUMN_LIST, "_id = '" + id + "'", null, null, null, null,
+					null);
 			if (cursor.getCount() > 0) {
 				cursor.moveToFirst();
 				waypoint = getWaypointFromCursor(cursor);
 			}
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			Log.v("ProviderWidgets", CLASSNAME, e);
 		} finally {
-			if (cursor != null && !cursor.isClosed()) {
+			if ((cursor != null) && !cursor.isClosed()) {
 				cursor.close();
 			}
 		}
 		return waypoint;
 	}
 
+	/**
+	 * Get all of these items from the database, in a given order.
+	 * 
+	 * @param orderAscending
+	 * @return
+	 */
 	@Override
 	public List<Waypoint> getAll(boolean orderAscending) {
-		List<Waypoint> waypoints = new ArrayList<Waypoint>();
+		final List<Waypoint> waypoints = new ArrayList<Waypoint>();
 		Cursor cursor = null;
 		try {
 			String orderBy = null;
 			if (!orderAscending) {
 				orderBy = COLUMN_LIST[0] + " DESC";
 			}
-			SQLiteDatabase db = this.getReadableDatabase();
-			cursor = db.query(DATABASE_TABLE_NAME, COLUMN_LIST, null, null,
-					null, null, orderBy);
-			int numRows = cursor.getCount();
+			final SQLiteDatabase db = getReadableDatabase();
+			cursor = db.query(DATABASE_TABLE_NAME, COLUMN_LIST, null, null, null, null, orderBy);
+			final int numRows = cursor.getCount();
 			cursor.moveToFirst();
 			for (int i = 0; i < numRows; ++i) {
-				Waypoint waypoint = getWaypointFromCursor(cursor);
+				final Waypoint waypoint = getWaypointFromCursor(cursor);
 				waypoints.add(waypoint);
 				cursor.moveToNext();
 			}
-		} catch (SQLException e) {
+		} catch (final SQLException e) {
 			Log.v("ProviderWidgets", CLASSNAME, e);
 		} finally {
-			if (cursor != null && !cursor.isClosed()) {
+			if ((cursor != null) && !cursor.isClosed()) {
 				cursor.close();
 			}
 		}
 		return waypoints;
 	}
 
+	/**
+	 * Get all the items associated with an id, in a given order.
+	 * 
+	 * @param orderAscending
+	 * @param id
+	 * @return
+	 */
 	@Override
 	public List<Waypoint> getAll(boolean orderAscending, long id) {
 		// This is deliberately non functional.
 		return null;
 	}
 
+	/**
+	 * Insert the object into the database, and return its new id.
+	 * 
+	 * @param object
+	 * @return
+	 */
 	@Override
 	public long insert(Waypoint waypoint) {
-		ContentValues values = getContentValuesFromWaypoint(waypoint);
-		SQLiteDatabase db = this.getWritableDatabase();
-		long countInserted = db.insert(DATABASE_TABLE_NAME, null, values);
+		final ContentValues values = getContentValuesFromWaypoint(waypoint);
+		final SQLiteDatabase db = getWritableDatabase();
+		final long countInserted = db.insert(DATABASE_TABLE_NAME, null, values);
 		db.close();
 		return countInserted;
 	}
 
+	/**
+	 * Update the object in the database.
+	 * 
+	 * @param object
+	 */
 	@Override
 	public void update(Waypoint waypoint) {
-		ContentValues values = getContentValuesFromWaypoint(waypoint);
-		SQLiteDatabase db = this.getWritableDatabase();
+		final ContentValues values = getContentValuesFromWaypoint(waypoint);
+		final SQLiteDatabase db = getWritableDatabase();
 		db.update(DATABASE_TABLE_NAME, values, "_id=" + waypoint.getId(), null);
 		db.close();
 	}
 
+	/**
+	 * Build a content value for a given waypoint.
+	 * 
+	 * @param waypoint
+	 * @return
+	 */
 	private ContentValues getContentValuesFromWaypoint(Waypoint waypoint) {
 		// TODO
-		ContentValues values = new ContentValues();
+		final ContentValues values = new ContentValues();
 		values.put(COLUMN_LIST[1], waypoint.getDescription());
 		values.put(COLUMN_LIST[2], getStringFromDate(waypoint.getDateTime()));
 		// values.put(COLUMN_LIST[4], waypoint.isExpanded() ? 1 : 0);
@@ -140,32 +187,46 @@ public class WaypointDAO extends Database<Waypoint> {
 		return values;
 	}
 
+	/**
+	 * Convert a string into a date.
+	 * 
+	 * @param string
+	 * @return
+	 */
 	private Date getDateFromString(String string) {
 		if (string == null) {
 			return new Date();
 		}
 		Date date = null;
-		SimpleDateFormat formatter = new SimpleDateFormat(
-				"yyyy-MM-dd HH:mm:ss", Locale.US);
+		final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 		try {
 			date = formatter.parse(string);
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			e.printStackTrace();
 		}
 		return date;
 	}
 
+	/**
+	 * Convert a date into a string.
+	 * 
+	 * @param date
+	 * @return
+	 */
 	private String getStringFromDate(Date date) {
-		Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-				Locale.US);
+		final Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 		return formatter.format(date);
 	}
 
+	/**
+	 * Get the waypoint from a Sql cursor.
+	 * 
+	 * @param cursor
+	 * @return
+	 */
 	private Waypoint getWaypointFromCursor(Cursor cursor) {
-		return new Waypoint(cursor.getLong(0), cursor.getString(1),
-				getDateFromString(cursor.getString(2)),
-				(cursor.getInt(3) == 0 ? false : true),
-				Double.parseDouble(cursor.getString(4)),
+		return new Waypoint(cursor.getLong(0), cursor.getString(1), getDateFromString(cursor.getString(2)),
+				(cursor.getInt(3) == 0 ? false : true), Double.parseDouble(cursor.getString(4)),
 				Double.parseDouble(cursor.getString(5)));
 	}
 

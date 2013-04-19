@@ -4,7 +4,6 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
-
 import edu.metcs683.walkabout.dao.AppSettingsDAO;
 import edu.metcs683.walkabout.dao.ImageDAO;
 import edu.metcs683.walkabout.dao.WaypointDAO;
@@ -18,9 +17,9 @@ import edu.metcs683.walkabout.model.Waypoint;
  * 
  */
 public class MovePhotosBetweenWaypointsController {
-	private AppSettingsDAO appSettingsDAO;
-	private ImageDAO imageDAO;
-	private WaypointDAO waypointDAO;
+	private final AppSettingsDAO appSettingsDAO;
+	private final ImageDAO imageDAO;
+	private final WaypointDAO waypointDAO;
 
 	/**
 	 * Constructor for this controller.
@@ -28,11 +27,10 @@ public class MovePhotosBetweenWaypointsController {
 	 * @param context
 	 * @param activity
 	 */
-	public MovePhotosBetweenWaypointsController(Context context,
-			Activity activity) {
-		waypointDAO = new WaypointDAO(context);
-		imageDAO = new ImageDAO(context);
-		appSettingsDAO = new AppSettingsDAO(activity);
+	public MovePhotosBetweenWaypointsController(Context context, Activity activity) {
+		this.waypointDAO = new WaypointDAO(context);
+		this.imageDAO = new ImageDAO(context);
+		this.appSettingsDAO = new AppSettingsDAO(activity);
 	}
 
 	/**
@@ -42,8 +40,7 @@ public class MovePhotosBetweenWaypointsController {
 	 * @return
 	 */
 	public List<Image> getImageList(long id) {
-		boolean orderByAscending = appSettingsDAO
-				.getWaypointPhotoOrderAscendingFlag();
+		final boolean orderByAscending = appSettingsDAO.getWaypointPhotoOrderAscendingFlag();
 		return imageDAO.getAll(orderByAscending, id);
 	}
 
@@ -53,8 +50,7 @@ public class MovePhotosBetweenWaypointsController {
 	 * @return
 	 */
 	public List<Waypoint> getWaypoints() {
-		boolean orderByAscending = appSettingsDAO
-				.getWaypointOrderAscendingFlag();
+		final boolean orderByAscending = appSettingsDAO.getWaypointOrderAscendingFlag();
 		return waypointDAO.getAll(orderByAscending);
 	}
 
@@ -65,7 +61,7 @@ public class MovePhotosBetweenWaypointsController {
 	 * @param images
 	 */
 	public void movePhotos(long toWaypoint, List<Image> images) {
-		for (Image image : images) {
+		for (final Image image : images) {
 			image.setWaypointId(toWaypoint);
 			imageDAO.update(image);
 		}
