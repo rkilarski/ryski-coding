@@ -66,6 +66,14 @@ public abstract class Database<T> extends SQLiteOpenHelper {
 	abstract public T get(long id);
 
 	/**
+	 * Get all of these items from the database, in no given order.
+	 * 
+	 * @param orderAscending
+	 * @return
+	 */
+	abstract public List<T> getAll();
+	
+	/**
 	 * Get all of these items from the database, in a given order.
 	 * 
 	 * @param orderAscending

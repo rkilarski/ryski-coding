@@ -1,5 +1,6 @@
 package edu.metcs683.walkabout.dao;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.util.Log;
 import edu.metcs683.walkabout.model.Image;
 
@@ -29,12 +31,16 @@ public class ImageDAO extends Database<Image> {
 	}
 
 	/**
-	 * Given an id, delete the item from the database.
+	 * Given an id, delete the item from the database and the filesystem.
 	 * 
 	 * @param id
 	 */
 	@Override
 	public void delete(long id) {
+		Image image = get(id);
+		File file = new File(Uri.parse(image.getImageURI()).getPath());
+		file.delete();
+
 		final SQLiteDatabase db = getWritableDatabase();
 		db.delete(DATABASE_TABLE_NAME, "_id=" + id, null);
 		db.close();
@@ -45,9 +51,10 @@ public class ImageDAO extends Database<Image> {
 	 */
 	@Override
 	public void deleteAll() {
-		final SQLiteDatabase db = getWritableDatabase();
-		db.delete(DATABASE_TABLE_NAME, null, null);
-		db.close();
+		List<Image> list = getAll();
+		for (Image image : list) {
+			delete(image.getId());
+		}
 	}
 
 	/**
@@ -57,12 +64,9 @@ public class ImageDAO extends Database<Image> {
 	 */
 	@Override
 	public void deleteAll(long id) {
-		try {
-			final SQLiteDatabase db = getWritableDatabase();
-			db.delete(DATABASE_TABLE_NAME, "waypointId=" + id, null);
-			db.close();
-		} catch (final Exception ex) {
-			;
+		List<Image> list = getAll(true, id);
+		for (Image image : list) {
+			delete(image.getId());
 		}
 	}
 
@@ -92,6 +96,17 @@ public class ImageDAO extends Database<Image> {
 			}
 		}
 		return image;
+	}
+
+	/**
+	 * Get all of these items from the database, in no given order.
+	 * 
+	 * @param orderAscending
+	 * @return
+	 */
+	@Override
+	public List<Image> getAll() {
+		return getAll(true);
 	}
 
 	/**

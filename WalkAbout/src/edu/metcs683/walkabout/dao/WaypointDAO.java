@@ -96,6 +96,16 @@ public class WaypointDAO extends Database<Waypoint> {
 	}
 
 	/**
+	 * Get all the items associated, in no given order.
+	 * 
+	 * @return
+	 */
+	@Override
+	public List<Waypoint> getAll() {
+		return getAll(true);
+	}
+	
+	/**
 	 * Get all of these items from the database, in a given order.
 	 * 
 	 * @param orderAscending
