@@ -7,6 +7,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.Camera;
@@ -18,8 +19,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
 import android.widget.Toast;
 import edu.metcs683.walkabout.controller.PhotoListController;
@@ -107,8 +110,8 @@ public class PhotoList extends Activity {
 				overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
 				break;
 			case R.id.delete_waypoint:
-				final String title = "Delete Waypoint";
-				final String message = "This action will delete the current waypoint and all associated images.  Are you sure?";
+				final String title = getString(R.string.delete_waypoint_text);
+				final String message = getString(R.string.delete_waypoint_message);
 				final String yes = getString(R.string.yes);
 				final String no = getString(R.string.no);
 				new AlertDialog.Builder(this).setTitle(title).setMessage(message)
@@ -152,6 +155,13 @@ public class PhotoList extends Activity {
 	}
 
 	/**
+	 * Ability to delete this image.
+	 */
+	private void deleteImage(Image image) {
+		controller.deleteImage(image.getId());
+	}
+
+	/**
 	 * Ability to delete this waypoint.
 	 */
 	private void deleteWaypoint() {
@@ -165,6 +175,7 @@ public class PhotoList extends Activity {
 	private void initializeUI() {
 		photoList = (GridView) findViewById(R.id.photoList);
 		photoList.setOnItemClickListener(new ImageClickHandler());
+		photoList.setOnItemLongClickListener(new ImageLongClickHandler(this));
 	}
 
 	/**
@@ -269,6 +280,44 @@ public class PhotoList extends Activity {
 			final Intent viewImageIntent = new Intent(android.content.Intent.ACTION_VIEW);
 			viewImageIntent.setDataAndType(uri, "image/jpeg");
 			startActivity(viewImageIntent);
+		}
+	}
+
+	/**
+	 * Handle a long click on an image. Delete the image.
+	 */
+	private class ImageLongClickHandler implements OnItemLongClickListener {
+
+		Context context;
+
+		private ImageLongClickHandler(Context context) {
+			this.context = context;
+		}
+
+		@Override
+		public boolean onItemLongClick(AdapterView<?> parent, View arg1, int position, long arg3) {
+			// Get the image from the adapter...
+			final Image image = (Image) parent.getAdapter().getItem(position);
+			final String title = getString(R.string.delete_image_text);
+			final String message = getString(R.string.delete_image_message);
+			final String yes = getString(R.string.yes);
+			final String no = getString(R.string.no);
+
+			new AlertDialog.Builder(context).setTitle(title).setMessage(message)
+					.setPositiveButton(yes, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int whichButton) {
+							deleteImage(image);
+							loadData();
+						}
+					}).setNegativeButton(no, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int whichButton) {
+							// Do nothing.
+						}
+					}).show();
+
+			return false;
 		}
 	}
 }
