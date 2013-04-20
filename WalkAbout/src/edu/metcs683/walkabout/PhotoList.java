@@ -64,7 +64,6 @@ public class PhotoList extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		final String fnyi = getString(R.string.fnyi);
 		Intent intent = null;
 		long id;
 		Bundle bundle;
@@ -129,7 +128,15 @@ public class PhotoList extends Activity {
 						}).show();
 				break;
 			case R.id.map_waypoint:
-				Toast.makeText(getApplicationContext(), fnyi, Toast.LENGTH_SHORT).show();
+				intent = new Intent(this, WaypointMap.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+				bundle = new Bundle();
+				id = getIntent().getLongExtra("waypointId", 0);
+				bundle.putLong("waypointId", id);
+				intent.putExtras(bundle);
+
+				startActivity(intent);
 				break;
 			case R.id.change_sort:
 				controller.changeSortOrder();
