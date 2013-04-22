@@ -1,12 +1,9 @@
 package edu.metcs683.walkabout.controller;
 
-import java.io.File;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
-import android.database.Cursor;
-import android.net.Uri;
 import edu.metcs683.walkabout.dao.AppSettingsDAO;
 import edu.metcs683.walkabout.dao.ImageDAO;
 import edu.metcs683.walkabout.dao.WaypointDAO;

@@ -19,14 +19,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnLongClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
 import android.widget.Toast;
 import edu.metcs683.walkabout.controller.PhotoListController;
-import edu.metcs683.walkabout.controller.WaypointDetailController;
 import edu.metcs683.walkabout.model.Image;
 import edu.metcs683.walkabout.uihelper.ImageAdapter;
 
@@ -143,7 +141,7 @@ public class PhotoList extends Activity {
 				loadData();
 				return true;
 			case R.id.move_photos:
-				intent = new Intent(this, MovePhotosBetweenWaypoints.class);
+				intent = new Intent(this, WaypointPhotoMove.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
 				bundle = new Bundle();
