@@ -20,7 +20,7 @@ import edu.metcs683.walkabout.model.Waypoint;
  * Data access object for the waypoint. This class controls the
  * loading/saving/querying of waypoints in the database.
  * 
- * @author Ryszard Kilarski
+ * @author Ryszard Kilarski (U81-39-8560)
  * 
  */
 

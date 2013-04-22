@@ -11,7 +11,7 @@ import android.util.Log;
 /**
  * POJO that describes the image.
  * 
- * @author ryszardkilarski
+  * @author Ryszard Kilarski (U81-39-8560)
  * 
  */
 public class Image {

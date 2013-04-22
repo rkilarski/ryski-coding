@@ -15,6 +15,12 @@ import edu.metcs683.walkabout.model.Waypoint;
 import android.os.Bundle;
 import android.content.Intent;
 
+/**
+ * Main user interface for the waypoint map.
+ * 
+ * @author Ryszard Kilarski (U81-39-8560)
+ *
+ */
 public class WaypointMap extends MapActivity {
 
 	private WaypointMapController controller;

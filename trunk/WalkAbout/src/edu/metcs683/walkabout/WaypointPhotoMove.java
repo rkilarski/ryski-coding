@@ -27,7 +27,7 @@ import edu.metcs683.walkabout.uihelper.ImageAdapter;
 /**
  * User interface for the move images between waypoints functionality.
  * 
- * @author ryszardkilarski
+ * @author Ryszard Kilarski (U81-39-8560)
  * 
  */
 public class WaypointPhotoMove extends Activity {

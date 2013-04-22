@@ -21,7 +21,7 @@ import edu.metcs683.walkabout.uihelper.LocationService;
 /**
  * User interface for the Waypoint detail screen.
  * 
- * @author ryszardkilarski
+ * @author Ryszard Kilarski (U81-39-8560)
  * 
  */
 public class WaypointDetail extends Activity {

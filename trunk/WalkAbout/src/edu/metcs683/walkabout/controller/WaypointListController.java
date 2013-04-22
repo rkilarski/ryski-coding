@@ -11,7 +11,7 @@ import edu.metcs683.walkabout.model.Waypoint;
 /**
  * Controller for the waypoint list functionality.
  * 
- * @author ryszardkilarski
+ * @author Ryszard Kilarski (U81-39-8560)
  * 
  */
 public class WaypointListController {

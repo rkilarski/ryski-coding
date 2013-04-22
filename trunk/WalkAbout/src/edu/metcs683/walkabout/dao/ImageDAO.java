@@ -17,8 +17,8 @@ import edu.metcs683.walkabout.model.Image;
  * Data access object for the image. This class controls the
  * loading/saving/querying of images in the database.
  * 
- * @author Ryszard Kilarski
- * 
+ * @author Ryszard Kilarski (U81-39-8560)
+ *  
  */
 public class ImageDAO extends Database<Image> {
 

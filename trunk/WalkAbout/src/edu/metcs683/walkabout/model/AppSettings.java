@@ -6,7 +6,7 @@ import edu.metcs683.walkabout.dao.AppSettingsDAO;
 /**
  * Model class for the App Settings data.
  * 
- * @author Ryszard Kilarski
+ * @author Ryszard Kilarski (U81-39-8560)
  * 
  */
 public class AppSettings {

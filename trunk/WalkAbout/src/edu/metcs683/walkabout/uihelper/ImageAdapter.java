@@ -13,6 +13,7 @@ import edu.metcs683.walkabout.model.Image;
 
 /**
  * Adapter class for the images.
+ * @author Ryszard Kilarski (U81-39-8560)
  */
 public class ImageAdapter extends BaseAdapter {
 	private final Context context;

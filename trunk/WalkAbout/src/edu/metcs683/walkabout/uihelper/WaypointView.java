@@ -39,7 +39,7 @@ import android.widget.TextView;
  * Custom compound view that contains all the images for one waypoint, along
  * with all the waypoint-specific functionality that goes along with it.
  * 
- * @author ryszardkilarski
+  * @author Ryszard Kilarski (U81-39-8560)
  * 
  */
 public class WaypointView extends LinearLayout {

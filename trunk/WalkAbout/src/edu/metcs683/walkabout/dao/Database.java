@@ -12,7 +12,7 @@ import android.util.Log;
  * Abstract class for all database (DAO) classes. This class will take care of
  * creating the database and all of its tables.
  * 
- * @author Ryszard Kilarski
+ * @author Ryszard Kilarski (U81-39-8560)
  * 
  * @param <T>
  */

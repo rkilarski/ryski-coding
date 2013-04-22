@@ -8,7 +8,7 @@ import android.content.SharedPreferences.Editor;
 /**
  * Data access object for the model data.
  * 
- * @author Ryszard Kilarski
+ * @author Ryszard Kilarski (U81-39-8560)
  * 
  */
 public class AppSettingsDAO {
