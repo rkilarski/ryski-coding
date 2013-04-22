@@ -4,11 +4,9 @@
     <string name="app_name">WalkAbout</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_waypoint_detail">WaypointDetail</string>
-    <string name="title_activity_waypoint_map">WaypointMap</string>
-    <string name="title_activity_move_photos_between_waypoints">MovePhotosBetweenWaypoints</string>
-    <string name="title_activity_photo_viewer">PhotoViewer</string>
-    <string name="title_activity_photo_detail">PhotoDetail</string>
+    <string name="title_activity_waypoint_detail">Waypoint Detail</string>
+    <string name="title_activity_waypoint_map">Waypoint Map</string>
+    <string name="title_activity_move_photos_between_waypoints">Move Photos</string>
     <string name="description_label">Description:</string>
     <string name="date_label">Date:</string>
     <string name="OK_button_label">OK</string>
@@ -34,6 +32,7 @@
     <string name="no">No</string>
     <string name="camera_not_available_text">The camera is not available on this device.</string>
     <string name="fnyi">Functionality Not Yet Implemented</string>
-	<string name="change_ascending_text">Change Order</string>
-	<string name="select_waypoint_label">Copy To Waypoint</string>
+    <string name="change_ascending_text">Change Order</string>
+    <string name="select_waypoint_label">Copy To Waypoint</string>
+
 </resources>
