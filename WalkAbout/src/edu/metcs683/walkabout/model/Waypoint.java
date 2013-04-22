@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * POJO that describes the waypoint.
  * 
- * @author ryszardkilarski
+  * @author Ryszard Kilarski (U81-39-8560)
  * 
  */
 public class Waypoint {

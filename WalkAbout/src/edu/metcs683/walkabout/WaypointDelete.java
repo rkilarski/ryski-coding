@@ -8,7 +8,7 @@ import android.os.Bundle;
 /**
  * Activity to delete a waypoint.
  * 
- * @author ryszardkilarski
+ * @author Ryszard Kilarski (U81-39-8560)
  * 
  */
 public class WaypointDelete extends Activity {

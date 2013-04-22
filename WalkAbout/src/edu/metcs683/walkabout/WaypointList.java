@@ -23,7 +23,7 @@ import edu.metcs683.walkabout.uihelper.WaypointView;
 /**
  * Main user interface for WalkAbout. This is the Waypoint List UI.
  * 
- * @author Ryszard Kilarski
+ * @author Ryszard Kilarski (U81-39-8560)
  * 
  */
 public class WaypointList extends Activity {

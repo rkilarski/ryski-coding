@@ -31,8 +31,8 @@ import edu.metcs683.walkabout.uihelper.ImageAdapter;
 /**
  * User interface for the photo list screen.
  * 
- * @author ryszardkilarski
- * 
+ * @author Ryszard Kilarski (U81-39-8560)
+ *
  */
 public class PhotoList extends Activity {
 

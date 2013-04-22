@@ -10,7 +10,7 @@ import android.widget.Toast;
 /**
  * Utility class to encapsulate gps/location services.
  * 
- * @author ryszardkilarski
+  * @author Ryszard Kilarski (U81-39-8560)
  * 
  */
 public class LocationService {

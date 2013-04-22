@@ -13,7 +13,7 @@ import edu.metcs683.walkabout.model.Waypoint;
 /**
  * Controller for the waypoint view.
  * 
- * @author Ryszard Kilarski
+ * @author Ryszard Kilarski (U81-39-8560)
  * 
  */
 public class WaypointViewController {
