@@ -35,8 +35,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <!-- neat trick to push the stuff below all the way to bottom -->
-
     <Button
         android:id="@+id/locationButton"
         style="?android:attr/borderlessButtonStyle"
@@ -50,6 +48,8 @@
         android:layout_width="fill_parent"
         android:layout_height="0dip"
         android:layout_weight="1" />
+
+    <!-- neat trick to push the stuff below all the way to bottom -->
     <!-- divider -->
 
     <View
