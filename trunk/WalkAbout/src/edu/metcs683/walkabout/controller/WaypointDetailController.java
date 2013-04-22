@@ -21,11 +21,14 @@ public class WaypointDetailController {
 		return waypointDAO.get(id);
 	}
 
-	public void saveWaypoint(Waypoint waypoint) {
+	public long saveWaypoint(Waypoint waypoint) {
+		long id = 0;
 		if (waypoint.getId() == 0) {
-			waypointDAO.insert(waypoint);
+			id = waypointDAO.insert(waypoint);
 		} else {
 			waypointDAO.update(waypoint);
+			id = waypoint.getId();
 		}
+		return id;
 	}
 }

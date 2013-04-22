@@ -33,4 +33,8 @@ public class WaypointListController {
 		final boolean orderByAscending = appSettingsDAO.getWaypointOrderAscendingFlag();
 		return waypointDAO.getAll(orderByAscending);
 	}
+
+	public boolean getWaypointOrder() {
+		return appSettingsDAO.getWaypointOrderAscendingFlag();
+	}
 }

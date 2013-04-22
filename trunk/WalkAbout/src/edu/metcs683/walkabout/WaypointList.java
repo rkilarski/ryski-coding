@@ -13,10 +13,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import edu.metcs683.walkabout.controller.WaypointListController;
 import edu.metcs683.walkabout.model.Waypoint;
+import edu.metcs683.walkabout.uihelper.WaypointView;
 
 /**
  * Main user interface for WalkAbout. This is the Waypoint List UI.
@@ -29,6 +31,7 @@ public class WaypointList extends Activity {
 	private WaypointListController controller;
 	private SimpleAdapter listViewAdapter;
 	private ListView waypointList;
+	private LinearLayout layout;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -57,43 +60,80 @@ public class WaypointList extends Activity {
 
 	private void initializeUI() {
 		setContentView(R.layout.activity_waypoint_list);
+		layout = (LinearLayout) findViewById(R.id.LinearLayout1);
 		// Attach to UI elements
-		waypointList = (ListView) findViewById(R.id.waypointList);
+		// rkilarski waypointList = (ListView) findViewById(R.id.waypointList);
 
 		// Attach handlers
-		waypointList.setOnItemClickListener(new ListItemClickListener());
+		// rkilarski waypointList.setOnItemClickListener(new
+		// ListItemClickHandler());
 	}
 
 	private void loadData() {
 		final List<Waypoint> waypoints = controller.getWaypoints();
 		// Get list of all waypoints.
-		/*
-		 * ArrayAdapter<Waypoint> adapter = new ArrayAdapter<Waypoint>(this,
-		 * android.R.layout.simple_list_item_1, android.R.id.text1, waypoints);
-		 */
 		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 		for (final Waypoint waypoint : waypoints) {
-			final Map<String, String> datum = new HashMap<String, String>(2);
-			datum.put("description", waypoint.getDescription());
-			datum.put("date", waypoint.getDateTime().toString());
-			datum.put("id", Long.toString(waypoint.getId()));
-			data.add(datum);
+			WaypointView waypointView = new WaypointView(this, this.getApplicationContext(), waypoint.getId());
+			layout.addView(waypointView);
+			/* rkilarski
+			 * final Map<String, String> datum = new HashMap<String, String>(2);
+			 * datum.put("description", waypoint.getDescription());
+			 * datum.put("date", waypoint.getDateTime().toString());
+			 * datum.put("id", Long.toString(waypoint.getId()));
+			 * data.add(datum);
+			 */
 		}
-		listViewAdapter = new SimpleAdapter(this, data, android.R.layout.simple_list_item_2, new String[] {
-				"description", "date" }, new int[] { android.R.id.text1, android.R.id.text2 });
-		waypointList.setAdapter(listViewAdapter);
+		/*
+		 * listViewAdapter = new SimpleAdapter(this, data,
+		 * android.R.layout.simple_list_item_2, new String[] { "description",
+		 * "date" }, new int[] { android.R.id.text1, android.R.id.text2 });
+		 * waypointList.setAdapter(listViewAdapter);
+		 */
 		// TODO
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-
+		final long id = data.getLongExtra("waypointId", 0);
+		final int position = getViewPosition(id);
+		WaypointView view;
+		
 		switch (requestCode) {
 			case WaypointDetail.ADD_WAYPOINT:
+				WaypointView waypointView = new WaypointView(this, this.getApplicationContext(), id);
+				if (controller.getWaypointOrder()) {
+					layout.addView(waypointView); // Add to the end.
+				} else {
+					layout.addView(waypointView, 0); // Add to the beginning.
+				}
+				break;
+			case WaypointDetail.EDIT_WAYPOINT:
+				view = (WaypointView) layout.getChildAt(position);
+				view.updateWaypointAttributes();
+				break;
+			case WaypointDetail.DELETE_WAYPOINT:
+				layout.removeViewAt(position);
+				break;
+			case WaypointDetail.REORDER_WAYPOINT:
+				view = (WaypointView) layout.getChildAt(position);
+				view.updateWaypointPhotos();
+				break;
+			case WaypointDetail.MOVE_PHOTOS:
+				loadData();
 				break;
 		}
-		loadData();
+	}
+
+	private int getViewPosition(long id) {
+		for (int i = 0; i < layout.getChildCount(); i++) {
+			View v = layout.getChildAt(i);
+			if ((v instanceof WaypointView) && ((((WaypointView) v).getWaypointId()) == id)) {
+				return i;
+			}
+		}
+		return 0;
 	}
 
 	@Override
@@ -107,13 +147,14 @@ public class WaypointList extends Activity {
 	/**
 	 * Set up any needed controllers
 	 */
-	private void initializeControllers(){
-		controller = new WaypointListController(getApplicationContext(), this);		
+	private void initializeControllers() {
+		controller = new WaypointListController(getApplicationContext(), this);
 	}
+
 	/**
 	 * Handler to view photos for a particular Waypoint.
 	 */
-	private class ListItemClickListener implements OnItemClickListener {
+	private class ListItemClickHandler implements OnItemClickListener {
 
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {

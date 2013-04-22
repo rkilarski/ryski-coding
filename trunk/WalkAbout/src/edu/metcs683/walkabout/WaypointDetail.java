@@ -4,11 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -19,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import edu.metcs683.walkabout.controller.WaypointDetailController;
 import edu.metcs683.walkabout.model.Waypoint;
+import edu.metcs683.walkabout.uihelper.LocationService;
 
 /**
  * User interface for the Waypoint detail screen.
@@ -30,6 +28,9 @@ public class WaypointDetail extends Activity {
 
 	public static final int ADD_WAYPOINT = 2;
 	public static final int EDIT_WAYPOINT = 1;
+	public static final int DELETE_WAYPOINT = 3;
+	public static final int REORDER_WAYPOINT = 4;
+	public static final int MOVE_PHOTOS = 5;
 	private Button cancelButton;
 	private WaypointDetailController controller;
 	private EditText description;
@@ -68,31 +69,6 @@ public class WaypointDetail extends Activity {
 	}
 
 	/**
-	 * Return the location from the GPS/network provider.
-	 * 
-	 * @return
-	 */
-	private Location getLocation() {
-		Location location = null;
-		final LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		final boolean enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-		if (enabled) {
-			final Criteria criteria = new Criteria();
-			final String provider = locationManager.getBestProvider(criteria, true);
-			location = locationManager.getLastKnownLocation(provider);
-			if (location == null) {
-				// What do we do?
-				location = new Location("network"); // Try returning network
-													// location.
-				Toast.makeText(getApplicationContext(),
-						"Location Services are not enabled on this device, cannot access GPS.", Toast.LENGTH_LONG)
-						.show();
-			}
-		}
-		return location;
-	}
-
-	/**
 	 * Initialize the UI objects and attach any handlers.
 	 */
 	private void initializeUI() {
@@ -121,7 +97,7 @@ public class WaypointDetail extends Activity {
 			waypoint = controller.getWaypointById(id);
 			mapWaypointToForm(waypoint);
 		} else {
-			final Location location = getLocation();
+			final Location location = LocationService.getLocation(this);
 			waypoint = new Waypoint(0, null, new Date(), false, location.getLatitude(), location.getLongitude());
 			mapWaypointToForm(waypoint);
 		}
@@ -187,7 +163,7 @@ public class WaypointDetail extends Activity {
 	private class LocationButtonListener implements OnClickListener {
 		@Override
 		public void onClick(View arg0) {
-			final Location location = getLocation();
+			final Location location = LocationService.getLocation(WaypointDetail.this);
 			if (location != null) {
 				waypoint.setLatitude(location.getLatitude());
 				waypoint.setLongitude(location.getLongitude());
@@ -205,11 +181,11 @@ public class WaypointDetail extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			final Waypoint waypoint = mapFormToWaypoint();
-			controller.saveWaypoint(waypoint);
+			long id = controller.saveWaypoint(waypoint);
 
 			// Communicate back to the caller the new waypoint id.
 			final Intent intent = new Intent();
-			intent.putExtra("waypointId", waypoint.getId());
+			intent.putExtra("waypointId", id);
 			setResult(Activity.RESULT_OK, intent);
 
 			Toast.makeText(getApplicationContext(), "Waypoint " + waypoint.getDescription() + " has been filed.",

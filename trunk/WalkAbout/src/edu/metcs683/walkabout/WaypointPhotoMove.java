@@ -20,7 +20,6 @@ import android.widget.GridView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import edu.metcs683.walkabout.controller.MovePhotosBetweenWaypointsController;
-import edu.metcs683.walkabout.controller.PhotoListController;
 import edu.metcs683.walkabout.model.Image;
 import edu.metcs683.walkabout.model.Waypoint;
 import edu.metcs683.walkabout.uihelper.ImageAdapter;
@@ -31,7 +30,7 @@ import edu.metcs683.walkabout.uihelper.ImageAdapter;
  * @author ryszardkilarski
  * 
  */
-public class MovePhotosBetweenWaypoints extends Activity {
+public class WaypointPhotoMove extends Activity {
 
 	private Button cancelButton;
 	private MovePhotosBetweenWaypointsController controller;
@@ -44,7 +43,7 @@ public class MovePhotosBetweenWaypoints extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_move_photos_between_waypoints, menu);
+		getMenuInflater().inflate(R.menu.activity_waypoint_photo_move, menu);
 		return true;
 	}
 
@@ -52,7 +51,7 @@ public class MovePhotosBetweenWaypoints extends Activity {
 	 * Load the data into the UI.
 	 */
 	private void initializeUI() {
-		setContentView(R.layout.activity_move_photos_between_waypoints);
+		setContentView(R.layout.activity_waypoint_photo_move);
 		// Attach to UI elements
 		photoList = (GridView) findViewById(R.id.photoList);
 		targetWaypoint = (Spinner) findViewById(R.id.moveToWaypoint);
