@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +30,7 @@ import edu.metcs683.walkabout.uihelper.WaypointView;
  */
 public class WaypointList extends Activity {
 
+	protected Dialog splashDialog;
 	private WaypointListController controller;
 	private SimpleAdapter listViewAdapter;
 	private ListView waypointList;
@@ -42,19 +45,19 @@ public class WaypointList extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.new_waypoint:
-				final Intent intent = new Intent(this, WaypointDetail.class);
-				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(intent);
-				startActivityForResult(intent, WaypointDetail.ADD_WAYPOINT);
-				overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
-				return true;
-			case R.id.change_sort:
-				controller.changeSortOrder();
-				loadData();
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
+		case R.id.new_waypoint:
+			final Intent intent = new Intent(this, WaypointDetail.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			startActivityForResult(intent, WaypointDetail.ADD_WAYPOINT);
+			overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
+			return true;
+		case R.id.change_sort:
+			controller.changeSortOrder();
+			loadData();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
 	}
 
@@ -71,14 +74,17 @@ public class WaypointList extends Activity {
 
 	private void loadData() {
 		final List<Waypoint> waypoints = controller.getWaypoints();
+		layout.removeAllViews();
 		// Get list of all waypoints.
-		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+		// final List<Map<String, String>> data = new ArrayList<Map<String,
+		// String>>();
 		for (final Waypoint waypoint : waypoints) {
-			WaypointView waypointView = new WaypointView(this, this.getApplicationContext(), waypoint.getId());
+			WaypointView waypointView = new WaypointView(this,
+					this.getApplicationContext(), waypoint.getId());
 			layout.addView(waypointView);
-			/* rkilarski
-			 * final Map<String, String> datum = new HashMap<String, String>(2);
-			 * datum.put("description", waypoint.getDescription());
+			/*
+			 * rkilarski final Map<String, String> datum = new HashMap<String,
+			 * String>(2); datum.put("description", waypoint.getDescription());
 			 * datum.put("date", waypoint.getDateTime().toString());
 			 * datum.put("id", Long.toString(waypoint.getId()));
 			 * data.add(datum);
@@ -96,13 +102,17 @@ public class WaypointList extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		final long id = data.getLongExtra("waypointId", 0);
-		final int position = getViewPosition(id);
-		WaypointView view;
-		
-		switch (requestCode) {
+		if (resultCode == Activity.RESULT_OK) {
+			final long id;
+			final int position;
+			WaypointView view;
+
+			switch (requestCode) {
 			case WaypointDetail.ADD_WAYPOINT:
-				WaypointView waypointView = new WaypointView(this, this.getApplicationContext(), id);
+				id = data.getLongExtra("waypointId", 0);
+				position = getViewPosition(id);
+				WaypointView waypointView = new WaypointView(this,
+						this.getApplicationContext(), id);
 				if (controller.getWaypointOrder()) {
 					layout.addView(waypointView); // Add to the end.
 				} else {
@@ -110,26 +120,40 @@ public class WaypointList extends Activity {
 				}
 				break;
 			case WaypointDetail.EDIT_WAYPOINT:
+				id = data.getLongExtra("waypointId", 0);
+				position = getViewPosition(id);
 				view = (WaypointView) layout.getChildAt(position);
 				view.updateWaypointAttributes();
 				break;
 			case WaypointDetail.DELETE_WAYPOINT:
+				id = data.getLongExtra("waypointId", 0);
+				position = getViewPosition(id);
 				layout.removeViewAt(position);
 				break;
 			case WaypointDetail.REORDER_WAYPOINT:
-				view = (WaypointView) layout.getChildAt(position);
-				view.updateWaypointPhotos();
+				/*
+				 * id = data.getLongExtra("waypointId", 0); position =
+				 * getViewPosition(id); view = (WaypointView)
+				 * layout.getChildAt(position); view.updateWaypointPhotos();
+				 */
 				break;
 			case WaypointDetail.MOVE_PHOTOS:
-				loadData();
+				id = data.getLongExtra("waypointId", 0);
+				final long id2 = data.getLongExtra("waypointId2", 0);
+				view = (WaypointView) layout.getChildAt(getViewPosition(id));
+				view.updateWaypointPhotos();
+				view = (WaypointView) layout.getChildAt(getViewPosition(id2));
+				view.updateWaypointPhotos();
 				break;
+			}
 		}
 	}
 
 	private int getViewPosition(long id) {
 		for (int i = 0; i < layout.getChildCount(); i++) {
 			View v = layout.getChildAt(i);
-			if ((v instanceof WaypointView) && ((((WaypointView) v).getWaypointId()) == id)) {
+			if ((v instanceof WaypointView)
+					&& ((((WaypointView) v).getWaypointId()) == id)) {
 				return i;
 			}
 		}
@@ -138,6 +162,7 @@ public class WaypointList extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		showSplashScreen();
 		super.onCreate(savedInstanceState);
 		initializeUI();
 		initializeControllers();
@@ -157,18 +182,49 @@ public class WaypointList extends Activity {
 	private class ListItemClickHandler implements OnItemClickListener {
 
 		@Override
-		public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-			final Intent intent = new Intent(getApplicationContext(), PhotoList.class);
+		public void onItemClick(AdapterView<?> arg0, View v, int position,
+				long id) {
+			final Intent intent = new Intent(getApplicationContext(),
+					PhotoList.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			final Bundle bundle = new Bundle();
 
 			// Get id from the listview adapter.
-			final Map<String, String> row = (HashMap<String, String>) listViewAdapter.getItem(position);
+			final Map<String, String> row = (HashMap<String, String>) listViewAdapter
+					.getItem(position);
 			bundle.putLong("waypointId", Long.parseLong(row.get("id")));
 			intent.putExtras(bundle);
 			startActivityForResult(intent, WaypointDetail.EDIT_WAYPOINT);
 			overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 		}
+	}
 
+	/**
+	 * Removes the Dialog that displays the splash screen
+	 */
+	protected void removeSplashScreen() {
+		if (splashDialog != null) {
+			splashDialog.dismiss();
+			splashDialog = null;
+		}
+	}
+
+	/**
+	 * Shows the splash screen over the full Activity
+	 */
+	protected void showSplashScreen() {
+		splashDialog = new Dialog(this, R.style.SplashScreen);
+		splashDialog.setContentView(R.layout.waypoint_splash);
+		splashDialog.setCancelable(false);
+		splashDialog.show();
+
+		// Set Runnable to remove splash screen just in case
+		final Handler handler = new Handler();
+		handler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				removeSplashScreen();
+			}
+		}, 6000);
 	}
 }

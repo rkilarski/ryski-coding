@@ -22,9 +22,9 @@ public class WaypointDelete extends Activity {
 		PhotoListController controller = new PhotoListController(this.getApplicationContext(), this);
 		controller.deleteWaypoint(id);
 
-		final Intent newIntent = new Intent();
-		intent.putExtra("waypointId", id);
-		setResult(Activity.RESULT_OK, newIntent);
+		final Intent returnIntent = new Intent();
+		returnIntent.putExtra("waypointId", id);
+		setResult(Activity.RESULT_OK, returnIntent);
 
 		finish();
 		return;
