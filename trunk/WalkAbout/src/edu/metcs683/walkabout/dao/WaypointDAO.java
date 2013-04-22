@@ -116,7 +116,7 @@ public class WaypointDAO extends Database<Waypoint> {
 		final List<Waypoint> waypoints = new ArrayList<Waypoint>();
 		Cursor cursor = null;
 		try {
-			String orderBy = null;
+			String orderBy = COLUMN_LIST[0] + " ASC";
 			if (!orderAscending) {
 				orderBy = COLUMN_LIST[0] + " DESC";
 			}

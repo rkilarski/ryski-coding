@@ -163,6 +163,15 @@ public class WaypointPhotoMove extends Activity {
 			long targetWaypoint = Long.parseLong(row.get("id"));
 
 			controller.movePhotos(targetWaypoint, images);
+
+			final Intent intent = getIntent();
+			final long sourceWaypoint = intent.getLongExtra("waypointId", 0);
+			final Intent returnIntent = new Intent();
+
+			returnIntent.putExtra("waypointId", targetWaypoint);
+			returnIntent.putExtra("waypointId2", sourceWaypoint);
+			setResult(Activity.RESULT_OK, returnIntent);
+
 			finish();
 			overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
 		}
