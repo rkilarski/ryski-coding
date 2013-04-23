@@ -33,13 +33,19 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="edu.metcs683.walkabout.WaypointList"
-            android:label="@string/app_name" >
+            android:name="edu.metcs683.walkabout.WaypointSplash"
+            android:label="@string/app_name"
+            android:noHistory="true"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="edu.metcs683.walkabout.WaypointList"
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="edu.metcs683.walkabout.WaypointDetail"
