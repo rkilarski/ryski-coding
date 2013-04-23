@@ -36,6 +36,13 @@
             android:src="@drawable/action_settings" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/waypointDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
     <GridView
         android:id="@+id/photoList"
         android:layout_width="fill_parent"
