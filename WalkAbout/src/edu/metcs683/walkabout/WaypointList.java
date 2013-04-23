@@ -1,9 +1,6 @@
 package edu.metcs683.walkabout;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -13,11 +10,7 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import edu.metcs683.walkabout.controller.WaypointListController;
 import edu.metcs683.walkabout.model.Waypoint;
 import edu.metcs683.walkabout.uihelper.WaypointView;
@@ -32,8 +25,6 @@ public class WaypointList extends Activity {
 
 	protected Dialog splashDialog;
 	private WaypointListController controller;
-	private SimpleAdapter listViewAdapter;
-	private ListView waypointList;
 	private LinearLayout layout;
 
 	@Override
@@ -64,12 +55,6 @@ public class WaypointList extends Activity {
 	private void initializeUI() {
 		setContentView(R.layout.activity_waypoint_list);
 		layout = (LinearLayout) findViewById(R.id.LinearLayout1);
-		// Attach to UI elements
-		// rkilarski waypointList = (ListView) findViewById(R.id.waypointList);
-
-		// Attach handlers
-		// rkilarski waypointList.setOnItemClickListener(new
-		// ListItemClickHandler());
 	}
 
 	private void loadData() {
@@ -82,21 +67,7 @@ public class WaypointList extends Activity {
 			WaypointView waypointView = new WaypointView(this,
 					this.getApplicationContext(), waypoint.getId());
 			layout.addView(waypointView);
-			/*
-			 * rkilarski final Map<String, String> datum = new HashMap<String,
-			 * String>(2); datum.put("description", waypoint.getDescription());
-			 * datum.put("date", waypoint.getDateTime().toString());
-			 * datum.put("id", Long.toString(waypoint.getId()));
-			 * data.add(datum);
-			 */
 		}
-		/*
-		 * listViewAdapter = new SimpleAdapter(this, data,
-		 * android.R.layout.simple_list_item_2, new String[] { "description",
-		 * "date" }, new int[] { android.R.id.text1, android.R.id.text2 });
-		 * waypointList.setAdapter(listViewAdapter);
-		 */
-		// TODO
 	}
 
 	@Override
@@ -174,29 +145,6 @@ public class WaypointList extends Activity {
 	 */
 	private void initializeControllers() {
 		controller = new WaypointListController(getApplicationContext(), this);
-	}
-
-	/**
-	 * Handler to view photos for a particular Waypoint.
-	 */
-	private class ListItemClickHandler implements OnItemClickListener {
-
-		@Override
-		public void onItemClick(AdapterView<?> arg0, View v, int position,
-				long id) {
-			final Intent intent = new Intent(getApplicationContext(),
-					PhotoList.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			final Bundle bundle = new Bundle();
-
-			// Get id from the listview adapter.
-			final Map<String, String> row = (HashMap<String, String>) listViewAdapter
-					.getItem(position);
-			bundle.putLong("waypointId", Long.parseLong(row.get("id")));
-			intent.putExtras(bundle);
-			startActivityForResult(intent, WaypointDetail.EDIT_WAYPOINT);
-			overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-		}
 	}
 
 	/**

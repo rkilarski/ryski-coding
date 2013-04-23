@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -38,6 +39,7 @@ public class WaypointPhotoMove extends Activity {
 	private Spinner targetWaypoint;
 	private Button okButton;
 	private GridView photoList;
+	@SuppressLint("UseSparseArrays")
 	private final Map<Integer, Image> selectedPhotos = new HashMap<Integer, Image>();
 
 	@Override
@@ -159,6 +161,7 @@ public class WaypointPhotoMove extends Activity {
 			}
 			// Get target waypoint.
 			int selectedItemPosition = targetWaypoint.getSelectedItemPosition();
+			@SuppressWarnings("unchecked")
 			final Map<String, String> row = (HashMap<String, String>) listViewAdapter.getItem(selectedItemPosition);
 			long targetWaypoint = Long.parseLong(row.get("id"));
 

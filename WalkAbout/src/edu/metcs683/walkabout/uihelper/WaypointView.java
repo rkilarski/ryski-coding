@@ -11,6 +11,7 @@ import edu.metcs683.walkabout.WaypointMap;
 import edu.metcs683.walkabout.WaypointPhotoMove;
 import edu.metcs683.walkabout.controller.WaypointViewController;
 import edu.metcs683.walkabout.model.Image;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -55,6 +56,7 @@ public class WaypointView extends LinearLayout {
 	private GridView photoList;
 	private long waypointId;
 	private TextView waypointTitle;
+	private TextView waypointDescription;
 
 	/**
 	 * Public constructor to create this custom control. Pass in the activity,
@@ -100,13 +102,6 @@ public class WaypointView extends LinearLayout {
 	}
 
 	/**
-	 * Ability to delete this waypoint.
-	 */
-	private void deleteWaypoint() {
-		controller.deleteWaypoint(waypointId);
-	}
-
-	/**
 	 * Set up any needed controllers
 	 */
 	private void initializeControllers() {
@@ -116,6 +111,7 @@ public class WaypointView extends LinearLayout {
 	private void initializeUI() {
 		// Attach to UI elements
 		waypointTitle = (TextView) findViewById(R.id.waypointTitle);
+		waypointDescription = (TextView) findViewById(R.id.waypointDescription);
 		cameraButton = (ImageButton) findViewById(R.id.cameraButton);
 		menuButton = (ImageButton) findViewById(R.id.menuButton);
 		photoList = (GridView) findViewById(R.id.photoList);
@@ -141,6 +137,7 @@ public class WaypointView extends LinearLayout {
 	 */
 	public void updateWaypointAttributes() {
 		waypointTitle.setText(controller.getWaypointDescription(waypointId));
+		waypointDescription.setText(controller.getWaypointDate(waypointId));
 	}
 
 	/**
@@ -154,6 +151,7 @@ public class WaypointView extends LinearLayout {
 	/**
 	 * Create a File for saving an image.
 	 */
+	@SuppressLint("SimpleDateFormat")
 	private static File getOutputImageFile() {
 		final File mediaStorageDir = new File(
 				Environment

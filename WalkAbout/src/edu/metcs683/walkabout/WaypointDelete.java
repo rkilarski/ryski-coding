@@ -1,6 +1,6 @@
 package edu.metcs683.walkabout;
 
-import edu.metcs683.walkabout.controller.PhotoListController;
+import edu.metcs683.walkabout.controller.WaypointDeleteController;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ public class WaypointDelete extends Activity {
 		final Intent intent = getIntent();
 		final long id = intent.getLongExtra("waypointId", 0);
 
-		PhotoListController controller = new PhotoListController(this.getApplicationContext(), this);
+		WaypointDeleteController controller = new WaypointDeleteController(this.getApplicationContext(), this);
 		controller.deleteWaypoint(id);
 
 		final Intent returnIntent = new Intent();

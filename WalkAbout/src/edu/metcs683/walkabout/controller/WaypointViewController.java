@@ -1,5 +1,6 @@
 package edu.metcs683.walkabout.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -57,6 +58,12 @@ public class WaypointViewController {
 		return waypoint.getDescription();
 	}
 
+	public String getWaypointDate(long id){
+		final Waypoint waypoint = waypointDAO.get(id);
+		Date date = waypoint.getDateTime();
+		
+		return "Insert Date Here";
+	}
 	public void saveImage(Image image) {
 		imageDAO.insert(image);
 	}
