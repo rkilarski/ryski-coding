@@ -45,7 +45,12 @@ import android.widget.TextView;
  * 
  */
 public class WaypointView extends LinearLayout {
-	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+	public static final int ADD_WAYPOINT = 2;
+	public static final int EDIT_WAYPOINT = 1;
+	public static final int DELETE_WAYPOINT = 3;
+	public static final int REORDER_WAYPOINT = 4;
+	public static final int MOVE_PHOTOS = 5;
+	public static final int ADD_NEW_PHOTO = 6;
 
 	private Activity activity;
 	private ImageButton cameraButton;
@@ -57,6 +62,7 @@ public class WaypointView extends LinearLayout {
 	private long waypointId;
 	private TextView waypointTitle;
 	private TextView waypointDescription;
+	private ImageObserver observer;
 
 	/**
 	 * Public constructor to create this custom control. Pass in the activity,
@@ -66,11 +72,12 @@ public class WaypointView extends LinearLayout {
 	 * @param context
 	 * @param id
 	 */
-	public WaypointView(Activity activity, Context context, long id) {
+	public WaypointView(Activity activity, Context context, long id, ImageObserver observer) {
 		this(context, null);
 		this.context = context;
 		this.activity = activity;
 		this.waypointId = id;
+		this.observer = observer;
 		LayoutInflater inflater = LayoutInflater.from(context);
 		inflater.inflate(R.layout.waypoint, this);
 		initializeUI();
@@ -152,7 +159,7 @@ public class WaypointView extends LinearLayout {
 	 * Create a File for saving an image.
 	 */
 	@SuppressLint("SimpleDateFormat")
-	private static File getOutputImageFile() {
+	private static File getOutputImageFile(long id) {
 		final File mediaStorageDir = new File(
 				Environment
 						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
@@ -171,8 +178,8 @@ public class WaypointView extends LinearLayout {
 		final String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
 				.format(new Date());
 		File mediaFile;
-		mediaFile = new File(mediaStorageDir.getPath() + File.separator
-				+ "IMG_" + timeStamp + ".jpg");
+		mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG"
+				+ timeStamp + "_" + id + ".jpg");
 
 		return mediaFile;
 	}
@@ -182,8 +189,8 @@ public class WaypointView extends LinearLayout {
 	 * 
 	 * @return
 	 */
-	private static Uri getOutputImageFileUri() {
-		return Uri.fromFile(getOutputImageFile());
+	private static Uri getOutputImageFileUri(long id) {
+		return Uri.fromFile(getOutputImageFile(id));
 	}
 
 	public long getWaypointId() {
@@ -253,13 +260,16 @@ public class WaypointView extends LinearLayout {
 					intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
 					// create a file to save the image
-					imageURI = getOutputImageFileUri();
+					imageURI = getOutputImageFileUri(waypointId);
 					// set the image file name
 					intent.putExtra(MediaStore.EXTRA_OUTPUT, imageURI);
-
+					
+					//Notify observer of image name.
+					observer.setImageUri(imageURI);
+					
 					// start the image capture Intent
 					activity.startActivityForResult(intent,
-							CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+							WaypointView.ADD_NEW_PHOTO);
 
 				} else {
 					Toast.makeText(context.getApplicationContext(),
@@ -305,7 +315,7 @@ public class WaypointView extends LinearLayout {
 				intent.putExtras(bundle);
 
 				activity.startActivityForResult(intent,
-						WaypointDetail.EDIT_WAYPOINT);
+						WaypointView.EDIT_WAYPOINT);
 				activity.overridePendingTransition(R.anim.slide_down,
 						R.anim.slide_up);
 				break;
@@ -333,7 +343,7 @@ public class WaypointView extends LinearLayout {
 										intent.putExtras(bundle);
 
 										activity.startActivityForResult(intent,
-												WaypointDetail.DELETE_WAYPOINT);
+												WaypointView.DELETE_WAYPOINT);
 									}
 								})
 						.setNegativeButton(no,
@@ -368,7 +378,7 @@ public class WaypointView extends LinearLayout {
 				intent.putExtras(bundle);
 
 				activity.startActivityForResult(intent,
-						WaypointDetail.MOVE_PHOTOS);
+						WaypointView.MOVE_PHOTOS);
 				activity.overridePendingTransition(R.anim.slide_down,
 						R.anim.slide_up);
 				break;

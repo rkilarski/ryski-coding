@@ -1,8 +1,11 @@
 package edu.metcs683.walkabout.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import edu.metcs683.walkabout.dao.AppSettingsDAO;
@@ -58,11 +61,13 @@ public class WaypointViewController {
 		return waypoint.getDescription();
 	}
 
+	@SuppressLint("SimpleDateFormat")
 	public String getWaypointDate(long id){
 		final Waypoint waypoint = waypointDAO.get(id);
 		Date date = waypoint.getDateTime();
+		DateFormat format = new SimpleDateFormat("EEEE, MMMM d, yyyy");
 		
-		return "Insert Date Here";
+		return format.format(date);
 	}
 	public void saveImage(Image image) {
 		imageDAO.insert(image);
