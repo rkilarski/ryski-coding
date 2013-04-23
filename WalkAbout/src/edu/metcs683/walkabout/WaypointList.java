@@ -5,14 +5,19 @@ import java.util.List;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import edu.metcs683.walkabout.controller.WaypointListController;
+import edu.metcs683.walkabout.model.Image;
 import edu.metcs683.walkabout.model.Waypoint;
+import edu.metcs683.walkabout.uihelper.ImageObserver;
 import edu.metcs683.walkabout.uihelper.WaypointView;
 
 /**
@@ -21,11 +26,12 @@ import edu.metcs683.walkabout.uihelper.WaypointView;
  * @author Ryszard Kilarski (U81-39-8560)
  * 
  */
-public class WaypointList extends Activity {
+public class WaypointList extends Activity implements ImageObserver {
 
 	protected Dialog splashDialog;
 	private WaypointListController controller;
 	private LinearLayout layout;
+	private Uri imageUri;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -40,7 +46,7 @@ public class WaypointList extends Activity {
 			final Intent intent = new Intent(this, WaypointDetail.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
-			startActivityForResult(intent, WaypointDetail.ADD_WAYPOINT);
+			startActivityForResult(intent, WaypointView.ADD_WAYPOINT);
 			overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
 			return true;
 		case R.id.change_sort:
@@ -61,11 +67,9 @@ public class WaypointList extends Activity {
 		final List<Waypoint> waypoints = controller.getWaypoints();
 		layout.removeAllViews();
 		// Get list of all waypoints.
-		// final List<Map<String, String>> data = new ArrayList<Map<String,
-		// String>>();
 		for (final Waypoint waypoint : waypoints) {
 			WaypointView waypointView = new WaypointView(this,
-					this.getApplicationContext(), waypoint.getId());
+					this.getApplicationContext(), waypoint.getId(), this);
 			layout.addView(waypointView);
 		}
 	}
@@ -79,36 +83,36 @@ public class WaypointList extends Activity {
 			WaypointView view;
 
 			switch (requestCode) {
-			case WaypointDetail.ADD_WAYPOINT:
+			case WaypointView.ADD_WAYPOINT:
 				id = data.getLongExtra("waypointId", 0);
 				position = getViewPosition(id);
 				WaypointView waypointView = new WaypointView(this,
-						this.getApplicationContext(), id);
+						this.getApplicationContext(), id, this);
 				if (controller.getWaypointOrder()) {
 					layout.addView(waypointView); // Add to the end.
 				} else {
 					layout.addView(waypointView, 0); // Add to the beginning.
 				}
 				break;
-			case WaypointDetail.EDIT_WAYPOINT:
+			case WaypointView.EDIT_WAYPOINT:
 				id = data.getLongExtra("waypointId", 0);
 				position = getViewPosition(id);
 				view = (WaypointView) layout.getChildAt(position);
 				view.updateWaypointAttributes();
 				break;
-			case WaypointDetail.DELETE_WAYPOINT:
+			case WaypointView.DELETE_WAYPOINT:
 				id = data.getLongExtra("waypointId", 0);
 				position = getViewPosition(id);
 				layout.removeViewAt(position);
 				break;
-			case WaypointDetail.REORDER_WAYPOINT:
+			case WaypointView.REORDER_WAYPOINT:
 				/*
 				 * id = data.getLongExtra("waypointId", 0); position =
 				 * getViewPosition(id); view = (WaypointView)
 				 * layout.getChildAt(position); view.updateWaypointPhotos();
 				 */
 				break;
-			case WaypointDetail.MOVE_PHOTOS:
+			case WaypointView.MOVE_PHOTOS:
 				id = data.getLongExtra("waypointId", 0);
 				final long id2 = data.getLongExtra("waypointId2", 0);
 				view = (WaypointView) layout.getChildAt(getViewPosition(id));
@@ -116,10 +120,49 @@ public class WaypointList extends Activity {
 				view = (WaypointView) layout.getChildAt(getViewPosition(id2));
 				view.updateWaypointPhotos();
 				break;
+			case WaypointView.ADD_NEW_PHOTO:
+				// Save image to database.
+				String filePath = imageUri.toString();
+				long waypointId = getWaypointIdFromFilename(filePath);
+				final Image image = new Image(0, waypointId, filePath);
+				controller.saveImage(image);
+
+				view = (WaypointView) layout
+						.getChildAt(getViewPosition(waypointId));
+				view.updateWaypointPhotos();
+				break;
 			}
 		}
 	}
 
+	/**
+	 * Implementation of the Observer pattern for taking photos.
+	 */
+	@Override
+	public void setImageUri(Uri uri) {
+		this.imageUri = uri;
+	}
+
+	/**
+	 * The image URI has encoded within it the waypoint id. This method gets it.
+	 * 
+	 * @param imageURI
+	 * @return
+	 */
+	private long getWaypointIdFromFilename(String filePath) {
+		String[] array = filePath.split("_");
+		String string = array[2];
+		String[] array2 = string.split("\\.");
+		long id = Long.parseLong(array2[0]);
+		return id;
+	}
+
+	/**
+	 * Given a waypoint id, find its position in the list of layouts.
+	 * 
+	 * @param id
+	 * @return
+	 */
 	private int getViewPosition(long id) {
 		for (int i = 0; i < layout.getChildCount(); i++) {
 			View v = layout.getChildAt(i);
@@ -133,7 +176,6 @@ public class WaypointList extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		showSplashScreen();
 		super.onCreate(savedInstanceState);
 		initializeUI();
 		initializeControllers();
@@ -155,24 +197,5 @@ public class WaypointList extends Activity {
 			splashDialog.dismiss();
 			splashDialog = null;
 		}
-	}
-
-	/**
-	 * Shows the splash screen over the full Activity
-	 */
-	protected void showSplashScreen() {
-		splashDialog = new Dialog(this, R.style.SplashScreen);
-		splashDialog.setContentView(R.layout.waypoint_splash);
-		splashDialog.setCancelable(false);
-		splashDialog.show();
-
-		// Set Runnable to remove splash screen just in case
-		final Handler handler = new Handler();
-		handler.postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				removeSplashScreen();
-			}
-		}, 6000);
 	}
 }

@@ -26,11 +26,6 @@ import edu.metcs683.walkabout.uihelper.LocationService;
  */
 public class WaypointDetail extends Activity {
 
-	public static final int ADD_WAYPOINT = 2;
-	public static final int EDIT_WAYPOINT = 1;
-	public static final int DELETE_WAYPOINT = 3;
-	public static final int REORDER_WAYPOINT = 4;
-	public static final int MOVE_PHOTOS = 5;
 	private Button cancelButton;
 	private WaypointDetailController controller;
 	private EditText description;
