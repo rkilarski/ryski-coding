@@ -25,15 +25,19 @@
             android:id="@+id/cameraButton"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
             android:src="@drawable/camera" />
 
         <ImageButton
             android:id="@+id/menuButton"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/action_settings" />
+            android:layout_height="fill_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/menu_icon" />
     </LinearLayout>
 
     <TextView

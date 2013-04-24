@@ -12,10 +12,15 @@
         android:title="@string/menu_settings">
         <menu>
             <item
-                android:id="@+id/change_sort"
+                android:id="@+id/change_waypoint_sort"
                 android:icon="@drawable/resort"
                 android:showAsAction="always"
-                android:title="@string/change_ascending_text"/>
+                android:title="@string/change_ascending_text_waypoint"/>
+            <item
+                android:id="@+id/change_photo_sort"
+                android:icon="@drawable/resort"
+                android:showAsAction="always"
+                android:title="@string/change_ascending_text_photo"/>
         </menu>
     </item>
 

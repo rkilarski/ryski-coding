@@ -3,12 +3,12 @@
     <item
         android:id="@+id/edit_waypoint"
         android:icon="@drawable/waypoint_edit"
-        android:showAsAction="always"
+        android:showAsAction="withText"
         android:title="@string/edit_waypoint_text"/>
     <item
         android:id="@+id/delete_waypoint"
         android:icon="@drawable/waypoint_delete"
-        android:showAsAction="always"
+        android:showAsAction="withText"
         android:title="@string/delete_waypoint_text"/>
     <!--
     <item
@@ -20,17 +20,12 @@
     <item
         android:id="@+id/map_waypoint"
         android:icon="@drawable/map"
-        android:showAsAction="always"
+        android:showAsAction="withText"
         android:title="@string/map_waypoint_text"/>
-    <item
-        android:id="@+id/change_sort"
-        android:icon="@drawable/resort"
-        android:showAsAction="always"
-        android:title="@string/change_ascending_text"/>
     <item
         android:id="@+id/move_photos"
         android:icon="@drawable/move_photos"
-        android:showAsAction="always"
+        android:showAsAction="withText"
         android:title="@string/menu_move_photos"/>
 
 </menu>
