@@ -21,29 +21,36 @@ public class WaypointListController {
 	private final AppSettingsDAO appSettingsDAO;
 	private final WaypointDAO waypointDAO;
 	private final ImageDAO imageDAO;
-	
+
 	public WaypointListController(Context context, Activity activity) {
 		this.waypointDAO = new WaypointDAO(context);
 		this.appSettingsDAO = new AppSettingsDAO(activity);
 		this.imageDAO = new ImageDAO(context);
 	}
 
-	public void changeSortOrder() {
-		final boolean order = !appSettingsDAO.getWaypointOrderAscendingFlag();
-		appSettingsDAO.setWaypointOrderAscendingFlag(order);
-	}
-
 	public List<Waypoint> getWaypoints() {
-		final boolean orderByAscending = appSettingsDAO.getWaypointOrderAscendingFlag();
+		final boolean orderByAscending = appSettingsDAO
+				.getWaypointOrderAscendingFlag();
 		return waypointDAO.getAll(orderByAscending);
 	}
 
 	public boolean getWaypointOrder() {
 		return appSettingsDAO.getWaypointOrderAscendingFlag();
 	}
-	
+
 	public void saveImage(Image image) {
 		imageDAO.insert(image);
+	}
+
+	public void changePhotoOrder() {
+		final boolean order = !appSettingsDAO
+				.getWaypointPhotoOrderAscendingFlag();
+		appSettingsDAO.setWaypointPhotoOrderAscendingFlag(order);
+	}
+
+	public void changeWaypointOrder() {
+		final boolean order = !appSettingsDAO.getWaypointOrderAscendingFlag();
+		appSettingsDAO.setWaypointOrderAscendingFlag(order);
 	}
 
 }

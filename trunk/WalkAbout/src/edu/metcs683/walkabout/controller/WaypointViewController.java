@@ -32,11 +32,6 @@ public class WaypointViewController {
 		this.appSettingsDAO = new AppSettingsDAO(activity);
 	}
 
-	public void changeSortOrder() {
-		final boolean order = !appSettingsDAO.getWaypointPhotoOrderAscendingFlag();
-		appSettingsDAO.setWaypointPhotoOrderAscendingFlag(order);
-	}
-
 	public void deleteImage(long id) {
 		imageDAO.delete(id);
 	}
@@ -52,7 +47,8 @@ public class WaypointViewController {
 	}
 
 	public List<Image> getImageList(long id) {
-		final boolean orderByAscending = appSettingsDAO.getWaypointPhotoOrderAscendingFlag();
+		final boolean orderByAscending = appSettingsDAO
+				.getWaypointPhotoOrderAscendingFlag();
 		return imageDAO.getAll(orderByAscending, id);
 	}
 
@@ -62,13 +58,14 @@ public class WaypointViewController {
 	}
 
 	@SuppressLint("SimpleDateFormat")
-	public String getWaypointDate(long id){
+	public String getWaypointDate(long id) {
 		final Waypoint waypoint = waypointDAO.get(id);
 		Date date = waypoint.getDateTime();
 		DateFormat format = new SimpleDateFormat("EEEE, MMMM d, yyyy");
-		
+
 		return format.format(date);
 	}
+
 	public void saveImage(Image image) {
 		imageDAO.insert(image);
 	}
