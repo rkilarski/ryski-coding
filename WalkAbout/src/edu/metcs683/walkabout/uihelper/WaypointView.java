@@ -365,10 +365,6 @@ public class WaypointView extends LinearLayout {
 
 				context.startActivity(intent);
 				break;
-			case R.id.change_sort:
-				controller.changeSortOrder();
-				loadData();
-				return true;
 			case R.id.move_photos:
 				intent = new Intent(context, WaypointPhotoMove.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

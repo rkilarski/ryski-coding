@@ -49,8 +49,12 @@ public class WaypointList extends Activity implements ImageObserver {
 			startActivityForResult(intent, WaypointView.ADD_WAYPOINT);
 			overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
 			return true;
-		case R.id.change_sort:
-			controller.changeSortOrder();
+		case R.id.change_waypoint_sort:
+			controller.changeWaypointOrder();
+			loadData();
+			return true;
+		case R.id.change_photo_sort:
+			controller.changePhotoOrder();
 			loadData();
 			return true;
 		default:
