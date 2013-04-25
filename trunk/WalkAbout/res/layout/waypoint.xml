@@ -11,6 +11,15 @@
         android:layout_height="wrap_content"
         android:background="@color/black_overlay" >
 
+        <ImageButton
+            android:id="@+id/expandCollapse"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/expanded" />
+
         <TextView
             android:id="@+id/waypointTitle"
             android:layout_width="wrap_content"
