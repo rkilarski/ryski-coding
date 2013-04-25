@@ -17,7 +17,7 @@ import android.view.MotionEvent;
  */
 public class WaypointSplash extends Activity {
 
-	protected int splashTime = 3000;
+	protected int splashTime = 1500;
 	private Thread splashTread;
 
 	@Override
