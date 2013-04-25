@@ -62,7 +62,7 @@ public class WaypointViewController {
 		return waypoint.isExpanded();
 	}
 	
-	public void setWaypointExpanded(long id){
+	public void expandCollapseWaypoint(long id){
 		final Waypoint waypoint = waypointDAO.get(id);
 		waypoint.setExpanded(!waypoint.isExpanded());
 		waypointDAO.update(waypoint);

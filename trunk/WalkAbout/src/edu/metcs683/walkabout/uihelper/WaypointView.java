@@ -63,6 +63,7 @@ public class WaypointView extends LinearLayout {
 	private TextView waypointTitle;
 	private TextView waypointDescription;
 	private ImageObserver observer;
+	private ImageButton expandCollapse;
 
 	/**
 	 * Public constructor to create this custom control. Pass in the activity,
@@ -122,13 +123,14 @@ public class WaypointView extends LinearLayout {
 		cameraButton = (ImageButton) findViewById(R.id.cameraButton);
 		menuButton = (ImageButton) findViewById(R.id.menuButton);
 		photoList = (GridView) findViewById(R.id.photoList);
+		expandCollapse = (ImageButton) findViewById(R.id.expandCollapse);
 
 		// Attach handlers
+		expandCollapse.setOnClickListener(new ExpandCollapseHandler());
 		cameraButton.setOnClickListener(new OnCameraClickHandler());
 		menuButton.setOnClickListener(new MenuDisplayClickHandler());
 		photoList.setOnItemClickListener(new ImageClickHandler());
-		photoList
-				.setOnItemLongClickListener(new ImageLongClickHandler(context));
+		photoList.setOnItemLongClickListener(new ImageLongClickHandler(context));
 	}
 
 	/**
@@ -151,8 +153,14 @@ public class WaypointView extends LinearLayout {
 	 * If the waypoint photos change, update them.
 	 */
 	public void updateWaypointPhotos() {
-		final List<Image> list = controller.getImageList(waypointId);
-		photoList.setAdapter(new ImageAdapter(context, list));
+		if (controller.isWaypointExpanded(waypointId)) {
+			expandCollapse.setImageResource(R.drawable.expanded);
+			final List<Image> list = controller.getImageList(waypointId);
+			photoList.setAdapter(new ImageAdapter(context, list));
+		} else {
+			expandCollapse.setImageResource(R.drawable.collapsed);
+			photoList.setAdapter(null);
+		}
 	}
 
 	/**
@@ -161,25 +169,20 @@ public class WaypointView extends LinearLayout {
 	@SuppressLint("SimpleDateFormat")
 	private static File getOutputImageFile(long id) {
 		final File mediaStorageDir = new File(
-				Environment
-						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-				"WalkAbout");
+				Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "WalkAbout");
 
 		// Create the storage directory if it does not exist
 		if (!mediaStorageDir.exists()) {
 			if (!mediaStorageDir.mkdirs()) {
-				Log.d("WalkAbout", "failed to create directory "
-						+ mediaStorageDir.getParentFile());
+				Log.d("WalkAbout", "failed to create directory " + mediaStorageDir.getParentFile());
 				return null;
 			}
 		}
 
 		// Create a media file name
-		final String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
-				.format(new Date());
+		final String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 		File mediaFile;
-		mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG"
-				+ timeStamp + "_" + id + ".jpg");
+		mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG" + timeStamp + "_" + id + ".jpg");
 
 		return mediaFile;
 	}
@@ -209,38 +212,51 @@ public class WaypointView extends LinearLayout {
 		}
 
 		@Override
-		public boolean onItemLongClick(AdapterView<?> parent, View arg1,
-				int position, long arg3) {
+		public boolean onItemLongClick(AdapterView<?> parent, View arg1, int position, long arg3) {
 			// Get the image from the adapter...
 			final Image image = (Image) parent.getAdapter().getItem(position);
 			final String title = context.getString(R.string.delete_image_text);
-			final String message = context
-					.getString(R.string.delete_image_message);
+			final String message = context.getString(R.string.delete_image_message);
 			final String yes = context.getString(R.string.yes);
 			final String no = context.getString(R.string.no);
 
-			new AlertDialog.Builder(activity)
-					.setTitle(title)
-					.setMessage(message)
-					.setPositiveButton(yes,
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									deleteImage(image);
-									loadData();
-								}
-							})
-					.setNegativeButton(no,
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									// Do nothing.
-								}
-							}).show();
+			new AlertDialog.Builder(activity).setTitle(title).setMessage(message)
+					.setPositiveButton(yes, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int whichButton) {
+							deleteImage(image);
+							loadData();
+						}
+					}).setNegativeButton(no, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int whichButton) {
+							// Do nothing.
+						}
+					}).show();
 
 			return false;
+		}
+	}
+
+	/**
+	 * Expand or collapse the section handler.
+	 */
+	private class ExpandCollapseHandler implements OnClickListener {
+
+		@Override
+		public void onClick(View arg0) {
+			expandCollapse();
+		}
+
+	}
+
+	private void expandCollapse() {
+		controller.expandCollapseWaypoint(waypointId);
+		this.updateWaypointPhotos();
+		if (controller.isWaypointExpanded(waypointId)) {
+			expandCollapse.setImageResource(R.drawable.expanded);
+		} else {
+			expandCollapse.setImageResource(R.drawable.collapsed);
 		}
 	}
 
@@ -253,8 +269,7 @@ public class WaypointView extends LinearLayout {
 		public void onClick(View arg0) {
 			Intent intent = null;
 
-			final String cameraMessage = context
-					.getString(R.string.camera_not_available_text);
+			final String cameraMessage = context.getString(R.string.camera_not_available_text);
 			try {
 				if (Camera.getNumberOfCameras() > 0) {
 					intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -263,21 +278,18 @@ public class WaypointView extends LinearLayout {
 					imageURI = getOutputImageFileUri(waypointId);
 					// set the image file name
 					intent.putExtra(MediaStore.EXTRA_OUTPUT, imageURI);
-					
-					//Notify observer of image name.
+
+					// Notify observer of image name.
 					observer.setImageUri(imageURI);
-					
+
 					// start the image capture Intent
-					activity.startActivityForResult(intent,
-							WaypointView.ADD_NEW_PHOTO);
+					activity.startActivityForResult(intent, WaypointView.ADD_NEW_PHOTO);
 
 				} else {
-					Toast.makeText(context.getApplicationContext(),
-							cameraMessage, Toast.LENGTH_LONG).show();
+					Toast.makeText(context.getApplicationContext(), cameraMessage, Toast.LENGTH_LONG).show();
 				}
 			} catch (final Exception ex) {
-				Toast.makeText(context.getApplicationContext(), cameraMessage,
-						Toast.LENGTH_LONG).show();
+				Toast.makeText(context.getApplicationContext(), cameraMessage, Toast.LENGTH_LONG).show();
 			}
 		}
 
@@ -298,86 +310,70 @@ public class WaypointView extends LinearLayout {
 	/**
 	 * Handler to perform popup menu items.
 	 */
-	private class MenuItemClickHandler implements
-			PopupMenu.OnMenuItemClickListener {
+	private class MenuItemClickHandler implements PopupMenu.OnMenuItemClickListener {
 		@Override
 		public boolean onMenuItemClick(MenuItem item) {
 			Intent intent = null;
 			Bundle bundle;
 
 			switch (item.getItemId()) {
-			case R.id.edit_waypoint:
-				intent = new Intent(context, WaypointDetail.class);
-				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				case R.id.edit_waypoint:
+					intent = new Intent(context, WaypointDetail.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-				bundle = new Bundle();
-				bundle.putLong("waypointId", waypointId);
-				intent.putExtras(bundle);
+					bundle = new Bundle();
+					bundle.putLong("waypointId", waypointId);
+					intent.putExtras(bundle);
 
-				activity.startActivityForResult(intent,
-						WaypointView.EDIT_WAYPOINT);
-				activity.overridePendingTransition(R.anim.slide_down,
-						R.anim.slide_up);
-				break;
-			case R.id.delete_waypoint:
-				final String title = context
-						.getString(R.string.delete_waypoint_text);
-				final String message = context
-						.getString(R.string.delete_waypoint_message);
-				final String yes = context.getString(R.string.yes);
-				final String no = context.getString(R.string.no);
-				new AlertDialog.Builder(activity)
-						.setTitle(title)
-						.setMessage(message)
-						.setPositiveButton(yes,
-								new DialogInterface.OnClickListener() {
-									@Override
-									public void onClick(DialogInterface dialog,
-											int whichButton) {
-										Intent intent = new Intent(activity,
-												WaypointDelete.class);
-										Bundle bundle = new Bundle();
-										// intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					activity.startActivityForResult(intent, WaypointView.EDIT_WAYPOINT);
+					activity.overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
+					break;
+				case R.id.delete_waypoint:
+					final String title = context.getString(R.string.delete_waypoint_text);
+					final String message = context.getString(R.string.delete_waypoint_message);
+					final String yes = context.getString(R.string.yes);
+					final String no = context.getString(R.string.no);
+					new AlertDialog.Builder(activity).setTitle(title).setMessage(message)
+							.setPositiveButton(yes, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog, int whichButton) {
+									Intent intent = new Intent(activity, WaypointDelete.class);
+									Bundle bundle = new Bundle();
+									// intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-										bundle.putLong("waypointId", waypointId);
-										intent.putExtras(bundle);
+									bundle.putLong("waypointId", waypointId);
+									intent.putExtras(bundle);
 
-										activity.startActivityForResult(intent,
-												WaypointView.DELETE_WAYPOINT);
-									}
-								})
-						.setNegativeButton(no,
-								new DialogInterface.OnClickListener() {
-									@Override
-									public void onClick(DialogInterface dialog,
-											int whichButton) {
-										// Do nothing.
-									}
-								}).show();
-				break;
-			case R.id.map_waypoint:
-				intent = new Intent(context, WaypointMap.class);
-				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+									activity.startActivityForResult(intent, WaypointView.DELETE_WAYPOINT);
+								}
+							}).setNegativeButton(no, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog, int whichButton) {
+									// Do nothing.
+								}
+							}).show();
+					break;
+				case R.id.map_waypoint:
+					intent = new Intent(context, WaypointMap.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-				bundle = new Bundle();
-				bundle.putLong("waypointId", waypointId);
-				intent.putExtras(bundle);
+					bundle = new Bundle();
+					bundle.putLong("waypointId", waypointId);
+					intent.putExtras(bundle);
 
-				context.startActivity(intent);
-				break;
-			case R.id.move_photos:
-				intent = new Intent(context, WaypointPhotoMove.class);
-				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					context.startActivity(intent);
+					break;
+				case R.id.move_photos:
+					intent = new Intent(context, WaypointPhotoMove.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-				bundle = new Bundle();
-				bundle.putLong("waypointId", waypointId);
-				intent.putExtras(bundle);
+					bundle = new Bundle();
+					bundle.putLong("waypointId", waypointId);
+					intent.putExtras(bundle);
 
-				activity.startActivityForResult(intent,
-						WaypointView.MOVE_PHOTOS);
-				activity.overridePendingTransition(R.anim.slide_down,
-						R.anim.slide_up);
-				break;
+					activity.startActivityForResult(intent, WaypointView.MOVE_PHOTOS);
+					activity.overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
+					break;
 			}
 			return true;
 		}
@@ -389,14 +385,12 @@ public class WaypointView extends LinearLayout {
 	private class ImageClickHandler implements OnItemClickListener {
 
 		@Override
-		public void onItemClick(AdapterView<?> parent, View v, int position,
-				long id) {
+		public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 			// Get the image from the adapter...
 			final Image image = (Image) parent.getAdapter().getItem(position);
 			// ...and get its URI.
 			final Uri uri = Uri.parse(image.getImageURI());
-			final Intent viewImageIntent = new Intent(
-					android.content.Intent.ACTION_VIEW);
+			final Intent viewImageIntent = new Intent(android.content.Intent.ACTION_VIEW);
 			viewImageIntent.setDataAndType(uri, "image/jpeg");
 			activity.startActivity(viewImageIntent);
 		}
