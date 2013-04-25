@@ -104,7 +104,7 @@ public class WaypointDAO extends Database<Waypoint> {
 	public List<Waypoint> getAll() {
 		return getAll(true);
 	}
-	
+
 	/**
 	 * Get all of these items from the database, in a given order.
 	 * 
@@ -187,11 +187,10 @@ public class WaypointDAO extends Database<Waypoint> {
 	 * @return
 	 */
 	private ContentValues getContentValuesFromWaypoint(Waypoint waypoint) {
-		// TODO
 		final ContentValues values = new ContentValues();
 		values.put(COLUMN_LIST[1], waypoint.getDescription());
 		values.put(COLUMN_LIST[2], getStringFromDate(waypoint.getDateTime()));
-		// values.put(COLUMN_LIST[4], waypoint.isExpanded() ? 1 : 0);
+		values.put(COLUMN_LIST[3], waypoint.isExpanded() ? "1" : "0");
 		values.put(COLUMN_LIST[4], waypoint.getLatitude());
 		values.put(COLUMN_LIST[5], waypoint.getLongitude());
 		return values;
@@ -235,8 +234,8 @@ public class WaypointDAO extends Database<Waypoint> {
 	 * @return
 	 */
 	private Waypoint getWaypointFromCursor(Cursor cursor) {
-		return new Waypoint(cursor.getLong(0), cursor.getString(1), getDateFromString(cursor.getString(2)),
-				(cursor.getInt(3) == 0 ? false : true), Double.parseDouble(cursor.getString(4)),
+		return new Waypoint(cursor.getLong(0), cursor.getString(1), getDateFromString(cursor.getString(2)), (cursor
+				.getString(3).equals("0") ? false : true), Double.parseDouble(cursor.getString(4)),
 				Double.parseDouble(cursor.getString(5)));
 	}
 

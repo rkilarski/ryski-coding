@@ -28,7 +28,7 @@ public abstract class Database<T> extends SQLiteOpenHelper {
 
 	private static final String TABLE_CREATE_STRING_WAYPOINT = "CREATE TABLE "
 			+ DATABASE_TABLE_NAME_WAYPOINT
-			+ " (_id INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT, dateTime TEXT, isExpanded SMALLINT, latitude TEXT, longitude TEXT);";
+			+ " (_id INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT, dateTime TEXT, isExpanded TEXT, latitude TEXT, longitude TEXT);";
 
 	private static final String TABLE_CREATE_STRING_WAYPOINT_IMAGE = "CREATE TABLE "
 			+ DATABASE_TABLE_NAME_WAYPOINT_IMAGE
