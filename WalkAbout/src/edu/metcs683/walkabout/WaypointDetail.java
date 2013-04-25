@@ -93,7 +93,7 @@ public class WaypointDetail extends Activity {
 			mapWaypointToForm(waypoint);
 		} else {
 			final Location location = LocationService.getLocation(this);
-			waypoint = new Waypoint(0, null, new Date(), false, location.getLatitude(), location.getLongitude());
+			waypoint = new Waypoint(0, null, new Date(), true, location.getLatitude(), location.getLongitude());
 			mapWaypointToForm(waypoint);
 		}
 	}
