@@ -57,6 +57,17 @@ public class WaypointViewController {
 		return waypoint.getDescription();
 	}
 
+	public boolean isWaypointExpanded(long id){
+		final Waypoint waypoint = waypointDAO.get(id);
+		return waypoint.isExpanded();
+	}
+	
+	public void setWaypointExpanded(long id){
+		final Waypoint waypoint = waypointDAO.get(id);
+		waypoint.setExpanded(!waypoint.isExpanded());
+		waypointDAO.update(waypoint);
+	}
+	
 	@SuppressLint("SimpleDateFormat")
 	public String getWaypointDate(long id) {
 		final Waypoint waypoint = waypointDAO.get(id);
