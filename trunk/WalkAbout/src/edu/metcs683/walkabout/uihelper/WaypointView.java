@@ -61,7 +61,7 @@ public class WaypointView extends LinearLayout {
 	private GridView photoList;
 	private long waypointId;
 	private TextView waypointTitle;
-	private TextView waypointDescription;
+	private TextView waypointDate;
 	private ImageObserver observer;
 	private ImageButton expandCollapse;
 
@@ -119,7 +119,7 @@ public class WaypointView extends LinearLayout {
 	private void initializeUI() {
 		// Attach to UI elements
 		waypointTitle = (TextView) findViewById(R.id.waypointTitle);
-		waypointDescription = (TextView) findViewById(R.id.waypointDescription);
+		waypointDate = (TextView) findViewById(R.id.waypointDescription);
 		cameraButton = (ImageButton) findViewById(R.id.cameraButton);
 		menuButton = (ImageButton) findViewById(R.id.menuButton);
 		photoList = (GridView) findViewById(R.id.photoList);
@@ -146,7 +146,7 @@ public class WaypointView extends LinearLayout {
 	 */
 	public void updateWaypointAttributes() {
 		waypointTitle.setText(controller.getWaypointDescription(waypointId));
-		waypointDescription.setText(controller.getWaypointDate(waypointId));
+		waypointDate.setText(controller.getWaypointDate(waypointId));
 	}
 
 	/**

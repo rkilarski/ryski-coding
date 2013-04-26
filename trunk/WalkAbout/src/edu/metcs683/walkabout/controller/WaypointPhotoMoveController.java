@@ -1,7 +1,11 @@
 package edu.metcs683.walkabout.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import edu.metcs683.walkabout.dao.AppSettingsDAO;
@@ -16,7 +20,7 @@ import edu.metcs683.walkabout.model.Waypoint;
  * @author Ryszard Kilarski (U81-39-8560)
  * 
  */
-public class MovePhotosBetweenWaypointsController {
+public class WaypointPhotoMoveController {
 	private final AppSettingsDAO appSettingsDAO;
 	private final ImageDAO imageDAO;
 	private final WaypointDAO waypointDAO;
@@ -27,7 +31,8 @@ public class MovePhotosBetweenWaypointsController {
 	 * @param context
 	 * @param activity
 	 */
-	public MovePhotosBetweenWaypointsController(Context context, Activity activity) {
+	public WaypointPhotoMoveController(Context context,
+			Activity activity) {
 		this.waypointDAO = new WaypointDAO(context);
 		this.imageDAO = new ImageDAO(context);
 		this.appSettingsDAO = new AppSettingsDAO(activity);
@@ -40,7 +45,8 @@ public class MovePhotosBetweenWaypointsController {
 	 * @return
 	 */
 	public List<Image> getImageList(long id) {
-		final boolean orderByAscending = appSettingsDAO.getWaypointPhotoOrderAscendingFlag();
+		final boolean orderByAscending = appSettingsDAO
+				.getWaypointPhotoOrderAscendingFlag();
 		return imageDAO.getAll(orderByAscending, id);
 	}
 
@@ -50,7 +56,8 @@ public class MovePhotosBetweenWaypointsController {
 	 * @return
 	 */
 	public List<Waypoint> getWaypoints() {
-		final boolean orderByAscending = appSettingsDAO.getWaypointOrderAscendingFlag();
+		final boolean orderByAscending = appSettingsDAO
+				.getWaypointOrderAscendingFlag();
 		return waypointDAO.getAll(orderByAscending);
 	}
 
@@ -65,5 +72,13 @@ public class MovePhotosBetweenWaypointsController {
 			image.setWaypointId(toWaypoint);
 			imageDAO.update(image);
 		}
+	}
+
+	@SuppressLint("SimpleDateFormat")
+	public String getWaypointDate(Waypoint waypoint) {
+		Date date = waypoint.getDateTime();
+		DateFormat format = new SimpleDateFormat("EEEE, MMMM d, yyyy");
+
+		return format.format(date);
 	}
 }

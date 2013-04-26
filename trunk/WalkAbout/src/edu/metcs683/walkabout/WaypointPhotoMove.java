@@ -21,7 +21,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
-import edu.metcs683.walkabout.controller.MovePhotosBetweenWaypointsController;
+import edu.metcs683.walkabout.controller.WaypointPhotoMoveController;
 import edu.metcs683.walkabout.model.Image;
 import edu.metcs683.walkabout.model.Waypoint;
 import edu.metcs683.walkabout.uihelper.ErrorDisplay;
@@ -36,7 +36,7 @@ import edu.metcs683.walkabout.uihelper.ImageAdapter;
 public class WaypointPhotoMove extends Activity {
 
 	private Button cancelButton;
-	private MovePhotosBetweenWaypointsController controller;
+	private WaypointPhotoMoveController controller;
 	private SimpleAdapter listViewAdapter;
 	private Spinner targetWaypoint;
 	private Button okButton;
@@ -88,7 +88,7 @@ public class WaypointPhotoMove extends Activity {
 					final Map<String, String> datum = new HashMap<String, String>(
 							2);
 					datum.put("description", waypoint.getDescription());
-					datum.put("date", waypoint.getDateTime().toString());
+					datum.put("date", controller.getWaypointDate(waypoint));
 					datum.put("id", Long.toString(waypoint.getId()));
 					data.add(datum);
 				}
@@ -120,7 +120,7 @@ public class WaypointPhotoMove extends Activity {
 	 * Set up any needed controllers
 	 */
 	private void initializeControllers() {
-		controller = new MovePhotosBetweenWaypointsController(
+		controller = new WaypointPhotoMoveController(
 				getApplicationContext(), this);
 	}
 
