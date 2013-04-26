@@ -35,5 +35,13 @@
     <string name="change_ascending_text_waypoint">Waypoint Order</string>
     <string name="change_ascending_text_photo">Photo Order</string>
     <string name="select_waypoint_label">Copy To Waypoint</string>
+    <string name="error_message">An error has been encountered in the application</string>
+    <string name="error_message_new_waypoint">Error adding new Waypoint.</string>
+    <string name="error_message_change_sort">Error changing sorting.</string>
+    <string name="error_message_load_data">Error loading data.</string>
+    <string name="error_message_edit_waypoint">Error editing Waypoint.</string>
+    <string name="error_message_delete_waypoint">Error deleting Waypoint.</string>
+    <string name="error_message_move_photos">Error moving photos between Waypoints.</string>
+    <string name="error_message_location">Error getting location.</string>
 
 </resources>
