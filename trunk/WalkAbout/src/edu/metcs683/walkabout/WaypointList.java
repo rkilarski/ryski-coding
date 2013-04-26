@@ -7,13 +7,10 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 import edu.metcs683.walkabout.controller.WaypointListController;
 import edu.metcs683.walkabout.model.Image;
 import edu.metcs683.walkabout.model.Waypoint;
@@ -30,7 +27,7 @@ public class WaypointList extends Activity implements ImageObserver {
 
 	protected Dialog splashDialog;
 	private WaypointListController controller;
-	private LinearLayout layout;
+	private LinearLayout waypointList;
 	private Uri imageUri;
 
 	@Override
@@ -64,17 +61,17 @@ public class WaypointList extends Activity implements ImageObserver {
 
 	private void initializeUI() {
 		setContentView(R.layout.activity_waypoint_list);
-		layout = (LinearLayout) findViewById(R.id.LinearLayout1);
+		waypointList = (LinearLayout) findViewById(R.id.waypointListLayout);
 	}
 
 	private void loadData() {
 		final List<Waypoint> waypoints = controller.getWaypoints();
-		layout.removeAllViews();
+		waypointList.removeAllViews();
 		// Get list of all waypoints.
 		for (final Waypoint waypoint : waypoints) {
 			WaypointView waypointView = new WaypointView(this,
 					this.getApplicationContext(), waypoint.getId(), this);
-			layout.addView(waypointView);
+			waypointList.addView(waypointView);
 		}
 	}
 
@@ -93,21 +90,21 @@ public class WaypointList extends Activity implements ImageObserver {
 				WaypointView waypointView = new WaypointView(this,
 						this.getApplicationContext(), id, this);
 				if (controller.getWaypointOrder()) {
-					layout.addView(waypointView); // Add to the end.
+					waypointList.addView(waypointView); // Add to the end.
 				} else {
-					layout.addView(waypointView, 0); // Add to the beginning.
+					waypointList.addView(waypointView, 0); // Add to the beginning.
 				}
 				break;
 			case WaypointView.EDIT_WAYPOINT:
 				id = data.getLongExtra("waypointId", 0);
 				position = getViewPosition(id);
-				view = (WaypointView) layout.getChildAt(position);
+				view = (WaypointView) waypointList.getChildAt(position);
 				view.updateWaypointAttributes();
 				break;
 			case WaypointView.DELETE_WAYPOINT:
 				id = data.getLongExtra("waypointId", 0);
 				position = getViewPosition(id);
-				layout.removeViewAt(position);
+				waypointList.removeViewAt(position);
 				break;
 			case WaypointView.REORDER_WAYPOINT:
 				/*
@@ -119,9 +116,9 @@ public class WaypointList extends Activity implements ImageObserver {
 			case WaypointView.MOVE_PHOTOS:
 				id = data.getLongExtra("waypointId", 0);
 				final long id2 = data.getLongExtra("waypointId2", 0);
-				view = (WaypointView) layout.getChildAt(getViewPosition(id));
+				view = (WaypointView) waypointList.getChildAt(getViewPosition(id));
 				view.updateWaypointPhotos();
-				view = (WaypointView) layout.getChildAt(getViewPosition(id2));
+				view = (WaypointView) waypointList.getChildAt(getViewPosition(id2));
 				view.updateWaypointPhotos();
 				break;
 			case WaypointView.ADD_NEW_PHOTO:
@@ -131,7 +128,7 @@ public class WaypointList extends Activity implements ImageObserver {
 				final Image image = new Image(0, waypointId, filePath);
 				controller.saveImage(image);
 
-				view = (WaypointView) layout
+				view = (WaypointView) waypointList
 						.getChildAt(getViewPosition(waypointId));
 				view.updateWaypointPhotos();
 				break;
@@ -168,8 +165,8 @@ public class WaypointList extends Activity implements ImageObserver {
 	 * @return
 	 */
 	private int getViewPosition(long id) {
-		for (int i = 0; i < layout.getChildCount(); i++) {
-			View v = layout.getChildAt(i);
+		for (int i = 0; i < waypointList.getChildCount(); i++) {
+			View v = waypointList.getChildAt(i);
 			if ((v instanceof WaypointView)
 					&& ((((WaypointView) v).getWaypointId()) == id)) {
 				return i;
