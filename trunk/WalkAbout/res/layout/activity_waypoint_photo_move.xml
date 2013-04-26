@@ -6,6 +6,12 @@
     android:orientation="vertical"
     tools:context=".WaypointPhotoMove" >
 
+    <TextView
+        android:id="@+id/textToLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/move_to_label" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
@@ -17,6 +23,12 @@
             android:layout_weight="1"
             android:prompt="@string/select_waypoint_label" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/selectPhotosLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_photos_label" />
 
     <GridView
         android:id="@+id/photoList"

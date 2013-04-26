@@ -43,5 +43,7 @@
     <string name="error_message_delete_waypoint">Error deleting Waypoint.</string>
     <string name="error_message_move_photos">Error moving photos between Waypoints.</string>
     <string name="error_message_location">Error getting location.</string>
+    <string name="move_to_label">Move To Waypoint:</string>
+    <string name="select_photos_label">Select Photos</string>
 
 </resources>
