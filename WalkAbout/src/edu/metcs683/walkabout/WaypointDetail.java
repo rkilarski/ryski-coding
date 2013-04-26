@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import edu.metcs683.walkabout.controller.WaypointDetailController;
 import edu.metcs683.walkabout.model.Waypoint;
+import edu.metcs683.walkabout.uihelper.ErrorDisplay;
 import edu.metcs683.walkabout.uihelper.LocationService;
 
 /**
@@ -86,16 +88,24 @@ public class WaypointDetail extends Activity {
 	 * Get data from intent and load into the form.
 	 */
 	private void loadData() {
-		final Intent intent = getIntent();
-		final long id = intent.getLongExtra("waypointId", 0);
-		if (id > 0) {
-			waypoint = controller.getWaypointById(id);
-			mapWaypointToForm(waypoint);
-		} else {
-			final Location location = LocationService.getLocation(this);
-			waypoint = new Waypoint(0, null, new Date(), true, location.getLatitude(), location.getLongitude());
-			mapWaypointToForm(waypoint);
+		try {
+			final Intent intent = getIntent();
+			final long id = intent.getLongExtra("waypointId", 0);
+			if (id > 0) {
+				waypoint = controller.getWaypointById(id);
+				mapWaypointToForm(waypoint);
+			} else {
+				final Location location = LocationService.getLocation(this);
+				waypoint = new Waypoint(0, null, new Date(), true,
+						location.getLatitude(), location.getLongitude());
+				mapWaypointToForm(waypoint);
+			}
+		} catch (Exception ex) {
+			Context context = getApplicationContext();
+			ErrorDisplay.displayMessage(this, context,
+					context.getString(R.string.error_message_load_data), ex);
 		}
+
 	}
 
 	/**
@@ -106,7 +116,6 @@ public class WaypointDetail extends Activity {
 	private Waypoint mapFormToWaypoint() {
 		waypoint.setDescription(description.getText().toString());
 		waypoint.setDateTime(getDateFromWaypointDate());
-		// TODO
 		return waypoint;
 	}
 
@@ -120,10 +129,11 @@ public class WaypointDetail extends Activity {
 
 		final Calendar c = Calendar.getInstance();
 		c.setTime(waypoint.getDateTime());
-		waypointDate.init(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), null);
+		waypointDate.init(c.get(Calendar.YEAR), c.get(Calendar.MONTH),
+				c.get(Calendar.DAY_OF_MONTH), null);
 
-		locationButton.setText(waypoint.getLatitude() + "(lat) " + waypoint.getLongitude() + "(long)");
-		// TODO
+		locationButton.setText(waypoint.getLatitude() + "(lat) "
+				+ waypoint.getLongitude() + "(long)");
 	}
 
 	@Override
@@ -158,13 +168,22 @@ public class WaypointDetail extends Activity {
 	private class LocationButtonListener implements OnClickListener {
 		@Override
 		public void onClick(View arg0) {
-			final Location location = LocationService.getLocation(WaypointDetail.this);
-			if (location != null) {
-				waypoint.setLatitude(location.getLatitude());
-				waypoint.setLongitude(location.getLongitude());
-				locationButton.setText(waypoint.getLatitude() + "(lat) " + waypoint.getLongitude() + "(long)");
-			} else {
-				locationButton.setText(getString(R.string.locationButtonUnknown));
+			try {
+				final Location location = LocationService
+						.getLocation(WaypointDetail.this);
+				if (location != null) {
+					waypoint.setLatitude(location.getLatitude());
+					waypoint.setLongitude(location.getLongitude());
+					locationButton.setText(waypoint.getLatitude() + "(lat) "
+							+ waypoint.getLongitude() + "(long)");
+				} else {
+					locationButton
+							.setText(getString(R.string.locationButtonUnknown));
+				}
+			} catch (Exception ex) {
+				Context context = getApplicationContext();
+				ErrorDisplay.displayMessage(WaypointDetail.this, context,
+						context.getString(R.string.error_message_location), ex);
 			}
 		}
 	}
@@ -175,16 +194,29 @@ public class WaypointDetail extends Activity {
 	private class OKButtonListener implements OnClickListener {
 		@Override
 		public void onClick(View arg0) {
-			final Waypoint waypoint = mapFormToWaypoint();
-			long id = controller.saveWaypoint(waypoint);
+			try {
+				final Waypoint waypoint = mapFormToWaypoint();
+				long id = controller.saveWaypoint(waypoint);
 
-			// Communicate back to the caller the new waypoint id.
-			final Intent intent = new Intent();
-			intent.putExtra("waypointId", id);
-			setResult(Activity.RESULT_OK, intent);
+				// Communicate back to the caller the new waypoint id.
+				final Intent intent = new Intent();
+				intent.putExtra("waypointId", id);
+				setResult(Activity.RESULT_OK, intent);
 
-			Toast.makeText(getApplicationContext(), "Waypoint " + waypoint.getDescription() + " has been filed.",
-					Toast.LENGTH_LONG).show();
+				Toast.makeText(
+						getApplicationContext(),
+						"Waypoint " + waypoint.getDescription()
+								+ " has been filed.", Toast.LENGTH_LONG).show();
+			} catch (Exception ex) {
+				Context context = getApplicationContext();
+				ErrorDisplay
+						.displayMessage(
+								WaypointDetail.this,
+								context,
+								context.getString(R.string.error_message_edit_waypoint),
+								ex);
+			}
+
 			finish();
 			overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
 		}

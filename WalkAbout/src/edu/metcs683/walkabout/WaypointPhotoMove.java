@@ -7,6 +7,7 @@ import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import android.widget.Spinner;
 import edu.metcs683.walkabout.controller.MovePhotosBetweenWaypointsController;
 import edu.metcs683.walkabout.model.Image;
 import edu.metcs683.walkabout.model.Waypoint;
+import edu.metcs683.walkabout.uihelper.ErrorDisplay;
 import edu.metcs683.walkabout.uihelper.ImageAdapter;
 
 /**
@@ -73,29 +75,37 @@ public class WaypointPhotoMove extends Activity {
 	 * Get data from intent and load into the form.
 	 */
 	private void loadData() {
-		final Intent intent = getIntent();
-		final long sourceWaypointId = intent.getLongExtra("waypointId", 0);
+		try {
+			final Intent intent = getIntent();
+			final long sourceWaypointId = intent.getLongExtra("waypointId", 0);
 
-		// Load waypoint list into spinner.
-		final List<Waypoint> waypoints = controller.getWaypoints();
-		final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-		for (final Waypoint waypoint : waypoints) {
-			// Exclude the source waypoint.
-			if (waypoint.getId() != sourceWaypointId) {
-				final Map<String, String> datum = new HashMap<String, String>(2);
-				datum.put("description", waypoint.getDescription());
-				datum.put("date", waypoint.getDateTime().toString());
-				datum.put("id", Long.toString(waypoint.getId()));
-				data.add(datum);
+			// Load waypoint list into spinner.
+			final List<Waypoint> waypoints = controller.getWaypoints();
+			final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+			for (final Waypoint waypoint : waypoints) {
+				// Exclude the source waypoint.
+				if (waypoint.getId() != sourceWaypointId) {
+					final Map<String, String> datum = new HashMap<String, String>(
+							2);
+					datum.put("description", waypoint.getDescription());
+					datum.put("date", waypoint.getDateTime().toString());
+					datum.put("id", Long.toString(waypoint.getId()));
+					data.add(datum);
+				}
 			}
-		}
-		listViewAdapter = new SimpleAdapter(this, data, android.R.layout.simple_list_item_2, new String[] {
-				"description", "date" }, new int[] { android.R.id.text1, android.R.id.text2 });
-		targetWaypoint.setAdapter(listViewAdapter);
+			listViewAdapter = new SimpleAdapter(this, data,
+					android.R.layout.simple_list_item_2, new String[] {
+							"description", "date" }, new int[] {
+							android.R.id.text1, android.R.id.text2 });
+			targetWaypoint.setAdapter(listViewAdapter);
 
-		final List<Image> list = controller.getImageList(sourceWaypointId);
-		photoList.setAdapter(new ImageAdapter(this, list));
-		// setTitle(controller.getWaypointDescription(sourceWaypointId));
+			final List<Image> list = controller.getImageList(sourceWaypointId);
+			photoList.setAdapter(new ImageAdapter(this, list));
+		} catch (Exception ex) {
+			Context context = getApplicationContext();
+			ErrorDisplay.displayMessage(this, context,
+					context.getString(R.string.error_message_load_data), ex);
+		}
 	}
 
 	@Override
@@ -110,7 +120,8 @@ public class WaypointPhotoMove extends Activity {
 	 * Set up any needed controllers
 	 */
 	private void initializeControllers() {
-		controller = new MovePhotosBetweenWaypointsController(getApplicationContext(), this);
+		controller = new MovePhotosBetweenWaypointsController(
+				getApplicationContext(), this);
 	}
 
 	/**
@@ -130,7 +141,8 @@ public class WaypointPhotoMove extends Activity {
 	private class ImageClickHandler implements OnItemClickListener {
 
 		@Override
-		public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+		public void onItemClick(AdapterView<?> parent, View v, int position,
+				long id) {
 			// Get the image from the adapter...
 			final Image image = (Image) parent.getAdapter().getItem(position);
 
@@ -154,26 +166,36 @@ public class WaypointPhotoMove extends Activity {
 	private class OKButtonHandler implements OnClickListener {
 		@Override
 		public void onClick(View arg0) {
-			final List<Image> images = new ArrayList<Image>();
-			// Get the list of images to move.
-			for (Image image : selectedPhotos.values()) {
-				images.add(image);
+			try {
+				final List<Image> images = new ArrayList<Image>();
+				// Get the list of images to move.
+				for (Image image : selectedPhotos.values()) {
+					images.add(image);
+				}
+				// Get target waypoint.
+				int selectedItemPosition = targetWaypoint
+						.getSelectedItemPosition();
+				@SuppressWarnings("unchecked")
+				final Map<String, String> row = (HashMap<String, String>) listViewAdapter
+						.getItem(selectedItemPosition);
+				long targetWaypoint = Long.parseLong(row.get("id"));
+
+				controller.movePhotos(targetWaypoint, images);
+
+				final Intent intent = getIntent();
+				final long sourceWaypoint = intent
+						.getLongExtra("waypointId", 0);
+				final Intent returnIntent = new Intent();
+
+				returnIntent.putExtra("waypointId", targetWaypoint);
+				returnIntent.putExtra("waypointId2", sourceWaypoint);
+				setResult(Activity.RESULT_OK, returnIntent);
+			} catch (Exception ex) {
+				Context context = getApplicationContext();
+				ErrorDisplay.displayMessage(WaypointPhotoMove.this, context,
+						context.getString(R.string.error_message_move_photos),
+						ex);
 			}
-			// Get target waypoint.
-			int selectedItemPosition = targetWaypoint.getSelectedItemPosition();
-			@SuppressWarnings("unchecked")
-			final Map<String, String> row = (HashMap<String, String>) listViewAdapter.getItem(selectedItemPosition);
-			long targetWaypoint = Long.parseLong(row.get("id"));
-
-			controller.movePhotos(targetWaypoint, images);
-
-			final Intent intent = getIntent();
-			final long sourceWaypoint = intent.getLongExtra("waypointId", 0);
-			final Intent returnIntent = new Intent();
-
-			returnIntent.putExtra("waypointId", targetWaypoint);
-			returnIntent.putExtra("waypointId2", sourceWaypoint);
-			setResult(Activity.RESULT_OK, returnIntent);
 
 			finish();
 			overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
@@ -187,7 +209,8 @@ public class WaypointPhotoMove extends Activity {
 	private class SpinnerClickHandler implements OnItemSelectedListener {
 
 		@Override
-		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
 			okButton.setEnabled(true);
 		}
 
