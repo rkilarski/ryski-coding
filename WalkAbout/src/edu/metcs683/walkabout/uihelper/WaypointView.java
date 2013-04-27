@@ -8,6 +8,7 @@ import edu.metcs683.walkabout.R;
 import edu.metcs683.walkabout.WaypointDelete;
 import edu.metcs683.walkabout.WaypointDetail;
 import edu.metcs683.walkabout.WaypointMap;
+import edu.metcs683.walkabout.WaypointPhotoDelete;
 import edu.metcs683.walkabout.WaypointPhotoMove;
 import edu.metcs683.walkabout.controller.WaypointViewController;
 import edu.metcs683.walkabout.model.Image;
@@ -51,6 +52,7 @@ public class WaypointView extends LinearLayout {
 	public static final int REORDER_WAYPOINT = 4;
 	public static final int MOVE_PHOTOS = 5;
 	public static final int ADD_NEW_PHOTO = 6;
+	public static final int DELETE_PHOTOS_FROM_WAYPOINT = 7;
 
 	private Activity activity;
 	private ImageButton cameraButton;
@@ -362,6 +364,17 @@ public class WaypointView extends LinearLayout {
 					intent.putExtras(bundle);
 
 					context.startActivity(intent);
+					break;
+				case R.id.delete_photos:
+					intent = new Intent(context, WaypointPhotoDelete.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+					bundle = new Bundle();
+					bundle.putLong("waypointId", waypointId);
+					intent.putExtras(bundle);
+
+					activity.startActivityForResult(intent, WaypointView.DELETE_PHOTOS_FROM_WAYPOINT);
+					activity.overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
 					break;
 				case R.id.move_photos:
 					intent = new Intent(context, WaypointPhotoMove.class);

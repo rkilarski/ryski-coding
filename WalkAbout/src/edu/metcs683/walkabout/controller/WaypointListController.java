@@ -29,8 +29,7 @@ public class WaypointListController {
 	}
 
 	public List<Waypoint> getWaypoints() {
-		final boolean orderByAscending = appSettingsDAO
-				.getWaypointOrderAscendingFlag();
+		final boolean orderByAscending = appSettingsDAO.getWaypointOrderAscendingFlag();
 		return waypointDAO.getAll(orderByAscending);
 	}
 
@@ -43,8 +42,7 @@ public class WaypointListController {
 	}
 
 	public void changePhotoOrder() {
-		final boolean order = !appSettingsDAO
-				.getWaypointPhotoOrderAscendingFlag();
+		final boolean order = !appSettingsDAO.getWaypointPhotoOrderAscendingFlag();
 		appSettingsDAO.setWaypointPhotoOrderAscendingFlag(order);
 	}
 
