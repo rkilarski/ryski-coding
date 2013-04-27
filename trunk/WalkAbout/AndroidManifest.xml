@@ -56,6 +56,10 @@
             android:label="@string/title_activity_move_photos_between_waypoints" >
         </activity>
         <activity
+            android:name="edu.metcs683.walkabout.WaypointPhotoDelete"
+            android:label="@string/title_activity_delete_photos_from_waypoint" >
+        </activity>
+        <activity
             android:name="edu.metcs683.walkabout.PhotoList"
             android:label="@string/title_activity_photo_list" >
         </activity>
