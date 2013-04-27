@@ -10,7 +10,7 @@
         android:id="@+id/textFromLabel"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/waypoint_move_from" />
+        android:text="@string/delete_from" />
 
     <TextView
         android:id="@+id/textMoveFrom"
@@ -19,22 +19,9 @@
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/textToLabel"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/move_to_label" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-
-        <Spinner
-            android:id="@+id/moveToWaypoint"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:prompt="@string/select_waypoint_label" />
     </LinearLayout>
 
     <TextView
@@ -72,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:clickable="false"
-            android:text="@string/move_button_label" />
+            android:text="@string/delete_photos_text" />
 
         <Button
             android:id="@+id/cancelButton"

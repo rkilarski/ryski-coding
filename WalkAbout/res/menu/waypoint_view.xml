@@ -10,13 +10,6 @@
         android:icon="@drawable/waypoint_delete"
         android:showAsAction="withText"
         android:title="@string/delete_waypoint_text"/>
-    <!--
-    <item
-        android:id="@+id/import_image"
-        android:icon="@drawable/add_picture"
-        android:showAsAction="always"
-        android:title="@string/import_image_text"/>
-    -->
     <item
         android:id="@+id/map_waypoint"
         android:icon="@drawable/map"
@@ -27,5 +20,10 @@
         android:icon="@drawable/move_photos"
         android:showAsAction="withText"
         android:title="@string/menu_move_photos"/>
-
+   <item
+        android:id="@+id/delete_photos"
+        android:icon="@drawable/waypoint_delete"
+        android:showAsAction="withText"
+        android:title="@string/delete_photos_text"/>
+ 
 </menu>
