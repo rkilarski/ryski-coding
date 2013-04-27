@@ -41,45 +41,42 @@ public class WaypointList extends Activity implements ImageObserver {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.new_waypoint:
-			try {
-				final Intent intent = new Intent(this, WaypointDetail.class);
-				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(intent);
-				startActivityForResult(intent, WaypointView.ADD_WAYPOINT);
-				overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
-			} catch (Exception ex) {
-				Context context = getApplicationContext();
-				ErrorDisplay.displayMessage(this, context,
-						context.getString(R.string.error_message_new_waypoint),
-						ex);
-			}
-			return true;
-		case R.id.change_waypoint_sort:
-			try {
-				controller.changeWaypointOrder();
-				loadData();
-			} catch (Exception ex) {
-				Context context = getApplicationContext();
-				ErrorDisplay.displayMessage(this, context,
-						context.getString(R.string.error_message_change_sort),
-						ex);
-			}
+			case R.id.new_waypoint:
+				try {
+					final Intent intent = new Intent(this, WaypointDetail.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(intent);
+					startActivityForResult(intent, WaypointView.ADD_WAYPOINT);
+					overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
+				} catch (Exception ex) {
+					Context context = getApplicationContext();
+					ErrorDisplay.displayMessage(this, context, context.getString(R.string.error_message_new_waypoint),
+							ex);
+				}
+				return true;
+			case R.id.change_waypoint_sort:
+				try {
+					controller.changeWaypointOrder();
+					loadData();
+				} catch (Exception ex) {
+					Context context = getApplicationContext();
+					ErrorDisplay.displayMessage(this, context, context.getString(R.string.error_message_change_sort),
+							ex);
+				}
 
-			return true;
-		case R.id.change_photo_sort:
-			try {
-				controller.changePhotoOrder();
-				loadData();
-			} catch (Exception ex) {
-				Context context = getApplicationContext();
-				ErrorDisplay.displayMessage(this, context,
-						context.getString(R.string.error_message_change_sort),
-						ex);
-			}
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
+				return true;
+			case R.id.change_photo_sort:
+				try {
+					controller.changePhotoOrder();
+					loadData();
+				} catch (Exception ex) {
+					Context context = getApplicationContext();
+					ErrorDisplay.displayMessage(this, context, context.getString(R.string.error_message_change_sort),
+							ex);
+				}
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
 		}
 	}
 
@@ -94,14 +91,12 @@ public class WaypointList extends Activity implements ImageObserver {
 			waypointList.removeAllViews();
 			// Get list of all waypoints.
 			for (final Waypoint waypoint : waypoints) {
-				WaypointView waypointView = new WaypointView(this,
-						this.getApplicationContext(), waypoint.getId(), this);
+				WaypointView waypointView = new WaypointView(this, this.getApplicationContext(), waypoint.getId(), this);
 				waypointList.addView(waypointView);
 			}
 		} catch (Exception ex) {
 			Context context = getApplicationContext();
-			ErrorDisplay.displayMessage(this, context,
-					context.getString(R.string.error_message_load_data), ex);
+			ErrorDisplay.displayMessage(this, context, context.getString(R.string.error_message_load_data), ex);
 		}
 	}
 
@@ -114,85 +109,87 @@ public class WaypointList extends Activity implements ImageObserver {
 			WaypointView view;
 
 			switch (requestCode) {
-			case WaypointView.ADD_WAYPOINT:
-				try {
-					id = data.getLongExtra("waypointId", 0);
-					position = getViewPosition(id);
-					WaypointView waypointView = new WaypointView(this,
-							this.getApplicationContext(), id, this);
-					if (controller.getWaypointOrder()) {
-						waypointList.addView(waypointView); // Add to the end.
-					} else {
-						waypointList.addView(waypointView, 0); // Add to the
-																// beginning.
+				case WaypointView.ADD_WAYPOINT:
+					try {
+						id = data.getLongExtra("waypointId", 0);
+						position = getViewPosition(id);
+						WaypointView waypointView = new WaypointView(this, this.getApplicationContext(), id, this);
+						if (controller.getWaypointOrder()) {
+							waypointList.addView(waypointView); // Add to the
+																// end.
+						} else {
+							waypointList.addView(waypointView, 0); // Add to the
+																	// beginning.
+						}
+					} catch (Exception ex) {
+						Context context = getApplicationContext();
+						ErrorDisplay.displayMessage(this, context,
+								context.getString(R.string.error_message_new_waypoint), ex);
 					}
-				} catch (Exception ex) {
-					Context context = getApplicationContext();
-					ErrorDisplay
-							.displayMessage(
-									this,
-									context,
-									context.getString(R.string.error_message_new_waypoint),
-									ex);
-				}
-				break;
-			case WaypointView.EDIT_WAYPOINT:
-				try {
-					id = data.getLongExtra("waypointId", 0);
-					position = getViewPosition(id);
-					view = (WaypointView) waypointList.getChildAt(position);
-					view.updateWaypointAttributes();
-				} catch (Exception ex) {
-					Context context = getApplicationContext();
-					ErrorDisplay.displayMessage(this, context, context
-							.getString(R.string.error_message_edit_waypoint),
-							ex);
-				}
-				break;
-			case WaypointView.DELETE_WAYPOINT:
-				try {
-					id = data.getLongExtra("waypointId", 0);
-					position = getViewPosition(id);
-					waypointList.removeViewAt(position);
-				} catch (Exception ex) {
-					Context context = getApplicationContext();
-					ErrorDisplay.displayMessage(this, context, context
-							.getString(R.string.error_message_edit_waypoint),
-							ex);
-				}
-				break;
-			case WaypointView.MOVE_PHOTOS:
-				try {
-					id = data.getLongExtra("waypointId", 0);
-					final long id2 = data.getLongExtra("waypointId2", 0);
-					view = (WaypointView) waypointList
-							.getChildAt(getViewPosition(id));
-					view.updateWaypointPhotos();
-					view = (WaypointView) waypointList
-							.getChildAt(getViewPosition(id2));
-					view.updateWaypointPhotos();
-				} catch (Exception ex) {
-					Context context = getApplicationContext();
-					ErrorDisplay.displayMessage(this, context, context
-							.getString(R.string.error_message_move_photos), ex);
-				}
-				break;
-			case WaypointView.ADD_NEW_PHOTO:
-				try { // Save image to database.
-					String filePath = imageUri.toString();
-					long waypointId = getWaypointIdFromFilename(filePath);
-					final Image image = new Image(0, waypointId, filePath);
-					controller.saveImage(image);
+					break;
+				case WaypointView.EDIT_WAYPOINT:
+					try {
+						id = data.getLongExtra("waypointId", 0);
+						position = getViewPosition(id);
+						view = (WaypointView) waypointList.getChildAt(position);
+						view.updateWaypointAttributes();
+					} catch (Exception ex) {
+						Context context = getApplicationContext();
+						ErrorDisplay.displayMessage(this, context,
+								context.getString(R.string.error_message_edit_waypoint), ex);
+					}
+					break;
+				case WaypointView.DELETE_WAYPOINT:
+					try {
+						id = data.getLongExtra("waypointId", 0);
+						position = getViewPosition(id);
+						waypointList.removeViewAt(position);
+					} catch (Exception ex) {
+						Context context = getApplicationContext();
+						ErrorDisplay.displayMessage(this, context,
+								context.getString(R.string.error_message_edit_waypoint), ex);
+					}
+					break;
+				case WaypointView.MOVE_PHOTOS:
+					try {
+						id = data.getLongExtra("waypointId", 0);
+						final long id2 = data.getLongExtra("waypointId2", 0);
+						view = (WaypointView) waypointList.getChildAt(getViewPosition(id));
+						view.updateWaypointPhotos();
+						view = (WaypointView) waypointList.getChildAt(getViewPosition(id2));
+						view.updateWaypointPhotos();
+					} catch (Exception ex) {
+						Context context = getApplicationContext();
+						ErrorDisplay.displayMessage(this, context,
+								context.getString(R.string.error_message_move_photos), ex);
+					}
+					break;
+				case WaypointView.DELETE_PHOTOS_FROM_WAYPOINT:
+					try {
+						id = data.getLongExtra("waypointId", 0);
+						view = (WaypointView) waypointList.getChildAt(getViewPosition(id));
+						view.updateWaypointPhotos();
+					} catch (Exception ex) {
+						Context context = getApplicationContext();
+						ErrorDisplay.displayMessage(this, context,
+								context.getString(R.string.error_message_delete_photos), ex);
+					}
+					break;
+				case WaypointView.ADD_NEW_PHOTO:
+					try { // Save image to database.
+						String filePath = imageUri.toString();
+						long waypointId = getWaypointIdFromFilename(filePath);
+						final Image image = new Image(0, waypointId, filePath);
+						controller.saveImage(image);
 
-					view = (WaypointView) waypointList
-							.getChildAt(getViewPosition(waypointId));
-					view.updateWaypointPhotos();
-				} catch (Exception ex) {
-					Context context = getApplicationContext();
-					ErrorDisplay.displayMessage(this, context, context
-							.getString(R.string.error_message_new_waypoint), ex);
-				}
-				break;
+						view = (WaypointView) waypointList.getChildAt(getViewPosition(waypointId));
+						view.updateWaypointPhotos();
+					} catch (Exception ex) {
+						Context context = getApplicationContext();
+						ErrorDisplay.displayMessage(this, context,
+								context.getString(R.string.error_message_new_waypoint), ex);
+					}
+					break;
 			}
 		}
 	}
@@ -228,8 +225,7 @@ public class WaypointList extends Activity implements ImageObserver {
 	private int getViewPosition(long id) {
 		for (int i = 0; i < waypointList.getChildCount(); i++) {
 			View v = waypointList.getChildAt(i);
-			if ((v instanceof WaypointView)
-					&& ((((WaypointView) v).getWaypointId()) == id)) {
+			if ((v instanceof WaypointView) && ((((WaypointView) v).getWaypointId()) == id)) {
 				return i;
 			}
 		}

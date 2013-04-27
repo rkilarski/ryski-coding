@@ -1,6 +1,5 @@
 package edu.metcs683.walkabout;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,30 +15,24 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.SimpleAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
-import edu.metcs683.walkabout.controller.WaypointPhotoMoveController;
+import edu.metcs683.walkabout.controller.WaypointPhotoDeleteController;
 import edu.metcs683.walkabout.model.Image;
-import edu.metcs683.walkabout.model.Waypoint;
 import edu.metcs683.walkabout.uihelper.ErrorDisplay;
 import edu.metcs683.walkabout.uihelper.ImageAdapter;
 
 /**
- * User interface for the move images between waypoints functionality.
+ * User interface for the delete images from waypoints functionality.
  * 
  * @author Ryszard Kilarski (U81-39-8560)
  * 
  */
-public class WaypointPhotoMove extends Activity {
+public class WaypointPhotoDelete extends Activity {
 
 	private Button cancelButton;
-	private WaypointPhotoMoveController controller;
-	private SimpleAdapter listViewAdapter;
-	private Spinner targetWaypoint;
+	private WaypointPhotoDeleteController controller;
 	private TextView sourceWaypoint;
 	private Button okButton;
 	private GridView photoList;
@@ -49,7 +42,7 @@ public class WaypointPhotoMove extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_waypoint_photo_move, menu);
+		getMenuInflater().inflate(R.menu.activity_waypoint_photo_delete, menu);
 		return true;
 	}
 
@@ -57,11 +50,11 @@ public class WaypointPhotoMove extends Activity {
 	 * Load the data into the UI.
 	 */
 	private void initializeUI() {
-		setContentView(R.layout.activity_waypoint_photo_move);
+		setContentView(R.layout.activity_waypoint_photo_delete);
 		// Attach to UI elements
 		photoList = (GridView) findViewById(R.id.photoList);
-		targetWaypoint = (Spinner) findViewById(R.id.moveToWaypoint);
 		sourceWaypoint = (TextView) findViewById(R.id.textMoveFrom);
+
 		cancelButton = (Button) findViewById(R.id.cancelButton);
 		okButton = (Button) findViewById(R.id.okButton);
 
@@ -69,8 +62,6 @@ public class WaypointPhotoMove extends Activity {
 		cancelButton.setOnClickListener(new CancelButtonHandler());
 		okButton.setOnClickListener(new OKButtonHandler());
 		photoList.setOnItemClickListener(new ImageClickHandler());
-		targetWaypoint.setOnItemSelectedListener(new SpinnerClickHandler());
-
 	}
 
 	/**
@@ -82,23 +73,6 @@ public class WaypointPhotoMove extends Activity {
 			final long sourceWaypointId = intent.getLongExtra("waypointId", 0);
 
 			sourceWaypoint.setText(controller.getWaypointDescription(sourceWaypointId));
-			
-			// Load waypoint list into spinner.
-			final List<Waypoint> waypoints = controller.getWaypoints();
-			final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-			for (final Waypoint waypoint : waypoints) {
-				// Exclude the source waypoint.
-				if (waypoint.getId() != sourceWaypointId) {
-					final Map<String, String> datum = new HashMap<String, String>(2);
-					datum.put("description", waypoint.getDescription());
-					datum.put("date", controller.getWaypointDate(waypoint));
-					datum.put("id", Long.toString(waypoint.getId()));
-					data.add(datum);
-				}
-			}
-			listViewAdapter = new SimpleAdapter(this, data, android.R.layout.simple_list_item_2, new String[] {
-					"description", "date" }, new int[] { android.R.id.text1, android.R.id.text2 });
-			targetWaypoint.setAdapter(listViewAdapter);
 
 			final List<Image> list = controller.getImageList(sourceWaypointId);
 			photoList.setAdapter(new ImageAdapter(this, list));
@@ -120,7 +94,7 @@ public class WaypointPhotoMove extends Activity {
 	 * Set up any needed controllers
 	 */
 	private void initializeControllers() {
-		controller = new WaypointPhotoMoveController(getApplicationContext(), this);
+		controller = new WaypointPhotoDeleteController(getApplicationContext(), this);
 	}
 
 	/**
@@ -165,30 +139,21 @@ public class WaypointPhotoMove extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			try {
-				final List<Image> images = new ArrayList<Image>();
-				// Get the list of images to move.
+				// Delete the selected images.
 				for (Image image : selectedPhotos.values()) {
-					images.add(image);
+					controller.deleteImage(image.getId());
 				}
-				// Get target waypoint.
-				int selectedItemPosition = targetWaypoint.getSelectedItemPosition();
-				@SuppressWarnings("unchecked")
-				final Map<String, String> row = (HashMap<String, String>) listViewAdapter.getItem(selectedItemPosition);
-				long targetWaypoint = Long.parseLong(row.get("id"));
-
-				controller.movePhotos(targetWaypoint, images);
 
 				final Intent intent = getIntent();
 				final long sourceWaypoint = intent.getLongExtra("waypointId", 0);
 				final Intent returnIntent = new Intent();
 
-				returnIntent.putExtra("waypointId", targetWaypoint);
-				returnIntent.putExtra("waypointId2", sourceWaypoint);
+				returnIntent.putExtra("waypointId", sourceWaypoint);
 				setResult(Activity.RESULT_OK, returnIntent);
 			} catch (Exception ex) {
 				Context context = getApplicationContext();
-				ErrorDisplay.displayMessage(WaypointPhotoMove.this, context,
-						context.getString(R.string.error_message_move_photos), ex);
+				ErrorDisplay.displayMessage(WaypointPhotoDelete.this, context,
+						context.getString(R.string.error_message_delete_photos), ex);
 			}
 
 			finish();
@@ -196,21 +161,4 @@ public class WaypointPhotoMove extends Activity {
 		}
 	}
 
-	/**
-	 * Handler for the waypoint selector.
-	 * 
-	 */
-	private class SpinnerClickHandler implements OnItemSelectedListener {
-
-		@Override
-		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-			okButton.setEnabled(true);
-		}
-
-		@Override
-		public void onNothingSelected(AdapterView<?> arg0) {
-			okButton.setEnabled(false);
-		}
-
-	}
 }
