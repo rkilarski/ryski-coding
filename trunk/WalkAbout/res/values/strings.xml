@@ -7,6 +7,7 @@
     <string name="title_activity_waypoint_detail">Waypoint Detail</string>
     <string name="title_activity_waypoint_map">Waypoint Map</string>
     <string name="title_activity_move_photos_between_waypoints">Move Photos</string>
+    <string name="title_activity_delete_photos_from_waypoint">Delete Photos</string>
     <string name="description_label">Description:</string>
     <string name="date_label">Date:</string>
     <string name="OK_button_label">OK</string>
@@ -24,6 +25,7 @@
     <string name="edit_waypoint_text">Edit Waypoint</string>
     <string name="delete_waypoint_text">Delete Waypoint</string>
     <string name="delete_image_text">Delete Waypoint</string>
+    <string name="delete_photos_text">Delete Photos</string>
     <string name="import_image_text">Import Image</string>
     <string name="map_waypoint_text">Map Waypoint</string>
     <string name="delete_waypoint_message">This action will delete the current waypoint and all associated images.  Are you sure?</string>
@@ -42,8 +44,11 @@
     <string name="error_message_edit_waypoint">Error editing Waypoint.</string>
     <string name="error_message_delete_waypoint">Error deleting Waypoint.</string>
     <string name="error_message_move_photos">Error moving photos between Waypoints.</string>
+    <string name="error_message_delete_photos">Error deleting photos between Waypoints.</string>
     <string name="error_message_location">Error getting location.</string>
     <string name="move_to_label">Move To Waypoint:</string>
     <string name="select_photos_label">Select Photos</string>
-
+    <string name="waypoint_move_from">Move From Waypoint:</string>
+    <string name="delete_from">Delete From Waypoint:</string>
+    
 </resources>
