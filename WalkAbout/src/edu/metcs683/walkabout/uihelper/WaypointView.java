@@ -1,6 +1,7 @@
 package edu.metcs683.walkabout.uihelper;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -174,11 +175,15 @@ public class WaypointView extends LinearLayout {
 				Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "WalkAbout");
 
 		// Create the storage directory if it does not exist
-		if (!mediaStorageDir.exists()) {
-			if (!mediaStorageDir.mkdirs()) {
-				Log.d("WalkAbout", "failed to create directory " + mediaStorageDir.getParentFile());
-				return null;
+		try {
+			if (!mediaStorageDir.getCanonicalFile().isDirectory()) {
+				if (!mediaStorageDir.getCanonicalFile().mkdirs()) {
+					Log.d("WalkAbout", "failed to create directory " + mediaStorageDir.getParentFile());
+					return null;
+				}
 			}
+		} catch (IOException e) {
+			Log.d("WalkAbout", "failed to create directory " + mediaStorageDir.getParentFile());
 		}
 
 		// Create a media file name
@@ -319,74 +324,74 @@ public class WaypointView extends LinearLayout {
 			Bundle bundle;
 
 			switch (item.getItemId()) {
-				case R.id.edit_waypoint:
-					intent = new Intent(context, WaypointDetail.class);
-					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			case R.id.edit_waypoint:
+				intent = new Intent(context, WaypointDetail.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-					bundle = new Bundle();
-					bundle.putLong("waypointId", waypointId);
-					intent.putExtras(bundle);
+				bundle = new Bundle();
+				bundle.putLong("waypointId", waypointId);
+				intent.putExtras(bundle);
 
-					activity.startActivityForResult(intent, WaypointView.EDIT_WAYPOINT);
-					activity.overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
-					break;
-				case R.id.delete_waypoint:
-					final String title = context.getString(R.string.delete_waypoint_text);
-					final String message = context.getString(R.string.delete_waypoint_message);
-					final String yes = context.getString(R.string.yes);
-					final String no = context.getString(R.string.no);
-					new AlertDialog.Builder(activity).setTitle(title).setMessage(message)
-							.setPositiveButton(yes, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog, int whichButton) {
-									Intent intent = new Intent(activity, WaypointDelete.class);
-									Bundle bundle = new Bundle();
-									// intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				activity.startActivityForResult(intent, WaypointView.EDIT_WAYPOINT);
+				activity.overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
+				break;
+			case R.id.delete_waypoint:
+				final String title = context.getString(R.string.delete_waypoint_text);
+				final String message = context.getString(R.string.delete_waypoint_message);
+				final String yes = context.getString(R.string.yes);
+				final String no = context.getString(R.string.no);
+				new AlertDialog.Builder(activity).setTitle(title).setMessage(message)
+						.setPositiveButton(yes, new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int whichButton) {
+								Intent intent = new Intent(activity, WaypointDelete.class);
+								Bundle bundle = new Bundle();
+								// intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-									bundle.putLong("waypointId", waypointId);
-									intent.putExtras(bundle);
+								bundle.putLong("waypointId", waypointId);
+								intent.putExtras(bundle);
 
-									activity.startActivityForResult(intent, WaypointView.DELETE_WAYPOINT);
-								}
-							}).setNegativeButton(no, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog, int whichButton) {
-									// Do nothing.
-								}
-							}).show();
-					break;
-				case R.id.map_waypoint:
-					intent = new Intent(context, WaypointMap.class);
-					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+								activity.startActivityForResult(intent, WaypointView.DELETE_WAYPOINT);
+							}
+						}).setNegativeButton(no, new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int whichButton) {
+								// Do nothing.
+							}
+						}).show();
+				break;
+			case R.id.map_waypoint:
+				intent = new Intent(context, WaypointMap.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-					bundle = new Bundle();
-					bundle.putLong("waypointId", waypointId);
-					intent.putExtras(bundle);
+				bundle = new Bundle();
+				bundle.putLong("waypointId", waypointId);
+				intent.putExtras(bundle);
 
-					context.startActivity(intent);
-					break;
-				case R.id.delete_photos:
-					intent = new Intent(context, WaypointPhotoDelete.class);
-					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				context.startActivity(intent);
+				break;
+			case R.id.delete_photos:
+				intent = new Intent(context, WaypointPhotoDelete.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-					bundle = new Bundle();
-					bundle.putLong("waypointId", waypointId);
-					intent.putExtras(bundle);
+				bundle = new Bundle();
+				bundle.putLong("waypointId", waypointId);
+				intent.putExtras(bundle);
 
-					activity.startActivityForResult(intent, WaypointView.DELETE_PHOTOS_FROM_WAYPOINT);
-					activity.overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
-					break;
-				case R.id.move_photos:
-					intent = new Intent(context, WaypointPhotoMove.class);
-					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				activity.startActivityForResult(intent, WaypointView.DELETE_PHOTOS_FROM_WAYPOINT);
+				activity.overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
+				break;
+			case R.id.move_photos:
+				intent = new Intent(context, WaypointPhotoMove.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-					bundle = new Bundle();
-					bundle.putLong("waypointId", waypointId);
-					intent.putExtras(bundle);
+				bundle = new Bundle();
+				bundle.putLong("waypointId", waypointId);
+				intent.putExtras(bundle);
 
-					activity.startActivityForResult(intent, WaypointView.MOVE_PHOTOS);
-					activity.overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
-					break;
+				activity.startActivityForResult(intent, WaypointView.MOVE_PHOTOS);
+				activity.overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
+				break;
 			}
 			return true;
 		}

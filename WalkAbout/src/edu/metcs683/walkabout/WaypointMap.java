@@ -19,7 +19,7 @@ import android.content.Intent;
  * Main user interface for the waypoint map.
  * 
  * @author Ryszard Kilarski (U81-39-8560)
- *
+ * 
  */
 public class WaypointMap extends MapActivity {
 
@@ -55,7 +55,7 @@ public class WaypointMap extends MapActivity {
 		setTitle(controller.getWaypointDescription(id) + " Map");
 
 		// Set the map to be around the waypoint location.
-		GeoPoint lastKnownPoint = new GeoPoint(((int) (waypoint.getLatitude())),
+		GeoPoint lastKnownPoint = new GeoPoint(((int) (waypoint.getLatitude() * 1E6)),
 				((int) (waypoint.getLongitude() * 1E6)));
 		// mapController = mapView.getController();
 		// mapController.setZoom(10);
