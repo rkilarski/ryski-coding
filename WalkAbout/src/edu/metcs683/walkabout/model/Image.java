@@ -1,13 +1,5 @@
 package edu.metcs683.walkabout.model;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
-
 /**
  * POJO that describes the image.
  * 
@@ -17,7 +9,6 @@ import android.util.Log;
 public class Image {
 
 	private final long id;
-	private transient Bitmap image;
 	private String imageURI;
 	private long waypointId;
 
@@ -29,37 +20,6 @@ public class Image {
 
 	public long getId() {
 		return id;
-	}
-
-	/**
-	 * Load image corresponding to this object.
-	 * 
-	 * @param context
-	 * @return
-	 * @throws IOException
-	 */
-	public Bitmap getImage(Context context) throws IOException {
-		if (image == null) {
-			FileInputStream fis = null;
-			try {
-				fis = context.openFileInput(imageURI);
-				final byte[] data = new byte[fis.available()];
-				while (fis.read(data) != -1) {
-				}
-				image = BitmapFactory.decodeByteArray(data, 0, data.length);
-			} catch (final IOException e) {
-				Log.e("ReadFile", e.getMessage(), e);
-			} finally {
-				if (fis != null) {
-					try {
-						fis.close();
-					} catch (final IOException e) {
-						// Swallow this exception.
-					}
-				}
-			}
-		}
-		return image;
 	}
 
 	public String getImageURI() {
