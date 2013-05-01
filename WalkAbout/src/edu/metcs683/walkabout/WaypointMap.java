@@ -25,8 +25,8 @@ public class WaypointMap extends MapActivity {
 
 	private WaypointMapController controller;
 
-	// private MapController mapController;
-	// private MapView mapView;
+	private MapController mapController;
+	private MapView mapView;
 
 	/**
 	 * Initialize any controllers.
@@ -39,8 +39,8 @@ public class WaypointMap extends MapActivity {
 	 * Initialize the UI objects and attach any handlers.
 	 */
 	private void initializeUI() {
-		// mapView = (MapView) findViewById(R.id.waypointMap);
-		// mapView.setBuiltInZoomControls(true);
+		mapView = (MapView) findViewById(R.id.waypointMap);
+		mapView.setBuiltInZoomControls(true);
 	}
 
 	/**

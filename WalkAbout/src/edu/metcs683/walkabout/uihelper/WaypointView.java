@@ -368,7 +368,7 @@ public class WaypointView extends LinearLayout {
 				bundle.putLong("waypointId", waypointId);
 				intent.putExtras(bundle);
 
-				context.startActivity(intent);
+				activity.startActivity(intent);
 				break;
 			case R.id.delete_photos:
 				intent = new Intent(context, WaypointPhotoDelete.class);
