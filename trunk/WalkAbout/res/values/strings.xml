@@ -46,6 +46,7 @@
     <string name="error_message_move_photos">Error moving photos between Waypoints.</string>
     <string name="error_message_delete_photos">Error deleting photos between Waypoints.</string>
     <string name="error_message_location">Error getting location.</string>
+    <string name="error_message_location_not_available">Location Services are not enabled on this device, cannot access GPS.</string>
     <string name="move_to_label">Move To Waypoint:</string>
     <string name="select_photos_label">Select Photos</string>
     <string name="waypoint_move_from">Move From Waypoint:</string>
