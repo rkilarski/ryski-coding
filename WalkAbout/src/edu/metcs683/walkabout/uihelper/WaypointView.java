@@ -61,7 +61,7 @@ public class WaypointView extends LinearLayout {
 	private WaypointViewController controller;
 	private Uri imageURI;
 	private ImageButton menuButton;
-	private GridView photoList;
+	private MyGridView photoList;
 	private long waypointId;
 	private TextView waypointTitle;
 	private TextView waypointDate;
@@ -125,7 +125,7 @@ public class WaypointView extends LinearLayout {
 		waypointDate = (TextView) findViewById(R.id.waypointDescription);
 		cameraButton = (ImageButton) findViewById(R.id.cameraButton);
 		menuButton = (ImageButton) findViewById(R.id.menuButton);
-		photoList = (GridView) findViewById(R.id.photoList);
+		photoList = (MyGridView) findViewById(R.id.photoList);
 		expandCollapse = (ImageButton) findViewById(R.id.expandCollapse);
 
 		// Attach handlers
@@ -134,6 +134,8 @@ public class WaypointView extends LinearLayout {
 		menuButton.setOnClickListener(new MenuDisplayClickHandler());
 		photoList.setOnItemClickListener(new ImageClickHandler());
 		photoList.setOnItemLongClickListener(new ImageLongClickHandler(context));
+		
+		photoList.setExpanded(true);
 	}
 
 	/**
