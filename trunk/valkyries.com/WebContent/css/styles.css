@@ -63,6 +63,7 @@ h1,h2,h3,h4 {
 }
 
 #logo {
+	
 }
 
 #valkyrieslogo {
@@ -93,6 +94,16 @@ h1#title {
 	margin-right: auto;
 	max-width: 100%;
 }
+#sponsors{
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+.sponsorlogo {
+	margin-left: auto;
+	margin-right: auto;
+	width: 150px;
+	display: block;
+}
 
 #logimage {
 	max-width: 100%;
@@ -106,7 +117,12 @@ h1#title {
 	color: #ffffff;
 }
 
-.navigation a:hover,.highlight a {
+.navigation a:hover {
+	color: #EB009B;
+	border-bottom: 1px solid #EB009B;
+}
+
+.highlight a {
 	color: #EB009B;
 }
 
