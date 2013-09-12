@@ -22,9 +22,9 @@ require_once('../php/pagelogo.php');
 	<div id="bodywrapper" class="clear">
 
 		<h2>How To Join!</h2>
-		<p>Facebook!</p>
-		<p>Email!</p>
-		<p><a href="http://twitter.com/valkyriesrfc">@valkyriesRFC</a> on Twitter</p>
+		<p><a href="https://www.facebook.com/ValkyriesRFC"	title="like us on facebook">Facebook</a></p>
+		<p>Email us!</p>
+		<p>Follow <a href="http://twitter.com/valkyriesrfc">@valkyriesRFC</a> on Twitter</p>
 
 	</div>
 <?php
