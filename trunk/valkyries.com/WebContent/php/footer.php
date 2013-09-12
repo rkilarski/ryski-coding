@@ -1,1 +1,1 @@
-	<footer>&copy;Valkyries Football Club, 2013</footer>
+	<footer>&copy;New England Valkyries Rugby Football Club, 2013</footer>

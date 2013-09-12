@@ -2,66 +2,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="../js/jquery.highlightnav.js"></script>
-<script type="text/javascript" src="../js/jquery.twittertoggle.js"></script>
+<?php
+require_once('../php/common.php');
+?>
 
 <title>About The New England Valkyries RFC</title>
-<link type="text/css" rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
 	<header>
-		<div class="navigation clear">
-			<ul class="navigation">
-				<li><a href="../aboutus/index.html" title="About Us">about
-						us</a></li>
-				<li><a href="../schedule/index.html" title="Team Schedule">schedule</a></li>
-				<li><a href="../events/index.html" title="Events">events</a></li>
-				<li><a href="../joinus/index.html" title="How To Join">how
-						to join</a></li>
-				<li><a href="../gallery/index.html" title="Gallery">gallery</a></li>
-				<li><a href="../sponsors/index.html" title="Our Sponsors">our sponsors</a></li>
-
-			</ul>
-		</div>
-
-		<div id="favorites">
-			<ul>
-				<li><a href="mailto:chickenriceyum@gmail.com" title="email us!"><img
-						id="mailicon" src="../res/mail-icon.png"> </a></li>
-				<li class="facebook"><a href="mailto:chickenriceyum@gmail.com"
-					title="like us on facebook">Facebook</a></li>
-				<li class="twitter" id="twitter"><a href="#"
-					title="follow us on twitter @chickenriceyum!">Twitter</a></li>
-			</ul>
-		</div>
-
-		<div id="tweets">
-			<a class="twitter-timeline" href="https://twitter.com/chickenriceyum"
-				data-widget-id="272501428952629248">Tweets by @chickenriceyum</a>
-			<script>
-				!function(d, s, id) {
-					var js, fjs = d.getElementsByTagName(s)[0];
-					if (!d.getElementById(id)) {
-						js = d.createElement(s);
-						js.id = id;
-						js.src = "//platform.twitter.com/widgets.js";
-						fjs.parentNode.insertBefore(js, fjs);
-					}
-				}(document, "script", "twitter-wjs");
-			</script>
-		</div>
-
-		<div id="pagelogo">
-			<a href="../home/index.html"><img id="valkyrieslogo"
-				src="../res/valkyriesblack.jpg"></a>
-		</div>
+<?php
+require_once('../php/navigation.php');
+require_once('../php/favorites.php');
+require_once('../php/pagelogo.php');
+?>
 		<div id="title">
 			<h1>About the New England Valkyries RFC</h1>
 		</div>
 	</header>
-	<div id="bodywrapper clear">
-
+	<div id="bodywrapper" class="clear">
 		<h2>Our Mission</h2>
 		<p>The New England Valkyries Rugby Football Club is a gay rugby
 			club dedicated to creating an open and inclusive environment, based
@@ -110,6 +68,8 @@
 
 
 	</div>
-	<footer>&copy;New England Valkyries Rugby Football Club, 2013</footer>
+<?php
+require_once('../php/footer.php');
+?>
 </body>
 </html>

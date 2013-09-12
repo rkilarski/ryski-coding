@@ -3,7 +3,7 @@
 }
 
 p {
-	color: #ffffff;
+	color: #000000;
 }
 
 a {
@@ -35,10 +35,33 @@ body {
 	height: auto !important;
 	height: 100%;
 	width: 80%;
-	background-color: #000000;
-	margin: 0 auto 1em;
-	padding-bottom: 10px;
+	background-color: #ffffff;
+	color: #000000;
+	margin: 100px auto 1em auto;
+	padding: 10px;
 	border: none;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	border-radius: 10px;
+	padding: 10px;
+}
+
+#firstpage {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	width: 75%;
+	background-color: #ffffff;
+	color: #000000;
+	margin: 50px auto 1em auto;
+	padding: 10px;
+	border: none;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	border-radius: 10px;
+	padding: 10px;
 }
 
 footer {
@@ -56,10 +79,15 @@ header {
 	background-color: #000000;
 }
 
-h1,h2,h3,h4 {
-	clear: both;
+h1 {
 	text-align: center;
 	color: #ffffff;
+}
+
+h2,h3,h4 {
+	clear: both;
+	text-align: center;
+	color: #EB009B;
 }
 
 #logo {
@@ -73,6 +101,8 @@ h1,h2,h3,h4 {
 #pagelogo {
 	width: 200px;
 	float: left;
+	position: absolute;
+	top: 0px;
 }
 
 .clear {
@@ -80,8 +110,8 @@ h1,h2,h3,h4 {
 }
 
 #title {
-	float: left;
-	width: 50%;
+	display: inline;
+	width: 75%;
 }
 
 h1#title {
@@ -94,15 +124,25 @@ h1#title {
 	margin-right: auto;
 	max-width: 100%;
 }
-#sponsors{
+
+#sponsorsfirstpage {
+	float: right;
+	margin: 30px 10px 30px 10px;
+}
+
+#sponsors {
 	margin-top: 30px;
 	margin-bottom: 30px;
 }
+
 .sponsorlogo {
 	margin-left: auto;
 	margin-right: auto;
 	width: 150px;
 	display: block;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
 }
 
 #logimage {
