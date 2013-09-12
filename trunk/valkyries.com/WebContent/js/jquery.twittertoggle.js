@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$("#twitter a").mouseover(function() {
+	$("#twitter a").click(function() {
 		// $("#tweets").toggle();
 		$("#tweets").slideToggle("slow");
 	});

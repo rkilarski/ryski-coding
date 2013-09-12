@@ -24,7 +24,7 @@ require_once('../php/pagelogo.php');
 		<h2>How To Join!</h2>
 		<p>Facebook!</p>
 		<p>Email!</p>
-		<p>Twitter!</p>
+		<p><a href="http://twitter.com/valkyriesrfc">@valkyriesRFC</a> on Twitter</p>
 
 	</div>
 <?php

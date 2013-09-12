@@ -17,7 +17,7 @@ a {
 	transition: All 0.5s ease;
 }
 
-#bodywrapper a{
+#bodywrapper a {
 	color: #EB009B;
 }
 
@@ -26,7 +26,7 @@ html {
 }
 
 body {
-	background-color: #000000;
+	background-color: #505050;
 	margin: 0;
 	/*height: 80%;
 	min-height: 95%;*/
@@ -41,7 +41,7 @@ body {
 	width: 80%;
 	background-color: #ffffff;
 	color: #000000;
-	margin: 100px auto 1em auto;
+	margin: 50px auto 1em auto;
 	padding: 10px;
 	border: none;
 	-webkit-border-radius: 10px;
@@ -49,13 +49,19 @@ body {
 	-khtml-border-radius: 10px;
 	border-radius: 10px;
 	padding: 10px;
+	-webkit-border-radius: 10px;
+}
+
+#slidedown {
+	display: none;
 }
 
 #firstpage {
+	display: none;
 	min-height: 100%;
-	height: auto !important;
+	height: auto;
 	height: 100%;
-	width: 75%;
+	width: 65%;
 	background-color: #ffffff;
 	color: #000000;
 	margin: 50px auto 1em auto;
@@ -68,6 +74,15 @@ body {
 	padding: 10px;
 }
 
+#headerfirstpage {
+	height: auto;
+}
+
+header {
+	background-color: #000000;
+	height: 150px;
+}
+
 footer {
 	background-color: #000000;
 	color: #EB009B;
@@ -76,11 +91,6 @@ footer {
 	text-align: center;
 	font-weight: normal;
 	font-size: 15px;
-	/*border-top: 1px solid #FF6600;*/
-}
-
-header {
-	background-color: #000000;
 }
 
 h1 {
@@ -99,7 +109,8 @@ h2,h3,h4 {
 }
 
 #valkyrieslogo {
-	width: 200px;
+	height: 150px;
+	border: 0;
 }
 
 #pagelogo {
@@ -164,11 +175,11 @@ h1#title {
 footer .navigation {
 	font-size: 10px;
 	color: #EB009B;
+	background-color: #505050;
 }
 
 .navigation a:hover {
 	color: #EB009B;
-	border-bottom: 1px solid #EB009B;
 }
 
 .highlight a {
