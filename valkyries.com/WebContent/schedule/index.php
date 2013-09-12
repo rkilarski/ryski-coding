@@ -12,7 +12,7 @@ require_once('../php/common.php');
 <body>
 	<header>
 <?php
-require_once('../php/navigation.php');
+require('../php/navigation.php');
 require_once('../php/favorites.php');
 require_once('../php/pagelogo.php');
 ?>
