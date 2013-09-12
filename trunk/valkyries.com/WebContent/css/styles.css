@@ -17,6 +17,10 @@ a {
 	transition: All 0.5s ease;
 }
 
+#bodywrapper a{
+	color: #EB009B;
+}
+
 html {
 	height: 100%;
 }
@@ -155,6 +159,11 @@ h1#title {
 	margin: 0;
 	background-color: #000000;
 	color: #ffffff;
+}
+
+footer .navigation {
+	font-size: 10px;
+	color: #EB009B;
 }
 
 .navigation a:hover {

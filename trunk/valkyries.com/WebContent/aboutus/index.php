@@ -11,7 +11,7 @@ require_once('../php/common.php');
 <body>
 	<header>
 <?php
-require_once('../php/navigation.php');
+require('../php/navigation.php');
 require_once('../php/favorites.php');
 require_once('../php/pagelogo.php');
 ?>
@@ -63,7 +63,7 @@ require_once('../php/pagelogo.php');
 		<p>
 			If you're looking for a physically and mentally challenging sport, in
 			an environment of hard work and mutual respect than the Valkyries is
-			the team for you. <a href="../joinus/index.html">Join Us!</a>
+			the team for you. <a href="../joinus/index.php">Join Us!</a>
 		</p>
 
 
