@@ -59,13 +59,11 @@ require_once('../php/pagelogo.php');
 			the passion to embrace the game. Our club welcomes players from all
 			races, sexual orientations and skill levels.</p>
 
-
 		<p>
 			If you're looking for a physically and mentally challenging sport, in
 			an environment of hard work and mutual respect than the Valkyries is
 			the team for you. <a href="../joinus/index.php">Join Us!</a>
 		</p>
-
 
 	</div>
 <?php
