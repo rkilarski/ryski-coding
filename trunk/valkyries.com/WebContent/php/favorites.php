@@ -2,7 +2,7 @@
 			<ul>
 				<li><a href="mailto:chickenriceyum@gmail.com" title="email us!"><img
 						id="mailicon" src="../res/mail-icon.png"> </a></li>
-				<li class="facebook"><a href="mailto:chickenriceyum@gmail.com"
+				<li class="facebook"><a href="https://www.facebook.com/ValkyriesRFC"
 					title="like us on facebook">Facebook</a></li>
 				<li class="twitter" id="twitter"><a href="#"
 					title="follow us on twitter @valkyriesRFC!">Twitter</a></li>
