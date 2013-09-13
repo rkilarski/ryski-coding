@@ -22,8 +22,8 @@ require_once('../php/pagelogo.php');
 	<div id="bodywrapper" class="clear">
 
 		<h2>How To Join!</h2>
-		<p><a href="https://www.facebook.com/ValkyriesRFC"	title="like us on facebook">Facebook</a></p>
-		<p>Email us!</p>
+		<p>Like us on <a href="https://www.facebook.com/ValkyriesRFC" title="like us on facebook">Facebook</a></p>
+		<p>Email us at <a href="mailto:ValkyriesRFC@gmail.com&Subject=I'd like to join!">ValkyriesRFC@gmail.com</a></p>
 		<p>Follow <a href="http://twitter.com/valkyriesrfc">@valkyriesRFC</a> on Twitter</p>
 
 	</div>

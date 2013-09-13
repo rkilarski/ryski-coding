@@ -1,6 +1,6 @@
 		<div id="favorites">
 			<ul>
-				<li><a href="mailto:chickenriceyum@gmail.com" title="email us!"><img
+				<li><a href="mailto:ValkyriesRFC@gmail.com" title="email us!"><img
 						id="mailicon" src="../res/mail-icon.png"> </a></li>
 				<li class="facebook"><a href="https://www.facebook.com/ValkyriesRFC"
 					title="like us on facebook">Facebook</a></li>
