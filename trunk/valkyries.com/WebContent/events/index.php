@@ -5,7 +5,7 @@
 <?php
 require_once('../php/common.php');
 ?>
-<title>Our Events</title>
+<title>Events Calendar for the New England Valkyries RFC</title>
 </head>
 <body>
 	<header>

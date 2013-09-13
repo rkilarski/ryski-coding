@@ -6,8 +6,7 @@
 require_once('../php/common.php');
 ?>
 
-<title>Schedule for the New England Valkyries Rugby Football
-	Club</title>
+<title>Schedule Calendar for the New England Valkyries RFC</title>
 </head>
 <body>
 	<header>
