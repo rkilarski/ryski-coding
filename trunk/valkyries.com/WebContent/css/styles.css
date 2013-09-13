@@ -56,12 +56,12 @@ body {
 	display: none;
 }
 
-#firstpage {
+#bodyfirstpage {
 	display: none;
 	min-height: 100%;
 	height: auto;
 	height: 100%;
-	width: 65%;
+	width: 520px;
 	background-color: #ffffff;
 	color: #000000;
 	margin: 50px auto 1em auto;
@@ -72,6 +72,17 @@ body {
 	-khtml-border-radius: 10px;
 	border-radius: 10px;
 	padding: 10px;
+}
+
+#sponsorsfirstpage {
+	float: right;
+	margin: 30px 10px 30px 10px;
+	width: 10%;
+}
+
+#twitterfeedfirstpage {
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #headerfirstpage {
@@ -138,11 +149,6 @@ h1#title {
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 100%;
-}
-
-#sponsorsfirstpage {
-	float: right;
-	margin: 30px 10px 30px 10px;
 }
 
 #sponsors {
