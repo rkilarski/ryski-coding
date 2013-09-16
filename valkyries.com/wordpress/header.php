@@ -6,9 +6,10 @@
 
 <meta name="description" content="Official site for the New England Valkyries Rugby Football Club">
 
-<script type="text/javascript" src="<?php bloginfo('template_url'); ?>js/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_url'); ?>js/jquery.highlightnav.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_url'); ?>js/jquery.twittertoggle.js"></script>
+<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery.highlightnav.js"></script>
+<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery.twittertoggle.js"></script>
+<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery.homeindexslidedown.js"></script>
 
 <link type="text/css" rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>">
 
@@ -16,9 +17,7 @@
 <?php wp_head(); ?>
 </head>
 <body>
-		<?php if (!is_front_page()) { ?>
-	<header>
-		<?php } ?>
+		<?php if (!is_front_page()) { echo '<header>';}?>
 		<ul id="nav" class="navigation">
 			<?php wp_nav_menu( array( 'theme_location' => 'header-menu' ) ); ?>
 		</ul>
