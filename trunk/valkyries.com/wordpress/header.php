@@ -20,13 +20,13 @@
 	<header>
 		<?php } ?>
 		<ul id="nav" class="navigation">
-			<?php wp_list_pages('title_li='); ?>
+			<?php wp_nav_menu( array( 'theme_location' => 'header-menu' ) ); ?>
 		</ul>
 	
 		<div id="favorites">
 			<ul>
 				<li><a href="mailto:ValkyriesRFC@gmail.com" title="email us!"><img
-						id="mailicon" src="<?php bloginfo('template_url'); ?>images/mail-icon.png"> </a></li>
+						id="mailicon" src="<?php bloginfo('template_url'); ?>/images/mail-icon.png"> </a></li>
 				<li class="facebook"><a href="https://www.facebook.com/ValkyriesRFC"
 					title="like us on facebook">Facebook</a></li>
 				<li class="twitter" id="twitter"><a href="#"
@@ -42,17 +42,17 @@
 			<header id="headerfirstpage">
 				<div id="imagecontainer">
 					<div id="logostripesdiv">
-						<img id="logostripes" src="<?php bloginfo('template_url'); ?>images/stripes.jpg">
+						<img id="logostripes" src="<?php bloginfo('template_url'); ?>/images/stripes.jpg">
 					</div>
 					<div id="logoimagediv">
-						<img id="logoimage" src="<?php bloginfo('template_url'); ?>images/valkyriesblack.jpg">
+						<img id="logoimage" src="<?php bloginfo('template_url'); ?>/images/valkyriesblack.jpg">
 					</div>
 				</div>
 			</header>
 		<?php }else { ?>
 			<div id="pagelogo">
-				<a href="../home/index.php"><img id="valkyrieslogo"
-					src="<?php bloginfo('template_url'); ?>images/valkyriesblack.jpg"></a>
+				<a href="http://www.valkyriesrfc.com"><img id="valkyrieslogo"
+					src="<?php bloginfo('template_url'); ?>/images/valkyriesblack.jpg"></a>
 			</div>
 			
 			<div id="title">
