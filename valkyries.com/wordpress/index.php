@@ -10,7 +10,7 @@ Author URI: rkilarski@gmail.com
 ?>
 <?php get_header(); ?>
 	<div id="slidedown">
-		<h1>Welcome to the New England Valkyries Rugby Football Clubx</h1>
+		<h1>Welcome to the New England Valkyries Rugby Football Club</h1>
 		<div id="bodyfirstpage" class="clear">
 			<h2>Tweets from Brunhilde</h2>
 			<a class="twitter-timeline" href="https://twitter.com/valkyriesRFC"
