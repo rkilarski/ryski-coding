@@ -194,7 +194,7 @@ h1#title {
 	max-width: 100%;
 }
 
-.navigation, #nav {
+.navigation,#nav {
 	text-align: center;
 	font-size: 20px;
 	margin: 0;
@@ -345,4 +345,51 @@ CSS Twitter icon
 .alignleft {
 	float: left;
 	margin-right: 15px;
+}
+
+#socials {
+	display: block;
+}
+
+#social_fb {
+	background: url(/images/social_fb.gif) 0 0 no-repeat;
+	width: 98px;
+	height: 33px;
+	opacity: 0.6;
+	filter: alpha(opacity =             60);
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+	text-indent: -10000px;
+	display: block;
+	float: left;
+}
+
+#social_yt {
+	background: url(/images/social_yt.gif) 0 0 no-repeat;
+	width: 86px;
+	height: 33px;
+	opacity: 0.6;
+	filter: alpha(opacity =       60);
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+	text-indent: -10000px;
+	display: block;
+	float: left;
+}
+
+#social_twitter {
+	background: url(/images/social_twitter.gif) 0 0 no-repeat;
+	width: 98px;
+	height: 33px;
+	opacity: 0.6;
+	filter: alpha(opacity =             60);
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+	text-indent: -10000px;
+	display: block;
+	float: left;
+}
+
+#social_fb:hover,#social_yt:hover,#social_twitter:hover,#poweredBy:hover
+	{
+	opacity: 0.8;
+	filter: alpha(opacity =         80);
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
 }
