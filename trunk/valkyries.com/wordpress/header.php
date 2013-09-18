@@ -26,7 +26,7 @@
 			<ul>
 				<li><a href="mailto:ValkyriesRFC@gmail.com" title="email us!"><img
 						id="mailicon" src="<?php bloginfo('template_url'); ?>/images/mail-icon.png"> </a></li>
-				<li class="facebook"><a href="https://www.facebook.com/ValkyriesRFC"
+				<li class="facebook"><a href="https://www.facebook.com/groups/1416155608600326/"
 					title="like us on facebook">Facebook</a></li>
 				<li class="twitter" id="twitter"><a href="#"
 					title="follow us on twitter @valkyriesRFC!">Twitter</a></li>

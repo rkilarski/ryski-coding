@@ -50,14 +50,12 @@ body {
 	background-color: #ffffff;
 	color: #000000;
 	margin: 50px auto 1em auto;
-	padding: 10px;
+	padding: 50px;
 	border: none;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-khtml-border-radius: 10px;
 	border-radius: 10px;
-	padding: 10px;
-	-webkit-border-radius: 10px;
 }
 
 #slidedown {
@@ -78,7 +76,6 @@ body {
 	-moz-border-radius: 10px;
 	-khtml-border-radius: 10px;
 	border-radius: 10px;
-	padding: 10px;
 }
 
 #sponsorsfirstpage {
@@ -98,14 +95,15 @@ header {
 	height: 150px;
 }
 
-footer {
-	background-color: #000000;
+footer,footer>p {
+	background-color: #383838;
 	color: #EB009B;
 	width: 100%;
 	height: 1.5em;
 	text-align: center;
 	font-weight: normal;
 	font-size: 15px;
+	display: block;
 }
 
 h1 {
@@ -185,8 +183,9 @@ h1#title {
 	margin-right: auto;
 	width: 150px;
 	display: block;
-	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-khtml-border-radius: 5px;
 	border-radius: 5px;
 }
 
@@ -200,6 +199,7 @@ h1#title {
 	margin: 0;
 	background-color: #000000;
 	color: #ffffff;
+	padding: 0;
 }
 
 footer .navigation {
@@ -208,7 +208,7 @@ footer .navigation {
 	background-color: #383838;
 }
 
-.navigation a:hover {
+#socials>a:hover,.navigation a:hover {
 	color: #EB009B;
 }
 
@@ -349,26 +349,30 @@ CSS Twitter icon
 
 #socials {
 	display: block;
+	text-align: center;
 }
 
 #social_fb {
-	background: url(/images/social_fb.gif) 0 0 no-repeat;
+	background: url(images/social_fb.gif) 0 0 no-repeat;
 	width: 98px;
 	height: 33px;
 	opacity: 0.6;
-	filter: alpha(opacity =             60);
+	filter: alpha(opacity =                   60);
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
 	text-indent: -10000px;
-	display: block;
+	/*display: block;*/
 	float: left;
+	display: inline-block;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #social_yt {
-	background: url(/images/social_yt.gif) 0 0 no-repeat;
+	background: url(images/social_yt.gif) 0 0 no-repeat;
 	width: 86px;
 	height: 33px;
 	opacity: 0.6;
-	filter: alpha(opacity =       60);
+	filter: alpha(opacity =             60);
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
 	text-indent: -10000px;
 	display: block;
@@ -376,20 +380,26 @@ CSS Twitter icon
 }
 
 #social_twitter {
-	background: url(/images/social_twitter.gif) 0 0 no-repeat;
-	width: 98px;
+	background: url(images/social_twitter.gif) 0 0 no-repeat;
+	width: 126px;
 	height: 33px;
 	opacity: 0.6;
-	filter: alpha(opacity =             60);
+	filter: alpha(opacity =                   60);
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
 	text-indent: -10000px;
-	display: block;
+	/*display: block;*/
 	float: left;
+	display: inline-block;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-#social_fb:hover,#social_yt:hover,#social_twitter:hover,#poweredBy:hover
-	{
+#social_fb:hover,#social_yt:hover,#social_twitter:hover {
 	opacity: 0.8;
-	filter: alpha(opacity =         80);
+	filter: alpha(opacity =               80);
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+}
+
+#menu-menu-1 {
+	padding-left: 0;
 }
