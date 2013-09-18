@@ -3,12 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <title>Ryszard Kilarski Homework #1</title>
-<script type="text/javascript">
-
-
-</script>
+<link type="text/css" rel="stylesheet" href="stopSign.css">
+<script type="text/javascript" src="stopSign.js"></script>
 </head>
 <body>
 
+	<svg id="stopsign" width="500" height="300">
+		<defs>
+			<g id="stop">
+				<polygon points="-60,-24 -24,-60 24,-60 60,-24 60,24 24,60 -24,60 -60,24" stroke="#c0c0c0" stroke-width="5" fill="#ff0000"></polygon>
+				<text x=-45 y=10 font-family="sans-serif" font-size="35px" fill="#ffffff">STOP</text>
+			</g>
+		</defs>
+		
+		<use xlink:href="#stop"
+			transform="translate(70,70)"></use>
+ 
+		<use xlink:href="#stop"
+			transform="translate(200,70) rotate(90)"></use>
+
+		<use xlink:href="#stop"
+			transform="translate(330,70) rotate(180)"></use>
+
+		<use xlink:href="#stop"
+			transform="translate(200,200)">
+				<animateTransform attributeName="transform"
+					begin="0s" dur="5s"
+					type="rotate"
+					from="0 200 200"
+					to="360 0 0"
+					repeatCount="indefinite"
+				</animateTransform>
+			</use>
+	</svg>
 </body>
 </html>
