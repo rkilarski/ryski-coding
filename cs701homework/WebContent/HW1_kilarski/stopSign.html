@@ -12,10 +12,10 @@
 		<defs>
 			<g id="stop">
 				<polygon points="-60,-24 -24,-60 24,-60 60,-24 60,24 24,60 -24,60 -60,24" stroke="#c0c0c0" stroke-width="5" fill="#ff0000"></polygon>
-				<text x=-45 y=10 font-family="sans-serif" font-size="35px" fill="#ffffff">STOP</text>
+				<text x=-46 y=12 font-family="sans-serif" font-size="35px" fill="#ffffff">STOP</text>
 			</g>
 		</defs>
-		
+				
 		<use xlink:href="#stop"
 			transform="translate(70,70)"></use>
  
@@ -28,11 +28,12 @@
 		<use xlink:href="#stop"
 			transform="translate(200,200)">
 				<animateTransform attributeName="transform"
-					begin="0s" dur="5s"
+					begin="0s" dur="1s"
 					type="rotate"
-					from="0 200 200"
+					from="0 0 0"
 					to="360 0 0"
-					repeatCount="indefinite"
+					repeatCount="indefinite" 
+					additive="sum"
 				</animateTransform>
 			</use>
 	</svg>
