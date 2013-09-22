@@ -8,29 +8,48 @@ function init() {
 		context = canvas.getContext("2d");
 	} catch (e) {
 		alert("Canvas support is not available!");
+		return;
 	}
 
-	drawCircles();
+	drawCirclesFromSlider();
 }
 
-function drawCircles() {
+/**
+ * Get the slider value and draw circles.
+ */
+function drawCirclesFromSlider() {
 	// Clear the image.
 	context.clearRect(0, 0, canvas.width, canvas.height);
 
 	// Get the width of the bands.
 	var slider = document.getElementById("bandwidth").value;
+	drawCircles(slider);
+}
+
+/**
+ * Given a circle count, draw the circles.
+ * @param circleCount
+ */
+function drawCircles(circleCount){
 	var flip = true;
 	// Output all the bands.
-	for ( var i = 200; i > 0; i -= slider) {
+	for ( var i = 200; i > 0; i -= circleCount) {
 		var color = "#0000ff";
 		if (flip) {
 			color = "#ff0000";
 		}
 		flip = !flip;
 		drawCircle(context, 200, 200, i, color);
-	}
+	}	
 }
-// Draw a circle at location x, y, with a given radius and color.
+/**
+ * Draw a circle.
+ * @param context - Context for the circle
+ * @param x - Horizontal position for the circle
+ * @param y - Vertical position for the circle
+ * @param radius - The circle's radius
+ * @param color - The circle's filled-in color.
+ */
 function drawCircle(context, x, y, radius, color) {
 	context.fillStyle = color;
 
