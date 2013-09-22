@@ -6,6 +6,7 @@ function init() {
 		var context = canvas.getContext("2d");
 	} catch (e) {
 		alert("Canvas support is not available!");
+		return;
 	}
 
 	var flip = true;
@@ -20,7 +21,14 @@ function init() {
 	}
 }
 
-// Draw a circle at location x, y, with a given radius and color.
+/**
+ * Draw a circle.
+ * @param context - Context for the circle
+ * @param x - Horizontal position for the circle
+ * @param y - Vertical position for the circle
+ * @param radius - The circle's radius
+ * @param color - The circle's filled-in color.
+ */
 function drawCircle(context, x, y, radius, color) {
 	context.fillStyle = color;
 

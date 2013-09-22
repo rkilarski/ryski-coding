@@ -1,0 +1,33 @@
+* {
+	font-family: Arial, sans-serif;
+}
+
+body {
+	background-color: #606060;
+}
+
+h1,h2,h3 {
+	color: #606060;
+}
+
+a {
+	text-decoration: none;
+	color: #8C8987;
+}
+
+a:hover {
+	color: #7E8995;
+}
+
+.wrapper {
+	width: 80%;
+	margin-top: 50px;
+	padding: 20px;
+	background-color: #ffffff;
+	margin-left: auto;
+	margin-right: auto;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	border-radius: 10px;
+}
