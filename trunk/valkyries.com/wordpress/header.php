@@ -6,6 +6,7 @@
 
 <meta name="description" content="Official site for the New England Valkyries Rugby Football Club">
 
+<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/google.analytics.js"></script>
 <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery.highlightnav.js"></script>
 <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery.twittertoggle.js"></script>

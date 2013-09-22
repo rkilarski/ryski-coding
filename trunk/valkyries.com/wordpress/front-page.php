@@ -8,14 +8,17 @@ Author: Ryszard Kilarski
 Author URI: rkilarski@gmail.com
 */
 ?>
-<?php get_header(); ?>
+<?php get_header(); 
+remove_filter('the_content', 'wpautop');
+?>
 	<div id="slidedown">
 		<h1>Welcome to the New England Valkyries Rugby Football Club</h1>
 		<div id="bodyfirstpage" class="clear">
-			<h2>Tweets from Brunhilde</h2>
-			<a class="twitter-timeline" href="https://twitter.com/valkyriesRFC"
-				data-widget-id="378361060010369024">Tweets by @valkyriesRFC</a>
-			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+			<?php if (have_posts()): ?>
+				<?php while (have_posts()) : the_post(); ?>
+					<?php the_content(''); ?>
+				<?php endwhile; ?>
+			<?php endif; ?>
 		</div>
 		<div id="sponsorsfirstpage">
 			<h3>Sponsored by</h3>
