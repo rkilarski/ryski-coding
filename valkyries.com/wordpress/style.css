@@ -266,7 +266,7 @@ CSS Twitter icon
 	box-shadow: 0 0 4px rgba(0, 0, 0, 0.4); /* standards version last */
 	/* NOTE: webkit gradient implementation is not as per spec */
 	background: -webkit-gradient(linear, left top, left bottom, from(#dbf7f8),
-		to(#88e1e6) );
+		to(#88e1e6));
 	background: -moz-linear-gradient(top, #dbf7f8, #88e1e6);
 }
 
@@ -357,7 +357,7 @@ CSS Twitter icon
 	width: 98px;
 	height: 33px;
 	opacity: 0.6;
-	filter: alpha(opacity =                   60);
+	filter: alpha(opacity =                    60);
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
 	text-indent: -10000px;
 	/*display: block;*/
@@ -372,7 +372,7 @@ CSS Twitter icon
 	width: 86px;
 	height: 33px;
 	opacity: 0.6;
-	filter: alpha(opacity =             60);
+	filter: alpha(opacity =              60);
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
 	text-indent: -10000px;
 	display: block;
@@ -384,7 +384,7 @@ CSS Twitter icon
 	width: 126px;
 	height: 33px;
 	opacity: 0.6;
-	filter: alpha(opacity =                   60);
+	filter: alpha(opacity =                    60);
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
 	text-indent: -10000px;
 	/*display: block;*/
@@ -396,10 +396,14 @@ CSS Twitter icon
 
 #social_fb:hover,#social_yt:hover,#social_twitter:hover {
 	opacity: 0.8;
-	filter: alpha(opacity =               80);
+	filter: alpha(opacity =                80);
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
 }
 
 #menu-menu-1 {
 	padding-left: 0;
+}
+
+/* Minimum width of 600 pixels. */
+@media screen and (min-width: 600px) {
 }
