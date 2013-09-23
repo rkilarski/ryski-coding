@@ -13,7 +13,6 @@
 <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery.homeindexslidedown.js"></script>
 
 <link type="text/css" rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>">
-<link type="text/css" rel="stylesheet" href="<?php bloginfo('template_url'); ?>/mobile.css" media="only screen and (max-device-width: 480px)">
 
 <link rel="shortcut icon" type="image/x-icon" href="<?php bloginfo('template_url'); ?>/images/favicon.ico">
 <?php wp_head(); ?>
