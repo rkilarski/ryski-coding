@@ -5,6 +5,7 @@
 <title><?php bloginfo('name'); ?></title>
 
 <meta name="description" content="Official site for the New England Valkyries Rugby Football Club">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/google.analytics.js"></script>
 <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery-1.8.2.min.js"></script>
@@ -13,6 +14,7 @@
 <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery.homeindexslidedown.js"></script>
 
 <link type="text/css" rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>">
+<link type="text/css" rel="stylesheet" media="(max-width: 568px)" href="<?php bloginfo('template_url'); ?>/mobile.css">
 
 <link rel="shortcut icon" type="image/x-icon" href="<?php bloginfo('template_url'); ?>/images/favicon.ico">
 <?php wp_head(); ?>
