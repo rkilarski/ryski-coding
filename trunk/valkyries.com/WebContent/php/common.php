@@ -5,5 +5,6 @@
 <script type="text/javascript" src="../js/jquery.twittertoggle.js"></script>
 
 <link type="text/css" rel="stylesheet" href="../css/styles.css">
+<link type="text/css" rel="stylesheet" media="(max-width: 568px)" href="../css/mobile.css">
 
 <link rel="shortcut icon" type="image/x-icon" href="../res/favicon.ico">

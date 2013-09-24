@@ -117,10 +117,6 @@ h2,h3,h4 {
 	color: #EB009B;
 }
 
-#imagecontainer {
-	
-}
-
 #logostripesdiv {
 	display: inline;
 	float: left;
@@ -212,16 +208,20 @@ footer .navigation {
 	color: #EB009B;
 }
 
+.navigation a, #nav a{
+	display:inline-block;
+}
 .highlight a {
 	color: #EB009B;
 }
 
 ul.navigation {
 	list-style: none;
+	text-align:center;
 }
 
 ul.navigation li {
-	display: inline-block;
+	display: inline;
 	margin: 10px;
 }
 
@@ -402,8 +402,4 @@ CSS Twitter icon
 
 #menu-menu-1 {
 	padding-left: 0;
-}
-
-/* Minimum width of 600 pixels. */
-@media screen and (min-width: 600px) {
 }
