@@ -1,3 +1,9 @@
+/*
+ * author: Ryszard Kilarski
+ * email: emrys@bu.edu
+ * BUI ID: U81-39-8560
+ */
+
 window.onload = init;
 var url = 'ws://localhost:8080/broadcast';
 var socket;
