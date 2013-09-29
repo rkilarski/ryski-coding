@@ -1,8 +1,13 @@
+/*
+ * author: Ryszard Kilarski
+ * email: emrys@bu.edu
+ * BUI ID: U81-39-8560
+ */
+
 window.onload = init;
 var url = 'ws://localhost:8080/broadcast';
 var socket;
-var mapPath = [];
-var map;
+var mapPath = []; // Holds the history of all the paths.
 
 // Initialize the form.
 function init() {
@@ -58,22 +63,28 @@ function showOnMap(latitude, longitude) {
 		mapTypeId : google.maps.MapTypeId.ROADMAP
 	};
 	var mapElement = document.getElementById('map');
-	map = new google.maps.Map(mapElement, mapOptions);
+	var map = new google.maps.Map(mapElement, mapOptions);
 
+	// Create a polyline path object that will trace each history item.
 	var polyline = new google.maps.Polyline({
 		path : mapPath,
 		strokeColor : '#0000FF',
 		strokeOpacity : 1.0,
 		strokeWeight : 2,
-		editable : true
+		editable : false
+	// Don't need the path to be editable.
 	});
 
 	polyline.setMap(map);
-	// Add marker to the map
-	var title = "Location Details";
-	var content = "Lat: " + latitude + ", Long: " + longitude;
 
-	addMarker(map, googlePosition, title, content);
+	// Add all the markers to the map var
+	for (var i = 0; i < mapPath.length; i++) {
+		title = "Location Details";
+		var content = "Lat: " + mapPath[i].latitude + ",Long: "
+				+ mapPath[i].longitude;
+		addMarker(map, mapPath[i], title, content);
+	}
+
 }
 
 // Add position marker to the map.
@@ -114,7 +125,6 @@ function connectToServer() {
 
 // WebSocket event handlers
 function handleOpenConnection(event) {
-	log('Connection open');
 	setInterval(function() {
 		sendToServer();
 	}, 5000);
@@ -125,27 +135,22 @@ function handleCloseConnection(event) {
 	log('Connection is closed');
 }
 
+// Handler for when we get a new message. The server told us the bird has moved.
 function handleMessage(event) {
 	var data = JSON.parse(event.data);
 	var previousLocation = mapPath[mapPath.length - 1];
 	var latitude = previousLocation.nb + data.latitude;
 	var longitude = previousLocation.ob - data.longitude;
 
-	showOnMap(latitude, longitude);
+	// Update text on screen.
 	document.getElementById('update').innerHTML = 'Update #' + mapPath.length;
-
 	document.getElementById('currentlatitude').innerHTML = 'Current Latitude: '
 			+ latitude;
 	document.getElementById('currentlongitude').innerHTML = 'Current Longitude: '
 			+ longitude;
 
-	// var googlePosition = new google.maps.LatLng(currentPosition.latitude,
-	// currentPosition.longitude);
-
-	// var title = "Location Details";
-	// var content = "Lat: " + currentPosition + ", Long: " + currentPosition;
-
-	// addMarker(map, googlePosition, title, content);
+	// Update map on screen.
+	showOnMap(latitude, longitude);
 }
 
 function handleError(event) {
