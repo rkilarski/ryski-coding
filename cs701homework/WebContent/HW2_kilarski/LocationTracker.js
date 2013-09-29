@@ -36,6 +36,7 @@ function handleLocation(position) {
 	var accuracy = position.coords.accuracy;
 	var timestamp = position.timestamp;
 
+	document.getElementById('update').innerHTML = 'Update #1';
 	document.getElementById('latitude').innerHTML = 'Starting Latitude: '
 			+ latitude;
 	document.getElementById('longitude').innerHTML = 'Starting Longitude: '
@@ -131,6 +132,8 @@ function handleMessage(event) {
 	var longitude = previousLocation.ob - data.longitude;
 
 	showOnMap(latitude, longitude);
+	document.getElementById('update').innerHTML = 'Update #' + mapPath.length;
+
 	document.getElementById('currentlatitude').innerHTML = 'Current Latitude: '
 			+ latitude;
 	document.getElementById('currentlongitude').innerHTML = 'Current Longitude: '
