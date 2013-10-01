@@ -58,7 +58,7 @@ function showOnMap(latitude, longitude) {
 	mapPath.push(googlePosition);
 
 	var mapOptions = {
-		zoom : 15,
+		zoom : 13,
 		center : googlePosition,
 		mapTypeId : google.maps.MapTypeId.ROADMAP
 	};
