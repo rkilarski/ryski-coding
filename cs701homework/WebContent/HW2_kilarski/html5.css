@@ -1,38 +1,37 @@
 /* html5 css file, Peter Lubbers, Kaazing */
-
 body {
-	background-color:#CCCCCC;
-	font-family:Geneva,Arial,Helvetica,sans-serif;
+	background-color: #CCCCCC;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
 	margin: 0px auto;
-	max-width:900px;
-	border:solid;
-	border-color:#FFFFFF;
+	max-width: 900px;
+	border: solid;
+	border-color: #FFFFFF;
 }
 
 header {
 	background-color: #F47D31;
-	display:block;
-	color:#FFFFFF;
-	text-align:center;
-	width:100%;
+	display: block;
+	color: #FFFFFF;
+	text-align: center;
+	width: 100%;
 }
 
 h1 {
 	font-size: 72px;
 	margin: 0px;
-	text-align:center;
+	text-align: center;
 }
 
 h2 {
 	font-size: 24px;
 	margin: 0px;
-	text-align:left;
+	text-align: left;
 }
 
 h3 {
 	font-size: 18px;
 	margin: 0px;
-	text-align:center;
+	text-align: center;
 }
 
 h4 {
@@ -44,8 +43,7 @@ h4 {
 	padding: 0px 150px;
 	top: 50px;
 	left: -120px;
-	text-align:center;
-	
+	text-align: center;
 }
 
 header h2 {
@@ -53,12 +51,12 @@ header h2 {
 }
 
 nav {
-	display:block;
-	width:25%;
-	float:left;
+	display: block;
+	width: 25%;
+	float: left;
 }
 
-nav a:link, nav a:visited {
+nav a:link,nav a:visited {
 	display: block;
 	border-bottom: 3px solid #fff;
 	padding: 10px;
@@ -82,15 +80,14 @@ nav h3 {
 }
 
 section {
-
-	display:block;
-	width:90%;
-	float:left;
+	display: block;
+	width: 90%;
+	float: left;
 }
 
 article {
 	background-color: #eee;
-	display:block;
+	display: block;
 	margin: 10px;
 	padding: 10px;
 	-webkit-border-radius: 10px;
@@ -99,28 +96,28 @@ article {
 }
 
 article h2 {
+	
 }
 
 aside {
-	display:block;
-	width:25%;
-	float:left;
+	display: block;
+	width: 25%;
+	float: left;
 }
 
 footer {
-	clear: both;	
+	clear: both;
 	display: block;
 	background-color: #F47D31;
-	color:#FFFFFF;
-	text-align:center;
+	color: #FFFFFF;
+	text-align: center;
 	padding: 15px;
 }
 
 #status {
 	border-radius: 10px;
-	border:solid 2px #F47D31;
+	border: solid 2px #F47D31;
 	padding: 5px;
-	
 }
 
 #status p:hover {
@@ -135,7 +132,6 @@ footer {
 	border: 1px solid black;
 }
 
-
 /* links */
 a {
 	color: #F47D31;
@@ -143,4 +139,25 @@ a {
 
 a:hover {
 	text-decoration: underline;
+}
+
+/*
+Used to indicate a used item.
+*/
+.used {
+	text-decoration: line-through;
+}
+
+/*
+Used to indicate the democrat blue item.
+*/
+.Democrat {
+	background-color: #0000ff;
+}
+
+/*
+Used to indicate the republican red item.
+*/
+.Republican {
+	background-color: #ff0000;
 }
