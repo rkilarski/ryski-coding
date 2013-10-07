@@ -139,8 +139,8 @@ function handleCloseConnection(event) {
 function handleMessage(event) {
 	var data = JSON.parse(event.data);
 	var previousLocation = mapPath[mapPath.length - 1];
-	var latitude = previousLocation.nb + data.latitude;
-	var longitude = previousLocation.ob - data.longitude;
+	var latitude = previousLocation.lat() + data.latitude;
+	var longitude = previousLocation.lng() - data.longitude;
 
 	// Update text on screen.
 	document.getElementById('update').innerHTML = 'Update #' + mapPath.length;
