@@ -216,9 +216,8 @@ function loadXMLData() {
 			saveToLocal();
 			// Load the list into the DOM.
 			loadListToDOM();
-			return true;
 		} else {
-			return false;
+			showMessage('Unsuccessful in loading from file.');
 		}
 	}
 }
