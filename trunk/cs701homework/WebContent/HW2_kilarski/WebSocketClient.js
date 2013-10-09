@@ -10,8 +10,12 @@ var socket;
 
 // Initialize the form.
 function init() {
-	var button = document.getElementById('startbutton');
-	button.onclick = startButton;
+	if (!window.WebSocket) {
+		log("WebSocket support is not available.")
+	} else {
+		var button = document.getElementById('startbutton');
+		button.onclick = startButton;
+	}
 }
 
 // Handler for the start button; all it does is disables the button and starts
@@ -40,14 +44,15 @@ function handleOpenConnection(event) {
 	}, 5000);
 }
 
-function handleCloseConnection(event) {
-	socket = null;
-	log('Connection is closed');
-}
-
+// Message handler. Just echo the data to the screen.
 function handleMessage(event) {
 	var data = JSON.parse(event.data);
 	log('Received: Lat:' + data.latitude + ' Lon:' + data.longitude);
+}
+
+function handleCloseConnection(event) {
+	socket = null;
+	log('Connection is closed');
 }
 
 function handleError(event) {

@@ -11,8 +11,12 @@ var mapPath = []; // Holds the history of all the paths.
 
 // Initialize the form.
 function init() {
-	var button = document.getElementById('startbutton');
-	button.onclick = startButton;
+	if (!window.WebSocket) {
+		log("WebSocket support is not available.")
+	} else {
+		var button = document.getElementById('startbutton');
+		button.onclick = startButton;
+	}
 }
 
 // Handler for the start button; all it does is disables the button and starts
@@ -52,6 +56,7 @@ function handleLocation(position) {
 			+ longitude;
 	showOnMap(position.coords.latitude, position.coords.longitude);
 }
+
 // Display the map on the page.
 function showOnMap(latitude, longitude) {
 	var googlePosition = new google.maps.LatLng(latitude, longitude);
@@ -78,7 +83,7 @@ function showOnMap(latitude, longitude) {
 	polyline.setMap(map);
 
 	// Add all the markers to the map var
-	for (var i = 0; i < mapPath.length; i++) {
+	for ( var i = 0; i < mapPath.length; i++) {
 		title = "Location Details";
 		var content = "Lat: " + mapPath[i].latitude + ",Long: "
 				+ mapPath[i].longitude;
