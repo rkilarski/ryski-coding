@@ -40,7 +40,7 @@ function init() {
 // Load the senator list into the DOM and attach all drag handlers.
 function loadListToDOM() {
 	var listElement = document.createElement('ul');
-	for (var i = 0; i < senators.length; i++) {
+	for ( var i = 0; i < senators.length; i++) {
 		// create a <li> for each one.
 		var listItem = document.createElement('li');
 
@@ -50,7 +50,7 @@ function loadListToDOM() {
 		listItem.id = 'listitem' + i;
 
 		if (senators[i].voted) {
-			listItem.className = 'used';
+			listItem.className = 'dragged';
 		} else {
 			listItem.draggable = 'true';
 		}
@@ -122,7 +122,17 @@ function targetDragEnter(e) {
 	if (((senators[item].party == 'Democrat') && (e.target.id == 'democrats'))
 			|| ((senators[item].party == 'Republican') && (e.target.id == 'republicans'))) {
 		var div = upTo(e.target, 'div');
-		div.className = div.className + ' ' + senators[item].party;
+		switch (senators[item].party) {
+		case 'Democrat':
+			div.className = div.className + ' highlightedDemocrats';
+			break;
+		case 'Republican':
+			div.className = div.className + ' highlightedRepublicans';
+			break;
+		default:
+			// None
+			break;
+		}
 		e.preventDefault();
 	}
 }
@@ -135,7 +145,17 @@ function targetDragOver(e) {
 	if (((senators[item].party == 'Democrat') && (e.target.id == 'democrats'))
 			|| ((senators[item].party == 'Republican') && (e.target.id == 'republicans'))) {
 		var div = upTo(e.target, 'div');
-		div.className = div.className + ' ' + senators[item].party;
+		switch (senators[item].party) {
+		case 'Democrat':
+			div.className = div.className + ' highlightedDemocrats';
+			break;
+		case 'Republican':
+			div.className = div.className + ' highlightedRepublicans';
+			break;
+		default:
+			// None
+			break;
+		}
 		e.preventDefault();
 	}
 }
@@ -147,9 +167,9 @@ function targetDrop(e) {
 	var item = e.dataTransfer.getData('senator') || dataTransferId;
 	senators[item].voted = true;
 
-	// Mark the item as 'used'.
+	// Mark the item as 'dragged'.
 	var element = document.getElementById('listitem' + item);
-	element.className = 'used';
+	element.className = 'dragged';
 	element.draggable = 'false';
 
 	addToVotedList(senators[item]);
@@ -199,7 +219,7 @@ function loadXMLData() {
 		if (xhr.status == 200) {
 			// get all the song elements
 			var allSenators = xhr.responseXML.getElementsByTagName('senator');
-			for (var i = 0; i < allSenators.length; i++) {
+			for ( var i = 0; i < allSenators.length; i++) {
 				var senatorName = allSenators[i].getElementsByTagName('name')[0].textContent;
 				var senatorParty = allSenators[i].getElementsByTagName('party')[0].textContent;
 

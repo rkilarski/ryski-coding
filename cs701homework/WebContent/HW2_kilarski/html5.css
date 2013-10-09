@@ -140,24 +140,3 @@ a {
 a:hover {
 	text-decoration: underline;
 }
-
-/*
-Used to indicate a used item.
-*/
-.used {
-	text-decoration: line-through;
-}
-
-/*
-Used to indicate the democrat blue item.
-*/
-.Democrat {
-	background-color: #0000ff;
-}
-
-/*
-Used to indicate the republican red item.
-*/
-.Republican {
-	background-color: #ff0000;
-}
