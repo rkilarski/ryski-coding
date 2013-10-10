@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>GuitarifficWeb</title>
+<link type="text/css" rel="stylesheet" href="css/styles.css">
+<style>
+svg {
+	border: 1px solid;
+}
+</style>
+</head>
+<body>
+
+	<svg width="70" height="70">
+		<defs>
+			<g id="grid">
+				<line x1="0" y1="0" x2="42" y2="0" stroke="#000000" style="stroke-linecap: square; stroke-width=1;"></line>
+				<line x1="0" y1="8" x2="42" y2="8" stroke="#000000" style="stroke-linecap: square; stroke-width=1;"></line>
+				<line x1="0" y1="16" x2="42" y2="16" stroke="#000000" style="stroke-linecap: square; stroke-width=1;"></line>
+				<line x1="0" y1="24" x2="42" y2="24" stroke="#000000" style="stroke-linecap: square; stroke-width=1;"></line>
+				<line x1="0" y1="32" x2="42" y2="32" stroke="#000000" style="stroke-linecap: square; stroke-width=1;"></line>
+				<line x1="0" y1="40" x2="42" y2="40" stroke="#000000" style="stroke-linecap: square; stroke-width=1;"></line>
+			</g>
+		</defs>
+		
+		<text x="30" y=18 font-family="sans-serif" font-size="14">C</text>
+		<use xlink:href="#grid" transform="translate(15,26)"></use>
+		<use xlink:href="#grid" transform="translate(56,26) rotate(90)"></use>
+
+		
+	</svg>
+
+</body>
+</html>
