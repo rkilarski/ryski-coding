@@ -1,8 +1,31 @@
-function guitarChart(chordFingering, chordFrets, isLeftHandedFlag) {
+/*
+ * author: Ryszard Kilarski
+ * email: emrys@bu.edu
+ * BUI ID: U81-39-8560
+ * 
+ * This code relies on what I learned here:
+ * http://www.carto.net/svg/manipulating_svg_with_dom_ecmascript/
+ * http://www.i-programmer.info/programming/graphics-and-imaging/3254-svg-javascript-and-the-dom.html
+ * 
+ * jQuery plug-in to work with SVG.
+ * http://keith-wood.name/svg.html
+ */
+
+function guitarChart(chordName, chordPosition, chordFingering, chordFrets, isLeftHandedFlag) {
+	var name=chordName;
+	var position = chordPosition;
 	var fingering = chordFingering;
 	var frets = chordFrets;
 	var isLeftHanded = isLeftHandedFlag;
 
+	var NS="http://www.w3.org/2000/svg";
+	var IMAGE_HEIGHT = 80;
+	var IMAGE_WIDTH = 70;
+	var TITLE_OFFSET_FROM_LEFT =30;
+	var TITLE_OFFSET_FROM_TOP = 14;
+	var TEXT_FONT = "Arial";
+	var TITLE_FONT_SIZE = 14;
+	
 	var CHORD_POSITION_FONT_SIZE = 8;
 	var CHORD_POSITION_OFFSET_FROM_LEFT = 2;
 	var COLUMN_COUNT = 6;
@@ -11,54 +34,43 @@ function guitarChart(chordFingering, chordFrets, isLeftHandedFlag) {
 	var FRET_CIRCLE_SIZE = 4.0f;
 	var GRID_OFFSET_FROM_LEFT = 15;
 	var GRID_OFFSET_FROM_TOP = 26;
-	var IMAGE_HEIGHT = 70;
-	var IMAGE_WIDTH = 70;
 	var ROW_COUNT = 6;
 	var ROW_HEIGHT = 8;
 	var ROW_WIDTH = 8;
-	var TEXT_FONT = "Arial";
-	var TITLE_FONT_SIZE = 14;
-	var TITLE_OFFSET_FROM_TOP = 18;
 
 	// Create the SVG object for this chart and return it.
 	this.getSVG = function() {
-		Graphics2D graphicItem = getChordImage().createGraphics();
-		graphicItem.setBackground(Color.WHITE);
-		graphicItem.setColor(Color.BLACK);
-		graphicItem.clearRect(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
+		var svg=document.createElementNS(NS,"svg");
+		svg.width = IMAGE_WIDTH;
+		svg.height=IMAGE_HEIGHT;
 
-		writeTitle(graphicItem);
-		writeChordPosition(graphicItem);
-		if (!getChordFrets().equals("      "))
-		{
-			writeGrid(graphicItem);
+		svg.appendChild(getTitle());
+		
+		svg.appendChild(getChordPosition());
+		if (frets !="      ")	{
+			svg.appendChild(getChordGrid());
 		}
-		writeFingering(graphicItem);
-		writeChordCircles(graphicItem);
-		graphicItem.dispose();
+		svg.appendChild(getChordFingering());
+		svg.appendChild(getChordCircles());
 
+		return svg;
 	}
 	
-	var writeTitle = function()
-	{
-		int intX, intY;
-		FontMetrics fontMetrics = graphicItem.getFontMetrics();
-		String chordTitle = getChordName();
-
-		if (!chordTitle.isEmpty())
-		{
-			int screenRes = Toolkit.getDefaultToolkit().getScreenResolution();
-			int fontSize = (int) Math.round(TITLE_FONT_SIZE * screenRes / FONT_DPI);
-			graphicItem.setFont(new Font(TEXT_FONT, Font.BOLD, fontSize));
-
-			intX = (IMAGE_WIDTH - fontMetrics.stringWidth(getChordName())) / 2;
-			intY = TITLE_OFFSET_FROM_TOP;
-			graphicItem.drawString(getChordName(), intX, intY);
-		}
-
+	// Build the text element.
+	// Example return object:
+	// <text x="30" y="14" font-family="Arial" font-size="14">C</text>
+	var getTitle = function(){
+		var svgElement=document.createElementNS(NS,"text");
+		svgElement.setAttribute("x", TITLE_OFFSET_FROM_LEFT );
+		svgElement.setAttribute("y", TITLE_OFFSET_FROM_TOP );
+		svgElement.setAttribute("font-family", TEXT_FONT);
+		svgElement.setAttribute("font-size", TITLE_FONT_SIZE);
+		svgElement.appendChild(document.createTextNode(name));
+		return svgElement;
 	}
 
-	var writeChordPosition = function()
+	// <text x="4" y="28" font-family="Arial" font-size="10">5</text>
+	var getChordPosition = function()
 	{
 		int intX, intY;
 		String chordPosition = getChordPosition();
@@ -85,7 +97,13 @@ function guitarChart(chordFingering, chordFrets, isLeftHandedFlag) {
 		}
 	}
 
-	var writeFingering = function()
+	// <text x="13" y="24" font-family="Arial" font-size="7">X</text>
+	// <text x="21" y="24" font-family="Arial" font-size="7">1</text>
+	// <text x="29" y="24" font-family="Arial" font-size="7">2</text>
+	// <text x="37" y="24" font-family="Arial" font-size="7">3</text>
+	// <text x="45" y="24" font-family="Arial" font-size="7">4</text>
+	// <text x="53" y="24" font-family="Arial" font-size="7">5</text>
+	var getChordFingering = function()
 	{
 		char chordFinger;
 		float floatX, floatY;
@@ -111,9 +129,15 @@ function guitarChart(chordFingering, chordFrets, isLeftHandedFlag) {
 			}
 		}
 	}
-	var writeChordCircles = function()
+	
+	// <circle cx="16" cy="30" r="2" stroke="#000000"></circle>
+	// <circle cx="24" cy="38" r="2" stroke="#000000"></circle>
+	// <circle cx="32" cy="46" r="2" stroke="#000000"></circle>
+	// <circle cx="40" cy="54" r="2" stroke="#000000"></circle>
+	// <circle cx="48" cy="62" r="2" stroke="#000000"></circle>
+	// <circle cx="56" cy="62" r="2" stroke="#000000"></circle>
+	var getChordCircles = function()
 	{
-
 		char chordString;
 		int chordFret;
 		float floatX, floatY;
@@ -135,7 +159,7 @@ function guitarChart(chordFingering, chordFrets, isLeftHandedFlag) {
 		}
 	}
 	
-	var writeGrid = function()
+	var getChordGrid = function()
 	{
 		int thicknessOffset;
 		int intX1, intY1, intX2, intY2;
