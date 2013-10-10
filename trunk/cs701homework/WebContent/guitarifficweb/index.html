@@ -4,17 +4,20 @@
 <meta charset="UTF-8">
 <title>GuitarifficWeb</title>
 <link type="text/css" rel="stylesheet" href="css/styles.css">
+<script type="text/javascript" src="/js/lib/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="/js/lib/jquery.svg.package-1.4.5/jquery.svg.min.js"></script>
+
 <style>
 svg {
 	border: 1px solid;
 }
 </style>
+
 </head>
 <body>
-
-	<svg width="70" height="70">
+	<svg width="70" height="80">
 		<defs>
-			<g id="grid">
+			<g id="lines">
 				<line x1="0" y1="0" x2="42" y2="0" stroke="#000000" style="stroke-linecap: square; stroke-width=1;"></line>
 				<line x1="0" y1="8" x2="42" y2="8" stroke="#000000" style="stroke-linecap: square; stroke-width=1;"></line>
 				<line x1="0" y1="16" x2="42" y2="16" stroke="#000000" style="stroke-linecap: square; stroke-width=1;"></line>
@@ -24,11 +27,37 @@ svg {
 			</g>
 		</defs>
 		
-		<text x="30" y=18 font-family="sans-serif" font-size="14">C</text>
-		<use xlink:href="#grid" transform="translate(15,26)"></use>
-		<use xlink:href="#grid" transform="translate(56,26) rotate(90)"></use>
-
+		<!-- Chord name -->
+		<text x="30" y="14" font-family="Arial" font-size="14">C</text>
 		
+		<!-- Fret offset-->
+		<text x="2" y="28" font-family="Arial" font-size="8">12</text>
+		
+		<!-- Left-hand -->
+		<text x="2" y="38" font-family="Arial" font-size="8">L</text>
+		
+		<!-- Fingering -->
+		<text x="13" y="24" font-family="Arial" font-size="7">X</text>
+		<text x="21" y="24" font-family="Arial" font-size="7">1</text>
+		<text x="29" y="24" font-family="Arial" font-size="7">2</text>
+		<text x="37" y="24" font-family="Arial" font-size="7">3</text>
+		<text x="45" y="24" font-family="Arial" font-size="7">4</text>
+		<text x="53" y="24" font-family="Arial" font-size="7">5</text>
+		
+		<!-- Grid -->
+		<use xlink:href="#lines" transform="translate(15,26)"></use>
+		<use xlink:href="#lines" transform="translate(56,26) rotate(90)"></use>
+		
+		<!-- First row to be thicker -->
+		<line x1="15" y1="26" x2="57" y2="26" stroke="#000000" style="stroke-linecap: square; stroke-width=2;"></line>
+		
+		<!-- Dots -->
+		<circle cx="16" cy="30" r="2" stroke="#000000"></circle>
+		<circle cx="24" cy="38" r="2" stroke="#000000"></circle>
+		<circle cx="32" cy="46" r="2" stroke="#000000"></circle>
+		<circle cx="40" cy="54" r="2" stroke="#000000"></circle>
+		<circle cx="48" cy="62" r="2" stroke="#000000"></circle>
+		<circle cx="56" cy="62" r="2" stroke="#000000"></circle>
 	</svg>
 
 </body>
