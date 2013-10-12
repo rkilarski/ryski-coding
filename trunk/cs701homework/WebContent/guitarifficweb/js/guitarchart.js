@@ -21,10 +21,14 @@ function guitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 	var NS="http://www.w3.org/2000/svg";
 	var IMAGE_HEIGHT = 80;
 	var IMAGE_WIDTH = 70;
-	var TITLE_OFFSET_FROM_LEFT =30;
+	var TITLE_OFFSET_FROM_LEFT =35;
 	var TITLE_OFFSET_FROM_TOP = 14;
 	var TEXT_FONT = "Arial";
 	var TITLE_FONT_SIZE = 14;
+	var POSITION_OFFSET_FROM_LEFT=6;
+	var POSITION_OFFSET_FROM_TOP=28; 
+	var POSITION_FONT_SIZE=8;
+	var LEFT_OFFSET_FROM_TOP=38;
 	
 	var CHORD_POSITION_FONT_SIZE = 8;
 	var CHORD_POSITION_OFFSET_FROM_LEFT = 2;
@@ -47,6 +51,9 @@ function guitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 		svg.appendChild(getTitle());
 		
 		svg.appendChild(getChordPosition());
+		if (isLeftHanded){
+		svg.appendChild(getChordLeftHand());
+		}
 		if (frets !="      ")	{
 			svg.appendChild(getChordGrid());
 		}
@@ -58,45 +65,41 @@ function guitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 	
 	// Build the text element.
 	// Example return object:
-	// <text x="30" y="14" font-family="Arial" font-size="14">C</text>
+	// <text x="35" y="14" font-family="Arial" font-size="14" text-anchor="middle">C</text>
 	var getTitle = function(){
 		var svgElement=document.createElementNS(NS,"text");
-		svgElement.setAttribute("x", TITLE_OFFSET_FROM_LEFT );
-		svgElement.setAttribute("y", TITLE_OFFSET_FROM_TOP );
+		svgElement.setAttribute("x", TITLE_OFFSET_FROM_LEFT);
+		svgElement.setAttribute("y", TITLE_OFFSET_FROM_TOP);
 		svgElement.setAttribute("font-family", TEXT_FONT);
 		svgElement.setAttribute("font-size", TITLE_FONT_SIZE);
+		svgElement.setAttribute("text-anchor", "middle");
 		svgElement.appendChild(document.createTextNode(name));
 		return svgElement;
 	}
 
-	// <text x="4" y="28" font-family="Arial" font-size="10">5</text>
-	var getChordPosition = function()
-	{
-		int intX, intY;
-		String chordPosition = getChordPosition();
-		FontMetrics fontMetrics = null;
-
-		int screenRes = Toolkit.getDefaultToolkit().getScreenResolution();
-		int fontSize = (int) Math.round(CHORD_POSITION_FONT_SIZE * screenRes / FONT_DPI);
-
-		graphicItem.setFont(new Font(TEXT_FONT, Font.BOLD, fontSize));
-		fontMetrics = graphicItem.getFontMetrics();
-		intX = CHORD_POSITION_OFFSET_FROM_LEFT;
-
-		if (!chordPosition.isEmpty()) // &&(Integer.parseInt(barreLocation) >
-										// 1))
-		{
-			intY = GRID_OFFSET_FROM_TOP + fontMetrics.getHeight();
-			graphicItem.drawString(chordPosition, intX, intY);
-		}
-		// Mark this chord as a left-handed chord.
-		if (isLeftHanded())
-		{
-			intY = GRID_OFFSET_FROM_TOP + (2 * fontMetrics.getHeight());
-			graphicItem.drawString("L", intX, intY);
-		}
+	// <text x="6" y="28" font-family="Arial" font-size="8" text-anchor="middle">12</text>
+	var getChordPosition = function(){
+		var svgElement=document.createElementNS(NS,"text");
+		svgElement.setAttribute("x", POSITION_OFFSET_FROM_LEFT);
+		svgElement.setAttribute("y", POSITION_OFFSET_FROM_TOP);
+		svgElement.setAttribute("font-family", TEXT_FONT);
+		svgElement.setAttribute("font-size", POSITION_FONT_SIZE);
+		svgElement.setAttribute("text-anchor", "middle");
+		svgElement.appendChild(document.createTextNode(position));
+		return svgElement;
 	}
 
+	// <text x="6" y="38" font-family="Arial" font-size="8" text-anchor="middle">L</text>
+	var getChordLeftHand= function(){
+		var svgElement=document.createElementNS(NS,"text");
+		svgElement.setAttribute("x", POSITION_OFFSET_FROM_LEFT);
+		svgElement.setAttribute("y", LEFT_OFFSET_FROM_TOP);
+		svgElement.setAttribute("font-family", TEXT_FONT);
+		svgElement.setAttribute("font-size", POSITION_FONT_SIZE);
+		svgElement.setAttribute("text-anchor", "middle");
+		svgElement.appendChild(document.createTextNode("L"));
+		return svgElement;
+	}
 	// <text x="13" y="24" font-family="Arial" font-size="7">X</text>
 	// <text x="21" y="24" font-family="Arial" font-size="7">1</text>
 	// <text x="29" y="24" font-family="Arial" font-size="7">2</text>
@@ -120,7 +123,8 @@ function guitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 			for (int whichString = 0; whichString < chordFingering.length(); whichString++)
 			{
 				chordFinger = chordFingering.charAt(whichString);
-				if (chordFinger != ' ') // &&Character.digit(chordFinger, 9)>0)
+				if (chordFinger != ' ') // &&Character.digit(chordFinger,
+							// 9)>0)
 				{
 					floatX = (GRID_OFFSET_FROM_LEFT - (fontMetrics.stringWidth(Character.toString(chordFinger)) / 2)) + (whichString * ROW_WIDTH);
 					floatY = GRID_OFFSET_FROM_TOP - 2;
