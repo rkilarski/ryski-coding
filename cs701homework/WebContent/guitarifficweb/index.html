@@ -18,23 +18,29 @@ svg {
 	<svg width="70" height="80">
 		<defs>
 			<g id="lines">
-				<line x1="0" y1="0" x2="42" y2="0" stroke="#000000" style="stroke-linecap: square; stroke-width=1;"></line>
-				<line x1="0" y1="8" x2="42" y2="8" stroke="#000000" style="stroke-linecap: square; stroke-width=1;"></line>
-				<line x1="0" y1="16" x2="42" y2="16" stroke="#000000" style="stroke-linecap: square; stroke-width=1;"></line>
-				<line x1="0" y1="24" x2="42" y2="24" stroke="#000000" style="stroke-linecap: square; stroke-width=1;"></line>
-				<line x1="0" y1="32" x2="42" y2="32" stroke="#000000" style="stroke-linecap: square; stroke-width=1;"></line>
-				<line x1="0" y1="40" x2="42" y2="40" stroke="#000000" style="stroke-linecap: square; stroke-width=1;"></line>
+				<line x1="0" y1="0" x2="42" y2="0" stroke="#000000" stroke-linecap="square" stroke-width="1"></line>
+				<line x1="0" y1="8" x2="42" y2="8" stroke="#000000" stroke-linecap="square" stroke-width="1"></line>
+				<line x1="0" y1="16" x2="42" y2="16" stroke="#000000" stroke-linecap="square" stroke-width="1"></line>
+				<line x1="0" y1="32" x2="42" y2="32" stroke="#000000" stroke-linecap="square" stroke-width="1"></line>
+				<line x1="0" y1="24" x2="42" y2="24" stroke="#000000" stroke-linecap="square" stroke-width="1"></line>
+				<line x1="0" y1="40" x2="42" y2="40" stroke="#000000" stroke-linecap="square" stroke-width="1"></line>
 			</g>
 		</defs>
+		<!-- Grid -->
+		<use xlink:href="#lines" transform="translate(15,26)"></use>
+		<use xlink:href="#lines" transform="translate(56,26) rotate(90)"></use>
 		
+		<!-- First row to be thicker -->
+		<line x1="15" y1="26" x2="57" y2="26" stroke="#000000" style="stroke-linecap: square; stroke-width=2;"></line>
+				
 		<!-- Chord name -->
-		<text x="30" y="14" font-family="Arial" font-size="14">C</text>
+		<text x="35" y="14" font-family="Arial" font-size="14" text-anchor="middle">C</text>
 		
 		<!-- Fret offset-->
-		<text x="2" y="28" font-family="Arial" font-size="8">12</text>
+		<text x="6" y="28" font-family="Arial" font-size="8" text-anchor="middle">12</text>
 		
 		<!-- Left-hand -->
-		<text x="2" y="38" font-family="Arial" font-size="8">L</text>
+		<text x="6" y="38" font-family="Arial" font-size="8" text-anchor="middle">L</text>
 		
 		<!-- Fingering -->
 		<text x="13" y="24" font-family="Arial" font-size="7">X</text>
@@ -43,13 +49,6 @@ svg {
 		<text x="37" y="24" font-family="Arial" font-size="7">3</text>
 		<text x="45" y="24" font-family="Arial" font-size="7">4</text>
 		<text x="53" y="24" font-family="Arial" font-size="7">5</text>
-		
-		<!-- Grid -->
-		<use xlink:href="#lines" transform="translate(15,26)"></use>
-		<use xlink:href="#lines" transform="translate(56,26) rotate(90)"></use>
-		
-		<!-- First row to be thicker -->
-		<line x1="15" y1="26" x2="57" y2="26" stroke="#000000" style="stroke-linecap: square; stroke-width=2;"></line>
 		
 		<!-- Dots -->
 		<circle cx="16" cy="30" r="2" stroke="#000000"></circle>
