@@ -3,7 +3,7 @@
 		<chordName>A</chordName>
 		<chordPosition>1</chordPosition>
 		<chordFingering>X 123 </chordFingering>
-		<chordFrets>222</chordFrets>
+		<chordFrets>  222</chordFrets>
 		<isLeftHanded>FALSE</isLeftHanded>
 	</chord>
 	<chord>
@@ -562,8 +562,8 @@
 	<chord>
 		<chordName>D</chordName>
 		<chordPosition>1</chordPosition>
-		<chordFingering>X 132</chordFingering>
-		<chordFrets>232</chordFrets>
+		<chordFingering>X  132</chordFingering>
+		<chordFrets>   232</chordFrets>
 		<isLeftHanded>FALSE</isLeftHanded>
 	</chord>
 	<chord>
@@ -1066,8 +1066,8 @@
 	<chord>
 		<chordName>G</chordName>
 		<chordPosition>1</chordPosition>
-		<chordFingering>21 3</chordFingering>
-		<chordFrets>32 3</chordFrets>
+		<chordFingering>21   3</chordFingering>
+		<chordFrets>32   3</chordFrets>
 		<isLeftHanded>FALSE</isLeftHanded>
 	</chord>
 	<chord>
