@@ -11,13 +11,15 @@
  * http://keith-wood.name/svg.html
  */
 
-function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLeftHandedFlag) {
-	var name = chordName;
-	var position = chordPosition;
-	var fingering = chordFingering;
-	var frets = chordFrets;
-	var isLeftHanded = isLeftHandedFlag;
+function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLeftHanded) {
+	//Public properties
+	this.chordName = chordName;
+	this.chordPosition = chordPosition;
+	this.chordFingering = chordFingering;
+	this.chordFrets = chordFrets;
+	this.isLeftHanded = isLeftHanded;
 
+	//Private properties
 	var NS = "http://www.w3.org/2000/svg";
 	var IMAGE_WIDTH = 70;
 	var IMAGE_HEIGHT = 80;
@@ -51,21 +53,21 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 		svg.width = IMAGE_WIDTH;
 		svg.height = IMAGE_HEIGHT;
 
-		svg.appendChild(getTitle());
-		svg.appendChild(getChordPosition());
+		svg.appendChild(getTitle(this.chordName));
+		svg.appendChild(getChordPosition(this.chordPosition));
 
-		if (isLeftHanded) {
+		if (this.isLeftHanded) {
 			svg.appendChild(getChordLeftHand());
 		}
 		addChordGrid(svg);
-		addChordFingering(svg);
-		addChordCircles(svg);
+		addChordFingering(svg, this.chordFingering);
+		addChordCircles(svg, this.chordFrets);
 		return svg;
 	};
 
 	//Add the chord title to the grid.
-	var getTitle = function() {
-		return getTextElement(name, {
+	var getTitle = function(chordName) {
+		return getTextElement(chordName, {
 			offsetFromLeft : TITLE_OFFSET_FROM_LEFT,
 			offsetFromTop : TITLE_OFFSET_FROM_TOP,
 			fontFamily : TEXT_FONT,
@@ -74,8 +76,8 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 	};
 
 	// Add the chord position to the grid.
-	var getChordPosition = function() {
-		return getTextElement(position, {
+	var getChordPosition = function(chordPosition) {
+		return getTextElement(chordPosition, {
 			offsetFromLeft : POSITION_OFFSET_FROM_LEFT,
 			offsetFromTop : POSITION_OFFSET_FROM_TOP,
 			fontFamily : TEXT_FONT,
@@ -94,11 +96,11 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 	};
 
 	// Add all the chord fingeringn to the grid.
-	var addChordFingering = function(svg) {
+	var addChordFingering = function(svg, chordFingering) {
 		var offset = FINGERING_OFFSET_FROM_LEFT;
-
-		for (var i = 0; i < fingering.length; i++) {
-			var character = fingering.charAt(i);
+		
+		for (var i = 0; i < chordFingering.length; i++) {
+			var character = chordFingering.charAt(i);
 			if (character != " ") {
 				var child = getTextElement(character, {
 					offsetFromLeft : offset,
@@ -113,9 +115,9 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 	};
 
 	// Add all the fret circles to the grid.
-	var addChordCircles = function(svg) {
-		for (var i = 0; i < frets.length; i++) {
-			var fret = frets.charAt(i);
+	var addChordCircles = function(svg, chordFrets) {
+		for (var i = 0; i < chordFrets.length; i++) {
+			var fret = chordFrets.charAt(i);
 			if (fret != " ") {
 				var leftOffset = CIRCLE_OFFSET_FROM_LEFT + (i * CIRCLE_SPACING);
 				var topOffset = CIRCLE_OFFSET_FROM_TOP + (fret * CIRCLE_SPACING);
