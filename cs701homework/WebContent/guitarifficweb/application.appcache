@@ -1,0 +1,12 @@
+CACHE MANIFEST
+
+#Cache the following
+index.html
+css/styles.css
+js/lib/jquery-1.8.2.min.js
+js/dao.js
+js/dragdrop.js
+js/loadFromFile.js
+js/guitarchart.js
+js/index.js
+res/chords.xml
