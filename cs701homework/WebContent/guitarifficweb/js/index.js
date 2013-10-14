@@ -2,30 +2,42 @@
  * 
  */
 $(document).ready(function() {
-	var chart = new GuitarChart("C", 3, "x12345", "123455", false);
-	var chartSVG = chart.getSVG();
-	chartSVG.setAttribute("class", "guitarchart");
-	$("#chordtray").append(chartSVG);
-
-	var chart = new GuitarChart("D", 3, "x12345", "123455", false);
-	var chartSVG = chart.getSVG();
-	chartSVG.setAttribute("class", "guitarchart");
-	$("#chordtray").append(chartSVG);
-
-	loadChordsFromFile();
-
+	loadChords();
 	attachHandlers();
 });
 
 function attachHandlers() {
-	$("searchfield").keypress();
+	$("#searchfield").keyup(searchField);
+}
+
+function searchField() {
+	loadChords($("#searchfield").val());
+}
+
+function loadChords(filter) {
+	$("#chordtray .guitarchart").remove();
+	if (!loadChordsFromStorage(filter)) {
+		loadChordsFromFile(filter);
+	}
+	//$("#chordtray .guitarchart").fadeIn('slow');
+}
+/**
+ * Load the data from local storage.
+ */
+function loadChordsFromStorage(filter) {
+
+	return false;
 }
 
 /**
  * Load the data from the file.
  */
-function loadChordsFromFile() {
-	makeRequest('res/chords.xml');
+function loadChordsFromFile(filter) {
+	// if (typeof (Worker)) {
+	// startWorker();
+	// } else {
+	makeRequest('res/chords.xml', filter);
+	// }
 }
 
 /**
@@ -38,19 +50,37 @@ function loadChordIntoDOM(chord) {
 	$("#chordtray").append(chord);
 }
 
+// Start the Web Worker and register its event handler
+function startWorker() {
+	// if (myWorker == null) {
+	var myWorker = new Worker("js/loadFromFileWorker.js");
+	myWorker.addEventListener("message", handleWorkerReceipt, false);
+	myWorker.postMessage();
+	// }
+}
+
+// Accept an event from the Web WOrker loading chords from the XML file.
+function handleWorkerReceipt(event) {
+	var chord = event.data;
+	loadChordIntoDOM(chord);
+}
+// -------------------------------------------------------
+
 /**
  * XMLHttpRequest - asynchronous loading of XML data
  * 
  * @param url
  */
-function makeRequest(url) {
+function makeRequest(url, filter) {
 	if (window.XMLHttpRequest) {
 		xhr = new XMLHttpRequest();
 	} else if (window.ActiveXObject) {
 		xhr = new ActiveXObject('Microsoft.XMLHTTP');
 	}
 	if (xhr) {
-		xhr.onreadystatechange = loadXMLData;
+		xhr.onreadystatechange = function() {
+			loadXMLData(filter);
+		};
 		xhr.open('GET', url, true);
 		xhr.send(null);
 	}
@@ -58,22 +88,28 @@ function makeRequest(url) {
 /**
  * Callback function when data is loaded
  */
-function loadXMLData() {
+function loadXMLData(filter) {
 	if (xhr.readyState == 4) {
 		if (xhr.status == 200) {
 			// get all the chords
 			var chords = xhr.responseXML.getElementsByTagName('chord');
-			for (var i = 0; i < chords.length; i++) {
+			for ( var i = 0; i < chords.length; i++) {
 				var chordName = chords[i].getElementsByTagName('chordName')[0].textContent;
-				var chordPosition = chords[i].getElementsByTagName('chordPosition')[0].textContent;
-				var chordFingering = chords[i].getElementsByTagName('chordFingering')[0].textContent;
-				var chordFrets = chords[i].getElementsByTagName('chordFrets')[0].textContent;
-				var isLeftHanded = chords[i].getElementsByTagName('isLeftHanded')[0].textContent;
+				if ((filter == undefined) || (chordName.indexOf(filter) != -1)) {
+					var chordPosition = chords[i]
+							.getElementsByTagName('chordPosition')[0].textContent;
+					var chordFingering = chords[i]
+							.getElementsByTagName('chordFingering')[0].textContent;
+					var chordFrets = chords[i]
+							.getElementsByTagName('chordFrets')[0].textContent;
+					var isLeftHanded = chords[i]
+							.getElementsByTagName('isLeftHanded')[0].textContent;
 
-				// create a new JSON object for each song
-				var chord = new GuitarChart(chordName, chordPosition, chordFingering, chordFrets,
-						isLeftHanded);
-				loadChordIntoDOM(chord.getSVG());
+					// create a new JSON object for each song
+					var chord = new GuitarChart(chordName, chordPosition,
+							chordFingering, chordFrets, isLeftHanded);
+					loadChordIntoDOM(chord.getSVG());
+				}
 			}
 		} else {
 			// showMessage('Unsuccessful in loading from file.');
