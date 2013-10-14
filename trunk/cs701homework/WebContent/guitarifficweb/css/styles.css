@@ -1,29 +1,42 @@
 * {
 	margin: 0;
+	font-family: Arial, sans-serif;
 }
 
 body,html {
 	margin: 0;
 	padding: 0;
 	height: 100%;
-	color: #000;
+	color: #000000;
 	background: #606060;
 }
 
 svg {
-	border: 1px solid;
+	/*border: 1px solid;*/
 	background-color: #ffffff;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-khtml-border-radius: 10px;
 	border-radius: 10px;
+	
+	-webkit-transition: All 0.5s ease;
+	-moz-transition: All 0.5s ease;
+	-o-transition: All 0.5s ease;
+	-ms-transition: All 0.5s ease;
+	transition: All 0.5s ease;
+}
+
+.guitarchart:hover {
+	/*border-color: #EB009B;*/
+	/*fill: #EB009B;*/
+	opacity:0.3;
 }
 
 input {
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	-khtml-border-radius: 10px;
-	border-radius: 10px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	-khtml-border-radius: 8px;
+	border-radius: 8px;
 }
 
 #wrap {
@@ -35,36 +48,38 @@ input {
 }
 
 #header {
-	background: #ff0;
 	padding: 10px;
+	color: #ffffff;
+	text-align: center;
+	font-size: 20px;
 }
 
 #footer {
-	position: absolute;
-	bottom: 0;
+	clear: both;
 	width: 100%;
 	height: 25px;
-	background-color: #000000;
-	color: #ffffff;
 	text-align: center;
+	padding: 10px;
+	color: #ffffff;
+	font-size: 10px;
 }
 
-#appcanvas {
-	border: 1px solid black;
+#apparea {
 	float: left;
-	width: 90%;
-	height: 100%;
+	width: 80%;
+	height: 90%;
 	background-color: #606060;
-	padding: 10px;
+	padding-left: 50px;
+	padding-right: 50px;
 	padding-bottom: 25px;
 }
 
 #chordtray {
-	border: 1px solid black;
 	float: right;
-	width: 80px;
+	width: 85px;
 	height: 100%;
 	overflow-y: scroll;
+	overflow-x: hidden;
 	background-color: #606060;
 	padding: 10px;
 	padding-bottom: 25px;
@@ -75,8 +90,70 @@ input {
 	height: 80px;
 	margin-left: auto;
 	margin-right: auto;
+	/*display: none;*/
 }
 
 #searchfield {
 	width: 100%;
+	margin-bottom: 10px;
+}
+
+#textarea {
+	background-color: #ffffff;
+	float: left;
+	width: 49%;
+	height: 100%;
+	border-right: 1px solid black;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	border-radius: 10px;
+}
+
+#chordarea {
+	background-color: #ffffff;
+	float: right;
+	width: 49%;
+	height: 100%;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	border-radius: 10px;
+}
+
+.navigation {
+	text-align: center;
+	font-size: 20px;
+	margin: 0;
+	color: #ffffff;
+	padding: 0;
+}
+
+ul.navigation {
+	list-style: none;
+	text-align: center;
+}
+
+ul.navigation li {
+	display: inline;
+	margin: 10px;
+}
+
+.navigation a {
+	display: inline-block;
+}
+
+a {
+	text-decoration: none;
+	color: #FFFFFF;
+	/*Transition*/
+	-webkit-transition: All 0.5s ease;
+	-moz-transition: All 0.5s ease;
+	-o-transition: All 0.5s ease;
+	-ms-transition: All 0.5s ease;
+	transition: All 0.5s ease;
+}
+
+a:hover {
+	color: #EB009B;
 }

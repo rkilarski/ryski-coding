@@ -39,14 +39,15 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 	var FINGERING_FONT_SIZE = 7;
 	var FINGERING_SPACING = 8;
 
-	var CIRCLE_OFFSET_FROM_LEFT = 16;
+	var CIRCLE_OFFSET_FROM_LEFT = 15;
 	var CIRCLE_OFFSET_FROM_TOP = 30;
 	var CIRCLE_SPACING = 8;
 	var CIRCLE_RADIUS = 2;
-	/*
-	 * var GRID_OFFSET_FROM_LEFT = 15; var GRID_OFFSET_FROM_TOP = 26; var ROW_COUNT = 6; var
-	 * ROW_HEIGHT = 8; var ROW_WIDTH = 8;
-	 */
+	
+	var GRID_OFFSET_FROM_LEFT = 15; 
+	var GRID_OFFSET_FROM_TOP = 26;
+	var GRID_SPACING = 8;
+
 	// Create the SVG object for this chart and return it.
 	this.getSVG = function() {
 		var svg = document.createElementNS(NS, "svg");
@@ -120,7 +121,7 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 			var fret = chordFrets.charAt(i);
 			if (fret != " ") {
 				var leftOffset = CIRCLE_OFFSET_FROM_LEFT + (i * CIRCLE_SPACING);
-				var topOffset = CIRCLE_OFFSET_FROM_TOP + (fret * CIRCLE_SPACING);
+				var topOffset = CIRCLE_OFFSET_FROM_TOP + ((fret-1) * CIRCLE_SPACING);
 				var child = getCircleElement({
 					offsetFromLeft : leftOffset,
 					offsetFromTop : topOffset,
@@ -131,9 +132,65 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 		}
 	};
 
-	var addChordGrid = function() {
+	var addChordGrid = function(svg) {
+		var line;
+		var xPosition1=GRID_OFFSET_FROM_LEFT;
+		var yPosition1;
+		var xPosition2=GRID_OFFSET_FROM_LEFT+(GRID_SPACING*5);
+		var yPosition2;
+		
+		//Add horizontal lines.
+		for (var i=0; i<6; i++){
+			yPosition1=GRID_OFFSET_FROM_TOP+(i*GRID_SPACING);
+			yPosition2=yPosition1;
+
+			line=getTextLine({x1:xPosition1,
+				y1:yPosition1,
+				x2:xPosition2,
+				y2:yPosition2,
+				strokeWidth:(i==0?"2":"1")  //First line is special.
+			})
+			svg.appendChild(line);					
+		}
+
+		var yPosition1=GRID_OFFSET_FROM_TOP;
+		var yPosition2=GRID_OFFSET_FROM_TOP+(GRID_SPACING*5);
+	
+		//Add vertical lines.
+		for (var i=0; i<6; i++){
+			xPosition1=GRID_OFFSET_FROM_LEFT+(i*GRID_SPACING);
+			xPosition2=xPosition1;
+
+			line=getTextLine({x1:xPosition1,
+				y1:yPosition1,
+				x2:xPosition2,
+				y2:yPosition2,
+				strokeWidth:"1"
+			})
+			svg.appendChild(line);					
+		}
 	};
 
+	/**
+	 * Output a line SVG element. It will look like:
+	 * 
+	 * <line x1="0" y1="0" x2="40" y2="0" stroke="#000000" stroke-linecap="square" stroke-width="2"></line>
+	 */
+	var getTextLine = function(params) {
+		if (params.strokeWidth==""){
+			params.strokeWidth="1";
+		}
+		var svgElement = document.createElementNS(NS, "line");
+		svgElement.setAttribute("x1", params.x1);
+		svgElement.setAttribute("y1", params.y1);
+		svgElement.setAttribute("x2", params.x2);
+		svgElement.setAttribute("y2", params.y2);
+		svgElement.setAttribute("stroke", "#000000");
+		svgElement.setAttribute("stroke-linecap", "square");
+		svgElement.setAttribute("stroke-width", params.strokeWidth);
+		return svgElement;
+	};
+	
 	/**
 	 * Output a text SVG element. It will look like:
 	 * 

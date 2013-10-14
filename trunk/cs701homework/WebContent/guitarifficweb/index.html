@@ -1,104 +1,58 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>GuitarifficWeb</title>
+<head>
+<meta charset="UTF-8">
+<title>GuitarifficWeb</title>
 
-		<link type="text/css" rel="stylesheet" href="css/styles.css">
+<link type="text/css" rel="stylesheet" href="css/styles.css">
 
-		<script type="text/javascript" src="js/lib/jquery-1.8.2.min.js"></script>
-		<!--<script type="text/javascript" src="js/lib/jquery.svg.package-1.4.5/jquery.svg.min.js"></script>-->
+<script type="text/javascript" src="js/lib/jquery-1.8.2.min.js"></script>
+<!--<script type="text/javascript" src="js/lib/jquery.svg.package-1.4.5/jquery.svg.min.js"></script>-->
 
-		<script type="text/javascript" src="js/guitarchart.js"></script>
-		<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/guitarchart.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
 
-	</head>
-	<body>
-		<div id="wrap">
+</head>
+<body>
+	<div id="wrap">
+		<div id="apparea">
 			<div id="header">
-				<p>
-					Header
-				</p>
+				<p>guitarifficWeb</p>
+				<ul class="navigation">
+					<li><a href="#">load</a></li>
+					<li><a href="#">save</a></li>
+					<li><a href="#">print</a></li>
+				</ul>
 			</div>
-			<div id="appcanvas">
-				<p>
-					AppCanvas
-				</p>
-				<svg width="70" height="80">
-					<defs>
-						<g id="lines">
-							<line x1="0" y1="0" x2="42" y2="0" stroke="#000000" stroke-linecap="square" stroke-width="1"></line>
-							<line x1="0" y1="8" x2="42" y2="8" stroke="#000000" stroke-linecap="square" stroke-width="1"></line>
-							<line x1="0" y1="16" x2="42" y2="16" stroke="#000000" stroke-linecap="square" stroke-width="1"></line>
-							<line x1="0" y1="32" x2="42" y2="32" stroke="#000000" stroke-linecap="square" stroke-width="1"></line>
-							<line x1="0" y1="24" x2="42" y2="24" stroke="#000000" stroke-linecap="square" stroke-width="1"></line>
-							<line x1="0" y1="40" x2="42" y2="40" stroke="#000000" stroke-linecap="square" stroke-width="1"></line>
-						</g>
-					</defs>
-					<!-- Grid -->
-					<use xlink:href="#lines" transform="translate(15,26)"></use>
-					<use xlink:href="#lines" transform="translate(56,26) rotate(90)"></use>
-
-					<!-- First row to be thicker -->
-					<line x1="15" y1="26" x2="57" y2="26" stroke="#000000" style="stroke-linecap: square; stroke-width=2;"></line>
-
-					<!-- Chord name -->
-					<text x="35" y="14" font-family="Arial" font-size="14" text-anchor="middle">
-						C
-					</text>
-
-					<!-- Fret offset-->
-					<text x="6" y="28" font-family="Arial" font-size="8" text-anchor="middle">
-						12
-					</text>
-
-					<!-- Left-hand -->
-					<text x="6" y="38" font-family="Arial" font-size="8" text-anchor="middle">
-						L
-					</text>
-
-					<!-- Fingering -->
-					<text x="13" y="24" font-family="Arial" font-size="7">
-						X
-					</text>
-					<text x="21" y="24" font-family="Arial" font-size="7">
-						1
-					</text>
-					<text x="29" y="24" font-family="Arial" font-size="7">
-						2
-					</text>
-					<text x="37" y="24" font-family="Arial" font-size="7">
-						3
-					</text>
-					<text x="45" y="24" font-family="Arial" font-size="7">
-						4
-					</text>
-					<text x="53" y="24" font-family="Arial" font-size="7">
-						5
-					</text>
-
-					<!-- Dots -->
-					<circle cx="16" cy="30" r="2" stroke="#000000"></circle>
-					<circle cx="24" cy="38" r="2" stroke="#000000"></circle>
-					<circle cx="32" cy="46" r="2" stroke="#000000"></circle>
-					<circle cx="40" cy="54" r="2" stroke="#000000"></circle>
-					<circle cx="48" cy="62" r="2" stroke="#000000"></circle>
-					<circle cx="56" cy="62" r="2" stroke="#000000"></circle>
-				</svg>
-
+			<div id="textarea">
+				<input type="text" id="songname" placeholder="song name"> <input
+					type="text" id="artistname" placeholder="artist">
+				<table>
+					<tr>
+						<td><input type="text" class="songtext"></td>
+					</tr>
+					<tr>
+						<td><input type="text" class="songtext"></td>
+					</tr>
+					<tr>
+						<td><input type="text" class="songtext"></td>
+					</tr>
+					<tr>
+						<td><input type="text" class="songtext"></td>
+					</tr>
+				</table>
 			</div>
-			<div id="chordtray">
-				<p>
-					Chord Tray
-				</p>
-				<input type="text" id="searchfield" placeholder="search">
-			</div>
+			<div id="chordarea"></div>
 			<div id="footer">
 				<p>
-					GuitarifficWeb
+					&copy;2013 <a href="mailto:emrys@bu.edu">Ryszard Kilarski</a>
 				</p>
 			</div>
-
 		</div>
-	</body>
+		<div id="chordtray">
+			<input type="text" id="searchfield" placeholder="search">
+		</div>
+
+	</div>
+</body>
 </html>
