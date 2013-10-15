@@ -3,30 +3,24 @@
  * email: emrys@bu.edu
  * BUI ID: U81-39-8560
  *
- * This code relies on what I learned here:
- * http://www.carto.net/svg/manipulating_svg_with_dom_ecmascript/
- * http://www.i-programmer.info/programming/graphics-and-imaging/3254-svg-javascript-and-the-dom.html
- *
- * jQuery plug-in to work with SVG.
- * http://keith-wood.name/svg.html
  */
 
-function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLeftHanded) {
-	//Public properties
+function GuitarChart(chordName, chordPosition, chordFingering, chordFrets,
+		isLeftHanded) {
+	// Public properties
 	this.chordName = chordName;
 	this.chordPosition = chordPosition;
 	this.chordFingering = chordFingering;
 	this.chordFrets = chordFrets;
 	this.isLeftHanded = isLeftHanded;
 
-	//Private properties
-	var NS = "http://www.w3.org/2000/svg";
+	// Private properties
 	var IMAGE_WIDTH = 70;
 	var IMAGE_HEIGHT = 80;
 
 	var TITLE_OFFSET_FROM_LEFT = 35;
 	var TITLE_OFFSET_FROM_TOP = 14;
-	var TEXT_FONT = "Arial";
+	var TEXT_FONT = 'Arial';
 	var TITLE_FONT_SIZE = 14;
 
 	var POSITION_OFFSET_FROM_LEFT = 6;
@@ -43,32 +37,39 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 	var CIRCLE_OFFSET_FROM_TOP = 30;
 	var CIRCLE_SPACING = 8;
 	var CIRCLE_RADIUS = 2;
-	
-	var GRID_OFFSET_FROM_LEFT = 15; 
+
+	var GRID_OFFSET_FROM_LEFT = 15;
 	var GRID_OFFSET_FROM_TOP = 26;
 	var GRID_SPACING = 8;
 
-	// Create the SVG object for this chart and return it.
-	this.getSVG = function() {
-		var svg = document.createElementNS(NS, "svg");
-		svg.width = IMAGE_WIDTH;
-		svg.height = IMAGE_HEIGHT;
+	// Create the Canvas object for this chart and return it.
+	this.getCanvas = function() {
+		var canvas = document.createElement('canvas');
+		var context = canvas.getContext('2d');
+		canvas.width = IMAGE_WIDTH;
+		canvas.height = IMAGE_HEIGHT;
 
-		svg.appendChild(getTitle(this.chordName));
-		svg.appendChild(getChordPosition(this.chordPosition));
+		addBackground(context);
+		addTitle(context, this.chordName);
+		addChordPosition(context, this.chordPosition);
 
 		if (this.isLeftHanded) {
-			svg.appendChild(getChordLeftHand());
+			addChordLeftHand(context);
 		}
-		addChordGrid(svg);
-		addChordFingering(svg, this.chordFingering);
-		addChordCircles(svg, this.chordFrets);
-		return svg;
+		addChordGrid(context);
+		addChordFingering(context, this.chordFingering);
+		addChordCircles(context, this.chordFrets);
+		return canvas;
 	};
 
-	//Add the chord title to the grid.
-	var getTitle = function(chordName) {
-		return getTextElement(chordName, {
+	var addBackground = function(context) {
+		context.fillStyle = '#ffffff';
+		context.fillRect(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
+	};
+
+	// Add the chord title to the grid.
+	var addTitle = function(context, chordName) {
+		drawText(context, chordName, {
 			offsetFromLeft : TITLE_OFFSET_FROM_LEFT,
 			offsetFromTop : TITLE_OFFSET_FROM_TOP,
 			fontFamily : TEXT_FONT,
@@ -77,8 +78,8 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 	};
 
 	// Add the chord position to the grid.
-	var getChordPosition = function(chordPosition) {
-		return getTextElement(chordPosition, {
+	var addChordPosition = function(context, chordPosition) {
+		drawText(context, chordPosition, {
 			offsetFromLeft : POSITION_OFFSET_FROM_LEFT,
 			offsetFromTop : POSITION_OFFSET_FROM_TOP,
 			fontFamily : TEXT_FONT,
@@ -86,9 +87,9 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 		});
 	};
 
-	// Add the left hand "L" to the grid.
-	var getChordLeftHand = function() {
-		return getTextElement("L", {
+	// Add the left hand 'L' to the grid.
+	var addChordLeftHand = function(context) {
+		drawText(context, 'L', {
 			offsetFromLeft : POSITION_OFFSET_FROM_LEFT,
 			offsetFromTop : LEFT_OFFSET_FROM_TOP,
 			fontFamily : TEXT_FONT,
@@ -97,127 +98,115 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 	};
 
 	// Add all the chord fingeringn to the grid.
-	var addChordFingering = function(svg, chordFingering) {
+	var addChordFingering = function(context, chordFingering) {
 		var offset = FINGERING_OFFSET_FROM_LEFT;
-		
-		for (var i = 0; i < chordFingering.length; i++) {
+
+		for ( var i = 0; i < chordFingering.length; i++) {
 			var character = chordFingering.charAt(i);
-			if (character != " ") {
-				var child = getTextElement(character, {
+			if (character != ' ') {
+				drawText(context, character, {
 					offsetFromLeft : offset,
 					offsetFromTop : FINGERING_OFFSET_FROM_TOP,
 					fontFamily : TEXT_FONT,
 					fontSize : FINGERING_FONT_SIZE
 				});
-				svg.appendChild(child);
 			}
 			offset = offset + FINGERING_SPACING;
 		}
 	};
 
 	// Add all the fret circles to the grid.
-	var addChordCircles = function(svg, chordFrets) {
-		for (var i = 0; i < chordFrets.length; i++) {
+	var addChordCircles = function(context, chordFrets) {
+		for ( var i = 0; i < chordFrets.length; i++) {
 			var fret = chordFrets.charAt(i);
-			if (fret != " ") {
+			if (fret != ' ') {
 				var leftOffset = CIRCLE_OFFSET_FROM_LEFT + (i * CIRCLE_SPACING);
-				var topOffset = CIRCLE_OFFSET_FROM_TOP + ((fret-1) * CIRCLE_SPACING);
-				var child = getCircleElement({
+				var topOffset = CIRCLE_OFFSET_FROM_TOP
+						+ ((fret - 1) * CIRCLE_SPACING);
+				drawCircle(context, {
 					offsetFromLeft : leftOffset,
 					offsetFromTop : topOffset,
 					radius : CIRCLE_RADIUS
 				});
-				svg.appendChild(child);
 			}
 		}
 	};
 
-	var addChordGrid = function(svg) {
-		var line;
-		var xPosition1=GRID_OFFSET_FROM_LEFT;
+	var addChordGrid = function(context) {
+		var xPosition1 = GRID_OFFSET_FROM_LEFT;
 		var yPosition1;
-		var xPosition2=GRID_OFFSET_FROM_LEFT+(GRID_SPACING*5);
+		var xPosition2 = GRID_OFFSET_FROM_LEFT + (GRID_SPACING * 5);
 		var yPosition2;
-		
-		//Add horizontal lines.
-		for (var i=0; i<6; i++){
-			yPosition1=GRID_OFFSET_FROM_TOP+(i*GRID_SPACING);
-			yPosition2=yPosition1;
 
-			line=getTextLine({x1:xPosition1,
-				y1:yPosition1,
-				x2:xPosition2,
-				y2:yPosition2,
-				strokeWidth:(i==0?"2":"1")  //First line is special.
+		// Add horizontal lines.
+		for ( var i = 0; i < 6; i++) {
+			yPosition1 = GRID_OFFSET_FROM_TOP + (i * GRID_SPACING);
+			yPosition2 = yPosition1;
+
+			drawLine(context, {
+				x1 : xPosition1,
+				y1 : yPosition1,
+				x2 : xPosition2,
+				y2 : yPosition2,
+				strokeWidth : (i == 0 ? '2' : '1')
+			// First line is special.
 			})
-			svg.appendChild(line);					
 		}
 
-		var yPosition1=GRID_OFFSET_FROM_TOP;
-		var yPosition2=GRID_OFFSET_FROM_TOP+(GRID_SPACING*5);
-	
-		//Add vertical lines.
-		for (var i=0; i<6; i++){
-			xPosition1=GRID_OFFSET_FROM_LEFT+(i*GRID_SPACING);
-			xPosition2=xPosition1;
+		var yPosition1 = GRID_OFFSET_FROM_TOP;
+		var yPosition2 = GRID_OFFSET_FROM_TOP + (GRID_SPACING * 5);
 
-			line=getTextLine({x1:xPosition1,
-				y1:yPosition1,
-				x2:xPosition2,
-				y2:yPosition2,
-				strokeWidth:"1"
+		// Add vertical lines.
+		for ( var i = 0; i < 6; i++) {
+			xPosition1 = GRID_OFFSET_FROM_LEFT + (i * GRID_SPACING);
+			xPosition2 = xPosition1;
+
+			drawLine(context, {
+				x1 : xPosition1,
+				y1 : yPosition1,
+				x2 : xPosition2,
+				y2 : yPosition2,
+				strokeWidth : '1'
 			})
-			svg.appendChild(line);					
 		}
 	};
 
 	/**
-	 * Output a line SVG element. It will look like:
-	 * 
-	 * <line x1="0" y1="0" x2="40" y2="0" stroke="#000000" stroke-linecap="square" stroke-width="2"></line>
+	 * Draw a line on the canvas context.
 	 */
-	var getTextLine = function(params) {
-		if (params.strokeWidth==""){
-			params.strokeWidth="1";
+	var drawLine = function(context, params) {
+		if (params.strokeWidth == '') {
+			params.strokeWidth = '1';
 		}
-		var svgElement = document.createElementNS(NS, "line");
-		svgElement.setAttribute("x1", params.x1);
-		svgElement.setAttribute("y1", params.y1);
-		svgElement.setAttribute("x2", params.x2);
-		svgElement.setAttribute("y2", params.y2);
-		svgElement.setAttribute("stroke", "#000000");
-		svgElement.setAttribute("stroke-linecap", "square");
-		svgElement.setAttribute("stroke-width", params.strokeWidth);
-		return svgElement;
-	};
-	
-	/**
-	 * Output a text SVG element. It will look like:
-	 * 
-	 * <text x="6" y="38" font-family="Arial" font-size="8" text-anchor="middle">L</text>
-	 */
-	var getTextElement = function(value, params) {
-		var svgElement = document.createElementNS(NS, "text");
-		svgElement.setAttribute("x", params.offsetFromLeft);
-		svgElement.setAttribute("y", params.offsetFromTop);
-		svgElement.setAttribute("font-family", params.fontFamily);
-		svgElement.setAttribute("font-size", params.fontSize);
-		svgElement.setAttribute("text-anchor", "middle");
-		svgElement.appendChild(document.createTextNode(value));
-		return svgElement;
+		context.strokeStyle = '#000000'
+		context.lineWidth = params.strokeWidth;
+		context.lineCap = 'square'
+		context.beginPath();
+		context.moveTo(params.x1, params.y1);
+		context.lineTo(params.x2, params.y2);
+		context.stroke();
+		context.closePath();
+
 	};
 
 	/**
-	 * Output a circle element. It will look like:
-	 * 
-	 * <circle cx="16" cy="30" r="2" stroke="#000000"></circle>
-	 * 
+	 * Draw text on the canvas object.
 	 */
-	var getCircleElement = function(params) {
-		var svgElement = document.createElementNS(NS, "circle");
-		svgElement.setAttribute("cx", params.offsetFromLeft);
-		svgElement.setAttribute("cy", params.offsetFromTop);
-		svgElement.setAttribute("r", params.radius);
-		return svgElement;
+	var drawText = function(context, value, params) {
+		context.font = params.fontSize + 'px ' + params.fontFamily;
+		context.textAlign = 'center';
+		context.strokeText(value, params.offsetFromLeft, params.offsetFromTop);
+	};
+
+	/**
+	 * Draw a circle on the canvas object.
+	 */
+	var drawCircle = function(context, params) {
+		context.beginPath();
+		context.fillStyle = '#000000';
+		context.arc(params.offsetFromLeft, params.offsetFromTop, params.radius,
+				0, 2 * Math.PI);
+		context.fill();
+		context.closePath();
 	};
 }

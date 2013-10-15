@@ -27,20 +27,17 @@ function drop(e) {
  * Source drag start.
  */
 function dragStart(e) {
-	e.preventDefault();
-	alert("here");
+	//e.preventDefault();
 }
 /**
  * Source drag end.
  */
 function dragEnd(e) {
-	e.preventDefault();
-	alert("here");
+	//e.preventDefault();
 }
 /**
  * Source drag.
  */
 function drag(e) {
-	e.preventDefault();
-	alert("here");
+	//e.preventDefault();
 }
