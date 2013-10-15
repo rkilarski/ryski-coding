@@ -1,3 +1,43 @@
+/*
+ * author: Ryszard Kilarski
+ * email: emrys@bu.edu
+ * BUI ID: U81-39-8560
+ *
+ * Notes:
+ * Webkit/Chrome has a bug where we can't always use the dataTransfer event object. So instead
+ * we use the global dragDropChord variable.
+ */
+
+var dragDropChord;
+
+/**
+ * Create drag events for all the source elements.
+ * 
+ * @param chord
+ * @param chordCanvas
+ */
+function addDragEvents(chord, chordCanvas) {
+	chordCanvas.ondragstart = function(chord) {
+		return function(e) {
+			dragDropChord = chord;
+			//var string = JSON.stringify(chord);
+			//e.dataTransfer.setData('text/plain', string);
+		}
+	}(chord);
+
+	chordCanvas.ondragend = function(chord) {
+		return function(e) {
+			//Currently do nothing.
+		}
+	}(chord);
+
+	chordCanvas.ondrag = function(chord) {
+		return function(e) {
+			//Currently do nothing.
+		}
+	}(chord);
+}
+
 /**
  * Target drag enter.
  */
@@ -20,24 +60,8 @@ function dragLeave(e) {
  * Target drop.
  */
 function drop(e) {
+	// var string = e.dataTransfer.getData('text/plain');
+	// var chord = JSON.parse(string);
+	loadChordIntoArea(dragDropChord);
 	e.preventDefault();
-}
-
-/**
- * Source drag start.
- */
-function dragStart(e) {
-	//e.preventDefault();
-}
-/**
- * Source drag end.
- */
-function dragEnd(e) {
-	//e.preventDefault();
-}
-/**
- * Source drag.
- */
-function drag(e) {
-	//e.preventDefault();
 }
