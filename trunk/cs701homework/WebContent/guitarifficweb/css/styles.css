@@ -11,8 +11,8 @@ body,html {
 	background: #606060;
 }
 
-svg {
-	/*border: 1px solid;*/
+canvas {
+	border: 1px solid #ffffff;
 	background-color: #ffffff;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -26,11 +26,10 @@ svg {
 	transition: All 0.5s ease;
 }
 
-/*.guitarchart:hover {*/
-	/*border-color: #EB009B;*/
-	/*fill: #EB009B;*/
-	/*opacity:0.3;*/
-/*}*/
+.guitarchart:hover {
+	border-color: #EB009B;
+	opacity:0.5;
+}
 
 input {
 	-webkit-border-radius: 8px;

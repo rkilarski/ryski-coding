@@ -53,7 +53,7 @@ function loadXMLData(filter) {
 					// create a new JSON object for each song
 					var chord = new GuitarChart(chordName, chordPosition,
 							chordFingering, chordFrets, isLeftHanded);
-					loadChordIntoDOM(chord.getSVG());
+					loadChordIntoDOM(chord.getCanvas());
 
 					// dao.indexedDB.addChord(chord);
 				}
