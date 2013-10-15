@@ -5,8 +5,7 @@
  *
  */
 
-function GuitarChart(chordName, chordPosition, chordFingering, chordFrets,
-		isLeftHanded) {
+function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLeftHanded) {
 	// Public properties
 	this.chordName = chordName;
 	this.chordPosition = chordPosition;
@@ -101,7 +100,7 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets,
 	var addChordFingering = function(context, chordFingering) {
 		var offset = FINGERING_OFFSET_FROM_LEFT;
 
-		for ( var i = 0; i < chordFingering.length; i++) {
+		for (var i = 0; i < chordFingering.length; i++) {
 			var character = chordFingering.charAt(i);
 			if (character != ' ') {
 				drawText(context, character, {
@@ -117,12 +116,11 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets,
 
 	// Add all the fret circles to the grid.
 	var addChordCircles = function(context, chordFrets) {
-		for ( var i = 0; i < chordFrets.length; i++) {
+		for (var i = 0; i < chordFrets.length; i++) {
 			var fret = chordFrets.charAt(i);
 			if (fret != ' ') {
 				var leftOffset = CIRCLE_OFFSET_FROM_LEFT + (i * CIRCLE_SPACING);
-				var topOffset = CIRCLE_OFFSET_FROM_TOP
-						+ ((fret - 1) * CIRCLE_SPACING);
+				var topOffset = CIRCLE_OFFSET_FROM_TOP + ((fret - 1) * CIRCLE_SPACING);
 				drawCircle(context, {
 					offsetFromLeft : leftOffset,
 					offsetFromTop : topOffset,
@@ -139,7 +137,7 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets,
 		var yPosition2;
 
 		// Add horizontal lines.
-		for ( var i = 0; i < 6; i++) {
+		for (var i = 0; i < 6; i++) {
 			yPosition1 = GRID_OFFSET_FROM_TOP + (i * GRID_SPACING);
 			yPosition2 = yPosition1;
 
@@ -157,7 +155,7 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets,
 		var yPosition2 = GRID_OFFSET_FROM_TOP + (GRID_SPACING * 5);
 
 		// Add vertical lines.
-		for ( var i = 0; i < 6; i++) {
+		for (var i = 0; i < 6; i++) {
 			xPosition1 = GRID_OFFSET_FROM_LEFT + (i * GRID_SPACING);
 			xPosition2 = xPosition1;
 
@@ -204,8 +202,7 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets,
 	var drawCircle = function(context, params) {
 		context.beginPath();
 		context.fillStyle = '#000000';
-		context.arc(params.offsetFromLeft, params.offsetFromTop, params.radius,
-				0, 2 * Math.PI);
+		context.arc(params.offsetFromLeft, params.offsetFromTop, params.radius, 0, 2 * Math.PI);
 		context.fill();
 		context.closePath();
 	};

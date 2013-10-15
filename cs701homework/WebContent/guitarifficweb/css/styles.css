@@ -155,3 +155,7 @@ a {
 a:hover {
 	color: #EB009B;
 }
+
+#lyricstable{
+	width: 100%;
+}
