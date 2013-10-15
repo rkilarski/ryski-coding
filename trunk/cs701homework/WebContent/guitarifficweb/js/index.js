@@ -37,15 +37,24 @@ function loadChordsFromStorage(filter) {
  * 
  * @param chord
  */
-function loadChordIntoDOM(chord) {
-	chord.setAttribute("class", "guitarchart");
-	chord.setAttribute("draggable", "true");
-	chord.ondragstart = dragStart;
-	chord.ondragend = dragEnd;
-	chord.ondrag = drag;
-	$("#chordtray").append(chord);
-	// $(chord).on("dragstart", dragStart).on("dragend", dragEnd).on("drag",
-	// drag);
+function loadChordIntoTray(chord) {
+	var chordCanvas = chord.getCanvas();
+	chordCanvas.setAttribute("class", "guitarchart");
+	chordCanvas.setAttribute("draggable", "true");
+	addDragEvents(chord, chordCanvas);
+	$("#chordtray").append(chordCanvas);
+}
+/**
+ * Add a given chord into the chord area. Here, also attach any event handlers.
+ * 
+ * @param chord
+ */
+function loadChordIntoArea(chord) {
+	var chordCanvas = chord.getCanvas();
+	chordCanvas.setAttribute("class", "guitarchart");
+	chordCanvas.setAttribute("draggable", "true");
+	addDragEvents(chord, chordCanvas);
+	$("#chordarea").append(chordCanvas);
 }
 
 // Start the Web Worker and register its event handler
@@ -60,5 +69,5 @@ function startWorker() {
 // Accept an event from the Web WOrker loading chords from the XML file.
 function handleWorkerReceipt(event) {
 	var chord = event.data;
-	loadChordIntoDOM(chord);
+	loadChordIntoTray(chord);
 }
