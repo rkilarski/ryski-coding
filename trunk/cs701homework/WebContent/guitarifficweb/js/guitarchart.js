@@ -7,6 +7,7 @@
 
 function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLeftHanded) {
 	// Public properties
+	this.id=0;  //Database ID.
 	this.chordName = chordName;
 	this.chordPosition = chordPosition;
 	this.chordFingering = chordFingering;

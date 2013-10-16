@@ -8,8 +8,8 @@ $(document).ready(function() {
 
 function attachHandlers() {
 	$("#searchfield").keyup(searchField);
-	$("#chordarea").on("dragenter", dragEnter).on("dragover", dragOver).on("dragleave", dragLeave)
-			.on("drop", drop);
+	$("#chordarea").on("dragenter", dragEnter).on("dragover", dragOver).on(
+			"dragleave", dragLeave).on("drop", drop);
 	$("#load").click(function() {
 		$("#slidearea").slideToggle();
 	});
@@ -25,17 +25,11 @@ function searchField() {
 
 function loadChords(filter) {
 	$("#chordtray .guitarchart").remove();
-	if (!loadChordsFromStorage(filter)) {
-		loadChordsFromFile(filter);
-	}
+	//createDatabase();
+	openDatabase(function() {
+		fetchChordsDB(loadChordIntoTray);
+	});
 	// $("#chordtray .guitarchart").fadeIn('slow');
-}
-/**
- * Load the data from local storage.
- */
-function loadChordsFromStorage(filter) {
-
-	return false;
 }
 
 /**
