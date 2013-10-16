@@ -13,7 +13,7 @@ body,html {
 
 #wrap {
 	background: #606060;
-	width: 100%;
+	width: 99%;
 	height: 100%;
 	min-height: 100%;
 	position: relative;
@@ -47,10 +47,11 @@ body,html {
 
 #chordtrayarea {
 	float: right;
-	width: 85px;
+	width: 100px;
+	height: 90%;
 }
 
-#chordtray,#chordtrayarea {
+#chordtray {
 	height: 100%;
 	overflow-y: scroll;
 	overflow-x: hidden;
@@ -155,4 +156,30 @@ a:hover {
 
 #lyricstable {
 	width: 100%;
+}
+
+/*
+Customize the look and feel of the scrollbars.
+*/
+::-webkit-scrollbar {
+	width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	background: rgba(235, 0, 155, 0.8);
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(235, 0, 155, 0.4);
 }
