@@ -8,9 +8,15 @@ $(document).ready(function() {
 
 function attachHandlers() {
 	$("#searchfield").keyup(searchField);
-	$("#chordarea").on("dragenter", dragEnter).on("dragover", dragOver).on(
-			"dragleave", dragLeave).on("drop", drop);
-
+	$("#chordarea").on("dragenter", dragEnter).on("dragover", dragOver).on("dragleave", dragLeave)
+			.on("drop", drop);
+	$("#load").click(function() {
+		$("#slidearea").slideToggle();
+	});
+	/*
+	 * $("#load").hover(function() { $("#slidearea").slideDown(); }, function() {
+	 * $("#slidearea").slideUp(); });
+	 */
 }
 
 function searchField() {

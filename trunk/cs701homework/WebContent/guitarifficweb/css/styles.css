@@ -11,13 +11,6 @@ body,html {
 	background: #606060;
 }
 
-input {
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	-khtml-border-radius: 8px;
-	border-radius: 8px;
-}
-
 #wrap {
 	background: #606060;
 	width: 100%;
@@ -52,11 +45,12 @@ input {
 	padding-bottom: 25px;
 }
 
-#chordtrayarea{
+#chordtrayarea {
 	float: right;
-	width: 85px;	
+	width: 85px;
 }
-#chordtray, #chordtrayarea {
+
+#chordtray,#chordtrayarea {
 	height: 100%;
 	overflow-y: scroll;
 	overflow-x: hidden;
@@ -71,10 +65,6 @@ input {
 	/*display: none;*/
 	border: 1px solid #ffffff;
 	background-color: #ffffff;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	-khtml-border-radius: 10px;
-	border-radius: 10px;
 	-webkit-transition: All 0.5s ease;
 	-moz-transition: All 0.5s ease;
 	-o-transition: All 0.5s ease;
@@ -96,25 +86,32 @@ input {
 	background-color: #ffffff;
 	float: left;
 	width: 48%;
-	height: 100%;
+	height: 95%;
 	border-right: 1px solid black;
+	padding-top: 20px;
+	padding-left: 10px;
+}
+
+#slidearea {
+	display: none;
+	width: 100%;
+	height: 400px;
+	background-color: #000000;
+	margin-bottom: 10px;
+}
+
+input,.guitarchart,#textarea,#slidearea,#chordarea {
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-khtml-border-radius: 10px;
 	border-radius: 10px;
-	padding-top: 20px;
-	padding-left: 10px;
 }
 
 #chordarea {
 	background-color: #ffffff;
 	float: right;
 	width: 48%;
-	height: 100%;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	-khtml-border-radius: 10px;
-	border-radius: 10px;
+	height: 95%;
 	padding-top: 20px;
 	padding-left: 10px;
 }
@@ -156,6 +153,6 @@ a:hover {
 	color: #EB009B;
 }
 
-#lyricstable{
+#lyricstable {
 	width: 100%;
 }
