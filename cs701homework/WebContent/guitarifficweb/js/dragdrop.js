@@ -3,6 +3,8 @@
  * email: emrys@bu.edu
  * BUI ID: U81-39-8560
  *
+ *These are the drag and drop event handlers.
+ *
  * Notes:
  * Webkit/Chrome has a bug where we can't always use the dataTransfer event object. So instead
  * we use the global dragDropChord variable.
@@ -20,20 +22,22 @@ function addDragEvents(chord, chordCanvas) {
 	chordCanvas.ondragstart = function(chord) {
 		return function(e) {
 			dragDropChord = chord;
-			//var string = JSON.stringify(chord);
-			//e.dataTransfer.setData('text/plain', string);
+			// var string = JSON.stringify(chord);
+			// e.dataTransfer.setData('text/plain', string);
+			$('#chordarea').css('border', '1px solid #eb009b');
 		}
 	}(chord);
 
 	chordCanvas.ondragend = function(chord) {
 		return function(e) {
-			//Currently do nothing.
+			$('#chordarea').css('border', '1px solid #606060');
+			// Currently do nothing.
 		}
 	}(chord);
 
 	chordCanvas.ondrag = function(chord) {
 		return function(e) {
-			//Currently do nothing.
+			// Currently do nothing.
 		}
 	}(chord);
 }
