@@ -73,9 +73,10 @@ body,html {
 	transition: All 0.5s ease;
 }
 
-.guitarchart:hover {
+.guitarchart:hover, .loaditem:hover {
 	border-color: #EB009B;
 	opacity: 0.5;
+	color: #EB009B;
 }
 
 #searchfield {
@@ -99,9 +100,22 @@ body,html {
 	height: 400px;
 	background-color: #000000;
 	margin-bottom: 10px;
+	padding: 10px;
 }
 
-input,.guitarchart,#textarea,#slidearea,#chordarea {
+.loaditem {
+	padding-top: 10px;
+	background-color: #ffffff;
+	border: 1px solid #000000;
+	color: #000000;
+	width: 140px;
+	height: 160px;
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+}
+
+input,.guitarchart,#textarea,#slidearea,#chordarea,.loaditem {
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-khtml-border-radius: 10px;
