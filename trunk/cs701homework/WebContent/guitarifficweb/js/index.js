@@ -1,39 +1,44 @@
-/**
- * 
+/*
+ * author: Ryszard Kilarski
+ * email: emrys@bu.edu
+ * BUI ID: U81-39-8560
+ *
+ *This is the main set of functions for the application.
  */
+
 $(document).ready(function() {
-	loadChords();
+	loadChords("");
 	attachHandlers();
 });
 
 function attachHandlers() {
-	$("#searchfield").keyup(searchField);
+	$("#searchfield").keyup(searchFieldHandler);
 	$("#chordarea").on("dragenter", dragEnter).on("dragover", dragOver).on(
 			"dragleave", dragLeave).on("drop", drop);
 	$("#load").click(function() {
 		$("#slidearea").slideToggle();
 	});
-	/*
-	 * $("#load").hover(function() { $("#slidearea").slideDown(); }, function() {
-	 * $("#slidearea").slideUp(); });
-	 */
-}
-
-function searchField() {
-	loadChords($("#searchfield").val());
-}
-
-function loadChords(filter) {
-	$("#chordtray .guitarchart").remove();
-	//createDatabase();
-	openDatabase(function() {
-		fetchChordsDB(loadChordIntoTray);
-	});
-	// $("#chordtray .guitarchart").fadeIn('slow');
+	$(".songtext").keyup(textKeyHandler);
+	$("#newsong").click(newSongHandler);
 }
 
 /**
- * Add a given chord into the chord tray. Here, also attach any event handlers.
+ * Load the chords. This function will load from the database and, if that
+ * fails, load from the XML file and then load from the database.
+ * 
+ * @param filter
+ */
+function loadChords(filter) {
+	$("#chordtray .guitarchart").hide();
+	$("#chordtray .guitarchart").remove();
+	openDatabase(function() {
+		fetchChordsDB(filter, loadChordIntoTray);
+	});
+}
+
+/**
+ * Add a given chord into the chord tray. Also attach any event handlers to the
+ * chord item in the tray.
  * 
  * @param chord
  */
@@ -45,7 +50,8 @@ function loadChordIntoTray(chord) {
 	$("#chordtray").append(chordCanvas);
 }
 /**
- * Add a given chord into the chord area. Here, also attach any event handlers.
+ * Add a given chord into the chord area. Also attach any event handlers to the
+ * chord item in the chord area.
  * 
  * @param chord
  */
@@ -57,17 +63,18 @@ function loadChordIntoArea(chord) {
 	$("#chordarea").append(chordCanvas);
 }
 
-// Start the Web Worker and register its event handler
-function startWorker() {
-	// if (myWorker == null) {
-	var myWorker = new Worker("js/loadFromFileWorker.js");
-	myWorker.addEventListener("message", handleWorkerReceipt, false);
-	myWorker.postMessage();
-	// }
+/**
+ * Given a DOM, load its information into a song object.
+ */
+function createSongFromDOM() {
+
 }
 
-// Accept an event from the Web WOrker loading chords from the XML file.
-function handleWorkerReceipt(event) {
-	var chord = event.data;
-	loadChordIntoTray(chord);
+/**
+ * Given a song, load its information into the DOM.
+ * 
+ * @param song
+ */
+function createDOMFromSong(song) {
+
 }
