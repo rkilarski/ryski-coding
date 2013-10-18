@@ -68,7 +68,7 @@ body,html {
 	background-color: #ffffff;
 }
 
-a, input, .loaditem, .guitarchart, #textarea, #chordarea {
+a,input,.loaditem,.guitarchart,#textarea,#chordarea {
 	-webkit-transition: All 0.5s ease;
 	-moz-transition: All 0.5s ease;
 	-o-transition: All 0.5s ease;
@@ -76,7 +76,7 @@ a, input, .loaditem, .guitarchart, #textarea, #chordarea {
 	transition: All 0.5s ease;
 }
 
-a:hover {
+a:hover,.highlight {
 	color: #EB009B;
 }
 
@@ -140,11 +140,28 @@ table:hover,#songname:hover,#artistname:hover,#searchfield:hover,#textarea:hover
 	vertical-align: middle;
 }
 
+#toast {
+	display: none;
+	background-color: #606060;
+	color: #ffffff;
+	border: 1px solid #eb009b;
+	position: absolute;
+	top: 150px;
+	left: 30%;
+	width: 350px;
+	height: 100px;
+	/*line-height: 100px;
+	vertical-align: middle;*/
+	text-align: center;
+	padding: 20px;
+}
+
 input {
 	margin-top: 10px;
 }
 
-table,input,.guitarchart,#textarea,#slidearea,#chordarea,.loaditem,td {
+table,input,td,.guitarchart,.loaditem,#toast,#textarea,#slidearea,#chordarea
+	{
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-khtml-border-radius: 10px;

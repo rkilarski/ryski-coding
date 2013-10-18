@@ -19,22 +19,22 @@ function openDatabase(fetchChords) {
 	var openRequest = localDatabase.indexedDB.open(dbName);
 	openRequest.onerror = function(e) {
 		console.log('Database error: ' + e.target.errorCode);
-		createDatabase(fetchChords);
+		createChordDatabase(fetchChords);
 	};
 	openRequest.onsuccess = function(event) {
 		localDatabase.db = openRequest.result;
 		if (fetchChords!=undefined){
-			// createDatabase();
+			// createChordDatabase();
 			fetchChords();
 		}
 	};	
 }
 
-function createDatabase(fetchChords) {
-	console.log('Deleting local database');
-	var deleteDbRequest = localDatabase.indexedDB.deleteDatabase(dbName);
-	deleteDbRequest.onsuccess = function (event) {
-   		console.log('Database deleted');
+function createChordDatabase(fetchChords) {
+	// console.log('Deleting local database');
+	// var deleteDbRequest = localDatabase.indexedDB.deleteDatabase(dbName);
+	// deleteDbRequest.onsuccess = function (event) {
+   		// console.log('Database deleted');
    		var openRequest = localDatabase.indexedDB.open(dbName,1);
 		
 		openRequest.onerror = function(e) {
@@ -51,11 +51,38 @@ function createDatabase(fetchChords) {
 				('chords', {keyPath: 'id'});
 			chordStore.createIndex('nameIndex', 'chordName', { unique: false });        
         };
-        deleteDbRequest.onerror = function (e) {
-        	console.log('Database error: ' + e.target.errorCode);
+        // deleteDbRequest.onerror = function (e) {
+        	// console.log('Database error: ' + e.target.errorCode);
+        // };
+	// };
+}
+
+function createSongDatabase() {
+	// console.log('Deleting local database');
+	// var deleteDbRequest = localDatabase.indexedDB.deleteDatabase(dbName);
+	// deleteDbRequest.onsuccess = function (event) {
+   		// console.log('Database deleted');
+   		var openRequest = localDatabase.indexedDB.open(dbName,1);
+		
+		openRequest.onerror = function(e) {
+			console.log('Database error: ' + e.target.errorCode);
+		};
+		openRequest.onsuccess = function(event) {
+			console.log('Database created');
+			localDatabase.db = openRequest.result;
+			// loadChordsFromXMLFile('res/chords.xml',fetchChords);
+		};	
+		openRequest.onupgradeneeded = function (evt) {   
+			console.log('Creating object stores');
+	    	var chordStore = evt.currentTarget.result.createObjectStore
+				('songs', {keyPath: 'id'});
+			chordStore.createIndex('nameIndex', 'songName', { unique: false });
+			chordStore.createIndex('artistIndex', 'artistName', { unique: false });
         };
-    
-	};
+        // deleteDbRequest.onerror = function (e) {
+        	// console.log('Database error: ' + e.target.errorCode);
+        // };
+	// };
 }
 
 function addChordDB(chord) {
@@ -120,7 +147,9 @@ function fetchChordsDB(filter, loadChordIntoTray) {
 			    	}
 			    	cursor.continue();  
 			    }else{
-			    	$("#chordtray .guitarchart").fadeIn('slow');  //Display chord tray.
+			    	$("#chordtray .guitarchart").fadeIn('slow');  // Display
+																	// chord
+																	// tray.
 			    }  
 			};
 			

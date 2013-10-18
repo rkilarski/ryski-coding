@@ -53,3 +53,76 @@ function textKeyHandler(event) {
 function searchFieldHandler() {
 	loadChords($("#searchfield").val());
 }
+
+function slideAreaHandler() {
+	if ($("#guitarifficWeb").hasClass('highlight')) {
+		$("#slidearea").empty();
+		$("#guitarifficWeb").removeClass('highlight');
+		$("#slidearea").removeClass('visible');
+	} else {
+		$("#slidearea").slideToggle();
+	}
+
+	if ($("#slidearea").hasClass("visible")) {
+		$("#slidearea").empty();
+		$("#load").removeClass('highlight');
+		$("#slidearea").removeClass('visible');
+	} else {
+		var newItem = $('<div class="loaditem" id="newsong">New Song</div>');
+		$("#slidearea").append(newItem);
+		$("#slidearea").addClass('visible');
+		$("#newsong").click(newSongHandler);
+
+		$("#load").addClass('highlight');
+	}
+
+}
+
+function setupHandler() {
+	if ($("#load").hasClass('highlight')) {
+		$("#slidearea").empty();
+		$("#load").removeClass('highlight');
+		$("#slidearea").removeClass('visible');
+	} else {
+		$("#slidearea").slideToggle();
+	}
+
+	if ($("#slidearea").hasClass("visible")) {
+		$("#slidearea").empty();
+		$("#guitarifficWeb").removeClass('highlight');
+		$("#slidearea").removeClass('visible');
+	} else {
+		var newItem = $('<div class="loaditem" id="resetdatabase">Reset Database</div>');
+		$("#slidearea").append(newItem);
+		$("#slidearea").addClass('visible');
+		$("#resetdatabase").click(resetDatabase);
+
+		newItem = $('<div class="loaditem" id="resetsongs">Delete All Songs</div>');
+		$("#slidearea").append(newItem);
+		$("#slidearea").addClass('visible');
+		$("#resetsongs").click(resetSongs);
+
+		$("#guitarifficWeb").addClass('highlight');
+	}
+
+}
+
+/**
+ * Reset the chord database from the XML file.
+ * 
+ * @returns
+ */
+function resetDatabase() {
+	createChordDatabase(function() {
+		fetchChordsDB(filter, loadChordIntoTray);
+	});
+}
+
+/**
+ * Reset the chord database from the XML file.
+ * 
+ * @returns
+ */
+function resetSongs() {
+	createSongDatabase();
+}

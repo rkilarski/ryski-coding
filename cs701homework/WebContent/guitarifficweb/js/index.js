@@ -7,6 +7,7 @@
  */
 
 $(document).ready(function() {
+	toast('<p>Welcome to Guitariffic</p><p>Loading...</p>');
 	loadChords("");
 	attachHandlers();
 });
@@ -15,11 +16,10 @@ function attachHandlers() {
 	$("#searchfield").keyup(searchFieldHandler);
 	$("#chordarea").on("dragenter", dragEnter).on("dragover", dragOver).on(
 			"dragleave", dragLeave).on("drop", drop);
-	$("#load").click(function() {
-		$("#slidearea").slideToggle();
-	});
 	$(".songtext").keyup(textKeyHandler);
-	$("#newsong").click(newSongHandler);
+
+	$("#load").click(slideAreaHandler);
+	$("#guitarifficWeb").click(setupHandler);
 }
 
 /**
@@ -77,4 +77,10 @@ function createSongFromDOM() {
  */
 function createDOMFromSong(song) {
 
+}
+
+function toast(message)
+{
+	$('#toast').html(message)
+	$('#toast').fadeIn(400).delay(1000).fadeOut(400);
 }
