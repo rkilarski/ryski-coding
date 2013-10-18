@@ -1,21 +1,19 @@
 /*
- * author: Ryszard Kilarski
- * email: emrys@bu.edu
- * BUI ID: U81-39-8560
- *
- *This is the main set of functions for the application.
+ * author: Ryszard Kilarski email: emrys@bu.edu BUI ID: U81-39-8560
+ * 
+ * This is the main set of functions for the application.
  */
 
 $(document).ready(function() {
-	toast('<p>Welcome to Guitariffic</p><p>Loading...</p>');
+	toast('<p>Welcome to Guitariffic</p><br><p>Loading...</p>');
 	loadChords("");
 	attachHandlers();
 });
 
 function attachHandlers() {
 	$("#searchfield").keyup(searchFieldHandler);
-	$("#chordarea").on("dragenter", dragEnter).on("dragover", dragOver).on(
-			"dragleave", dragLeave).on("drop", drop);
+	$("#chordarea").on("dragenter", dragEnter).on("dragover", dragOver).on("dragleave", dragLeave)
+			.on("drop", drop);
 	$(".songtext").keyup(textKeyHandler);
 
 	$("#load").click(slideAreaHandler);
@@ -58,11 +56,14 @@ function loadChordIntoTray(chord) {
 function loadChordIntoArea(chord) {
 	var chordCanvas = chord.getCanvas();
 	chordCanvas.setAttribute("class", "guitarchart");
-	chordCanvas.setAttribute("draggable", "true");
-	addDragEvents(chord, chordCanvas);
-	$("#chordarea").append(chordCanvas);
-}
 
+	$("#chordarea").append(chordCanvas);
+	$(chordCanvas).css("float","left");
+
+	$(chordCanvas).draggable({grid : [ 80, 85 ]}, 
+			{containment : "#xchordarea",scroll : false}
+	);
+}
 /**
  * Given a DOM, load its information into a song object.
  */
@@ -79,8 +80,7 @@ function createDOMFromSong(song) {
 
 }
 
-function toast(message)
-{
+function toast(message) {
 	$('#toast').html(message)
 	$('#toast').fadeIn(400).delay(1000).fadeOut(400);
 }
