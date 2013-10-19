@@ -113,7 +113,8 @@ function setupHandler() {
  * @returns
  */
 function resetDatabase() {
-	createChordDatabase(function() {
+	var filter="";
+	deleteDatabase(function() {
 		fetchChordsDB(filter, loadChordIntoTray);
 	});
 }
