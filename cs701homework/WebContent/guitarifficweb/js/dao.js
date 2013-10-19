@@ -28,11 +28,12 @@ function openDatabase(fetchChords) {
 	};	
 }
 
-function deleteDatabase(){
+function deleteDatabase(fetchChords){
 	console.log('Deleting local database');
 	var deleteDbRequest = localDatabase.indexedDB.deleteDatabase(dbName);
 	deleteDbRequest.onsuccess = function (event) {
 		console.log('Database deleted');
+		createChordDatabase(fetchChords);
 	};
 	deleteDbRequest.onerror = function (e) {
 		console.log('Database error: ' + e.target.errorCode);
