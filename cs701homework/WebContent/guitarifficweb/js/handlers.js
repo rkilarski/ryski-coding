@@ -29,21 +29,21 @@ function newSongHandler() {
  */
 function textKeyHandler(event) {
 	switch (event.which) {
-	case (13): // Enter
-		var newRow = $('<tr><td><input type="text" class="songtext newrow" placeholder="lyrics"></td></tr>');
-		$(this).closest('tr').after(newRow);
-		$(".newrow").focus();
-		$(".newrow").keyup(textKeyHandler);
-		$(".newrow").removeClass("newrow");
-		break;
-	case (40): // Arrow down.
-		$(this).closest('tr').next().find('input').focus();
-		break;
-	case (38): // Arrow up.
-		$(this).closest('tr').prev().find('input').focus();
-		break;
-	default:
-		break;
+		case (13): // Enter
+			var newRow = $('<tr><td><input type="text" class="songtext newrow" placeholder="lyrics"></td></tr>');
+			$(this).closest('tr').after(newRow);
+			$(".newrow").focus();
+			$(".newrow").keyup(textKeyHandler);
+			$(".newrow").removeClass("newrow");
+			break;
+		case (40): // Arrow down.
+			$(this).closest('tr').next().find('input').focus();
+			break;
+		case (38): // Arrow up.
+			$(this).closest('tr').prev().find('input').focus();
+			break;
+		default:
+			break;
 	}
 }
 
@@ -92,12 +92,12 @@ function setupHandler() {
 		$("#guitarifficWeb").removeClass('highlight');
 		$("#slidearea").removeClass('visible');
 	} else {
-		var newItem = $('<div class="loaditem" id="resetdatabase">Reset Database</div>');
+		var newItem = $('<div/>').attr({'class':'loaditem','id':'resetdatabase'}).html('Reset Database');
 		$("#slidearea").append(newItem);
 		$("#slidearea").addClass('visible');
 		$("#resetdatabase").click(resetDatabase);
 
-		newItem = $('<div class="loaditem" id="resetsongs">Delete All Songs</div>');
+		newItem = $('<div/>').attr({'class':'loaditem','id':'resetsongs'}).html('Delete All Songs');
 		$("#slidearea").append(newItem);
 		$("#slidearea").addClass('visible');
 		$("#resetsongs").click(resetSongs);
@@ -113,10 +113,11 @@ function setupHandler() {
  * @returns
  */
 function resetDatabase() {
-	var filter="";
+	var filter = "";
 	deleteDatabase(function() {
 		fetchChordsDB(filter, loadChordIntoTray);
 	});
+	setupHandler();
 }
 
 /**
@@ -126,4 +127,5 @@ function resetDatabase() {
  */
 function resetSongs() {
 	createSongDatabase();
+	setupHandler();
 }

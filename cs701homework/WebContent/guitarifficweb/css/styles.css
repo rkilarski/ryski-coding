@@ -146,8 +146,6 @@ table:hover,#songname:hover,#artistname:hover,#searchfield:hover,#textarea:hover
 	color: #ffffff;
 	border: 1px solid #eb009b;
 	position: absolute;
-	top: 150px;
-	left: 30%;
 	width: 350px;
 	height: 100px;
 	/*line-height: 100px;
