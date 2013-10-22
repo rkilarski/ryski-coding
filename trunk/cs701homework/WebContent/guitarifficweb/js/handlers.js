@@ -1,131 +1,152 @@
 /*
- * author: Ryszard Kilarski
- * email: emrys@bu.edu
- * BUI ID: U81-39-8560
- *
- *These are the miscellaneous event handlers.
- */
-
-/**
- * Reset the canvas.
- */
-function newSongHandler() {
-	$("#chordarea").empty();
-	// Remove all rows from the table except the first row.
-	$("#lyricstable").find("tr:gt(0)").remove();
-	$(".songtext").val('');
-
-	$("#songname").val('');
-	$("#artistname").val('');
-
-	// Close the slider.
-	$("#slidearea").slideToggle();
-}
-
-/**
- * When navigating in the text area, use this to handle enter key, arrows, etc.
+ * author: Ryszard Kilarski 
+ * email: emrys@bu.edu 
+ * BU ID: U81-39-8560
  * 
- * @param event
+ * These are the miscellaneous event handlers.
  */
-function textKeyHandler(event) {
-	switch (event.which) {
-		case (13): // Enter
-			var newRow = $('<tr><td><input type="text" class="songtext newrow" placeholder="lyrics"></td></tr>');
-			$(this).closest('tr').after(newRow);
-			$(".newrow").focus();
-			$(".newrow").keyup(textKeyHandler);
-			$(".newrow").removeClass("newrow");
-			break;
-		case (40): // Arrow down.
-			$(this).closest('tr').next().find('input').focus();
-			break;
-		case (38): // Arrow up.
-			$(this).closest('tr').prev().find('input').focus();
-			break;
-		default:
-			break;
+handlers = {
+
+	attach : function() {
+		$("#searchfield").keyup(handlers.searchFieldHandler);
+		$("#chordarea").on("dragenter", dragDrop.dragEnter).on("dragover", dragDrop.dragOver).on(
+				"dragleave", dragDrop.dragLeave).on("drop", dragDrop.drop);
+		$(".songtext").keyup(handlers.textKeyHandler);
+
+		$("#load").click(handlers.slideAreaHandler);
+		$("#new").click(handlers.newSongHandler);
+		$("#guitarifficWeb").click(handlers.setupHandler);
+	},
+	/**
+	 * Reset the canvas.
+	 */
+	newSongHandler : function() {
+		$().toast('Resetting guitariffic for a new song.  Enjoy!');
+		$("#chordarea").empty();
+		// Remove all rows from the table except the first row.
+		$("#lyricstable").find("tr:gt(0)").remove();
+		$(".songtext").val('');
+
+		$("#songname").val('');
+		$("#artistname").val('');
+
+		// Close the slider.
+		if ($("#slidearea").hasClass("visible")) {
+			$("#slidearea").slideToggle();
+		}
+	},
+
+	/**
+	 * When navigating in the text area, use this to handle enter key, arrows,
+	 * etc.
+	 * 
+	 * @param event
+	 */
+	textKeyHandler : function(event) {
+		switch (event.which) {
+			case (13): // Enter
+				var newRow = $('<tr><td><input type="text" class="songtext newrow" placeholder="lyrics"></td></tr>');
+				$(this).closest('tr').after(newRow);
+				$(".newrow").focus();
+				$(".newrow").keyup(handlers.textKeyHandler);
+				$(".newrow").removeClass("newrow");
+				break;
+			case (40): // Arrow down.
+				$(this).closest('tr').next().find('input').focus();
+				break;
+			case (38): // Arrow up.
+				$(this).closest('tr').prev().find('input').focus();
+				break;
+			default:
+				break;
+		}
+	},
+
+	/**
+	 * Handler for the search field.
+	 */
+	searchFieldHandler : function() {
+		loadChords($("#searchfield").val());
+	},
+
+	slideAreaHandler : function() {
+		if ($("#guitarifficWeb").hasClass('highlight')) {
+			$("#slidearea").empty();
+			$("#guitarifficWeb").removeClass('highlight');
+			$("#slidearea").removeClass('visible');
+		} else {
+			$("#slidearea").slideToggle();
+		}
+
+		if ($("#slidearea").hasClass("visible")) {
+			$("#slidearea").empty();
+			$("#load").removeClass('highlight');
+			$("#slidearea").removeClass('visible');
+		} else {
+			var newItem = $('<div class="loaditem" id="newsong">New Song</div>');
+			$("#slidearea").append(newItem);
+			$("#slidearea").addClass('visible');
+			$("#newsong").click(handlers.newSongHandler);
+
+			$("#load").addClass('highlight');
+		}
+
+	},
+
+	setupHandler : function() {
+		if ($("#load").hasClass('highlight')) {
+			$("#slidearea").empty();
+			$("#load").removeClass('highlight');
+			$("#slidearea").removeClass('visible');
+		} else {
+			$("#slidearea").slideToggle();
+		}
+
+		if ($("#slidearea").hasClass("visible")) {
+			$("#slidearea").empty();
+			$("#guitarifficWeb").removeClass('highlight');
+			$("#slidearea").removeClass('visible');
+		} else {
+			var newItem = $('<div/>').attr({
+				'class' : 'loaditem',
+				'id' : 'resetdatabase'
+			}).html('Reset Database');
+			$("#slidearea").append(newItem);
+			$("#slidearea").addClass('visible');
+			$("#resetdatabase").click(handlers.resetDatabase);
+
+			newItem = $('<div/>').attr({
+				'class' : 'loaditem',
+				'id' : 'resetsongs'
+			}).html('Delete All Songs');
+			$("#slidearea").append(newItem);
+			$("#slidearea").addClass('visible');
+			$("#resetsongs").click(handlers.resetSongs);
+
+			$("#guitarifficWeb").addClass('highlight');
+		}
+	},
+
+	/**
+	 * Reset the chord database from the XML file.
+	 * 
+	 * @returns
+	 */
+	resetDatabase : function() {
+		var filter = "";
+		dao.deleteDatabase(function() {
+			fetchChordsDB(filter, loadChordIntoTray);
+		});
+		handlers.setupHandler();
+	},
+
+	/**
+	 * Reset the chord database from the XML file.
+	 * 
+	 * @returns
+	 */
+	resetSongs : function() {
+		dao.createSongDatabase();
+		handlers.setupHandler();
 	}
-}
-
-/**
- * Handler for the search field.
- */
-function searchFieldHandler() {
-	loadChords($("#searchfield").val());
-}
-
-function slideAreaHandler() {
-	if ($("#guitarifficWeb").hasClass('highlight')) {
-		$("#slidearea").empty();
-		$("#guitarifficWeb").removeClass('highlight');
-		$("#slidearea").removeClass('visible');
-	} else {
-		$("#slidearea").slideToggle();
-	}
-
-	if ($("#slidearea").hasClass("visible")) {
-		$("#slidearea").empty();
-		$("#load").removeClass('highlight');
-		$("#slidearea").removeClass('visible');
-	} else {
-		var newItem = $('<div class="loaditem" id="newsong">New Song</div>');
-		$("#slidearea").append(newItem);
-		$("#slidearea").addClass('visible');
-		$("#newsong").click(newSongHandler);
-
-		$("#load").addClass('highlight');
-	}
-
-}
-
-function setupHandler() {
-	if ($("#load").hasClass('highlight')) {
-		$("#slidearea").empty();
-		$("#load").removeClass('highlight');
-		$("#slidearea").removeClass('visible');
-	} else {
-		$("#slidearea").slideToggle();
-	}
-
-	if ($("#slidearea").hasClass("visible")) {
-		$("#slidearea").empty();
-		$("#guitarifficWeb").removeClass('highlight');
-		$("#slidearea").removeClass('visible');
-	} else {
-		var newItem = $('<div/>').attr({'class':'loaditem','id':'resetdatabase'}).html('Reset Database');
-		$("#slidearea").append(newItem);
-		$("#slidearea").addClass('visible');
-		$("#resetdatabase").click(resetDatabase);
-
-		newItem = $('<div/>').attr({'class':'loaditem','id':'resetsongs'}).html('Delete All Songs');
-		$("#slidearea").append(newItem);
-		$("#slidearea").addClass('visible');
-		$("#resetsongs").click(resetSongs);
-
-		$("#guitarifficWeb").addClass('highlight');
-	}
-
-}
-
-/**
- * Reset the chord database from the XML file.
- * 
- * @returns
- */
-function resetDatabase() {
-	var filter = "";
-	deleteDatabase(function() {
-		fetchChordsDB(filter, loadChordIntoTray);
-	});
-	setupHandler();
-}
-
-/**
- * Reset the chord database from the XML file.
- * 
- * @returns
- */
-function resetSongs() {
-	createSongDatabase();
-	setupHandler();
 }

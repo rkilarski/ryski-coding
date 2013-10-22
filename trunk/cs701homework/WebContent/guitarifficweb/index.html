@@ -15,7 +15,9 @@
 <script type="text/javascript"
 	src="js/lib/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
 
+<script type="text/javascript" src="js/toast.js"></script>
 <script type="text/javascript" src="js/handlers.js"></script>
+<script type="text/javascript" src="js/dom.js"></script>
 <script type="text/javascript" src="js/dao.js"></script>
 <script type="text/javascript" src="js/dragdrop.js"></script>
 <script type="text/javascript" src="js/loadFromFile.js"></script>
@@ -32,9 +34,10 @@
 					<a id="guitarifficWeb" href="#">guitarifficWeb</a>
 				</p>
 				<ul class="navigation">
+					<li><a id="new" href="#">new</a></li>
 					<li><a id="load" href="#">load</a></li>
-					<li><a href="#">save</a></li>
-					<li><a href="#">print</a></li>
+					<li><a id="save" href="#">save</a></li>
+					<li><a id="print" href="#">print</a></li>
 				</ul>
 			</div>
 			<div id="slidearea"></div>
@@ -53,7 +56,6 @@
 					&copy;2013 <a href="mailto:emrys@bu.edu">Ryszard Kilarski</a>
 				</p>
 			</div>
-			<div id="toast"></div>
 		</div>
 		<div id="chordtrayarea">
 			<input type="text" id="searchfield" placeholder="search">

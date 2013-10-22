@@ -1,7 +1,7 @@
 /*
  * author: Ryszard Kilarski
  * email: emrys@bu.edu
- * BUI ID: U81-39-8560
+ * BU ID: U81-39-8560
  *
  *This is the guitar chart object; it contains the guitar chord information and generates an image canvas.
  */
