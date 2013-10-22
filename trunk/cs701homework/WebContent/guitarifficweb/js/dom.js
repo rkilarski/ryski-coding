@@ -39,19 +39,39 @@ dom = {
 	 * 
 	 * @param chord
 	 */
-	loadChordIntoArea : function(chord) {
+	loadChordIntoArea : function(chord, target) {
 		var chordCanvas = chord.getCanvas();
 		chordCanvas.setAttribute("class", "guitarchart");
+		chordCanvas.setAttribute("draggable", "true");
+		dragDrop.addDragEvents(chord, chordCanvas);
 
-		$("#chordarea").append(chordCanvas);
-		$(chordCanvas).css("float", "left");
+		var itemTarget = target.id;
+		// We are dropping on generic area, so create new list item for it.
+		if (target.id == "chordarea") {
+			// Get the previous list to insert after.
+			var prev = $("#chordlistx").prev().attr('id');
+			var newid;
+			// If we don't have a previous list, need to create a new one.
+			if (prev == undefined) {
+				newid = "chordlist1";
+			} else {
+				// Parse the number out of the previous list's id.
+				newid = "chordlist" + (parseInt(prev.match(/\d+$/), 10) + 1);
+			}
 
-		$(chordCanvas).draggable({
-			grid : [ 80, 85 ]
-		}, {
-			containment : "#xchordarea",
-			scroll : false
-		});
+			// Create new list with new id and insert into DOM.
+			var newList = $("<ol/>").addClass('chordlist').attr('id', newid);
+			$("#chordlistx").before(newList);
+			$("#" + newid).sortable();
+
+			// Finally, here's our target ID.
+			itemTarget = newid;
+		}
+
+		// Insert the actual item.
+		var chordItem = $("<li/>").html(chordCanvas);
+		$("#" + itemTarget).append(chordItem);
+
 	},
 	/**
 	 * Given a DOM, load its information into a song object.

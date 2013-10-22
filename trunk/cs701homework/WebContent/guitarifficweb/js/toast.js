@@ -7,6 +7,8 @@
  */
 (function($) {
 	$.fn.toast = function(message) {
+		$("#apparea").remove('.toast');
+		
 		$('<div/>').addClass('toast').html(message)
 		.css("top", Math.max(0, (($(window).height() - $('#toast').outerHeight()) / 2) + $(window).scrollTop()) + "px")
 		.css("left", Math.max(0, (($("#apparea").width() - $('#toast').outerWidth()) / 2) + $("#apparea").scrollLeft()) + "px")
