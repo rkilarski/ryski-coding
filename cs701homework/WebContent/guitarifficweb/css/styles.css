@@ -152,8 +152,8 @@ table:hover,#songname:hover,#artistname:hover,#searchfield:hover,#textarea:hover
 	color: #ffffff;
 	border: 1px solid #eb009b;
 	position: absolute;
-	width: 350px;
-	height: 100px;
+	xwidth: 350px;
+	xheight: 100px;
 	/*line-height: 100px;
 	vertical-align: middle;*/
 	text-align: center;
@@ -195,6 +195,14 @@ input:focus {
 
 table,#songname,#artistname,#searchfield {
 	border: 1px solid #ffffff;
+}
+
+ol.chordList{
+	list-style: none;
+}
+
+ol.chordlist li {
+	display: inline;
 }
 
 .navigation {

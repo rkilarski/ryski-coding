@@ -22,7 +22,8 @@ handlers = {
 	 */
 	newSongHandler : function() {
 		$().toast('Resetting guitariffic for a new song.  Enjoy!');
-		$("#chordarea").empty();
+		$("#chordarea ol").not('#chordlistx').remove();
+
 		// Remove all rows from the table except the first row.
 		$("#lyricstable").find("tr:gt(0)").remove();
 		$(".songtext").val('');

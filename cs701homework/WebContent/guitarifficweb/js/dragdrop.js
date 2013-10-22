@@ -65,7 +65,7 @@ dragDrop={
 	drop:function(e) {
 		// var string = e.dataTransfer.getData('text/plain');
 		// var chord = JSON.parse(string);
-		dom.loadChordIntoArea(dragDropChord);
+		dom.loadChordIntoArea(dragDropChord,e.target);
 		e.preventDefault();
 	}
 }
