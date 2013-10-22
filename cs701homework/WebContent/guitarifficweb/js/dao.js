@@ -1,190 +1,177 @@
 /*
- * author: Ryszard Kilarski email: emrys@bu.edu BUI ID: U81-39-8560
+ * author: Ryszard Kilarski 
+ * email: emrys@bu.edu 
+ * BU ID: U81-39-8560
  * 
  * These are the data access functions to interact with the database.
  */
-var localDatabase = {};
-var dbName = 'guitarifficDB';
-localDatabase.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
-localDatabase.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange;
-localDatabase.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction;
+dao={
+	dbName : 'guitarifficDB',
 
-localDatabase.indexedDB.onerror = function (e) {
-	console.log('Database error: ' + e.target.errorCode);
-};
-
-function openDatabase(fetchChords) {
-	var openRequest = localDatabase.indexedDB.open(dbName);
-	openRequest.onerror = function(e) {
-		console.log('Database error: ' + e.target.errorCode);
-		createChordDatabase(fetchChords);
-	};
-	openRequest.onsuccess = function(event) {
-		localDatabase.db = openRequest.result;
-		if (fetchChords!=undefined){
-			// createChordDatabase();
-			fetchChords();
-		}
-	};	
-}
-
-function deleteDatabase(fetchChords){
-	// console.log('Deleting local database');
-	toast('Deleting database...');
-	var deleteDbRequest = localDatabase.indexedDB.deleteDatabase(dbName);
-	deleteDbRequest.onsuccess = function () {
-		// console.log('Database deleted');
-		toast('Database deleted...');
-		createChordDatabase(fetchChords);
-	};
-	deleteDbRequest.onerror = function (e) {
-		console.log('Database error: ' + e.target.errorCode);
-	};
-}
-
-function createChordDatabase(fetchChords) {
-	// console.log('Deleting local database');
-	// var deleteDbRequest = localDatabase.indexedDB.deleteDatabase(dbName);
-	// deleteDbRequest.onsuccess = function (event) {
-	// console.log('Database deleted');
-	var openRequest = localDatabase.indexedDB.open(dbName,1);
-		
-	openRequest.onerror = function(e) {
-		console.log('Database error: ' + e.target.errorCode);
-	};
-	openRequest.onsuccess = function(event) {
-		console.log('Database created');
-		localDatabase.db = openRequest.result;
-		loadChordsFromXMLFile('res/chords.xml',fetchChords);
-	};	
-	openRequest.onupgradeneeded = function (evt) { 
-		console.log('Creating object stores');
-		var chordStore = evt.currentTarget.result.createObjectStore('chords', {keyPath: 'id'});
-		chordStore.createIndex('nameIndex', 'chordName', { unique: false });
-	};
-	// deleteDbRequest.onerror = function (e) {
-	// console.log('Database error: ' + e.target.errorCode);
-	// };
-	// };
-}
-
-function createSongDatabase() {
-	// console.log('Deleting local database');
-	// var deleteDbRequest = localDatabase.indexedDB.deleteDatabase(dbName);
-	// deleteDbRequest.onsuccess = function (event) {
- 		// console.log('Database deleted');
- 	var openRequest = localDatabase.indexedDB.open(dbName,1);
-		
-	openRequest.onerror = function(e) {
-		console.log('Database error: ' + e.target.errorCode);
-	};
-	openRequest.onsuccess = function(event) {
-		console.log('Database created');
-		localDatabase.db = openRequest.result;
-			// loadChordsFromXMLFile('res/chords.xml',fetchChords);
-	};	
-	openRequest.onupgradeneeded = function (evt) { 
-		console.log('Creating object stores');
-		var chordStore = evt.currentTarget.result.createObjectStore
-			('songs', {keyPath: 'id'});
-		chordStore.createIndex('nameIndex', 'songName', { unique: false });
-		chordStore.createIndex('artistIndex', 'artistName', { unique: false });
-	};
-	// deleteDbRequest.onerror = function (e) {
-	// console.log('Database error: ' + e.target.errorCode);
-	// };
-	// };
-}
-
-function addChordDB(chord) {
-	try {
-		var transaction = localDatabase.db.transaction('chords', 'readwrite');
-		var store = transaction.objectStore('chords');
+	localDatabase : {
+		indexedDB : window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB,
+		IDBKeyRange: window.IDBKeyRange || window.webkitIDBKeyRange,
+		IDBTransaction : window.IDBTransaction || window.webkitIDBTransaction,
+	},
 	
-		if (localDatabase != null && localDatabase.db != null) {
-			var request = store.add(chord);
-			request.onsuccess = function(e) {
-				// result.innerHTML = 'Employee record was added
-				// successfully.';;
+	openDatabase:function(fetchChords) {
+		var openRequest = dao.localDatabase.indexedDB.open(dao.dbName);
+		openRequest.onerror = function(e) {
+			console.log('Database error: ' + e.target.errorCode);
+			createChordDatabase(fetchChords);
+		};
+		openRequest.onsuccess = function(event) {
+			dao.localDatabase.db = openRequest.result;
+			if (fetchChords!=undefined){
+				// createChordDatabase();
+				fetchChords();
+			}
+		};	
+	},
+	
+	deleteDatabase:function(fetchChords){
+		// console.log('Deleting local database');
+		$().toast('Deleting database...');
+		try{
+			var deleteDbRequest = dao.localDatabase.indexedDB.deleteDatabase(dbName);
+			deleteDbRequest.onsuccess = function (e) {
+				// console.log('Database deleted');
+				$().toast('Database deleted...');
+				createChordDatabase(fetchChords);
 			};
+			deleteDbRequest.onerror = function (e) {
+				console.log('Database error: ' + e.target.errorCode);
+			};
+		}catch(e){
 			
-			request.onerror = function(e) {
-				console.log(e.value);
-				// result.innerHTML = 'Employee record was not added.';
-			};
 		}
-	}
-	catch(e){
-		console.log(e);
-	}
-}
-
-function updateChordDB(chord) {
-	try {
-		var transaction = localDatabase.db.transaction('chords', 'readwrite');
-		var store = transaction.objectStore('chords');
-		var jsonStr;
+	},
+	
+	createChordDatabase:function(fetchChords) {
+		// console.log('Deleting local database');
+		// var deleteDbRequest = localDatabase.indexedDB.deleteDatabase(dbName);
+		// deleteDbRequest.onsuccess = function (event) {
+		// console.log('Database deleted');
+		var openRequest = dao.localDatabase.indexedDB.open(dbName,1);
+			
+		openRequest.onerror = function(e) {
+			console.log('Database error: ' + e.target.errorCode);
+		};
+		openRequest.onsuccess = function(event) {
+			console.log('Database created');
+			dao.localDatabase.db = openRequest.result;
+			chordLoad.loadChordsFromXMLFile('res/chords.xml',fetchChords);
+		};	
+		openRequest.onupgradeneeded = function (evt) { 
+			console.log('Creating object stores');
+			var chordStore = evt.currentTarget.result.createObjectStore('chords', {keyPath: 'id'});
+			chordStore.createIndex('nameIndex', 'chordName', { unique: false });
+		};
+		// deleteDbRequest.onerror = function (e) {
+		// console.log('Database error: ' + e.target.errorCode);
+		// };
+		// };
+	},
+	
+	createSongDatabase:function() {
+		// console.log('Deleting local database');
+		// var deleteDbRequest = localDatabase.indexedDB.deleteDatabase(dbName);
+		// deleteDbRequest.onsuccess = function (event) {
+	 		// console.log('Database deleted');
+	 	var openRequest = dao.localDatabase.indexedDB.open(dbName,1);
+			
+		openRequest.onerror = function(e) {
+			console.log('Database error: ' + e.target.errorCode);
+		};
+		openRequest.onsuccess = function(event) {
+			console.log('Database created');
+			dao.localDatabase.db = openRequest.result;
+				// loadChordsFromXMLFile('res/chords.xml',fetchChords);
+		};	
+		openRequest.onupgradeneeded = function (evt) { 
+			console.log('Creating object stores');
+			var chordStore = evt.currentTarget.result.createObjectStore
+				('songs', {keyPath: 'id'});
+			chordStore.createIndex('nameIndex', 'songName', { unique: false });
+			chordStore.createIndex('artistIndex', 'artistName', { unique: false });
+		};
+		// deleteDbRequest.onerror = function (e) {
+		// console.log('Database error: ' + e.target.errorCode);
+		// };
+		// };
+	},
+	
+	addChordDB:function(chord) {
+		try {
+			var transaction = dao.localDatabase.db.transaction('chords', 'readwrite');
+			var store = transaction.objectStore('chords');
 		
-		if (localDatabase != null && localDatabase.db != null) {
-			var request = store.put(chord);
-
-			request.onsuccess = function(e) {
-			};
-			
-			request.onerror = function(e) {
-				console.log(e.value);
-			};				
+			if (dao.localDatabase != null && dao.localDatabase.db != null) {
+				var request = store.add(chord);
+				request.onsuccess = function(e) {
+					// result.innerHTML = 'Employee record was added
+					// successfully.';;
+				};
+				
+				request.onerror = function(e) {
+					console.log(e.value);
+					// result.innerHTML = 'Employee record was not added.';
+				};
+			}
 		}
-	}
-	catch(e){
-		console.log('Error loading chords '+e);
-	}
-}
-
-function fetchChordsDB(filter, loadChordIntoTray) {
-	filter = filter.toUpperCase();
-	try {
-		if (localDatabase != null && localDatabase.db != null) {
-			var store = localDatabase.db.transaction('chords').objectStore('chords');
-			var request = store.openCursor();
+		catch(e){
+			console.log(e);
+		}
+	},
+	
+	updateChordDB:function(chord) {
+		try {
+			var transaction = dao.localDatabase.db.transaction('chords', 'readwrite');
+			var store = transaction.objectStore('chords');
+			var jsonStr;
 			
-			request.onsuccess = function(evt) {
-				var cursor = evt.target.result;
-				if (cursor) {
-					var chordDB = cursor.value;
-					if ((filter=='')||(chordDB.chordName.toUpperCase().indexOf(filter)!=-1)){
-						var chord = new GuitarChart(chordDB.chordName, chordDB.chordPosition, chordDB.chordFingering, chordDB.chordFrets, chordDB.isLeftHanded);
-						loadChordIntoTray(chord);
+			if (dao.localDatabase != null && dao.localDatabase.db != null) {
+				var request = store.put(chord);
+	
+				request.onsuccess = function(e) {
+				};
+				
+				request.onerror = function(e) {
+					console.log(e.value);
+				};				
+			}
+		}
+		catch(e){
+			console.log('Error loading chords '+e);
+		}
+	},
+	
+	fetchChords:function(filter, loadChordIntoTray) {
+		filter = filter.toUpperCase();
+		try {
+			if (dao.localDatabase != null && dao.localDatabase.db != null) {
+				var store = dao.localDatabase.db.transaction('chords').objectStore('chords');
+				var request = store.openCursor();
+				
+				request.onsuccess = function(evt) {
+					var cursor = evt.target.result;
+					if (cursor) {
+						var chordDB = cursor.value;
+						if ((filter=='')||(chordDB.chordName.toUpperCase().indexOf(filter)!=-1)){
+							var chord = new GuitarChart(chordDB.chordName, chordDB.chordPosition, chordDB.chordFingering, chordDB.chordFrets, chordDB.isLeftHanded);
+							loadChordIntoTray(chord);
+						}
+						cursor.continue();
+					}else{
+						// Display chord tray.
+						$("#chordtray .guitarchart").fadeIn('slow');
 					}
-					cursor.continue();
-				}else{
-					// Display chord tray.
-					$("#chordtray .guitarchart").fadeIn('slow');
-				}
-			};
-			
+				};
+				
+			}
+		} catch(e){
+			$().toast('Error loading chords '+e);
+			// console.log(e);
 		}
-	} catch(e){
-		toast('Error loading chords '+e);
-		//console.log(e);
-	}
-}
-
-function fetchChordByNameDB(name, callbackFunction) {
-	try {
-		if (localDatabase != null && localDatabase.db != null) {
-			var range = IDBKeyRange.only('john.adams@somedomain.com');
-			 
-			var store = localDatabase.db.transaction('chords').objectStore('chords');
-			var index = store.index('nameIndex');
-
-			index.get(range).onsuccess = function(evt) {
-				var chord = evt.target.result;
-				callbackFunction(chord);
-			};
-		}
-	}
-	catch(e){
-		console.log(e);
 	}
 }
