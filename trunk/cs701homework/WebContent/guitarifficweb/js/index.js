@@ -21,8 +21,8 @@ function attachHandlers() {
 }
 
 /**
- * Load the chords. This function will load from the database and, if that
- * fails, load from the XML file and then load from the database.
+ * Load the chords. This function will load from the database and, if that fails, load from the XML
+ * file and then load from the database.
  * 
  * @param filter
  */
@@ -35,8 +35,8 @@ function loadChords(filter) {
 }
 
 /**
- * Add a given chord into the chord tray. Also attach any event handlers to the
- * chord item in the tray.
+ * Add a given chord into the chord tray. Also attach any event handlers to the chord item in the
+ * tray.
  * 
  * @param chord
  */
@@ -48,8 +48,8 @@ function loadChordIntoTray(chord) {
 	$("#chordtray").append(chordCanvas);
 }
 /**
- * Add a given chord into the chord area. Also attach any event handlers to the
- * chord item in the chord area.
+ * Add a given chord into the chord area. Also attach any event handlers to the chord item in the
+ * chord area.
  * 
  * @param chord
  */
@@ -77,10 +77,12 @@ function createSongFromDOM() {
  * @param song
  */
 function createDOMFromSong(song) {
-
+	
 }
 
 function toast(message) {
 	$('#toast').html(message)
-	$('#toast').fadeIn(400).delay(1000).fadeOut(400);
+		.css("top", Math.max(0, (($(window).height() - $('#toast').outerHeight()) / 2) + $(window).scrollTop()) + "px")
+		.css("left", Math.max(0, (($("#apparea").width() - $('#toast').outerWidth()) / 2) + $("#apparea").scrollLeft()) + "px")
+		.fadeIn(400).delay(1000).fadeOut(400);
 }

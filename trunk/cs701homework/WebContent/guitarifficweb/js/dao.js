@@ -29,10 +29,12 @@ function openDatabase(fetchChords) {
 }
 
 function deleteDatabase(fetchChords){
-	console.log('Deleting local database');
+	// console.log('Deleting local database');
+	toast('Deleting database...');
 	var deleteDbRequest = localDatabase.indexedDB.deleteDatabase(dbName);
-	deleteDbRequest.onsuccess = function (event) {
-		console.log('Database deleted');
+	deleteDbRequest.onsuccess = function () {
+		// console.log('Database deleted');
+		toast('Database deleted...');
 		createChordDatabase(fetchChords);
 	};
 	deleteDbRequest.onerror = function (e) {
@@ -135,7 +137,7 @@ function updateChordDB(chord) {
 		}
 	}
 	catch(e){
-		console.log(e);
+		console.log('Error loading chords '+e);
 	}
 }
 
@@ -162,9 +164,9 @@ function fetchChordsDB(filter, loadChordIntoTray) {
 			};
 			
 		}
-	}
-	catch(e){
-		console.log(e);
+	} catch(e){
+		toast('Error loading chords '+e);
+		//console.log(e);
 	}
 }
 
