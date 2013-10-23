@@ -7,6 +7,9 @@
  */
 handlers = {
 
+	/**
+	 * Attach all non-dynamic handlers to their items on the form.
+	 */
 	attach : function() {
 		$("#searchfield").keyup(handlers.searchFieldHandler);
 		$("#chordarea").on("dragenter", dragDrop.dragEnter).on("dragover", dragDrop.dragOver).on(
@@ -64,12 +67,15 @@ handlers = {
 	},
 
 	/**
-	 * Handler for the search field.
+	 * Handler for the search field. Load the chords every time this is called.
 	 */
 	searchFieldHandler : function() {
 		loadChords($("#searchfield").val());
 	},
 
+	/**
+	 * Handle opening and closing the slide area.
+	 */
 	slideAreaHandler : function() {
 		if ($("#guitarifficWeb").hasClass('highlight')) {
 			$("#slidearea").empty();
@@ -94,6 +100,9 @@ handlers = {
 
 	},
 
+	/**
+	 * Handle opening and closing the database setup area.
+	 */
 	setupHandler : function() {
 		if ($("#load").hasClass('highlight')) {
 			$("#slidearea").empty();
@@ -114,7 +123,7 @@ handlers = {
 			}).html('Reset Database');
 			$("#slidearea").append(newItem);
 			$("#slidearea").addClass('visible');
-			$("#resetdatabase").click(handlers.resetDatabase);
+			$("#resetdatabase").click(handlers.resetDatabaseHandler);
 
 			newItem = $('<div/>').attr({
 				'class' : 'loaditem',
@@ -122,7 +131,7 @@ handlers = {
 			}).html('Delete All Songs');
 			$("#slidearea").append(newItem);
 			$("#slidearea").addClass('visible');
-			$("#resetsongs").click(handlers.resetSongs);
+			$("#resetsongs").click(handlers.resetSongsHandler);
 
 			$("#guitarifficWeb").addClass('highlight');
 		}
@@ -130,10 +139,8 @@ handlers = {
 
 	/**
 	 * Reset the chord database from the XML file.
-	 * 
-	 * @returns
 	 */
-	resetDatabase : function() {
+	resetDatabaseHandler : function() {
 		var filter = "";
 		dao.deleteDatabase(function() {
 			fetchChordsDB(filter, loadChordIntoTray);
@@ -143,10 +150,8 @@ handlers = {
 
 	/**
 	 * Reset the chord database from the XML file.
-	 * 
-	 * @returns
 	 */
-	resetSongs : function() {
+	resetSongsHandler : function() {
 		dao.createSongDatabase();
 		handlers.setupHandler();
 	}
