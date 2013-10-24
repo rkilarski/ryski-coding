@@ -45,11 +45,25 @@ dom = {
 		chordCanvas.setAttribute("draggable", "true");
 		dragDrop.addDragEvents(chord, chordCanvas);
 
-		var itemTarget = target.id;
+		var itemTarget;
 		// We are dropping on generic area, so create new list item for it.
 		if (target.id == "chordarea") {
+			itemTarget = createNewList();
+		} else {
+			itemTarget = target.id;
+		}
+		// Insert the actual item.
+		var chordItem = $("<li/>").html(chordCanvas);
+		$("#" + itemTarget).append(chordItem);
+
+		/**
+		 * Private method to create new ordered list in DOM.
+		 * 
+		 * @returns the id of the new list.
+		 */
+		function createNewList() {
 			// Get the previous list to insert after.
-			var prev = $("#chordlistx").prev().attr('id');
+			var prev = $("#chordarea").children().last().attr('id');
 			var newid;
 			// If we don't have a previous list, need to create a new one.
 			if (prev == undefined) {
@@ -61,16 +75,14 @@ dom = {
 
 			// Create new list with new id and insert into DOM.
 			var newList = $("<ol/>").addClass('chordlist').attr('id', newid);
-			$("#chordlistx").before(newList);
-			$("#" + newid).sortable();
-
-			// Finally, here's our target ID.
-			itemTarget = newid;
+			$("#chordarea").append(newList);
+			$("#" + newid).sortable({
+				connectWith : ".chordlist",
+				placeholder : "guitarcharthighlight",
+				forcePlaceholderSize: true
+			});
+			return newid;
 		}
-
-		// Insert the actual item.
-		var chordItem = $("<li/>").html(chordCanvas);
-		$("#" + itemTarget).append(chordItem);
 
 	},
 	/**
