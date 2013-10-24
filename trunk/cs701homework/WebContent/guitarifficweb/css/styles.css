@@ -74,6 +74,12 @@ body,html {
 	background-color: #ffffff;
 }
 
+.guitarcharthighlight {
+	width: 70px;
+	height: 80px;
+	background-color: #EB009B;
+}
+
 a,input,.loaditem,.guitarchart,#textarea,#chordarea {
 	-webkit-transition: All 0.5s ease;
 	-moz-transition: All 0.5s ease;
@@ -164,7 +170,7 @@ input {
 	margin-top: 10px;
 }
 
-table,input,td,.guitarchart,.loaditem,.toast,#textarea,#slidearea,#chordarea
+table,input,td,.guitarchart,.guitarcharthighlight,.loaditem,.toast,#textarea,#slidearea,#chordarea
 	{
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -197,7 +203,7 @@ table,#songname,#artistname,#searchfield {
 	border: 1px solid #ffffff;
 }
 
-ol.chordList{
+ol.chordList {
 	list-style: none;
 }
 

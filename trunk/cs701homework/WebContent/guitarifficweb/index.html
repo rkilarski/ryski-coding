@@ -11,7 +11,7 @@
 
 <link rel="shortcut icon" type="image/x-icon" href="/res/favicon.ico">
 
-<script type="text/javascript" src="js/lib/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="js/lib/jquery-2.0.3.js"></script>
 <script type="text/javascript"
 	src="js/lib/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
 
@@ -42,17 +42,15 @@
 			</div>
 			<div id="slidearea"></div>
 			<div id="textarea">
-				<input type="text" id="songname" placeholder="song name"> <input
-					type="text" id="artistname" placeholder="artist">
+				<input type="text" id="songname" placeholder="song name" required> <input
+					type="text" id="artistname" placeholder="artist" required>
 				<table id="lyricstable">
 					<tr>
 						<td><input type="text" class="songtext" placeholder="lyrics"></td>
 					</tr>
 				</table>
 			</div>
-			<div id="chordarea">
-				<ol class="chordlist" id="chordlistx"></ol>
-			</div>
+			<div id="chordarea"></div>
 			<div id="footer">
 				<p>
 					&copy;2013 <a href="mailto:emrys@bu.edu">Ryszard Kilarski</a>
