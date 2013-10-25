@@ -3,10 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <title>JQuery Nutrition Cycle</title>
+<link type="text/css"
+	href="css/ui-lightness/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
 <link type="text/css" rel="stylesheet" href="styles.css">
+
+<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.23.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery.cycle.all.js"></script>
+
 <script type="text/javascript" src="nutritionCycle.js"></script>
 </head>
 <body>
+	<div class="wrapper">
+		<h1>jQuery Nutrition Cycle</h1>
 
+		<div id="header">
+			<label for="tag">Tag:</label> <input id="tag" value="mlb"></input>
+			<button id="loadButton">Load</button>
+			<button id="cycleButton">Cycle</button>
+		</div>
+		<p>
+		<div id="nutritionInfo"></div>
+	</div>
 </body>
 </html>

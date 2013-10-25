@@ -3,16 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <title>JQuery Nutrition Autocomplete</title>
+
+<link type="text/css"
+	href="css/ui-lightness/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
 <link type="text/css" rel="stylesheet" href="styles.css">
+
+<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.23.custom.min.js"></script>
+
 <script type="text/javascript" src="nutritionInfo.js"></script>
+
 </head>
 <body>
 	<div class="wrapper">
 		<h1>JQuery Nutrition Autocomplete</h1>
-		<label for="nameInput">Name:</label> <input id="nameInput" type="text"><br>
-		<label for="name">Name:</label><span id="name"></span><br> <label
-			for="servingsize">Serving Size:</label><span id="servingsize"></span><br>
-		<label for="calories">Calories:</label><span id="calories"></span><br>
+		<div class="ui-widget">
+			<label for="nameInput">Name:</label> <input id="nameInput" size="60"><p></p> 
+			<label for="name">Name:</label> <output id="name"></output><p></p>
+			<label for="size">Serving Size:</label> <output id="size"></output><p></p>
+			<label for="cals">Calories:</label> <output id="cals"></output><p></p>
+			<label for="fat">Fats:</label> <output id="fat"></output><p></p>
+			<label for="carbs">Carbohydrates:</label> <output id="carbs"></output><p></p>
+			<label for="prot">Protein:</label> <output id="prot"></output><p></p>
+			<label for="chol">Cholesterol:</label> <output id="chol"></output><p></p>
+			<label for="weight">Weight:</label> <output id="weight"></output><p></p>
+			<label for="satfat">Saturated Fats:</label> <output id="satfat"></output><p></p>
+		</div>
 	</div>
 </body>
 </html>
