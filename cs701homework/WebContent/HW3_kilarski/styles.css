@@ -7,7 +7,7 @@ body {
 	background-color: #006600;
 }
 
-a, a:visited {
+a,a:visited {
 	text-decoration: none;
 	color: #006600;
 }
@@ -23,6 +23,15 @@ a:hover {
 	background-color: #ffffff;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+fieldset {
+	border: 1px solid #e78f08;
+	margin-bottom: 10px;
+	width: 60px;
+}
+
+fieldset,.wrapper {
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-khtml-border-radius: 10px;
