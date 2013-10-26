@@ -1,3 +1,8 @@
+/*
+ * author: Ryszard Kilarski
+ * email: emrys@bu.edu
+ * BUI ID: U81-39-8560
+ */
 $(function() {
 	// load the images based on user's input
 	$("#loadButton").click(
@@ -15,8 +20,8 @@ $(function() {
 						+ "&format=json&jsoncallback=?", function(data) {
 					$.each(data.items, function(index, current) {
 						/*
-						 * var elm = $("<img/>").attr({ "src" :
-						 * current.media.m, "width" : 200, "height" : 200 });
+						 * var elm = $("<img/>").attr({ "src" : current.media.m, "width" : 200,
+						 * "height" : 200 });
 						 */
 						var elem=getFieldsetElement({name:current.media.m});
 						$('#nutritionInfo').append(elem);
