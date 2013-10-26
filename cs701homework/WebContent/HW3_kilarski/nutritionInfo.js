@@ -7,13 +7,13 @@ $(function() {
 
 	// make the ajax request
 	$.ajax({
-		// url : "cgi-bin/getData.py",
-		url : "http://localhost:9999/res/calories2.xml",
+		url : "cgi-bin/getData.py",
+		//url : "http://localhost:9999/res/calories2.xml",
 		data : {
 			url : "http://kalathur.com/food/calories2.xml"
 		},
 		error : function() {
-			alert('Uh oh, something went wrong!');
+			alert('Uh oh, something went horribly, horribly wrong!');
 		},
 		complete : function(xhr, result) {
 			if (result != "success") {
