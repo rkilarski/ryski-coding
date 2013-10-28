@@ -16,17 +16,53 @@ $(function() {
 				// get user input
 				var tag = $('#tag').val();
 
-				$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?tags=" + tag
-						+ "&format=json&jsoncallback=?", function(data) {
-					$.each(data.items, function(index, current) {
-						/*
-						 * var elm = $("<img/>").attr({ "src" : current.media.m, "width" : 200,
-						 * "height" : 200 });
-						 */
-						var elem=getFieldsetElement({name:current.media.m});
-						$('#nutritionInfo').append(elem);
-					})
-				});
+				$.ajax({
+					// url : "cgi-bin/getData.py",
+					url : "http://localhost:9999/res/calories2.xml",
+					data : {
+						url : "http://kalathur.com/food/calories2.xml"
+					},
+					error : function() {
+						alert('Uh oh, something went horribly, horribly wrong!');
+					},
+					complete : function(xhr, result) {
+						if (result != "success") {
+							console.log('Unsuccessful at loading from XML file!');
+							return;
+						}
+						var response = xhr.responseXML;
+						// for each <item> element
+						$(response).find("item").each(function() {
+							var name = $(this).find("name").text();
+							if ((tag=='')||(name.toUpperCase().indexOf(tag)!=-1)){
+							var size = $(this).find("size").text();
+							var fat = $(this).find("fat").text();
+							var cals = $(this).find("cals").text();
+							var carbs = $(this).find("carbs").text();
+							var prot = $(this).find("prot").text();
+							var chol = $(this).find("chol").text();
+							var weight = $(this).find("weight").text();
+							var satfat = $(this).find("satfat").text();
+							var item = {
+									name : name,
+									size : size,
+									fat : fat,
+									cals : cals,
+									carbs : carbs,
+									prot : prot,
+									chol : chol,
+									weight : weight,
+									satfat : satfat
+							};
+							var elem=getFieldsetElement(item);
+							$('#nutritionInfo').append(elem);
+							}
+
+						});
+						// enable the input only if successfully loaded data.
+						$('#nameInput').removeAttr("disabled");
+					}
+				})
 			});
 
 	// cycle through the images
