@@ -14,11 +14,11 @@ body,html {
 	padding: 0;
 	height: 100%;
 	color: #000000;
-	background: #606060;
+	background: #404040;
 }
 
 #wrap {
-	background: #606060;
+	background: #404040;
 	width: 99%;
 	height: 100%;
 	min-height: 100%;
@@ -45,7 +45,7 @@ body,html {
 	float: left;
 	width: 80%;
 	height: 90%;
-	background-color: #606060;
+	background-color: #404040;
 	padding-left: 50px;
 	padding-right: 50px;
 	padding-bottom: 25px;
@@ -61,7 +61,7 @@ body,html {
 	height: 100%;
 	overflow-y: scroll;
 	overflow-x: hidden;
-	background-color: #606060;
+	background-color: #404040;
 	padding: 10px;
 	padding-bottom: 25px;
 }
@@ -122,7 +122,7 @@ table:hover,#songname:hover,#artistname:hover,#searchfield:hover,#textarea:hover
 }
 
 #textarea,#chordarea {
-	border: 1px solid #606060;
+	border: 1px solid #404040;
 	background-color: #ffffff;
 	width: 47%;
 	height: 95%;
@@ -154,7 +154,7 @@ table:hover,#songname:hover,#artistname:hover,#searchfield:hover,#textarea:hover
 
 .toast {
 	display: none;
-	background-color: #606060;
+	background-color: #404040;
 	color: #ffffff;
 	border: 1px solid #eb009b;
 	position: absolute;
