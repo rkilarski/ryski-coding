@@ -17,6 +17,7 @@ handlers = {
 		$(".songtext").keyup(handlers.textKeyHandler);
 
 		$("#load").click(handlers.slideAreaHandler);
+		$("#aboutguitariffic").click(handlers.aboutAreaHandler);
 		$("#new").click(handlers.newSongHandler);
 		$("#guitarifficWeb").click(handlers.setupHandler);
 	},
@@ -25,7 +26,7 @@ handlers = {
 	 */
 	newSongHandler : function() {
 		$().toast('Resetting guitariffic for a new song.  Enjoy!');
-		//$("#chordarea ol").not('#chordlistx').remove();
+		// $("#chordarea ol").not('#chordlistx').remove();
 		$("#chordarea ol").remove();
 
 		// Remove all rows from the table except the first row.
@@ -138,6 +139,17 @@ handlers = {
 		}
 	},
 
+	/**
+	 * Handle opening and closing the slide area.
+	 */
+	aboutAreaHandler : function() {
+		if ($("#aboutguitariffic").hasClass('highlight')) {
+			$("#aboutguitariffic").removeClass('highlight');
+		} else {
+			$("#aboutguitariffic").addClass('highlight');
+		}
+		$("#aboutarea").slideToggle();
+	},
 	/**
 	 * Reset the chord database from the XML file.
 	 */
