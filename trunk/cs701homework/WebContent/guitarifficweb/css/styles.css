@@ -108,7 +108,7 @@ table:hover,#songname:hover,#artistname:hover,#searchfield:hover,#textarea:hover
 	margin-bottom: 10px;
 }
 
-#slidearea {
+#slidearea,#aboutarea {
 	display: none;
 	border: 1px solid #000000;
 	width: 100%;
@@ -170,7 +170,7 @@ input {
 	margin-top: 10px;
 }
 
-table,input,td,.guitarchart,.guitarcharthighlight,.loaditem,.toast,#textarea,#slidearea,#chordarea
+table,input,td,.guitarchart,.guitarcharthighlight,.loaditem,.toast,#textarea,#slidearea,#chordarea,#aboutarea
 	{
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;

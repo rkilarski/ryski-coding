@@ -23,54 +23,34 @@ dao={
 		openRequest.onsuccess = function(event) {
 			dao.localDatabase.db = openRequest.result;
 			if (fetchChords!=undefined){
-				// createChordDatabase();
 				fetchChords();
 			}
 		};	
 	},
 	
-	deleteDatabase:function(fetchChords){
-		// console.log('Deleting local database');
-		$().toast('Deleting database...');
-		try{
-			var deleteDbRequest = dao.localDatabase.indexedDB.deleteDatabase(dbName);
-			deleteDbRequest.onsuccess = function (e) {
-				// console.log('Database deleted');
-				$().toast('Database deleted...');
-				dao.createChordDatabase(fetchChords);
-			};
-			deleteDbRequest.onerror = function (e) {
-				console.log('Database error: ' + e.target.errorCode);
-			};
-		}catch(e){
-			
-		}
-		dao.createChordDatabase(fetchChords);
-	},
-	
 	createChordDatabase:function(fetchChords) {
-		console.log('Deleting local database');
+		$().toast('Deleting local database');
 		var deleteDbRequest = localDatabase.indexedDB.deleteDatabase(dbName);
 		deleteDbRequest.onsuccess = function (event) {
-    		console.log('Database deleted');
+			$().toast('Database deleted');
     		var openRequest = dao.localDatabase.indexedDB.open(this.dbName,1);
     			
     		openRequest.onerror = function(e) {
-    			console.log('Database error: ' + e.target.errorCode);
+    			$().toast('Database error: ' + e.target.errorCode);
     		};
     		openRequest.onsuccess = function(event) {
-    			console.log('Database created');
+    			$().toast('Database created');
     			dao.localDatabase.db = openRequest.result;
     			chordLoad.loadChordsFromXMLFile('res/chords.xml',fetchChords);
     		};	
     		openRequest.onupgradeneeded = function (evt) { 
-    			console.log('Creating object stores');
+    			$().toast('Creating object stores');
     			var chordStore = evt.currentTarget.result.createObjectStore('chords', {keyPath: 'id'});
     			chordStore.createIndex('nameIndex', 'chordName', { unique: false });
     		};
 		};
     	deleteDbRequest.onerror = function (e) {
-    			console.log('Database error: ' + e.target.errorCode);
+    		$().toast('Database error: ' + e.target.errorCode);
  		};
 	},
 	

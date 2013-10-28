@@ -13,6 +13,9 @@
 		.css("top", Math.max(0, (($(window).height() - $('#toast').outerHeight()) / 2) + $(window).scrollTop()) + "px")
 		.css("left", Math.max(0, (($("#apparea").width() - $('#toast').outerWidth()) / 2) + $("#apparea").scrollLeft()) + "px")
 		.appendTo("#apparea").fadeIn(400).delay(1000).fadeOut(400);
+		
+		//Echo any message into the console as well.
+		console.log(message);
 	};
 
 })(jQuery)
