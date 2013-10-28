@@ -36,7 +36,7 @@ dao={
     		var openRequest = dao.localDatabase.indexedDB.open(this.dbName,1);
     			
     		openRequest.onerror = function(e) {
-    			$().toast('Database error: ' + e.target.errorCode);
+    			$().toast('Database error: ' + e.target.errorCode,'error');
     		};
     		openRequest.onsuccess = function(event) {
     			$().toast('Database created');
@@ -50,7 +50,7 @@ dao={
     		};
 		};
     	deleteDbRequest.onerror = function (e) {
-    		$().toast('Database error: ' + e.target.errorCode);
+    		$().toast('Database error: ' + e.target.errorCode,'error');
  		};
 	},
 	
@@ -151,7 +151,7 @@ dao={
 				
 			}
 		} catch(e){
-			$().toast('Error loading chords '+e);
+			$().toast('Error loading chords '+e,'error');
 			// console.log(e);
 		}
 	}
