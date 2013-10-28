@@ -31,7 +31,7 @@ chordLoad = {
 	loadXMLData : function(fetchChords) {
 		if (xhr.readyState == 4) {
 			if (xhr.status == 200) {
-				openDatabase(function() {
+				dao.openDatabase(function() {
 					chordLoad.performLoad(fetchChords);
 				});
 			} else {

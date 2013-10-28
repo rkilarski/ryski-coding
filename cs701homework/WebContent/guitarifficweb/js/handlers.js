@@ -143,8 +143,8 @@ handlers = {
 	 */
 	resetDatabaseHandler : function() {
 		var filter = "";
-		dao.deleteDatabase(function() {
-			fetchChordsDB(filter, loadChordIntoTray);
+		dao.createChordDatabase(function() {
+			dao.fetchChords(filter, dom.loadChordIntoTray);
 		});
 		handlers.setupHandler();
 	},

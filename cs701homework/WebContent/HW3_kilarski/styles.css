@@ -33,7 +33,8 @@ a:hover {
 fieldset {
 	border: 1px solid #e78f08;
 	margin-bottom: 10px;
-	width: 60px;
+	width: 400px;
+	background-color: #ffffff;
 }
 
 fieldset,.wrapper {
