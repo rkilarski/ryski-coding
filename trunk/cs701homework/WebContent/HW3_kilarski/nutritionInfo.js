@@ -10,10 +10,11 @@ $(function() {
 	// disable the input until data is loaded
 	$('#nameInput').attr("disabled", "disabled");
 
-	// make the ajax request
+	// Perform an ajax call to the python script to get calorie
+	// information from a website.
 	$.ajax({
-		url : "cgi-bin/getData.py",
-		//url : "http://localhost:9999/res/calories2.xml",
+		url : "cgi-bin/getData.py", // Use python script
+		// url : "http://localhost:9999/res/calories2.xml", //Use local file
 		data : {
 			url : "http://kalathur.com/food/calories2.xml"
 		},
@@ -71,8 +72,13 @@ $(function() {
 	$('#nameInput').autocomplete(options);
 });
 
-// request.term -- user entry
-// callback -- to return array of values
+/**
+ * Method to call when user is typing in the text field. This will perform a
+ * filter on any matching entries and return the results.
+ * 
+ * @param request
+ * @param callback
+ */
 function selectEntries(request, callback) {
 	console.log(request.term);
 	var result = [];
@@ -83,7 +89,13 @@ function selectEntries(request, callback) {
 	// return the results
 	callback(result);
 }
-// when a selection is make
+
+/**
+ * When a selection is made, update the DOM with data.
+ * 
+ * @param event
+ * @param ui
+ */
 function makeSelection(event, ui) {
 	console.log(ui.item);
 	$('#name').val(ui.item.data.name);

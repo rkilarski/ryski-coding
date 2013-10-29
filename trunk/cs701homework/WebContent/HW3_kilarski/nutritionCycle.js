@@ -7,7 +7,6 @@ $(function() {
 	// load the images based on user's input
 	$("#loadButton").click(
 			function() {
-
 				// clear the current images
 				$('#nutritionInfo').html('');
 				$('#nutritionInfo').removeAttr('style');
@@ -16,9 +15,11 @@ $(function() {
 				// get user input
 				var tag = $('#tag').val();
 
+				// Perform an ajax call to the python script to get calorie
+				// information from a website.
 				$.ajax({
-					// url : "cgi-bin/getData.py",
-					url : "http://localhost:9999/res/calories2.xml",
+					url : "cgi-bin/getData.py",  // Use python script
+					// url : "http://localhost:9999/res/calories2.xml", //Use local file
 					data : {
 						url : "http://kalathur.com/food/calories2.xml"
 					},
@@ -80,6 +81,12 @@ $(function() {
 });
 
 
+/**
+ * Build the fieldset DOM element given a nutrition JSON item.
+ * 
+ * @param nutritionItem
+ * @returns the fieldset DOM element.
+ */
 function getFieldsetElement(nutritionItem){
 	var fieldset = $("<fieldset/>").append(getLabelElement("name","Name:"))
 		.append(getOutputElement("name", nutritionItem.name))
@@ -109,9 +116,24 @@ function getFieldsetElement(nutritionItem){
 		// .append(getOutputElement("satfat", nutritionItem.satfat))
 	return fieldset;
 }
+
+/**
+ * Build the label DOM element given the for ID and text.
+ * 
+ * @param forElement
+ * @param label
+ */
 function getLabelElement(forElement,label){
 	return $("<label/>").attr({for:forElement}).html(label);	
 }
+
+/**
+ * Build an output label element given an id and data.
+ * 
+ * @param id
+ * @param data
+ * @returns
+ */
 function getOutputElement(id,data){
 	return $("<label/>").attr({id:id}).html(data);	
 }
