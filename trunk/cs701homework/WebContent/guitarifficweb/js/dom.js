@@ -74,13 +74,8 @@ dom = {
 			}
 
 			// Create new list with new id and insert into DOM.
-			var newList = $("<ol/>").addClass('chordlist').attr('id', newid);
+			var newList = factory.createDiagramList(newid);
 			$("#chordarea").append(newList);
-			$("#" + newid).sortable({
-				connectWith : ".chordlist",
-				placeholder : "guitarcharthighlight",
-				forcePlaceholderSize: true
-			});
 			return newid;
 		}
 

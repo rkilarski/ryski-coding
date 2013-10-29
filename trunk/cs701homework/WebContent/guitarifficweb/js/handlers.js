@@ -11,50 +11,49 @@ handlers = {
 	 * Attach all non-dynamic handlers to their items on the form.
 	 */
 	attach : function() {
-		$("#searchfield").on("keyup", handlers.searchFieldHandler);
-		$("#chordarea").on("dragenter", dragDrop.dragEnter).on("dragover", dragDrop.dragOver).on(
-				"dragleave", dragDrop.dragLeave).on("drop", dragDrop.drop);
-		$(".songtext").on("keyup", handlers.textKeyHandler);
+		$('#searchfield').on('keyup',handlers.searchFieldHandler);
+		$('#chordarea').on('dragenter', dragDrop.dragEnter).on('dragover', dragDrop.dragOver).on(
+				'dragleave', dragDrop.dragLeave).on('drop', dragDrop.drop);
+		$('.songtext').on('keyup',handlers.textKeyHandler);
 
-		$("#load").on("click", handlers.slideAreaHandler);
-		$("#aboutguitariffic").on("click", handlers.aboutAreaHandler);
-		$("#new").on("click", handlers.newSongHandler);
-		$("#guitarifficWeb").on("click", handlers.setupHandler);
+		$('#load').on('click',handlers.slideAreaHandler);
+		$('#aboutguitariffic').on('click',handlers.aboutAreaHandler);
+		$('#new').on('click',handlers.newSongHandler);
+		$('#guitarifficWeb').on('click',handlers.setupHandler);
 	},
 	/**
 	 * Reset the canvas.
 	 */
 	newSongHandler : function() {
 		$().toast('Resetting guitariffic for a new song.  Enjoy!');
-		// $("#chordarea ol").not('#chordlistx').remove();
-		$("#chordarea ol").remove();
+		// $('#chordarea ol').not('#chordlistx').remove();
+		$('#chordarea ol').remove();
 
 		// Remove all rows from the table except the first row.
-		$("#lyricstable").find("tr:gt(0)").remove();
-		$(".songtext").val('');
+		$('#lyricstable').find('tr:gt(0)').remove();
+		$('.songtext').val('');
 
-		$("#songname").val('');
-		$("#artistname").val('');
+		$('#songname').val('');
+		$('#artistname').val('');
 
 		// Close the slider.
-		if ($("#slidearea").hasClass("visible")) {
-			$("#slidearea").slideToggle();
+		if ($('#slidearea').hasClass('visible')) {
+			$('#slidearea').slideToggle();
 		}
 	},
 
 	/**
-	 * When navigating in the text area, use this to handle enter key, arrows, etc.
+	 * When navigating in the text area, use this to handle enter key, arrows,
+	 * etc.
 	 * 
 	 * @param event
 	 */
 	textKeyHandler : function(event) {
 		switch (event.which) {
 			case (13): // Enter
-				var newRow = $('<tr><td><input type="text" class="songtext newrow" placeholder="lyrics"></td></tr>');
+				var newRow = factory.createTextRow();
 				$(this).closest('tr').after(newRow);
-				$(".newrow").focus();
-				$(".newrow").keyup(handlers.textKeyHandler);
-				$(".newrow").removeClass("newrow");
+				$(this).closest('tr').next().find('input').focus();
 				break;
 			case (40): // Arrow down.
 				$(this).closest('tr').next().find('input').focus();
@@ -71,32 +70,31 @@ handlers = {
 	 * Handler for the search field. Load the chords every time this is called.
 	 */
 	searchFieldHandler : function() {
-		loadChords($("#searchfield").val());
+		loadChords($('#searchfield').val());
 	},
 
 	/**
 	 * Handle opening and closing the slide area.
 	 */
 	slideAreaHandler : function() {
-		if ($("#guitarifficWeb").hasClass('highlight')) {
-			$("#slidearea").empty();
-			$("#guitarifficWeb").removeClass('highlight');
-			$("#slidearea").removeClass('visible');
+		if ($('#guitarifficWeb').hasClass('highlight')) {
+			$('#slidearea').empty();
+			$('#guitarifficWeb').removeClass('highlight');
+			$('#slidearea').removeClass('visible');
 		} else {
-			$("#slidearea").slideToggle();
+			$('#slidearea').slideToggle();
 		}
 
-		if ($("#slidearea").hasClass("visible")) {
-			$("#slidearea").empty();
-			$("#load").removeClass('highlight');
-			$("#slidearea").removeClass('visible');
+		if ($('#slidearea').hasClass('visible')) {
+			$('#slidearea').empty();
+			$('#load').removeClass('highlight');
+			$('#slidearea').removeClass('visible');
 		} else {
-			var newItem = $('<div class="loaditem" id="newsong">New Song</div>');
-			$("#slidearea").append(newItem);
-			$("#slidearea").addClass('visible');
-			$("#newsong").click(handlers.newSongHandler);
+			var newItem = factory.createNewItem();
+			$('#slidearea').append(newItem);
+			$('#slidearea').addClass('visible');
 
-			$("#load").addClass('highlight');
+			$('#load').addClass('highlight');
 		}
 
 	},
@@ -105,36 +103,28 @@ handlers = {
 	 * Handle opening and closing the database setup area.
 	 */
 	setupHandler : function() {
-		if ($("#load").hasClass('highlight')) {
-			$("#slidearea").empty();
-			$("#load").removeClass('highlight');
-			$("#slidearea").removeClass('visible');
+		if ($('#load').hasClass('highlight')) {
+			$('#slidearea').empty();
+			$('#load').removeClass('highlight');
+			$('#slidearea').removeClass('visible');
 		} else {
-			$("#slidearea").slideToggle();
+			$('#slidearea').slideToggle();
 		}
 
-		if ($("#slidearea").hasClass("visible")) {
-			$("#slidearea").empty();
-			$("#guitarifficWeb").removeClass('highlight');
-			$("#slidearea").removeClass('visible');
+		if ($('#slidearea').hasClass('visible')) {
+			$('#slidearea').empty();
+			$('#guitarifficWeb').removeClass('highlight');
+			$('#slidearea').removeClass('visible');
 		} else {
-			var newItem = $('<div/>').attr({
-				'class' : 'loaditem',
-				'id' : 'resetdatabase'
-			}).html('Reset Database');
-			$("#slidearea").append(newItem);
-			$("#slidearea").addClass('visible');
-			$("#resetdatabase").click(handlers.resetDatabaseHandler);
+			var newItem = createResetDatabaseItem();
+			$('#slidearea').append(newItem);
+			$('#slidearea').addClass('visible');
 
-			newItem = $('<div/>').attr({
-				'class' : 'loaditem',
-				'id' : 'resetsongs'
-			}).html('Delete All Songs');
-			$("#slidearea").append(newItem);
-			$("#slidearea").addClass('visible');
-			$("#resetsongs").click(handlers.resetSongsHandler);
+			newItem = createResetSongsItem();
+			$('#slidearea').append(newItem);
+			$('#slidearea').addClass('visible');
 
-			$("#guitarifficWeb").addClass('highlight');
+			$('#guitarifficWeb').addClass('highlight');
 		}
 	},
 
@@ -142,18 +132,18 @@ handlers = {
 	 * Handle opening and closing the slide area.
 	 */
 	aboutAreaHandler : function() {
-		if ($("#aboutguitariffic").hasClass('highlight')) {
-			$("#aboutguitariffic").removeClass('highlight');
+		if ($('#aboutguitariffic').hasClass('highlight')) {
+			$('#aboutguitariffic').removeClass('highlight');
 		} else {
-			$("#aboutguitariffic").addClass('highlight');
+			$('#aboutguitariffic').addClass('highlight');
 		}
-		$("#aboutarea").slideToggle();
+		$('#aboutarea').slideToggle();
 	},
 	/**
 	 * Reset the chord database from the XML file.
 	 */
 	resetDatabaseHandler : function() {
-		var filter = "";
+		var filter = '';
 		dao.createChordDatabase(function() {
 			dao.fetchChords(filter, dom.loadChordIntoTray);
 		});
