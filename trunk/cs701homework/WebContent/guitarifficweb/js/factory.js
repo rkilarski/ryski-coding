@@ -6,18 +6,39 @@
  * This is the factory object to create complex DOM elements.
  */
 factory = {
+
+	/**
+	 * Create a lyric text row item.
+	 */
 	createTextRow : function() {
-		var newRow = $('<tr><td><input type="text" class="songtext" placeholder="lyrics"></td></tr>');
-		$(newRow).on('keyup', handlers.textKeyHandler);
+		var newRow = $('<tr/>').html($('<td/>').html($('<input/>').attr({
+			type : 'text',
+			placeholder : 'lyrics'
+		}).addClass('songtext'))).on('keyup', handlers.textKeyHandler);
 		return newRow;
 	},
 
-	createNewItem : function() {
-		var newItem = $('<div class="loaditem" id="newsong">New Song</div>');
-		$(newItem).on('click', handlers.newSongHandler);
+	/**
+	 * Create a button to launch the 'new song' functionality.
+	 */
+	createNewSongItem : function() {
+		var newItem = $('<div/>').addClass('loaditem').attr('id', 'newsong').html('New Song').on(
+				'click', handlers.newSongHandler);
 		return newItem;
 	},
 
+	/**
+	 * Create a button to launch the 'new guitar' chart functionality.
+	 */
+	createNewChartItem : function() {
+		var newItem = $('<div/>').html('New').addClass('guitarchart');
+		$(newItem).on('click', handlers.newChordHandler);
+		return newItem;
+	},
+
+	/**
+	 * Create a button to launch the 'reset database' functionality.
+	 */
 	createResetDatabaseItem : function() {
 		var newItem = $('<div/>').attr({
 			'class' : 'loaditem',
@@ -27,6 +48,9 @@ factory = {
 		return newItem;
 	},
 
+	/**
+	 * Create a button to launch the 'reset songs' functionality.
+	 */
 	createResetSongsItem : function() {
 		var newItem = $('<div/>').attr({
 			'class' : 'loaditem',
@@ -36,11 +60,14 @@ factory = {
 		return newItem;
 	},
 
+	/**
+	 * Create a list to contain chords.
+	 */
 	createDiagramList : function(newId) {
-		var newItem = $("<ol/>").addClass('chordlist').attr('id', newId);
+		var newItem = $('<ol/>').addClass('chordlist').attr('id', newId);
 		$(newItem).sortable({
-			connectWith : ".chordlist",
-			placeholder : "guitarcharthighlight",
+			connectWith : '.chordlist',
+			placeholder : 'guitarcharthighlight',
 			forcePlaceholderSize : true
 		});
 		return newItem;

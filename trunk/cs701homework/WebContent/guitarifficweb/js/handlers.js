@@ -11,15 +11,15 @@ handlers = {
 	 * Attach all non-dynamic handlers to their items on the form.
 	 */
 	attach : function() {
-		$('#searchfield').on('keyup',handlers.searchFieldHandler);
+		$('#searchfield').on('keyup', handlers.searchFieldHandler);
 		$('#chordarea').on('dragenter', dragDrop.dragEnter).on('dragover', dragDrop.dragOver).on(
 				'dragleave', dragDrop.dragLeave).on('drop', dragDrop.drop);
-		$('.songtext').on('keyup',handlers.textKeyHandler);
+		$('.songtext').on('keyup', handlers.textKeyHandler);
 
-		$('#load').on('click',handlers.slideAreaHandler);
-		$('#aboutguitariffic').on('click',handlers.aboutAreaHandler);
-		$('#new').on('click',handlers.newSongHandler);
-		$('#guitarifficWeb').on('click',handlers.setupHandler);
+		$('#load').on('click', handlers.slideAreaHandler);
+		$('#aboutguitariffic').on('click', handlers.aboutAreaHandler);
+		$('#new').on('click', handlers.newSongHandler);
+		$('#guitarifficWeb').on('click', handlers.setupHandler);
 	},
 	/**
 	 * Reset the canvas.
@@ -90,7 +90,7 @@ handlers = {
 			$('#load').removeClass('highlight');
 			$('#slidearea').removeClass('visible');
 		} else {
-			var newItem = factory.createNewItem();
+			var newItem = factory.createNewSongItem();
 			$('#slidearea').append(newItem);
 			$('#slidearea').addClass('visible');
 
@@ -156,5 +156,12 @@ handlers = {
 	resetSongsHandler : function() {
 		dao.createSongDatabase();
 		handlers.setupHandler();
+	},
+	
+	/**
+	 * Create a new chord.
+	 */
+	newChordHandler : function() {
+		alert('New functionality here!');
 	}
 }

@@ -13,21 +13,31 @@
 			type='notice';
 		}
 		
-		$('<div/>').addClass('toast')
-			.append(
-				$('<div/>').addClass('toastimage')
-				.css('background-image', "url('res/"+type+".png')")
-				.css('background-repeat','no-repeat')
-				.css('width', '32px')
-				.css('height', '32px')
-				.css('top', '50%'))
-			.append($('<div/>').addClass('toasttext').html(message))
-			.css('top', Math.max(0, (($(window).height() - $('.toast').outerHeight()) / 2) + $(window).scrollTop()) + 'px')
-			.css('left', Math.max(0, (($('#apparea').width() - $('.toast').outerWidth()) / 2) + $('#apparea').scrollLeft())-45 + 'px')
-			.appendTo('#apparea').fadeIn(400).delay(1000).fadeOut(400);
+		var toastimage=$('<div/>').addClass('toastimage')
+			.css({'background-image':"url('res/" + type + ".png')",
+				'background-repeat':'no-repeat',
+				'width':'32px',
+				'height':'32px',
+				'top':'50%'});
 		
-		//Echo any message into the console as well.
+		var toastmessage=$('<div/>').addClass('toasttext').html(message);
+		
+		var toastitem = $('<div/>').addClass('toast').append(toastimage).append(toastmessage);
+		
+		$(toastitem).appendTo('#apparea').center().fadeIn(400).delay(1000).fadeOut(400);
+		
+		// Echo any message into the console as well.
 		console.log(message);
 	};
 
+	$.fn.center = function(){
+		var top = Math.max(0, (($(window).height() - $(this).outerHeight()) / 3) + 
+                $(window).scrollTop()) + 'px';
+		var left = Math.max(0, (($('#apparea').outerWidth() - $(this).outerWidth()) / 2) + 
+                $('#apparea').scrollLeft()) + 'px';
+	    this.css('position','fixed');
+	    this.css('top', top);
+	    this.css('left', left);
+	    return this;
+	}
 })(jQuery)

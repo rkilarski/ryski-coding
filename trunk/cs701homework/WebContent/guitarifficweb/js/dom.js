@@ -13,8 +13,9 @@ dom = {
 	 * @param filter
 	 */
 	loadChords : function(filter) {
-		$("#chordtray .guitarchart").hide();
-		$("#chordtray .guitarchart").remove();
+		$('#chordtray .guitarchart').hide();
+		$('#chordtray .guitarchart').remove();
+		$('#chordtray').append(factory.createNewChartItem());
 		dao.openDatabase(function() {
 			dao.fetchChords(filter, dom.loadChordIntoTray);
 		});
@@ -28,10 +29,10 @@ dom = {
 	 */
 	loadChordIntoTray : function(chord) {
 		var chordCanvas = chord.getCanvas();
-		chordCanvas.setAttribute("class", "guitarchart");
-		chordCanvas.setAttribute("draggable", "true");
+		chordCanvas.setAttribute('class', 'guitarchart');
+		chordCanvas.setAttribute('draggable', 'true');
 		dragDrop.addDragEvents(chord, chordCanvas);
-		$("#chordtray").append(chordCanvas);
+		$('#chordtray').append(chordCanvas);
 	},
 	/**
 	 * Add a given chord into the chord area. Also attach any event handlers to
@@ -41,20 +42,20 @@ dom = {
 	 */
 	loadChordIntoArea : function(chord, target) {
 		var chordCanvas = chord.getCanvas();
-		chordCanvas.setAttribute("class", "guitarchart");
-		chordCanvas.setAttribute("draggable", "true");
+		chordCanvas.setAttribute('class', 'guitarchart');
+		chordCanvas.setAttribute('draggable', 'true');
 		dragDrop.addDragEvents(chord, chordCanvas);
 
 		var itemTarget;
 		// We are dropping on generic area, so create new list item for it.
-		if (target.id == "chordarea") {
+		if (target.id == 'chordarea') {
 			itemTarget = createNewList();
 		} else {
 			itemTarget = target.id;
 		}
 		// Insert the actual item.
-		var chordItem = $("<li/>").html(chordCanvas);
-		$("#" + itemTarget).append(chordItem);
+		var chordItem = $('<li/>').html(chordCanvas);
+		$('#' + itemTarget).append(chordItem);
 
 		/**
 		 * Private method to create new ordered list in DOM.
@@ -63,19 +64,19 @@ dom = {
 		 */
 		function createNewList() {
 			// Get the previous list to insert after.
-			var prev = $("#chordarea").children().last().attr('id');
+			var prev = $('#chordarea').children().last().attr('id');
 			var newid;
 			// If we don't have a previous list, need to create a new one.
 			if (prev == undefined) {
-				newid = "chordlist1";
+				newid = 'chordlist1';
 			} else {
 				// Parse the number out of the previous list's id.
-				newid = "chordlist" + (parseInt(prev.match(/\d+$/), 10) + 1);
+				newid = 'chordlist' + (parseInt(prev.match(/\d+$/), 10) + 1);
 			}
 
 			// Create new list with new id and insert into DOM.
 			var newList = factory.createDiagramList(newid);
-			$("#chordarea").append(newList);
+			$('#chordarea').append(newList);
 			return newid;
 		}
 

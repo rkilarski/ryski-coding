@@ -9,7 +9,7 @@
 $(document).ready(function() {
 	$().toast('<p>Welcome to Guitariffic</p><br><p>Loading...</p>');
 
-	dom.loadChords("");
+	dom.loadChords('');
 	handlers.attach();
-	$( ".chordlist" ).sortable();
+	$('.chordlist').sortable();
 });

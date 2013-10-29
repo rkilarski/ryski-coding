@@ -123,7 +123,7 @@ dao = {
 						cursor['continue']();
 					} else {
 						// Display chord tray.
-						$("#chordtray .guitarchart").fadeIn('slow');
+						$('#chordtray .guitarchart').fadeIn('slow');
 					}
 				};
 			}
