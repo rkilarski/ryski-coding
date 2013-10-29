@@ -11,15 +11,15 @@ handlers = {
 	 * Attach all non-dynamic handlers to their items on the form.
 	 */
 	attach : function() {
-		$("#searchfield").keyup(handlers.searchFieldHandler);
+		$("#searchfield").on("keyup", handlers.searchFieldHandler);
 		$("#chordarea").on("dragenter", dragDrop.dragEnter).on("dragover", dragDrop.dragOver).on(
 				"dragleave", dragDrop.dragLeave).on("drop", dragDrop.drop);
-		$(".songtext").keyup(handlers.textKeyHandler);
+		$(".songtext").on("keyup", handlers.textKeyHandler);
 
-		$("#load").click(handlers.slideAreaHandler);
-		$("#aboutguitariffic").click(handlers.aboutAreaHandler);
-		$("#new").click(handlers.newSongHandler);
-		$("#guitarifficWeb").click(handlers.setupHandler);
+		$("#load").on("click", handlers.slideAreaHandler);
+		$("#aboutguitariffic").on("click", handlers.aboutAreaHandler);
+		$("#new").on("click", handlers.newSongHandler);
+		$("#guitarifficWeb").on("click", handlers.setupHandler);
 	},
 	/**
 	 * Reset the canvas.
@@ -43,8 +43,7 @@ handlers = {
 	},
 
 	/**
-	 * When navigating in the text area, use this to handle enter key, arrows,
-	 * etc.
+	 * When navigating in the text area, use this to handle enter key, arrows, etc.
 	 * 
 	 * @param event
 	 */
