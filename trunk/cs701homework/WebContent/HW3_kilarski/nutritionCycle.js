@@ -13,7 +13,7 @@ $(function() {
 				$('#nutritionInfo').cycle("destroy");
 
 				// get user input
-				var tag = $('#tag').val();
+				var tag = $('#tag').val().toUpperCase();
 
 				// Perform an ajax call to the python script to get calorie
 				// information from a website.
@@ -82,7 +82,8 @@ $(function() {
 
 
 /**
- * Build the fieldset DOM element given a nutrition JSON item.
+ * Build the fieldset DOM element given a nutrition JSON item. Currently it is cut to only show the
+ * name, size, and calories as specified in the homework screenshot.
  * 
  * @param nutritionItem
  * @returns the fieldset DOM element.
