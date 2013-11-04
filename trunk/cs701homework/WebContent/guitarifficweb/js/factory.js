@@ -28,15 +28,6 @@ factory = {
 	},
 
 	/**
-	 * Create a button to launch the 'new guitar' chart functionality.
-	 */
-	createNewChartItem : function() {
-		var newItem = $('<div/>').html('New').addClass('guitarchart');
-		$(newItem).on('click', handlers.newChordHandler);
-		return newItem;
-	},
-
-	/**
 	 * Create a button to launch the 'reset database' functionality.
 	 */
 	createResetDatabaseItem : function() {

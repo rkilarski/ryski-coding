@@ -104,7 +104,7 @@ table:hover,#songname:hover,#artistname:hover,#searchfield:hover,#textarea:hover
 }
 
 #searchfield {
-	width: 100%;
+	width: 70%;
 	margin-bottom: 10px;
 }
 

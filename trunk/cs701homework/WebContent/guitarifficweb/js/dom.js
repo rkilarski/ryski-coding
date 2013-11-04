@@ -7,23 +7,24 @@
  */
 dom = {
 	/**
-	 * Load the chords. This function will load from the database and, if that
-	 * fails, load from the XML file and then load from the database.
+	 * Load the chords. This function will load from the database and, if that fails, load from the
+	 * XML file and then load from the database.
 	 * 
 	 * @param filter
 	 */
 	loadChords : function(filter) {
 		$('#chordtray .guitarchart').hide();
 		$('#chordtray .guitarchart').remove();
-		$('#chordtray').append(factory.createNewChartItem());
+
 		dao.openDatabase(function() {
+		//dao.createChordDatabase(function() {
 			dao.fetchChords(filter, dom.loadChordIntoTray);
 		});
 	},
 
 	/**
-	 * Add a given chord into the chord tray. Also attach any event handlers to
-	 * the chord item in the tray.
+	 * Add a given chord into the chord tray. Also attach any event handlers to the chord item in
+	 * the tray.
 	 * 
 	 * @param chord
 	 */
@@ -35,8 +36,8 @@ dom = {
 		$('#chordtray').append(chordCanvas);
 	},
 	/**
-	 * Add a given chord into the chord area. Also attach any event handlers to
-	 * the chord item in the chord area.
+	 * Add a given chord into the chord area. Also attach any event handlers to the chord item in
+	 * the chord area.
 	 * 
 	 * @param chord
 	 */

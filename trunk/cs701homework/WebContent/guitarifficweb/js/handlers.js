@@ -20,6 +20,8 @@ handlers = {
 		$('#aboutguitariffic').on('click', handlers.aboutAreaHandler);
 		$('#new').on('click', handlers.newSongHandler);
 		$('#guitarifficWeb').on('click', handlers.setupHandler);
+		$('#addchord').on('click', handlers.newChordHandler);
+
 	},
 	/**
 	 * Reset the canvas.
@@ -70,7 +72,7 @@ handlers = {
 	 * Handler for the search field. Load the chords every time this is called.
 	 */
 	searchFieldHandler : function() {
-		loadChords($('#searchfield').val());
+		dom.loadChords($('#searchfield').val());
 	},
 
 	/**
@@ -116,11 +118,11 @@ handlers = {
 			$('#guitarifficWeb').removeClass('highlight');
 			$('#slidearea').removeClass('visible');
 		} else {
-			var newItem = createResetDatabaseItem();
+			var newItem = factory.createResetDatabaseItem();
 			$('#slidearea').append(newItem);
 			$('#slidearea').addClass('visible');
 
-			newItem = createResetSongsItem();
+			newItem = factory.createResetSongsItem();
 			$('#slidearea').append(newItem);
 			$('#slidearea').addClass('visible');
 

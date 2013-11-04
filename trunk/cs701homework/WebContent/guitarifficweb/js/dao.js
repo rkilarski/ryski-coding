@@ -18,7 +18,7 @@ dao = {
 	openDatabase : function(fetchChords) {
 		var openRequest = dao.localDatabase.indexedDB.open(dao.dbName);
 		openRequest.onerror = function(e) {
-			console.log('Database error: ' + e.target.errorCode);
+			$().toast('Database error: ' + e.target.errorCode,'error');
 			// createChordDatabase(fetchChords);
 		};
 		openRequest.onsuccess = function() {
@@ -32,20 +32,23 @@ dao = {
 	createChordDatabase : function(fetchChords) {
 		$().toast('Deleting local database');
 		var deleteDbRequest = dao.localDatabase.indexedDB.deleteDatabase(dao.dbName);
+		deleteDbRequest.onblocked = function(){
+			alert('blocked');
+		}
 		deleteDbRequest.onsuccess = function() {
 			$().toast('Database deleted');
 			var openRequest = dao.localDatabase.indexedDB.open(dao.dbName, 1);
 			openRequest.onerror = function(e) {
 				$().toast('Database error: ' + e.target.errorCode, 'error');
 			};
-			openRequest.onsuccess = function(event) {
+			openRequest.onsuccess = function() {
 				$().toast('Database created');
 				dao.localDatabase.db = openRequest.result;
 				chordLoad.loadChordsFromXMLFile('res/chords.xml', fetchChords);
 			};
-			openRequest.onupgradeneeded = function() {
+			openRequest.onupgradeneeded = function(e) {
 				$().toast('Creating object stores');
-				var chordStore = evt.currentTarget.result.createObjectStore('chords', {
+				var chordStore = e.currentTarget.result.createObjectStore('chords', {
 					keyPath : 'id'
 				});
 				chordStore.createIndex('nameIndex', 'chordName', {
