@@ -48,7 +48,6 @@ dom = {
 			dom.highlightedItem = "#load";
 
 			// Load any items here.
-			$('#loadarea').append(factory.createNewSongItem());
 			dao.fetchSongs('', '', dom.loadSongIntoTray);
 		} else if (dom.openTray != "#loadarea") {
 			$(dom.openTray).slideToggle();
@@ -60,7 +59,6 @@ dom = {
 			dom.highlightedItem = "#load";
 
 			// Load any items here.
-			$('#loadarea').append(factory.createNewSongItem());
 			dao.fetchSongs('', '', dom.loadSongIntoTray);
 		} else {
 			$(dom.highlightedItem).removeClass('highlight');

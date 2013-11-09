@@ -30,11 +30,6 @@ handlers = {
 	newSongHandler : function() {
 		$().toast('Resetting guitariffic for a new song.  Enjoy!');
 		dom.resetSong();
-
-		// Close the slider.
-		if ($('#loadarea').hasClass('visible')) {
-			$('#loadarea').slideToggle();
-		}
 	},
 
 	/**
@@ -133,9 +128,6 @@ handlers = {
 	loadSongHandler : function(song) {
 		dom.createDOMFromSong(song);
 		// Close the slider.
-		if ($('#loadarea').hasClass('visible')) {
-			$('#loadarea').slideToggle();
-		}
-
+		dom.populateLoadSongsArea();
 	}
 }
