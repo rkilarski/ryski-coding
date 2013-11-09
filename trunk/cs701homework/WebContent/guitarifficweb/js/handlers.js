@@ -20,6 +20,7 @@ handlers = {
 		$('#aboutguitariffic').on('click', handlers.aboutAreaHandler);
 		$('#new').on('click', handlers.newSongHandler);
 		$('#save').on('click', handlers.saveSongHandler);
+		$('#print').on('click', handlers.printSongHandler);
 		$('#guitarifficWeb').on('click', handlers.setupHandler);
 		$('#addchord').on('click', handlers.newChordHandler);
 
@@ -114,6 +115,15 @@ handlers = {
 	resetSongsHandler : function() {
 		dao.createSongDatabase();
 		handlers.setupHandler();
+	},
+
+	printSongHandler : function() {
+		alert('New functionality here!');
+
+	},
+
+	editChordHandler : function(e) {
+		alert('Edit chord ' + e.target.getGuitarChart().chordName);
 	},
 
 	/**

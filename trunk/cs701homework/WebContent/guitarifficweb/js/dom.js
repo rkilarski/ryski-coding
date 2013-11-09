@@ -35,83 +35,57 @@ dom = {
 		chordCanvas.setAttribute('class', 'guitarchart');
 		chordCanvas.setAttribute('draggable', 'true');
 		dragDrop.addDragEvents(chord, chordCanvas);
+		$(chordCanvas).on('click', handlers.editChordHandler);
 		$('#chordtray').append(chordCanvas);
 	},
 
 	populateLoadSongsArea : function() {
-		$('#loadarea').slideToggle();
-		if (dom.openTray == null) {
-			$('#loadarea').empty();
-			$('#load').addClass('highlight');
-
-			dom.openTray = "#loadarea";
-			dom.highlightedItem = "#load";
-
-			// Load any items here.
+		dom.populateArea('#loadarea', '#load', function() {
 			dao.fetchSongs('', '', dom.loadSongIntoTray);
-		} else if (dom.openTray != "#loadarea") {
-			$(dom.openTray).slideToggle();
-			$('#loadarea').empty();
-			$(dom.highlightedItem).removeClass('highlight');
-			$('#load').addClass('highlight');
-
-			dom.openTray = "#loadarea";
-			dom.highlightedItem = "#load";
-
-			// Load any items here.
-			dao.fetchSongs('', '', dom.loadSongIntoTray);
-		} else {
-			$(dom.highlightedItem).removeClass('highlight');
-			dom.openTray = null;
-		}
+		});
 	},
 
 	populateSetupArea : function() {
-		$('#setuparea').slideToggle();
-		if (dom.openTray == null) {
-			$('#setuparea').empty();
-			$('#guitarifficWeb').addClass('highlight');
-
-			dom.openTray = "#setuparea";
-			dom.highlightedItem = "#guitarifficWeb";
-
-			// Load any items here.
+		dom.populateArea('#setuparea', '#guitarifficWeb', function() {
 			$('#setuparea').append(factory.createResetDatabaseItem());
 			$('#setuparea').append(factory.createResetSongsItem());
-		} else if (dom.openTray != "#setuparea") {
-			$(dom.openTray).slideToggle();
-			$('#setuparea').empty();
-			$(dom.highlightedItem).removeClass('highlight');
-			$('#guitarifficWeb').addClass('highlight');
-
-			dom.openTray = "#setuparea";
-			dom.highlightedItem = "#guitarifficWeb";
-
-			// Load any items here.
-			$('#setuparea').append(factory.createResetDatabaseItem());
-			$('#setuparea').append(factory.createResetSongsItem());
-		} else {
-			$(dom.highlightedItem).removeClass('highlight');
-			dom.openTray = null;
-		}
+		});
 	},
 
 	populateAboutArea : function() {
-		$('#aboutarea').slideToggle();
+		dom.populateArea('#aboutarea', '#aboutguitariffic', null);
+	},
+
+	populateArea : function(openArea, openHighlight, callback) {
+		$(openArea).slideToggle();
 		if (dom.openTray == null) {
-			$('#aboutguitariffic').addClass('highlight');
+			if (callback != null) {
+				$(openArea).empty();
+			}
+			$(openHighlight).addClass('highlight');
 
-			dom.openTray = "#aboutarea";
-			dom.highlightedItem = "#aboutguitariffic";
+			dom.openTray = openArea;
+			dom.highlightedItem = openHighlight;
 
-		} else if (dom.openTray != "#aboutarea") {
+			// Load any items here.
+			if (callback != null) {
+				callback();
+			}
+		} else if (dom.openTray != openArea) {
 			$(dom.openTray).slideToggle();
+			if (callback != null) {
+				$(openArea).empty();
+			}
 			$(dom.highlightedItem).removeClass('highlight');
-			$('#aboutguitariffic').addClass('highlight');
+			$(openHighlight).addClass('highlight');
 
-			dom.openTray = "#aboutarea";
-			dom.highlightedItem = "#aboutguitariffic";
+			dom.openTray = openArea;
+			dom.highlightedItem = openHighlight;
 
+			// Load any items here.
+			if (callback != null) {
+				callback();
+			}
 		} else {
 			$(dom.highlightedItem).removeClass('highlight');
 			dom.openTray = null;
@@ -149,6 +123,8 @@ dom = {
 			itemTarget = target.id;
 		}
 		// Insert the actual item.
+		$(chordCanvas).on('click', handlers.editChordHandler);
+
 		var chordItem = $('<li/>').html(chordCanvas);
 		$('#' + itemTarget).append(chordItem);
 
@@ -181,36 +157,36 @@ dom = {
 	 * Given a DOM, load its information into a song object.
 	 */
 	createSongFromDOM : function() {
-		var songName = $("#songname").val();
-		var artist = $("#artistname").val();
+		var songName = $('#songname').val();
+		var artist = $('#artistname').val();
 		if ((songName == null) || (songName == '')) {
-			$().toast("The song name is required.", 'error');
-			$("#songname").focus();
+			$().toast('The song name is required.', 'error');
+			$('#songname').focus();
 			return null;
 		}
 		if ((artist == null) || (artist == '')) {
-			$().toast("The artist is required.", 'error');
-			$("#artistname").focus();
+			$().toast('The artist is required.', 'error');
+			$('#artistname').focus();
 			return null;
 		}
 		var lyrics = new Array();
 		var chords = new Array();
-		$(".songtext").each(function() {
+		$('.songtext').each(function() {
 			lyrics.push($(this).val());
 		});
 
 		// For each OL...
-		$(".chordlist").each(function() {
+		$('.chordlist').each(function() {
 			var chordLine = new Array();
 			chords.push(chordLine);
-			$(this).find("canvas").each(function() {
+			$(this).find('canvas').each(function() {
 				chordLine.push(this.getGuitarChart());
 			});
 		});
 
 		var song = new Song(songName, artist, lyrics, chords);
-		if ($("#songid").val() > 0) {
-			song.id = parseInt($("#songid").val());
+		if ($('#songid').val() > 0) {
+			song.id = parseInt($('#songid').val());
 		}
 
 		return song;
@@ -229,16 +205,16 @@ dom = {
 
 		for (var i = 0; i < song.lyrics.length; i++) {
 			if (i == 0) {
-				$("#firstline").val(song.lyrics[i]);
+				$('#firstline').val(song.lyrics[i]);
 			} else {
 				var row = factory.createTextRow(song.lyrics[i]);
-				$("#lyricstable").append(row);
+				$('#lyricstable').append(row);
 			}
 		}
 	},
 
 	saveSongId : function(id) {
-		$("#songid").val(id);
+		$('#songid').val(id);
 	},
 
 	resetSong : function() {
