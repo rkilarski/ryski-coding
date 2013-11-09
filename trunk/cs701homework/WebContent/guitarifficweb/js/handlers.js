@@ -16,9 +16,10 @@ handlers = {
 				'dragleave', dragDrop.dragLeave).on('drop', dragDrop.drop);
 		$('.songtext').on('keyup', handlers.textKeyHandler);
 
-		$('#load').on('click', handlers.slideAreaHandler);
+		$('#load').on('click', handlers.loadSongsAreaHandler);
 		$('#aboutguitariffic').on('click', handlers.aboutAreaHandler);
 		$('#new').on('click', handlers.newSongHandler);
+		$('#save').on('click', handlers.saveSongHandler);
 		$('#guitarifficWeb').on('click', handlers.setupHandler);
 		$('#addchord').on('click', handlers.newChordHandler);
 
@@ -28,25 +29,30 @@ handlers = {
 	 */
 	newSongHandler : function() {
 		$().toast('Resetting guitariffic for a new song.  Enjoy!');
-		// $('#chordarea ol').not('#chordlistx').remove();
-		$('#chordarea ol').remove();
-
-		// Remove all rows from the table except the first row.
-		$('#lyricstable').find('tr:gt(0)').remove();
-		$('.songtext').val('');
-
-		$('#songname').val('');
-		$('#artistname').val('');
+		dom.resetSong();
 
 		// Close the slider.
-		if ($('#slidearea').hasClass('visible')) {
-			$('#slidearea').slideToggle();
+		if ($('#loadarea').hasClass('visible')) {
+			$('#loadarea').slideToggle();
 		}
 	},
 
 	/**
-	 * When navigating in the text area, use this to handle enter key, arrows,
-	 * etc.
+	 * Save the song.
+	 */
+	saveSongHandler : function() {
+		var song = dom.createSongFromDOM();
+		if (song != null) {
+			if (song.id > 0) {
+				dao.updateSong(song);
+			} else {
+				dao.insertSong(song);
+			}
+		}
+	},
+
+	/**
+	 * When navigating in the text area, use this to handle enter key, arrows, etc.
 	 * 
 	 * @param event
 	 */
@@ -78,75 +84,30 @@ handlers = {
 	/**
 	 * Handle opening and closing the slide area.
 	 */
-	slideAreaHandler : function() {
-		if ($('#guitarifficWeb').hasClass('highlight')) {
-			$('#slidearea').empty();
-			$('#guitarifficWeb').removeClass('highlight');
-			$('#slidearea').removeClass('visible');
-		} else {
-			$('#slidearea').slideToggle();
-		}
-
-		if ($('#slidearea').hasClass('visible')) {
-			$('#slidearea').empty();
-			$('#load').removeClass('highlight');
-			$('#slidearea').removeClass('visible');
-		} else {
-			var newItem = factory.createNewSongItem();
-			$('#slidearea').append(newItem);
-			$('#slidearea').addClass('visible');
-
-			$('#load').addClass('highlight');
-		}
-
+	loadSongsAreaHandler : function() {
+		dom.populateLoadSongsArea();
 	},
 
 	/**
 	 * Handle opening and closing the database setup area.
 	 */
 	setupHandler : function() {
-		if ($('#load').hasClass('highlight')) {
-			$('#slidearea').empty();
-			$('#load').removeClass('highlight');
-			$('#slidearea').removeClass('visible');
-		} else {
-			$('#slidearea').slideToggle();
-		}
-
-		if ($('#slidearea').hasClass('visible')) {
-			$('#slidearea').empty();
-			$('#guitarifficWeb').removeClass('highlight');
-			$('#slidearea').removeClass('visible');
-		} else {
-			var newItem = factory.createResetDatabaseItem();
-			$('#slidearea').append(newItem);
-			$('#slidearea').addClass('visible');
-
-			newItem = factory.createResetSongsItem();
-			$('#slidearea').append(newItem);
-			$('#slidearea').addClass('visible');
-
-			$('#guitarifficWeb').addClass('highlight');
-		}
+		dom.populateSetupArea();
 	},
 
 	/**
 	 * Handle opening and closing the slide area.
 	 */
 	aboutAreaHandler : function() {
-		if ($('#aboutguitariffic').hasClass('highlight')) {
-			$('#aboutguitariffic').removeClass('highlight');
-		} else {
-			$('#aboutguitariffic').addClass('highlight');
-		}
-		$('#aboutarea').slideToggle();
+		dom.populateAboutArea();
 	},
+
 	/**
 	 * Reset the chord database from the XML file.
 	 */
 	resetDatabaseHandler : function() {
 		var filter = '';
-		dao.createChordDatabase(function() {
+		dao.createDatabase(function() {
 			dao.fetchChords(filter, dom.loadChordIntoTray);
 		});
 		handlers.setupHandler();
@@ -159,11 +120,22 @@ handlers = {
 		dao.createSongDatabase();
 		handlers.setupHandler();
 	},
-	
+
 	/**
 	 * Create a new chord.
 	 */
 	newChordHandler : function() {
 		alert('New functionality here!');
+	},
+	/**
+	 * Load a chord.
+	 */
+	loadSongHandler : function(song) {
+		dom.createDOMFromSong(song);
+		// Close the slider.
+		if ($('#loadarea').hasClass('visible')) {
+			$('#loadarea').slideToggle();
+		}
+
 	}
 }

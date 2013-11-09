@@ -23,6 +23,7 @@
 <script type="text/javascript" src="js/dragdrop.js"></script>
 <script type="text/javascript" src="js/loadFromFile.js"></script>
 <script type="text/javascript" src="js/guitarchart.js"></script>
+<script type="text/javascript" src="js/song.js"></script>
 
 <script type="text/javascript" src="js/index.js"></script>
 
@@ -43,7 +44,8 @@
 					<li><a id="aboutguitariffic" href="#">about</a></li>
 				</ul>
 			</div>
-			<div id="slidearea"></div>
+			<div id="loadarea"></div>
+			<div id="setuparea"></div>
 			<div id="aboutarea">
 				<h1>Welcome to guitarifficWeb!</h1>
 				<br>
@@ -53,8 +55,7 @@
 				</p>
 				<br>
 				<p>Powered by:</p>
-				<br>
-				<a href="http://www.w3.org/html/logo/"> <img
+				<br> <a href="http://www.w3.org/html/logo/"> <img
 					src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-graphics-semantics-storage.png"
 					width="229" height="64"
 					alt="HTML5 Powered with CSS3 / Styling, Graphics, 3D &amp; Effects, Semantics, and Offline &amp; Storage"
@@ -62,11 +63,12 @@
 				</a>
 			</div>
 			<div id="textarea">
+				<input type="text" id="songid">
 				<input type="text" id="songname" placeholder="song name" required>
 				<input type="text" id="artistname" placeholder="artist" required>
 				<table id="lyricstable">
 					<tr>
-						<td><input type="text" class="songtext" placeholder="lyrics"></td>
+						<td><input type="text" id="firstline" class="songtext" placeholder="lyrics"></td>
 					</tr>
 				</table>
 			</div>
@@ -78,7 +80,8 @@
 			</div>
 		</div>
 		<div id="chordtrayarea">
-			<input type="text" id="searchfield" placeholder="search"><button id="addchord" alt="Add new chord chart">+</button>
+			<input type="text" id="searchfield" placeholder="search">
+			<button id="addchord" alt="Add new chord chart">+</button>
 			<div id="chordtray"></div>
 		</div>
 	</div>

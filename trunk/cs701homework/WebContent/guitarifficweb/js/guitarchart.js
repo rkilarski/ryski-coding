@@ -61,6 +61,14 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets,
 		addChordGrid(context);
 		addChordFingering(context, this.chordFingering);
 		addChordCircles(context, this.chordFrets);
+
+		//Create a getChordChart method on the canvas object.
+		canvas.getGuitarChart = function(chord) {
+			return function() {
+				return chord;
+			}
+		}(this);
+
 		return canvas;
 	};
 

@@ -51,6 +51,10 @@ body,html {
 	padding-bottom: 25px;
 }
 
+#songid {
+	display: none;
+}
+
 #chordtrayarea {
 	float: right;
 	width: 100px;
@@ -108,7 +112,7 @@ table:hover,#songname:hover,#artistname:hover,#searchfield:hover,#textarea:hover
 	margin-bottom: 10px;
 }
 
-#slidearea,#aboutarea {
+#loadarea,#aboutarea,#setuparea {
 	display: none;
 	border: 1px solid #000000;
 	/*width: 100%;*/
@@ -121,9 +125,10 @@ table:hover,#songname:hover,#artistname:hover,#searchfield:hover,#textarea:hover
 	overflow-y: scroll;
 }
 
-#aboutarea{
+#aboutarea {
 	
 }
+
 #textarea,#chordarea {
 	border: 1px solid #404040;
 	background-color: #ffffff;
@@ -181,7 +186,7 @@ input {
 	margin-top: 10px;
 }
 
-table,input,td,.guitarchart,.guitarcharthighlight,.loaditem,.toast,#textarea,#slidearea,#chordarea,#aboutarea
+table,input,td,.guitarchart,.guitarcharthighlight,.loaditem,.toast,#textarea,#loadarea,#chordarea,#aboutarea,#setuparea
 	{
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
