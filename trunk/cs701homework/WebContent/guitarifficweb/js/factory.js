@@ -77,4 +77,4 @@ factory = {
 		});
 		return newItem;
 	}
-}
+};

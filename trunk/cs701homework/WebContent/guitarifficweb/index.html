@@ -7,13 +7,13 @@
 
 <link type="text/css" rel="stylesheet" href="css/styles.css">
 <link type="text/css" rel="stylesheet"
-	href="js/lib/jquery-ui-1.10.3.custom/css/guitariffic/jquery-ui-1.10.3.custom.min.css">
+	href="js/lib/jquery-ui-1.10.3.custom/css/guitariffic/jquery-ui-1.10.3.custom.css">
 
 <link rel="shortcut icon" type="image/x-icon" href="/res/favicon.ico">
 
 <script type="text/javascript" src="js/lib/jquery-2.0.3.js"></script>
 <script type="text/javascript"
-	src="js/lib/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
+	src="js/lib/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js"></script>
 
 <script type="text/javascript" src="js/toast.js"></script>
 <script type="text/javascript" src="js/factory.js"></script>
@@ -44,7 +44,13 @@
 					<li><a id="aboutguitariffic" href="#">about</a></li>
 				</ul>
 			</div>
-			<div id="loadarea"></div>
+			<div id="loadarea">
+				<div id="searchby">
+					<label for="searchbysong">Song Name</label><input id="searchbysong"
+						type="text"> <label for="searchbyartist">Artist
+						Name</label><input id="searchbyartist" type="text">
+				</div>
+			</div>
 			<div id="setuparea"></div>
 			<div id="aboutarea">
 				<h1>Welcome to guitarifficWeb!</h1>
@@ -63,12 +69,13 @@
 				</a>
 			</div>
 			<div id="textarea">
-				<input type="text" id="songid">
-				<input type="text" id="songname" placeholder="song name" required>
-				<input type="text" id="artistname" placeholder="artist" required>
+				<input type="text" id="songid"> <input type="text"
+					id="songname" placeholder="song name" required> <input
+					type="text" id="artistname" placeholder="artist" required>
 				<table id="lyricstable">
 					<tr>
-						<td><input type="text" id="firstline" class="songtext" placeholder="lyrics"></td>
+						<td><input type="text" id="firstline" class="songtext"
+							placeholder="lyrics"></td>
 					</tr>
 				</table>
 			</div>

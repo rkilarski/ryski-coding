@@ -29,7 +29,7 @@ dao = {
 		};
 		openRequest.onversionchange = function() {
 			localDatabase.close();
-		}
+		};
 	},
 
 	createDatabase : function(fetchChords) {
@@ -37,7 +37,7 @@ dao = {
 		var deleteDbRequest = dao.localDatabase.indexedDB.deleteDatabase(dao.dbName);
 		deleteDbRequest.onblocked = function() {
 			alert('blocked');
-		}
+		};
 		deleteDbRequest.onsuccess = function() {
 			$().toast('Database deleted');
 			var openRequest = dao.localDatabase.indexedDB.open(dao.dbName, 1);
@@ -205,6 +205,14 @@ dao = {
 		}
 	},
 	deleteAllSongs : function() {
+		if (dao.localDatabase != null && dao.localDatabase.db != null) {
+			var store = dao.localDatabase.db.transaction('songs', 'readwrite').objectStore(
+					'songs');
+
+			store.clear().onsuccess = function(event) {
+				$().toast('All songs have been removed.');
+			};
+		}
 
 	}
-}
+};
