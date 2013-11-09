@@ -203,5 +203,8 @@ dao = {
 			$().toast('Error loading chords ' + e, 'error');
 			// console.log(e);
 		}
+	},
+	deleteAllSongs : function() {
+
 	}
 }

@@ -61,7 +61,7 @@ factory = {
 			'class' : 'loaditem',
 			'id' : 'resetsongs'
 		}).html('Delete All Songs');
-		$(newItem).on('click', handlers.resetSongsHandler);
+		$(newItem).on('click', handlers.deleteAllSongs);
 		return newItem;
 	},
 
