@@ -24,20 +24,20 @@ dragDrop = {
 				// var string = JSON.stringify(chord);
 				// e.dataTransfer.setData('text/plain', string);
 				$('#chordarea').css('border', '1px solid #eb009b');
-			}
+			};
 		}(chordCanvas);
 
 		chordCanvas.ondragend = function(chord) {
 			return function(e) {
 				$('#chordarea').css('border', '1px solid #606060');
 				// Currently do nothing.
-			}
+			};
 		}(chord);
 
 		chordCanvas.ondrag = function(chord) {
 			return function(e) {
 				// Currently do nothing.
-			}
+			};
 		}(chord);
 	},
 

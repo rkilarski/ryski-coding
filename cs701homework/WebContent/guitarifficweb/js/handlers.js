@@ -112,14 +112,14 @@ handlers = {
 	/**
 	 * Reset the chord database from the XML file.
 	 */
-	resetSongsHandler : function() {
-		dao.createSongDatabase();
-		handlers.setupHandler();
+	deleteAllSongs : function() {
+		dao.deleteAllSongs();
+		// Close the slider.
+		dom.populateSetupArea();
 	},
 
 	printSongHandler : function() {
 		alert('New functionality here!');
-
 	},
 
 	editChordHandler : function(e) {
@@ -140,4 +140,4 @@ handlers = {
 		// Close the slider.
 		dom.populateLoadSongsArea();
 	}
-}
+};

@@ -227,4 +227,4 @@ dom = {
 		$('#songname').val('');
 		$('#artistname').val('');
 	}
-}
+};

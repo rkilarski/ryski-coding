@@ -64,4 +64,4 @@ chordLoad = {
 		}
 		fetchChords();
 	}
-}
+};

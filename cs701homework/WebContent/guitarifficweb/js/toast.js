@@ -39,5 +39,5 @@
 	    this.css('top', top);
 	    this.css('left', left);
 	    return this;
-	}
-})(jQuery)
+	};
+})(jQuery);
