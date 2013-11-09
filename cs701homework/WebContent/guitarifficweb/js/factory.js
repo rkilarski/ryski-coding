@@ -10,10 +10,14 @@ factory = {
 	/**
 	 * Create a lyric text row item.
 	 */
-	createTextRow : function() {
+	createTextRow : function(text) {
+		if (text == null) {
+			text = '';
+		}
 		var newRow = $('<tr/>').html($('<td/>').html($('<input/>').attr({
 			type : 'text',
-			placeholder : 'lyrics'
+			placeholder : 'lyrics',
+			value: text
 		}).addClass('songtext'))).on('keyup', handlers.textKeyHandler);
 		return newRow;
 	},
@@ -24,6 +28,16 @@ factory = {
 	createNewSongItem : function() {
 		var newItem = $('<div/>').addClass('loaditem').attr('id', 'newsong').html('New Song').on(
 				'click', handlers.newSongHandler);
+		return newItem;
+	},
+
+	/**
+	 * Create a button to launch the 'load song' functionality.
+	 */
+	createSongItem : function(song) {
+		var newItem = $('<div/>').addClass('loaditem').html(song.songName).on('click', function() {
+			return handlers.loadSongHandler(song);
+		});
 		return newItem;
 	},
 

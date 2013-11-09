@@ -18,8 +18,8 @@ dao = {
 	openDatabase : function(fetchChords) {
 		var openRequest = dao.localDatabase.indexedDB.open(dao.dbName);
 		openRequest.onerror = function(e) {
-			$().toast('Database error: ' + e.target.errorCode,'error');
-			// createChordDatabase(fetchChords);
+			$().toast('Database error: ' + e.target.errorCode, 'error');
+			// createDatabase(fetchChords);
 		};
 		openRequest.onsuccess = function() {
 			dao.localDatabase.db = openRequest.result;
@@ -27,12 +27,15 @@ dao = {
 				fetchChords();
 			}
 		};
+		openRequest.onversionchange = function() {
+			localDatabase.close();
+		}
 	},
 
-	createChordDatabase : function(fetchChords) {
+	createDatabase : function(fetchChords) {
 		$().toast('Deleting local database');
 		var deleteDbRequest = dao.localDatabase.indexedDB.deleteDatabase(dao.dbName);
-		deleteDbRequest.onblocked = function(){
+		deleteDbRequest.onblocked = function() {
 			alert('blocked');
 		}
 		deleteDbRequest.onsuccess = function() {
@@ -54,6 +57,18 @@ dao = {
 				chordStore.createIndex('nameIndex', 'chordName', {
 					unique : false
 				});
+
+				var songStore = e.currentTarget.result.createObjectStore('songs', {
+					keyPath : 'id',
+					autoIncrement : true
+				});
+				songStore.createIndex('songIndex', 'songName', {
+					unique : false
+				});
+				songStore.createIndex('artistIndex', 'artistName', {
+					unique : false
+				});
+
 			};
 			deleteDbRequest.onerror = function(e) {
 				$().toast('Database error: ' + e.target.errorCode, 'error');
@@ -61,7 +76,7 @@ dao = {
 		};
 	},
 
-	addChordDB : function(chord) {
+	insertChord : function(chord) {
 		try {
 			var transaction = dao.localDatabase.db.transaction('chords', 'readwrite');
 			var store = transaction.objectStore('chords');
@@ -83,16 +98,16 @@ dao = {
 		}
 	},
 
-	updateChordDB : function(chord) {
+	insertSong : function(song) {
 		try {
-			var transaction = dao.localDatabase.db.transaction('chords', 'readwrite');
-			var store = transaction.objectStore('chords');
-			var jsonStr;
+			var transaction = dao.localDatabase.db.transaction('songs', 'readwrite');
+			var store = transaction.objectStore('songs');
 
 			if (dao.localDatabase != null && dao.localDatabase.db != null) {
-				var request = store.put(chord);
-
+				var request = store.add(song);
 				request.onsuccess = function(e) {
+					$().toast(song.songName + ' by ' + song.artistName + ' has been saved.');
+					dom.saveSongId(e.target.result);
 				};
 
 				request.onerror = function(e) {
@@ -100,7 +115,28 @@ dao = {
 				};
 			}
 		} catch (e) {
-			console.log('Error updating chord ' + e);
+			console.log(e);
+		}
+	},
+
+	updateSong : function(song) {
+		try {
+			var transaction = dao.localDatabase.db.transaction('songs', 'readwrite');
+			var store = transaction.objectStore('songs');
+
+			if (dao.localDatabase != null && dao.localDatabase.db != null) {
+				var request = store.put(song);
+				request.onsuccess = function(e) {
+					$().toast(song.songName + ' by ' + song.artistName + ' has been saved.');
+					dom.saveSongId(e.target.result);
+				};
+
+				request.onerror = function(e) {
+					console.log(e.value);
+				};
+			}
+		} catch (e) {
+			console.log(e);
 		}
 	},
 
@@ -127,6 +163,39 @@ dao = {
 					} else {
 						// Display chord tray.
 						$('#chordtray .guitarchart').fadeIn('slow');
+					}
+				};
+			}
+		} catch (e) {
+			$().toast('Error loading chords ' + e, 'error');
+			// console.log(e);
+		}
+	},
+	/**
+	 * Fetch songs from the database.
+	 */
+	fetchSongs : function(songFilter, artistFilter, loadSong) {
+		songFilter = songFilter.toUpperCase();
+		artistFilter = artistFilter.toUpperCase();
+		try {
+			if (dao.localDatabase != null && dao.localDatabase.db != null) {
+				var store = dao.localDatabase.db.transaction('songs').objectStore('songs');
+				var request = store.openCursor();
+
+				request.onsuccess = function(evt) {
+					var cursor = evt.target.result;
+					if (cursor) {
+						var songDB = cursor.value;
+						if (((songFilter == '') || (songDB.songName.toUpperCase().indexOf(
+								songFilter) != -1))
+								&& ((artistFilter == '') || (songDB.artistName.toUpperCase()
+										.indexOf(artistFilter) != -1))) {
+							var song = new Song(songDB.songName, songDB.artistName, songDB.lyrics,
+									songDB.chords);
+							loadSong(song);
+						}
+						// The same as cursor.continue() but doesn't make Eclipse seize up.
+						cursor['continue']();
 					}
 				};
 			}

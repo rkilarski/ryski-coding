@@ -60,7 +60,7 @@ chordLoad = {
 			// We can't file the getCanvas() function into the database, so
 			// remove it.
 			delete chord.getCanvas;
-			dao.addChordDB(chord);
+			dao.insertChord(chord);
 		}
 		fetchChords();
 	}

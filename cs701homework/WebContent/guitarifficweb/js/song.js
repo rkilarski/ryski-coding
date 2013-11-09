@@ -17,12 +17,9 @@
  * chords = [GuitarChart]
  */
 function Song(songName, artistName, lyrics, chords) {
+	this.id; // = 0; // Database ID.
 	this.songName = songName;
 	this.artistName = artistName;
 	this.lyrics = lyrics;
 	this.chords = chords;
-
-	this.save = function() {
-
-	}
 }
