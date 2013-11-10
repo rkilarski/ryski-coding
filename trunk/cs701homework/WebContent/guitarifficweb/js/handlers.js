@@ -119,7 +119,7 @@ handlers = {
 	},
 
 	printSongHandler : function() {
-		alert('New functionality here!');
+		window.print();
 	},
 
 	editChordHandler : function(e) {

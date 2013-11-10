@@ -17,6 +17,16 @@ body,html {
 	background: #404040;
 }
 
+.songname {
+	color: #EB009B;
+	padding-top: 10px;
+}
+
+.artistname {
+	color: #404040;
+	font-size: small;
+}
+
 #wrap {
 	background: #404040;
 	width: 99%;
@@ -127,6 +137,18 @@ table:hover,#songname:hover,#artistname:hover,#searchfield:hover,#textarea:hover
 
 #aboutarea {
 	
+}
+
+#searchby {
+	width: 100%;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+#searchbysongorartist {
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #textarea,#chordarea {
@@ -282,4 +304,17 @@ Customize the look and feel of the scrollbars.
 
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: rgba(235, 0, 155, 0.4);
+}
+
+@media print {
+	#header,#chordtrayarea,#footer {
+		display: none;
+	}
+	#apparea {
+		background-color: #ffffff;
+		padding-left: 0;
+	}
+	#textarea,#chordarea {
+		border: 0;
+	}
 }

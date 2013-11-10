@@ -17,7 +17,7 @@ factory = {
 		var newRow = $('<tr/>').html($('<td/>').html($('<input/>').attr({
 			type : 'text',
 			placeholder : 'lyrics',
-			value: text
+			value : text
 		}).addClass('songtext'))).on('keyup', handlers.textKeyHandler);
 		return newRow;
 	},
@@ -35,9 +35,12 @@ factory = {
 	 * Create a button to launch the 'load song' functionality.
 	 */
 	createSongItem : function(song) {
-		var newItem = $('<div/>').addClass('loaditem').html(song.songName).on('click', function() {
-			return handlers.loadSongHandler(song);
-		});
+		var newItem = $('<div/>').addClass('loaditem').append(
+				$('<div/>').addClass('songname').html(song.songName)).append(
+				$('<div/>').addClass('artistname').html('by<br>' + song.artistName)).on('click',
+				function() {
+					return handlers.loadSongHandler(song);
+				});
 		return newItem;
 	},
 
@@ -76,5 +79,53 @@ factory = {
 			forcePlaceholderSize : true
 		});
 		return newItem;
+	},
+
+	/**
+	 * Create new ordered list in DOM.
+	 * 
+	 * @returns the id of the new list.
+	 */
+	createNewList : function() {
+		// Get the previous list to insert after.
+		var newid;
+		// If we don't have a previous list, need to create a new one.
+		if (prev == undefined) {
+			newid = 'chordlist1';
+		} else {
+			// Parse the number out of the previous list's id.
+			newid = 'chordlist' + (parseInt(prev.match(/\d+$/), 10) + 1);
+		}
+
+		// Create new list with new id and insert into DOM.
+		var newList = factory.createDiagramList(newid);
+		$('#chordarea').append(newList);
+		return newid;
+	},
+
+	createNewChordListId : function() {
+		var prev = $('#chordarea').children().last().attr('id');
+
+		var newid;
+		// If we don't have a previous list, need to create a new one.
+		if (prev == undefined) {
+			newid = 'chordlist1';
+		} else {
+			// Parse the number out of the previous list's id.
+			newid = 'chordlist' + (parseInt(prev.match(/\d+$/), 10) + 1);
+		}
+		return newid;
+	},
+
+	createSearchBy : function() {
+		var div = $('<div/>').attr('id', 'searchby').append($('<input/>').attr({
+			'id' : 'searchbysongorartist',
+			'placeholder' : 'search by song or artist',
+			'type' : 'text'
+		}).on('keyup', function() {
+			$('#loadarea .loaditem').remove();
+			dao.fetchSongs($(this).val(), dom.loadSongIntoTray);
+		}));
+		return div;
 	}
 };

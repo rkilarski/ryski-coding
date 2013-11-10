@@ -7,17 +7,15 @@
  */
 
 /**
- * Constructor for the Song object.
- * lyrics = [lines]  	
- * 	line = {
- * 			text : "text",
- * 			type : "lyric/label/chord"
- * 		}
+ * Constructor for the Song object. lyrics = [lines] line = { text : "text", type :
+ * "lyric/label/chord" }
  * 
  * chords = [GuitarChart]
  */
-function Song(songName, artistName, lyrics, chords) {
-	this.id; // = 0; // Database ID.
+function Song(songName, artistName, lyrics, chords, id) {
+	if (id != null) {
+		this.id = id; // Database ID.
+	}
 	this.songName = songName;
 	this.artistName = artistName;
 	this.lyrics = lyrics;
