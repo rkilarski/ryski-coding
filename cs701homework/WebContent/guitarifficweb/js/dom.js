@@ -41,7 +41,8 @@ dom = {
 
 	populateLoadSongsArea : function() {
 		dom.populateArea('#loadarea', '#load', function() {
-			dao.fetchSongs('', '', dom.loadSongIntoTray);
+			$('#loadarea').append(factory.createSearchBy());
+			dao.fetchSongs('', dom.loadSongIntoTray);
 		});
 	},
 
@@ -118,38 +119,14 @@ dom = {
 		var itemTarget;
 		// We are dropping on generic area, so create new list item for it.
 		if (target.id == 'chordarea') {
-			itemTarget = createNewList();
+			itemTarget = factory.createNewChordListId();
+			$('#chordarea').append(factory.createDiagramList(itemTarget));
 		} else {
 			itemTarget = target.id;
 		}
 		// Insert the actual item.
 		$(chordCanvas).on('click', handlers.editChordHandler);
-
-		var chordItem = $('<li/>').html(chordCanvas);
-		$('#' + itemTarget).append(chordItem);
-
-		/**
-		 * Private method to create new ordered list in DOM.
-		 * 
-		 * @returns the id of the new list.
-		 */
-		function createNewList() {
-			// Get the previous list to insert after.
-			var prev = $('#chordarea').children().last().attr('id');
-			var newid;
-			// If we don't have a previous list, need to create a new one.
-			if (prev == undefined) {
-				newid = 'chordlist1';
-			} else {
-				// Parse the number out of the previous list's id.
-				newid = 'chordlist' + (parseInt(prev.match(/\d+$/), 10) + 1);
-			}
-
-			// Create new list with new id and insert into DOM.
-			var newList = factory.createDiagramList(newid);
-			$('#chordarea').append(newList);
-			return newid;
-		}
+		$('#' + itemTarget).append($('<li/>').html(chordCanvas));
 
 	},
 
@@ -180,7 +157,9 @@ dom = {
 			var chordLine = new Array();
 			chords.push(chordLine);
 			$(this).find('canvas').each(function() {
-				chordLine.push(this.getGuitarChart());
+				var chord = this.getGuitarChart();
+				delete chord.getCanvas;
+				chordLine.push(chord);
 			});
 		});
 
@@ -202,6 +181,7 @@ dom = {
 
 		$('#songname').val(song.songName);
 		$('#artistname').val(song.artistName);
+		$('#songid').val(song.id);
 
 		for (var i = 0; i < song.lyrics.length; i++) {
 			if (i == 0) {
@@ -209,6 +189,23 @@ dom = {
 			} else {
 				var row = factory.createTextRow(song.lyrics[i]);
 				$('#lyricstable').append(row);
+			}
+		}
+
+		for (var i = 0; i < song.chords.length; i++) {
+			var line = song.chords[i];
+			itemTarget = factory.createNewChordListId();
+			$('#chordarea').append(factory.createDiagramList(itemTarget));
+
+			for (var j = 0; j < line.length; j++) {
+				var chartDB = line[j];
+				var chart = new GuitarChart(chartDB.chordName, chartDB.chordPosition,
+						chartDB.chordFingering, chartDB.chordFrets, chartDB.isLeftHanded);
+
+				var chordCanvas = chart.getCanvas();
+				// Insert the actual item.
+				$(chordCanvas).on('click', handlers.editChordHandler);
+				$('#' + itemTarget).append($('<li/>').html(chordCanvas));
 			}
 		}
 	},

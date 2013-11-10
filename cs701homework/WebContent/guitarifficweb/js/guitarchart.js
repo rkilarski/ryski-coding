@@ -6,9 +6,11 @@
  *This is the guitar chart object; it contains the guitar chord information and generates an image canvas.
  */
 
-function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLeftHanded) {
+function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLeftHanded, id) {
 	// Public properties
-	this.id = 0; // Database ID.
+	if (id != null) {
+		this.id = id; // Database ID.
+	}
 	this.chordName = chordName;
 	this.chordPosition = chordPosition;
 	this.chordFingering = chordFingering;

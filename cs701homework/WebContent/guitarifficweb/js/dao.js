@@ -52,7 +52,8 @@ dao = {
 			openRequest.onupgradeneeded = function(e) {
 				$().toast('Creating object stores');
 				var chordStore = e.currentTarget.result.createObjectStore('chords', {
-					keyPath : 'id'
+					keyPath : 'id',
+					autoIncrement : true
 				});
 				chordStore.createIndex('nameIndex', 'chordName', {
 					unique : false
@@ -155,7 +156,7 @@ dao = {
 								|| (chordDB.chordName.toUpperCase().indexOf(filter) != -1)) {
 							var chord = new GuitarChart(chordDB.chordName, chordDB.chordPosition,
 									chordDB.chordFingering, chordDB.chordFrets,
-									chordDB.isLeftHanded);
+									chordDB.isLeftHanded, chordDB.id);
 							loadChordIntoTray(chord);
 						}
 						// The same as cursor.continue() but doesn't make Eclipse seize up.
@@ -174,9 +175,8 @@ dao = {
 	/**
 	 * Fetch songs from the database.
 	 */
-	fetchSongs : function(songFilter, artistFilter, loadSong) {
-		songFilter = songFilter.toUpperCase();
-		artistFilter = artistFilter.toUpperCase();
+	fetchSongs : function(filter, loadSong) {
+		filter = filter.toUpperCase();
 		try {
 			if (dao.localDatabase != null && dao.localDatabase.db != null) {
 				var store = dao.localDatabase.db.transaction('songs').objectStore('songs');
@@ -186,12 +186,10 @@ dao = {
 					var cursor = evt.target.result;
 					if (cursor) {
 						var songDB = cursor.value;
-						if (((songFilter == '') || (songDB.songName.toUpperCase().indexOf(
-								songFilter) != -1))
-								&& ((artistFilter == '') || (songDB.artistName.toUpperCase()
-										.indexOf(artistFilter) != -1))) {
+						if ((filter == '') || (songDB.songName.toUpperCase().indexOf(filter) != -1)
+								|| (songDB.artistName.toUpperCase().indexOf(filter) != -1)) {
 							var song = new Song(songDB.songName, songDB.artistName, songDB.lyrics,
-									songDB.chords);
+									songDB.chords, songDB.id);
 							loadSong(song);
 						}
 						// The same as cursor.continue() but doesn't make Eclipse seize up.
@@ -206,8 +204,7 @@ dao = {
 	},
 	deleteAllSongs : function() {
 		if (dao.localDatabase != null && dao.localDatabase.db != null) {
-			var store = dao.localDatabase.db.transaction('songs', 'readwrite').objectStore(
-					'songs');
+			var store = dao.localDatabase.db.transaction('songs', 'readwrite').objectStore('songs');
 
 			store.clear().onsuccess = function(event) {
 				$().toast('All songs have been removed.');
