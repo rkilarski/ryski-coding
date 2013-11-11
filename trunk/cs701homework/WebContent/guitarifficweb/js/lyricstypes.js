@@ -1,0 +1,6 @@
+/**
+ * 
+ */
+lyricstypes = {
+	chordRegex : "[ABCDEFG][b#]*"
+};

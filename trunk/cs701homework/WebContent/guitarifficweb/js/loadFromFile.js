@@ -5,63 +5,48 @@
  *
  *This set of functions loads the chords from an XML file.
  */
-chordLoad = {
+loadFromFile = {
+	url : 'res/chords.xml',
 	/**
 	 * XMLHttpRequest - asynchronous loading of XML data
 	 * 
 	 * @param url
 	 */
-	loadChordsFromXMLFile : function(url, fetchChords) {
-		if (window.XMLHttpRequest) {
-			xhr = new XMLHttpRequest();
-		} else if (window.ActiveXObject) {
-			xhr = new ActiveXObject('Microsoft.XMLHTTP');
-		}
-		if (xhr) {
-			xhr.onreadystatechange = function() {
-				chordLoad.loadXMLData(fetchChords);
-			};
-			xhr.open('GET', url, true);
-			xhr.send(null);
-		}
-	},
-	/**
-	 * Callback function when data is loaded
-	 */
-	loadXMLData : function(fetchChords) {
-		if (xhr.readyState == 4) {
-			if (xhr.status == 200) {
-				dao.openDatabase(function() {
-					chordLoad.performLoad(fetchChords);
-				});
-			} else {
-				// showMessage('Unsuccessful in loading from file.');
+	loadChordsFromXMLFile : function(fetchChords) {
+		$.ajax({
+			url : loadFromFile.url,
+			error : function() {
+				$().toast('Uh oh, something went horribly, horribly wrong!', 'error');
+			},
+			complete : function(xhr, result) {
+				if (result != "success") {
+					$().toast('Unsuccessful at loading from XML file!', 'error');
+					return;
+				}
+				var response = xhr.responseXML;
+				var count = 0;
+				// for each chord element
+				$(response).find("chord").each(
+						function() {
+							var chordName = $(this).find('chordName').text();
+							var chordPosition = $(this).find('chordPosition').text();
+							var chordFingering = $(this).find('chordFingering').text();
+							var chordFrets = $(this).find('chordFrets').text();
+							var isLeftHanded = $(this).find('isLeftHanded').text();
+
+							// create a new JSON object for each song
+							var chord = new GuitarChart(chordName, chordPosition, chordFingering,
+									chordFrets, isLeftHanded);
+							count++;
+							chord.id = count;
+
+							// We can't file the getCanvas() function into the database, so
+							// remove it.
+							delete chord.getCanvas;
+							dao.insertChord(chord);
+						});
+				fetchChords();
 			}
-		}
-	},
-
-	/**
-	 * Perform the actual chord load from the file and set into the DOM.
-	 */
-	performLoad : function(fetchChords) {
-		var chords = xhr.responseXML.getElementsByTagName('chord');
-		for ( var i = 0; i < chords.length; i++) {
-			var chordName = chords[i].getElementsByTagName('chordName')[0].textContent;
-			var chordPosition = chords[i].getElementsByTagName('chordPosition')[0].textContent;
-			var chordFingering = chords[i].getElementsByTagName('chordFingering')[0].textContent;
-			var chordFrets = chords[i].getElementsByTagName('chordFrets')[0].textContent;
-			var isLeftHanded = chords[i].getElementsByTagName('isLeftHanded')[0].textContent;
-
-			// create a new JSON object for each song
-			var chord = new GuitarChart(chordName, chordPosition, chordFingering, chordFrets,
-					isLeftHanded);
-			chord.id = i + 1;
-
-			// We can't file the getCanvas() function into the database, so
-			// remove it.
-			delete chord.getCanvas;
-			dao.insertChord(chord);
-		}
-		fetchChords();
+		});
 	}
 };

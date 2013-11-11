@@ -103,6 +103,9 @@ factory = {
 		return newid;
 	},
 
+	/**
+	 * Create a new id for the chord list.
+	 */
 	createNewChordListId : function() {
 		var prev = $('#chordarea').children().last().attr('id');
 
@@ -117,6 +120,9 @@ factory = {
 		return newid;
 	},
 
+	/**
+	 * Create the search by song or artist field.
+	 */
 	createSearchBy : function() {
 		var div = $('<div/>').attr('id', 'searchby').append($('<input/>').attr({
 			'id' : 'searchbysongorartist',
