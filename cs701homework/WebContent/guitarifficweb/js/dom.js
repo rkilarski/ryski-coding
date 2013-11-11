@@ -19,7 +19,7 @@ dom = {
 		$('#chordtray .guitarchart').remove();
 
 		dao.openDatabase(function() {
-			// dao.createDatabase(function() {
+			//dao.createDatabase(function() {
 			dao.fetchChords(filter, dom.loadChordIntoTray);
 		});
 	},

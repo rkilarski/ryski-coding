@@ -6,6 +6,9 @@
  * This is the main entry point for the application.
  */
 
+/**
+ * Set up the application.
+ */
 $(document).ready(function() {
 	$().toast('<p>Welcome to Guitariffic</p><br><p>Loading...</p>');
 

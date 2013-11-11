@@ -30,7 +30,6 @@ dragDrop = {
 		chordCanvas.ondragend = function(chord) {
 			return function(e) {
 				$('#chordarea').css('border', '1px solid #606060');
-				// Currently do nothing.
 			};
 		}(chord);
 
@@ -47,18 +46,21 @@ dragDrop = {
 	dragEnter : function(e) {
 		e.preventDefault();
 	},
+	
 	/**
 	 * Target drag over.
 	 */
 	dragOver : function(e) {
 		e.preventDefault();
 	},
+	
 	/**
 	 * Target drag leave.
 	 */
 	dragLeave : function(e) {
 		e.preventDefault();
 	},
+	
 	/**
 	 * Target drop.
 	 */
@@ -68,4 +70,4 @@ dragDrop = {
 		dom.loadChordIntoArea(dragDropChord, e.target);
 		e.preventDefault();
 	}
-}
+};

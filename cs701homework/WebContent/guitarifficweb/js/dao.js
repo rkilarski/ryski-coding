@@ -28,12 +28,13 @@ dao = {
 			}
 		};
 		openRequest.onversionchange = function() {
-			localDatabase.close();
+			dao.localDatabase.close();
 		};
 	},
 
 	createDatabase : function(fetchChords) {
 		$().toast('Deleting local database');
+		dao.localDatabase.close();
 		var deleteDbRequest = dao.localDatabase.indexedDB.deleteDatabase(dao.dbName);
 		deleteDbRequest.onblocked = function() {
 			alert('blocked');
@@ -47,7 +48,7 @@ dao = {
 			openRequest.onsuccess = function() {
 				$().toast('Database created');
 				dao.localDatabase.db = openRequest.result;
-				chordLoad.loadChordsFromXMLFile('res/chords.xml', fetchChords);
+				loadFromFile.loadChordsFromXMLFile(fetchChords);
 			};
 			openRequest.onupgradeneeded = function(e) {
 				$().toast('Creating object stores');
