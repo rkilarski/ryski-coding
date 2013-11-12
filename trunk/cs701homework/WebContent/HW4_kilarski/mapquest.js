@@ -7,9 +7,7 @@
  * Set up form and run on default values.
  */
 $(function() {
-	var from = $('#from').val();
-	var to = $('#to').val();
-	mapquest.getDirections(from, to);
+	handlers.changeValueHandler();
 
 	// Attach handlers
 	$('#from').on('change', handlers.changeValueHandler);
@@ -70,8 +68,8 @@ mapquest = {
 	 */
 	buildURL : function(from, to) {
 		var apikey = 'mjtd%7Clu61200ynl%2Cas%3Do5-50ylq';
-		return 'http://www.mapquestapi.com/directions/v1/route?key=' + apikey + '&from=' + from
-				+ '&to=' + to;
+		return 'http://www.mapquestapi.com/directions/v1/route?key=' + apikey + '&from=' + encodeURIComponent(from)
+				+ '&to=' + encodeURIComponent(to);
 	}
 };
 
