@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang='en' ng-app>
+<head>
+<title>Book Shopping Cart</title>
+
+<script type="text/javascript" src="js/angular.js"></script>
+<script type="text/javascript" src="hw.js"></script>
+<link rel="stylesheet" href="css/ex05.css">
+</head>
+
+<body ng-controller="CartController" ng-init="initialize()">
+
+	<table>
+		<caption>
+			<b>My Books</b>
+		</caption>
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Qty</th>
+				<th>Unit Price</th>
+				<th>$ Unit Price</th>
+				<th>Line Total</th>
+				<th>Total {{totals | currency}}</th>
+			</tr>
+		</thead>
+		<tbody ng-repeat="book in books">
+			<tr>
+				<td><input ng-model="book.title" size="{{book.title}}"></td>
+				<td><input ng-model="book.qty" size="2"></td>
+				<td><input ng-model="book.price"
+					size="{{book.price | currency}}"></td>
+				<td>{{book.price | currency}}</td>
+				<td>{{book.price * book.qty | currency}}</td>
+				<td>
+					<button ng-click="removeBook($index)">Remove</button>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th></th>
+				<th><button ng-click="newBook()">New</button></th>
+				<th></th>
+				<th></th>
+				<th><button ng-click="saveCart()">Save</button></th>
+				<th></th>
+			</tr>
+		</tfoot>
+	</table>
+	<b>Book Count : {{count}}</b>
+</body>
+</html>
+
+

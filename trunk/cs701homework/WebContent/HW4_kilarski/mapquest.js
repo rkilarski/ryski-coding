@@ -7,7 +7,12 @@
  * Set up form and run on default values.
  */
 $(function() {
-	handlers.changeValueHandler();
+	dom.hideDirections();
+	if (navigation.checkNavigation()) {
+		navigation.getLocation();
+	} else {
+		handlers.changeValueHandler();
+	}
 
 	// Attach handlers
 	$('#from').on('change', handlers.changeValueHandler);
@@ -29,6 +34,36 @@ handlers = {
 			return;
 		}
 		mapquest.getDirections(from, to);
+	}
+};
+
+/**
+ * Object to interact with navigation.
+ */
+navigation = {
+	checkNavigation : function() {
+		if (navigator.geolocation) {
+			return true;
+		}
+		return false;
+	},
+	getLocation : function() {
+		var options = {
+			enableHighAccuracy : true,
+			timeout : 5000,
+			maximumAge : 0
+		};
+		navigator.geolocation.getCurrentPosition(navigation.handleLocation,
+				navigation.handleNavigatorError, options);
+	},
+	handleLocation : function(position) {
+		var latitude = position.coords.latitude;
+		var longitude = position.coords.longitude;
+		dom.setFrom(latitude + ',', longitude);
+		handlers.changeValueHandler();
+	},
+	handleNavigatorError : function(error) {
+		console.log('Error with accessing navigation information');
 	}
 };
 
@@ -68,8 +103,8 @@ mapquest = {
 	 */
 	buildURL : function(from, to) {
 		var apikey = 'mjtd%7Clu61200ynl%2Cas%3Do5-50ylq';
-		return 'http://www.mapquestapi.com/directions/v1/route?key=' + apikey + '&from=' + encodeURIComponent(from)
-				+ '&to=' + encodeURIComponent(to);
+		return 'http://www.mapquestapi.com/directions/v1/route?key=' + apikey + '&from='
+				+ encodeURIComponent(from) + '&to=' + encodeURIComponent(to);
 	}
 };
 
@@ -77,6 +112,9 @@ mapquest = {
  * dom object to control all DOM interactions.
  */
 dom = {
+	setFrom : function(location) {
+		$('#from').val(location);
+	},
 	addSummary : function(distance, time) {
 		$('#directions').append(factory.createHeading('Trip Summary'));
 		$('#directions').append(

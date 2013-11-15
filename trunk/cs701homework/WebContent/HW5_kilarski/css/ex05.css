@@ -1,0 +1,8 @@
+table { border-collapse: collapse; font-family: Futura, Arial, sans-serif; }
+caption { font-size: larger; }
+th, td { padding: .5em; }
+th, thead { background: #000; color: #fff; border: 1px solid #000; }
+tr { background: #ccc; }
+tr:hover { background: #def; }
+td { border-right: 1px solid #777; }
+table { border: 2px solid #777; }
