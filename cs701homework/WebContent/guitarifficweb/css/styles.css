@@ -16,7 +16,10 @@ body,html {
 	color: #EB009B;
 	background: #404040;
 }
-
+#logo{
+	margin-left: auto;
+	margin-right: auto;
+}
 .songname {
 	color: #EB009B;
 	padding-top: 10px;
@@ -136,7 +139,7 @@ table:hover,#songname:hover,#artistname:hover,#searchfield:hover,#textarea:hover
 }
 
 #aboutarea {
-	
+	text-align: center;
 }
 
 #searchby {
@@ -208,7 +211,7 @@ input {
 	margin-top: 10px;
 }
 
-table,input,td,.guitarchart,.guitarcharthighlight,.loaditem,.toast,#textarea,#loadarea,#chordarea,#aboutarea,#setuparea
+table,input,td,.guitarchart,.guitarcharthighlight,.loaditem,.toast,#textarea,#loadarea,#chordarea,#aboutarea,#setuparea,#logo
 	{
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;

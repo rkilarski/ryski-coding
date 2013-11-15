@@ -1,0 +1,8 @@
+.done-true {
+  text-decoration: line-through;
+  color: #777;
+}
+
+.done-false {
+	text-shadow: 0 0 0.2em #8F7;
+}
