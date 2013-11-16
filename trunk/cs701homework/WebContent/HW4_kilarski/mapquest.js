@@ -9,8 +9,12 @@
 $(function() {
 	dom.hideDirections();
 	if (navigation.checkNavigation()) {
+		dom.setFrom('<geolocating, please wait...>');
+		dom.setTo('New York, NY');
 		navigation.getLocation();
 	} else {
+		dom.setFrom('Boston, MA');
+		dom.setTo('New York, NY');
 		handlers.changeValueHandler();
 	}
 
@@ -59,7 +63,7 @@ navigation = {
 	handleLocation : function(position) {
 		var latitude = position.coords.latitude;
 		var longitude = position.coords.longitude;
-		dom.setFrom(latitude + ',', longitude);
+		dom.setFrom(latitude + ',' + longitude);
 		handlers.changeValueHandler();
 	},
 	handleNavigatorError : function(error) {
@@ -76,11 +80,14 @@ mapquest = {
 	 */
 	getDirections : function(from, to) {
 		dom.resetDirections();
+		dom.insertWaitListItem();
+		dom.showDirections();
 		var url = mapquest.buildURL(from, to);
 		$.getJSON(url, function(data) {
 			var distance = data.route.distance;
 			var time = data.route.formattedTime;
 
+			dom.resetDirections();
 			dom.addSummary(distance, time);
 			var maneuvers = data.route.legs[0].maneuvers;
 			var counter = 0;
@@ -93,7 +100,6 @@ mapquest = {
 				dom.addListItem(counter, narrative, distance, mapUrl, iconUrl);
 			});
 			dom.refreshList();
-			dom.showDirections();
 		});
 
 	},
@@ -114,6 +120,9 @@ mapquest = {
 dom = {
 	setFrom : function(location) {
 		$('#from').val(location);
+	},
+	setTo : function(location) {
+		$('#to').val(location);
 	},
 	addSummary : function(distance, time) {
 		$('#directions').append(factory.createHeading('Trip Summary'));
@@ -139,7 +148,11 @@ dom = {
 	},
 	refreshList : function() {
 		$('#directions').listview('refresh');
+	},
+	insertWaitListItem : function() {
+		$('#directions').append(factory.createHeading('Accessing MapQuest... Please wait.'));
 	}
+
 };
 
 /**
