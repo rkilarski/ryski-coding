@@ -6,6 +6,8 @@
 <script type="text/javascript" src="js/angular.js"></script>
 <script type="text/javascript" src="hw.js"></script>
 <link rel="stylesheet" href="css/ex05.css">
+<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-combined.min.css" rel="stylesheet">
+
 </head>
 
 <body ng-controller="CartController" ng-init="initialize()">
@@ -27,7 +29,7 @@
 		<tbody ng-repeat="book in books">
 			<tr>
 				<td><input ng-model="book.title" size="{{book.title}}"></td>
-				<td><input ng-model="book.qty" size="2"></td>
+				<td><input type="number" ng-model="book.qty" size="2"></td>
 				<td><input ng-model="book.price"
 					size="{{book.price | currency}}"></td>
 				<td>{{book.price | currency}}</td>

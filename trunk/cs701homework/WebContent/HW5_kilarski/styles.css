@@ -5,16 +5,16 @@
  */
 * {
 	font-family: Arial, sans-serif;
-	color: #330099;
+	color: #993300;
 }
 
 body {
-	background-color: #330099;
+	background-color: #993300;
 }
 
 a,a:visited {
 	text-decoration: none;
-	color: #330099;
+	color: #993300;
 }
 
 a:hover {
