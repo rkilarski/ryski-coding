@@ -33,7 +33,11 @@ function CartController($scope) {
 	 * Update the book count.
 	 */
 	$scope.updateBookCount = function() {
-		$scope.count = $scope.books.length;
+		var count = 0;
+		angular.forEach($scope.books, function(book) {
+			count = count + book.qty;
+		});
+		$scope.count = count;
 	};
 
 	/**
@@ -119,6 +123,9 @@ dao = {
 		return defaults;
 	},
 
+	/**
+	 * Create a canonical new book.
+	 */
 	buildNewBook : function() {
 		var newBook = {
 			title : 'New Book',
