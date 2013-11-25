@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="angularMapquest">
+<head>
+<meta charset="UTF-8">
+<title>AngularJS MapQuest</title>
+
+<link rel="stylesheet"
+	href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+<link
+	href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-combined.min.css"
+	rel="stylesheet">
+
+<link type="text/css" rel="stylesheet" href="css/styles.css">
+
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/angular.js"></script>
+<script type="text/javascript" src="mapquest.js"></script>
+
+</head>
+<body ng-controller="mapquestController" ng-init="initialize()">
+	<div class="wrapper">
+		<div id="header">
+			<h1>AngularJS MapQuest</h1>
+		</div>
+		<div id="content">
+			<label for="from">From:</label> <input type="text" name="from"
+				id="from" ng-model="mapsearch.from" /> <label for="to">To:</label> <input
+				type="text" name="to" id="to" ng-model="mapsearch.to" />
+			<button id="getdirections" ng-click="handlers.changeValueHandler()">Get
+				Directions</button>
+
+			<div id="resultsarea">
+				<ul data-role="listview" data-inset="true" id="directions"></ul>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+		<h4>Ryszard Kilarski Homework 6</h4>
+	</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+/*
+ * author: Ryszard Kilarski
+ * email: emrys@bu.edu
+ * BUI ID: U81-39-8560
+ */
+* {
+	font-family: Arial, sans-serif;
+	color: #CC6633;
+}
+
+body {
+	background-color: #CC6633;
+}
+
+a,a:visited {
+	text-decoration: none;
+	color: #CC6633;
+}
+
+a:hover {
+	color: #7E8995;
+}
+
+.wrapper {
+	width: 80%;
+	margin-top: 50px;
+	padding: 20px;
+	background-color: #ffffff;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+fieldset {
+	border: 1px solid #e78f08;
+	margin-bottom: 10px;
+	width: 400px;
+	background-color: #ffffff;
+}
+
+fieldset,.wrapper {
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	border-radius: 10px;
+}
+
+#footer {
+	color: #ffffff;
+	text-align: center;
+}
