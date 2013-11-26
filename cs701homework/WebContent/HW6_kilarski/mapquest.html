@@ -12,8 +12,6 @@
 
 <link type="text/css" rel="stylesheet" href="css/styles.css">
 
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="js/angular.js"></script>
 <script type="text/javascript" src="mapquest.js"></script>
 
@@ -24,13 +22,15 @@
 			<h1>AngularJS MapQuest</h1>
 		</div>
 		<div id="content">
-			<label for="from">From:</label> <input type="text" name="from"
-				id="from" ng-model="mapsearch.from" /> <label for="to">To:</label>
-			<input type="text" name="to" id="to" ng-model="mapsearch.to" />
-			<button id="getdirections" ng-click="onClick()">Get
-				Directions</button>
-
-			<div id="resultsarea">
+			<form id="searchform">
+				<label for="from">From:</label> <input type="text" name="from"
+					id="from" ng-model="mapsearch.from" required /> <label for="to">To:</label>
+				<input type="text" name="to" id="to" ng-model="mapsearch.to"
+					required /> <br>
+				<button id="getdirections" ng-disabled="searchform$invalid"
+					ng-click="onClick()">Get Directions</button>
+			</form>
+			<div id="resultsarea" ng-show="directions.length>0">
 				<table>
 					<caption>
 						<b>Distance:{{directions.tripDistance}}
@@ -46,9 +46,9 @@
 					</thead>
 					<tbody ng-repeat="direction in directions">
 						<tr>
-							<td><img src={{direction.image}}></td>
+							<td><img src="{{direction.image}}"></td>
 							<td>{{direction.step}}</td>
-							<td><a href={{direction.link}}>{{direction.text}}</a></td>
+							<td><a href="{{direction.link}}">{{direction.text}}</a></td>
 							<td>{{direction.distance}}</td>
 						</tr>
 					</tbody>
