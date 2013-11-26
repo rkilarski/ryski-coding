@@ -14,5 +14,6 @@ $(document).ready(function() {
 
 	dom.loadChords('');
 	handlers.attach();
+	dom.initializeTextCanvas();
 	$('.chordlist').sortable();
 });

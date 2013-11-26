@@ -3,9 +3,10 @@
  * email: emrys@bu.edu 
  * BU ID: U81-39-8560
  * 
- * These are the miscellaneous event handlers.
+ * These are the event handlers.
  */
 handlers = {
+	searchTimeout : false,
 
 	/**
 	 * Attach all non-dynamic handlers to their items on the form.
@@ -14,8 +15,6 @@ handlers = {
 		$('#searchfield').on('keyup', handlers.searchFieldHandler);
 		$('#chordarea').on('dragenter', dragDrop.dragEnter).on('dragover', dragDrop.dragOver).on(
 				'dragleave', dragDrop.dragLeave).on('drop', dragDrop.drop);
-		$('.songtext').on('keyup', handlers.textKeyHandler);
-
 		$('#load').on('click', handlers.loadSongsAreaHandler);
 		$('#aboutguitariffic').on('click', handlers.aboutAreaHandler);
 		$('#new').on('click', handlers.newSongHandler);
@@ -23,7 +22,6 @@ handlers = {
 		$('#print').on('click', handlers.printSongHandler);
 		$('#guitarifficWeb').on('click', handlers.setupHandler);
 		$('#addchord').on('click', handlers.newChordHandler);
-
 	},
 	/**
 	 * Reset the canvas.
@@ -48,11 +46,13 @@ handlers = {
 	},
 
 	/**
-	 * When navigating in the text area, use this to handle enter key, arrows, etc.
+	 * When navigating in the text area, use this to handle enter key, arrows,
+	 * etc.
 	 * 
 	 * @param event
 	 */
 	textKeyHandler : function(event) {
+		$(this).removeClass().addClass('songtext').addClass(lyricstypes.getClass($(this).val()));
 		switch (event.which) {
 			case (13): // Enter
 				var newRow = factory.createTextRow();
@@ -74,7 +74,14 @@ handlers = {
 	 * Handler for the search field. Load the chords every time this is called.
 	 */
 	searchFieldHandler : function() {
-		dom.loadChords($('#searchfield').val());
+		if (handlers.searchTimeout) {
+			return;
+		}
+		handlers.searchTimeout = true;
+		setTimeout(function() {
+			dom.loadChords($('#searchfield').val());
+			handlers.searchTimeout = false;
+		}, 1000);
 	},
 
 	/**
@@ -139,5 +146,34 @@ handlers = {
 		dom.createDOMFromSong(song);
 		// Close the slider.
 		dom.populateLoadSongsArea();
+	},
+
+	/**
+	 * Hovering over lyrics
+	 */
+	hoverStartLyrics : function() {
+		var elementClass = $(this).attr('class');
+		var classToEnable = null;
+		if (elementClass.indexOf('headerLineType') > 0) {
+			classToEnable = '.headerLineType';
+		} else if (elementClass.indexOf('chordLineType') > 0) {
+			classToEnable = '.chordLineType';
+		} else if (elementClass.indexOf('lyricsLineType') > 0) {
+			classToEnable = '.lyricsLineType';
+		} else {
+			classToEnable = '.songtext';
+		}
+
+		$(classToEnable).each(function() {
+			$(this).addClass('gotFocusLineType').removeClass('lostFocusLineType');
+		});
+		$('.songtext').not(classToEnable).each(function() {
+			$(this).addClass('lostFocusLineType').removeClass('gotFocusLineType');
+		});
+
+	},
+	hoverEndLyrics : function() {
+		$('.songtext').removeClass('gotFocusLineType');
+		$('.songtext').removeClass('lostFocusLineType');
 	}
 };

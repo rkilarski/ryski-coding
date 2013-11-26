@@ -16,10 +16,12 @@ body,html {
 	color: #EB009B;
 	background: #404040;
 }
-#logo{
+
+#logo {
 	margin-left: auto;
 	margin-right: auto;
 }
+
 .songname {
 	color: #EB009B;
 	padding-top: 10px;
@@ -320,4 +322,24 @@ Customize the look and feel of the scrollbars.
 	#textarea,#chordarea {
 		border: 0;
 	}
+}
+
+.headerLineType {
+	font-style: italic;
+}
+
+.chordLineType {
+	font-weight: bold;
+}
+
+.lyricsLineType { /*Currently the lyric type has no style*/
+	
+}
+
+.gotFocusLineType {
+	background-color: #ffffff;
+}
+
+.lostFocusLineType {
+	background-color: #F0F0F0;
 }
