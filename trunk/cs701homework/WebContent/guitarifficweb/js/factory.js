@@ -14,14 +14,19 @@ factory = {
 		if (text == null) {
 			text = '';
 		}
-		var newRow = $('<tr/>').html($('<td/>').html($('<input/>').attr({
-			type : 'text',
-			placeholder : 'lyrics',
-			value : text
-		}).addClass('songtext'))).on('keyup', handlers.textKeyHandler);
+		var newRow = $('<tr/>').html($('<td/>').html(factory.createTextElement(text)));
 		return newRow;
 	},
 
+	createTextElement : function(text) {
+		var newElement = $('<input/>').attr({
+			type : 'text',
+			placeholder : 'lyrics',
+			value : text
+		}).addClass('songtext').on('keyup', handlers.textKeyHandler).hover(
+				handlers.hoverStartLyrics, handlers.hoverEndLyrics);
+		return newElement;
+	},
 	/**
 	 * Create a button to launch the 'new song' functionality.
 	 */
