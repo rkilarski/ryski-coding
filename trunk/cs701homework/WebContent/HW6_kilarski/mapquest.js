@@ -12,7 +12,7 @@ angular.module('angularMapquest', []).controller(
 			 */
 			$scope.initialize = function() {
 				$scope.mapsearch = {};
-				// dom.hideDirections();
+				$scope.directions = new Array;
 				if (navigator.geolocation) {
 					$scope.mapsearch.from = '<geolocating, please wait...>';
 					$scope.mapsearch.to = 'New York, NY';
@@ -22,14 +22,15 @@ angular.module('angularMapquest', []).controller(
 					$scope.mapsearch.to = 'New York, NY';
 				}
 			};
+
 			/**
-			 * When the user changes either the from or to value, redraw the map.
+			 * When the user changes either the from or to value, redraw the
+			 * map.
 			 */
 			$scope.onClick = function() {
 				var from = $scope.mapsearch.from;
 				var to = $scope.mapsearch.to;
 				if ((from == "") || (to == "")) {
-					// dom.hideDirections();
 					return;
 				}
 				$scope.getDirections(from, to);
@@ -55,53 +56,43 @@ angular.module('angularMapquest', []).controller(
 			};
 
 			/**
-			 * Perform the call to MapQuest and populate the information on the form.
+			 * Perform the call to MapQuest and populate the information on the
+			 * form.
 			 */
 			$scope.getDirections = function(from, to) {
-				// dom.resetDirections();
-				// dom.insertWaitListItem();
-				// dom.showDirections();
-				// var url = mapquest.buildURL(from, to);
 				var apikey = 'mjtd%7Clu61200ynl%2Cas%3Do5-50ylq';
 				var url = 'http://www.mapquestapi.com/directions/v1/route?key=' + apikey + '&from='
 						+ encodeURIComponent(from) + '&to=' + encodeURIComponent(to);
-				$http({
-					method : 'JSONP',
-					url : url
-				}).success(function(data) {
-					console.log(data);
-					var directions = [];
-					var counter = 0;
-					$scope.directions.tripDistance = data.route.distance;
-					$scope.directions.tripTime = data.route.formattedTime;
-					var maneuvers = data.route.legs[0].maneuvers;
-					angular.forEach(maneuvers, function(maneuver) {
-						var direction = {
-							image : maneuver.iconUrl,
-							step : counter++,
-							link : maneuver.mapUrl,
-							text : maneuver.narrative,
-							distance : maneuver.distance
-						};
-						directions.push(direction);
-					});
-					$scope.directions = directions;
+				$http.get("cgi-bin/getData.py", {
+					params : {
+						url : url
+					}
+				}).success(
+						function(data, status, headers, config) {
+							try {
+								console.log(data);
+								var directions = new Array;
+								var counter = 0;
+								directions.tripDistance = data.route.distance;
+								directions.tripTime = data.route.formattedTime;
+								var maneuvers = data.route.legs[0].maneuvers;
+								angular.forEach(maneuvers, function(maneuver) {
+									var direction = {
+										image : maneuver.iconUrl,
+										step : counter++,
+										link : maneuver.mapUrl,
+										text : maneuver.narrative,
+										distance : maneuver.distance
+									};
+									directions.push(direction);
+								});
+								$scope.directions = directions;
+							} catch (error) {
+								alert('Unable to access MapQuest. Please try again later. Error: '
+										+ error.message);
+							}
+						}).error(function(data, status, headers, config) {
+					alert('Unable to access MapQuest. Please try again later.');
 				});
 			};
 		});
-
-/**
- * dom object to control all DOM interactions.
- */
-var dom = {
-	hideDirections : function() {
-		dom.resetDirections();
-		$("#resultsarea").hide();
-	},
-	showDirections : function() {
-		$("#resultsarea").show();
-	},
-	resetDirections : function() {
-		$('#directions').empty();
-	}
-};
