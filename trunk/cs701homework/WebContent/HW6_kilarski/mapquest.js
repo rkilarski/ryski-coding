@@ -6,7 +6,7 @@
 
 angular.module('angularMapquest', []).controller(
 		'mapquestController',
-		function($scope, $http) {
+		function($scope, $http, $timeout) {
 			/**
 			 * Set up form.
 			 */
@@ -22,12 +22,35 @@ angular.module('angularMapquest', []).controller(
 					$scope.mapsearch.to = 'New York, NY';
 				}
 			};
-
+			var timeout;
+			$scope.$watch('mapsearch.from', function(newVal) {
+				if (newVal) {
+					if (timeout) {
+						$scope.directions = new Array;
+						$timeout.cancel(timeout);
+					}
+					timeout = $timeout(function() {
+						$scope.onChange();
+					}, 600);
+				}
+				;
+			});
+			$scope.$watch('mapsearch.to', function(newVal) {
+				if (newVal) {
+					if (timeout) {
+						$scope.directions = new Array;
+						$timeout.cancel(timeout);
+					}
+					timeout = $timeout(function() {
+						$scope.onChange();
+					}, 600);
+				}
+				;
+			});
 			/**
-			 * When the user changes either the from or to value, redraw the
-			 * map.
+			 * When the user clicks on the button, redraw the map.
 			 */
-			$scope.onClick = function() {
+			$scope.onChange = function() {
 				var from = $scope.mapsearch.from;
 				var to = $scope.mapsearch.to;
 				if ((from == "") || (to == "")) {
@@ -36,17 +59,17 @@ angular.module('angularMapquest', []).controller(
 				$scope.getDirections(from, to);
 			};
 			/**
-			 * Object to interact with navigation.
+			 * Get current location.
 			 */
 			$scope.getLocation = function() {
 				navigator.geolocation.getCurrentPosition(function(position) {
 					var latitude = position.coords.latitude;
 					var longitude = position.coords.longitude;
 					$scope.mapsearch.from = latitude + ',' + longitude;
-					$scope.onClick();
+					$scope.onChange();
 				}, function(error) {
 					$scope.mapsearch.from = 'Boston, MA';
-					$scope.onClick();
+					$scope.onChange();
 					console.log('Error with accessing navigation information');
 				}, {
 					enableHighAccuracy : true,

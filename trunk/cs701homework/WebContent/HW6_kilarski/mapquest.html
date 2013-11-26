@@ -23,37 +23,29 @@
 		</div>
 		<div id="content">
 			<form id="searchform">
-				<label for="from">From:</label> <input type="text" name="from"
-					id="from" ng-model="mapsearch.from" required /> <label for="to">To:</label>
-				<input type="text" name="to" id="to" ng-model="mapsearch.to"
-					required /> <br>
+				<input type="text" name="from" id="from" ng-model="mapsearch.from"
+					required placeholder="from" /> <input type="text" name="to"
+					id="to" ng-model="mapsearch.to" required placeholder="to" /> <br>
 				<button id="getdirections" ng-disabled="searchform$invalid"
-					ng-click="onClick()">Get Directions</button>
+					ng-click="onChange()">Get Directions</button>
+				<div id="resultsarea" ng-show="directions.length>0">
+					<table>
+						<caption>
+							<b>From:</b> {{mapsearch.from}}, <b>To:</b> {{mapsearch.to}} <br>
+							<b>Distance:</b> {{directions.tripDistance}}m - <b>Time:</b>
+							{{directions.tripTime}}
+						</caption>
+						<tbody ng-repeat="direction in directions">
+							<tr>
+								<td><img src="{{direction.image}}"></td>
+								<td>{{direction.step}}.</td>
+								<td><a href="{{direction.link}}">{{direction.text}}</a></td>
+								<td>{{direction.distance}}m</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</form>
-			<div id="resultsarea" ng-show="directions.length>0">
-				<table>
-					<caption>
-						<b>Distance:{{directions.tripDistance}}
-							Time:{{directions.tripTime}} </b>
-					</caption>
-					<thead>
-						<tr>
-							<th>Title</th>
-							<th>Qty</th>
-							<th>Unit Price</th>
-							<th>$ Unit Price</th>
-						</tr>
-					</thead>
-					<tbody ng-repeat="direction in directions">
-						<tr>
-							<td><img src="{{direction.image}}"></td>
-							<td>{{direction.step}}</td>
-							<td><a href="{{direction.link}}">{{direction.text}}</a></td>
-							<td>{{direction.distance}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
 		</div>
 	</div>
 	<div id="footer">
