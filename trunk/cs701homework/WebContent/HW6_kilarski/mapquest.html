@@ -25,13 +25,34 @@
 		</div>
 		<div id="content">
 			<label for="from">From:</label> <input type="text" name="from"
-				id="from" ng-model="mapsearch.from" /> <label for="to">To:</label> <input
-				type="text" name="to" id="to" ng-model="mapsearch.to" />
-			<button id="getdirections" ng-click="handlers.changeValueHandler()">Get
+				id="from" ng-model="mapsearch.from" /> <label for="to">To:</label>
+			<input type="text" name="to" id="to" ng-model="mapsearch.to" />
+			<button id="getdirections" ng-click="onClick()">Get
 				Directions</button>
 
 			<div id="resultsarea">
-				<ul data-role="listview" data-inset="true" id="directions"></ul>
+				<table>
+					<caption>
+						<b>Distance:{{directions.tripDistance}}
+							Time:{{directions.tripTime}} </b>
+					</caption>
+					<thead>
+						<tr>
+							<th>Title</th>
+							<th>Qty</th>
+							<th>Unit Price</th>
+							<th>$ Unit Price</th>
+						</tr>
+					</thead>
+					<tbody ng-repeat="direction in directions">
+						<tr>
+							<td><img src={{direction.image}}></td>
+							<td>{{direction.step}}</td>
+							<td><a href={{direction.link}}>{{direction.text}}</a></td>
+							<td>{{direction.distance}}</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
