@@ -136,6 +136,9 @@ handlers = {
 
 	editChordHandler : function(e) {
 		$().toast('Future Functionality: Edit chord ' + e.target.getGuitarChart().chordName);
+		$('#editchord').dialog({
+			modal : true
+		});
 	},
 
 	/**
