@@ -22,6 +22,11 @@ handlers = {
 		$('#print').on('click', handlers.printSongHandler);
 		$('#guitarifficWeb').on('click', handlers.setupHandler);
 		$('#addchord').on('click', handlers.newChordHandler);
+		$('#artistname').on('blur', handlers.changeArtist);
+	},
+
+	changeArtist : function() {
+		flickr.callFlickr($('#artistname').val());
 	},
 	/**
 	 * Reset the canvas.
@@ -130,14 +135,14 @@ handlers = {
 	},
 
 	editChordHandler : function(e) {
-		alert('Edit chord ' + e.target.getGuitarChart().chordName);
+		$().toast('Future Functionality: Edit chord ' + e.target.getGuitarChart().chordName);
 	},
 
 	/**
 	 * Create a new chord.
 	 */
 	newChordHandler : function() {
-		alert('New functionality here!');
+		$().toast('Future Functionality: Add new chord');
 	},
 	/**
 	 * Load a chord.
