@@ -138,5 +138,31 @@ factory = {
 			dao.fetchSongs($(this).val(), dom.loadSongIntoTray);
 		}));
 		return div;
+	},
+	createFingeringSelect : function(finger) {
+		var item = $('select').attr('id', "fingering" + finger);
+		for ( var i = 0; i < 6; i++) {
+			$(item).append(createFingeringOption(i));
+		}
+		return item;
+
+		/**
+		 * Inner function to create each option.
+		 */
+		function createFingeringOption(option) {
+			if (option == 0) {
+				option = ' ';
+			}
+			var item = $('option').attr('value', option).val(option);
+			return item;
+		}
+	},
+	createFretRadio : function(string, fret) {
+		var item = $('input').attr({
+			'type' : 'radio',
+			'name' : 'string' + string,
+			'value' : fret
+		});
+		return item;
 	}
 };
