@@ -50,19 +50,19 @@ factory = {
 	},
 
 	/**
-	 * Create a button to launch the 'reset database' functionality.
+	 * Create a button to launch the 'delete chord database' functionality.
 	 */
 	createResetDatabaseItem : function() {
 		var newItem = $('<div/>').attr({
 			'class' : 'loaditem',
 			'id' : 'resetdatabase'
-		}).html('Reset Database');
+		}).html('Delete Chord Database');
 		$(newItem).on('click', handlers.resetDatabaseHandler);
 		return newItem;
 	},
 
 	/**
-	 * Create a button to launch the 'reset database' functionality.
+	 * Create a button to launch the 'recreate chord database' functionality.
 	 */
 	recreateChordDatabaseItem : function() {
 		var newItem = $('<div/>').attr({
