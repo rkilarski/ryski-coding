@@ -16,8 +16,8 @@ dom = {
 		$("#lyricstable").append(newRow);
 	},
 	/**
-	 * Load the chords. This function will load from the database and, if that
-	 * fails, load from the XML file and then load from the database.
+	 * Load the chords. This function will load from the database and, if that fails, load from the
+	 * XML file and then load from the database.
 	 * 
 	 * @param filter
 	 */
@@ -32,8 +32,8 @@ dom = {
 	},
 
 	/**
-	 * Add a given chord into the chord tray. Also attach any event handlers to
-	 * the chord item in the tray.
+	 * Add a given chord into the chord tray. Also attach any event handlers to the chord item in
+	 * the tray.
 	 * 
 	 * @param chord
 	 */
@@ -56,6 +56,7 @@ dom = {
 	populateSetupArea : function() {
 		dom.populateArea('#setuparea', '#guitarifficWeb', function() {
 			$('#setuparea').append(factory.createResetDatabaseItem());
+			$('#setuparea').append(factory.recreateChordDatabaseItem());
 			$('#setuparea').append(factory.createResetSongsItem());
 		});
 	},
@@ -101,8 +102,8 @@ dom = {
 	},
 
 	/**
-	 * Add a given chord into the chord tray. Also attach any event handlers to
-	 * the chord item in the tray.
+	 * Add a given chord into the chord tray. Also attach any event handlers to the chord item in
+	 * the tray.
 	 * 
 	 * @param chord
 	 */
@@ -112,8 +113,8 @@ dom = {
 	},
 
 	/**
-	 * Add a given chord into the chord area. Also attach any event handlers to
-	 * the chord item in the chord area.
+	 * Add a given chord into the chord area. Also attach any event handlers to the chord item in
+	 * the chord area.
 	 * 
 	 * @param chord
 	 */
@@ -190,17 +191,17 @@ dom = {
 		$('#artistname').val(song.artistName);
 		$('#songid').val(song.id);
 
-		for ( var i = 0; i < song.lyrics.length; i++) {
+		for (var i = 0; i < song.lyrics.length; i++) {
 			var row = factory.createTextRow(song.lyrics[i]);
 			$('#lyricstable').append(row);
 		}
 
-		for ( var i = 0; i < song.chords.length; i++) {
+		for (var i = 0; i < song.chords.length; i++) {
 			var line = song.chords[i];
 			itemTarget = factory.createNewChordListId();
 			$('#chordarea').append(factory.createDiagramList(itemTarget));
 
-			for ( var j = 0; j < line.length; j++) {
+			for (var j = 0; j < line.length; j++) {
 				var chartDB = line[j];
 				var chart = new GuitarChart(chartDB.chordName, chartDB.chordPosition,
 						chartDB.chordFingering, chartDB.chordFrets, chartDB.isLeftHanded);

@@ -51,8 +51,7 @@ handlers = {
 	},
 
 	/**
-	 * When navigating in the text area, use this to handle enter key, arrows,
-	 * etc.
+	 * When navigating in the text area, use this to handle enter key, arrows, etc.
 	 * 
 	 * @param event
 	 */
@@ -114,13 +113,18 @@ handlers = {
 	 * Reset the chord database from the XML file.
 	 */
 	resetDatabaseHandler : function() {
-		var filter = '';
-		dao.createDatabase(function() {
-			dao.fetchChords(filter, dom.loadChordIntoTray);
+		dao.deleteDatabase(function() {
+			dao.fetchChords('', dom.loadChordIntoTray);
 		});
 		handlers.setupHandler();
 	},
 
+	recreateDatabaseHandler : function() {
+		dao.recreateChordDatabase(function() {
+			dao.fetchChords('', dom.loadChordIntoTray);
+		});
+		handlers.setupHandler();
+	},
 	/**
 	 * Reset the chord database from the XML file.
 	 */
