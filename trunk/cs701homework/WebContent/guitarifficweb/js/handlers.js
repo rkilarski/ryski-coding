@@ -117,6 +117,7 @@ handlers = {
 			dao.fetchChords('', dom.loadChordIntoTray);
 		});
 		handlers.setupHandler();
+		$('#chordtray').empty();
 	},
 
 	recreateDatabaseHandler : function() {
