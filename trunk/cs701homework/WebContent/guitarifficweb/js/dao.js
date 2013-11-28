@@ -7,7 +7,7 @@
  */
 dao = {
 	dbName : 'guitarifficDB',
-
+	dbVersion : 1,
 	localDatabase : {
 		indexedDB : window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB
 				|| window.msIndexedDB,
@@ -16,68 +16,73 @@ dao = {
 	},
 
 	openDatabase : function(fetchChords) {
-		var openRequest = dao.localDatabase.indexedDB.open(dao.dbName);
-		openRequest.onerror = function(e) {
-			$().toast('Database error: ' + e.target.errorCode, 'error');
-			// createDatabase(fetchChords);
-		};
+		var openRequest = dao.localDatabase.indexedDB.open(dao.dbName, dao.dbVersion);
 		openRequest.onsuccess = function() {
 			dao.localDatabase.db = openRequest.result;
 			if (fetchChords != undefined) {
 				fetchChords();
 			}
 		};
+		openRequest.onerror = function(e) {
+			$().toast('Database error: ' + e.target.errorCode, 'error');
+			// createDatabase(fetchChords);
+		};
 		openRequest.onversionchange = function() {
 			dao.localDatabase.close();
 		};
+		openRequest.onupgradeneeded = function(e) {
+			$().toast('Creating object stores');
+			var thisDB = e.target.result;
+			try {
+				if (!thisDB.objectStoreNames.contains('chords')) {
+					var chordStore = e.currentTarget.result.createObjectStore('chords', {
+						keyPath : 'id',
+						autoIncrement : true
+					});
+					chordStore.createIndex('nameIndex', 'chordName', {
+						unique : false
+					});
+				}
+			} catch (err) {
+				$().toast('Chords database already exists.');
+			}
+			try {
+				if (!thisDB.objectStoreNames.contains('songs')) {
+					var songStore = e.currentTarget.result.createObjectStore('songs', {
+						keyPath : 'id',
+						autoIncrement : true
+					});
+					songStore.createIndex('songIndex', 'songName', {
+						unique : false
+					});
+					songStore.createIndex('artistIndex', 'artistName', {
+						unique : false
+					});
+				}
+			} catch (err) {
+				$().toast('Songs database already exists.');
+			}
+			//loadFromFile.loadChordsFromXMLFile(fetchChords);
+		};
+
 	},
 
-	createDatabase : function(fetchChords) {
+	deleteDatabase : function(fetchChords) {
 		$().toast('Deleting local database');
-		dao.localDatabase.close();
 		var deleteDbRequest = dao.localDatabase.indexedDB.deleteDatabase(dao.dbName);
-		deleteDbRequest.onblocked = function() {
-			alert('blocked');
-		};
+		//deleteDbRequest.onblocked = function() {
+			//alert('blocked');
+		//};
 		deleteDbRequest.onsuccess = function() {
 			$().toast('Database deleted');
-			var openRequest = dao.localDatabase.indexedDB.open(dao.dbName, 1);
-			openRequest.onerror = function(e) {
-				$().toast('Database error: ' + e.target.errorCode, 'error');
-			};
-			openRequest.onsuccess = function() {
-				$().toast('Database created');
-				dao.localDatabase.db = openRequest.result;
-				loadFromFile.loadChordsFromXMLFile(fetchChords);
-			};
-			openRequest.onupgradeneeded = function(e) {
-				$().toast('Creating object stores');
-				var chordStore = e.currentTarget.result.createObjectStore('chords', {
-					keyPath : 'id',
-					autoIncrement : true
-				});
-				chordStore.createIndex('nameIndex', 'chordName', {
-					unique : false
-				});
-
-				var songStore = e.currentTarget.result.createObjectStore('songs', {
-					keyPath : 'id',
-					autoIncrement : true
-				});
-				songStore.createIndex('songIndex', 'songName', {
-					unique : false
-				});
-				songStore.createIndex('artistIndex', 'artistName', {
-					unique : false
-				});
-
-			};
-			deleteDbRequest.onerror = function(e) {
-				$().toast('Database error: ' + e.target.errorCode, 'error');
-			};
+			// dao.openDatabase(fetchChords);
 		};
 	},
 
+	recreateChordDatabase:function(fetchChords){
+		loadFromFile.loadChordsFromXMLFile(fetchChords);
+	},
+	
 	insertChord : function(chord) {
 		try {
 			var transaction = dao.localDatabase.db.transaction('chords', 'readwrite');
