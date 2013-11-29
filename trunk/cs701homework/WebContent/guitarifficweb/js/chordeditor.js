@@ -3,18 +3,91 @@
  * email: emrys@bu.edu 
  * BU ID: U81-39-8560
  * 
- * This is the toast function to display a temporary message to the user.
+ * This is the chord editor.
  */
 chordeditor = {
-	add : function() {
-
-	},
-	edit : function() {
-
-	},
-	show : function() {
-		$('#editchord').dialog({
-			modal : true
+	edit : function(chord) {
+		$(chordeditor.build(chord)).dialog({
+			modal : true,
+			width: 600,
+			height: 500,
+			buttons : {
+				"Reset Diagram" : function() {
+					$(this).dialog("close");
+				},
+				"Delete Chord" : function() {
+					$(this).dialog("close");
+				},
+				"Save Chord" : function() {
+					$(this).dialog("close");
+				},
+				Cancel : function() {
+					$(this).dialog("close");
+				}
+			}
 		});
+	},
+
+	build : function(chord) {
+		var title = 'Add Chord';
+		var chordName = '';
+		var chordPosition = '';
+		var leftHanded = false;
+		var fingering = '      ';
+		var frets = '     ';
+		if (chord != null) {
+			title = 'Edit Chord ' + chord.chordName;
+			chordName = chord.chordName;
+			chordPosition = chord.chordPosition;
+			if (chord.isLeftHanded) {
+				leftHanded = true;
+			}
+			fingering = chord.chordFingering;
+			frets = chord.chordFrets;
+		}
+
+		// Build the user interface to add or edit this chord.
+		$('#chordeditor').empty().append(factory.createChordName(chordName)).append($('<br>'))
+				.append(factory.createLabel('Fret: ', 'fret')).append(
+						factory.createChordFretSelect(chordPosition)).append($('<br>')).append(
+						factory.createLabel('Left Handed: ', 'lefthanded')).append(
+						factory.createChordLeftHanded(leftHanded)).append(
+						factory.createChordFingeringTable(fingering, frets));
+		chordeditor.updatePreview();
+		return $('#editchord').attr('title', title);
+	},
+
+	/**
+	 * Handler to be called every time something has changed, in order to update the chord preview.
+	 */
+	updatePreview : function() {
+		var chord = new GuitarChart($('#chordname').val(), $('#fret').val(), chordeditor
+				.domGetFingering(), chordeditor.domGetFrets(), $('#lefthanded').is(':checked'));
+		$('#chordpreview').empty().append(chord.getCanvas());
+	},
+
+	/**
+	 * Get the fingering data from the Edit form.
+	 */
+	domGetFingering : function() {
+		var fingering = '';
+		for (var i = 1; i < 7; i++) {
+			fingering += $('#fingering' + i).val();
+		}
+		return fingering;
+	},
+
+	/**
+	 * Get the fret data from the Edit form.
+	 */
+	domGetFrets : function() {
+		var fingering = '      ';
+		for (var i = 1; i < 7; i++) {
+			var finger = $('input:radio[name ="string' + i + '"]:checked').val();
+			if (finger != undefined) {
+				fingering =fingering.substring(0, i-1) + finger + fingering.substring(i);
+			}
+		}
+		return fingering;
 	}
 };

@@ -151,30 +151,107 @@ factory = {
 		}));
 		return div;
 	},
-	createFingeringSelect : function(finger) {
-		var item = $('select').attr('id', "fingering" + finger);
-		for ( var i = 0; i < 6; i++) {
-			$(item).append(createFingeringOption(i));
+	createChordName : function(name) {
+		return $('<input/>').attr({
+			'id' : 'chordname',
+			'placeholder' : 'chord name',
+			'type' : 'text'
+		}).prop('required',true).val(name).on('keyup', chordeditor.updatePreview);
+	},
+	createLabel : function(label, forElement) {
+		return $('<label/>').attr({
+			'for' : forElement,
+		}).text(label);
+	},
+	createChordFretSelect:function(selection){
+		var item = $('<select/>').attr('id', "fret").on('change', chordeditor.updatePreview);
+		for (var i = 0; i < 13; i++) {
+			$(item).append(createOptionList(i, selection));
 		}
 		return item;
 
 		/**
 		 * Inner function to create each option.
 		 */
-		function createFingeringOption(option) {
+		function createOptionList(option, selection) {
 			if (option == 0) {
 				option = ' ';
 			}
-			var item = $('option').attr('value', option).val(option);
+			var item = $('<option/>').attr('value', option).text(option);
+			if (option == selection) {
+				$(item).prop('selected', true);
+			}
+			return item;
+		}		
+	},
+	createChordFingeringSelect : function(finger, selection) {
+		var item = $('<select/>').attr('id', "fingering" + finger).on('change', chordeditor.updatePreview);
+		for (var i = 0; i < 6; i++) {
+			$(item).append(createOptionList(i, selection));
+		}
+		return item;
+
+		/**
+		 * Inner function to create each option.
+		 */
+		function createOptionList(option, selection) {
+			if (option == 0) {
+				option = ' ';
+			}
+			var item = $('<option/>').attr('value', option).text(option);
+			if (option == selection) {
+				$(item).prop('selected', true);
+			}
 			return item;
 		}
 	},
-	createFretRadio : function(string, fret) {
-		var item = $('input').attr({
+	createFretRadio : function(string, fret, checked) {
+		var item = $('<input/>').attr({
 			'type' : 'radio',
 			'name' : 'string' + string,
 			'value' : fret
-		});
+		}).on('change', chordeditor.updatePreview);
+		if (checked) {
+			$(item).prop('checked', true);
+		}
 		return item;
+	},
+	createChordLeftHanded : function(checked) {
+		var item = $('<input/>').attr({
+			'type' : 'checkbox',
+			'id' : 'lefthanded',
+		}).on('change', chordeditor.updatePreview);
+		if (checked) {
+			$(item).prop('checked', true);
+		}
+		return item;
+	},
+	createChordFingeringTable:function(fingering, frets){
+		var table=$('<table/>')
+			.append(factory.createChordFingeringRow(fingering))
+			.append(factory.createChordFingeringFret(frets, 1))
+			.append(factory.createChordFingeringFret(frets, 2))
+			.append(factory.createChordFingeringFret(frets, 3))
+			.append(factory.createChordFingeringFret(frets, 4))
+			.append(factory.createChordFingeringFret(frets, 5));
+		return table;
+	},
+	createChordFingeringRow:function(fingering){
+		return $('<tr/>')
+			.append($('<td/>').append(factory.createChordFingeringSelect(1,fingering.charAt(0))))
+    		.append($('<td/>').append(factory.createChordFingeringSelect(2,fingering.charAt(1))))
+    		.append($('<td/>').append(factory.createChordFingeringSelect(3,fingering.charAt(2))))
+    		.append($('<td/>').append(factory.createChordFingeringSelect(4,fingering.charAt(3))))
+    		.append($('<td/>').append(factory.createChordFingeringSelect(5,fingering.charAt(4))))
+    		.append($('<td/>').append(factory.createChordFingeringSelect(6,fingering.charAt(5))));
+	},
+	createChordFingeringFret:function(frets,fret){
+		return $('<tr/>')
+			.append($('<td/>').append(factory.createFretRadio(1,fret,(frets.charAt(0)==fret))))
+			.append($('<td/>').append(factory.createFretRadio(2,fret,(frets.charAt(1)==fret))))
+			.append($('<td/>').append(factory.createFretRadio(3,fret,(frets.charAt(2)==fret))))
+			.append($('<td/>').append(factory.createFretRadio(4,fret,(frets.charAt(3)==fret))))
+			.append($('<td/>').append(factory.createFretRadio(5,fret,(frets.charAt(4)==fret))))
+			.append($('<td/>').append(factory.createFretRadio(6,fret,(frets.charAt(5)==fret))));
 	}
 };

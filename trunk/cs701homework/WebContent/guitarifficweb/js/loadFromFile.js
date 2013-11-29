@@ -32,7 +32,8 @@ loadFromFile = {
 							var chordPosition = $(this).find('chordPosition').text();
 							var chordFingering = $(this).find('chordFingering').text();
 							var chordFrets = $(this).find('chordFrets').text();
-							var isLeftHanded = $(this).find('isLeftHanded').text();
+							var isLeftHanded = ($(this).find('isLeftHanded').text() == 'TRUE') ? true
+									: false;
 
 							// create a new JSON object for each song
 							var chord = new GuitarChart(chordName, chordPosition, chordFingering,

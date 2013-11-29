@@ -118,6 +118,7 @@ handlers = {
 		});
 		handlers.setupHandler();
 		$('#chordtray').empty();
+		location.reload();
 	},
 
 	recreateDatabaseHandler : function() {
@@ -140,17 +141,14 @@ handlers = {
 	},
 
 	editChordHandler : function(e) {
-		$().toast('Future Functionality: Edit chord ' + e.target.getGuitarChart().chordName);
-		$('#editchord').dialog({
-			modal : true
-		});
+		chordeditor.edit(e.target.getGuitarChart());
 	},
 
 	/**
 	 * Create a new chord.
 	 */
 	newChordHandler : function() {
-		$().toast('Future Functionality: Add new chord');
+		chordeditor.edit(null);
 	},
 	/**
 	 * Load a chord.
