@@ -25,7 +25,6 @@ dao = {
 		};
 		openRequest.onerror = function(e) {
 			$().toast('Database error: ' + e.target.errorCode, 'error');
-			// createDatabase(fetchChords);
 		};
 		openRequest.onversionchange = function() {
 			dao.localDatabase.close();
@@ -62,20 +61,22 @@ dao = {
 			} catch (err) {
 				$().toast('Songs database already exists.');
 			}
-			// loadFromFile.loadChordsFromXMLFile(fetchChords);
+			
+			// Give the database time to create the object stores before importing the chords.
+			setTimeout(function() {
+				loadFromFile.loadChordsFromXMLFile(fetchChords);
+			},1000);
+			
+			//Show the welcome message!
+			dom.showWelcomeMessage();
 		};
-
 	},
 
 	deleteDatabase : function(fetchChords) {
 		$().toast('Deleting local database');
 		var deleteDbRequest = dao.localDatabase.indexedDB.deleteDatabase(dao.dbName);
-		// deleteDbRequest.onblocked = function() {
-			// alert('blocked');
-		// };
 		deleteDbRequest.onsuccess = function() {
 			$().toast('Database deleted');
-			// dao.openDatabase(fetchChords);
 		};
 	},
 
@@ -95,7 +96,6 @@ dao = {
 			if (dao.localDatabase != null && dao.localDatabase.db != null) {
 				var request = store.add(chord);
 				request.onsuccess = function(e) {
-					$().toast(chord.chordName + ' has been saved.');
 				};
 
 				request.onerror = function(e) {

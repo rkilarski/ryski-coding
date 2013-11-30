@@ -23,7 +23,14 @@ angular.module('angularMapquest', []).controller(
 				}
 			};
 			var timeout;
+
+			/**
+			 * Add a watch on the 'from' value. But ignore it while we're geolocating.
+			 */
 			$scope.$watch('mapsearch.from', function(newVal) {
+				if ($scope.mapsearch.from == '<geolocating, please wait...>') {
+					return;
+				}
 				if (newVal) {
 					if (timeout) {
 						$scope.directions = new Array;
@@ -35,7 +42,14 @@ angular.module('angularMapquest', []).controller(
 				}
 				;
 			});
+
+			/**
+			 * Add a watch on the 'to' value. But ignore it while we're geolocating.
+			 */
 			$scope.$watch('mapsearch.to', function(newVal) {
+				if ($scope.mapsearch.from == '<geolocating, please wait...>') {
+					return;
+				}
 				if (newVal) {
 					if (timeout) {
 						$scope.directions = new Array;
@@ -47,6 +61,7 @@ angular.module('angularMapquest', []).controller(
 				}
 				;
 			});
+
 			/**
 			 * When the user clicks on the button, redraw the map.
 			 */
@@ -58,6 +73,7 @@ angular.module('angularMapquest', []).controller(
 				}
 				$scope.getDirections(from, to);
 			};
+
 			/**
 			 * Get current location.
 			 */
@@ -79,8 +95,7 @@ angular.module('angularMapquest', []).controller(
 			};
 
 			/**
-			 * Perform the call to MapQuest and populate the information on the
-			 * form.
+			 * Perform the call to MapQuest and populate the information on the form.
 			 */
 			$scope.getDirections = function(from, to) {
 				var apikey = 'mjtd%7Clu61200ynl%2Cas%3Do5-50ylq';
