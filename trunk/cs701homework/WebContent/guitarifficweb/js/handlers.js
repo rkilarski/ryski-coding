@@ -149,10 +149,12 @@ handlers = {
 				// Save into the database when chord is from tray.
 				dao.updateChord(chord);
 				$('#searchfield').val(chord.chordName);
-				handlers.searchFieldHandler();
 			} else if (editType == 'delete') {
 				// Delete chord!
+				dao.deleteChord(chord);
+				$('#searchfield').val('');
 			}
+			handlers.searchFieldHandler();
 		});
 	},
 

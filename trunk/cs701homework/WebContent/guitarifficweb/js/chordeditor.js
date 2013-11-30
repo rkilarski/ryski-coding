@@ -19,8 +19,11 @@ chordeditor = {
 					chordeditor.build(chordeditor.originalChord);
 				},
 				"Delete Chord" : function() {
-					$(this).dialog("close");
+					if (chord != null) {
+						chordeditor.chord.id = chord.id;
+					}
 					callback(chordeditor.chord, 'delete');
+					$(this).dialog("close");
 				},
 				"Save Chord" : function() {
 					var editType = 'edit';

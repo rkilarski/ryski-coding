@@ -133,11 +133,11 @@ dao = {
 	},
 	
 	deleteChord : function(chord) {
-		var db = dao.localdatabase.db;
+		var db = dao.localDatabase.db;
 		var transaction = db.transaction('chords', 'readwrite');
 		var objStore = transaction.objectStore('chords');
 
-		var request = objStore.delete(chord.chordId);
+		var request = objStore.delete(chord.id);
 		request.onsuccess = function(e) {
 			$().toast(chord.chordName + ' has been deleted.');			
 		};
