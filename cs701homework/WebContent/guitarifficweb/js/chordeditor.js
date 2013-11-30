@@ -6,19 +6,33 @@
  * This is the chord editor.
  */
 chordeditor = {
-	edit : function(chord) {
+	chord : null,
+	originalChord : null,
+	edit : function(chord, callback) {
+		chordeditor.originalChord = chord;
 		$(chordeditor.build(chord)).dialog({
 			modal : true,
-			width: 600,
-			height: 500,
+			width : 600,
+			height : 500,
 			buttons : {
 				"Reset Diagram" : function() {
-					$(this).dialog("close");
+					chordeditor.build(chordeditor.originalChord);
 				},
 				"Delete Chord" : function() {
 					$(this).dialog("close");
+					callback(chordeditor.chord, 'delete');
 				},
 				"Save Chord" : function() {
+					var editType = 'edit';
+					if (chordeditor.chord.id == null) {
+						editType = 'add';
+					}
+					if (callback != null) {
+						if (chord != null) {
+							chordeditor.chord.id = chord.id;
+						}
+						callback(chordeditor.chord, editType);
+					}
 					$(this).dialog("close");
 				},
 				Cancel : function() {
@@ -61,9 +75,9 @@ chordeditor = {
 	 * Handler to be called every time something has changed, in order to update the chord preview.
 	 */
 	updatePreview : function() {
-		var chord = new GuitarChart($('#chordname').val(), $('#fret').val(), chordeditor
+		chordeditor.chord = new GuitarChart($('#chordname').val(), $('#fret').val(), chordeditor
 				.domGetFingering(), chordeditor.domGetFrets(), $('#lefthanded').is(':checked'));
-		$('#chordpreview').empty().append(chord.getCanvas());
+		$('#chordpreview').empty().append(chordeditor.chord.getCanvas());
 	},
 
 	/**
@@ -85,7 +99,7 @@ chordeditor = {
 		for (var i = 1; i < 7; i++) {
 			var finger = $('input:radio[name ="string' + i + '"]:checked').val();
 			if (finger != undefined) {
-				fingering =fingering.substring(0, i-1) + finger + fingering.substring(i);
+				fingering = fingering.substring(0, i - 1) + finger + fingering.substring(i);
 			}
 		}
 		return fingering;

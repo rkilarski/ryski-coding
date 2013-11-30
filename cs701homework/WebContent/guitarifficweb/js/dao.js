@@ -62,7 +62,7 @@ dao = {
 			} catch (err) {
 				$().toast('Songs database already exists.');
 			}
-			//loadFromFile.loadChordsFromXMLFile(fetchChords);
+			// loadFromFile.loadChordsFromXMLFile(fetchChords);
 		};
 
 	},
@@ -70,9 +70,9 @@ dao = {
 	deleteDatabase : function(fetchChords) {
 		$().toast('Deleting local database');
 		var deleteDbRequest = dao.localDatabase.indexedDB.deleteDatabase(dao.dbName);
-		//deleteDbRequest.onblocked = function() {
-			//alert('blocked');
-		//};
+		// deleteDbRequest.onblocked = function() {
+			// alert('blocked');
+		// };
 		deleteDbRequest.onsuccess = function() {
 			$().toast('Database deleted');
 			// dao.openDatabase(fetchChords);
@@ -85,26 +85,68 @@ dao = {
 	
 	insertChord : function(chord) {
 		try {
+			// We can't file the getCanvas() function into the database, so
+			// remove it.
+			delete chord.getCanvas;
+
 			var transaction = dao.localDatabase.db.transaction('chords', 'readwrite');
 			var store = transaction.objectStore('chords');
 
 			if (dao.localDatabase != null && dao.localDatabase.db != null) {
 				var request = store.add(chord);
 				request.onsuccess = function(e) {
-					// result.innerHTML = 'Employee record was added
-					// successfully.';;
+					$().toast(chord.chordName + ' has been saved.');
 				};
 
 				request.onerror = function(e) {
 					console.log(e.value);
-					// result.innerHTML = 'Employee record was not added.';
+					$().toast('Error adding new chord to the database!', 'error');
 				};
 			}
 		} catch (e) {
 			console.log(e);
 		}
 	},
+	updateChord : function(chord) {
+		try {
+			// We can't file the getCanvas() function into the database, so
+			// remove it.
+			delete chord.getCanvas;
 
+			var transaction = dao.localDatabase.db.transaction('chords', 'readwrite');
+			var store = transaction.objectStore('chords');
+
+			if (dao.localDatabase != null && dao.localDatabase.db != null) {
+				var request = store.put(chord);
+				request.onsuccess = function(e) {
+					$().toast(chord.chordName + ' has been saved.');
+				};
+
+				request.onerror = function(e) {
+					console.log(e.value);
+					$().toast('Error updating chord to the database!', 'error');
+				};
+			}
+		} catch (e) {
+			console.log(e);
+		}
+	},
+	
+	deleteChord : function(chord) {
+		var db = dao.localdatabase.db;
+		var transaction = db.transaction('chords', 'readwrite');
+		var objStore = transaction.objectStore('chords');
+
+		var request = objStore.delete(chord.chordId);
+		request.onsuccess = function(e) {
+			$().toast(chord.chordName + ' has been deleted.');			
+		};
+
+		request.onerror = function(e) {
+			console.log(e);
+		};
+	},
+	
 	insertSong : function(song) {
 		try {
 			var transaction = dao.localDatabase.db.transaction('songs', 'readwrite');

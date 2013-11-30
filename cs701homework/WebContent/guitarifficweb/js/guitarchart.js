@@ -8,6 +8,7 @@
 
 function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLeftHanded, id) {
 	// Public properties
+	// When there is no longer a connection to the database, the ID will be null.
 	if (id != null) {
 		this.id = id; // Database ID.
 	}
