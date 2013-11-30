@@ -26,7 +26,6 @@ dom = {
 		$('#chordtray .guitarchart').remove();
 
 		dao.openDatabase(function() {
-			// dao.createDatabase(function() {
 			dao.fetchChords(filter, dom.loadChordIntoTray);
 		});
 	},
@@ -56,7 +55,7 @@ dom = {
 	populateSetupArea : function() {
 		dom.populateArea('#setuparea', '#guitarifficWeb', function() {
 			$('#setuparea').append(factory.createResetDatabaseItem());
-			$('#setuparea').append(factory.recreateChordDatabaseItem());
+			// $('#setuparea').append(factory.recreateChordDatabaseItem());
 			$('#setuparea').append(factory.createResetSongsItem());
 		});
 	},
@@ -135,8 +134,8 @@ dom = {
 	/**
 	 */
 	prepChordForDOM : function(chord) {
-		//Null the ID, it no longer has a connection to the database.
-		chord.id = null;  
+		// Null the ID, it no longer has a connection to the database.
+		chord.id = null;
 		var chordCanvas = chord.getCanvas();
 		chordCanvas.setAttribute('class', 'guitarchart');
 		chordCanvas.setAttribute('draggable', 'true');
@@ -233,5 +232,22 @@ dom = {
 
 		$('#songname').val('');
 		$('#artistname').val('');
+	},
+
+	/**
+	 * Show a welcome message.
+	 */
+	showWelcomeMessage : function() {
+		$('#aboutarea').dialog({
+			modal : true,
+			width : 700,
+			height : 700,
+			title: "Welcome to Guitariffic!",
+			buttons : {
+				"Let's Get Started!" : function() {
+					$(this).dialog("close");
+				},
+			}
+		});
 	}
 };

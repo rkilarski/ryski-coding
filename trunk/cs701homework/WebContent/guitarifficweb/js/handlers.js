@@ -106,7 +106,7 @@ handlers = {
 	 * Handle opening and closing the slide area.
 	 */
 	aboutAreaHandler : function() {
-		dom.populateAboutArea();
+		dom.showWelcomeMessage();
 	},
 
 	/**
