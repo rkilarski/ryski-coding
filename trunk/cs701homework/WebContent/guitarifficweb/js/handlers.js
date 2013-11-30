@@ -140,16 +140,49 @@ handlers = {
 		window.print();
 	},
 
+	/**
+	 * When editing the chord from the tray, save the chord into the database when done.
+	 */
 	editChordHandler : function(e) {
-		chordeditor.edit(e.target.getGuitarChart());
+		chordeditor.edit(e.target.getGuitarChart(), function(chord, editType) {
+			if (editType == 'edit') {
+				// Save into the database when chord is from tray.
+				dao.updateChord(chord);
+				$('#searchfield').val(chord.chordName);
+				handlers.searchFieldHandler();
+			} else if (editType == 'delete') {
+				// Delete chord!
+			}
+		});
+	},
+
+	/**
+	 * When editing the chord from the canvas, save the chord into the document.
+	 */
+	editChordAreaHandler : function(e) {
+		chordeditor.edit(e.target.getGuitarChart(), function(chord, editType) {
+			if (editType == 'edit') {
+				$(e.target).replaceWith(dom.prepChordForDOM(chord));
+			} else if (editType == 'delete') {
+				// Delete chord!
+				$(e.target).remove();
+			}
+		});
 	},
 
 	/**
 	 * Create a new chord.
 	 */
 	newChordHandler : function() {
-		chordeditor.edit(null);
+		chordeditor.edit(null, function(chord) {
+			// Save the chord into the database.
+			dao.insertChord(chord);
+			// Trigger the search capability.
+			$('#searchfield').val(chord.chordName);
+			handlers.searchFieldHandler();
+		});
 	},
+
 	/**
 	 * Load a chord.
 	 */
@@ -183,6 +216,7 @@ handlers = {
 		});
 
 	},
+
 	hoverEndLyrics : function() {
 		$('.songtext').removeClass('gotFocusLineType');
 		$('.songtext').removeClass('lostFocusLineType');

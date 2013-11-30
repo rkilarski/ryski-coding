@@ -40,10 +40,6 @@ loadFromFile = {
 									chordFrets, isLeftHanded);
 							count++;
 							chord.id = count;
-
-							// We can't file the getCanvas() function into the database, so
-							// remove it.
-							delete chord.getCanvas;
 							dao.insertChord(chord);
 						});
 				fetchChords();

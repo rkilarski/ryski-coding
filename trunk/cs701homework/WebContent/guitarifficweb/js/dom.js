@@ -119,11 +119,6 @@ dom = {
 	 * @param chord
 	 */
 	loadChordIntoArea : function(chord, target) {
-		var chordCanvas = chord.getCanvas();
-		chordCanvas.setAttribute('class', 'guitarchart');
-		chordCanvas.setAttribute('draggable', 'true');
-		dragDrop.addDragEvents(chord, chordCanvas);
-
 		var itemTarget;
 		// We are dropping on generic area, so create new list item for it.
 		if (target.id == 'chordarea') {
@@ -133,11 +128,22 @@ dom = {
 			itemTarget = target.id;
 		}
 		// Insert the actual item.
-		$(chordCanvas).on('click', handlers.editChordHandler);
+		var chordCanvas = dom.prepChordForDOM(chord);
 		$('#' + itemTarget).append($('<li/>').html(chordCanvas));
-
 	},
 
+	/**
+	 */
+	prepChordForDOM : function(chord) {
+		//Null the ID, it no longer has a connection to the database.
+		chord.id = null;  
+		var chordCanvas = chord.getCanvas();
+		chordCanvas.setAttribute('class', 'guitarchart');
+		chordCanvas.setAttribute('draggable', 'true');
+		dragDrop.addDragEvents(chord, chordCanvas);
+		$(chordCanvas).on('click', handlers.editChordAreaHandler);
+		return chordCanvas;
+	},
 	/**
 	 * Given a DOM, load its information into a song object.
 	 */
