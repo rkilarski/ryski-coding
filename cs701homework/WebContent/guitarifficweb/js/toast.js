@@ -7,6 +7,9 @@
  */
 var toastTopLocation = 0;
 (function($) {
+	/**
+	 * Show a toast with a message.
+	 */
 	$.fn.toast = function(message, type) {
 		$('#apparea').remove('.toast');
 
@@ -32,6 +35,9 @@ var toastTopLocation = 0;
 		console.log(message);
 	};
 
+	/**
+	 * Center the item.
+	 */
 	$.fn.center = function() {
 		var top = Math.max(0, (($(window).height() - $(this).outerHeight()) / 3)
 				+ $(window).scrollTop());

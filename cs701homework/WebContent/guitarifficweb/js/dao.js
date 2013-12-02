@@ -8,6 +8,10 @@
 dao = {
 	dbName : 'guitarifficDB',
 	dbVersion : 1,
+	
+	/**
+	 * Get a handle to the database cross-browser.
+	 */
 	localDatabase : {
 		indexedDB : window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB
 				|| window.msIndexedDB,
@@ -15,6 +19,9 @@ dao = {
 		IDBTransaction : window.IDBTransaction || window.webkitIDBTransaction
 	},
 
+	/**
+	 * Open the database, create it if necessary.
+	 */
 	openDatabase : function(fetchChords) {
 		var openRequest = dao.localDatabase.indexedDB.open(dao.dbName, dao.dbVersion);
 		openRequest.onsuccess = function() {
@@ -67,11 +74,14 @@ dao = {
 				loadFromFile.loadChordsFromXMLFile(fetchChords);
 			},1000);
 			
-			//Show the welcome message!
+			// Show the welcome message!
 			dom.showWelcomeMessage();
 		};
 	},
 
+	/**
+	 * Delete the entire database.
+	 */
 	deleteDatabase : function(fetchChords) {
 		$().toast('Deleting local database');
 		var deleteDbRequest = dao.localDatabase.indexedDB.deleteDatabase(dao.dbName);
@@ -80,10 +90,16 @@ dao = {
 		};
 	},
 
+	/**
+	 * Reload the chords from the XML file.
+	 */
 	recreateChordDatabase:function(fetchChords){
 		loadFromFile.loadChordsFromXMLFile(fetchChords);
 	},
 	
+	/**
+	 * Insert a chord into the database.
+	 */
 	insertChord : function(chord) {
 		try {
 			// We can't file the getCanvas() function into the database, so
@@ -107,6 +123,10 @@ dao = {
 			console.log(e);
 		}
 	},
+	
+	/**
+	 * Update the chord into the database.
+	 */
 	updateChord : function(chord) {
 		try {
 			// We can't file the getCanvas() function into the database, so
@@ -132,6 +152,9 @@ dao = {
 		}
 	},
 	
+	/**
+	 * Remove the chord from the database.
+	 */
 	deleteChord : function(chord) {
 		var db = dao.localDatabase.db;
 		var transaction = db.transaction('chords', 'readwrite');
@@ -147,6 +170,27 @@ dao = {
 		};
 	},
 	
+	/**
+	 * Remove the song from the database.
+	 */
+	deleteSong : function(song) {
+		var db = dao.localDatabase.db;
+		var transaction = db.transaction('songs', 'readwrite');
+		var objStore = transaction.objectStore('songs');
+
+		var request = objStore.delete(song.id);
+		request.onsuccess = function(e) {
+			$().toast(song.songName + ' by ' + song.artistName + ' has been deleted.');
+		};
+
+		request.onerror = function(e) {
+			console.log(e);
+		};
+	},
+
+	/**
+	 * Add a new song into the database.
+	 */
 	insertSong : function(song) {
 		try {
 			var transaction = dao.localDatabase.db.transaction('songs', 'readwrite');
@@ -168,6 +212,9 @@ dao = {
 		}
 	},
 
+	/**
+	 * Update an existing song in the database.
+	 */
 	updateSong : function(song) {
 		try {
 			var transaction = dao.localDatabase.db.transaction('songs', 'readwrite');
@@ -189,6 +236,10 @@ dao = {
 		}
 	},
 
+	/**
+	 * Get a list of chords from the database. You can filter by text, and pass a callback routine
+	 * to load the chords.
+	 */
 	fetchChords : function(filter, loadChordIntoTray) {
 		filter = filter.toUpperCase();
 		try {
@@ -214,12 +265,12 @@ dao = {
 						$('#chordtray .guitarchart').fadeIn('slow');
 					}
 				};
-			}
+			};
 		} catch (e) {
 			$().toast('Error loading chords ' + e, 'error');
-			// console.log(e);
-		}
+		};
 	},
+	
 	/**
 	 * Fetch songs from the database.
 	 */
@@ -244,12 +295,15 @@ dao = {
 						cursor['continue']();
 					}
 				};
-			}
+			};
 		} catch (e) {
 			$().toast('Error loading chords ' + e, 'error');
-			// console.log(e);
-		}
+		};
 	},
+	
+	/**
+	 * Reset only the song database.
+	 */
 	deleteAllSongs : function() {
 		if (dao.localDatabase != null && dao.localDatabase.db != null) {
 			var store = dao.localDatabase.db.transaction('songs', 'readwrite').objectStore('songs');
@@ -258,6 +312,5 @@ dao = {
 				$().toast('All songs have been removed.');
 			};
 		}
-
 	}
 };

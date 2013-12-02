@@ -1,12 +1,53 @@
 CACHE MANIFEST
 
-#Cache the following
+#version 1.0 12-1-2013
+
+CACHE:
+
+#images
+res/guitariffic.png
+http://www.w3.org/html/logo/badge/html5-badge-h-css3-graphics-semantics-storage.png
+
+#internal HTML documents
 index.html
+
+#style sheets
 css/styles.css
-js/lib/jquery-1.8.2.min.js
+js/lib/jquery-ui-1.10.3.custom/css/guitariffic/jquery-ui-1.10.3.custom.css
+
+#style sheet images
+js/lib/jquery-ui-1.10.3.custom/css/guitariffic/images/animated-overlay.gif
+js/lib/jquery-ui-1.10.3.custom/css/guitariffic/images/ui-bg_flat_0_aaaaaa_40x100.png
+js/lib/jquery-ui-1.10.3.custom/css/guitariffic/images/ui-bg_flat_75_ffffff_40x100.png
+js/lib/jquery-ui-1.10.3.custom/css/guitariffic/images/ui-bg_glass_55_fbf9ee_1x400.png
+js/lib/jquery-ui-1.10.3.custom/css/guitariffic/images/ui-bg_glass_65_ffffff_1x400.png
+js/lib/jquery-ui-1.10.3.custom/css/guitariffic/images/ui-bg_glass_75_EB009B_1x400.png
+js/lib/jquery-ui-1.10.3.custom/css/guitariffic/images/ui-bg_glass_75_e6e6e6_1x400.png
+js/lib/jquery-ui-1.10.3.custom/css/guitariffic/images/ui-bg_glass_95_fef1ec_1x400.png
+js/lib/jquery-ui-1.10.3.custom/css/guitariffic/images/ui-bg_highlight-soft_75_eb009b_1x100.png
+js/lib/jquery-ui-1.10.3.custom/css/guitariffic/images/ui-icons_222222_256x240.png
+js/lib/jquery-ui-1.10.3.custom/css/guitariffic/images/ui-icons_2e83ff_256x240.png
+js/lib/jquery-ui-1.10.3.custom/css/guitariffic/images/ui-icons_454545_256x240.png
+js/lib/jquery-ui-1.10.3.custom/css/guitariffic/images/ui-icons_888888_256x240.png
+js/lib/jquery-ui-1.10.3.custom/css/guitariffic/images/ui-icons_cd0a0a_256x240.png
+js/lib/jquery-ui-1.10.3.custom/css/guitariffic/images/ui-icons_ffffff_256x240.png
+
+#javascript files
+js/lib/jquery-2.0.3.js
+js/lib/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js
+js/toast.js
+js/lyricstypes.js
+js/chordeditor.js
+js/factory.js
+js/flickr.js
+js/handlers.js
+js/dom.js
 js/dao.js
 js/dragdrop.js
 js/loadFromFile.js
 js/guitarchart.js
+js/song.js
 js/index.js
-res/chords.xml
+
+NETWORK:
+*

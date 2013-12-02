@@ -15,6 +15,10 @@ flickr = {
 	 */
 	callFlickr : function(tag) {
 		// Get the JSON data through the callback function
+		if (tag == '') {
+			flickr.resetBackground();
+			return;
+		}
 		flickr.stopBackground = true;
 		images = new Array;
 		$.getJSON(flickr.url + encodeURIComponent(tag) + '&jsoncallback=?', function(data) {
@@ -52,6 +56,13 @@ flickr = {
 		setTimeout(function() {
 			flickr.changeBackground();
 		}, flickr.delay);
+	},
 
+	/**
+	 * Stop the rotating background and remove any background image.
+	 */
+	resetBackground : function() {
+		flickr.stopBackground = true;
+		$('#wrap').css('background', '');
 	}
 };
