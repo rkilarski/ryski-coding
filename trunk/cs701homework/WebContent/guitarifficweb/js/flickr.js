@@ -20,24 +20,34 @@ flickr = {
 			return;
 		}
 		flickr.stopBackground = true;
-		images = new Array;
-		$.getJSON(flickr.url + encodeURIComponent(tag) + '&jsoncallback=?', function(data) {
-			$.each(data.items, function(index, current) {
-				images.push(current.media.m);
+		try {
+			images = new Array;
+			$.getJSON(flickr.url + encodeURIComponent(tag) + '&jsoncallback=?', function(data) {
+				$.each(data.items, function(index, current) {
+					images.push(current.media.m);
+				});
+				flickr.stopBackground = false;
+				flickr.changeBackground();
 			});
-			flickr.stopBackground = false;
-			flickr.changeBackground();
-		});
+		} catch (er) {
+			flickr.resetBackground();
+		}
 	},
 
 	/**
 	 * Get a random image from the flickr array.
 	 */
 	getRandomImage : function() {
-		var random = (Math.floor((Math.random() * 10)) + 1) % images.length;
-		if (!random) {
+		try {
+			var random = (Math.floor((Math.random() * 10)) + 1) % images.length;
+			if (!random) {
+				return null;
+			}
+		} catch (er) {
+			flickr.resetBackground();
 			return null;
 		}
+
 		return images[random];
 	},
 
