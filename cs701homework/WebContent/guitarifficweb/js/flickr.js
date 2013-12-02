@@ -7,7 +7,7 @@
  */
 flickr = {
 	images : null,
-	url : "http://api.flickr.com/services/feeds/photos_public.gne?format=json&tags=",
+	url : 'http://api.flickr.com/services/feeds/photos_public.gne?format=json&tags=',
 	stopBackground : true,
 	delay : 15000,
 	/**
@@ -17,7 +17,7 @@ flickr = {
 		// Get the JSON data through the callback function
 		flickr.stopBackground = true;
 		images = new Array;
-		$.getJSON(flickr.url + encodeURIComponent(tag) + "&jsoncallback=?", function(data) {
+		$.getJSON(flickr.url + encodeURIComponent(tag) + '&jsoncallback=?', function(data) {
 			$.each(data.items, function(index, current) {
 				images.push(current.media.m);
 			});
@@ -44,7 +44,7 @@ flickr = {
 		var image = flickr.getRandomImage();
 		// Set the image.
 		if (image != null) {
-			$('#wrap').css("background", "url(" + image + ")");
+			$('#wrap').css('background', 'url(' + image + ')');
 		}
 		if (flickr.stopBackground) {
 			return;
