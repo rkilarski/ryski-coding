@@ -17,9 +17,6 @@ lyricstypes = {
 
 	/**
 	 * Given a line of lyric, return the lyric class.
-	 * 
-	 * @param line
-	 * @returns {String}
 	 */
 	getClass : function(line) {
 		if (lyricstypes.isHeader(line)) {
@@ -30,6 +27,9 @@ lyricstypes = {
 		return 'lyricsLineType';
 	},
 
+	/**
+	 * Return true if the line is a header item.
+	 */
 	isHeader : function(line) {
 		if (line == 'Chorus')
 			return true;
@@ -42,6 +42,9 @@ lyricstypes = {
 		return false;
 	},
 
+	/**
+	 * Return true if the line is a chord item.
+	 */
 	isChord : function(line) {
 		var pattern = new RegExp('[A-G](b|#)?(maj|min|m)?(7)?');
 		return pattern.test(line);

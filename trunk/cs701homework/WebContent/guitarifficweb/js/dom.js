@@ -8,6 +8,7 @@
 dom = {
 	openTray : null,
 	highlightedItem : null,
+
 	/**
 	 * Add first text row to lyrics table.
 	 */
@@ -15,11 +16,10 @@ dom = {
 		var newRow = factory.createTextRow();
 		$('#lyricstable').append(newRow);
 	},
+
 	/**
 	 * Load the chords. This function will load from the database and, if that fails, load from the
 	 * XML file and then load from the database.
-	 * 
-	 * @param filter
 	 */
 	loadChords : function(filter) {
 		$('#chordtray .guitarchart').hide();
@@ -33,8 +33,6 @@ dom = {
 	/**
 	 * Add a given chord into the chord tray. Also attach any event handlers to the chord item in
 	 * the tray.
-	 * 
-	 * @param chord
 	 */
 	loadChordIntoTray : function(chord) {
 		var chordCanvas = chord.getCanvas();
@@ -55,7 +53,6 @@ dom = {
 	populateSetupArea : function() {
 		dom.populateArea('#setuparea', '#guitarifficWeb', function() {
 			$('#setuparea').append(factory.createResetDatabaseItem());
-			// $('#setuparea').append(factory.recreateChordDatabaseItem());
 			$('#setuparea').append(factory.createResetSongsItem());
 		});
 	},
@@ -114,8 +111,6 @@ dom = {
 	/**
 	 * Add a given chord into the chord area. Also attach any event handlers to the chord item in
 	 * the chord area.
-	 * 
-	 * @param chord
 	 */
 	loadChordIntoArea : function(chord, target) {
 		var itemTarget;
@@ -132,6 +127,7 @@ dom = {
 	},
 
 	/**
+	 * Given a chord, prepare it for insertion into the chord area in the DOM.
 	 */
 	prepChordForDOM : function(chord) {
 		// Null the ID, it no longer has a connection to the database.
@@ -143,6 +139,7 @@ dom = {
 		$(chordCanvas).on('click', handlers.editChordAreaHandler);
 		return chordCanvas;
 	},
+	
 	/**
 	 * Given a DOM, load its information into a song object.
 	 */
@@ -186,8 +183,6 @@ dom = {
 
 	/**
 	 * Given a song, load its information into the DOM.
-	 * 
-	 * @param song
 	 */
 	createDOMFromSong : function(song) {
 		dom.resetSong();
@@ -228,6 +223,8 @@ dom = {
 	},
 
 	resetSong : function() {
+		flickr.resetBackground();
+
 		$('#chordarea ol').remove();
 
 		// Remove all rows from the table except the first row.

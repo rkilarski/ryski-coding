@@ -19,6 +19,7 @@ handlers = {
 		$('#aboutguitariffic').on('click', handlers.aboutAreaHandler);
 		$('#new').on('click', handlers.newSongHandler);
 		$('#save').on('click', handlers.saveSongHandler);
+		$('#delete').on('click', handlers.deleteSongHandler);
 		$('#print').on('click', handlers.printSongHandler);
 		$('#guitarifficWeb').on('click', handlers.setupHandler);
 		$('#addchord').on('click', handlers.newChordHandler);
@@ -34,6 +35,19 @@ handlers = {
 	newSongHandler : function() {
 		$().toast('Resetting guitariffic for a new song.  Enjoy!');
 		dom.resetSong();
+	},
+
+	/**
+	 * Reset the canvas.
+	 */
+	deleteSongHandler : function() {
+		if ($('#songid').val() > 0) {
+			var song = dom.createSongFromDOM();
+			dao.deleteSong(song);
+			dom.resetSong();
+		} else {
+			$().toast('This song has not been saved yet, nothing to delete!');
+		}
 	},
 
 	/**
@@ -121,12 +135,6 @@ handlers = {
 		location.reload();
 	},
 
-	recreateDatabaseHandler : function() {
-		dao.recreateChordDatabase(function() {
-			dao.fetchChords('', dom.loadChordIntoTray);
-		});
-		handlers.setupHandler();
-	},
 	/**
 	 * Reset the chord database from the XML file.
 	 */
@@ -216,7 +224,6 @@ handlers = {
 		$('.songtext').not(classToEnable).each(function() {
 			$(this).addClass('lostFocusLineType').removeClass('gotFocusLineType');
 		});
-
 	},
 
 	hoverEndLyrics : function() {

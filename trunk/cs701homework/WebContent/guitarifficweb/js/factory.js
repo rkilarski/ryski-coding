@@ -62,18 +62,6 @@ factory = {
 	},
 
 	/**
-	 * Create a button to launch the 'recreate chord database' functionality.
-	 */
-	recreateChordDatabaseItem : function() {
-		var newItem = $('<div/>').attr({
-			'class' : 'loaditem',
-			'id' : 'recreate'
-		}).html('Recreate Chord Database');
-		$(newItem).on('click', handlers.recreateDatabaseHandler);
-		return newItem;
-	},
-
-	/**
 	 * Create a button to launch the 'reset songs' functionality.
 	 */
 	createResetSongsItem : function() {

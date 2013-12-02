@@ -13,9 +13,6 @@ dragDrop = {
 
 	/**
 	 * Create drag events for all the source elements.
-	 * 
-	 * @param chord
-	 * @param chordCanvas
 	 */
 	addDragEvents : function(chord, chordCanvas) {
 		chordCanvas.ondragstart = function(canvas) {

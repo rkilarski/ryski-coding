@@ -8,6 +8,10 @@
 chordeditor = {
 	chord : null,
 	originalChord : null,
+	
+	/**
+	 * Main entry point to edit a chord.
+	 */
 	edit : function(chord, callback) {
 		chordeditor.originalChord = chord;
 		$(chordeditor.build(chord)).dialog({
@@ -43,6 +47,9 @@ chordeditor = {
 		});
 	},
 
+	/**
+	 * Build the user interface to add or edit a chord.
+	 */
 	build : function(chord) {
 		var title = 'Add Chord';
 		var chordName = '';

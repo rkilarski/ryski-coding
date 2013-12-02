@@ -9,8 +9,6 @@ loadFromFile = {
 	url : 'res/chords.xml',
 	/**
 	 * XMLHttpRequest - asynchronous loading of XML data
-	 * 
-	 * @param url
 	 */
 	loadChordsFromXMLFile : function(fetchChords) {
 		$
