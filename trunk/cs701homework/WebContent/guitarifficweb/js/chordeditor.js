@@ -15,31 +15,29 @@ chordeditor = {
 			width : 600,
 			height : 500,
 			buttons : {
-				"Reset Diagram" : function() {
+				'Reset Diagram' : function() {
 					chordeditor.build(chordeditor.originalChord);
 				},
-				"Delete Chord" : function() {
+				'Delete Chord' : function() {
 					if (chord != null) {
 						chordeditor.chord.id = chord.id;
 					}
 					callback(chordeditor.chord, 'delete');
-					$(this).dialog("close");
+					$(this).dialog('close');
 				},
-				"Save Chord" : function() {
-					var editType = 'edit';
-					if (chordeditor.chord.id == null) {
-						editType = 'add';
+				'Save Chord' : function() {
+					var editType = 'add';
+					if (chord != null) {
+						chordeditor.chord.id = chord.id;
+						editType = 'edit';
 					}
 					if (callback != null) {
-						if (chord != null) {
-							chordeditor.chord.id = chord.id;
-						}
 						callback(chordeditor.chord, editType);
 					}
-					$(this).dialog("close");
+					$(this).dialog('close');
 				},
 				Cancel : function() {
-					$(this).dialog("close");
+					$(this).dialog('close');
 				}
 			}
 		});

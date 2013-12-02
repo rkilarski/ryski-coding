@@ -51,6 +51,10 @@ body,html {
 	font-size: 20px;
 }
 
+#header:hover {
+	background-color: #000000;
+}
+
 #footer {
 	padding: 10px;
 	color: #ffffff;
@@ -102,7 +106,7 @@ body,html {
 	background-color: #EB009B;
 }
 
-a,input,.loaditem,.guitarchart,#textarea,#chordarea {
+a,input,.loaditem,.guitarchart,#textarea,#chordarea,#header {
 	-webkit-transition: All 0.5s ease;
 	-moz-transition: All 0.5s ease;
 	-o-transition: All 0.5s ease;
@@ -220,7 +224,7 @@ input {
 	margin-top: 10px;
 }
 
-table,input,td,.guitarchart,.guitarcharthighlight,.loaditem,.toast,#textarea,#loadarea,#chordarea,#chordtray,#aboutarea,#setuparea,#logo
+table,input,td,.guitarchart,.guitarcharthighlight,.loaditem,.toast,#textarea,#loadarea,#chordarea,#chordtray,#aboutarea,#setuparea,#logo,#header
 	{
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;

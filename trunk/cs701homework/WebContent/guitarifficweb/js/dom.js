@@ -13,7 +13,7 @@ dom = {
 	 */
 	initializeTextCanvas : function() {
 		var newRow = factory.createTextRow();
-		$("#lyricstable").append(newRow);
+		$('#lyricstable').append(newRow);
 	},
 	/**
 	 * Load the chords. This function will load from the database and, if that fails, load from the
@@ -213,9 +213,13 @@ dom = {
 
 				var chordCanvas = chart.getCanvas();
 				// Insert the actual item.
-				$(chordCanvas).on('click', handlers.editChordHandler);
+				$(chordCanvas).on('click', handlers.editChordAreaHandler);
 				$('#' + itemTarget).append($('<li/>').html(chordCanvas));
 			}
+		}
+		// Start the flickr show.
+		if ($('#artistname').val() != '') {
+			flickr.callFlickr($('#artistname').val());
 		}
 	},
 
@@ -242,10 +246,10 @@ dom = {
 			modal : true,
 			width : 700,
 			height : 700,
-			title: "Welcome to Guitariffic!",
+			title : 'Welcome to Guitariffic!',
 			buttons : {
-				"Let's Get Started!" : function() {
-					$(this).dialog("close");
+				'Let\'s Get Started!' : function() {
+					$(this).dialog('close');
 				},
 			}
 		});

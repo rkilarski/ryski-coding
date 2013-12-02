@@ -12,7 +12,7 @@
  */
 lyricstypes = {
 	getAllClasses : function() {
-		return ".headerLineType, .chordLineType, .lyricsLineType";
+		return '.headerLineType, .chordLineType, .lyricsLineType';
 	},
 
 	/**
@@ -23,19 +23,21 @@ lyricstypes = {
 	 */
 	getClass : function(line) {
 		if (lyricstypes.isHeader(line)) {
-			return "headerLineType";
+			return 'headerLineType';
 		} else if (lyricstypes.isChord(line)) {
-			return "chordLineType";
+			return 'chordLineType';
 		}
-		return "lyricsLineType";
+		return 'lyricsLineType';
 	},
-	
+
 	isHeader : function(line) {
-		if (line == "Chorus")
+		if (line == 'Chorus')
 			return true;
-		if (line == "Lyrics")
+		if (line == 'Lyrics')
 			return true;
-		if (line == "Refrain")
+		if (line == 'Refrain')
+			return true;
+		if (line.indexOf('Verse') > 0)
 			return true;
 		return false;
 	},

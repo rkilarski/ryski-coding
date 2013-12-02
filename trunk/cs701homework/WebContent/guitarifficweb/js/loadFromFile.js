@@ -20,7 +20,7 @@ loadFromFile = {
 						$().toast('Uh oh, something went horribly, horribly wrong!', 'error');
 					},
 					complete : function(xhr, result) {
-						if (result != "success") {
+						if (result != 'success') {
 							$().toast('Unsuccessful at loading from XML file!', 'error');
 							return;
 						}
@@ -28,7 +28,7 @@ loadFromFile = {
 						var count = 0;
 						// for each chord element
 						$(response)
-								.find("chord")
+								.find('chord')
 								.each(
 										function() {
 											var chordName = $(this).find('chordName').text();
