@@ -52,7 +52,7 @@ body,html {
 }
 
 #header:hover {
-	background-color: rgba(0,0,0,0.7);;
+	background-color: rgba(0, 0, 0, 0.7);;
 }
 
 #footer {
@@ -172,6 +172,13 @@ table:hover,#songname:hover,#artistname:hover,#searchfield:hover,#textarea:hover
 	padding-top: 20px;
 	padding-left: 10px;
 	padding-right: 10px;
+}
+
+#chordarea {
+	font-size: xx-large;
+	color: grey;
+	margin-top: auto;
+	margin-bottom: auto;
 }
 
 #textarea:hover,#chordarea:hover {
@@ -361,4 +368,5 @@ Customize the look and feel of the scrollbars.
 
 #chordpreview {
 	float: left;
+	text-align: center;
 }

@@ -18,8 +18,8 @@ dom = {
 	},
 
 	/**
-	 * Load the chords. This function will load from the database and, if that fails, load from the
-	 * XML file and then load from the database.
+	 * Load the chords. This function will load from the database and, if that
+	 * fails, load from the XML file and then load from the database.
 	 */
 	loadChords : function(filter) {
 		$('#chordtray .guitarchart').hide();
@@ -31,8 +31,8 @@ dom = {
 	},
 
 	/**
-	 * Add a given chord into the chord tray. Also attach any event handlers to the chord item in
-	 * the tray.
+	 * Add a given chord into the chord tray. Also attach any event handlers to
+	 * the chord item in the tray.
 	 */
 	loadChordIntoTray : function(chord) {
 		var chordCanvas = chord.getCanvas();
@@ -98,8 +98,8 @@ dom = {
 	},
 
 	/**
-	 * Add a given chord into the chord tray. Also attach any event handlers to the chord item in
-	 * the tray.
+	 * Add a given chord into the chord tray. Also attach any event handlers to
+	 * the chord item in the tray.
 	 * 
 	 * @param chord
 	 */
@@ -109,10 +109,15 @@ dom = {
 	},
 
 	/**
-	 * Add a given chord into the chord area. Also attach any event handlers to the chord item in
-	 * the chord area.
+	 * Add a given chord into the chord area. Also attach any event handlers to
+	 * the chord item in the chord area.
 	 */
 	loadChordIntoArea : function(chord, target) {
+		// Remove the placeholder.
+		if ($('#chordarea .guitarchart').length == 0) {
+			dom.toggleChordPlaceholder(false);
+		}
+
 		var itemTarget;
 		// We are dropping on generic area, so create new list item for it.
 		if (target.id == 'chordarea') {
@@ -139,7 +144,7 @@ dom = {
 		$(chordCanvas).on('click', handlers.editChordAreaHandler);
 		return chordCanvas;
 	},
-	
+
 	/**
 	 * Given a DOM, load its information into a song object.
 	 */
@@ -186,22 +191,24 @@ dom = {
 	 */
 	createDOMFromSong : function(song) {
 		dom.resetSong();
+		dom.toggleChordPlaceholder(false);
 
 		$('#songname').val(song.songName);
 		$('#artistname').val(song.artistName);
 		$('#songid').val(song.id);
 
-		for (var i = 0; i < song.lyrics.length; i++) {
+		$('#lyricstable').empty();
+		for ( var i = 0; i < song.lyrics.length; i++) {
 			var row = factory.createTextRow(song.lyrics[i]);
 			$('#lyricstable').append(row);
 		}
 
-		for (var i = 0; i < song.chords.length; i++) {
+		for ( var i = 0; i < song.chords.length; i++) {
 			var line = song.chords[i];
 			itemTarget = factory.createNewChordListId();
 			$('#chordarea').append(factory.createDiagramList(itemTarget));
 
-			for (var j = 0; j < line.length; j++) {
+			for ( var j = 0; j < line.length; j++) {
 				var chartDB = line[j];
 				var chart = new GuitarChart(chartDB.chordName, chartDB.chordPosition,
 						chartDB.chordFingering, chartDB.chordFrets, chartDB.isLeftHanded);
@@ -228,11 +235,19 @@ dom = {
 		$('#chordarea ol').remove();
 
 		// Remove all rows from the table except the first row.
-		$('#lyricstable').find('tr').remove();
+		$('#lyricstable').empty();
 		$('.songtext').val('');
 
 		$('#songname').val('');
 		$('#artistname').val('');
+		dom.initializeTextCanvas();
+		dom.toggleChordPlaceholder(true);
+	},
+
+	toggleChordPlaceholder : function(visible) {
+		if (visible){
+		$('#chordarea').html('Drag & Drop Chords Here!').css('text-align', 'center');
+		}else{$('#chordarea').empty().css('text-align', 'left');}
 	},
 
 	/**
@@ -243,9 +258,9 @@ dom = {
 			modal : true,
 			width : 700,
 			height : 700,
-			title : 'Welcome to Guitariffic!',
+			title : 'Welcome to guitariffic!',
 			buttons : {
-				'Let\'s Get Started!' : function() {
+				'Let\'s Go!' : function() {
 					$(this).dialog('close');
 				},
 			}
