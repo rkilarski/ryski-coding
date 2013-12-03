@@ -13,6 +13,6 @@ $(document).ready(function() {
 	$().toast('<p>Welcome to Guitariffic</p><br><p>Loading...</p>');
 	dom.loadChords('');
 	handlers.attach();
-	dom.initializeTextCanvas();
+	dom.resetSong();
 	$('.chordlist').sortable();
 });

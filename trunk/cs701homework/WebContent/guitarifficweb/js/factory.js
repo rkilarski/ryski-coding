@@ -216,13 +216,23 @@ factory = {
 		return item;
 	},
 	createChordFingeringTable : function(fingering, frets) {
-		var table = $('<table/>').append(factory.createChordFingeringRow(fingering)).append(
-				factory.createChordFingeringFret(frets, 1)).append(
-				factory.createChordFingeringFret(frets, 2)).append(
-				factory.createChordFingeringFret(frets, 3)).append(
-				factory.createChordFingeringFret(frets, 4)).append(
-				factory.createChordFingeringFret(frets, 5));
+		var table = $('<table/>').append(factory.createGuitarStringRow())
+			.append(factory.createChordFingeringRow(fingering)).append(
+			factory.createChordFingeringFret(frets, 1)).append(
+			factory.createChordFingeringFret(frets, 2)).append(
+			factory.createChordFingeringFret(frets, 3)).append(
+			factory.createChordFingeringFret(frets, 4)).append(
+			factory.createChordFingeringFret(frets, 5));
 		return table;
+	},
+	createGuitarStringRow : function() {
+		return $('<tr/>')
+			.append($('<td/>').append('E'))
+			.append($('<td/>').append('A'))
+			.append($('<td/>').append('D'))
+			.append($('<td/>').append('G'))
+			.append($('<td/>').append('B'))
+			.append($('<td/>').append('E'));
 	},
 	createChordFingeringRow : function(fingering) {
 		return $('<tr/>').append(
