@@ -370,3 +370,12 @@ Customize the look and feel of the scrollbars.
 	float: left;
 	text-align: center;
 }
+
+#chordplaceholder {
+	display: block;
+	position: absolute;
+	top: 45%;
+	width: 35%;
+	height: 10em;
+	text-align: center;
+}

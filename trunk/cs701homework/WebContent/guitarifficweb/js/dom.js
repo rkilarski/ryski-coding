@@ -245,9 +245,11 @@ dom = {
 	},
 
 	toggleChordPlaceholder : function(visible) {
-		if (visible){
-		$('#chordarea').html('Drag & Drop Chords Here!').css('text-align', 'center');
-		}else{$('#chordarea').empty().css('text-align', 'left');}
+		if (visible) {
+			$('#chordarea').html($('<div/>').text('Drag & Drop Chords Here!').attr('id','chordplaceholder')).css('text-align', 'center');
+		} else {
+			$('#chordarea').empty().css('text-align', 'left');
+		}
 	},
 
 	/**
