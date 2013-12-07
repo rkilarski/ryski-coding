@@ -9,7 +9,11 @@ Welcome to guitariffic!
 
 Guitariffic let's you create guitar fake sheets, allowing you to play a song by looking at just a single sheet of paper.
 
-Technologies/Topics From Class
+
+Prerequisites:
+	Please start a simple webserver ("python -m SimpleTTPServer 9999") before running this application.
+
+Technologies Used
 	HTML5/CSS3 - For structure and styling.
 	jQuery - For all DOM interactions.
 	jQuery UI - For dialog and drag&drop between lists in the chord area.
