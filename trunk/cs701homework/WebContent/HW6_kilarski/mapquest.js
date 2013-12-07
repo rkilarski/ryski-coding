@@ -7,6 +7,8 @@
 angular.module('angularMapquest', []).controller(
 		'mapquestController',
 		function($scope, $http, $timeout) {
+			var timeout = null;
+
 			/**
 			 * Set up form.
 			 */
@@ -22,7 +24,6 @@ angular.module('angularMapquest', []).controller(
 					$scope.mapsearch.to = 'New York, NY';
 				}
 			};
-			var timeout;
 
 			/**
 			 * Add a watch on the 'from' value. But ignore it while we're geolocating.
@@ -71,7 +72,13 @@ angular.module('angularMapquest', []).controller(
 				if ((from == "") || (to == "")) {
 					return;
 				}
-				$scope.getDirections(from, to);
+				$scope.getDirections(from, to, function($scope) {
+					// We could have set it directly in getDirections(), but it's more flexible to
+					// provide this callback function to return the data array.
+					return function(directions) {
+						$scope.directions = directions;
+					};
+				}($scope));
 			};
 
 			/**
@@ -95,9 +102,10 @@ angular.module('angularMapquest', []).controller(
 			};
 
 			/**
-			 * Perform the call to MapQuest and populate the information on the form.
+			 * Perform the call to MapQuest and populate the information on the form. Provide a
+			 * callback to set the data somewhere.
 			 */
-			$scope.getDirections = function(from, to) {
+			$scope.getDirections = function(from, to, callback) {
 				var apikey = 'mjtd%7Clu61200ynl%2Cas%3Do5-50ylq';
 				var url = 'http://www.mapquestapi.com/directions/v1/route?key=' + apikey + '&from='
 						+ encodeURIComponent(from) + '&to=' + encodeURIComponent(to);
@@ -114,6 +122,8 @@ angular.module('angularMapquest', []).controller(
 								directions.tripDistance = data.route.distance;
 								directions.tripTime = data.route.formattedTime;
 								var maneuvers = data.route.legs[0].maneuvers;
+
+								// Loop through each maneuver.
 								angular.forEach(maneuvers, function(maneuver) {
 									var direction = {
 										image : maneuver.iconUrl,
@@ -124,7 +134,8 @@ angular.module('angularMapquest', []).controller(
 									};
 									directions.push(direction);
 								});
-								$scope.directions = directions;
+								// Call the callbackmethod to return the data.
+								callback(directions);
 							} catch (error) {
 								alert('Unable to access MapQuest. Please try again later. Error: '
 										+ error.message);
