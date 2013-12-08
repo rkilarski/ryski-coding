@@ -11,7 +11,8 @@ Guitariffic let's you create guitar fake sheets, allowing you to play a song by 
 
 
 Prerequisites:
-	The app fully works only in Google Chrome.
+	The app fully works only in Google Chrome and Firefox. Definitely DOES NOT work in Safari.
+	IE10/11 should work, but it was not tested.
 	Please start a simple webserver ("python -m SimpleHTTPServer 9999") before running this application.
 
 Technologies Used
@@ -22,7 +23,7 @@ Technologies Used
 	AJAX/XML - To load the initial chord list from an XML file.
 	AJAX/JSON - To communicate with Flickr.
 	canvas - Each chord chart is drawn by a generated canvas element. 
-	indexedDB - For local storage of chords and songs.
+	indexedDB - For local storage of chords and songs in JSON format.
 
 Techniques
 	-All code written using object literal syntax.
