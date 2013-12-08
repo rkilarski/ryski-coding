@@ -3,7 +3,7 @@
  * email: emrys@bu.edu 
  * BU ID: U81-39-8560
  * 
- * This is the toast function to display a temporary message to the user.
+ * This is the flickr object that will perform all the interaction with that service.
  */
 flickr = {
 	images : null,

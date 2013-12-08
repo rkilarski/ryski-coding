@@ -211,10 +211,6 @@ table:hover,#songname:hover,#artistname:hover,#searchfield:hover,#textarea:hover
 	color: #ffffff;
 	border: 1px solid #eb009b;
 	position: absolute;
-	xwidth: 350px;
-	xheight: 100px;
-	/*line-height: 100px;
-	vertical-align: middle;*/
 	text-align: center;
 	padding: 20px;
 }

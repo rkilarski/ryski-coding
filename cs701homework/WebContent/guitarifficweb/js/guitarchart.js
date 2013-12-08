@@ -46,7 +46,9 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 	var GRID_OFFSET_FROM_TOP = 26;
 	var GRID_SPACING = 8;
 
-	// Create the Canvas object for this chart and return it.
+	/**
+	 * Create the Canvas object for this chart and return it.
+	 */
 	this.getCanvas = function() {
 		var canvas = document.createElement('canvas');
 		var context = canvas.getContext('2d');
@@ -74,12 +76,17 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 		return canvas;
 	};
 
+	/**
+	 * Create a white background.
+	 */
 	var addBackground = function(context) {
 		context.fillStyle = '#ffffff';
 		context.fillRect(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
 	};
 
-	// Add the chord title to the grid.
+	/**
+	 * Add the chord title to the grid.
+	 */
 	var addTitle = function(context, chordName) {
 		drawText(context, chordName, {
 			offsetFromLeft : TITLE_OFFSET_FROM_LEFT,
@@ -89,7 +96,9 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 		});
 	};
 
-	// Add the chord position to the grid.
+	/**
+	 * Add the chord position to the grid.
+	 */
 	var addChordPosition = function(context, chordPosition) {
 		drawText(context, chordPosition, {
 			offsetFromLeft : POSITION_OFFSET_FROM_LEFT,
@@ -99,7 +108,9 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 		});
 	};
 
-	// Add the left hand 'L' to the grid.
+	/**
+	 * Add the left hand 'L' to the grid.
+	 */
 	var addChordLeftHand = function(context) {
 		drawText(context, 'L', {
 			offsetFromLeft : POSITION_OFFSET_FROM_LEFT,
@@ -109,7 +120,9 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 		});
 	};
 
-	// Add all the chord fingeringn to the grid.
+	/**
+	 * Add all the chord fingering to the grid.
+	 */
 	var addChordFingering = function(context, chordFingering) {
 		var offset = FINGERING_OFFSET_FROM_LEFT;
 
@@ -127,7 +140,9 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 		}
 	};
 
-	// Add all the fret circles to the grid.
+	/**
+	 * Add all the fret circles to the grid.
+	 */
 	var addChordCircles = function(context, chordFrets) {
 		for (var i = 0; i < chordFrets.length; i++) {
 			var fret = chordFrets.charAt(i);
@@ -143,6 +158,9 @@ function GuitarChart(chordName, chordPosition, chordFingering, chordFrets, isLef
 		}
 	};
 
+	/**
+	 * Add the actual gridlines to the chart.
+	 */
 	var addChordGrid = function(context) {
 		var xPosition1 = GRID_OFFSET_FROM_LEFT;
 		var yPosition1;

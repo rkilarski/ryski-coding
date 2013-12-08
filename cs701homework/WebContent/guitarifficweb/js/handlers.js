@@ -26,9 +26,13 @@ handlers = {
 		$('#artistname').on('blur', handlers.changeArtist);
 	},
 
+	/**
+	 * When the artist changes, start up the flickr functionality.
+	 */
 	changeArtist : function() {
 		flickr.callFlickr($('#artistname').val());
 	},
+
 	/**
 	 * Reset the canvas.
 	 */
@@ -38,7 +42,7 @@ handlers = {
 	},
 
 	/**
-	 * Reset the canvas.
+	 * Handler to delete the current song.
 	 */
 	deleteSongHandler : function() {
 		if ($('#songid').val() > 0) {
@@ -51,7 +55,7 @@ handlers = {
 	},
 
 	/**
-	 * Save the song.
+	 * Handler to save the current song.
 	 */
 	saveSongHandler : function() {
 		var song = dom.createSongFromDOM();
@@ -66,8 +70,6 @@ handlers = {
 
 	/**
 	 * When navigating in the text area, use this to handle enter key, arrows, etc.
-	 * 
-	 * @param event
 	 */
 	textKeyHandler : function(event) {
 		$(this).removeClass().addClass('songtext').addClass(lyricstypes.getClass($(this).val()));
@@ -144,6 +146,9 @@ handlers = {
 		dom.populateSetupArea();
 	},
 
+	/**
+	 * Handler to print the song.
+	 */
 	printSongHandler : function() {
 		window.print();
 	},
@@ -226,6 +231,9 @@ handlers = {
 		});
 	},
 
+	/**
+	 * Stop hovering over the lyrics.
+	 */
 	hoverEndLyrics : function() {
 		$('.songtext').removeClass('gotFocusLineType');
 		$('.songtext').removeClass('lostFocusLineType');

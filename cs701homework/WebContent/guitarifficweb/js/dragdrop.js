@@ -18,8 +18,7 @@ dragDrop = {
 		chordCanvas.ondragstart = function(canvas) {
 			return function(e) {
 				dragDropChord = canvas.getGuitarChart();
-				// var string = JSON.stringify(chord);
-				// e.dataTransfer.setData('text/plain', string);
+				e.dataTransfer.setData('text/plain', JSON.stringify(chord));
 				$('#chordarea').css('border', '1px solid #eb009b');
 			};
 		}(chordCanvas);
@@ -62,8 +61,8 @@ dragDrop = {
 	 * Target drop.
 	 */
 	drop : function(e) {
-		// var string = e.dataTransfer.getData('text/plain');
-		// var chord = JSON.parse(string);
+		//var string = e.dataTransfer.getData('text/plain');
+		//var chord = JSON.parse(string);
 		dom.loadChordIntoArea(dragDropChord, e.target);
 		e.preventDefault();
 	}

@@ -26,9 +26,7 @@ var toastTopLocation = 0;
 		});
 
 		var toastmessage = $('<div/>').addClass('toasttext').html(message);
-
 		var toastitem = $('<div/>').addClass('toast').append(toastimage).append(toastmessage);
-
 		$(toastitem).appendTo('#apparea').center().fadeIn(400).delay(1000).fadeOut(400);
 
 		// Echo any message into the console as well.
