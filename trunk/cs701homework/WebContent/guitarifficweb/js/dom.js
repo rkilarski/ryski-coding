@@ -18,8 +18,8 @@ dom = {
 	},
 
 	/**
-	 * Load the chords. This function will load from the database and, if that
-	 * fails, load from the XML file and then load from the database.
+	 * Load the chords. This function will load from the database and, if that fails, load from the
+	 * XML file and then load from the database.
 	 */
 	loadChords : function(filter) {
 		$('#chordtray .guitarchart').hide();
@@ -31,8 +31,8 @@ dom = {
 	},
 
 	/**
-	 * Add a given chord into the chord tray. Also attach any event handlers to
-	 * the chord item in the tray.
+	 * Add a given chord into the chord tray. Also attach any event handlers to the chord item in
+	 * the tray.
 	 */
 	loadChordIntoTray : function(chord) {
 		var chordCanvas = chord.getCanvas();
@@ -43,6 +43,9 @@ dom = {
 		$('#chordtray').append(chordCanvas);
 	},
 
+	/**
+	 * Add saved songs to the load area.
+	 */
 	populateLoadSongsArea : function() {
 		dom.populateArea('#loadarea', '#load', function() {
 			$('#loadarea').append(factory.createSearchBy());
@@ -50,6 +53,9 @@ dom = {
 		});
 	},
 
+	/**
+	 * Add the setup elemennts to the area.
+	 */
 	populateSetupArea : function() {
 		dom.populateArea('#setuparea', '#guitarifficWeb', function() {
 			$('#setuparea').append(factory.createResetDatabaseItem());
@@ -57,6 +63,9 @@ dom = {
 		});
 	},
 
+	/**
+	 * Load the about area.
+	 */
 	populateAboutArea : function() {
 		dom.populateArea('#aboutarea', '#aboutguitariffic', null);
 	},
@@ -98,10 +107,8 @@ dom = {
 	},
 
 	/**
-	 * Add a given chord into the chord tray. Also attach any event handlers to
-	 * the chord item in the tray.
-	 * 
-	 * @param chord
+	 * Add a given chord into the chord tray. Also attach any event handlers to the chord item in
+	 * the tray.
 	 */
 	loadSongIntoTray : function(song) {
 		var songItem = factory.createSongItem(song);
@@ -109,11 +116,11 @@ dom = {
 	},
 
 	/**
-	 * Add a given chord into the chord area. Also attach any event handlers to
-	 * the chord item in the chord area.
+	 * Add a given chord into the chord area. Also attach any event handlers to the chord item in
+	 * the chord area.
 	 */
 	loadChordIntoArea : function(chord, target) {
-		// Remove the placeholder.
+		// Remove the placeholder, if it's still showing.
 		if ($('#chordarea .guitarchart').length == 0) {
 			dom.toggleChordPlaceholder(false);
 		}
@@ -198,17 +205,17 @@ dom = {
 		$('#songid').val(song.id);
 
 		$('#lyricstable').empty();
-		for ( var i = 0; i < song.lyrics.length; i++) {
+		for (var i = 0; i < song.lyrics.length; i++) {
 			var row = factory.createTextRow(song.lyrics[i]);
 			$('#lyricstable').append(row);
 		}
 
-		for ( var i = 0; i < song.chords.length; i++) {
+		for (var i = 0; i < song.chords.length; i++) {
 			var line = song.chords[i];
 			itemTarget = factory.createNewChordListId();
 			$('#chordarea').append(factory.createDiagramList(itemTarget));
 
-			for ( var j = 0; j < line.length; j++) {
+			for (var j = 0; j < line.length; j++) {
 				var chartDB = line[j];
 				var chart = new GuitarChart(chartDB.chordName, chartDB.chordPosition,
 						chartDB.chordFingering, chartDB.chordFrets, chartDB.isLeftHanded);
@@ -225,6 +232,9 @@ dom = {
 		}
 	},
 
+	/**
+	 * Put the song id into the dom for later use.
+	 */
 	saveSongId : function(id) {
 		$('#songid').val(id);
 	},
@@ -244,9 +254,14 @@ dom = {
 		dom.toggleChordPlaceholder(true);
 	},
 
+	/**
+	 * Add or remove the chord area placeholder that says "Drag & Drop Chords Here!"
+	 */
 	toggleChordPlaceholder : function(visible) {
 		if (visible) {
-			$('#chordarea').html($('<div/>').text('Drag & Drop Chords Here!').attr('id','chordplaceholder')).css('text-align', 'center');
+			$('#chordarea').html(
+					$('<div/>').text('Drag & Drop Chords Here!').attr('id', 'chordplaceholder'))
+					.css('text-align', 'center');
 		} else {
 			$('#chordarea').empty().css('text-align', 'left');
 		}
@@ -258,7 +273,7 @@ dom = {
 	showWelcomeMessage : function() {
 		$('#aboutarea').dialog({
 			modal : true,
-			width : 700,
+			width : 1200,
 			height : 700,
 			title : 'Welcome to guitariffic!',
 			buttons : {

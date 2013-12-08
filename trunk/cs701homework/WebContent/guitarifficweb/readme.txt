@@ -11,7 +11,8 @@ Guitariffic let's you create guitar fake sheets, allowing you to play a song by 
 
 
 Prerequisites:
-	Please start a simple webserver ("python -m SimpleTTPServer 9999") before running this application.
+	The app fully works only in Google Chrome.
+	Please start a simple webserver ("python -m SimpleHTTPServer 9999") before running this application.
 
 Technologies Used
 	HTML5/CSS3 - For structure and styling.
@@ -30,9 +31,10 @@ Techniques
 Main Application Functionality
 	Add/edit/delete chords in the right-hand chord tray (to add, click on the '+' button next to the search input item; to edit, click on any chord).
 	Add/edit/delete songs using the navigation bar.
+	Search for songs in the Open dialog by song or artist name.
 	Drag & drop chords from the chord tray onto the song's chord area.
 	Enter lyrics in the lyrics area.  
 
 Additional Application Functionality
 	Add an artist, this will trigger the Flickr functionality with the background changing every 30 seconds. 
-	Reset the database by clicking on the guitariffic navigation element and reset database item.
+	Reset the database by clicking on the guitariffic link at the top of the screen. This will re-load basic chords from the XML file.

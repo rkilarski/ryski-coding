@@ -7,8 +7,13 @@
  */
 
 /**
- * Constructor for the Song object. lyrics = [lines] line = { text : "text", type :
- * "lyric/label/chord" }
+ * Constructor for the Song object. 
+ * 
+ * lyrics = [lines] 
+ * 
+ * line = { 
+ * 	text : "text", 
+ * 	type : "lyric/label/chord" }
  * 
  * chords = [GuitarChart]
  */

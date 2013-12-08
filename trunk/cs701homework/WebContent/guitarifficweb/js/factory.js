@@ -18,6 +18,9 @@ factory = {
 		return newRow;
 	},
 
+	/**
+	 * Create a lyric text element.
+	 */
 	createTextElement : function(text) {
 		var newElement = $('<input/>').attr({
 			type : 'text',
@@ -88,8 +91,6 @@ factory = {
 
 	/**
 	 * Create new ordered list in DOM.
-	 * 
-	 * @returns the id of the new list.
 	 */
 	createNewList : function() {
 		// Get the previous list to insert after.
@@ -139,6 +140,10 @@ factory = {
 		}));
 		return div;
 	},
+	
+	/**
+	 * Create a chord name element.
+	 */
 	createChordName : function(name) {
 		return $('<input/>').attr({
 			'id' : 'chordname',
@@ -146,11 +151,19 @@ factory = {
 			'type' : 'text'
 		}).prop('required', true).val(name).on('keyup', chordeditor.updatePreview);
 	},
+	
+	/**
+	 * Create a label element.
+	 */
 	createLabel : function(label, forElement) {
 		return $('<label/>').attr({
 			'for' : forElement,
 		}).text(label);
 	},
+	
+	/**
+	 * Create a dropdown select element for chord frets.
+	 */
 	createChordFretSelect : function(selection) {
 		var item = $('<select/>').attr('id', 'fret').on('change', chordeditor.updatePreview);
 		for (var i = 0; i < 13; i++) {
@@ -172,6 +185,10 @@ factory = {
 			return item;
 		}
 	},
+	
+	/**
+	 * Create a dropdown select element for fingering.
+	 */
 	createChordFingeringSelect : function(finger, selection) {
 		var item = $('<select/>').attr('id', 'fingering' + finger).on('change',
 				chordeditor.updatePreview);
@@ -194,6 +211,10 @@ factory = {
 			return item;
 		}
 	},
+	
+	/**
+	 * Create a radio element for frets.
+	 */
 	createFretRadio : function(string, fret, checked) {
 		var item = $('<input/>').attr({
 			'type' : 'radio',
@@ -205,6 +226,10 @@ factory = {
 		}
 		return item;
 	},
+	
+	/**
+	 * Create the left-handed checkbox.
+	 */
 	createChordLeftHanded : function(checked) {
 		var item = $('<input/>').attr({
 			'type' : 'checkbox',
@@ -215,6 +240,10 @@ factory = {
 		}
 		return item;
 	},
+	
+	/**
+	 * Create the chord fingering table that contains the chord definition.
+	 */
 	createChordFingeringTable : function(fingering, frets) {
 		var table = $('<table/>').append(factory.createGuitarStringRow())
 			.append(factory.createChordFingeringRow(fingering)).append(
@@ -225,6 +254,10 @@ factory = {
 			factory.createChordFingeringFret(frets, 5));
 		return table;
 	},
+	
+	/**
+	 * Create the row that contains the guitar string name.
+	 */
 	createGuitarStringRow : function() {
 		return $('<tr/>')
 			.append($('<td/>').append('E'))
@@ -234,42 +267,30 @@ factory = {
 			.append($('<td/>').append('B'))
 			.append($('<td/>').append('E'));
 	},
+	
+	/**
+	 * Create the row that contains the chord fingering.
+	 */
 	createChordFingeringRow : function(fingering) {
-		return $('<tr/>').append(
-				$('<td/>').append(factory.createChordFingeringSelect(1, fingering.charAt(0))))
-				.append(
-						$('<td/>').append(
-								factory.createChordFingeringSelect(2, fingering.charAt(1))))
-				.append(
-						$('<td/>').append(
-								factory.createChordFingeringSelect(3, fingering.charAt(2))))
-				.append(
-						$('<td/>').append(
-								factory.createChordFingeringSelect(4, fingering.charAt(3))))
-				.append(
-						$('<td/>').append(
-								factory.createChordFingeringSelect(5, fingering.charAt(4))))
-				.append(
-						$('<td/>').append(
-								factory.createChordFingeringSelect(6, fingering.charAt(5))));
+		return $('<tr/>')
+			.append($('<td/>').append(factory.createChordFingeringSelect(1, fingering.charAt(0))))
+			.append($('<td/>').append(factory.createChordFingeringSelect(2, fingering.charAt(1))))
+			.append($('<td/>').append(factory.createChordFingeringSelect(3, fingering.charAt(2))))
+			.append($('<td/>').append(factory.createChordFingeringSelect(4, fingering.charAt(3))))
+			.append($('<td/>').append(factory.createChordFingeringSelect(5, fingering.charAt(4))))
+			.append($('<td/>').append(factory.createChordFingeringSelect(6, fingering.charAt(5))));
 	},
+	
+	/**
+	 * Create a row that contains fingering. 
+	 */
 	createChordFingeringFret : function(frets, fret) {
-		return $('<tr/>').append(
-				$('<td/>').append(factory.createFretRadio(1, fret, (frets.charAt(0) == fret))))
-				.append(
-						$('<td/>').append(
-								factory.createFretRadio(2, fret, (frets.charAt(1) == fret))))
-				.append(
-						$('<td/>').append(
-								factory.createFretRadio(3, fret, (frets.charAt(2) == fret))))
-				.append(
-						$('<td/>').append(
-								factory.createFretRadio(4, fret, (frets.charAt(3) == fret))))
-				.append(
-						$('<td/>').append(
-								factory.createFretRadio(5, fret, (frets.charAt(4) == fret))))
-				.append(
-						$('<td/>').append(
-								factory.createFretRadio(6, fret, (frets.charAt(5) == fret))));
+		return $('<tr/>')
+			.append($('<td/>').append(factory.createFretRadio(1, fret, (frets.charAt(0) == fret))))
+			.append($('<td/>').append(factory.createFretRadio(2, fret, (frets.charAt(1) == fret))))
+			.append($('<td/>').append(factory.createFretRadio(3, fret, (frets.charAt(2) == fret))))
+			.append($('<td/>').append(factory.createFretRadio(4, fret, (frets.charAt(3) == fret))))
+			.append($('<td/>').append(factory.createFretRadio(5, fret, (frets.charAt(4) == fret))))
+			.append($('<td/>').append(factory.createFretRadio(6, fret, (frets.charAt(5) == fret))));
 	}
 };
