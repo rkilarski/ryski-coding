@@ -8,9 +8,21 @@ Author: Ryszard Kilarski
 Author URI: rkilarski@gmail.com
 */
 ?>
-<?php get_header(); ?>
+<?php get_header(); 
+remove_filter('the_content', 'wpautop');
+?>
 	<div id="slidedown">
 		<h1>Welcome to the New England Valkyries Rugby Football Club</h1>
+		<div id="members">
+			<h3>Member of</h3>
+			<a href="http://www.igrab.net"><img class="sponsorlogo"
+				title="International Gay Rugby Association and Board" src="<?php bloginfo('template_url'); ?>/images/igrab.png">
+			</a>
+			<a href="http://www.usarugby.org"><img class="sponsorlogo"
+				title="USA Rugby" src="<?php bloginfo('template_url'); ?>/images/usarugby.png">
+			</a>
+			</div>
+		
 		<div id="bodyfirstpage" class="clear">
 			<?php if (have_posts()): ?>
 				<?php while (have_posts()) : the_post(); ?>

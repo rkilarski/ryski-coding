@@ -60,12 +60,15 @@ body {
 
 #slidedown {
 	display: none;
+	margin-left: auto;
+	margin-right: auto;
+	width: 70%;
 }
 
 #bodyfirstpage {
 	display: none;
 	min-height: 100%;
-	height: 700px;
+	height: 800px;
 	width: 520px;
 	background-color: #ffffff;
 	color: #000000;
@@ -76,14 +79,25 @@ body {
 	-moz-border-radius: 10px;
 	-khtml-border-radius: 10px;
 	border-radius: 10px;
+	float: left;
 }
 
 #sponsorsfirstpage {
-	position: absolute;
+	float: left;
 	margin: 30px 10px 30px 10px;
 	width: 15%;
 	top: 0;
 	right: 0;
+	margin: 30px 10px 30px 10px;
+}
+
+#members {
+	margin: 30px 10px 30px 10px;
+	width: 15%;
+	top: 0;
+	right: 0;
+	float: left;
+	text-align: center;
 }
 
 #headerfirstpage {
@@ -185,6 +199,27 @@ h1#title {
 	border-radius: 5px;
 }
 
+.sponsorlogo {
+	margin-left: auto;
+	margin-right: auto;
+	width: 100px;
+	display: block;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.profile {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	border-radius: 5px;
+	display: inline-block;
+	border: 1px solid #383838;
+	padding: 10px;
+}
+
 #logimage {
 	max-width: 100%;
 }
@@ -208,16 +243,17 @@ footer .navigation {
 	color: #EB009B;
 }
 
-.navigation a, #nav a{
-	display:inline-block;
+.navigation a,#nav a {
+	display: inline-block;
 }
+
 .highlight a {
 	color: #EB009B;
 }
 
 ul.navigation {
 	list-style: none;
-	text-align:center;
+	text-align: center;
 }
 
 ul.navigation li {
