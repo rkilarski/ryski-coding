@@ -9,7 +9,9 @@
 			<a href="mailto: valkyriesRFC@gmail.com" target="_blank">email</a>
 		</div>
 		<br>
-		<ul class="navigation"><?php wp_nav_menu( array( 'theme_location' => 'header-menu' ) ); ?></ul><p>Copyright &copy; 2013 New England Valkyries Rugby Football Club</p>
+		<ul class="navigation"><?php wp_nav_menu( array( 'theme_location' => 'header-menu' ) ); ?></ul>
+		<h3>Boston's New Gay Rugby Team</h3>
+		<p>Copyright &copy; 2013 New England Valkyries Rugby Football Club</p>
 		</footer>
 </body>
 </html>
