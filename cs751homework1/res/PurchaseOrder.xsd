@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/Purchaseorder"
+	xmlns:tns="http://www.example.org/Purchaseorder" elementFormDefault="qualified">
+
+    <complexType name="addressType">
+    	<sequence>
+    		<element name="name" type="string"></element>
+    		<element name="company" type="string" maxOccurs="1" minOccurs="0"></element>
+    		<element name="street" type="string"></element>
+    		<element name="city" type="string"></element>
+    		<element name="state" type="string"></element>
+    		<element name="zipCode" type="string"></element>
+    		<element name="country" type="string"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="itemType">
+    	<sequence>
+    		<element name="description" type="string" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    	</sequence>
+    	<attribute name="upc" type="string"></attribute>
+    	<attribute name="quantity" type="string"></attribute>
+    </complexType>
+
+    <element name="purchaseOrder" type="tns:purchaseOrderType"></element>
+    
+    <complexType name="purchaseOrderType">
+    	<sequence>
+    		<element name="billTo" type="string"></element>
+    		<sequence>
+    			<element name="order" type="string"></element>
+    		</sequence>
+    	</sequence>
+    </complexType>
+</schema>
