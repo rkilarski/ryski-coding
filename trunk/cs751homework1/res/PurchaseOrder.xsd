@@ -1,6 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/po"
-	xmlns:po="http://www.example.org/po" elementFormDefault="qualified">
+<!-- 
+ author: Ryszard Kilarski
+ email: emrys@bu.edu
+ BU ID: U81-39-8560
+ -->
+ <?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.kalathur.com/po"
+	xmlns:po="http://www.kalathur.com/po" elementFormDefault="qualified">
 
 	<!-- The address type -->
 	<complexType name="addressType">
@@ -27,7 +32,7 @@
 		</sequence>
 		<!-- The upc attribute will look like XXX-DD where XXX are uppercase letters 
 			and DD are digits -->
-		<attribute name="upc">
+		<attribute name="upc" use="required">
 			<simpleType>
 				<restriction base="string">
 					<pattern value="[A-Z]{3}-{1}\d{2}" />
@@ -35,7 +40,7 @@
 			</simpleType>
 		</attribute>
 		
-		<attribute name="quantity" type="string"></attribute>
+		<attribute name="quantity" type="string" use="required"></attribute>
 	</complexType>
 
 	<!-- The purchase order -->
@@ -50,9 +55,9 @@
 				</complexType>
 			</element>
 		</sequence>
-		<attribute name="orderId" type="int"></attribute>
-		<attribute name="submitted" type="date"></attribute>
-		<attribute name="customerId" type="int"></attribute>
+		<attribute name="orderId" type="int" use="required"></attribute>
+		<attribute name="submitted" type="date" use="required"></attribute>
+		<attribute name="customerId" type="int" use="required"></attribute>
 	</complexType>
 
 	<!-- The actual element -->
