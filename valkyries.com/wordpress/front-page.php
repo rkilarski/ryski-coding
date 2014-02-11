@@ -34,7 +34,19 @@ remove_filter ( 'the_content', 'wpautop' );
 		<a href="http://www.woagp.com/"><img class="sponsorlogo"
 			title="World of America Global Partners"
 			src="<?php bloginfo('template_url'); ?>/images/woaglogo.jpg"> </a>
-	</div>
+			<br>
+		<a href="http://www.manhunt.net/"><img class="sponsorlogo"
+			title="Manhunt"
+			src="<?php bloginfo('template_url'); ?>/images/manhunt.png"> </a>
+		<br><h3>Partnered with</h3>
+				<a href="http://www.tfwboston.com/"><img class="sponsorlogo"
+			title="Training for Warriors"
+			src="<?php bloginfo('template_url'); ?>/images/tfw.png"> </a>
+			<br>
+		<a href="http://www.ultimateselfdefense.com/"><img class="sponsorlogo"
+			title="Ultimate Self Defense Performance Studio"
+			src="<?php bloginfo('template_url'); ?>/images/usdpc.jpg"> </a>
+			</div>
 	<div class="clear"></div>
 </div>
 <?php get_footer(); ?>

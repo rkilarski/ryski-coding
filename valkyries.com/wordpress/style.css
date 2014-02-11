@@ -46,16 +46,16 @@ body {
 	min-height: 100%;
 	height: auto !important;
 	height: 100%;
-	width: 80%;
+	width: 75%;
 	background-color: #ffffff;
 	color: #000000;
 	margin: 50px auto 1em auto;
 	padding: 50px;
 	border: none;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	-khtml-border-radius: 10px;
-	border-radius: 10px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	border-radius: 4px;
 }
 
 #slidedown {
@@ -75,10 +75,10 @@ body {
 	margin: 50px auto 1em auto;
 	padding: 10px;
 	border: none;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	-khtml-border-radius: 10px;
-	border-radius: 10px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	border-radius: 4px;
 	float: left;
 }
 
@@ -193,10 +193,10 @@ h1#title {
 	margin-right: auto;
 	width: 150px;
 	display: block;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-khtml-border-radius: 5px;
-	border-radius: 5px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	border-radius: 4px;
 }
 
 .sponsorlogo {
@@ -204,17 +204,17 @@ h1#title {
 	margin-right: auto;
 	width: 100px;
 	display: block;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-khtml-border-radius: 5px;
-	border-radius: 5px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	border-radius: 4px;
 }
 
 .profile {
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-khtml-border-radius: 5px;
-	border-radius: 5px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	border-radius: 4px;
 	display: inline-block;
 	border: 1px solid #383838;
 	padding: 10px;
@@ -334,9 +334,10 @@ CSS Twitter icon
 	text-decoration: none;
 	/* css3 */
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px; /* standards version last */
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	border-radius: 4px;
 }
 
 #favorites ul li a:hover,#favorites ul li a:focus,#favorites ul li a:active
