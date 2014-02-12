@@ -1,3 +1,8 @@
+/**
+ author: Ryszard Kilarski
+ email: emrys@bu.edu
+ bu id: U81-39-8560
+ */
 package edu.cs751hw1.dom;
 
 import java.util.ArrayList;
@@ -12,87 +17,102 @@ import edu.cs751hw1.model.BillTo;
 import edu.cs751hw1.model.Item;
 import edu.cs751hw1.model.Order;
 
-public class CreateOrderDOM {
-    /**
-     * DOM Document
-     */
+/**
+ * This class creates an Order object from the document.
+ */
+public class CreateOrderDOM implements CreateDOM {
     private Document document = null;
 
+    /**
+     * Public constructor.
+     */
     public CreateOrderDOM(Document document) {
         this.document = document;
-    }
-
-    public Order getOrder() {
-        Order order = new Order();
-
-        Node list = document.getElementsByTagName("po:purchaseOrder").item(0);
-        order.setCustomerId(getAttribute(list, "customerId"));
-        order.setSubmitted(getAttribute(list, "submitted"));
-        order.setOrderId(getAttribute(list, "orderId"));
-
-        order.setBillTo(createBillTo(document));
-        order.setOrder(createOrders(document));
-        return order;
     }
 
     public Document getDocument() {
         return document;
     }
 
-    private BillTo createBillTo(Document document) {
-        BillTo billTo = new BillTo();
-        billTo.setName(document.getElementsByTagName("name").item(0).getTextContent());
-        billTo.setCompany(document.getElementsByTagName("company").item(0).getTextContent());
-        billTo.setStreet(document.getElementsByTagName("street").item(0).getTextContent());
-        billTo.setCity(document.getElementsByTagName("city").item(0).getTextContent());
-        billTo.setState(document.getElementsByTagName("state").item(0).getTextContent());
-        billTo.setZipCode(document.getElementsByTagName("zipCode").item(0).getTextContent());
-        billTo.setCountry(document.getElementsByTagName("country").item(0).getTextContent());
-        return billTo;
-    }
+    /**
+     * Method to do the actual building of the order object.
+     */
+    public Order getOrder() {
+        Order order = new Order();
 
-    private List<Item> createOrders(Document document) {
-        List<Item> order = new ArrayList<Item>();
-        NodeList list = document.getElementsByTagName("item");
+        Node list = document.getElementsByTagName(ELEMENT_PO_PURCHASE_ORDER).item(0);
+        order.setCustomerId(getAttribute(list, ATTRIBUTE_CUSTOMER_ID));
+        order.setSubmitted(getAttribute(list, ATTRIBUTE_SUBMITTED));
+        order.setOrderId(getAttribute(list, ATTRIBUTE_ORDER_ID));
 
-        for (int i = 0; i < list.getLength(); i++) {
-            order.add(createItem(list.item(i)));
-        }
-
+        order.setBillTo(createBillTo(document));
+        order.setOrderItems(createOrderItems(document));
         return order;
     }
 
-    private String getAttribute(Node node, String attribute) {
-        NamedNodeMap attributes = node.getAttributes();
-        return attributes.getNamedItem(attribute).getNodeValue();
+    /**
+     * Private method to create the billTo object. This method scans the document and builds the
+     * order object.
+     */
+    private BillTo createBillTo(Document document) {
+        BillTo billTo = new BillTo();
+        billTo.setName(document.getElementsByTagName(ELEMENT_NAME).item(0).getTextContent());
+        billTo.setCompany(document.getElementsByTagName(ELEMENT_COMPANY).item(0).getTextContent());
+        billTo.setStreet(document.getElementsByTagName(ELEMENT_STREET).item(0).getTextContent());
+        billTo.setCity(document.getElementsByTagName(ELEMENT_CITY).item(0).getTextContent());
+        billTo.setState(document.getElementsByTagName(ELEMENT_STATE).item(0).getTextContent());
+        billTo.setZipCode(document.getElementsByTagName(ELEMENT_ZIP_CODE).item(0).getTextContent());
+        billTo.setCountry(document.getElementsByTagName(ELEMENT_COUNTRY).item(0).getTextContent());
+        return billTo;
     }
 
+    /**
+     * Helper method to create an item element.
+     */
     private Item createItem(Node node) {
         Item item = new Item();
-        String upc = getAttribute(node, "upc");
+        String upc = getAttribute(node, ATTRIBUTE_UPC);
         item.setUpc(upc);
 
-        item.setQuantity(getAttribute(node, "quantity"));
-        item.setUnitPrice(getPrice(upc));
+        item.setQuantity(Integer.parseInt(getAttribute(node, ATTRIBUTE_QUANTITY)));
 
         // Get the description.
-        String description = node.getChildNodes().item(0).getTextContent();
-        item.setDescription(description);
+        item.setDescription(findDescriptionInNode(node));
         return item;
     }
 
-    private double getPrice(String upc) {
-        double price = 0.0;
-        if (upc.equals("XYZ-01")) {
-            price = 2.00;
-        } else if (upc.equals("XYZ-02")) {
-            price = 3.00;
-        } else if (upc.equals("XYZ-03")) {
-            price = 4.00;
-        } else {
-            price = 5.00;
+    private String findDescriptionInNode(Node node) {
+        NodeList list = node.getChildNodes();
+        String text = "";
+        for (int i = 0; i < list.getLength(); i++) {
+            Node newNode = list.item(i);
+            if ((newNode.getNodeType() == Node.ELEMENT_NODE)
+                    && (newNode.getNodeName().equals(ELEMENT_DESCRIPTION))) {
+                text = newNode.getTextContent();
+            }
+        }
+        return text;
+    }
+
+    /**
+     * Private method to create the item orders.
+     */
+    private List<Item> createOrderItems(Document document) {
+        List<Item> orderItems = new ArrayList<Item>();
+        NodeList list = document.getElementsByTagName(ELEMENT_ITEM);
+
+        for (int i = 0; i < list.getLength(); i++) {
+            orderItems.add(createItem(list.item(i)));
         }
 
-        return price;
+        return orderItems;
+    }
+
+    /**
+     * Private helper method to get an attribute out of a node.
+     */
+    private String getAttribute(Node node, String attribute) {
+        NamedNodeMap attributes = node.getAttributes();
+        return attributes.getNamedItem(attribute).getNodeValue();
     }
 }
