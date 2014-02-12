@@ -13,36 +13,36 @@ import edu.cs751hw1.dom.DOMUtil;
 import edu.cs751hw1.model.Invoice;
 import edu.cs751hw1.model.Order;
 
+/**
+ * Main program for everything. This reads in an xml order file and produces an xml invoice file.
+ */
 public class ProcessOrder {
 
-    static String invoiceFileName = "res/outputInvoice.xml";
     static String orderFileName = "res/inputOrder.xml";
+    static String invoiceFileName = "res/outputInvoice.xml";
 
     public static void main(String[] args) {
 
-        Document document = null;
-        Order order = null;
-        Invoice invoice = null;
-
-        // Parse in document.
-        document = DOMUtil.parse(orderFileName);
+        // Read in the document.
+        Document orderDocument = DOMUtil.parse(orderFileName);
         out("Order document:");
-        DOMUtil.printDOM(document);
+        DOMUtil.printDOM(orderDocument);
 
         // Create an order out of the document.
-        CreateOrderDOM orderDOM = new CreateOrderDOM(document);
-        order = orderDOM.getOrder();
+        CreateOrderDOM orderDOM = new CreateOrderDOM(orderDocument);
+        Order order = orderDOM.getOrder();
 
         // Create an invoice from the order.
-        invoice = new Invoice(order);
+        Invoice invoice = new Invoice(order);
 
-        // Create an invoice DOM from the invoice.
+        // Create a document from the invoice.
         CreateInvoiceDOM invoiceDOM = new CreateInvoiceDOM(invoice);
+        Document invoiceDocument = invoiceDOM.getDocument();
 
         // Write the invoice.
         out("\n\nInvoice document:");
-        DOMUtil.printDOM(invoiceDOM.getDocument());
-        DOMUtil.writeXmlToFile(invoiceFileName, invoiceDOM.getDocument());
+        DOMUtil.printDOM(invoiceDocument);
+        DOMUtil.writeXmlToFile(invoiceFileName, invoiceDocument);
     }
 
     /**
