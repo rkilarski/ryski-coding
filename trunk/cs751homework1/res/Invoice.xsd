@@ -1,12 +1,7 @@
-<!-- 
- author: Ryszard Kilarski
- email: emrys@bu.edu
- bu id: U81-39-8560
--->
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- author: Ryszard Kilarski email: emrys@bu.edu bu id: U81-39-8560 -->
 <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.kalathur.com/invoice"
-	xmlns:inv="http://www.kalathur.com/invoice" xmlns:po="http://www.kalathur.com/po"
-	elementFormDefault="qualified">
+	xmlns:inv="http://www.kalathur.com/invoice" xmlns:po="http://www.kalathur.com/po">
 	<import schemaLocation="PurchaseOrder.xsd" namespace="http://www.kalathur.com/po"></import>
 
 	<!-- The price type ranging from 0.05 to 100,000. -->
@@ -50,5 +45,4 @@
 
 	<!-- The actual element. -->
 	<element name="invoice" type="inv:invoiceType"></element>
-
 </schema>
