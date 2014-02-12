@@ -1,3 +1,8 @@
+/**
+ author: Ryszard Kilarski
+ email: emrys@bu.edu
+ bu id: U81-39-8560
+ */
 package edu.cs751hw1;
 
 import org.w3c.dom.Document;
@@ -10,8 +15,8 @@ import edu.cs751hw1.model.Order;
 
 public class ProcessOrder {
 
-    static String orderFileName = "res/inputOrder.xml";
     static String invoiceFileName = "res/outputInvoice.xml";
+    static String orderFileName = "res/inputOrder.xml";
 
     public static void main(String[] args) {
 

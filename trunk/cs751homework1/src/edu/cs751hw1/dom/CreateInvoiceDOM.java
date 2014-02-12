@@ -1,4 +1,11 @@
+/**
+ author: Ryszard Kilarski
+ email: emrys@bu.edu
+ bu id: U81-39-8560
+ */
 package edu.cs751hw1.dom;
+
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -8,82 +15,113 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import edu.cs751hw1.model.BillTo;
 import edu.cs751hw1.model.Invoice;
+import edu.cs751hw1.model.Item;
 
-public class CreateInvoiceDOM {
+/**
+ * This class creates an invoice document from an invoice.
+ */
+public class CreateInvoiceDOM implements CreateDOM {
     /**
      * DOM Document
      */
     private Document document = null;
 
     public CreateInvoiceDOM(Invoice invoice) {
-      DocumentBuilder builder = null;
-      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-      try{
-        builder = factory.newDocumentBuilder();
-        document = builder.newDocument();
-      } catch (ParserConfigurationException e) {
-        e.printStackTrace();
-      }
+        DocumentBuilder builder = null;
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        try {
+            factory.setNamespaceAware(true);
+            builder = factory.newDocumentBuilder();
+            document = builder.newDocument();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
 
-      // Insert Root Order
-      Element root = (Element) document.createElement("inv:invoice");
-      document.appendChild(root);
+        // Insert Root element
+        Element root = createRootNode(invoice);
+        document.appendChild(root);
 
-      // Insert child Manifest
-      Node manifestChild = document.createElement("Manifest");
-      root.appendChild(manifestChild);
-      
-      // Insert Items
-      insertItem(document, manifestChild, "101", "Name one", "$29.99");
-      insertItem(document, manifestChild, "108", "Name two", "$19.99");
-      insertItem(document, manifestChild, "125", "Name three", "$39.99");
-      insertItem(document, manifestChild, "143", "Name four", "$59.99");
-      insertItem(document, manifestChild, "118", "Name five", "$99.99");
+        // Insert billTo
+        root.appendChild(createBillToNode(invoice.getBillTo()));
 
-      // Normalizing the DOM
-      document.getDocumentElement().normalize();
+        // Insert the order items
+        root.appendChild(createOrderItemsNode(invoice.getOrderItems()));
+
+        // Insert the totals: tax/shipping/total cost.
+        this.insertTotals(root, invoice);
+
+        // Normalizing the DOM
+        document.getDocumentElement().normalize();
     }
 
     /**
      * @return Document
      */
-    public Document getDocument(){
-      return document;
+    public Document getDocument() {
+        return document;
     }
 
-    /**
-     * Insert "Item" to Document
-     * @param document - Order Document
-     * @param parent - Node where to insert a "Item"
-     * @param id - Item's ID
-     * @param name - Item's Name
-     * @param price - Item's Price
-     */
-    private void insertItem(Document document, Node parent, String id, String name, String price) {
-      // Insert child Item
-      Node itemChild = document.createElement("Item");
-      parent.appendChild(itemChild);
+    private Node createBillToNode(BillTo billTo) {
+        Element billToNode = document.createElement(ELEMENT_BILL_TO);
+        billToNode.appendChild(this.createElement(ELEMENT_NAME, billTo.getName()));
+        billToNode.appendChild(this.createElement(ELEMENT_COMPANY, billTo.getCompany()));
+        billToNode.appendChild(this.createElement(ELEMENT_STREET, billTo.getStreet()));
+        billToNode.appendChild(this.createElement(ELEMENT_CITY, billTo.getCity()));
+        billToNode.appendChild(this.createElement(ELEMENT_STATE, billTo.getState()));
+        billToNode.appendChild(this.createElement(ELEMENT_ZIP_CODE, billTo.getZipCode()));
+        billToNode.appendChild(this.createElement(ELEMENT_COUNTRY, billTo.getCountry()));
+        return billToNode;
+    }
 
-      // Insert child ID
-      Node item = document.createElement("ID");
-      itemChild.appendChild(item);
-      // Insert ID value
-      Node value = document.createTextNode(id);
-      item.appendChild(value);
+    private Node createElement(String elementName, String value) {
+        Node child = null;
+        child = document.createElement(elementName);
+        child.setTextContent(value);
+        return child;
+    }
 
-      // Insert child NAME
-      item = document.createElement("NAME");
-      itemChild.appendChild(item);
-      // Insert NAME value
-      value = document.createTextNode(name);
-      item.appendChild(value);
+    private Node createItemNode(Item item) {
+        Element orderItem = document.createElement(ELEMENT_ITEM);
 
-      // Insert child PRICE
-      item = document.createElement("PRICE");
-      itemChild.appendChild(item);
-      // Insert PRICE value
-      value = document.createTextNode(price);
-      item.appendChild(value);
+        // Add attributes.
+        orderItem.setAttribute(ATTRIBUTE_UPC, item.getUpc());
+        orderItem.setAttribute(ATTRIBUTE_QUANTITY, doubleToString(item.getQuantity()));
+        orderItem.setAttribute(ATTRIBUTE_UNIT_PRICE, doubleToString(item.getUnitPrice()));
+
+        // Add description.
+        orderItem.appendChild(this.createElement(ELEMENT_DESCRIPTION, item.getDescription()));
+        return orderItem;
+    }
+
+    private String doubleToString(double amount){
+        return String.format( "%.2f",amount);
+    }
+    private Node createOrderItemsNode(List<Item> orderItems) {
+        Element order = document.createElement(ELEMENT_ORDER);
+        for (Item item : orderItems) {
+            order.appendChild(createItemNode(item));
+        }
+        return order;
+    }
+
+    private Element createRootNode(Invoice invoice) {
+        Element root = document.createElementNS("http://www.kalathur.com/invoice", ELEMENT_INV_INVOICE);
+        root.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance","xsi:schemaLocation", "http://www.kalathur.com/invoice ./invoice.xsd");
+        //root.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance","xsi:schemaLocation", "http://www.kalathur.com/invoice ./invoice.xsd");
+        root.setAttribute(ATTRIBUTE_INVOICE_ID, invoice.getInvoiceId());
+        root.setAttribute(ATTRIBUTE_INVOICE_DATE, invoice.getInvoiceDate());
+        root.setAttribute(ATTRIBUTE_ORDER_ID, invoice.getOrderId());
+        root.setAttribute(ATTRIBUTE_CUSTOMER_ID, invoice.getCustomerId());
+        return root;
+    }
+
+    private void insertTotals(Element parent, Invoice invoice) {
+        parent.appendChild(this.createElement(ELEMENT_TAX, doubleToString(invoice.getTax())));
+        parent.appendChild(this.createElement(ELEMENT_SHIPPING,
+                doubleToString(invoice.getShipping())));
+        parent.appendChild(this.createElement(ELEMENT_TOTAL_COST,
+                doubleToString(invoice.getTotalCost())));
     }
 }
