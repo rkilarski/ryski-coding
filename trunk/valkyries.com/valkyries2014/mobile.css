@@ -1,0 +1,72 @@
+/*
+Theme Name: ValkyriesRFC
+Theme URI: rkilarski@gmail.com
+Description: A basic MOBILE theme by Ryszard Kilarski for the New England Valkyries RFC.
+Version: 1.0
+Author: Ryszard Kilarski
+Author URI: rkilarski@gmail.com
+*/
+#title {
+	display: block;
+	width: 100%;
+}
+
+#pagelogo {
+	clear: both;
+	width: 100%;
+	display: block;
+	top: auto;
+	position: relative;
+}
+
+#favorites {
+	display: none;
+}
+
+#bodywrapper {
+	width: auto;
+}
+
+.navigation,#nav {
+	font-size: 30px;
+}
+
+ul.navigation li { /*border-left: 1px solid #EB009B;
+	border-right: 1px solid #EB009B;*/
+	
+}
+
+#imagecontainer {
+	display: block;
+}
+
+#sponsorsfirstpage {
+	position: relative;
+	margin: 0;
+	width: auto;
+	top: auto;
+	right: auto;
+}
+
+#bodyfirstpage {
+	width: 95%;
+}
+
+#logostripesdiv {
+	display: none;
+}
+
+#logoimage {
+	width: auto;
+	max-width: 100%;
+}
+
+#valkyrieslogo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+header {
+	height: auto;
+}
