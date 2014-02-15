@@ -41,6 +41,7 @@ body {
 	-o-background-size: cover;
 	background-size: cover;
 	/*Background image end*/
+	text-align: center;
 }
 
 body,#bodywrapper,a {
@@ -50,31 +51,35 @@ body,#bodywrapper,a {
 	-ms-transition: All 0.5s ease;
 	transition: All 0.5s ease;
 }
+
 #valkyrieslogo {
 	height: 150px;
 	border: 0;
 }
 
 #bodywrapper {
+	display: inline-block;
 	position: relative;
 	min-height: 600px;
 	height: auto !important;
 	height: 100%;
 	min-width: 50%;
 	width: 50%;
-	background-color: rgba(0, 0, 0, 0.8);
+	background-color: rgba(0, 0, 0, 0.6);
 	color: #ffffff;
 	margin: 50px auto 1em auto;
 	padding: 50px;
 	padding-top: 10px;
 	border: none;
+	min-height: 800px;
+}
+
+#valkyrieslogo, #bodywrapper{
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
 	-khtml-border-radius: 6px;
 	border-radius: 6px;
-	min-height: 800px;
 }
-
 #bodywrapper:hover {
 	background-color: rgba(0, 0, 0, 0.9);
 }
@@ -87,12 +92,15 @@ body,#bodywrapper,a {
 }
 
 #sponsorsfirstpage {
-	float: left;
-	margin: 30px 10px 30px 10px;
-	width: 15%;
+	float: right;
+	display: inline-block;
+	position: relative;
+	margin: 30px 10px 30px auto;
+	xwidth: 15%;
 	top: 0;
 	right: 0;
 	margin: 30px 10px 30px 10px;
+	text-align: right;
 }
 
 #members {
@@ -122,9 +130,9 @@ footer {
 	font-weight: normal;
 	font-size: 15px;
 	display: block;
-	position: absolute;
-	bottom: 0;
-	left: 0;
+	xposition: absolute;
+	xbottom: 0;
+	xleft: 0;
 	text-align: center;
 	margin-bottom: 10px;
 }
@@ -155,7 +163,6 @@ h1,h2,h3,h4 {
 	margin-right: auto;
 }
 
-
 #pagelogo {
 	width: 200px;
 	top: 0px;
@@ -183,6 +190,15 @@ h1#title {
 	max-width: 100%;
 }
 
+.sponsorslist {
+	list-style: none;
+	text-align: right;
+}
+
+#sponsorsfirstpage h3 {
+	text-align: right;
+}
+
 #sponsors {
 	margin-top: 30px;
 	margin-bottom: 30px;
@@ -191,17 +207,7 @@ h1#title {
 .sponsorlogo {
 	margin-left: auto;
 	margin-right: auto;
-	width: 150px;
-	display: block;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	-khtml-border-radius: 4px;
-	border-radius: 4px;
-}
-
-.sponsorlogo {
-	margin-left: auto;
-	margin-right: auto;
+	margin-bottom: 20px;
 	width: 100px;
 	display: block;
 	-webkit-border-radius: 4px;
@@ -230,6 +236,7 @@ h1#title {
 	margin: 0;
 	color: #ffffff;
 	padding: 0;
+	margin-bottom: 10px;
 }
 
 footer .navigation {
