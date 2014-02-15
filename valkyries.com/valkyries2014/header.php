@@ -11,8 +11,6 @@
 <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery.highlightnav.js"></script>
 <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery.twittertoggle.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery.homeindexslidedown.js"></script>
-
 <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/background.js"></script>
 
 <link type="text/css" rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>">
@@ -22,7 +20,7 @@
 <?php wp_head(); ?>
 </head>
 <body>
-		<?php if (!is_front_page()) { echo '<header>';}?>
+	<header>
 		<div id="favorites">
 			<ul>
 				<li><a href="mailto:ValkyriesRFC@gmail.com" title="email us!"><img
@@ -37,5 +35,4 @@
 			<a class="twitter-timeline" href="https://twitter.com/valkyriesRFC" data-widget-id="378235035309965312">Tweets by @valkyriesRFC</a>
 				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		</div>
-		</header>
-		<?php } ?>
+	</header>

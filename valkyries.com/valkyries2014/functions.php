@@ -4,3 +4,7 @@ function register_my_menu() {
 }
 add_action( 'init', 'register_my_menu' );
 ?>
+
+<?php if ( function_exists ('register_sidebar')) { 
+    register_sidebar ('sponsors'); 
+} ?>
