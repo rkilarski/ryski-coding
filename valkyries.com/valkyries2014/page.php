@@ -30,7 +30,7 @@
 		</div>
 		<br>
 		<ul class="navigation"><?php wp_nav_menu( array( 'theme_location' => 'header-menu' ) ); ?></ul>
-		<div id="copy"><p>Copyright &copy; 2013 New England Valkyries Rugby Football Club</p></div>
+		<div id="copy"><p><a id="rkilarski" href="mailto:rkilarski@gmail.com?Subject=ValkyriesRFC.Com">Copyright &copy; 2013 New England Valkyries Rugby Football Club</a></p></div>
 	</footer>
 </div>
 <?php get_footer(); ?>
