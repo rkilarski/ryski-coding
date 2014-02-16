@@ -12,6 +12,7 @@ Author URI: rkilarski@gmail.com
 
 p {
 	color: #ffffff;
+	text-align: left;
 }
 
 a {
@@ -85,13 +86,6 @@ body,#bodywrapper,a {
 	background-color: rgba(0, 0, 0, 0.9);
 }
 
-#slidedown {
-	display: none;
-	margin-left: auto;
-	margin-right: auto;
-	width: 70%;
-}
-
 #sponsorsfirstpage {
 	float: right;
 	display: inline-block;
@@ -141,9 +135,6 @@ footer {
 	font-weight: normal;
 	font-size: 15px;
 	display: block;
-	xposition: absolute;
-	xbottom: 0;
-	xleft: 0;
 	text-align: center;
 	margin-bottom: 10px;
 }
@@ -386,6 +377,7 @@ CSS Twitter icon
 
 .twitter-timeline {
 	height: 300px;
+	width: 100%;
 }
 
 #tweets {
