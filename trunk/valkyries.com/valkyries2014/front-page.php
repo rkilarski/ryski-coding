@@ -4,11 +4,15 @@
  */
 ?>
 <?php get_header(); ?>
+
+<?php get_sidebar ('membership'); ?>
+
 <div id="bodywrapper" class="clear">
 	
 	<ul id="nav" class="navigation">
 		<?php wp_nav_menu( array( 'theme_location' => 'header-menu' ) ); ?>
 	</ul>
+	
 	<div id="pagelogo">
 		<a href="http://www.valkyriesrfc.com"><img id="valkyrieslogo"
 			src="<?php bloginfo('template_url'); ?>/images/valkyriestrans.png"></a>
