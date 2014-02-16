@@ -100,7 +100,7 @@ body,#bodywrapper,a {
 	top: 0;
 	right: 0;
 	margin: 30px 10px 30px 10px;
-	text-align: right;
+	text-align: center;
 }
 
 #memberfirstpage {
@@ -111,7 +111,7 @@ body,#bodywrapper,a {
 	top: 0;
 	right: 0;
 	margin: 30px 10px 30px 10px;
-	text-align: left;
+	text-align: center;
 }
 
 #members {
@@ -146,6 +146,11 @@ footer {
 	xleft: 0;
 	text-align: center;
 	margin-bottom: 10px;
+}
+
+.textoverimage {
+	text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px
+		0 #fff;
 }
 
 h1,h2,h3,h4 {
@@ -467,5 +472,9 @@ CSS Twitter icon
 }
 
 #menu-menu-1 {
+	padding-left: 0;
+}
+
+#menu-menu {
 	padding-left: 0;
 }
