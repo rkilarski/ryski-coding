@@ -1,5 +1,5 @@
 <div id="sponsorsfirstpage">
-	<h3>Sponsors</h3>
+	<h3 class="textoverimage">sponsors</h3>
 	<ul class="sponsorslist">
 		<li>
 			<a href="http://www.woagp.com/"><img class="sponsorlogo"

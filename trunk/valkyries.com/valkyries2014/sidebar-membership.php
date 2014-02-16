@@ -1,5 +1,5 @@
 <div id="memberfirstpage">
-	<h3>Member Of</h3>
+	<h3 class="textoverimage">member of</h3>
 	<ul class="sponsorslist">
 		<li>
 			<a href="http://www.igrab.net"><img class="memberlogo"
