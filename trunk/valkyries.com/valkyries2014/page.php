@@ -26,7 +26,7 @@
 	
 	<footer id="footer">
 		<br><br>
-		<h3>Boston's Competitive Gay and Inclusive Rugby Team</h3>
+		<h3>Boston's Competitive Gay &amp; Inclusive Rugby Team</h3>
 		<div id="socials">
 			<a href="https://www.facebook.com/groups/1416155608600326/" target="_blank" id="xsocial_fb">facebook</a>
 			&nbsp;|&nbsp;
