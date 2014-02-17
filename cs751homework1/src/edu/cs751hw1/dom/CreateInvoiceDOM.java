@@ -87,7 +87,7 @@ public class CreateInvoiceDOM implements CreateDOM {
 
         // Add attributes.
         orderItem.setAttribute(ATTRIBUTE_UPC, item.getUpc());
-        orderItem.setAttribute(ATTRIBUTE_QUANTITY, doubleToString(item.getQuantity()));
+        orderItem.setAttribute(ATTRIBUTE_QUANTITY, Integer.toString(item.getQuantity()));
         orderItem.setAttribute(ATTRIBUTE_UNIT_PRICE, doubleToString(item.getUnitPrice()));
 
         // Add description.

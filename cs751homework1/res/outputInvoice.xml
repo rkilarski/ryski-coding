@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<inv:invoice customerId="1000" invoiceDate="2014-02-12"
+<inv:invoice customerId="1000" invoiceDate="2014-02-17"
 	invoiceId="123456" orderId="555555" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.kalathur.com/invoice ./invoice.xsd"
 	xmlns:inv="http://www.kalathur.com/invoice">
@@ -13,13 +13,13 @@
 		<country>USA</country>
 	</billTo>
 	<order>
-		<item quantity="5.00" unitPrice="2.00" upc="XYZ-01">
+		<item quantity="5" unitPrice="2.00" upc="XYZ-01">
 			<description>First Item</description>
 		</item>
-		<item quantity="10.00" unitPrice="3.00" upc="XYZ-02">
+		<item quantity="10" unitPrice="3.00" upc="XYZ-02">
 			<description>Second Item</description>
 		</item>
-		<item quantity="15.00" unitPrice="4.00" upc="XYZ-03">
+		<item quantity="15" unitPrice="4.00" upc="XYZ-03">
 			<description>Third Item</description>
 		</item>
 	</order>
