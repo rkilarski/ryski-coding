@@ -35,10 +35,10 @@
 				</restriction>
 			</simpleType>
 		</attribute>
-		<attribute name="quantity" type="string" use="required"></attribute>
+		<attribute name="quantity" type="integer" use="required"></attribute>
 	</complexType>
 
-	<!-- The purchase order -->
+	<!-- The purchase order type -->
 	<complexType name="purchaseOrderType">
 		<sequence>
 			<element name="billTo" type="po:addressType"></element>
@@ -50,9 +50,9 @@
 				</complexType>
 			</element>
 		</sequence>
-		<attribute name="orderId" type="int" use="required"></attribute>
+		<attribute name="orderId" type="integer" use="required"></attribute>
 		<attribute name="submitted" type="date" use="required"></attribute>
-		<attribute name="customerId" type="int" use="required"></attribute>
+		<attribute name="customerId" type="integer" use="required"></attribute>
 	</complexType>
 
 	<!-- The actual element -->
