@@ -12,8 +12,8 @@
 			src="<?php bloginfo('template_url'); ?>/images/manhunt.png"> </a>
 		</li>
 	</ul>
-	<!--
-	<h3>Partners</h3>
+	<br>
+	<h3 class="textoverimage">collaborative partners</h3>
 	<ul class="sponsorslist">
 		<li>
 			<a href="http://www.tfwboston.com/"><img class="sponsorlogo"
@@ -26,6 +26,10 @@
 			title="Ultimate Self Defense Performance Studio"
 			src="<?php bloginfo('template_url'); ?>/images/usdpc.jpg"> </a>
 		</li>
+		<li>
+			<a href="http://www.thebostonsisters.org/"><img class="sponsorlogo"
+			title="The Boston Sisters of Perpetual Indulgence"
+			src="<?php bloginfo('template_url'); ?>/images/sopi.png"> </a>
+		</li>
 	</ul>
-	-->
 </div>
