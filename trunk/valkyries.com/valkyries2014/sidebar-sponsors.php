@@ -18,7 +18,7 @@
 		<li>
 			<a href="http://www.tfwboston.com/"><img class="sponsorlogo"
 			title="Training for Warriors"
-			src="<?php bloginfo('template_url'); ?>/images/tfw.png"> </a>
+			src="<?php bloginfo('template_url'); ?>/images/tfw.jpg"> </a>
 			<br>
 		</li>
 		<li>
