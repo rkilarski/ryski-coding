@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- author: Ryszard Kilarski email: emrys@bu.edu bu id: U81-39-8560 -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.kalathur.com/po"
+	xmlns:po="http://www.kalathur.com/po">
+
+	<!-- The address type -->
+	<complexType name="addressType">
+		<sequence>
+			<element name="name" type="string"></element>
+			<!-- The company is optional -->
+			<element name="company" type="string" maxOccurs="1"
+				minOccurs="0"></element>
+			<element name="street" type="string"></element>
+			<element name="city" type="string"></element>
+			<element name="state" type="string"></element>
+			<element name="zipCode" type="string"></element>
+			<element name="country" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<!-- The item type -->
+	<complexType name="itemType">
+		<sequence>
+			<!-- The description is optional -->
+			<element name="description" type="string" maxOccurs="1"
+				minOccurs="0">
+			</element>
+		</sequence>
+		<!-- The upc attribute will look like XXX-DD where XXX are uppercase letters 
+			and DD are digits -->
+		<attribute name="upc" use="required">
+			<simpleType>
+				<restriction base="string">
+					<pattern value="[A-Z]{3}-{1}\d{2}" />
+				</restriction>
+			</simpleType>
+		</attribute>
+		<attribute name="quantity" type="integer" use="required"></attribute>
+	</complexType>
+
+	<!-- The purchase order type -->
+	<complexType name="purchaseOrderType">
+		<sequence>
+			<element name="billTo" type="po:addressType"></element>
+			<element name="order">
+				<complexType>
+					<sequence>
+						<element name="item" type="po:itemType" maxOccurs="unbounded"></element>
+					</sequence>
+				</complexType>
+			</element>
+		</sequence>
+		<attribute name="orderId" type="integer" use="required"></attribute>
+		<attribute name="submitted" type="date" use="required"></attribute>
+		<attribute name="customerId" type="integer" use="required"></attribute>
+	</complexType>
+
+	<!-- The actual element -->
+	<element name="purchaseOrder" type="po:purchaseOrderType"></element>
+</schema>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- author: Ryszard Kilarski email: emrys@bu.edu bu id: U81-39-8560 -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.kalathur.com/invoice"
+	xmlns:inv="http://www.kalathur.com/invoice" xmlns:po="http://www.kalathur.com/po">
+
+	<import schemaLocation="PurchaseOrder.xsd" namespace="http://www.kalathur.com/po"></import>
+
+	<!-- The price type ranging from 0.05 to 100,000. -->
+	<simpleType name="priceType">
+		<restriction base="decimal">
+			<minInclusive value="0.05"></minInclusive>
+			<maxInclusive value="100000"></maxInclusive>
+		</restriction>
+	</simpleType>
+
+	<!-- itemType, extending the po:itemType and adding a required unit price 
+		attribute. -->
+	<complexType name="itemType">
+		<complexContent>
+			<extension base="po:itemType">
+				<attribute name="unitPrice" type="inv:priceType" use="required"></attribute>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<!-- invoiceType -->
+	<complexType name="invoiceType">
+		<sequence>
+			<element name="billTo" type="po:addressType"></element>
+			<element name="order">
+				<complexType>
+					<sequence>
+						<element name="item" type="inv:itemType" maxOccurs="unbounded"></element>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="tax" type="inv:priceType"></element>
+			<element name="shipping" type="inv:priceType"></element>
+			<element name="totalCost" type="inv:priceType"></element>
+		</sequence>
+		<attribute name="invoiceId" type="integer" use="required"></attribute>
+		<attribute name="invoiceDate" type="date" use="required"></attribute>
+		<attribute name="orderId" type="integer" use="required"></attribute>
+		<attribute name="customerId" type="integer" use="required"></attribute>
+	</complexType>
+
+	<!-- The actual element. -->
+	<element name="invoice" type="inv:invoiceType"></element>
+</schema>
