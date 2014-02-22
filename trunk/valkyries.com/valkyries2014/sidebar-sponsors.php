@@ -29,7 +29,7 @@
 		<li>
 			<a href="http://www.thebostonsisters.org/"><img class="sponsorlogo"
 			title="The Boston Sisters of Perpetual Indulgence"
-			src="<?php bloginfo('template_url'); ?>/images/sopi.png"> </a>
+			src="<?php bloginfo('template_url'); ?>/images/sopi.jpg"> </a>
 		</li>
 	</ul>
 </div>
