@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:pos="http://www.kalathur.com/services/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="services"
+	xmlns:po="http://www.kalathur.com/po"
+	xmlns:inv="http://www.kalathur.com/invoice"
+	targetNamespace="http://www.kalathur.com/services/">
+	
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.kalathur.com/services/">
+			<!-- Importing invoice and purchase order from external files -->
+			<xsd:import namespace="http://www.kalathur.com/po" schemaLocation="PurchaseOrder.xsd"></xsd:import>
+			<xsd:import namespace="http://www.kalathur.com/invoice" schemaLocation="Invoice.xsd"></xsd:import>
+		</xsd:schema>
+	</wsdl:types>
+	
+	<!-- The processorder service will ingest a purchase order... -->
+	<wsdl:message name="OrderRequest">
+		<wsdl:part name="purchaseOrder" element="po:purchaseOrder" />
+	</wsdl:message>
+	
+	<!-- ... and return an invoice -->
+	<wsdl:message name="OrderRequestResponse">
+		<wsdl:part name = "invoice" element="inv:invoice" />
+	</wsdl:message>
+	
+	<!-- Defining the port type's input and output documents -->
+	<wsdl:portType name="services">
+		<wsdl:operation name="processOrder">
+			<wsdl:input message="pos:OrderRequest" />
+			<wsdl:output message="pos:OrderRequestResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	
+	<!--  -->
+	<wsdl:binding name="ProcessOrderBinding" type="pos:services">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="processOrder">
+			<soap:operation soapAction="http://www.kalathur.com/services/processOrder" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+	<!--  -->
+	<wsdl:service name="services">
+		<wsdl:port binding="pos:ProcessOrderBinding" name="ProcessOrderPort">
+			<soap:address location="http://www.kalathur.com/" />
+		</wsdl:port>
+	</wsdl:service>
+	
+</wsdl:definitions>
