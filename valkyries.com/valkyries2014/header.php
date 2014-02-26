@@ -7,6 +7,9 @@
 <meta name="description" content="Official site for the New England Valkyries Rugby Football Club">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
+<meta property="og:image" content="<?php bloginfo('template_url'); ?>/images/valkyriestrans.png" />
+<link rel="image_src" href="<?php bloginfo('template_url'); ?>/images/valkyriestrans.png" />
+
 <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/google.analytics.js"></script>
 <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery.highlightnav.js"></script>
