@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!-- author: Ryszard Kilarski email: emrys@bu.edu bu id: U81-39-8560 -->
+<!-- 
+	author: Ryszard Kilarski 
+	email: emrys@bu.edu bu id: 
+	U81-39-8560 
+-->
 <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.kalathur.com/invoice"
 	xmlns:inv="http://www.kalathur.com/invoice" xmlns:po="http://www.kalathur.com/po">
 
