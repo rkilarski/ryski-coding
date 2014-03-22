@@ -9,12 +9,14 @@
 		<xs:schema xmlns:ax21="http://axis2.apache.org"
 			attributeFormDefault="qualified" elementFormDefault="qualified"
 			targetNamespace="http://axis2.apache.org">
+			
 			<xs:complexType name="Exception">
 				<xs:sequence>
 					<xs:element minOccurs="0" name="Exception" nillable="true"
 						type="xs:anyType" />
 				</xs:sequence>
 			</xs:complexType>
+			
 			<xs:element name="OrderAlreadyExistsException">
 				<xs:complexType>
 					<xs:sequence>
@@ -23,6 +25,7 @@
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
+			
 			<xs:element name="addOrder">
 				<xs:complexType>
 					<xs:sequence>
@@ -31,6 +34,7 @@
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
+			
 			<xs:element name="addOrderResponse">
 				<xs:complexType>
 					<xs:sequence>
@@ -39,6 +43,7 @@
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
+			
 			<xs:element name="OrderNotFoundException">
 				<xs:complexType>
 					<xs:sequence>
@@ -47,6 +52,7 @@
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
+			
 			<xs:element name="updateOrder">
 				<xs:complexType>
 					<xs:sequence>
@@ -57,6 +63,7 @@
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
+			
 			<xs:element name="updateOrderResponse">
 				<xs:complexType>
 					<xs:sequence>
@@ -65,6 +72,7 @@
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
+			
 			<xs:element name="getOrdersResponse">
 				<xs:complexType>
 					<xs:sequence>
@@ -73,6 +81,7 @@
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
+			
 			<xs:element name="getOrder">
 				<xs:complexType>
 					<xs:sequence>
@@ -81,6 +90,7 @@
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
+			
 			<xs:element name="getOrderResponse">
 				<xs:complexType>
 					<xs:sequence>
@@ -89,14 +99,16 @@
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
+			
 			<xs:element name="deleteOrder">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element minOccurs="0" name="name" nillable="true"
+						<xs:element minOccurs="0" name="id" nillable="true"
 							type="xs:string" />
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
+			
 			<xs:complexType name="OrderAlreadyExistsException">
 				<xs:complexContent>
 					<xs:extension base="ax21:Exception">
@@ -198,17 +210,17 @@
 		<wsdl2:fault ref="tns:OrderAlreadyExistsException" />
 		<wsdl2:fault ref="tns:OrderNotFoundException" />
 
-		<wsdl2:operation ref="tns:deleteOrder" whttp:location="delete/{id}"
+		<wsdl2:operation ref="tns:deleteOrder" whttp:location="deleteOrder/{id}"
 			whttp:method="DELETE">
 			<wsdl2:outfault ref="tns:OrderNotFoundException" />
 		</wsdl2:operation>
 
-		<wsdl2:operation ref="tns:updateOrder" whttp:location="update/{id}"
+		<wsdl2:operation ref="tns:updateOrder" whttp:location="updateOrder/{id}"
 			whttp:method="PUT">
 			<wsdl2:outfault ref="tns:OrderNotFoundException" />
 		</wsdl2:operation>
 
-		<wsdl2:operation ref="tns:addOrder" whttp:location="add"
+		<wsdl2:operation ref="tns:addOrder" whttp:location="addOrder"
 			whttp:method="POST">
 			<wsdl2:outfault ref="tns:OrderAlreadyExistsException" />
 		</wsdl2:operation>
