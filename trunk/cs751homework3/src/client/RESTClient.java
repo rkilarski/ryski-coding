@@ -55,14 +55,13 @@ public class RESTClient {
 
 		// testElementOMElement("Testing:  getOrder 'a1'", testGetOrder("a1"), false);
 
-		/*
-		testElementOMElement("Testing:  addOrder", testAddOrder());
-		testElementOMElement("Testing:  results of addOrder a1", testGetOrders());
+		testElementOMElement("Testing:  addOrder", testAddOrder(), false);
+		// testElementOMElement("Testing:  results of addOrder a1", testGetOrders());
 
-		testElementOMElement("Testing:  updateOrder", testUpdateOrder("a2"));
-		testElementOMElement("Testing:  results of updateOrder a1", testGetOrder("a1"));
-		*/
-		testElementOMElement("Testing:  deleteOrder", testDeleteOrder("a1"), true);
+		// testElementOMElement("Testing:  updateOrder", testUpdateOrder("a2"));
+		// testElementOMElement("Testing:  results of updateOrder a1", testGetOrder("a1"));
+
+		// testElementOMElement("Testing:  deleteOrder", testDeleteOrder("a1"), true);
 		// testElementOMElement("Testing:  results of deleteOrder a1", testGetOrders(), false);
 	}
 
@@ -138,12 +137,17 @@ public class RESTClient {
 		order.getOrderItems().add(new Item("Item 4", BigInteger.valueOf(5), 15.00));
 		order.getOrderItems().add(new Item("Item 5", BigInteger.valueOf(6), 18.00));
 
+		// Convert the POJO into an OMElement
+		// OMElement omOrder = convertToOM(order, new QName("order"), new TypeTable());
+		// Element resultDOM = XMLUtils.toDOM(omOrder);
+		// DOMUtil.printDOM(resultDOM, "");
+
 		OMFactory fac = OMAbstractFactory.getOMFactory();
 		OMNamespace omNs = fac.createOMNamespace("http://axis2.apache.org", "ns");
 		OMElement method = fac.createOMElement("addOrder", omNs);
-		OMElement value = fac.createOMElement("order", omNs);
-		// value.addChild(fac.createOMElement(value, order));
-		method.addChild(value);
+		// OMElement value = fac.createOMElement("order", omNs);
+		// value.addChild(omOrder);
+		// method.addChild(omOrder);
 		return method;
 	}
 
