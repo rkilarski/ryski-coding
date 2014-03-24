@@ -5,73 +5,78 @@
  */
 package edu.cs751hw3.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlAccessorType(XmlAccessType.PROPERTY)
+@XmlType(name = "billTo", propOrder = { "city", "name", "phone", "state", "street", "zipCode" })
 public class BillTo {
 
-    private String city;
-    private String name;
-    private String state;
-    private String street;
-    private String zipCode;
-    private String phone;
+	private String city;
+	private String name;
+	private String state;
+	private String street;
+	private String zipCode;
+	private String phone;
 
-    public BillTo() {
-    }
+	public BillTo() {
+	}
 
-    public BillTo(String name, String street, String city, String state, String zipCode,
-            String phone) {
-        this.name = name;
-        this.street = street;
-        this.city = city;
-        this.state = state;
-        this.zipCode = zipCode;
-        this.phone = phone;
-    }
+	public BillTo(String name, String street, String city, String state, String zipCode, String phone) {
+		this.name = name;
+		this.street = street;
+		this.city = city;
+		this.state = state;
+		this.zipCode = zipCode;
+		this.phone = phone;
+	}
 
-    public String getCity() {
-        return city;
-    }
+	public String getCity() {
+		return city;
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public String getPhone() {
+		return phone;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getState() {
-        return state;
-    }
+	public String getState() {
+		return state;
+	}
 
-    public String getStreet() {
-        return street;
-    }
+	public String getStreet() {
+		return street;
+	}
 
-    public String getZipCode() {
-        return zipCode;
-    }
+	public String getZipCode() {
+		return zipCode;
+	}
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+	public void setCity(String city) {
+		this.city = city;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setState(String state) {
-        this.state = state;
-    }
+	public void setState(String state) {
+		this.state = state;
+	}
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
+	public void setStreet(String street) {
+		this.street = street;
+	}
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
 }
