@@ -49,7 +49,7 @@
         <javac debug="on" 
                fork="true"
                destdir="${build.dir}/classes" 
-               srcdir="${basedir}"
+               srcdir="${basedir}/src"
                classpathref="axis2.classpath">
         </javac>
     </target>
@@ -57,7 +57,7 @@
     <target name="generate.service" depends="compile.service">
         <!--aar them up -->
         <copy toDir="${build.dir}/classes/META-INF" failonerror="false">
-            <fileset dir="resources">
+            <fileset dir="${basedir}/resources">
                 <include name="services.xml"/>
             	    <include name="OrderService.wsdl"/>
             </fileset>

@@ -145,9 +145,41 @@ public class RESTClient {
 		OMFactory fac = OMAbstractFactory.getOMFactory();
 		OMNamespace omNs = fac.createOMNamespace("http://axis2.apache.org", "ns");
 		OMElement method = fac.createOMElement("addOrder", omNs);
-		// OMElement value = fac.createOMElement("order", omNs);
-		// value.addChild(omOrder);
-		// method.addChild(omOrder);
+
+		OMElement value;
+		OMElement value2;
+
+		value = fac.createOMElement("orderId", omNs);
+		value.addChild(fac.createOMText(value, "b3"));
+		method.addChild(value);
+
+		value = fac.createOMElement("billTo", omNs);
+
+		value2 = fac.createOMElement("name", omNs);
+		value2.addChild(fac.createOMText(value2, "Sheldon Cooper"));
+		value.addChild(value2);
+
+		value2 = fac.createOMElement("address", omNs);
+		value2.addChild(fac.createOMText(value2, "Les Robles Drive"));
+		value.addChild(value2);
+
+		value2 = fac.createOMElement("city", omNs);
+		value2.addChild(fac.createOMText(value2, "Boston"));
+		value.addChild(value2);
+
+		value2 = fac.createOMElement("state", omNs);
+		value2.addChild(fac.createOMText(value2, "CA"));
+		value.addChild(value2);
+
+		value2 = fac.createOMElement("zipCode", omNs);
+		value2.addChild(fac.createOMText(value2, "99999"));
+		value.addChild(value2);
+
+		value2 = fac.createOMElement("phone", omNs);
+		value2.addChild(fac.createOMText(value2, "617-353-5000"));
+		value.addChild(value2);
+
+		method.addChild(value);
 		return method;
 	}
 
