@@ -5,12 +5,7 @@
  */
 package edu.cs751hw3.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlType;
 
-@XmlAccessorType(XmlAccessType.PROPERTY)
-@XmlType(name = "billTo", propOrder = { "city", "name", "phone", "state", "street", "zipCode" })
 public class BillTo {
 
 	private String city;

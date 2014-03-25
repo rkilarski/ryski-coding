@@ -7,17 +7,9 @@ package edu.cs751hw3.model;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * This class represents the Order.
  */
-@XmlAccessorType(XmlAccessType.PROPERTY)
-@XmlType(name = "order", propOrder = { "billTo", "orderId", "orderItems" })
 public class Order {
 	protected BillTo billTo;
 	protected String orderId;
@@ -31,8 +23,6 @@ public class Order {
 		return orderId;
 	}
 
-	@XmlElementWrapper(name = "orderItems")
-	@XmlElement(name = "item")
 	public List<Item> getOrderItems() {
 		return orderItems;
 	}

@@ -19,9 +19,6 @@
 
 package client;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
-
 import javax.xml.stream.FactoryConfigurationError;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -38,10 +35,6 @@ import org.apache.axis2.client.Options;
 import org.apache.axis2.client.ServiceClient;
 import org.apache.axis2.util.XMLUtils;
 import org.w3c.dom.Element;
-
-import edu.cs751hw3.model.BillTo;
-import edu.cs751hw3.model.Item;
-import edu.cs751hw3.model.Order;
 
 /**
  * This is a Client program that accesses 'OrderService' web service
@@ -130,12 +123,6 @@ public class RESTClient {
 	}
 
 	private static OMElement testAddOrder() {
-		Order order = new Order();
-		order.setOrderId("b3");
-		order.setBillTo(new BillTo("Sheldon Cooper", "Les Robles Drive", "Boston", "CA", "99999", "617-976-5000"));
-		order.setOrderItems(new ArrayList<Item>());
-		order.getOrderItems().add(new Item("Item 4", BigInteger.valueOf(5), 15.00));
-		order.getOrderItems().add(new Item("Item 5", BigInteger.valueOf(6), 18.00));
 
 		// Convert the POJO into an OMElement
 		// OMElement omOrder = convertToOM(order, new QName("order"), new TypeTable());
@@ -146,40 +133,80 @@ public class RESTClient {
 		OMNamespace omNs = fac.createOMNamespace("http://axis2.apache.org", "ns");
 		OMElement method = fac.createOMElement("addOrder", omNs);
 
-		OMElement value;
-		OMElement value2;
+		OMElement order;
+		OMElement billTo;
+		OMElement element;
+		OMElement items;
+		OMElement item;
 
-		value = fac.createOMElement("orderId", omNs);
-		value.addChild(fac.createOMText(value, "b3"));
-		method.addChild(value);
+		order = fac.createOMElement("orderId", omNs);
+		order.addChild(fac.createOMText(order, "b3"));
+		method.addChild(order);
 
-		value = fac.createOMElement("billTo", omNs);
+		//Add BillTo.
+		billTo = fac.createOMElement("billTo", omNs);
+		order.addChild(billTo);
+		
+		element = fac.createOMElement("name", omNs);
+		element.addChild(fac.createOMText(element, "Sheldon Cooper"));
+		billTo.addChild(element);
 
-		value2 = fac.createOMElement("name", omNs);
-		value2.addChild(fac.createOMText(value2, "Sheldon Cooper"));
-		value.addChild(value2);
+		element = fac.createOMElement("address", omNs);
+		element.addChild(fac.createOMText(element, "Les Robles Drive"));
+		billTo.addChild(element);
 
-		value2 = fac.createOMElement("address", omNs);
-		value2.addChild(fac.createOMText(value2, "Les Robles Drive"));
-		value.addChild(value2);
+		element = fac.createOMElement("city", omNs);
+		element.addChild(fac.createOMText(element, "Boston"));
+		billTo.addChild(element);
 
-		value2 = fac.createOMElement("city", omNs);
-		value2.addChild(fac.createOMText(value2, "Boston"));
-		value.addChild(value2);
+		element = fac.createOMElement("state", omNs);
+		element.addChild(fac.createOMText(element, "CA"));
+		billTo.addChild(element);
 
-		value2 = fac.createOMElement("state", omNs);
-		value2.addChild(fac.createOMText(value2, "CA"));
-		value.addChild(value2);
+		element = fac.createOMElement("zipCode", omNs);
+		element.addChild(fac.createOMText(element, "99999"));
+		billTo.addChild(element);
 
-		value2 = fac.createOMElement("zipCode", omNs);
-		value2.addChild(fac.createOMText(value2, "99999"));
-		value.addChild(value2);
+		element = fac.createOMElement("phone", omNs);
+		element.addChild(fac.createOMText(element, "617-353-5000"));
+		billTo.addChild(element);
 
-		value2 = fac.createOMElement("phone", omNs);
-		value2.addChild(fac.createOMText(value2, "617-353-5000"));
-		value.addChild(value2);
+		//Create list of elements.
+		items = fac.createOMElement("orderItems", omNs);
+		order.addChild(items);
+		
+		//Create one item.
+        item = fac.createOMElement("item", omNs);
+        items.addChild(item);
 
-		method.addChild(value);
+        element = fac.createOMElement("productName", omNs);
+        element.addChild(fac.createOMText(element, "Item 4"));
+        item.addChild(element);
+
+        element = fac.createOMElement("quantity", omNs);
+        element.addChild(fac.createOMText(element, "5"));
+        item.addChild(element);
+
+        element = fac.createOMElement("price", omNs);
+        element.addChild(fac.createOMText(element, "15.00"));
+        item.addChild(element);
+
+        //Create one item.
+        item = fac.createOMElement("item", omNs);
+        items.addChild(item);
+
+        element = fac.createOMElement("productName", omNs);
+        element.addChild(fac.createOMText(element, "Item 5"));
+        item.addChild(element);
+
+        element = fac.createOMElement("quantity", omNs);
+        element.addChild(fac.createOMText(element, "6"));
+        item.addChild(element);
+
+        element = fac.createOMElement("price", omNs);
+        element.addChild(fac.createOMText(element, "18.00"));
+        item.addChild(element);
+
 		return method;
 	}
 
