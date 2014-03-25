@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl2:description xmlns:wsdl2="http://www.w3.org/ns/wsdl"
+	xmlns:tns="http://axis2.apache.org" xmlns:wsoap="http://www.w3.org/ns/wsdl/soap"
+	xmlns:wrpc="http://www.w3.org/ns/wsdl/rpc" xmlns:ns1="http://org.apache.axis2/xsd"
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsdlx="http://www.w3.org/ns/wsdl-extensions"
+	xmlns:ns="http://axis2.apache.org" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:whttp="http://www.w3.org/ns/wsdl/http" targetNamespace="http://axis2.apache.org">
+	<wsdl2:types>
+		<xs:schema xmlns:ax21="http://axis2.apache.org"
+			attributeFormDefault="qualified" elementFormDefault="qualified"
+			targetNamespace="http://axis2.apache.org">
+			
+			<xs:complexType name="Exception">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="Exception" nillable="true"
+						type="xs:anyType" />
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:element name="OrderAlreadyExistsException">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="OrderAlreadyExistsException"
+							nillable="true" type="ax21:OrderAlreadyExistsException" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="addOrder">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="order" nillable="true"
+							type="ax21:Order" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="addOrderResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="return" nillable="true"
+							type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="OrderNotFoundException">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="OrderNotFoundException"
+							nillable="true" type="ax21:OrderNotFoundException" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="updateOrder">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="order" nillable="true"
+							type="xs:string" />
+						<xs:element minOccurs="0" name="order" nillable="true"
+							type="ax21:item" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="updateOrderResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="return" nillable="true"
+							type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="getOrdersResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" minOccurs="0" name="return"
+							nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="getOrder">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="id" nillable="true"
+							type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="getOrderResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="return" nillable="true"
+							type="ax21:Order" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="deleteOrder">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="id" nillable="true"
+							type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:complexType name="OrderAlreadyExistsException">
+				<xs:complexContent>
+					<xs:extension base="ax21:Exception">
+						<xs:sequence />
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+
+			<xs:complexType name="item">
+				<xs:sequence>
+					<xs:element name="price" type="xs:double" />
+					<xs:element name="productName" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="quantity" type="xs:integer" minOccurs="0" />
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="billTo">
+				<xs:sequence>
+					<xs:element name="city" type="xs:string" minOccurs="0" />
+					<xs:element name="name" type="xs:string" minOccurs="0" />
+					<xs:element name="phone" type="xs:string" minOccurs="0" />
+					<xs:element name="state" type="xs:string" minOccurs="0" />
+					<xs:element name="street" type="xs:string" minOccurs="0" />
+					<xs:element name="zipCode" type="xs:string" minOccurs="0" />
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="Order">
+				<xs:sequence>
+					<xs:element name="billTo" type="billTo" minOccurs="0" />
+					<xs:element name="orderId" type="xs:string" minOccurs="0" />
+					<xs:element name="orderItems" type="item" nillable="true"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="OrderNotFoundException">
+				<xs:complexContent>
+					<xs:extension base="ax21:Exception">
+						<xs:sequence />
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+		</xs:schema>
+	</wsdl2:types>
+
+	<wsdl2:interface name="ServiceInterface">
+		<wsdl2:fault name="OrderNotFoundException" element="ns:OrderNotFoundException" />
+		<wsdl2:fault name="OrderAlreadyExistsException" element="ns:OrderAlreadyExistsException" />
+
+		<wsdl2:operation name="deleteOrder"
+			pattern="http://www.w3.org/ns/wsdl/robust-in-only">
+			<wsdl2:input element="ns:deleteOrder" wsaw:Action="urn:deleteOrder" />
+			<wsdl2:outfault ref="tns:OrderNotFoundException"
+				wsaw:Action="urn:deleteOrderOrderNotFoundException" />
+		</wsdl2:operation>
+
+		<wsdl2:operation name="updateOrder"
+			style="http://www.w3.org/ns/wsdl/style/rpc" wrpc:signature="order #in return #return "
+			pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:input element="ns:updateOrder" wsaw:Action="urn:updateOrder" />
+			<wsdl2:output element="ns:updateOrderResponse"
+				wsaw:Action="urn:updateOrderResponse" />
+			<wsdl2:outfault ref="tns:OrderNotFoundException"
+				wsaw:Action="urn:updateOrderOrderNotFoundException" />
+		</wsdl2:operation>
+
+		<wsdl2:operation name="getOrder"
+			style="http://www.w3.org/ns/wsdl/style/rpc" wrpc:signature="name #in return #return "
+			pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:input element="ns:getOrder" wsaw:Action="urn:getOrder" />
+			<wsdl2:output element="ns:getOrderResponse" wsaw:Action="urn:getOrderResponse" />
+			<wsdl2:outfault ref="tns:OrderNotFoundException"
+				wsaw:Action="urn:getOrderOrderNotFoundException" />
+		</wsdl2:operation>
+
+		<wsdl2:operation name="addOrder"
+			style="http://www.w3.org/ns/wsdl/style/rpc" wrpc:signature="order #in return #return "
+			pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:input element="ns:addOrder" wsaw:Action="urn:addOrder" />
+			<wsdl2:output element="ns:addOrderResponse" wsaw:Action="urn:addOrderResponse" />
+			<wsdl2:outfault ref="tns:OrderAlreadyExistsException"
+				wsaw:Action="urn:addOrderOrderAlreadyExistsException" />
+		</wsdl2:operation>
+
+		<wsdl2:operation name="getOrders"
+			pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:input element="#none" wsaw:Action="urn:getOrders" />
+			<wsdl2:output element="ns:getOrdersResponse"
+				wsaw:Action="urn:getOrdersResponse" />
+		</wsdl2:operation>
+
+	</wsdl2:interface>
+
+	<wsdl2:binding name="OrderServiceHttpBinding" interface="tns:ServiceInterface"
+		type="http://www.w3.org/ns/wsdl/http">
+
+		<wsdl2:fault ref="tns:OrderAlreadyExistsException" />
+		<wsdl2:fault ref="tns:OrderNotFoundException" />
+
+		<wsdl2:operation ref="tns:deleteOrder" whttp:location="deleteOrder/{id}"
+			whttp:method="DELETE">
+			<wsdl2:outfault ref="tns:OrderNotFoundException" />
+		</wsdl2:operation>
+
+		<wsdl2:operation ref="tns:updateOrder" whttp:location="updateOrder/{id}"
+			whttp:method="PUT">
+			<wsdl2:outfault ref="tns:OrderNotFoundException" />
+		</wsdl2:operation>
+
+		<wsdl2:operation ref="tns:addOrder" whttp:location="addOrder"
+			whttp:method="POST">
+			<wsdl2:outfault ref="tns:OrderAlreadyExistsException" />
+		</wsdl2:operation>
+
+		<wsdl2:operation ref="tns:getOrder" whttp:location="order/{id}"
+			whttp:method="GET">
+			<wsdl2:outfault ref="tns:OrderNotFoundException" />
+		</wsdl2:operation>
+
+		<wsdl2:operation ref="tns:getOrders" whttp:location="orders"
+			whttp:method="GET" />
+	</wsdl2:binding>
+
+	<wsdl2:service name="OrderService" interface="tns:ServiceInterface">
+		<wsdl2:endpoint name="OrderServiceHttpEndpoint"
+			binding="tns:OrderServiceHttpBinding" address="http://localhost:8080/axis2/services/OrderService" />
+	</wsdl2:service>
+
+</wsdl2:description>
