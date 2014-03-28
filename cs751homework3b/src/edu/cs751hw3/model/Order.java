@@ -11,31 +11,31 @@ import java.util.List;
  * This class represents the Order.
  */
 public class Order {
-	protected BillTo billTo;
-	protected String orderId;
-	protected List<Item> orderItems;
+    protected BillTo billTo;
+    protected String orderId;
+    protected List<Item> orderItems;
 
-	public BillTo getBillTo() {
-		return billTo;
-	}
+    public BillTo getBillTo() {
+        return billTo;
+    }
 
-	public String getOrderId() {
-		return orderId;
-	}
+    public String getOrderId() {
+        return orderId;
+    }
 
-	public List<Item> getOrderItems() {
-		return orderItems;
-	}
+    public List<Item> getOrderItems() {
+        return orderItems;
+    }
 
-	public void setBillTo(BillTo billTo) {
-		this.billTo = billTo;
-	}
+    public void setBillTo(BillTo billTo) {
+        this.billTo = billTo;
+    }
 
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
-	}
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
 
-	public void setOrderItems(List<Item> order) {
-		this.orderItems = order;
-	}
+    public void setOrderItems(List<Item> order) {
+        this.orderItems = order;
+    }
 }

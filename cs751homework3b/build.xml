@@ -22,7 +22,7 @@
 	<property name="myName" value="OrderService" />
     
 	<property environment="env"/>
-    <property name="AXIS2_HOME" value="/Applications/axis2-1.6.2"/>
+    <property name="AXIS2_HOME" value="${env.AXIS2_HOME}"/>
 
     <property name="build.dir" value="build"/>
 
