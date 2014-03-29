@@ -5,8 +5,10 @@
  */
 package edu.cs751hw3.service;
 
-public class OrderNotFoundException extends Exception{
-    public OrderNotFoundException(String message) {
-        super(message);
-    }
+public class OrderNotFoundException extends Exception {
+	private static final long serialVersionUID = 1L;
+
+	public OrderNotFoundException(String message) {
+		super(message);
+	}
 }
