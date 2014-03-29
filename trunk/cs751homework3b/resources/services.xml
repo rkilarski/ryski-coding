@@ -1,6 +1,6 @@
 <serviceGroup>
     <service name="OrderService" scope="application">
-        <parameter name="ServiceClass">org.apache.axis2.OrderService</parameter>
+        <parameter name="ServiceClass">edu.cs751hw3.service.OrderService</parameter>
         <messageReceivers>
         <messageReceiver mep="http://www.w3.org/ns/wsdl/in-only" class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver"/>
         <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
