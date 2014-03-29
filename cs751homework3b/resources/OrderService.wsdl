@@ -237,7 +237,7 @@
 			<wsdl2:input />
 			<wsdl2:output />
 		</wsdl2:operation>
-		<wsdl2:operation ref="tns:getOrder" whttp:location="getOrder">
+		<wsdl2:operation ref="tns:getOrder" whttp:location="order/{id}">
 			<wsdl2:input />
 			<wsdl2:output />
 			<wsdl2:outfault ref="tns:OrderServiceOrderNotFoundException" />
