@@ -30,24 +30,33 @@ public class RESTClient {
 	private static String toEpr = "http://localhost:8080/axis2/services/OrderService";
 
 	public static void main(String[] args) throws AxisFault {
-		testElementOMElement("Testing:  getOrders", testGetOrders(), false);
-		System.out.println("**************************************\n");
+		System.out.println("**************************************Testing getOrders");
+		testElementOMElement("Running:  getOrders", testGetOrders(), false);
+		System.out.println("**************************************End getOrders");
+		System.out.println(" ");
 
-		testElementOMElement("Testing:  getOrder a1", testGetOrder("a1"), false);
-		System.out.println("**************************************\n");
+		System.out.println("**************************************Testing getOrder");
+		testElementOMElement("Running:  getOrder a1", testGetOrder("a1"), false);
+		System.out.println("**************************************End getOrder");
+		System.out.println(" ");
 
-		testElementOMElement("Testing:  addOrder b3", testAddOrder(), false);
-		// testElementOMElement("Testing:  results of addOrder b3", testGetOrders(), false);
-		// testElementOMElement("Testing:  getOrder b3", testGetOrder("b3"), false);
-		System.out.println("**************************************\n");
+		System.out.println("**************************************Testing addOrder");
+		testElementOMElement("Running:  addOrder b3", testAddOrder(), false);
+		testElementOMElement("Running:  results of addOrder b3", testGetOrders(), false);
+		testElementOMElement("Running:  getOrder b3", testGetOrder("b3"), false);
+		System.out.println("**************************************End addOrder");
+		System.out.println(" ");
 
-		testElementOMElement("Testing:  updateOrder", testUpdateOrder("b3"), false);
-		// testElementOMElement("Testing:  results of updateOrder b3", testGetOrder("b3"), false);
-		System.out.println("**************************************\n");
+		System.out.println("**************************************Testing updateOrder");
+		testElementOMElement("Running:  updateOrder", testUpdateOrder("a2"), false);
+		testElementOMElement("Running:  results of updateOrder a2", testGetOrder("a2"), false);
+		System.out.println("**************************************End updateOrder");
+		System.out.println(" ");
 
-		// testElementOMElement("Testing:  deleteOrder", testDeleteOrder("a1"), true);
-		// testElementOMElement("Testing:  results of deleteOrder a1", testGetOrders(), false);
-		System.out.println("**************************************\n");
+		System.out.println("**************************************Testing deleteOrder");
+		testElementOMElement("Running:  deleteOrder", testDeleteOrder("a1"), true);
+		testElementOMElement("Running:  results of deleteOrder a1", testGetOrders(), false);
+		System.out.println("**************************************End deleteOrder");
 	}
 
 	private static synchronized void testElementOMElement(String testTitle, OMElement element, boolean robust) throws AxisFault {
@@ -61,15 +70,16 @@ public class RESTClient {
 			ServiceClient sender = new ServiceClient();
 			sender.setOptions(options);
 
-			System.out.println("\n\n\n==========================" + testTitle
-					+ "==========================\n");
+			System.out.println("==========================" + testTitle
+					+ "==========================");
 			// Output the request.
 			try {
 				Element requestDOM = null;
 				requestDOM = XMLUtils.toDOM(element);
-				System.out.println("\n\n-----------Pretty Request Start-----------\n");
+				System.out.println("-----------Pretty Request Start-----------");
 				DOMUtil.printDOM(requestDOM, "");
-				System.out.println("\n-----------Pretty Request End-----------\n");
+				System.out.println("-----------Pretty Request End-----------");
+				System.out.println(" ");
 			} catch (Exception e1) {
 			}
 
@@ -82,16 +92,17 @@ public class RESTClient {
 					XMLStreamWriter writer =
 							XMLOutputFactory.newInstance().createXMLStreamWriter(System.out);
 
-					System.out.println("\n-----------Raw Response Start-----------\n");
+					System.out.println("-----------Raw Response Start-----------");
 					result.serialize(writer);
 					writer.flush();
-					System.out.println("\n-----------Raw Response End-----------\n");
+					System.out.println("-----------Raw Response End-----------");
+					System.out.println(" ");
 
 					// Convert to DOM and pretty print
 					Element resultDOM = XMLUtils.toDOM(result);
-					System.out.println("\n\n-----------Pretty Response Start-----------\n");
+					System.out.println("-----------Pretty Response Start-----------");
 					DOMUtil.printDOM(resultDOM, "");
-					System.out.println("\n-----------Pretty Response End-----------\n");
+					System.out.println("-----------Pretty Response End-----------");
 
 				} catch (XMLStreamException e) {
 					e.printStackTrace();
@@ -102,8 +113,8 @@ public class RESTClient {
 				}
 			}
 		} else {
-			System.out.println("\n\n\n==========================" + testTitle
-					+ " not implemented yet==========================\n");
+			System.out.println("==========================" + testTitle
+					+ " not implemented yet==========================");
 		}
 	}
 
@@ -225,7 +236,7 @@ public class RESTClient {
 		method.addChild(item);
 
 		element = fac.createOMElement("productName", omNs);
-		element.addChild(fac.createOMText(element, "Item 4"));
+		element.addChild(fac.createOMText(element, "Item 3"));
 		item.addChild(element);
 
 		element = fac.createOMElement("quantity", omNs);
