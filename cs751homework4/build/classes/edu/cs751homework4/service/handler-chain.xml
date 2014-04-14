@@ -1,0 +1,17 @@
+
+<jws:handler-chains xmlns:jws="http://java.sun.com/xml/ns/javaee">
+
+	<jws:handler-chain name="MyHandlerChain">
+		<jws:handler>
+			<jws:handler-class>edu.cs751homework4.service.ClientIdHandler
+			</jws:handler-class>
+		</jws:handler>
+		<!-- 
+		<jws:handler>
+			<jws:handler-class>edu.cs751homework4.service.UpdateOrderHandler
+			</jws:handler-class>
+		</jws:handler>
+		 -->
+	</jws:handler-chain>
+
+</jws:handler-chains>
