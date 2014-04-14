@@ -1,0 +1,163 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements. See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership. The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License. You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied. See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<project name="cs751homework4" basedir="." default="generate.service">
+
+	<property name="myName" value="OrderService" />
+
+	<import file="${basedir}/common-build.xml" />
+
+	<property environment="env" />
+
+	<property name="axis2.home" value="/Applications/axis2-1.6.2" />
+
+	<property name="dest.dir" value="build" />
+
+	<property name="dest.dir.classes" value="${dest.dir}/classes" />
+
+	<property name="repository.path" value="${axis2.home}/repository/servicejars" />
+
+	<path id="build.class.path">
+		<fileset dir="${axis2.home}/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<path id="client.classpath">
+		<fileset dir="${axis2.home}/lib">
+			<include name="*.jar" />
+		</fileset>
+		<pathelement path="build/classes" />
+		<pathelement path="gen-client" />
+	</path>
+
+	<target name="clean">
+		<delete dir="${dest.dir}" />
+		<delete dir="gen-src" />
+		<delete dir="gen-wsdl" />
+		<delete dir="gen-client" />
+	</target>
+
+	<target name="prepare">
+		<mkdir dir="${dest.dir}" />
+		<mkdir dir="${dest.dir.classes}" />
+	</target>
+
+	<target name="compile" depends="prepare">
+		<javac srcdir="src" destdir="${dest.dir.classes}" excludes="edu/cs751homework4/client/TestClient.java">
+			<classpath refid="build.class.path" />
+		</javac>
+	</target>
+
+	<target name="compile.service" depends="prepare">
+
+		<javac destdir="${dest.dir.classes}">
+			<src path="src" />
+			<!--<include name="edu/cs751homework4/model/*.java" />-->
+			<include name="edu/cs751homework4/service/OrderService*.java" />
+			<classpath refid="build.class.path" />
+		</javac>
+
+	</target>
+
+	<target name="generate.wsdl" depends="compile.service">
+		<mkdir dir="gen-wsdl" />
+		<exec executable="${wsgen_tool}">
+			<arg value="-verbose" />
+			<arg value="-classpath" />
+			<arg value="${dest.dir.classes}" />
+			<arg value="-wsdl" />
+			<arg value="-d" />
+			<arg value="gen-wsdl" />
+			<arg value="-r" />
+			<arg value="gen-wsdl" />
+			<arg value="-keep" />
+			<arg value="edu.cs751homework4.service.OrderServiceImpl" />
+		</exec>
+		<replace file="gen-wsdl/OrderServiceImplService.wsdl" token="REPLACE_WITH_ACTUAL_URL" value="http://localhost:8080/axis2/services/OrderServiceImplService" />
+
+		<copy todir="${basedir}/resources/META-INF">
+			<fileset dir="gen-wsdl">
+				<include name="*.wsdl" />
+				<include name="*xsd" />
+			</fileset>
+		</copy>
+
+		<!--
+		<exec executable="${xjc_tool}">
+			<arg value="-d" />
+			<arg value="gen-wsdl" />
+			<arg value="${basedir}/resources/META-INF/OrderServiceImplService_schema1.xsd" />
+		</exec>
+		-->
+		<javac srcdir="gen-wsdl" destdir="${dest.dir.classes}">
+			<classpath refid="build.class.path" />
+		</javac>
+
+	</target>
+
+	<target name="generate.service" depends="generate.wsdl,compile">
+		<copy todir="${dest.dir.classes}">
+			<fileset dir="src" includes="**/*.xml" />
+		</copy>
+		<copy todir="${dest.dir.classes}">
+			<fileset dir="resources" />
+		</copy>
+		<jar basedir="${dest.dir.classes}" destfile="${dest.dir}/${myName}.jar" />
+		<copy file="${dest.dir}/${myName}.jar" tofile="${repository.path}/${myName}.jar" overwrite="true" />
+	</target>
+
+	<target name="generate.client" depends="prepare">
+		<mkdir dir="gen-client" />
+		<exec executable="${wsimport_tool}">
+			<arg value="-verbose" />
+			<arg value="-d" />
+			<arg value="gen-client" />
+			<arg value="-s" />
+			<arg value="gen-client" />
+			<arg value="http://localhost:8080/axis2/services/OrderServiceImplService?wsdl" />
+		</exec>
+		<replace file="gen-client/edu/cs751homework4/service/OrderServiceImplService.java" token="public class" value="@javax.jws.HandlerChain(file=&quot;handler-chain-client.xml&quot;) public class" />
+	</target>
+
+	<target name="compile.client" depends="generate.client">
+		<sleep seconds="2" />
+		<touch file="gen-client/edu/cs751homework4/service/OrderServiceImplService.java" />
+
+		<javac srcdir="gen-client" destdir="gen-client" includes="**/*.java">
+			<classpath refid="client.classpath" />
+		</javac>
+
+		<javac srcdir="src" destdir="${dest.dir.classes}" includes="edu/cs751homework4/client/*.java">
+			<classpath refid="client.classpath" />
+		</javac>
+
+		<copy todir="gen-client/edu/cs751homework4/service">
+			<fileset dir="src/edu/cs751homework4/client" includes="handler-chain-client.xml" />
+		</copy>
+	</target>
+
+	<target name="run.client" depends="compile.client">
+		<echo message="Running the client application..." />
+		<java classname="edu.cs751homework4.client.TestClient" fork="true">
+			<classpath refid="client.classpath" />
+		</java>
+	</target>
+
+</project>

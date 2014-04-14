@@ -1,0 +1,11 @@
+   <jws:handler-chains xmlns:jws="http://java.sun.com/xml/ns/javaee">
+   <!-- Note:  The '*" denotes a wildcard. -->
+
+        <jws:handler-chain name="MyHandlerChain">
+            <jws:handler>
+                <jws:handler-class>edu.cs751homework4.client.ClientIdInjectHandler</jws:handler-class>
+            </jws:handler>
+          
+        </jws:handler-chain>
+        
+   </jws:handler-chains>
