@@ -26,7 +26,7 @@ public class Song {
      */
     public static Song newInstance(Song song) {
         return new Song(song.getId(), song.getSongName(), song.getArtistName(),
-                cloneLyricsArray(song.getLyrics()), cloneChordArray(song.getChords()), null);
+                cloneStringArray(song.getLyrics()), cloneChordArray(song.getChords()), null);
     }
 
     /**
@@ -35,7 +35,7 @@ public class Song {
      * @param src
      * @return
      */
-    public static String[] cloneLyricsArray(String[] src) {
+    public static String[] cloneStringArray(String[] src) {
         int length = src.length;
         String[] target = new String[length];
         System.arraycopy(src, 0, target, 0, length);

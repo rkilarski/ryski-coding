@@ -30,7 +30,7 @@ public class SongServiceImpl extends BaseService implements SongService {
         savedSong.setSongName(song.getSongName());
         savedSong.setArtistName(song.getArtistName());
         savedSong.setChords(Song.cloneChordArray(song.getChords()));
-        savedSong.setLyrics(Song.cloneLyricsArray(song.getLyrics()));
+        savedSong.setLyrics(Song.cloneStringArray(song.getLyrics()));
 
         return getBaseURL() + "chart/" + id;
     }
