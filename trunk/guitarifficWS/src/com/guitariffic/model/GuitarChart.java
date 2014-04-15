@@ -1,93 +1,82 @@
 package com.guitariffic.model;
 
-public class GuitarChart {
-	private String id;
-	private String name;
-	private String position;
-	private String fingering;
-	private String frets;
-	private boolean isLeftHanded;
+public class GuitarChart implements Cloneable {
+    private String id;
+    private String chordName;
+    private String chordPosition;
+    private String chordFingering;
+    private String chordFrets;
+    private boolean isLeftHanded;
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+    public GuitarChart() {
+    }
 
-	/**
-	 * @param name
-	 *            the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    public GuitarChart(String id, String chordName, String chordPosition, String chordFingering,
+            String chordFrets, boolean isLeftHanded) {
+        this.id = id;
+        this.chordName = chordName;
+        this.chordPosition = chordPosition;
+        this.chordFingering = chordFingering;
+        this.chordFrets = chordFrets;
+        this.isLeftHanded = isLeftHanded;
+    }
 
-	/**
-	 * @return the position
-	 */
-	public String getPosition() {
-		return position;
-	}
+    /**
+     * Given a chart, returns a new instance of it.
+     * @param chart
+     * @return
+     */
+    public static GuitarChart newInstance(GuitarChart chart) {
+        return new GuitarChart(chart.getId(), chart.getChordName(), chart.getChordPosition(),
+                chart.getChordFingering(), chart.getChordFrets(), chart.isLeftHanded());
+    }
 
-	/**
-	 * @param position
-	 *            the position to set
-	 */
-	public void setPosition(String position) {
-		this.position = position;
-	}
+    public String getId() {
+        return id;
+    }
 
-	/**
-	 * @return the fingering
-	 */
-	public String getFingering() {
-		return fingering;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	/**
-	 * @param fingering
-	 *            the fingering to set
-	 */
-	public void setFingering(String fingering) {
-		this.fingering = fingering;
-	}
+    public String getChordName() {
+        return chordName;
+    }
 
-	/**
-	 * @return the frets
-	 */
-	public String getFrets() {
-		return frets;
-	}
+    public void setChordName(String chordName) {
+        this.chordName = chordName;
+    }
 
-	/**
-	 * @param frets
-	 *            the frets to set
-	 */
-	public void setFrets(String frets) {
-		this.frets = frets;
-	}
+    public String getChordPosition() {
+        return chordPosition;
+    }
 
-	/**
-	 * @return the isLeftHanded
-	 */
-	public boolean isLeftHanded() {
-		return isLeftHanded;
-	}
+    public void setChordPosition(String chordPosition) {
+        this.chordPosition = chordPosition;
+    }
 
-	/**
-	 * @param isLeftHanded
-	 *            the isLeftHanded to set
-	 */
-	public void setLeftHanded(boolean isLeftHanded) {
-		this.isLeftHanded = isLeftHanded;
-	}
+    public String getChordFingering() {
+        return chordFingering;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public void setChordFingering(String chordFingering) {
+        this.chordFingering = chordFingering;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public String getChordFrets() {
+        return chordFrets;
+    }
+
+    public void setChordFrets(String chordFrets) {
+        this.chordFrets = chordFrets;
+    }
+
+    public boolean isLeftHanded() {
+        return isLeftHanded;
+    }
+
+    public void setLeftHanded(boolean isLeftHanded) {
+        this.isLeftHanded = isLeftHanded;
+    }
+
 }
