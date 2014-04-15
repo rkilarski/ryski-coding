@@ -17,68 +17,60 @@
   ~ under the License.
   -->
 
-<project name="cs751homework3" basedir="." default="generate.service">
+<project name="Guitariffic" basedir="." default="generate.service">
 
-	<property name="myName" value="OrderService" />
-    
-	<property environment="env"/>
-    <property name="AXIS2_HOME" value="${env.AXIS2_HOME}"/>
+	<property name="myName" value="GuitarifficService" />
 
-    <property name="build.dir" value="build"/>
+	<property environment="env" />
+	<property name="AXIS2_HOME" value="${env.AXIS2_HOME}" />
 
-    <path id="axis2.classpath">
-        <fileset dir="${AXIS2_HOME}/lib">
-            <include name="*.jar"/>
-        </fileset>
-    </path>
+	<property name="build.dir" value="build" />
+
+	<path id="axis2.classpath">
+		<fileset dir="${AXIS2_HOME}/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<path id="client.classpath">
+		<fileset dir="${AXIS2_HOME}/lib">
+			<include name="*.jar" />
+		</fileset>
+		<pathelement path="build/classes" />
+	</path>
 	
-	       
-	 <path id="client.classpath">
-	 	<fileset dir="${AXIS2_HOME}/lib">
-	 	            <include name="*.jar"/>
-	 	        </fileset>
-	    <pathelement path="build/classes" />
-	  </path>
- 
-    <target name="compile.service">
-        <mkdir dir="${build.dir}"/>
-        <mkdir dir="${build.dir}/classes"/>
-    		<mkdir dir="${build.dir}/classes/META-INF"/>
+	<target name="clean">
+		<delete dir="${build.dir}" />
+		<delete file="${AXIS2_HOME}/repository/services/${myName}.aar" />
+	</target>
 
-        <!--First let's compile the classes-->
-        <javac debug="on" 
-               fork="true"
-               destdir="${build.dir}/classes" 
-               srcdir="${basedir}/src"
-               classpathref="axis2.classpath">
-        </javac>
-    </target>
+	<target name="compile.service">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.dir}/classes" />
+		<mkdir dir="${build.dir}/classes/META-INF" />
 
-    <target name="generate.service" depends="compile.service">
-        <!--aar them up -->
-        <copy toDir="${build.dir}/classes/META-INF" failonerror="false">
-            <fileset dir="${basedir}/resources">
-                <include name="services.xml"/>
-            	    <include name="OrderService.wsdl"/>
-            </fileset>
-        </copy>
-        <jar destfile="${build.dir}/${myName}.aar">
-            <fileset excludes="client/*.class" dir="${build.dir}/classes"/>
-        </jar>
-        <copy file="${build.dir}/${myName}.aar"
-              toDir="${AXIS2_HOME}/repository/services"
-              overwrite="yes">  
-        </copy> 
-    </target>
+		<!--First let's compile the classes-->
+		<javac debug="on" fork="true" destdir="${build.dir}/classes" srcdir="${basedir}/src" classpathref="axis2.classpath">
+		</javac>
+	</target>
+
+	<target name="generate.service" depends="compile.service">
+		<!--aar them up -->
+		<copy toDir="${build.dir}/classes/META-INF" failonerror="false">
+			<fileset dir="${basedir}/resources">
+				<include name="services.xml" />
+				<include name="ChordService.wsdl" />
+			</fileset>
+		</copy>
+		<jar destfile="${build.dir}/${myName}.aar">
+			<fileset excludes="client/*.class" dir="${build.dir}/classes" />
+		</jar>
+		<copy file="${build.dir}/${myName}.aar" toDir="${AXIS2_HOME}/repository/services" overwrite="yes">
+		</copy>
+	</target>
 
 	<target name="run.client" depends="compile.service">
-	        <java classname="client.RESTClient"
-	              classpathref="client.classpath" fork="true">
-	        </java>
-	    </target>
-
-    <target name="clean">
-        <delete dir="${build.dir}"/>
-    	<delete file="${AXIS2_HOME}/repository/services/${myName}.aar"/>
-    </target>
+		<java classname="client.RESTClient" classpathref="client.classpath" fork="true">
+		</java>
+	</target>
 </project>
