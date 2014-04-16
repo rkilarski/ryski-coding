@@ -1,30 +1,40 @@
 package com.guitariffic.service;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.List;
 
+import com.guitariffic.dbo.GuitarChartDBHelper;
+import com.guitariffic.dbo.StorageFactory;
 import com.guitariffic.model.GuitarChart;
 import com.guitariffic.service.exception.GuitarChartAlreadyExists;
 import com.guitariffic.service.exception.GuitarChartNotFound;
 
+/**
+ * Implementation class for the guitar chart service. This class supports
+ * basic/add/edit/delete/get/list operations for guitar charts.
+ */
 public class GuitarChartServiceImpl extends BaseService implements GuitarChartService {
-    private Map<String, GuitarChart> map = new HashMap<String, GuitarChart>();
+    private static GuitarChartDBHelper dao = null;
+
+    public GuitarChartServiceImpl() {
+        if (dao == null) {
+            dao = StorageFactory.getGuitarChartDB(StorageFactory.STORAGE_TYPE);
+        }
+    }
 
     @Override
     public String add(GuitarChart chart) throws GuitarChartAlreadyExists {
         String id = chart.getId();
-        if (map.get(id) != null) {
+        if (dao.get(id) != null) {
             throw new GuitarChartAlreadyExists("Cannot add details of chart " + id
                     + ". This chart already exists.");
         }
-        map.put(id, chart);
+        dao.add(chart);
         return getBaseURL() + "chart/" + id;
     }
 
     @Override
     public String update(GuitarChart chart, String id) throws GuitarChartNotFound {
-        GuitarChart savedChart = map.get(id);
+        GuitarChart savedChart = dao.get(id);
         if (savedChart == null) {
             throw new GuitarChartNotFound("Details of chart " + id + " cannot be found.");
         }
@@ -38,31 +48,30 @@ public class GuitarChartServiceImpl extends BaseService implements GuitarChartSe
 
     @Override
     public void delete(String id) throws GuitarChartNotFound {
-        if (map.get(id) == null) {
+        if (dao.get(id) == null) {
             throw new GuitarChartNotFound("Details of chart " + id + " cannot be found.");
         }
-        map.remove(id);
+        dao.delete(id);
     }
 
     @Override
     public String[] getList(String search) {
-        int size = map.size();
-        String[] charts = new String[size];
-        Iterator<String> iterator = map.keySet().iterator();
+        List<GuitarChart> charts = dao.getList(search);
+        int size = charts.size();
+        String[] chartsArray = new String[size];
         int i = 0;
         String baseUrl = getBaseURL();
-
-        while (iterator.hasNext()) {
-            String chartId = iterator.next();
-            charts[i] = baseUrl + "chart/" + chartId;
+        for (GuitarChart chart : charts) {
+            String id = chart.getId();
+            chartsArray[i] = baseUrl + "chart/" + id;
             i++;
         }
-        return charts;
+        return chartsArray;
     }
 
     @Override
     public GuitarChart get(String id) throws GuitarChartNotFound {
-        GuitarChart chart = map.get(id);
+        GuitarChart chart = dao.get(id);
         if (chart == null) {
             throw new GuitarChartNotFound("Details of chart" + id + " cannot be found.");
         }
