@@ -1,3 +1,8 @@
+/**
+ author: Ryszard Kilarski
+ email: emrys@bu.edu
+ bu id: U81-39-8560
+ */
 package com.guitariffic.dbo;
 
 import java.io.File;
@@ -19,98 +24,109 @@ import org.w3c.dom.NodeList;
 import com.guitariffic.model.GuitarChart;
 
 public class MemoryGuitarChartDBImpl implements GuitarChartDBHelper {
-    private static Map<String, GuitarChart> map = null;
-    private static GuitarChartDBHelper instance;
+	private static Map<String, GuitarChart> map = null;
+	private static GuitarChartDBHelper instance;
 
-    public MemoryGuitarChartDBImpl() {
-        if (map == null) {
-            //map = new HashMap<String, GuitarChart>();
-            map = loadFromXMLFile();
-        }
-    }
+	public MemoryGuitarChartDBImpl() {
+		if (map == null) {
+			// map = new HashMap<String, GuitarChart>();
+			map = loadFromXMLFile();
+		}
+	}
 
-    private Map<String, GuitarChart> loadFromXMLFile() {
-        Map<String, GuitarChart> map = new HashMap<String, GuitarChart>();
-        try {
-            File fXmlFile = new File("/resources/chords.xml");
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(fXmlFile);
+	/**
+	 * This method reads in a file that looks like this:
+	@formatter:off
+	<chords>
+		<chord>
+			<chordName>A</chordName>
+			<chordPosition>1</chordPosition>
+			<chordFingering>X 123 </chordFingering>
+			<chordFrets>  222</chordFrets>
+			<isLeftHanded>FALSE</isLeftHanded>
+		</chord>
+	</chords>
+	@formatter:on
+	and returns a map of the guitar charts it finds therein.
+	 */
+	private Map<String, GuitarChart> loadFromXMLFile() {
+		Map<String, GuitarChart> map = new HashMap<String, GuitarChart>();
+		try {
+			File file = new File("resources/chords.xml");
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(file);
 
-            // optional, but recommended
-            // read this -
-            // http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
-            doc.getDocumentElement().normalize();
+			// optional, but recommended
+			// read this -
+			// http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
+			doc.getDocumentElement().normalize();
 
-            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+			NodeList nList = doc.getElementsByTagName("chord");
+			int id = 1;
+			for (int temp = 0; temp < nList.getLength(); temp++) {
+				Node node = nList.item(temp);
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) node;
+					String chordName =
+							eElement.getElementsByTagName("chordName").item(0).getTextContent();
+					String chordPosition =
+							eElement.getElementsByTagName("chordPosition").item(0).getTextContent();
+					String chordFingering =
+							eElement.getElementsByTagName("chordFingering").item(0).getTextContent();
+					String chordFrets =
+							eElement.getElementsByTagName("chordFrets").item(0).getTextContent();
+					boolean isLeftHanded =
+							eElement.getElementsByTagName("isLeftHanded").item(0).getTextContent().equals("TRUE");
+					GuitarChart chart =
+							new GuitarChart(Integer.toString(id), chordName, chordPosition, chordFingering, chordFrets, isLeftHanded);
+					map.put(chart.getId(), chart);
+					id++;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
 
-            NodeList nList = doc.getElementsByTagName("staff");
+	public static GuitarChartDBHelper getInstance() {
+		if (instance == null) {
+			instance = new MemoryGuitarChartDBImpl();
+			// map = new HashMap<String, GuitarChart>();
+		}
+		return instance;
+	}
 
-            System.out.println("----------------------------");
+	@Override
+	public void add(GuitarChart chart) {
+		map.put(chart.getId(), chart);
+	}
 
-            for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
-                System.out.println("\nCurrent Element :" + nNode.getNodeName());
+	@Override
+	public void update(GuitarChart chart, String id) {
+		map.put(id, chart);
+	}
 
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+	@Override
+	public void delete(String id) {
+		map.remove(id);
+	}
 
-                    Element eElement = (Element) nNode;
+	@Override
+	public List<GuitarChart> getList(String search) {
+		List<GuitarChart> list = new ArrayList<GuitarChart>();
+		Iterator<Entry<String, GuitarChart>> it = map.entrySet().iterator();
+		while (it.hasNext()) {
+			Entry<String, GuitarChart> pairs = it.next();
+			list.add(pairs.getValue());
+			it.remove(); // avoids a ConcurrentModificationException
+		}
+		return list;
+	}
 
-                    System.out.println("Staff id : " + eElement.getAttribute("id"));
-                    System.out.println("First Name : "
-                            + eElement.getElementsByTagName("firstname").item(0).getTextContent());
-                    System.out.println("Last Name : "
-                            + eElement.getElementsByTagName("lastname").item(0).getTextContent());
-                    System.out.println("Nick Name : "
-                            + eElement.getElementsByTagName("nickname").item(0).getTextContent());
-                    System.out.println("Salary : "
-                            + eElement.getElementsByTagName("salary").item(0).getTextContent());
-
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return map;
-    }
-
-    public static GuitarChartDBHelper getInstance() {
-        if (instance == null) {
-            instance = new MemoryGuitarChartDBImpl();
-            map = new HashMap<String, GuitarChart>();
-        }
-        return instance;
-    }
-
-    @Override
-    public void add(GuitarChart chart) {
-        map.put(chart.getId(), chart);
-    }
-
-    @Override
-    public void update(GuitarChart chart, String id) {
-        map.put(id, chart);
-    }
-
-    @Override
-    public void delete(String id) {
-        map.remove(id);
-    }
-
-    @Override
-    public List<GuitarChart> getList(String search) {
-        List<GuitarChart> list = new ArrayList<GuitarChart>();
-        Iterator<Entry<String, GuitarChart>> it = map.entrySet().iterator();
-        while (it.hasNext()) {
-            Entry<String, GuitarChart> pairs = it.next();
-            list.add(pairs.getValue());
-            it.remove(); // avoids a ConcurrentModificationException
-        }
-        return list;
-    }
-
-    @Override
-    public GuitarChart get(String id) {
-        return map.get(id);
-    }
+	@Override
+	public GuitarChart get(String id) {
+		return map.get(id);
+	}
 }

@@ -1,3 +1,8 @@
+/**
+ author: Ryszard Kilarski
+ email: emrys@bu.edu
+ bu id: U81-39-8560
+ */
 package com.guitariffic.service.exception;
 
 public class SongNotFound extends Exception {

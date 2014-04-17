@@ -27,7 +27,7 @@ import org.w3c.dom.Element;
  */
 public class RESTClient {
 
-	private static String toEpr = "http://localhost:8080/axis2/services/OrderService";
+	private static String toEpr = "http://localhost:8080/axis2/services/GuitarChartService";
 
 	public static void main(String[] args) throws AxisFault {
 		System.out.println("**************************************Testing getOrders");

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="common-build" basedir=".">
+
+
+  <property name="myName" value="${user.name}"/>
+
+  <property environment="env"/>
+
+  <!-- WINDOWS vs. LINUX file names -->
+  <condition property="wsimport_tool" value="wsimport.bat" else="wsimport">
+    <os family="windows" />
+  </condition>
+  <condition property="xjc_tool" value="xjc.bat" else="xjc">
+    <os family="windows" />
+  </condition>
+
+  <condition property="schemagen_tool" value="schemagen.bat" else="schemagen">
+    <os family="windows" />
+  </condition>
+
+  <condition property="wsgen_tool" value="wsgen.bat" else="wsgen">
+    <os family="windows" />
+  </condition>
+
+
+  <!-- Standard Directories -->
+  <property name="java.generated" value="target/generated/src/main/java" />
+  
+</project>
