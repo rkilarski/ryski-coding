@@ -1,3 +1,8 @@
+/**
+ author: Ryszard Kilarski
+ email: emrys@bu.edu
+ bu id: U81-39-8560
+ */
 package com.guitariffic.service;
 
 import org.apache.axis2.AxisFault;
@@ -13,15 +18,19 @@ public class BaseService {
 	// the URIs for the various details returned.
 	protected String getBaseURL() {
 		if (baseURL == null) {
-			MessageContext messageContext = MessageContext.getCurrentMessageContext();
-			AxisConfiguration configuration =
-					messageContext.getConfigurationContext().getAxisConfiguration();
-			TransportInDescription inDescription = configuration.getTransportIn("http");
 			try {
-				EndpointReference[] eprs =
-						inDescription.getReceiver().getEPRsForService(messageContext.getAxisService().getName(), null);
-				baseURL = eprs[0].getAddress();
-			} catch (AxisFault axisFault) {
+				MessageContext messageContext = MessageContext.getCurrentMessageContext();
+				AxisConfiguration configuration =
+						messageContext.getConfigurationContext().getAxisConfiguration();
+				TransportInDescription inDescription = configuration.getTransportIn("http");
+				try {
+					EndpointReference[] eprs =
+							inDescription.getReceiver().getEPRsForService(messageContext.getAxisService().getName(), null);
+					baseURL = eprs[0].getAddress();
+				} catch (AxisFault axisFault) {
+				}
+			} catch (Exception ex) {
+				baseURL = "";
 			}
 		}
 		return baseURL;

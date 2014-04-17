@@ -1,12 +1,12 @@
 <serviceGroup>
-    <service name="GuitarifficSongService" scope="application">
+    <service name="SongService" scope="application">
         <parameter name="ServiceClass">com.guitariffic.service.SongServiceImpl</parameter>
         <messageReceivers>
         <messageReceiver mep="http://www.w3.org/ns/wsdl/in-only" class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver"/>
         <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
     </messageReceivers>
     </service>
-    <service name="GuitarifficChartService" scope="application">
+    <service name="GuitarChartService" scope="application">
         <parameter name="ServiceClass">com.guitariffic.service.GuitarChartSericeImpl</parameter>
         <messageReceivers>
         <messageReceiver mep="http://www.w3.org/ns/wsdl/in-only" class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver"/>
