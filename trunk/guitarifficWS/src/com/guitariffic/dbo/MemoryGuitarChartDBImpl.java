@@ -55,33 +55,33 @@ public class MemoryGuitarChartDBImpl implements GuitarChartDBHelper {
             // URL fileUrl = this.getClass().getResource("/chords.xml");
             InputStream stream = ClassLoader.class.getResourceAsStream("/chords.xml");
             // File file = new File(fileUrl);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(stream);
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(stream);
 
             // optional, but recommended
             // read this -
             // http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
             doc.getDocumentElement().normalize();
 
-            NodeList nList = doc.getElementsByTagName("chord");
+            NodeList nodes = doc.getElementsByTagName("chord");
             int id = 1;
-            for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node node = nList.item(temp);
+            for (int temp = 0; temp < nodes.getLength(); temp++) {
+                Node node = nodes.item(temp);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) node;
+                    Element element = (Element) node;
                     String chordName =
-                            eElement.getElementsByTagName("chordName").item(0).getTextContent();
+                            element.getElementsByTagName("chordName").item(0).getTextContent();
                     String chordPosition =
-                            eElement.getElementsByTagName("chordPosition").item(0)
+                            element.getElementsByTagName("chordPosition").item(0)
                                     .getTextContent();
                     String chordFingering =
-                            eElement.getElementsByTagName("chordFingering").item(0)
+                            element.getElementsByTagName("chordFingering").item(0)
                                     .getTextContent();
                     String chordFrets =
-                            eElement.getElementsByTagName("chordFrets").item(0).getTextContent();
+                            element.getElementsByTagName("chordFrets").item(0).getTextContent();
                     boolean isLeftHanded =
-                            eElement.getElementsByTagName("isLeftHanded").item(0).getTextContent()
+                            element.getElementsByTagName("isLeftHanded").item(0).getTextContent()
                                     .equals("TRUE");
                     GuitarChart chart =
                             new GuitarChart(Integer.toString(id), chordName, chordPosition,
