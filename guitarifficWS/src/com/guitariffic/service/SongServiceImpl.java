@@ -7,6 +7,8 @@ package com.guitariffic.service;
 
 import java.util.List;
 
+import org.apache.axis2.AxisFault;
+
 import com.guitariffic.dbo.SongDBHelper;
 import com.guitariffic.dbo.StorageFactory;
 import com.guitariffic.image.ImageImpl;
@@ -85,14 +87,19 @@ public class SongServiceImpl extends BaseService implements SongService {
 
 		// Call image service to get list of image URLs.
 		ImageImpl imageService = ImageImpl.newImageImpl("flickr");
-		List<String> imageList = imageService.getImages(song.getArtistName());
-		String[] urlList = new String[imageList.size()];
-		int i = 0;
-		for (String url : imageList) {
-			urlList[i] = url;
-			i++;
-		}
-		song.setUrls(urlList);
+		List<String> imageList;
+        try {
+            imageList = imageService.getImages(song.getArtistName());
+            String[] urlList = new String[imageList.size()];
+            int i = 0;
+            for (String url : imageList) {
+                urlList[i] = url;
+                i++;
+            }
+            song.setUrls(urlList);
+        } catch (AxisFault e) {
+            e.printStackTrace();
+        }
 		return song;
 	}
 

@@ -4,17 +4,17 @@
         <xs:schema xmlns:ax24="http://model.guitariffic.com/xsd" xmlns:ax22="http://exception.service.guitariffic.com/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://service.guitariffic.com">
             <xs:import namespace="http://exception.service.guitariffic.com/xsd"/>
             <xs:import namespace="http://model.guitariffic.com/xsd"/>
-            <xs:element name="GuitarChartServiceGuitarChartAlreadyExists">
+            <xs:element name="SongServiceSongAlreadyExists">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element minOccurs="0" name="GuitarChartAlreadyExists" nillable="true" type="ax21:GuitarChartAlreadyExists"/>
+                        <xs:element minOccurs="0" name="SongAlreadyExists" nillable="true" type="ax21:SongAlreadyExists"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
             <xs:element name="add">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element minOccurs="0" name="chart" nillable="true" type="ax23:GuitarChart"/>
+                        <xs:element minOccurs="0" name="song" nillable="true" type="ax23:Song"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -25,10 +25,10 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="GuitarChartServiceGuitarChartNotFound">
+            <xs:element name="SongServiceSongNotFound">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element minOccurs="0" name="GuitarChartNotFound" nillable="true" type="ax21:GuitarChartNotFound"/>
+                        <xs:element minOccurs="0" name="SongNotFound" nillable="true" type="ax21:SongNotFound"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -42,7 +42,7 @@
             <xs:element name="getResponse">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element minOccurs="0" name="return" nillable="true" type="ax23:GuitarChart"/>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax23:Song"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -56,7 +56,7 @@
             <xs:element name="update">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element minOccurs="0" name="chart" nillable="true" type="ax23:GuitarChart"/>
+                        <xs:element minOccurs="0" name="song" nillable="true" type="ax23:Song"/>
                         <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
                     </xs:sequence>
                 </xs:complexType>
@@ -84,14 +84,24 @@
             </xs:element>
         </xs:schema>
         <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://exception.service.guitariffic.com/xsd">
-            <xs:complexType name="GuitarChartAlreadyExists">
+            <xs:complexType name="SongAlreadyExists">
                 <xs:sequence/>
             </xs:complexType>
-            <xs:complexType name="GuitarChartNotFound">
+            <xs:complexType name="SongNotFound">
                 <xs:sequence/>
             </xs:complexType>
         </xs:schema>
         <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://model.guitariffic.com/xsd">
+            <xs:complexType name="Song">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="artistName" nillable="true" type="xs:string"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="chords" nillable="true" type="ax23:ArrayOfGuitarChart"/>
+                    <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="lyrics" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="songName" nillable="true" type="xs:string"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="urls" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
             <xs:complexType name="GuitarChart">
                 <xs:sequence>
                     <xs:element minOccurs="0" name="chordFingering" nillable="true" type="xs:string"/>
@@ -102,20 +112,25 @@
                     <xs:element minOccurs="0" name="leftHanded" type="xs:boolean"/>
                 </xs:sequence>
             </xs:complexType>
+            <xs:complexType name="ArrayOfGuitarChart">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="array" nillable="true" type="ax23:GuitarChart"/>
+                </xs:sequence>
+            </xs:complexType>
         </xs:schema>
     </wsdl2:types>
     <wsdl2:interface name="ServiceInterface">
-        <wsdl2:fault name="GuitarChartServiceGuitarChartNotFound" element="ns:GuitarChartServiceGuitarChartNotFound"/>
-        <wsdl2:fault name="GuitarChartServiceGuitarChartAlreadyExists" element="ns:GuitarChartServiceGuitarChartAlreadyExists"/>
+        <wsdl2:fault name="SongServiceSongNotFound" element="ns:SongServiceSongNotFound"/>
+        <wsdl2:fault name="SongServiceSongAlreadyExists" element="ns:SongServiceSongAlreadyExists"/>
         <wsdl2:operation name="delete" pattern="http://www.w3.org/ns/wsdl/in-out">
             <wsdl2:input element="ns:delete" wsaw:Action="urn:delete"/>
             <wsdl2:output element="#none" wsaw:Action="urn:deleteResponse"/>
-            <wsdl2:outfault ref="tns:GuitarChartServiceGuitarChartNotFound" wsaw:Action="urn:deleteGuitarChartServiceGuitarChartNotFound"/>
+            <wsdl2:outfault ref="tns:SongServiceSongNotFound" wsaw:Action="urn:deleteSongServiceSongNotFound"/>
         </wsdl2:operation>
-        <wsdl2:operation name="add" style="http://www.w3.org/ns/wsdl/style/rpc" wrpc:signature="chart #in return #return " pattern="http://www.w3.org/ns/wsdl/in-out">
+        <wsdl2:operation name="add" style="http://www.w3.org/ns/wsdl/style/rpc" wrpc:signature="song #in return #return " pattern="http://www.w3.org/ns/wsdl/in-out">
             <wsdl2:input element="ns:add" wsaw:Action="urn:add"/>
             <wsdl2:output element="ns:addResponse" wsaw:Action="urn:addResponse"/>
-            <wsdl2:outfault ref="tns:GuitarChartServiceGuitarChartAlreadyExists" wsaw:Action="urn:addGuitarChartServiceGuitarChartAlreadyExists"/>
+            <wsdl2:outfault ref="tns:SongServiceSongAlreadyExists" wsaw:Action="urn:addSongServiceSongAlreadyExists"/>
         </wsdl2:operation>
         <wsdl2:operation name="getList" style="http://www.w3.org/ns/wsdl/style/rpc" wrpc:signature="search #in return #return " pattern="http://www.w3.org/ns/wsdl/in-out">
             <wsdl2:input element="ns:getList" wsaw:Action="urn:getList"/>
@@ -124,26 +139,26 @@
         <wsdl2:operation name="get" style="http://www.w3.org/ns/wsdl/style/rpc" wrpc:signature="id #in return #return " pattern="http://www.w3.org/ns/wsdl/in-out">
             <wsdl2:input element="ns:get" wsaw:Action="urn:get"/>
             <wsdl2:output element="ns:getResponse" wsaw:Action="urn:getResponse"/>
-            <wsdl2:outfault ref="tns:GuitarChartServiceGuitarChartNotFound" wsaw:Action="urn:getGuitarChartServiceGuitarChartNotFound"/>
+            <wsdl2:outfault ref="tns:SongServiceSongNotFound" wsaw:Action="urn:getSongServiceSongNotFound"/>
         </wsdl2:operation>
-        <wsdl2:operation name="update" style="http://www.w3.org/ns/wsdl/style/rpc" wrpc:signature="chart #in id #in return #return " pattern="http://www.w3.org/ns/wsdl/in-out">
+        <wsdl2:operation name="update" style="http://www.w3.org/ns/wsdl/style/rpc" wrpc:signature="song #in id #in return #return " pattern="http://www.w3.org/ns/wsdl/in-out">
             <wsdl2:input element="ns:update" wsaw:Action="urn:update"/>
             <wsdl2:output element="ns:updateResponse" wsaw:Action="urn:updateResponse"/>
-            <wsdl2:outfault ref="tns:GuitarChartServiceGuitarChartNotFound" wsaw:Action="urn:updateGuitarChartServiceGuitarChartNotFound"/>
+            <wsdl2:outfault ref="tns:SongServiceSongNotFound" wsaw:Action="urn:updateSongServiceSongNotFound"/>
         </wsdl2:operation>
     </wsdl2:interface>
-    <wsdl2:binding name="GuitarChartServiceSoap11Binding" interface="tns:ServiceInterface" type="http://www.w3.org/ns/wsdl/soap" wsoap:version="1.1">
-        <wsdl2:fault ref="tns:GuitarChartServiceGuitarChartAlreadyExists"/>
-        <wsdl2:fault ref="tns:GuitarChartServiceGuitarChartNotFound"/>
+    <wsdl2:binding name="SongServiceSoap12Binding" interface="tns:ServiceInterface" type="http://www.w3.org/ns/wsdl/soap" wsoap:version="1.2">
+        <wsdl2:fault ref="tns:SongServiceSongNotFound"/>
+        <wsdl2:fault ref="tns:SongServiceSongAlreadyExists"/>
         <wsdl2:operation ref="tns:delete" wsoap:action="urn:delete">
             <wsdl2:input/>
             <wsdl2:output/>
-            <wsdl2:outfault ref="tns:GuitarChartServiceGuitarChartNotFound"/>
+            <wsdl2:outfault ref="tns:SongServiceSongNotFound"/>
         </wsdl2:operation>
         <wsdl2:operation ref="tns:add" wsoap:action="urn:add">
             <wsdl2:input/>
             <wsdl2:output/>
-            <wsdl2:outfault ref="tns:GuitarChartServiceGuitarChartAlreadyExists"/>
+            <wsdl2:outfault ref="tns:SongServiceSongAlreadyExists"/>
         </wsdl2:operation>
         <wsdl2:operation ref="tns:getList" wsoap:action="urn:getList">
             <wsdl2:input/>
@@ -152,26 +167,26 @@
         <wsdl2:operation ref="tns:get" wsoap:action="urn:get">
             <wsdl2:input/>
             <wsdl2:output/>
-            <wsdl2:outfault ref="tns:GuitarChartServiceGuitarChartNotFound"/>
+            <wsdl2:outfault ref="tns:SongServiceSongNotFound"/>
         </wsdl2:operation>
         <wsdl2:operation ref="tns:update" wsoap:action="urn:update">
             <wsdl2:input/>
             <wsdl2:output/>
-            <wsdl2:outfault ref="tns:GuitarChartServiceGuitarChartNotFound"/>
+            <wsdl2:outfault ref="tns:SongServiceSongNotFound"/>
         </wsdl2:operation>
     </wsdl2:binding>
-    <wsdl2:binding name="GuitarChartServiceSoap12Binding" interface="tns:ServiceInterface" type="http://www.w3.org/ns/wsdl/soap" wsoap:version="1.2">
-        <wsdl2:fault ref="tns:GuitarChartServiceGuitarChartAlreadyExists"/>
-        <wsdl2:fault ref="tns:GuitarChartServiceGuitarChartNotFound"/>
+    <wsdl2:binding name="SongServiceSoap11Binding" interface="tns:ServiceInterface" type="http://www.w3.org/ns/wsdl/soap" wsoap:version="1.1">
+        <wsdl2:fault ref="tns:SongServiceSongNotFound"/>
+        <wsdl2:fault ref="tns:SongServiceSongAlreadyExists"/>
         <wsdl2:operation ref="tns:delete" wsoap:action="urn:delete">
             <wsdl2:input/>
             <wsdl2:output/>
-            <wsdl2:outfault ref="tns:GuitarChartServiceGuitarChartNotFound"/>
+            <wsdl2:outfault ref="tns:SongServiceSongNotFound"/>
         </wsdl2:operation>
         <wsdl2:operation ref="tns:add" wsoap:action="urn:add">
             <wsdl2:input/>
             <wsdl2:output/>
-            <wsdl2:outfault ref="tns:GuitarChartServiceGuitarChartAlreadyExists"/>
+            <wsdl2:outfault ref="tns:SongServiceSongAlreadyExists"/>
         </wsdl2:operation>
         <wsdl2:operation ref="tns:getList" wsoap:action="urn:getList">
             <wsdl2:input/>
@@ -180,26 +195,26 @@
         <wsdl2:operation ref="tns:get" wsoap:action="urn:get">
             <wsdl2:input/>
             <wsdl2:output/>
-            <wsdl2:outfault ref="tns:GuitarChartServiceGuitarChartNotFound"/>
+            <wsdl2:outfault ref="tns:SongServiceSongNotFound"/>
         </wsdl2:operation>
         <wsdl2:operation ref="tns:update" wsoap:action="urn:update">
             <wsdl2:input/>
             <wsdl2:output/>
-            <wsdl2:outfault ref="tns:GuitarChartServiceGuitarChartNotFound"/>
+            <wsdl2:outfault ref="tns:SongServiceSongNotFound"/>
         </wsdl2:operation>
     </wsdl2:binding>
-    <wsdl2:binding name="GuitarChartServiceHttpBinding" interface="tns:ServiceInterface" whttp:methodDefault="GET" type="http://www.w3.org/ns/wsdl/http">
-        <wsdl2:fault ref="tns:GuitarChartServiceGuitarChartAlreadyExists"/>
-        <wsdl2:fault ref="tns:GuitarChartServiceGuitarChartNotFound"/>
+    <wsdl2:binding name="SongServiceHttpBinding" interface="tns:ServiceInterface" whttp:methodDefault="GET" type="http://www.w3.org/ns/wsdl/http">
+        <wsdl2:fault ref="tns:SongServiceSongNotFound"/>
+        <wsdl2:fault ref="tns:SongServiceSongAlreadyExists"/>
         <wsdl2:operation ref="tns:delete" whttp:location="delete" whttp:method="DELETE">
             <wsdl2:input/>
             <wsdl2:output/>
-            <wsdl2:outfault ref="tns:GuitarChartServiceGuitarChartNotFound"/>
+            <wsdl2:outfault ref="tns:SongServiceSongNotFound"/>
         </wsdl2:operation>
         <wsdl2:operation ref="tns:add" whttp:location="add" whttp:method="POST">
             <wsdl2:input/>
             <wsdl2:output/>
-            <wsdl2:outfault ref="tns:GuitarChartServiceGuitarChartAlreadyExists"/>
+            <wsdl2:outfault ref="tns:SongServiceSongAlreadyExists"/>
         </wsdl2:operation>
         <wsdl2:operation ref="tns:getList" whttp:location="getList">
             <wsdl2:input/>
@@ -208,17 +223,17 @@
         <wsdl2:operation ref="tns:get" whttp:location="get/{id}">
             <wsdl2:input/>
             <wsdl2:output/>
-            <wsdl2:outfault ref="tns:GuitarChartServiceGuitarChartNotFound"/>
+            <wsdl2:outfault ref="tns:SongServiceSongNotFound"/>
         </wsdl2:operation>
         <wsdl2:operation ref="tns:update" whttp:location="update" whttp:method="PUT">
             <wsdl2:input/>
             <wsdl2:output/>
-            <wsdl2:outfault ref="tns:GuitarChartServiceGuitarChartNotFound"/>
+            <wsdl2:outfault ref="tns:SongServiceSongNotFound"/>
         </wsdl2:operation>
     </wsdl2:binding>
-    <wsdl2:service name="GuitarChartService" interface="tns:ServiceInterface">
-        <wsdl2:endpoint name="GuitarChartServiceHttpSoap12Endpoint" binding="tns:GuitarChartServiceSoap12Binding" address="http://localhost:8080/axis2/services/GuitarChartService"/>
-        <wsdl2:endpoint name="GuitarChartServiceHttpEndpoint" binding="tns:GuitarChartServiceHttpBinding" address="http://localhost:8080/axis2/services/GuitarChartService"/>
-        <wsdl2:endpoint name="GuitarChartServiceHttpSoap11Endpoint" binding="tns:GuitarChartServiceSoap11Binding" address="http://localhost:8080/axis2/services/GuitarChartService"/>
+    <wsdl2:service name="SongService" interface="tns:ServiceInterface">
+        <wsdl2:endpoint name="SongServiceHttpSoap12Endpoint" binding="tns:SongServiceSoap12Binding" address="http://localhost:8080/axis2/services/SongService"/>
+        <wsdl2:endpoint name="SongServiceHttpSoap11Endpoint" binding="tns:SongServiceSoap11Binding" address="http://localhost:8080/axis2/services/SongService"/>
+        <wsdl2:endpoint name="SongServiceHttpEndpoint" binding="tns:SongServiceHttpBinding" address="http://localhost:8080/axis2/services/SongService"/>
     </wsdl2:service>
 </wsdl2:description>

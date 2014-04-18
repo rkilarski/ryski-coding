@@ -13,7 +13,7 @@ import com.guitariffic.model.GuitarChart;
  * Interface to expose database functionality for guitar charts.
  */
 public interface GuitarChartDBHelper {
-	public void add(GuitarChart object);
+	public String add(GuitarChart object);
 
 	public void update(GuitarChart object, String id);
 

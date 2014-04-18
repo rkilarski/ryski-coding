@@ -19,7 +19,7 @@
 
 <project name="Guitariffic" basedir="." default="generate.service">
 
-	<property name="myName" value="GuitarifficService" />
+	<property name="myName" value="GuitarifficServices" />
 
 	<property environment="env" />
 	<property name="AXIS2_HOME" value="${env.AXIS2_HOME}" />
@@ -58,8 +58,12 @@
 		<!--aar them up -->
 		<copy toDir="${build.dir}/classes/META-INF" failonerror="false">
 			<fileset dir="${basedir}/resources">
-				<include name="services.xml" />
-				<include name="ChordService.wsdl" />
+				<include name="*.xml" />
+			</fileset>
+		</copy>
+		<copy toDir="${build.dir}/classes/resources" failonerror="false">
+			<fileset dir="${basedir}/resources">
+				<include name="*.xml" />
 			</fileset>
 		</copy>
 		<jar destfile="${build.dir}/${myName}.aar">

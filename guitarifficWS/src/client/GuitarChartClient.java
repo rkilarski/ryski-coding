@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
 /**
  * This is a Client program that accesses 'OrderService' web service
  */
-public class RESTClient {
+public class GuitarChartClient {
 
 	private static String toEpr = "http://localhost:8080/axis2/services/GuitarChartService";
 
