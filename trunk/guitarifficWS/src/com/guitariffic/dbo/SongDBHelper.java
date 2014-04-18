@@ -15,7 +15,7 @@ import com.guitariffic.model.Song;
  */
 public interface SongDBHelper {
 
-	public void add(Song object);
+	public String add(Song object);
 
 	public void update(Song object, String id);
 

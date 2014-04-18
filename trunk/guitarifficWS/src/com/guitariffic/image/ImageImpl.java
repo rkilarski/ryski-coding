@@ -7,6 +7,8 @@ package com.guitariffic.image;
 
 import java.util.List;
 
+import org.apache.axis2.AxisFault;
+
 public abstract class ImageImpl {
 
 	public static ImageImpl newImageImpl(String src) {
@@ -21,5 +23,5 @@ public abstract class ImageImpl {
 		}
 	}
 
-	public abstract List<String> getImages(String search);
+	public abstract List<String> getImages(String search) throws AxisFault;
 }
