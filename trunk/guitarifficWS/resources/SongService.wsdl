@@ -220,7 +220,7 @@
             <wsdl2:input/>
             <wsdl2:output/>
         </wsdl2:operation>
-        <wsdl2:operation ref="tns:get" whttp:location="get/{id}">
+        <wsdl2:operation ref="tns:get" whttp:location="get">
             <wsdl2:input/>
             <wsdl2:output/>
             <wsdl2:outfault ref="tns:SongServiceSongNotFound"/>
