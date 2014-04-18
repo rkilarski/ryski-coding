@@ -14,11 +14,11 @@ import java.util.Map.Entry;
 
 import com.guitariffic.model.Song;
 
-public class MemorySongDBImpl implements SongDBHelper {
-    private static Map<String, Song> map = null;
+public class SongMemoryDBImpl implements SongDBHelper {
     private static SongDBHelper instance;
+    private static Map<String, Song> map = null;
 
-    public MemorySongDBImpl() {
+    public SongMemoryDBImpl() {
         if (map == null) {
             map = new HashMap<String, Song>();
         }
@@ -26,7 +26,7 @@ public class MemorySongDBImpl implements SongDBHelper {
 
     public static SongDBHelper getInstance() {
         if (instance == null) {
-            instance = new MemorySongDBImpl();
+            instance = new SongMemoryDBImpl();
             map = new HashMap<String, Song>();
         }
         return instance;
@@ -41,29 +41,39 @@ public class MemorySongDBImpl implements SongDBHelper {
     }
 
     @Override
-    public void update(Song song, String id) {
-        map.put(id, song);
-    }
-
-    @Override
     public void delete(String id) {
         map.remove(id);
     }
 
     @Override
+    public Song get(String id) {
+        return map.get(id);
+    }
+
+    @Override
     public List<Song> getList(String search) {
+        if (search == null) {
+            search = "";
+        }
         List<Song> list = new ArrayList<Song>();
         Iterator<Entry<String, Song>> it = map.entrySet().iterator();
+        String searchUpper = search.toUpperCase();
         while (it.hasNext()) {
             Entry<String, Song> pairs = it.next();
-            list.add(pairs.getValue());
-            it.remove(); // avoids a ConcurrentModificationException
+            String upperSongName = pairs.getValue().getSongName().toUpperCase();
+            String upperArtistName = pairs.getValue().getArtistName().toUpperCase();
+
+            //Either get all, or find all matches on song name or artist name.
+            if (search.equals("") || search.isEmpty() || upperSongName.contains(searchUpper)
+                    || (upperArtistName.contains(searchUpper))) {
+                list.add(pairs.getValue());
+            }
         }
         return list;
     }
 
     @Override
-    public Song get(String id) {
-        return map.get(id);
+    public void update(Song song, String id) {
+        map.put(id, song);
     }
 }

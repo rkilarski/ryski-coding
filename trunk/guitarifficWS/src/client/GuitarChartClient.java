@@ -59,82 +59,6 @@ public class GuitarChartClient {
 		System.out.println("**************************************End deleteOrder");
 	}
 
-	private static synchronized void testElementOMElement(String testTitle, OMElement element, boolean robust) throws AxisFault {
-		if (element != null) {
-			Options options = new Options();
-			options.setTo(new EndpointReference(toEpr));
-			options.setTransportInProtocol(Constants.TRANSPORT_HTTP);
-
-			options.setProperty(Constants.Configuration.ENABLE_REST, Constants.VALUE_TRUE);
-
-			ServiceClient sender = new ServiceClient();
-			sender.setOptions(options);
-
-			System.out.println("==========================" + testTitle
-					+ "==========================");
-			// Output the request.
-			try {
-				Element requestDOM = null;
-				requestDOM = XMLUtils.toDOM(element);
-				System.out.println("-----------Pretty Request Start-----------");
-				DOMUtil.printDOM(requestDOM, "");
-				System.out.println("-----------Pretty Request End-----------");
-				System.out.println(" ");
-			} catch (Exception e1) {
-			}
-
-			if (robust) {
-				sender.sendRobust(element);
-			} else {
-				OMElement result = sender.sendReceive(element);
-
-				try {
-					XMLStreamWriter writer =
-							XMLOutputFactory.newInstance().createXMLStreamWriter(System.out);
-
-					System.out.println("-----------Raw Response Start-----------");
-					result.serialize(writer);
-					writer.flush();
-					System.out.println("-----------Raw Response End-----------");
-					System.out.println(" ");
-
-					// Convert to DOM and pretty print
-					Element resultDOM = XMLUtils.toDOM(result);
-					System.out.println("-----------Pretty Response Start-----------");
-					DOMUtil.printDOM(resultDOM, "");
-					System.out.println("-----------Pretty Response End-----------");
-
-				} catch (XMLStreamException e) {
-					e.printStackTrace();
-				} catch (FactoryConfigurationError e) {
-					e.printStackTrace();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		} else {
-			System.out.println("==========================" + testTitle
-					+ " not implemented yet==========================");
-		}
-	}
-
-	private static OMElement testGetOrders() {
-		OMFactory fac = OMAbstractFactory.getOMFactory();
-		OMNamespace omNs = fac.createOMNamespace("http://service.cs751hw3.edu", "ns");
-		OMElement method = fac.createOMElement("getOrders", omNs);
-		return method;
-	}
-
-	private static OMElement testGetOrder(String id) {
-		OMFactory fac = OMAbstractFactory.getOMFactory();
-		OMNamespace omNs = fac.createOMNamespace("http://service.cs751hw3.edu", "ns");
-		OMElement method = fac.createOMElement("getOrder", omNs);
-		OMElement value = fac.createOMElement("id", omNs);
-		value.addChild(fac.createOMText(value, id));
-		method.addChild(value);
-		return method;
-	}
-
 	private static OMElement testAddOrder() {
 		OMFactory fac = OMAbstractFactory.getOMFactory();
 		OMNamespace omNs = fac.createOMNamespace("http://service.cs751hw3.edu", "ns");
@@ -220,6 +144,92 @@ public class GuitarChartClient {
 		return method;
 	}
 
+	private static OMElement testDeleteOrder(String id) {
+		OMFactory fac = OMAbstractFactory.getOMFactory();
+		OMNamespace omNs = fac.createOMNamespace("http://service.cs751hw3.edu", "ns");
+		OMElement method = fac.createOMElement("deleteOrder", omNs);
+		OMElement value = fac.createOMElement("id", omNs);
+		value.addChild(fac.createOMText(value, id));
+		method.addChild(value);
+		return method;
+	}
+
+	private static synchronized void testElementOMElement(String testTitle, OMElement element, boolean robust) throws AxisFault {
+		if (element != null) {
+			Options options = new Options();
+			options.setTo(new EndpointReference(toEpr));
+			options.setTransportInProtocol(Constants.TRANSPORT_HTTP);
+
+			options.setProperty(Constants.Configuration.ENABLE_REST, Constants.VALUE_TRUE);
+
+			ServiceClient sender = new ServiceClient();
+			sender.setOptions(options);
+
+			System.out.println("==========================" + testTitle
+					+ "==========================");
+			// Output the request.
+			try {
+				Element requestDOM = null;
+				requestDOM = XMLUtils.toDOM(element);
+				System.out.println("-----------Pretty Request Start-----------");
+				DOMUtil.printDOM(requestDOM, "");
+				System.out.println("-----------Pretty Request End-----------");
+				System.out.println(" ");
+			} catch (Exception e1) {
+			}
+
+			if (robust) {
+				sender.sendRobust(element);
+			} else {
+				OMElement result = sender.sendReceive(element);
+
+				try {
+					XMLStreamWriter writer =
+							XMLOutputFactory.newInstance().createXMLStreamWriter(System.out);
+
+					System.out.println("-----------Raw Response Start-----------");
+					result.serialize(writer);
+					writer.flush();
+					System.out.println("-----------Raw Response End-----------");
+					System.out.println(" ");
+
+					// Convert to DOM and pretty print
+					Element resultDOM = XMLUtils.toDOM(result);
+					System.out.println("-----------Pretty Response Start-----------");
+					DOMUtil.printDOM(resultDOM, "");
+					System.out.println("-----------Pretty Response End-----------");
+
+				} catch (XMLStreamException e) {
+					e.printStackTrace();
+				} catch (FactoryConfigurationError e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			System.out.println("==========================" + testTitle
+					+ " not implemented yet==========================");
+		}
+	}
+
+	private static OMElement testGetOrder(String id) {
+		OMFactory fac = OMAbstractFactory.getOMFactory();
+		OMNamespace omNs = fac.createOMNamespace("http://service.cs751hw3.edu", "ns");
+		OMElement method = fac.createOMElement("getOrder", omNs);
+		OMElement value = fac.createOMElement("id", omNs);
+		value.addChild(fac.createOMText(value, id));
+		method.addChild(value);
+		return method;
+	}
+
+	private static OMElement testGetOrders() {
+		OMFactory fac = OMAbstractFactory.getOMFactory();
+		OMNamespace omNs = fac.createOMNamespace("http://service.cs751hw3.edu", "ns");
+		OMElement method = fac.createOMElement("getOrders", omNs);
+		return method;
+	}
+
 	private static OMElement testUpdateOrder(String id) {
 		OMFactory fac = OMAbstractFactory.getOMFactory();
 		OMNamespace omNs = fac.createOMNamespace("http://service.cs751hw3.edu", "ns");
@@ -247,16 +257,6 @@ public class GuitarChartClient {
 		element.addChild(fac.createOMText(element, "28.99"));
 		item.addChild(element);
 
-		return method;
-	}
-
-	private static OMElement testDeleteOrder(String id) {
-		OMFactory fac = OMAbstractFactory.getOMFactory();
-		OMNamespace omNs = fac.createOMNamespace("http://service.cs751hw3.edu", "ns");
-		OMElement method = fac.createOMElement("deleteOrder", omNs);
-		OMElement value = fac.createOMElement("id", omNs);
-		value.addChild(fac.createOMText(value, id));
-		method.addChild(value);
 		return method;
 	}
 }

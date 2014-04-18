@@ -42,40 +42,6 @@ public class FlickrImageImpl extends ImageImpl {
 
 	private static String toEpr = "http://api.flickr.com/services/feeds/photos_public.gne?tags=";
 
-	@Override
-	public List<String> getImages(String search) throws AxisFault {
-		Options options = new Options();
-		options.setTo(new EndpointReference(toEpr + search));
-		options.setTransportInProtocol(Constants.TRANSPORT_HTTP);
-
-		options.setProperty(Constants.Configuration.ENABLE_REST, Constants.VALUE_TRUE);
-
-		ServiceClient sender = new ServiceClient();
-		sender.setOptions(options);
-
-		OMElement element = flickrElement();
-		OMElement result = sender.sendReceive(element);
-		try {
-			XMLStreamWriter writer =
-					XMLOutputFactory.newInstance().createXMLStreamWriter(System.out);
-
-			result.serialize(writer);
-			writer.flush();
-
-			// Convert to DOM and pretty print
-			Element resultDOM = XMLUtils.toDOM(result);
-			DOMUtil.printDOM(resultDOM, "");
-
-		} catch (XMLStreamException e) {
-			e.printStackTrace();
-		} catch (FactoryConfigurationError e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
 	private static OMElement flickrElement() {
 		OMFactory fac = OMAbstractFactory.getOMFactory();
 		OMNamespace omNs = fac.createOMNamespace("http://SongService.guitariffic.com", "ns");
@@ -165,5 +131,39 @@ public class FlickrImageImpl extends ImageImpl {
 			e.printStackTrace();
 		}
 		return urlList;
+	}
+
+	@Override
+	public List<String> getImages(String search) throws AxisFault {
+		Options options = new Options();
+		options.setTo(new EndpointReference(toEpr + search));
+		options.setTransportInProtocol(Constants.TRANSPORT_HTTP);
+
+		options.setProperty(Constants.Configuration.ENABLE_REST, Constants.VALUE_TRUE);
+
+		ServiceClient sender = new ServiceClient();
+		sender.setOptions(options);
+
+		OMElement element = flickrElement();
+		OMElement result = sender.sendReceive(element);
+		try {
+			XMLStreamWriter writer =
+					XMLOutputFactory.newInstance().createXMLStreamWriter(System.out);
+
+			result.serialize(writer);
+			writer.flush();
+
+			// Convert to DOM and pretty print
+			Element resultDOM = XMLUtils.toDOM(result);
+			DOMUtil.printDOM(resultDOM, "");
+
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+		} catch (FactoryConfigurationError e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

@@ -17,11 +17,11 @@ public interface SongDBHelper {
 
 	public String add(Song object);
 
-	public void update(Song object, String id);
-
 	public void delete(String id);
+
+	public Song get(String id);
 
 	public List<Song> getList(String search);
 
-	public Song get(String id);
+	public void update(Song object, String id);
 }
