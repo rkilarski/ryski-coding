@@ -57,7 +57,7 @@ public class TestMemoryGuitarChartDBImpl {
         assertTrue("No chart was returned", chart != null);
         printChart(chart);
     }
-
+    
     @Test
     public void testGetAll() {
         List<GuitarChart> list = dao.getList("");
