@@ -38,7 +38,7 @@
 		</fileset>
 		<pathelement path="build/classes" />
 	</path>
-	
+
 	<target name="clean">
 		<delete dir="${build.dir}" />
 		<delete file="${AXIS2_HOME}/repository/services/${myName}.aar" />
@@ -55,9 +55,8 @@
 	</target>
 
 	<target name="generate.service" depends="compile.service">
-		<!--aar them up -->
 		<copy toDir="${build.dir}/classes/META-INF" failonerror="false">
-			<fileset dir="${basedir}/resources">
+			<fileset dir="${basedir}/src/resources">
 				<include name="*.xml" />
 			</fileset>
 		</copy>
@@ -66,11 +65,32 @@
 				<include name="*.xml" />
 			</fileset>
 		</copy>
+		<!--aar them up -->
 		<jar destfile="${build.dir}/${myName}.aar">
 			<fileset excludes="client/*.class" dir="${build.dir}/classes" />
 		</jar>
 		<copy file="${build.dir}/${myName}.aar" toDir="${AXIS2_HOME}/repository/services" overwrite="yes">
 		</copy>
+	</target>
+
+	<target name="generate.client">
+		<mkdir dir="gen-client" />
+		<exec executable="${wsimport_tool}">
+			<arg value="-verbose" />
+			<arg value="-d" />
+			<arg value="gen-client" />
+			<arg value="-s" />
+			<arg value="gen-client" />
+			<arg value="http://localhost:8080/axis2/services/ChordService?wsdl2" />
+		</exec>
+		<exec executable="${wsimport_tool}">
+			<arg value="-verbose" />
+			<arg value="-d" />
+			<arg value="gen-client" />
+			<arg value="-s" />
+			<arg value="gen-client" />
+			<arg value="http://localhost:8080/axis2/services/SongService?wsdl2" />
+		</exec>
 	</target>
 
 	<target name="run.client" depends="compile.service">
