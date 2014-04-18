@@ -24,6 +24,7 @@ import org.w3c.dom.NodeList;
 import com.guitariffic.model.GuitarChart;
 
 public class MemoryGuitarChartDBImpl implements GuitarChartDBHelper {
+    private static final String RESOURCE_CHORDS_XML = "resources/chords.xml";
     private static Map<String, GuitarChart> map = null;
     private static GuitarChartDBHelper instance;
 
@@ -53,7 +54,7 @@ public class MemoryGuitarChartDBImpl implements GuitarChartDBHelper {
         Map<String, GuitarChart> map = new HashMap<String, GuitarChart>();
         try {
             // URL fileUrl = this.getClass().getResource("/chords.xml");
-            InputStream stream = ClassLoader.class.getResourceAsStream("/chords.xml");
+            InputStream stream = this.getClass().getClassLoader().getResourceAsStream(RESOURCE_CHORDS_XML);
             // File file = new File(fileUrl);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -73,8 +74,7 @@ public class MemoryGuitarChartDBImpl implements GuitarChartDBHelper {
                     String chordName =
                             element.getElementsByTagName("chordName").item(0).getTextContent();
                     String chordPosition =
-                            element.getElementsByTagName("chordPosition").item(0)
-                                    .getTextContent();
+                            element.getElementsByTagName("chordPosition").item(0).getTextContent();
                     String chordFingering =
                             element.getElementsByTagName("chordFingering").item(0)
                                     .getTextContent();
@@ -123,6 +123,9 @@ public class MemoryGuitarChartDBImpl implements GuitarChartDBHelper {
 
     @Override
     public List<GuitarChart> getList(String search) {
+        if (search == null) {
+            search = "";
+        }
         List<GuitarChart> list = new ArrayList<GuitarChart>();
         Iterator<Entry<String, GuitarChart>> it = map.entrySet().iterator();
         String searchUpper = search.toUpperCase();
