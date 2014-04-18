@@ -34,7 +34,7 @@ public class GuitarChartServiceImpl extends BaseService implements GuitarChartSe
 					+ ". This chart already exists.");
 		}
 		dao.add(chart);
-		return getBaseURL() + "chart/" + id;
+		return getBaseURL() + "get?id=" + id;
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class GuitarChartServiceImpl extends BaseService implements GuitarChartSe
 		savedChart.setChordName(chart.getChordName());
 		savedChart.setChordPosition(chart.getChordPosition());
 		savedChart.setLeftHanded(chart.isLeftHanded());
-		return getBaseURL() + "chart/" + id;
+		return getBaseURL() + "get?id=" + id;
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class GuitarChartServiceImpl extends BaseService implements GuitarChartSe
 		String baseUrl = getBaseURL();
 		for (GuitarChart chart : charts) {
 			String id = chart.getId();
-			chartsArray[i] = baseUrl + "chart/" + id;
+			chartsArray[i] = baseUrl + "get?id=" + id;
 			i++;
 		}
 		return chartsArray;

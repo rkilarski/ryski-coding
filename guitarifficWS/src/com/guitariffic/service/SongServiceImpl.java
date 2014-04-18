@@ -37,7 +37,7 @@ public class SongServiceImpl extends BaseService implements SongService {
 			throw new SongAlreadyExists("Cannot add song " + id + ". This song already exists.");
 		}
 		dao.add(song);
-		return getBaseURL() + "song/" + id;
+		return getBaseURL() + "get?id=" + id;
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class SongServiceImpl extends BaseService implements SongService {
 		savedSong.setLyrics(Song.cloneStringArray(song.getLyrics()));
 		dao.update(savedSong, id);
 
-		return getBaseURL() + "song/" + id;
+		return getBaseURL() + "get?id=" + id;
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class SongServiceImpl extends BaseService implements SongService {
 		String baseUrl = getBaseURL();
 		for (Song song : songs) {
 			String id = song.getId();
-			songsArray[i] = baseUrl + "song/" + id;
+			songsArray[i] = baseUrl + "get?id=" + id;
 			i++;
 		}
 		return songsArray;
