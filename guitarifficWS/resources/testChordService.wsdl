@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:ns1="http://org.apache.axis2/xsd" xmlns:ns="http://service.guitariffic.com"
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+	xmlns:ax23="http://model.guitariffic.com/xsd" xmlns:ax21="http://service.guitariffic.com/xsd"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	targetNamespace="http://service.guitariffic.com">
+	<wsdl:types>
+		<xs:schema xmlns:ax24="http://model.guitariffic.com/xsd"
+			xmlns:ax22="http://service.guitariffic.com/xsd" attributeFormDefault="qualified"
+			elementFormDefault="qualified" targetNamespace="http://service.guitariffic.com">
+			<xs:import namespace="http://service.guitariffic.com/xsd" />
+			<xs:import namespace="http://model.guitariffic.com/xsd" />
+			<xs:element name="GuitarChartServiceGuitarChartAlreadyExists">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="GuitarChartAlreadyExists"
+							nillable="true" type="ax21:GuitarChartAlreadyExists" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="add">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="chart" nillable="true"
+							type="ax23:GuitarChart" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="addResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="return" nillable="true"
+							type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GuitarChartServiceGuitarChartNotFound">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="GuitarChartNotFound"
+							nillable="true" type="ax21:GuitarChartNotFound" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="get">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="id" nillable="true"
+							type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="return" nillable="true"
+							type="ax23:GuitarChart" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="delete">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="id" nillable="true"
+							type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="update">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="chart" nillable="true"
+							type="ax23:GuitarChart" />
+						<xs:element minOccurs="0" name="id" nillable="true"
+							type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="updateResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="return" nillable="true"
+							type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getList">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="search" nillable="true"
+							type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getListResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" minOccurs="0" name="return"
+							nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+		<xs:schema attributeFormDefault="qualified"
+			elementFormDefault="qualified" targetNamespace="http://service.guitariffic.com/xsd">
+			<xs:complexType name="GuitarChartAlreadyExists">
+				<xs:sequence />
+			</xs:complexType>
+			<xs:complexType name="GuitarChartNotFound">
+				<xs:sequence />
+			</xs:complexType>
+		</xs:schema>
+		<xs:schema attributeFormDefault="qualified"
+			elementFormDefault="qualified" targetNamespace="http://model.guitariffic.com/xsd">
+			<xs:complexType name="GuitarChart">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="chordFingering"
+						nillable="true" type="xs:string" />
+					<xs:element minOccurs="0" name="chordFrets" nillable="true"
+						type="xs:string" />
+					<xs:element minOccurs="0" name="chordName" nillable="true"
+						type="xs:string" />
+					<xs:element minOccurs="0" name="chordPosition" nillable="true"
+						type="xs:string" />
+					<xs:element minOccurs="0" name="id" nillable="true"
+						type="xs:string" />
+					<xs:element minOccurs="0" name="leftHanded" type="xs:boolean" />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="deleteRequest">
+		<wsdl:part name="parameters" element="ns:delete" />
+	</wsdl:message>
+	<wsdl:message name="GuitarChartServiceGuitarChartNotFound">
+		<wsdl:part name="parameters" element="ns:GuitarChartServiceGuitarChartNotFound" />
+	</wsdl:message>
+	<wsdl:message name="addRequest">
+		<wsdl:part name="parameters" element="ns:add" />
+	</wsdl:message>
+	<wsdl:message name="addResponse">
+		<wsdl:part name="parameters" element="ns:addResponse" />
+	</wsdl:message>
+	<wsdl:message name="GuitarChartServiceGuitarChartAlreadyExists">
+		<wsdl:part name="parameters"
+			element="ns:GuitarChartServiceGuitarChartAlreadyExists" />
+	</wsdl:message>
+	<wsdl:message name="getListRequest">
+		<wsdl:part name="parameters" element="ns:getList" />
+	</wsdl:message>
+	<wsdl:message name="getListResponse">
+		<wsdl:part name="parameters" element="ns:getListResponse" />
+	</wsdl:message>
+	<wsdl:message name="getRequest">
+		<wsdl:part name="parameters" element="ns:get" />
+	</wsdl:message>
+	<wsdl:message name="getResponse">
+		<wsdl:part name="parameters" element="ns:getResponse" />
+	</wsdl:message>
+	<wsdl:message name="updateRequest">
+		<wsdl:part name="parameters" element="ns:update" />
+	</wsdl:message>
+	<wsdl:message name="updateResponse">
+		<wsdl:part name="parameters" element="ns:updateResponse" />
+	</wsdl:message>
+	<wsdl:portType name="GuitarChartServicePortType">
+		<wsdl:operation name="delete">
+			<wsdl:input message="ns:deleteRequest" wsaw:Action="urn:delete" />
+			<wsdl:output message="ns:null" wsaw:Action="urn:deleteResponse" />
+			<wsdl:fault message="ns:GuitarChartServiceGuitarChartNotFound"
+				name="GuitarChartServiceGuitarChartNotFound" wsaw:Action="urn:deleteGuitarChartServiceGuitarChartNotFound" />
+		</wsdl:operation>
+		<wsdl:operation name="add">
+			<wsdl:input message="ns:addRequest" wsaw:Action="urn:add" />
+			<wsdl:output message="ns:addResponse" wsaw:Action="urn:addResponse" />
+			<wsdl:fault message="ns:GuitarChartServiceGuitarChartAlreadyExists"
+				name="GuitarChartServiceGuitarChartAlreadyExists" wsaw:Action="urn:addGuitarChartServiceGuitarChartAlreadyExists" />
+		</wsdl:operation>
+		<wsdl:operation name="getList">
+			<wsdl:input message="ns:getListRequest" wsaw:Action="urn:getList" />
+			<wsdl:output message="ns:getListResponse" wsaw:Action="urn:getListResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="get">
+			<wsdl:input message="ns:getRequest" wsaw:Action="urn:get" />
+			<wsdl:output message="ns:getResponse" wsaw:Action="urn:getResponse" />
+			<wsdl:fault message="ns:GuitarChartServiceGuitarChartNotFound"
+				name="GuitarChartServiceGuitarChartNotFound" wsaw:Action="urn:getGuitarChartServiceGuitarChartNotFound" />
+		</wsdl:operation>
+		<wsdl:operation name="update">
+			<wsdl:input message="ns:updateRequest" wsaw:Action="urn:update" />
+			<wsdl:output message="ns:updateResponse" wsaw:Action="urn:updateResponse" />
+			<wsdl:fault message="ns:GuitarChartServiceGuitarChartNotFound"
+				name="GuitarChartServiceGuitarChartNotFound" wsaw:Action="urn:updateGuitarChartServiceGuitarChartNotFound" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="GuitarChartServiceSoap11Binding" type="ns:GuitarChartServicePortType">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<wsdl:operation name="delete">
+			<soap:operation soapAction="urn:delete" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="GuitarChartServiceGuitarChartNotFound">
+				<soap:fault use="literal" name="GuitarChartServiceGuitarChartNotFound" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="add">
+			<soap:operation soapAction="urn:add" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="GuitarChartServiceGuitarChartAlreadyExists">
+				<soap:fault use="literal"
+					name="GuitarChartServiceGuitarChartAlreadyExists" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="getList">
+			<soap:operation soapAction="urn:getList" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="get">
+			<soap:operation soapAction="urn:get" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="GuitarChartServiceGuitarChartNotFound">
+				<soap:fault use="literal" name="GuitarChartServiceGuitarChartNotFound" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="update">
+			<soap:operation soapAction="urn:update" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="GuitarChartServiceGuitarChartNotFound">
+				<soap:fault use="literal" name="GuitarChartServiceGuitarChartNotFound" />
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="GuitarChartServiceSoap12Binding" type="ns:GuitarChartServicePortType">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<wsdl:operation name="delete">
+			<soap12:operation soapAction="urn:delete" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="GuitarChartServiceGuitarChartNotFound">
+				<soap12:fault use="literal"
+					name="GuitarChartServiceGuitarChartNotFound" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="add">
+			<soap12:operation soapAction="urn:add" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="GuitarChartServiceGuitarChartAlreadyExists">
+				<soap12:fault use="literal"
+					name="GuitarChartServiceGuitarChartAlreadyExists" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="getList">
+			<soap12:operation soapAction="urn:getList" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="get">
+			<soap12:operation soapAction="urn:get" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="GuitarChartServiceGuitarChartNotFound">
+				<soap12:fault use="literal"
+					name="GuitarChartServiceGuitarChartNotFound" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="update">
+			<soap12:operation soapAction="urn:update" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="GuitarChartServiceGuitarChartNotFound">
+				<soap12:fault use="literal"
+					name="GuitarChartServiceGuitarChartNotFound" />
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="GuitarChartServiceHttpBinding" type="ns:GuitarChartServicePortType">
+		<http:binding verb="POST" />
+		<wsdl:operation name="delete">
+			<http:operation location="delete" />
+			<wsdl:input>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:input>
+			<wsdl:output>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="add">
+			<http:operation location="add" />
+			<wsdl:input>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:input>
+			<wsdl:output>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getList">
+			<http:operation location="getList" />
+			<wsdl:input>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:input>
+			<wsdl:output>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="get">
+			<http:operation location="get" />
+			<wsdl:input>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:input>
+			<wsdl:output>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="update">
+			<http:operation location="update" />
+			<wsdl:input>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:input>
+			<wsdl:output>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="GuitarChartService">
+		<wsdl:port name="GuitarChartServiceHttpSoap11Endpoint"
+			binding="ns:GuitarChartServiceSoap11Binding">
+			<soap:address
+				location="http://localhost:8080/axis2/services/GuitarChartService" />
+		</wsdl:port>
+		<wsdl:port name="GuitarChartServiceHttpSoap12Endpoint"
+			binding="ns:GuitarChartServiceSoap12Binding">
+			<soap12:address
+				location="http://localhost:8080/axis2/services/GuitarChartService" />
+		</wsdl:port>
+		<wsdl:port name="GuitarChartServiceHttpEndpoint" binding="ns:GuitarChartServiceHttpBinding">
+			<http:address
+				location="http://localhost:8080/axis2/services/GuitarChartService" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

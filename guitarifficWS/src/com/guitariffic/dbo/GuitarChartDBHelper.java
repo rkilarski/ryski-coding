@@ -15,11 +15,11 @@ import com.guitariffic.model.GuitarChart;
 public interface GuitarChartDBHelper {
 	public String add(GuitarChart object);
 
-	public void update(GuitarChart object, String id);
-
 	public void delete(String id);
+
+	public GuitarChart get(String id);
 
 	public List<GuitarChart> getList(String search);
 
-	public GuitarChart get(String id);
+	public void update(GuitarChart object, String id);
 }

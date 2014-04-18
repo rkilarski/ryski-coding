@@ -38,25 +38,20 @@ public class GuitarChartServiceImpl extends BaseService implements GuitarChartSe
 	}
 
 	@Override
-	public String update(GuitarChart chart, String id) throws GuitarChartNotFound {
-		GuitarChart savedChart = dao.get(id);
-		if (savedChart == null) {
-			throw new GuitarChartNotFound("Details of chart " + id + " cannot be found.");
-		}
-		savedChart.setChordFingering(chart.getChordFingering());
-		savedChart.setChordFrets(chart.getChordFrets());
-		savedChart.setChordName(chart.getChordName());
-		savedChart.setChordPosition(chart.getChordPosition());
-		savedChart.setLeftHanded(chart.isLeftHanded());
-		return getBaseURL() + "get?id=" + id;
-	}
-
-	@Override
 	public void delete(String id) throws GuitarChartNotFound {
 		if (dao.get(id) == null) {
 			throw new GuitarChartNotFound("Details of chart " + id + " cannot be found.");
 		}
 		dao.delete(id);
+	}
+
+	@Override
+	public GuitarChart get(String id) throws GuitarChartNotFound {
+		GuitarChart chart = dao.get(id);
+		if (chart == null) {
+			throw new GuitarChartNotFound("Details of chart" + id + " cannot be found.");
+		}
+		return chart;
 	}
 
 	@Override
@@ -75,11 +70,16 @@ public class GuitarChartServiceImpl extends BaseService implements GuitarChartSe
 	}
 
 	@Override
-	public GuitarChart get(String id) throws GuitarChartNotFound {
-		GuitarChart chart = dao.get(id);
-		if (chart == null) {
-			throw new GuitarChartNotFound("Details of chart" + id + " cannot be found.");
+	public String update(GuitarChart chart, String id) throws GuitarChartNotFound {
+		GuitarChart savedChart = dao.get(id);
+		if (savedChart == null) {
+			throw new GuitarChartNotFound("Details of chart " + id + " cannot be found.");
 		}
-		return chart;
+		savedChart.setChordFingering(chart.getChordFingering());
+		savedChart.setChordFrets(chart.getChordFrets());
+		savedChart.setChordName(chart.getChordName());
+		savedChart.setChordPosition(chart.getChordPosition());
+		savedChart.setLeftHanded(chart.isLeftHanded());
+		return getBaseURL() + "get?id=" + id;
 	}
 }

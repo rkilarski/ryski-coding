@@ -23,15 +23,64 @@ import org.w3c.dom.NodeList;
 
 import com.guitariffic.model.GuitarChart;
 
-public class MemoryGuitarChartDBImpl implements GuitarChartDBHelper {
-    private static final String RESOURCE_CHORDS_XML = "resources/chords.xml";
-    private static Map<String, GuitarChart> map = null;
+public class GuitarChartMemoryDBImpl implements GuitarChartDBHelper {
     private static GuitarChartDBHelper instance;
+    private static Map<String, GuitarChart> map = null;
+    private static final String RESOURCE_CHORDS_XML = "resources/chords.xml";
 
-    public MemoryGuitarChartDBImpl() {
+    public GuitarChartMemoryDBImpl() {
         if (map == null) {
             map = loadFromXMLFile();
         }
+    }
+
+    public static GuitarChartDBHelper getInstance() {
+        if (instance == null) {
+            instance = new GuitarChartMemoryDBImpl();
+        }
+        return instance;
+    }
+
+    @Override
+    public String add(GuitarChart chart) {
+        String id = Integer.toString(map.size() + 1);
+        chart.setId(id);
+        map.put(id, chart);
+        return id;
+    }
+
+    @Override
+    public void delete(String id) {
+        map.remove(id);
+    }
+
+    @Override
+    public GuitarChart get(String id) {
+        return map.get(id);
+    }
+
+    @Override
+    public List<GuitarChart> getList(String search) {
+        if (search == null) {
+            search = "";
+        }
+        List<GuitarChart> list = new ArrayList<GuitarChart>();
+        Iterator<Entry<String, GuitarChart>> it = map.entrySet().iterator();
+        String searchUpper = search.toUpperCase();
+        while (it.hasNext()) {
+            Entry<String, GuitarChart> pairs = it.next();
+            // Either get all chords or the ones that match the search criteria.
+            String upperName = pairs.getValue().getChordName().toUpperCase();
+            if (search.equals("") || search.isEmpty() || (upperName.contains(searchUpper))) {
+                list.add(pairs.getValue());
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public void update(GuitarChart chart, String id) {
+        map.put(id, chart);
     }
 
     /**
@@ -94,54 +143,5 @@ public class MemoryGuitarChartDBImpl implements GuitarChartDBHelper {
             e.printStackTrace();
         }
         return map;
-    }
-
-    public static GuitarChartDBHelper getInstance() {
-        if (instance == null) {
-            instance = new MemoryGuitarChartDBImpl();
-        }
-        return instance;
-    }
-
-    @Override
-    public String add(GuitarChart chart) {
-        String id = Integer.toString(map.size() + 1);
-        chart.setId(id);
-        map.put(id, chart);
-        return id;
-    }
-
-    @Override
-    public void update(GuitarChart chart, String id) {
-        map.put(id, chart);
-    }
-
-    @Override
-    public void delete(String id) {
-        map.remove(id);
-    }
-
-    @Override
-    public List<GuitarChart> getList(String search) {
-        if (search == null) {
-            search = "";
-        }
-        List<GuitarChart> list = new ArrayList<GuitarChart>();
-        Iterator<Entry<String, GuitarChart>> it = map.entrySet().iterator();
-        String searchUpper = search.toUpperCase();
-        while (it.hasNext()) {
-            Entry<String, GuitarChart> pairs = it.next();
-            // Either get all chords or the ones that match the search criteria.
-            String upperName = pairs.getValue().getChordName().toUpperCase();
-            if (search.equals("") || search.isEmpty() || (upperName.contains(searchUpper))) {
-                list.add(pairs.getValue());
-            }
-        }
-        return list;
-    }
-
-    @Override
-    public GuitarChart get(String id) {
-        return map.get(id);
     }
 }

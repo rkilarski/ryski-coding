@@ -21,10 +21,15 @@
 
 	<property name="myName" value="GuitarifficServices" />
 
+	<import file="${basedir}/common-build.xml" />
+
 	<property environment="env" />
+
 	<property name="AXIS2_HOME" value="${env.AXIS2_HOME}" />
 
 	<property name="build.dir" value="build" />
+
+	<property name="build.dir.classes" value="${build.dir}/classes" />
 
 	<path id="axis2.classpath">
 		<fileset dir="${AXIS2_HOME}/lib">
@@ -36,7 +41,7 @@
 		<fileset dir="${AXIS2_HOME}/lib">
 			<include name="*.jar" />
 		</fileset>
-		<pathelement path="build/classes" />
+		<pathelement path="${build.dir.classes}" />
 	</path>
 
 	<target name="clean">
@@ -46,28 +51,23 @@
 
 	<target name="compile.service">
 		<mkdir dir="${build.dir}" />
-		<mkdir dir="${build.dir}/classes" />
-		<mkdir dir="${build.dir}/classes/META-INF" />
+		<mkdir dir="${build.dir.classes}" />
+		<mkdir dir="${build.dir.classes}/META-INF" />
 
 		<!--First let's compile the classes-->
-		<javac debug="on" fork="true" destdir="${build.dir}/classes" srcdir="${basedir}/src" classpathref="axis2.classpath">
+		<javac debug="on" fork="true" destdir="${build.dir.classes}" srcdir="${basedir}/src" classpathref="axis2.classpath">
 		</javac>
 	</target>
 
 	<target name="generate.service" depends="compile.service">
-		<copy toDir="${build.dir}/classes/META-INF" failonerror="false">
-			<fileset dir="${basedir}/src/resources">
-				<include name="*.xml" />
-			</fileset>
-		</copy>
-		<copy toDir="${build.dir}/classes/resources" failonerror="false">
+		<copy toDir="${build.dir.classes}/resources" failonerror="false">
 			<fileset dir="${basedir}/resources">
 				<include name="*.xml" />
 			</fileset>
 		</copy>
 		<!--aar them up -->
 		<jar destfile="${build.dir}/${myName}.aar">
-			<fileset excludes="client/*.class" dir="${build.dir}/classes" />
+			<fileset excludes="client/*.class" dir="${build.dir.classes}" />
 		</jar>
 		<copy file="${build.dir}/${myName}.aar" toDir="${AXIS2_HOME}/repository/services" overwrite="yes">
 		</copy>
@@ -75,20 +75,22 @@
 
 	<target name="generate.client">
 		<mkdir dir="gen-client" />
+		<mkdir dir="gen-client/chart" />
+		<mkdir dir="gen-client/song" />
 		<exec executable="${wsimport_tool}">
 			<arg value="-verbose" />
 			<arg value="-d" />
-			<arg value="gen-client" />
+			<arg value="gen-client/chart" />
 			<arg value="-s" />
-			<arg value="gen-client" />
-			<arg value="http://localhost:8080/axis2/services/ChordService?wsdl2" />
+			<arg value="gen-client/chart" />
+			<arg value="http://localhost:8080/axis2/services/GuitarChartService?wsdl" />
 		</exec>
 		<exec executable="${wsimport_tool}">
 			<arg value="-verbose" />
 			<arg value="-d" />
-			<arg value="gen-client" />
+			<arg value="gen-client/song" />
 			<arg value="-s" />
-			<arg value="gen-client" />
+			<arg value="gen-client/song" />
 			<arg value="http://localhost:8080/axis2/services/SongService?wsdl2" />
 		</exec>
 	</target>

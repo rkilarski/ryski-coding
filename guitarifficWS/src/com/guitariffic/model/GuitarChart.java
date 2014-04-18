@@ -6,11 +6,11 @@
 package com.guitariffic.model;
 
 public class GuitarChart implements Cloneable {
-	private String id;
-	private String chordName;
-	private String chordPosition;
 	private String chordFingering;
 	private String chordFrets;
+	private String chordName;
+	private String chordPosition;
+	private String id;
 	private boolean isLeftHanded;
 
 	public GuitarChart() {
@@ -34,48 +34,48 @@ public class GuitarChart implements Cloneable {
 		return new GuitarChart(chart.getId(), chart.getChordName(), chart.getChordPosition(), chart.getChordFingering(), chart.getChordFrets(), chart.isLeftHanded());
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getChordName() {
-		return chordName;
-	}
-
-	public void setChordName(String chordName) {
-		this.chordName = chordName;
-	}
-
-	public String getChordPosition() {
-		return chordPosition;
-	}
-
-	public void setChordPosition(String chordPosition) {
-		this.chordPosition = chordPosition;
-	}
-
 	public String getChordFingering() {
 		return chordFingering;
-	}
-
-	public void setChordFingering(String chordFingering) {
-		this.chordFingering = chordFingering;
 	}
 
 	public String getChordFrets() {
 		return chordFrets;
 	}
 
-	public void setChordFrets(String chordFrets) {
-		this.chordFrets = chordFrets;
+	public String getChordName() {
+		return chordName;
+	}
+
+	public String getChordPosition() {
+		return chordPosition;
+	}
+
+	public String getId() {
+		return id;
 	}
 
 	public boolean isLeftHanded() {
 		return isLeftHanded;
+	}
+
+	public void setChordFingering(String chordFingering) {
+		this.chordFingering = chordFingering;
+	}
+
+	public void setChordFrets(String chordFrets) {
+		this.chordFrets = chordFrets;
+	}
+
+	public void setChordName(String chordName) {
+		this.chordName = chordName;
+	}
+
+	public void setChordPosition(String chordPosition) {
+		this.chordPosition = chordPosition;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public void setLeftHanded(boolean isLeftHanded) {

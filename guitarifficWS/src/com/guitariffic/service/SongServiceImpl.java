@@ -41,41 +41,11 @@ public class SongServiceImpl extends BaseService implements SongService {
 	}
 
 	@Override
-	public String update(Song song, String id) throws SongNotFound {
-		Song savedSong = (Song) dao.get(id);
-		if (savedSong == null) {
-			throw new SongNotFound("Details of song " + id + " cannot be found.");
-		}
-		savedSong.setSongName(song.getSongName());
-		savedSong.setArtistName(song.getArtistName());
-		savedSong.setChords(Song.cloneChordArray(song.getChords()));
-		savedSong.setLyrics(Song.cloneStringArray(song.getLyrics()));
-		dao.update(savedSong, id);
-
-		return getBaseURL() + "get?id=" + id;
-	}
-
-	@Override
 	public void delete(String id) throws SongNotFound {
 		if (dao.get(id) == null) {
 			throw new SongNotFound("Details of song " + id + " cannot be found.");
 		}
 		dao.delete(id);
-	}
-
-	@Override
-	public String[] getList(String search) {
-		List<Song> songs = dao.getList(search);
-		int size = songs.size();
-		String[] songsArray = new String[size];
-		int i = 0;
-		String baseUrl = getBaseURL();
-		for (Song song : songs) {
-			String id = song.getId();
-			songsArray[i] = baseUrl + "get?id=" + id;
-			i++;
-		}
-		return songsArray;
 	}
 
 	@Override
@@ -101,6 +71,36 @@ public class SongServiceImpl extends BaseService implements SongService {
             e.printStackTrace();
         }
 		return song;
+	}
+
+	@Override
+	public String[] getList(String search) {
+		List<Song> songs = dao.getList(search);
+		int size = songs.size();
+		String[] songsArray = new String[size];
+		int i = 0;
+		String baseUrl = getBaseURL();
+		for (Song song : songs) {
+			String id = song.getId();
+			songsArray[i] = baseUrl + "get?id=" + id;
+			i++;
+		}
+		return songsArray;
+	}
+
+	@Override
+	public String update(Song song, String id) throws SongNotFound {
+		Song savedSong = (Song) dao.get(id);
+		if (savedSong == null) {
+			throw new SongNotFound("Details of song " + id + " cannot be found.");
+		}
+		savedSong.setSongName(song.getSongName());
+		savedSong.setArtistName(song.getArtistName());
+		savedSong.setChords(Song.cloneChordArray(song.getChords()));
+		savedSong.setLyrics(Song.cloneStringArray(song.getLyrics()));
+		dao.update(savedSong, id);
+
+		return getBaseURL() + "get?id=" + id;
 	}
 
 }
