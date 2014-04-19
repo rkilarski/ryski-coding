@@ -32,11 +32,7 @@ public class SongServiceImpl extends BaseService implements SongService {
 
 	@Override
 	public String add(Song song) throws SongAlreadyExists {
-		String id = song.getId();
-		if (dao.get(id) != null) {
-			throw new SongAlreadyExists("Cannot add song " + id + ". This song already exists.");
-		}
-		dao.add(song);
+		String id = dao.add(song);
 		return getBaseURL() + "get?id=" + id;
 	}
 
@@ -58,18 +54,18 @@ public class SongServiceImpl extends BaseService implements SongService {
 		// Call image service to get list of image URLs.
 		ImageImpl imageService = ImageImpl.newImageImpl("flickr");
 		List<String> imageList;
-        try {
-            imageList = imageService.getImages(song.getArtistName());
-            String[] urlList = new String[imageList.size()];
-            int i = 0;
-            for (String url : imageList) {
-                urlList[i] = url;
-                i++;
-            }
-            song.setUrls(urlList);
-        } catch (AxisFault e) {
-            e.printStackTrace();
-        }
+		try {
+			imageList = imageService.getImages(song.getArtistName());
+			String[] urlList = new String[imageList.size()];
+			int i = 0;
+			for (String url : imageList) {
+				urlList[i] = url;
+				i++;
+			}
+			song.setUrls(urlList);
+		} catch (AxisFault e) {
+			e.printStackTrace();
+		}
 		return song;
 	}
 

@@ -56,7 +56,7 @@
 		<mkdir dir="${build.dir.classes}" />
 		<mkdir dir="${build.dir.classes}/META-INF" />
 
-		<!--First let's compile the classes-->
+		<!--Let's compile the classes-->
 		<javac debug="on" fork="true" destdir="${build.dir.classes}" srcdir="${basedir}/src" classpathref="axis2.classpath">
 		</javac>
 	</target>
@@ -75,8 +75,12 @@
 		</copy>
 	</target>
 
-	<target name="run.client" depends="compile.service">
-		<java classname="client.RESTClient" classpathref="client.classpath" fork="true">
+	<target name="run.chartclient" depends="compile.service">
+		<java classname="client.GuitarChartClient" classpathref="client.classpath" fork="true">
+		</java>
+	</target>
+	<target name="run.songclient" depends="compile.service">
+		<java classname="client.SongClient" classpathref="client.classpath" fork="true">
 		</java>
 	</target>
 </project>

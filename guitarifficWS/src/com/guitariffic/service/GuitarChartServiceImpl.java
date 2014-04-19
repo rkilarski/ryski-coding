@@ -28,12 +28,7 @@ public class GuitarChartServiceImpl extends BaseService implements GuitarChartSe
 
 	@Override
 	public String add(GuitarChart chart) throws GuitarChartAlreadyExists {
-		String id = chart.getId();
-		if (dao.get(id) != null) {
-			throw new GuitarChartAlreadyExists("Cannot add details of chart " + id
-					+ ". This chart already exists.");
-		}
-		dao.add(chart);
+		String id = dao.add(chart);
 		return getBaseURL() + "get?id=" + id;
 	}
 
