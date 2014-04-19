@@ -58,6 +58,7 @@ public class Song {
 		System.arraycopy(src, 0, target, 0, length);
 		return target;
 	}
+
 	/**
 	 * Given a Song, returns a new Song of it.
 	 * @param song
@@ -141,5 +142,65 @@ public class Song {
 
 	public void setUrls(String[] urls) {
 		this.urls = urls;
+	}
+
+	/**
+	 * Output the song to the console in a formatted way.
+	 * @param song
+	 */
+	public static void print(Song song) {
+		System.out.println("Song: " + song.getSongName());
+		System.out.println("Artist: " + song.getArtistName());
+		printLyrics(song.getLyrics());
+		printCharts(song.getChords());
+		System.out.println(" ");
+	}
+
+	private static void printLyrics(String[] lyrics) {
+		System.out.println("Lyrics");
+		printArray(lyrics);
+	}
+
+	/**
+	 * Print a single-dimensional string array.
+	 * @param array
+	 */
+	private static void printArray(String[] array) {
+		if (array == null) {
+			return;
+		}
+		for (int i = 0; i < array.length; i++) {
+			System.out.println("     " + array[i]);
+		}
+	}
+
+	/**
+	 * Output charts printed in a grid pattern.
+	 */
+	private static void printCharts(GuitarChart[][] charts) {
+		if (charts == null) {
+			return;
+		}
+		String[] output = new String[charts.length * 4];
+		for (int i = 0; i < charts.length; i++) {
+			GuitarChart[] row = charts[i];
+			output[i * 4] = "";
+			output[i * 4 + 1] = "";
+			output[i * 4 + 2] = "";
+			output[i * 4 + 3] = "";
+			for (int j = 0; j < row.length; j++) {
+				GuitarChart chart = row[j];
+				String name =
+						" " + chart.getChordName() + "(" + chart.getChordPosition()
+								+ (chart.isLeftHanded() ? "L" : "") + ")";
+
+				output[i * 4] += String.format("%-7s", name);
+				output[i * 4 + 1] += " " + chart.getChordFingering();
+				output[i * 4 + 2] += " " + chart.getChordFrets();
+			}
+		}
+
+		// Finally output the data.
+		printArray(output);
 	}
 }

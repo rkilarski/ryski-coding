@@ -12,68 +12,116 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.guitariffic.model.GuitarChart;
 import com.guitariffic.model.Song;
 
 public class SongMemoryDBImpl implements SongDBHelper {
-    private static SongDBHelper instance;
-    private static Map<String, Song> map = null;
+	private static SongDBHelper instance;
+	private static Map<String, Song> map = null;
 
-    public SongMemoryDBImpl() {
-        if (map == null) {
-            map = new HashMap<String, Song>();
-        }
-    }
+	public SongMemoryDBImpl() {
+		if (map == null) {
+			map = loadFromMemory();
+		}
+	}
 
-    public static SongDBHelper getInstance() {
-        if (instance == null) {
-            instance = new SongMemoryDBImpl();
-            map = new HashMap<String, Song>();
-        }
-        return instance;
-    }
+	private Map<String, Song> loadFromMemory() {
+		Map<String, Song> map = new HashMap<String, Song>();
+		Song song = null;
 
-    @Override
-    public String add(Song song) {
-        String id = Integer.toString(map.size() + 1);
-        song.setId(id);
-        map.put(song.getId(), song);
-        return id;
-    }
+		song = new Song();
+		song.setArtistName("Elton John");
+		song.setSongName("Your Song");
+		String[] yourSong = { "It's a little bit funny", "This feeling inside" };
+		song.setLyrics(yourSong);
+		map.put("1", song);
 
-    @Override
-    public void delete(String id) {
-        map.remove(id);
-    }
+		song = new Song();
+		song.setArtistName("Elton John");
+		song.setSongName("I Guess That's Why They Call It The Blues");
+		map.put("2", song);
 
-    @Override
-    public Song get(String id) {
-        return map.get(id);
-    }
+		song = new Song();
+		song.setArtistName("Elton John");
+		song.setSongName("Can You Feel The Love Tonight");
+		map.put("3", song);
 
-    @Override
-    public List<Song> getList(String search) {
-        if (search == null) {
-            search = "";
-        }
-        List<Song> list = new ArrayList<Song>();
-        Iterator<Entry<String, Song>> it = map.entrySet().iterator();
-        String searchUpper = search.toUpperCase();
-        while (it.hasNext()) {
-            Entry<String, Song> pairs = it.next();
-            String upperSongName = pairs.getValue().getSongName().toUpperCase();
-            String upperArtistName = pairs.getValue().getArtistName().toUpperCase();
+		song = new Song();
+		song.setArtistName("Elton John");
+		song.setSongName("Sacrifice");
+		String[] sacrifice = { "It's a human sign", "When things go wrong" };
+		song.setLyrics(sacrifice);
 
-            //Either get all, or find all matches on song name or artist name.
-            if (search.equals("") || search.isEmpty() || upperSongName.contains(searchUpper)
-                    || (upperArtistName.contains(searchUpper))) {
-                list.add(pairs.getValue());
-            }
-        }
-        return list;
-    }
+		GuitarChart[][] chords = new GuitarChart[2][2];
+		chords[0][0] = new GuitarChart("1", "A", "1", "123456", "654321", false);
+		chords[0][1] = new GuitarChart("2", "B", "2", "234567", "765432", true);
+		chords[1][0] = new GuitarChart("3", "C", "3", "345678", "876543", false);
+		chords[1][1] = new GuitarChart("4", "D", "4", "456789", "987654", true);
+		song.setChords(chords);
+		map.put("4", song);
 
-    @Override
-    public void update(Song song, String id) {
-        map.put(id, song);
-    }
+		song = new Song();
+		song.setArtistName("Eric Clapton");
+		song.setSongName("Layla");
+		String[] layla =
+				{ "What'll you do when you get lonely", "And nobody's waiting by your side?",
+						"You've been running and hiding much too long.",
+						"You know it's just your foolish pride" };
+		song.setLyrics(layla);
+		map.put("5", song);
+
+		return map;
+	}
+
+	public static SongDBHelper getInstance() {
+		if (instance == null) {
+			instance = new SongMemoryDBImpl();
+		}
+		return instance;
+	}
+
+	@Override
+	public String add(Song song) {
+		String id = Integer.toString(map.size() + 1);
+		song.setId(id);
+		map.put(song.getId(), song);
+		return id;
+	}
+
+	@Override
+	public void delete(String id) {
+		map.remove(id);
+	}
+
+	@Override
+	public Song get(String id) {
+		return map.get(id);
+	}
+
+	@Override
+	public List<Song> getList(String search) {
+		if (search == null) {
+			search = "";
+		}
+		List<Song> list = new ArrayList<Song>();
+		Iterator<Entry<String, Song>> it = map.entrySet().iterator();
+		String searchUpper = search.toUpperCase();
+		while (it.hasNext()) {
+			Entry<String, Song> pairs = it.next();
+			String upperSongName = pairs.getValue().getSongName().toUpperCase();
+			String upperArtistName = pairs.getValue().getArtistName().toUpperCase();
+
+			// Either get all, or find all matches on song name or artist name.
+			if (search.equals("") || search.isEmpty() || upperSongName.contains(searchUpper)
+					|| upperArtistName.contains(searchUpper)) {
+				list.add(pairs.getValue());
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public void update(Song song, String id) {
+		map.put(id, song);
+	}
 }
