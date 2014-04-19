@@ -1,8 +1,3 @@
-/**
- author: Ryszard Kilarski
- email: emrys@bu.edu
- bu id: U81-39-8560
- */
 package client;
 
 import javax.xml.stream.FactoryConfigurationError;
@@ -22,47 +17,44 @@ import org.apache.axis2.client.ServiceClient;
 import org.apache.axis2.util.XMLUtils;
 import org.w3c.dom.Element;
 
-/**
- * This is a Client program that accesses 'OrderService' web service
- */
-public class GuitarChartClient {
-
-	private static String toEpr = "http://localhost:8080/axis2/services/GuitarChartService";
+public class SongClient {
+	private static String toEpr = "http://localhost:8080/axis2/services/SongService";
 
 	public static void main(String[] args) throws AxisFault {
 		String id = null;
 		System.out.println("**************************************Testing getList");
-		testElementOMElement("Running:  getCharts", testGetList(), false);
+		testElementOMElement("Running:  getSongs", testGetList(), false);
 		System.out.println("**************************************End getList");
 		System.out.println(" ");
 
 		System.out.println("**************************************Testing get");
-		testElementOMElement("Running:  get 1", testGet("1"), false);
-		testElementOMElement("Running:  get 15", testGet("15"), false);
+		testElementOMElement("Running:  get 4", testGet("4"), false);
 		System.out.println("**************************************End get");
 		System.out.println(" ");
 
+		/*
 		System.out.println("**************************************Testing add");
-		id = testElementOMElement("Running:  add ", testAdd(), false);
+		id = testElementOMElement("Running:  add ", testAddChart(), false);
 		// testElementOMElement("Running:  results of addChart", testGetList(), false);
 		testElementOMElement("Running:  get  after add", testGet(id), false);
 		System.out.println("**************************************End add");
 		System.out.println(" ");
 
 		System.out.println("**************************************Testing update");
-		testElementOMElement("Running:  get 15 before", testGet("15"), false);
-		testElementOMElement("Running:  update", testUpdate("15"), false);
-		testElementOMElement("Running:  get 15 after", testGet("15"), false);
-		System.out.println("**************************************End update");
-		System.out.println(" ");
+				testElementOMElement("Running:  get 15 before", testGet("15"), false);
+				testElementOMElement("Running:  update", testUpdate("15"), false);
+				testElementOMElement("Running:  get 15 after", testGet("15"), false);
+				System.out.println("**************************************End update");
+				System.out.println(" ");
 
-		System.out.println("**************************************Testing delete");
-		testElementOMElement("Running:  delete", testDelete("15"), true);
-		testElementOMElement("Running:  get 15 after deleting it (should result in a GuitarChartNotFound fault)", testGet("15"), false);
-		System.out.println("**************************************End delete");
+				System.out.println("**************************************Testing delete");
+				testElementOMElement("Running:  delete", testDelete("15"), true);
+				testElementOMElement("Running:  get 15 after deleting it (should result in a GuitarChartNotFound fault)", testGetChart("15"), false);
+				System.out.println("**************************************End delete");
+			*/
 	}
 
-	private static OMElement testAdd() {
+	private static OMElement testAddChart() {
 		OMFactory fac = OMAbstractFactory.getOMFactory();
 		OMNamespace omNs = fac.createOMNamespace("http://service.guitariffic.com", "ns");
 		OMElement method = fac.createOMElement("add", omNs);
@@ -230,4 +222,5 @@ public class GuitarChartClient {
 
 		return method;
 	}
+
 }
