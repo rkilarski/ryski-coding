@@ -82,4 +82,13 @@ public class GuitarChart implements Cloneable {
 		this.isLeftHanded = isLeftHanded;
 	}
 
+	public static void print(GuitarChart chart) {
+		System.out.println("Name: " + chart.getChordName());
+		System.out.println("Fingering: " + chart.getChordFingering());
+		System.out.println("Frets: " + chart.getChordFrets());
+		System.out.println("Position: " + chart.getChordPosition());
+		System.out.println("Left Handed: " + chart.isLeftHanded());
+		System.out.println(" ");
+	}
+
 }

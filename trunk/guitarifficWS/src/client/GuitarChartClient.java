@@ -31,37 +31,38 @@ public class GuitarChartClient {
 
 	public static void main(String[] args) throws AxisFault {
 		System.out.println("**************************************Testing getOrders");
-		testElementOMElement("Running:  getOrders", testGetOrders(), false);
+		testElementOMElement("Running:  getCharts", testGetCharts(), false);
 		System.out.println("**************************************End getOrders");
 		System.out.println(" ");
+		/*
+				System.out.println("**************************************Testing getOrder");
+				testElementOMElement("Running:  getOrder a1", testGetOrder("a1"), false);
+				System.out.println("**************************************End getOrder");
+				System.out.println(" ");
 
-		System.out.println("**************************************Testing getOrder");
-		testElementOMElement("Running:  getOrder a1", testGetOrder("a1"), false);
-		System.out.println("**************************************End getOrder");
-		System.out.println(" ");
+				System.out.println("**************************************Testing addOrder");
+				testElementOMElement("Running:  addOrder b3", testAddOrder(), false);
+				testElementOMElement("Running:  results of addOrder b3", testGetCharts(), false);
+				testElementOMElement("Running:  getOrder b3", testGetOrder("b3"), false);
+				System.out.println("**************************************End addOrder");
+				System.out.println(" ");
 
-		System.out.println("**************************************Testing addOrder");
-		testElementOMElement("Running:  addOrder b3", testAddOrder(), false);
-		testElementOMElement("Running:  results of addOrder b3", testGetOrders(), false);
-		testElementOMElement("Running:  getOrder b3", testGetOrder("b3"), false);
-		System.out.println("**************************************End addOrder");
-		System.out.println(" ");
+				System.out.println("**************************************Testing updateOrder");
+				testElementOMElement("Running:  updateOrder", testUpdateOrder("a2"), false);
+				testElementOMElement("Running:  results of updateOrder a2", testGetOrder("a2"), false);
+				System.out.println("**************************************End updateOrder");
+				System.out.println(" ");
 
-		System.out.println("**************************************Testing updateOrder");
-		testElementOMElement("Running:  updateOrder", testUpdateOrder("a2"), false);
-		testElementOMElement("Running:  results of updateOrder a2", testGetOrder("a2"), false);
-		System.out.println("**************************************End updateOrder");
-		System.out.println(" ");
-
-		System.out.println("**************************************Testing deleteOrder");
-		testElementOMElement("Running:  deleteOrder", testDeleteOrder("a1"), true);
-		testElementOMElement("Running:  results of deleteOrder a1", testGetOrders(), false);
-		System.out.println("**************************************End deleteOrder");
+				System.out.println("**************************************Testing deleteOrder");
+				testElementOMElement("Running:  deleteOrder", testDeleteOrder("a1"), true);
+				testElementOMElement("Running:  results of deleteOrder a1", testGetCharts(), false);
+				System.out.println("**************************************End deleteOrder");
+				*/
 	}
 
 	private static OMElement testAddOrder() {
 		OMFactory fac = OMAbstractFactory.getOMFactory();
-		OMNamespace omNs = fac.createOMNamespace("http://service.cs751hw3.edu", "ns");
+		OMNamespace omNs = fac.createOMNamespace("http://service.guitariffic.com", "ns");
 		OMElement method = fac.createOMElement("addOrder", omNs);
 
 		OMElement order;
@@ -146,7 +147,7 @@ public class GuitarChartClient {
 
 	private static OMElement testDeleteOrder(String id) {
 		OMFactory fac = OMAbstractFactory.getOMFactory();
-		OMNamespace omNs = fac.createOMNamespace("http://service.cs751hw3.edu", "ns");
+		OMNamespace omNs = fac.createOMNamespace("http://service.guitariffic.com", "ns");
 		OMElement method = fac.createOMElement("deleteOrder", omNs);
 		OMElement value = fac.createOMElement("id", omNs);
 		value.addChild(fac.createOMText(value, id));
@@ -215,7 +216,7 @@ public class GuitarChartClient {
 
 	private static OMElement testGetOrder(String id) {
 		OMFactory fac = OMAbstractFactory.getOMFactory();
-		OMNamespace omNs = fac.createOMNamespace("http://service.cs751hw3.edu", "ns");
+		OMNamespace omNs = fac.createOMNamespace("http://service.guitariffic.com", "ns");
 		OMElement method = fac.createOMElement("getOrder", omNs);
 		OMElement value = fac.createOMElement("id", omNs);
 		value.addChild(fac.createOMText(value, id));
@@ -223,16 +224,16 @@ public class GuitarChartClient {
 		return method;
 	}
 
-	private static OMElement testGetOrders() {
+	private static OMElement testGetCharts() {
 		OMFactory fac = OMAbstractFactory.getOMFactory();
-		OMNamespace omNs = fac.createOMNamespace("http://service.cs751hw3.edu", "ns");
+		OMNamespace omNs = fac.createOMNamespace("http://service.guitariffic.com", "ns");
 		OMElement method = fac.createOMElement("getOrders", omNs);
 		return method;
 	}
 
 	private static OMElement testUpdateOrder(String id) {
 		OMFactory fac = OMAbstractFactory.getOMFactory();
-		OMNamespace omNs = fac.createOMNamespace("http://service.cs751hw3.edu", "ns");
+		OMNamespace omNs = fac.createOMNamespace("http://service.guitariffic.com", "ns");
 		OMElement method = fac.createOMElement("updateOrder", omNs);
 
 		OMElement element;

@@ -2,28 +2,28 @@
 <project name="common-build" basedir=".">
 
 
-  <property name="myName" value="${user.name}"/>
+	<property name="myName" value="${user.name}" />
 
-  <property environment="env"/>
+	<property environment="env" />
 
-  <!-- WINDOWS vs. LINUX file names -->
-  <condition property="wsimport_tool" value="wsimport.exe" else="wsimport">
-    <os family="windows" />
-  </condition>
-  <condition property="xjc_tool" value="xjc.exe" else="xjc">
-    <os family="windows" />
-  </condition>
+	<!-- WINDOWS vs. LINUX file names -->
+	<condition property="wsimport_tool" value="wsimport.exe" else="wsimport">
+		<os family="windows" />
+	</condition>
 
-  <condition property="schemagen_tool" value="schemagen.exe" else="schemagen">
-    <os family="windows" />
-  </condition>
+	<condition property="xjc_tool" value="xjc.exe" else="xjc">
+		<os family="windows" />
+	</condition>
 
-  <condition property="wsgen_tool" value="wsgen.exe" else="wsgen">
-    <os family="windows" />
-  </condition>
+	<condition property="schemagen_tool" value="schemagen.exe" else="schemagen">
+		<os family="windows" />
+	</condition>
 
+	<condition property="wsgen_tool" value="wsgen.exe" else="wsgen">
+		<os family="windows" />
+	</condition>
 
-  <!-- Standard Directories -->
-  <property name="java.generated" value="target/generated/src/main/java" />
-  
+	<!-- Standard Directories -->
+	<property name="java.generated" value="target/generated/src/main/java" />
+
 </project>

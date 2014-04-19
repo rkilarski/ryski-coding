@@ -16,7 +16,7 @@ public abstract class ImageImpl {
 			throw new IllegalArgumentException("src may not be null.");
 		}
 		switch (src) {
-			case "Flickr":
+			case "flickr":
 				return new FlickrImageImpl();
 			default:
 				throw new RuntimeException("Unknown source: " + src);

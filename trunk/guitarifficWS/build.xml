@@ -25,7 +25,9 @@
 
 	<property environment="env" />
 
-	<property name="AXIS2_HOME" value="${env.AXIS2_HOME}" />
+	<condition property="AXIS2_HOME" value="${env.AXIS2_HOME}" else="/Applications/axis2-1.6.2">
+		<os family="windows" />
+	</condition>
 
 	<property name="build.dir" value="build" />
 
@@ -71,28 +73,6 @@
 		</jar>
 		<copy file="${build.dir}/${myName}.aar" toDir="${AXIS2_HOME}/repository/services" overwrite="yes">
 		</copy>
-	</target>
-
-	<target name="generate.client">
-		<mkdir dir="gen-client" />
-		<mkdir dir="gen-client/chart" />
-		<mkdir dir="gen-client/song" />
-		<exec executable="${wsimport_tool}">
-			<arg value="-verbose" />
-			<arg value="-d" />
-			<arg value="gen-client/chart" />
-			<arg value="-s" />
-			<arg value="gen-client/chart" />
-			<arg value="http://localhost:8080/axis2/services/GuitarChartService?wsdl" />
-		</exec>
-		<exec executable="${wsimport_tool}">
-			<arg value="-verbose" />
-			<arg value="-d" />
-			<arg value="gen-client/song" />
-			<arg value="-s" />
-			<arg value="gen-client/song" />
-			<arg value="http://localhost:8080/axis2/services/SongService?wsdl2" />
-		</exec>
 	</target>
 
 	<target name="run.client" depends="compile.service">
