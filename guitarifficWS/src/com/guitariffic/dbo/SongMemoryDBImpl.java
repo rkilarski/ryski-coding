@@ -34,16 +34,19 @@ public class SongMemoryDBImpl implements SongDBHelper {
 		song.setSongName("Your Song");
 		String[] yourSong = { "It's a little bit funny", "This feeling inside" };
 		song.setLyrics(yourSong);
+		song.setId("1");
 		map.put("1", song);
 
 		song = new Song();
 		song.setArtistName("Elton John");
 		song.setSongName("I Guess That's Why They Call It The Blues");
+		song.setId("2");
 		map.put("2", song);
 
 		song = new Song();
 		song.setArtistName("Elton John");
 		song.setSongName("Can You Feel The Love Tonight");
+		song.setId("3");
 		map.put("3", song);
 
 		song = new Song();
@@ -58,6 +61,7 @@ public class SongMemoryDBImpl implements SongDBHelper {
 		chords[1][0] = new GuitarChart("3", "C", "3", "345678", "876543", false);
 		chords[1][1] = new GuitarChart("4", "D", "4", "456789", "987654", true);
 		song.setChords(chords);
+		song.setId("4");
 		map.put("4", song);
 
 		song = new Song();
@@ -68,6 +72,7 @@ public class SongMemoryDBImpl implements SongDBHelper {
 						"You've been running and hiding much too long.",
 						"You know it's just your foolish pride" };
 		song.setLyrics(layla);
+		song.setId("5");
 		map.put("5", song);
 
 		return map;
