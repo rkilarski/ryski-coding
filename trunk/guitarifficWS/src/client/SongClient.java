@@ -22,6 +22,7 @@ public class SongClient {
 
 	public static void main(String[] args) throws AxisFault {
 		String id = null;
+
 		System.out.println("**************************************Testing getList");
 		testElementOMElement("Running:  getSongs", testGetList(), false);
 		System.out.println("**************************************End getList");
@@ -32,58 +33,44 @@ public class SongClient {
 		System.out.println("**************************************End get");
 		System.out.println(" ");
 
-		/*
 		System.out.println("**************************************Testing add");
-		id = testElementOMElement("Running:  add ", testAddChart(), false);
-		// testElementOMElement("Running:  results of addChart", testGetList(), false);
+		id = testElementOMElement("Running:  add ", testAdd(), false);
 		testElementOMElement("Running:  get  after add", testGet(id), false);
 		System.out.println("**************************************End add");
 		System.out.println(" ");
 
 		System.out.println("**************************************Testing update");
-				testElementOMElement("Running:  get 15 before", testGet("15"), false);
-				testElementOMElement("Running:  update", testUpdate("15"), false);
-				testElementOMElement("Running:  get 15 after", testGet("15"), false);
-				System.out.println("**************************************End update");
-				System.out.println(" ");
+		testElementOMElement("Running:  get before update", testGet(id), false);
+		testElementOMElement("Running:  update", testUpdate(id), false);
+		testElementOMElement("Running:  get after update", testGet(id), false);
+		System.out.println("**************************************End update");
+		System.out.println(" ");
 
-				System.out.println("**************************************Testing delete");
-				testElementOMElement("Running:  delete", testDelete("15"), true);
-				testElementOMElement("Running:  get 15 after deleting it (should result in a GuitarChartNotFound fault)", testGetChart("15"), false);
-				System.out.println("**************************************End delete");
-			*/
+		System.out.println("**************************************Testing delete");
+		testElementOMElement("Running:  get 2 before deleting it", testGet("2"), false);
+		testElementOMElement("Running:  delete", testDelete("2"), true);
+		testElementOMElement("Running:  get 2 after deleting it (should result in a SongNotFound fault)", testGet("2"), false);
+		System.out.println("**************************************End delete");
 	}
 
-	private static OMElement testAddChart() {
+	private static OMElement testAdd() {
 		OMFactory fac = OMAbstractFactory.getOMFactory();
 		OMNamespace omNs = fac.createOMNamespace("http://service.guitariffic.com", "ns");
 		OMElement method = fac.createOMElement("add", omNs);
 
-		OMElement chart;
+		OMElement song;
 		OMElement element;
 
-		chart = fac.createOMElement("chart", omNs);
-		method.addChild(chart);
+		song = fac.createOMElement("song", omNs);
+		method.addChild(song);
 
-		element = fac.createOMElement("chordName", omNs);
-		element.addChild(fac.createOMText(element, "R#"));
-		chart.addChild(element);
+		element = fac.createOMElement("songName", omNs);
+		element.addChild(fac.createOMText(element, "Made In England"));
+		song.addChild(element);
 
-		element = fac.createOMElement("chordFingering", omNs);
-		element.addChild(fac.createOMText(element, "123456"));
-		chart.addChild(element);
-
-		element = fac.createOMElement("chordFrets", omNs);
-		element.addChild(fac.createOMText(element, "654321"));
-		chart.addChild(element);
-
-		element = fac.createOMElement("chordPosition", omNs);
-		element.addChild(fac.createOMText(element, "3"));
-		chart.addChild(element);
-
-		element = fac.createOMElement("isLeftHandedFrets", omNs);
-		element.addChild(fac.createOMText(element, "false"));
-		chart.addChild(element);
+		element = fac.createOMElement("artistName", omNs);
+		element.addChild(fac.createOMText(element, "Elton John"));
+		song.addChild(element);
 
 		return method;
 	}
@@ -187,34 +174,30 @@ public class SongClient {
 		OMNamespace omNs = fac.createOMNamespace("http://service.guitariffic.com", "ns");
 		OMElement method = fac.createOMElement("update", omNs);
 
-		OMElement element, chart;
+		OMElement element, song;
 
-		chart = fac.createOMElement("chart", omNs);
-		method.addChild(chart);
+		song = fac.createOMElement("song", omNs);
+		method.addChild(song);
 
 		element = fac.createOMElement("id", omNs);
 		element.addChild(fac.createOMText(element, id));
-		chart.addChild(element);
+		song.addChild(element);
 
-		element = fac.createOMElement("chordName", omNs);
-		element.addChild(fac.createOMText(element, "A#m7"));
-		chart.addChild(element);
+		element = fac.createOMElement("songName", omNs);
+		element.addChild(fac.createOMText(element, "Made In England"));
+		song.addChild(element);
 
-		element = fac.createOMElement("chordFingering", omNs);
-		element.addChild(fac.createOMText(element, "113121"));
-		chart.addChild(element);
+		element = fac.createOMElement("artistName", omNs);
+		element.addChild(fac.createOMText(element, "Elton John"));
+		song.addChild(element);
 
-		element = fac.createOMElement("chordFrets", omNs);
-		element.addChild(fac.createOMText(element, "123456"));
-		chart.addChild(element);
+		element = fac.createOMElement("lyrics", omNs);
+		element.addChild(fac.createOMText(element, "I was made in England"));
+		song.addChild(element);
 
-		element = fac.createOMElement("chordPosition", omNs);
-		element.addChild(fac.createOMText(element, "13"));
-		chart.addChild(element);
-
-		element = fac.createOMElement("isLeftHandedFrets", omNs);
-		element.addChild(fac.createOMText(element, "true"));
-		chart.addChild(element);
+		element = fac.createOMElement("lyrics", omNs);
+		element.addChild(fac.createOMText(element, "Out of Cadillac muscle"));
+		song.addChild(element);
 
 		element = fac.createOMElement("id", omNs);
 		element.addChild(fac.createOMText(element, id));

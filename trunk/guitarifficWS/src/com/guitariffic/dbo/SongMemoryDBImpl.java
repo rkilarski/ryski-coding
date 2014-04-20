@@ -89,7 +89,7 @@ public class SongMemoryDBImpl implements SongDBHelper {
 	public String add(Song song) {
 		String id = Integer.toString(map.size() + 1);
 		song.setId(id);
-		map.put(song.getId(), song);
+		map.put(id, song);
 		return id;
 	}
 
