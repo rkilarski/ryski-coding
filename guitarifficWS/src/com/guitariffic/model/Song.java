@@ -34,6 +34,9 @@ public class Song {
 	 * @return
 	 */
 	public static GuitarChart[][] cloneChordArray(GuitarChart[][] src) {
+		if (src == null) {
+			return null;
+		}
 		int length = src.length;
 		GuitarChart[][] target = new GuitarChart[length][src[0].length];
 		for (int i = 0; i < length; i++) {
@@ -53,6 +56,9 @@ public class Song {
 	 * @return
 	 */
 	public static String[] cloneStringArray(String[] src) {
+		if (src == null) {
+			return null;
+		}
 		int length = src.length;
 		String[] target = new String[length];
 		System.arraycopy(src, 0, target, 0, length);

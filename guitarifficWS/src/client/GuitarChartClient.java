@@ -57,6 +57,7 @@ public class GuitarChartClient {
 		System.out.println(" ");
 
 		System.out.println("**************************************Testing delete");
+		testElementOMElement("Running:  get 15 before deleting it", testGet("15"), false);
 		testElementOMElement("Running:  delete", testDelete("15"), true);
 		testElementOMElement("Running:  get 15 after deleting it (should result in a GuitarChartNotFound fault)", testGet("15"), false);
 		System.out.println("**************************************End delete");
