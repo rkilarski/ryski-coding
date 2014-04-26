@@ -18,6 +18,8 @@ public abstract class ImageImpl {
 		switch (src) {
 			case "flickr":
 				return new FlickrImageImpl();
+            case "google":
+                return new GoogleImageImpl();
 			default:
 				throw new RuntimeException("Unknown source: " + src);
 		}
