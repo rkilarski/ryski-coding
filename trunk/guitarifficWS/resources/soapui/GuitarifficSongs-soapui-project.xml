@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="GuitarifficSongs" resourceRoot="" soapui-version="4.6.4" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="SongServiceSoap12Binding" type="wsdl" bindingName="{http://service.guitariffic.com}SongServiceSoap12Binding" soapVersion="1_2" anonymous="optional" definition="http://localhost:8080/axis2/services/SongService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache/><con:endpoints><con:endpoint>http://localhost:8080/axis2/services/SongService.SongServiceHttpSoap12Endpoint/</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:add" name="add" bindingOperationName="add" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/axis2/services/SongService.SongServiceHttpSoap12Endpoint/</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ser="http://service.guitariffic.com" xmlns:xsd="http://model.guitariffic.com/xsd">
+   <soap:Header/>
+   <soap:Body>
+      <ser:add>
+         <!--Optional:-->
+         <ser:song>
+            <!--Optional:-->
+            <xsd:artistName>?</xsd:artistName>
+            <!--Zero or more repetitions:-->
+            <xsd:chords>
+               <!--Zero or more repetitions:-->
+               <xsd:array>
+                  <!--Optional:-->
+                  <xsd:chordFingering>?</xsd:chordFingering>
+                  <!--Optional:-->
+                  <xsd:chordFrets>?</xsd:chordFrets>
+                  <!--Optional:-->
+                  <xsd:chordName>?</xsd:chordName>
+                  <!--Optional:-->
+                  <xsd:chordPosition>?</xsd:chordPosition>
+                  <!--Optional:-->
+                  <xsd:id>?</xsd:id>
+                  <!--Optional:-->
+                  <xsd:leftHanded>?</xsd:leftHanded>
+               </xsd:array>
+            </xsd:chords>
+            <!--Optional:-->
+            <xsd:id>?</xsd:id>
+            <!--Zero or more repetitions:-->
+            <xsd:lyrics>?</xsd:lyrics>
+            <!--Optional:-->
+            <xsd:songName>?</xsd:songName>
+            <!--Zero or more repetitions:-->
+            <xsd:urls>?</xsd:urls>
+         </ser:song>
+      </ser:add>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:add"/></con:call></con:operation><con:operation isOneWay="false" action="urn:delete" name="delete" bindingOperationName="delete" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/axis2/services/SongService.SongServiceHttpSoap12Endpoint/</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ser="http://service.guitariffic.com">
+   <soap:Header/>
+   <soap:Body>
+      <ser:delete>
+         <!--Optional:-->
+         <ser:id>?</ser:id>
+      </ser:delete>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:delete"/></con:call></con:operation><con:operation isOneWay="false" action="urn:get" name="get" bindingOperationName="get" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/axis2/services/SongService.SongServiceHttpSoap12Endpoint/</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ser="http://service.guitariffic.com">
+   <soap:Header/>
+   <soap:Body>
+      <ser:get>
+         <!--Optional:-->
+         <ser:id>4</ser:id>
+      </ser:get>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:get"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:getList" name="getList" bindingOperationName="getList" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/axis2/services/SongService.SongServiceHttpSoap12Endpoint/</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ser="http://service.guitariffic.com">
+   <soap:Header/>
+   <soap:Body>
+      <ser:getList>
+         <!--Optional:-->
+         <ser:search>?</ser:search>
+      </ser:getList>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:getList"/></con:call></con:operation><con:operation isOneWay="false" action="urn:update" name="update" bindingOperationName="update" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/axis2/services/SongService.SongServiceHttpSoap12Endpoint/</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ser="http://service.guitariffic.com" xmlns:xsd="http://model.guitariffic.com/xsd">
+   <soap:Header/>
+   <soap:Body>
+      <ser:update>
+         <!--Optional:-->
+         <ser:song>
+            <!--Optional:-->
+            <xsd:artistName>?</xsd:artistName>
+            <!--Zero or more repetitions:-->
+            <xsd:chords>
+               <!--Zero or more repetitions:-->
+               <xsd:array>
+                  <!--Optional:-->
+                  <xsd:chordFingering>?</xsd:chordFingering>
+                  <!--Optional:-->
+                  <xsd:chordFrets>?</xsd:chordFrets>
+                  <!--Optional:-->
+                  <xsd:chordName>?</xsd:chordName>
+                  <!--Optional:-->
+                  <xsd:chordPosition>?</xsd:chordPosition>
+                  <!--Optional:-->
+                  <xsd:id>?</xsd:id>
+                  <!--Optional:-->
+                  <xsd:leftHanded>?</xsd:leftHanded>
+               </xsd:array>
+            </xsd:chords>
+            <!--Optional:-->
+            <xsd:id>?</xsd:id>
+            <!--Zero or more repetitions:-->
+            <xsd:lyrics>?</xsd:lyrics>
+            <!--Optional:-->
+            <xsd:songName>?</xsd:songName>
+            <!--Zero or more repetitions:-->
+            <xsd:urls>?</xsd:urls>
+         </ser:song>
+         <!--Optional:-->
+         <ser:id>?</ser:id>
+      </ser:update>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:update"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="SongServiceSoap11Binding" type="wsdl" bindingName="{http://service.guitariffic.com}SongServiceSoap11Binding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/axis2/services/SongService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/axis2/services/SongService?wsdl"><con:part><con:url>http://localhost:8080/axis2/services/SongService?wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://service.guitariffic.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:ns="http://service.guitariffic.com" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ax23="http://model.guitariffic.com/xsd" xmlns:ax21="http://exception.service.guitariffic.com/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <wsdl:documentation>SongService</wsdl:documentation>
+  <wsdl:types>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://service.guitariffic.com" xmlns:ax24="http://model.guitariffic.com/xsd" xmlns:ax22="http://exception.service.guitariffic.com/xsd">
+      <xs:import namespace="http://exception.service.guitariffic.com/xsd"/>
+      <xs:import namespace="http://model.guitariffic.com/xsd"/>
+      <xs:element name="SongServiceSongAlreadyExists">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="SongAlreadyExists" nillable="true" type="ax21:SongAlreadyExists"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="add">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="song" nillable="true" type="ax23:Song"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="addResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SongServiceSongNotFound">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="SongNotFound" nillable="true" type="ax21:SongNotFound"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="get">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="return" nillable="true" type="ax23:Song"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="delete">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="update">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="song" nillable="true" type="ax23:Song"/>
+            <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="updateResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getList">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="search" nillable="true" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getListResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="return" nillable="true" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://exception.service.guitariffic.com/xsd">
+      <xs:complexType name="SongAlreadyExists">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="SongNotFound">
+        <xs:sequence/>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://model.guitariffic.com/xsd">
+      <xs:complexType name="Song">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="artistName" nillable="true" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="chords" nillable="true" type="ax23:ArrayOfGuitarChart"/>
+          <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="lyrics" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="songName" nillable="true" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="urls" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GuitarChart">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="chordFingering" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="chordFrets" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="chordName" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="chordPosition" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="leftHanded" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ArrayOfGuitarChart">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="array" nillable="true" type="ax23:GuitarChart"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="deleteRequest">
+    <wsdl:part name="parameters" element="ns:delete"/>
+  </wsdl:message>
+  <wsdl:message name="SongServiceSongNotFound">
+    <wsdl:part name="parameters" element="ns:SongServiceSongNotFound"/>
+  </wsdl:message>
+  <wsdl:message name="addRequest">
+    <wsdl:part name="parameters" element="ns:add"/>
+  </wsdl:message>
+  <wsdl:message name="addResponse">
+    <wsdl:part name="parameters" element="ns:addResponse"/>
+  </wsdl:message>
+  <wsdl:message name="SongServiceSongAlreadyExists">
+    <wsdl:part name="parameters" element="ns:SongServiceSongAlreadyExists"/>
+  </wsdl:message>
+  <wsdl:message name="getListRequest">
+    <wsdl:part name="parameters" element="ns:getList"/>
+  </wsdl:message>
+  <wsdl:message name="getListResponse">
+    <wsdl:part name="parameters" element="ns:getListResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getRequest">
+    <wsdl:part name="parameters" element="ns:get"/>
+  </wsdl:message>
+  <wsdl:message name="getResponse">
+    <wsdl:part name="parameters" element="ns:getResponse"/>
+  </wsdl:message>
+  <wsdl:message name="updateRequest">
+    <wsdl:part name="parameters" element="ns:update"/>
+  </wsdl:message>
+  <wsdl:message name="updateResponse">
+    <wsdl:part name="parameters" element="ns:updateResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="SongServicePortType">
+    <wsdl:operation name="delete">
+      <wsdl:input message="ns:deleteRequest" wsaw:Action="urn:delete"/>
+      <wsdl:output message="ns:null" wsaw:Action="urn:deleteResponse"/>
+      <wsdl:fault message="ns:SongServiceSongNotFound" name="SongServiceSongNotFound" wsaw:Action="urn:deleteSongServiceSongNotFound"/>
+    </wsdl:operation>
+    <wsdl:operation name="add">
+      <wsdl:input message="ns:addRequest" wsaw:Action="urn:add"/>
+      <wsdl:output message="ns:addResponse" wsaw:Action="urn:addResponse"/>
+      <wsdl:fault message="ns:SongServiceSongAlreadyExists" name="SongServiceSongAlreadyExists" wsaw:Action="urn:addSongServiceSongAlreadyExists"/>
+    </wsdl:operation>
+    <wsdl:operation name="getList">
+      <wsdl:input message="ns:getListRequest" wsaw:Action="urn:getList"/>
+      <wsdl:output message="ns:getListResponse" wsaw:Action="urn:getListResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="get">
+      <wsdl:input message="ns:getRequest" wsaw:Action="urn:get"/>
+      <wsdl:output message="ns:getResponse" wsaw:Action="urn:getResponse"/>
+      <wsdl:fault message="ns:SongServiceSongNotFound" name="SongServiceSongNotFound" wsaw:Action="urn:getSongServiceSongNotFound"/>
+    </wsdl:operation>
+    <wsdl:operation name="update">
+      <wsdl:input message="ns:updateRequest" wsaw:Action="urn:update"/>
+      <wsdl:output message="ns:updateResponse" wsaw:Action="urn:updateResponse"/>
+      <wsdl:fault message="ns:SongServiceSongNotFound" name="SongServiceSongNotFound" wsaw:Action="urn:updateSongServiceSongNotFound"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SongServiceSoap11Binding" type="ns:SongServicePortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="delete">
+      <soap:operation soapAction="urn:delete" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SongServiceSongNotFound">
+        <soap:fault use="literal" name="SongServiceSongNotFound"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="add">
+      <soap:operation soapAction="urn:add" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SongServiceSongAlreadyExists">
+        <soap:fault use="literal" name="SongServiceSongAlreadyExists"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getList">
+      <soap:operation soapAction="urn:getList" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="get">
+      <soap:operation soapAction="urn:get" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SongServiceSongNotFound">
+        <soap:fault use="literal" name="SongServiceSongNotFound"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="update">
+      <soap:operation soapAction="urn:update" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SongServiceSongNotFound">
+        <soap:fault use="literal" name="SongServiceSongNotFound"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SongServiceSoap12Binding" type="ns:SongServicePortType">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="delete">
+      <soap12:operation soapAction="urn:delete" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SongServiceSongNotFound">
+        <soap12:fault use="literal" name="SongServiceSongNotFound"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="add">
+      <soap12:operation soapAction="urn:add" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SongServiceSongAlreadyExists">
+        <soap12:fault use="literal" name="SongServiceSongAlreadyExists"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getList">
+      <soap12:operation soapAction="urn:getList" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="get">
+      <soap12:operation soapAction="urn:get" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SongServiceSongNotFound">
+        <soap12:fault use="literal" name="SongServiceSongNotFound"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="update">
+      <soap12:operation soapAction="urn:update" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SongServiceSongNotFound">
+        <soap12:fault use="literal" name="SongServiceSongNotFound"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SongServiceHttpBinding" type="ns:SongServicePortType">
+    <http:binding verb="POST"/>
+    <wsdl:operation name="delete">
+      <http:operation location="delete"/>
+      <wsdl:input>
+        <mime:content type="application/xml" part="parameters"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content type="application/xml" part="parameters"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="add">
+      <http:operation location="add"/>
+      <wsdl:input>
+        <mime:content type="application/xml" part="parameters"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content type="application/xml" part="parameters"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getList">
+      <http:operation location="getList"/>
+      <wsdl:input>
+        <mime:content type="application/xml" part="parameters"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content type="application/xml" part="parameters"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="get">
+      <http:operation location="get"/>
+      <wsdl:input>
+        <mime:content type="application/xml" part="parameters"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content type="application/xml" part="parameters"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="update">
+      <http:operation location="update"/>
+      <wsdl:input>
+        <mime:content type="application/xml" part="parameters"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content type="application/xml" part="parameters"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SongService">
+    <wsdl:port name="SongServiceHttpSoap11Endpoint" binding="ns:SongServiceSoap11Binding">
+      <soap:address location="http://localhost:8080/axis2/services/SongService.SongServiceHttpSoap11Endpoint/"/>
+    </wsdl:port>
+    <wsdl:port name="SongServiceHttpSoap12Endpoint" binding="ns:SongServiceSoap12Binding">
+      <soap12:address location="http://localhost:8080/axis2/services/SongService.SongServiceHttpSoap12Endpoint/"/>
+    </wsdl:port>
+    <wsdl:port name="SongServiceHttpEndpoint" binding="ns:SongServiceHttpBinding">
+      <http:address location="http://localhost:8080/axis2/services/SongService.SongServiceHttpEndpoint/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/axis2/services/SongService.SongServiceHttpSoap11Endpoint/</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:add" name="add" bindingOperationName="add" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/axis2/services/SongService.SongServiceHttpSoap11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.guitariffic.com" xmlns:xsd="http://model.guitariffic.com/xsd">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:add>
+         <!--Optional:-->
+         <ser:song>
+            <!--Optional:-->
+            <xsd:artistName>?</xsd:artistName>
+            <!--Zero or more repetitions:-->
+            <xsd:chords>
+               <!--Zero or more repetitions:-->
+               <xsd:array>
+                  <!--Optional:-->
+                  <xsd:chordFingering>?</xsd:chordFingering>
+                  <!--Optional:-->
+                  <xsd:chordFrets>?</xsd:chordFrets>
+                  <!--Optional:-->
+                  <xsd:chordName>?</xsd:chordName>
+                  <!--Optional:-->
+                  <xsd:chordPosition>?</xsd:chordPosition>
+                  <!--Optional:-->
+                  <xsd:id>?</xsd:id>
+                  <!--Optional:-->
+                  <xsd:leftHanded>?</xsd:leftHanded>
+               </xsd:array>
+            </xsd:chords>
+            <!--Optional:-->
+            <xsd:id>?</xsd:id>
+            <!--Zero or more repetitions:-->
+            <xsd:lyrics>?</xsd:lyrics>
+            <!--Optional:-->
+            <xsd:songName>?</xsd:songName>
+            <!--Zero or more repetitions:-->
+            <xsd:urls>?</xsd:urls>
+         </ser:song>
+      </ser:add>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:add"/></con:call></con:operation><con:operation isOneWay="false" action="urn:delete" name="delete" bindingOperationName="delete" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/axis2/services/SongService.SongServiceHttpSoap11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.guitariffic.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:delete>
+         <!--Optional:-->
+         <ser:id>?</ser:id>
+      </ser:delete>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:delete"/></con:call></con:operation><con:operation isOneWay="false" action="urn:get" name="get" bindingOperationName="get" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/axis2/services/SongService.SongServiceHttpSoap11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.guitariffic.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:get>
+         <!--Optional:-->
+         <ser:id>?</ser:id>
+      </ser:get>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:get"/></con:call></con:operation><con:operation isOneWay="false" action="urn:getList" name="getList" bindingOperationName="getList" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/axis2/services/SongService.SongServiceHttpSoap11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.guitariffic.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:getList>
+         <!--Optional:-->
+         <ser:search>?</ser:search>
+      </ser:getList>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:getList"/></con:call></con:operation><con:operation isOneWay="false" action="urn:update" name="update" bindingOperationName="update" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/axis2/services/SongService.SongServiceHttpSoap11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.guitariffic.com" xmlns:xsd="http://model.guitariffic.com/xsd">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:update>
+         <!--Optional:-->
+         <ser:song>
+            <!--Optional:-->
+            <xsd:artistName>?</xsd:artistName>
+            <!--Zero or more repetitions:-->
+            <xsd:chords>
+               <!--Zero or more repetitions:-->
+               <xsd:array>
+                  <!--Optional:-->
+                  <xsd:chordFingering>?</xsd:chordFingering>
+                  <!--Optional:-->
+                  <xsd:chordFrets>?</xsd:chordFrets>
+                  <!--Optional:-->
+                  <xsd:chordName>?</xsd:chordName>
+                  <!--Optional:-->
+                  <xsd:chordPosition>?</xsd:chordPosition>
+                  <!--Optional:-->
+                  <xsd:id>?</xsd:id>
+                  <!--Optional:-->
+                  <xsd:leftHanded>?</xsd:leftHanded>
+               </xsd:array>
+            </xsd:chords>
+            <!--Optional:-->
+            <xsd:id>?</xsd:id>
+            <!--Zero or more repetitions:-->
+            <xsd:lyrics>?</xsd:lyrics>
+            <!--Optional:-->
+            <xsd:songName>?</xsd:songName>
+            <!--Zero or more repetitions:-->
+            <xsd:urls>?</xsd:urls>
+         </ser:song>
+         <!--Optional:-->
+         <ser:id>?</ser:id>
+      </ser:update>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:update"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/></con:soapui-project>
