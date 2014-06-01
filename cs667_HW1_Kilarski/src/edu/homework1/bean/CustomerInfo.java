@@ -1,10 +1,15 @@
 package edu.homework1.bean;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class CustomerInfo {
 	private String customerId;
 	private String firstName;
 	private String lastName;
 	private String emailAddress;
+
+	private static Map<String, CustomerInfo> customers;
 
 	public CustomerInfo() {
 	}
@@ -63,6 +68,27 @@ public class CustomerInfo {
 	 */
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
+	}
+
+	/**
+	 * Add a customer to the internal customer database.
+	 * @param info
+	 */
+	public static void addCustomer(CustomerInfo info) {
+		if (customers == null) {
+			customers = new HashMap<String, CustomerInfo>();
+		}
+
+		customers.put(info.getCustomerId(), info);
+	}
+
+	/**
+	 * Get a customer from the internal customer database.
+	 * @param id
+	 * @return
+	 */
+	public static CustomerInfo getCustomer(String id) {
+		return ((CustomerInfo) customers.get(id));
 	}
 
 }
