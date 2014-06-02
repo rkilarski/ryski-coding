@@ -21,11 +21,17 @@ public class CustomerInfoServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		CustomerInfo customerInfo = (CustomerInfo) session.getAttribute("customerInfo");
+		CustomerInfo customerInfo = null;
+		boolean allFieldsNull = false;
+		// Get the customer bean from the session object, if any.
+		customerInfo = (CustomerInfo) session.getAttribute("customerInfo");
 		if (customerInfo == null) {
 			customerInfo = new CustomerInfo();
 			session.setAttribute("customerInfo", customerInfo);
+			allFieldsNull = true;
 		}
+
+		// Process the parameters to this page and add to the session.
 		String customerId = request.getParameter("customerId");
 		if ((customerId != null) && (!customerId.trim().equals(""))) {
 			customerInfo.setCustomerId(customerId);
@@ -43,10 +49,21 @@ public class CustomerInfoServlet extends HttpServlet {
 			customerInfo.setEmailAddress(emailAddress);
 		}
 
+		// Check if we pass. If so, register the customer.
 		String address;
 		if (passes(customerInfo)) {
 			address = "/jsp/Registered.jsp";
+			CustomerInfo.addCustomer(customerInfo);
 		} else {
+			// If we don't pass the checks, re-prompt the user and show a message.
+			String message = "";
+			if (CustomerInfo.getCustomer(customerId) != null) {
+				message = "The customer id is a duplicate in the database. ";
+			}
+			if (!allFieldsNull) {
+				message += "Fields marked with * are required.";
+			}
+			session.setAttribute("message", message);
 			address = "/jsp/InputForm.jsp";
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
@@ -54,6 +71,9 @@ public class CustomerInfoServlet extends HttpServlet {
 	}
 
 	private boolean passes(CustomerInfo info) {
+		if (CustomerInfo.getCustomer(info.getCustomerId()) != null) {
+			return false;
+		}
 		if ((info.getCustomerId() == null) || (info.getCustomerId().equals(""))) {
 			return false;
 		}
