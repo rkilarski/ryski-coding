@@ -74,7 +74,7 @@ public class CustomerInfo {
 	 * Add a customer to the internal customer database.
 	 * @param info
 	 */
-	public static void addCustomer(CustomerInfo info) {
+	public static synchronized void addCustomer(CustomerInfo info) {
 		if (customers == null) {
 			customers = new HashMap<String, CustomerInfo>();
 		}
@@ -88,7 +88,9 @@ public class CustomerInfo {
 	 * @return
 	 */
 	public static CustomerInfo getCustomer(String id) {
+		if (customers == null) {
+			return null;
+		}
 		return ((CustomerInfo) customers.get(id));
 	}
-
 }
