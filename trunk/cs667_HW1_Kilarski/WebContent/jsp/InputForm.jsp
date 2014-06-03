@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
+<!-- 
+ryszard kilarski
+met cs 667
+emrys@bu.edu
+bu id: u81-39-8560
+-->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -8,17 +14,17 @@
 	type="text/css">
 <link rel="stylesheet" href="css/style.css" type="text/css">
 
-<title>Registration Form</title>
+<title>registration</title>
 </head>
 <body>
 	<jsp:include page="signature.html" />
 	<div id="container">
-		<H1>Please Register</H1>
+		<H1>registration</H1>
 		<form>
 			<jsp:useBean id="customerInfo" type="edu.homework1.bean.CustomerInfo"
 				scope="session" />
-			<label>${sessionScope.message}</label> <br> <label
-				for="customerId">customer id: ${(empty customerInfo.customerId)?"*":""}
+			<h2>${sessionScope.message}</h2>
+			<br> <label for="customerId">customer id: ${(empty customerInfo.customerId)?"*":""}
 			</label> <input id="customerId" name="customerId"
 				value="${customerInfo.customerId}" type="text" /><br> <label
 				for="firstName">first name: ${(empty customerInfo.firstName)?"*":""}</label>
