@@ -1,0 +1,26 @@
+html,body {
+	margin: 0px;
+}
+
+label {
+	width: 150px;
+}
+
+#signature {
+	font-size: large;
+	background-color: navy;
+	color: white;
+	border: 0px;
+	padding: 50px;
+	margin: 0px 0px 10px 0px;
+	height: 230px;
+}
+
+#container {
+	margin: 40px 0px 10px 0px;
+	padding: 0px 0px 0px 50px;
+}
+
+a {
+	text-decoration: none;
+}
