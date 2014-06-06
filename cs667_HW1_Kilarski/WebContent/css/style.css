@@ -6,6 +6,10 @@ label {
 	width: 150px;
 }
 
+h3>label {
+	width: 200px;
+}
+
 #signature {
 	font-size: large;
 	background-color: navy;
@@ -23,4 +27,12 @@ label {
 
 a {
 	text-decoration: none;
+}
+
+#message {
+	color: red;
+}
+
+form {
+	width: 400px;
 }
