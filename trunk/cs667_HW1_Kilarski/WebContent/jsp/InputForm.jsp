@@ -23,7 +23,6 @@ bu id: u81-39-8560
 		<form>
 			<jsp:useBean id="customerInfo" type="edu.homework1.bean.CustomerInfo"
 				scope="session" />
-			<h2>${sessionScope.message}</h2>
 			<br> <label for="customerId">customer id: ${(empty customerInfo.customerId)?"*":""}
 			</label> <input id="customerId" name="customerId"
 				value="${customerInfo.customerId}" type="text" /><br> <label
@@ -36,8 +35,10 @@ bu id: u81-39-8560
 				address: ${(empty customerInfo.emailAddress)?"*":""}</label> <input
 				id="emailAddress" name="emailAddress"
 				value="${customerInfo.emailAddress}" type="email" /> <br> <input
-				type="submit" class="btn btn-primary" VALUE="register">
-		</FORM>
+				type="submit" class="btn btn-primary pull-right" VALUE="register">
+		</form>
+		<br>
+		<h2 id="message">${sessionScope.message}</h2>
 	</div>
 </body>
 </html>
