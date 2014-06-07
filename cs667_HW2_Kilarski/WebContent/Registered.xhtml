@@ -5,37 +5,29 @@ met cs 667
 emrys@bu.edu
 bu id: u81-39-8560
 -->
-<HTML>
-<HEAD>
-<TITLE>thank you for registering</TITLE>
-<LINK REL="stylesheet" href="bootstrap/css/bootstrap.css"
-	TYPE="text/css">
-<link rel="stylesheet" href="css/style.css" type="text/css">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>thank you for registering</title>
+	<link REL="stylesheet" href="bootstrap/css/bootstrap.css"
+		TYPE="text/css" />
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
 
-</HEAD>
-<BODY>
-	<jsp:include page="signature.html" />
+</h:head>
+<h:body>
+	<ui:include src="signature.html" />
 	<div id="container">
-		<H1>thank you for registering</H1>
-		<jsp:useBean id="registeredCustomerInfo"
-			type="edu.homework1.bean.CustomerInfo" scope="session" />
-		<H2>
-			customer id:
-			<jsp:getProperty name="registeredCustomerInfo" property="customerId" /></H2>
-		<H2>
-			first name:
-			<jsp:getProperty name="registeredCustomerInfo" property="firstName" /></H2>
-		<H2>
-			last name:
-			<jsp:getProperty name="registeredCustomerInfo" property="lastName" /></H2>
-		<H2>
-			email address:
-			<jsp:getProperty name="registeredCustomerInfo"
-				property="emailAddress" /></H2>
-		<br>
-		<form>
-			<input type="submit" class="btn btn-primary" value="reset">
-		</form>
+		<h1>thank you for registering</H1>
+		<h2>customer id: #{customerInfo.customerId}</h2>
+		<h2>first name: #{customerInfo.firstName}</h2>
+		<h2>last name: #{customerInfo.lastName}</h2>
+		<h2>email address: #{customerInfo.emailAddress}</h2>
+		<br />
+		<h:form>
+			<h:commandButton class="btn btn-primary" value="reset"
+				action="InputForm.jsf" />
+		</h:form>
 	</div>
-</BODY>
+</h:body>
 </HTML>
