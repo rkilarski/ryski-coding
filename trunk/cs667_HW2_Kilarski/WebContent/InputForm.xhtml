@@ -22,17 +22,18 @@ bu id: u81-39-8560
 		<h:form>
 			<h2>#{customerInfo.message}</h2>
 			<br />
-			<label>customer id: </label>
+			<label>customer id: #{empty customerInfo.customerId?"*":""}</label>
 			<h:inputText value="#{customerInfo.customerId}" />
 			<br />
-			<label>first name: </label>
+			<label>first name: #{empty customerInfo.firstName?"*":""}</label>
 			<h:inputText value="#{customerInfo.firstName}" />
 			<br />
-			<label>last name: </label>
+			<label>last name: #{empty customerInfo.lastName?"*":""}</label>
 			<h:inputText value="#{customerInfo.lastName}" />
 			<br />
-			<label>email address: </label>
-			<h:inputText value="#{customerInfo.emailAddress}" />
+			<label>email address: #{empty
+				customerInfo.emailAddress?"*":""}</label>
+			<h:inputText type="email" value="#{customerInfo.emailAddress}" />
 			<br />
 			<h:commandButton class="btn btn-primary" value="register"
 				action="#{customerInfo.doNavigation}" />

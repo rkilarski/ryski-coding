@@ -23,6 +23,16 @@ public class CustomerInfo {
 
 	private String message = "";
 
+	public CustomerInfo() {
+	}
+
+	public CustomerInfo(CustomerInfo info) {
+		this.setCustomerId(info.getCustomerId());
+		this.setFirstName(info.getFirstName());
+		this.setLastName(info.getLastName());
+		this.setEmailAddress(info.getEmailAddress());
+	}
+
 	public String doNavigation() {
 		// Get the customer bean from the session object, if any.
 		boolean allFieldsNull = true;
@@ -67,6 +77,14 @@ public class CustomerInfo {
 			}
 		}
 		return address;
+	}
+
+	public String doReset() {
+		this.setCustomerId("");
+		this.setFirstName("");
+		this.setLastName("");
+		this.setEmailAddress("");
+		return "InputForm.jsf";
 	}
 
 	/**
@@ -162,7 +180,8 @@ public class CustomerInfo {
 		if (customers == null) {
 			customers = new HashMap<String, CustomerInfo>();
 		}
-		customers.put(info.getCustomerId(), info);
+		CustomerInfo customerInfo = new CustomerInfo(info);
+		customers.put(info.getCustomerId(), customerInfo);
 	}
 
 	/**
