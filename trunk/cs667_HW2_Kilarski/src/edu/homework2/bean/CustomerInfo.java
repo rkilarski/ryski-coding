@@ -162,7 +162,6 @@ public class CustomerInfo {
 		if (customers == null) {
 			customers = new HashMap<String, CustomerInfo>();
 		}
-
 		customers.put(info.getCustomerId(), info);
 	}
 
