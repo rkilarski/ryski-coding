@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- 
 ryszard kilarski
 met cs 667
@@ -20,23 +20,19 @@ bu id: u81-39-8560
 	<div id="container">
 		<h1>registration</h1>
 		<h:form>
-			<h2>#{CustomerInfo.message}</h2>
+			<h2>#{customerInfo.message}</h2>
 			<br />
-			<label for="customerId">customer id: </label>
-			<input id="customerId" name="customerId"
-				value="#{customerInfo.customerId}" type="text" />
+			<label>customer id: </label>
+			<h:inputText value="#{customerInfo.customerId}" />
 			<br />
-			<label for="firstName">first name: </label>
-			<input id="firstName" name="firstName"
-				value="#{customerInfo.firstName}" type="text" />
+			<label>first name: </label>
+			<h:inputText value="#{customerInfo.firstName}" />
 			<br />
-			<label for="lastName">last name: </label>
-			<input id="lastName" name="lastName" value="#{customerInfo.lastName}"
-				type="text" />
+			<label>last name: </label>
+			<h:inputText value="#{customerInfo.lastName}" />
 			<br />
-			<label for="emailAddress">email address: </label>
-			<input id="emailAddress" name="emailAddress"
-				value="#{customerInfo.emailAddress}" type="email" />
+			<label>email address: </label>
+			<h:inputText value="#{customerInfo.emailAddress}" />
 			<br />
 			<h:commandButton class="btn btn-primary" value="register"
 				action="#{customerInfo.doNavigation}" />
