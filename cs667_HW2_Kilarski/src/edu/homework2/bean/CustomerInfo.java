@@ -58,10 +58,8 @@ public class CustomerInfo {
 			// Check for duplicate.
 			boolean isDuplicate = (CustomerInfo.getCustomer(customerId) != null);
 			if (!isDuplicate && passes(this)) {
-				address = "Registered.jsf";
+				address = "confirmation.jsf";
 				CustomerInfo.addCustomer(this);
-				// session.setAttribute("registeredCustomerInfo", customerInfo);
-				// session.setAttribute("customerInfo", null);
 			} else {
 				// If we don't pass the checks, re-prompt the user and show a message.
 				message = "";
@@ -73,7 +71,7 @@ public class CustomerInfo {
 				if (!allFieldsNull) {
 					message += "fields marked with * are required.";
 				}
-				address = "InputForm.jsf";
+				address = "register.jsf";
 			}
 		}
 		return address;
@@ -84,7 +82,7 @@ public class CustomerInfo {
 		this.setFirstName("");
 		this.setLastName("");
 		this.setEmailAddress("");
-		return "InputForm.jsf";
+		return "register.jsf";
 	}
 
 	/**

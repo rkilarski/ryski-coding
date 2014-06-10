@@ -10,7 +10,7 @@ bu id: u81-39-8560
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-	<title>thank you for registering</title>
+	<title>order list</title>
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.css"
 		type="text/css" />
 	<link rel="stylesheet" href="css/style.css" type="text/css" />
@@ -19,16 +19,10 @@ bu id: u81-39-8560
 <h:body>
 	<ui:include src="signature.html" />
 	<div id="container">
-		<h1>thank you for registering</h1>
-		<h2>customer id: #{customerInfo.customerId}</h2>
-		<h2>first name: #{customerInfo.firstName}</h2>
-		<h2>last name: #{customerInfo.lastName}</h2>
-		<h2>email address: #{customerInfo.emailAddress}</h2>
-		<br />
-		<h:form>
-			<h:commandButton class="btn btn-primary" value="reset"
-				action="#{customerInfo.doReset}" />
-		</h:form>
+		<h:dataTable var="product" value="#{productsApp.products}">
+			<h:column>#{product.name}</h:column>
+			<h:column>#{product.price}</h:column>
+		</h:dataTable>
 	</div>
 </h:body>
 </html>
