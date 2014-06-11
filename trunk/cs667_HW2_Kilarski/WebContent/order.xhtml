@@ -8,6 +8,7 @@ bu id: u81-39-8560
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<title>order list</title>
@@ -19,9 +20,11 @@ bu id: u81-39-8560
 <h:body>
 	<ui:include src="signature.html" />
 	<div id="container">
-		<h:dataTable var="product" value="#{productsApp.products}">
-			<h:column>#{product.name}</h:column>
-			<h:column>#{product.price}</h:column>
+		<h:dataTable class="table table-striped table-hover" var="product" value="#{productsApp.products}">
+			<f:facet name="header"><h2>product list</h2></f:facet>
+			<h:column><f:facet name="header">product name</f:facet>
+			#{product.name}</h:column>
+			<h:column><f:facet name="header">price</f:facet>#{product.price}</h:column>
 		</h:dataTable>
 	</div>
 </h:body>

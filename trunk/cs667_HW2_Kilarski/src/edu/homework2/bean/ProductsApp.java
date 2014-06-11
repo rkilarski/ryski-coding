@@ -14,5 +14,6 @@ public class ProductsApp extends Products {
         super(new ProductBean("Item 1", 5.00), new ProductBean("Item 2", 10.00), new ProductBean(
                 "Item 3", 15.00), new ProductBean("Item 4", 20.00), new ProductBean("Item 5",
                 25.00));
+        System.out.println("productsApp access");
     }
 }
