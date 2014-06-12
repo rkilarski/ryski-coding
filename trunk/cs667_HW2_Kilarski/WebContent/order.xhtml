@@ -20,11 +20,16 @@ bu id: u81-39-8560
 <h:body>
 	<ui:include src="signature.html" />
 	<div id="container">
-		<h:dataTable class="table table-striped table-hover" var="product" value="#{productsApp.products}">
-			<f:facet name="header"><h2>product list</h2></f:facet>
-			<h:column><f:facet name="header">product name</f:facet>
+		<h:dataTable class="table table-striped table-hover" var="product"
+			value="#{productsApp.products}">
+			<f:facet name="header">
+				<h2>product list</h2>
+			</f:facet>
+			<h:column>
+				<f:facet name="header">product name</f:facet>
 			#{product.name}</h:column>
-			<h:column><f:facet name="header">price</f:facet>#{product.price}</h:column>
+			<h:column>
+				<f:facet name="header">price</f:facet>#{product.price}</h:column>
 		</h:dataTable>
 	</div>
 </h:body>
