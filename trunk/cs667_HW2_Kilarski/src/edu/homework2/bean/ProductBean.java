@@ -1,3 +1,9 @@
+/**
+ryszard kilarski
+met cs 667
+emrys@bu.edu
+bu id: u81-39-8560
+ */
 package edu.homework2.bean;
 
 /**
@@ -20,12 +26,12 @@ public class ProductBean {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public double getPrice() {
         return price;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setPrice(double price) {

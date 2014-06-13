@@ -15,183 +15,183 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class CustomerInfo {
-	private static Map<String, CustomerInfo> customers = null;
-	private String customerId = "";
-	private String emailAddress = "";
-	private String firstName = "";
-	private String lastName = "";
+    private static Map<String, CustomerInfo> customers = null;
+    private String customerId = "";
+    private String emailAddress = "";
+    private String firstName = "";
+    private String lastName = "";
 
-	private String message = "";
+    private String message = "";
 
-	public CustomerInfo() {
-	}
+    public CustomerInfo() {
+    }
 
-	public CustomerInfo(CustomerInfo info) {
-		this.setCustomerId(info.getCustomerId());
-		this.setFirstName(info.getFirstName());
-		this.setLastName(info.getLastName());
-		this.setEmailAddress(info.getEmailAddress());
-	}
+    public CustomerInfo(CustomerInfo info) {
+        this.setCustomerId(info.getCustomerId());
+        this.setFirstName(info.getFirstName());
+        this.setLastName(info.getLastName());
+        this.setEmailAddress(info.getEmailAddress());
+    }
 
-	public String doNavigation() {
-		// Get the customer bean from the session object, if any.
-		boolean allFieldsNull = true;
+    /**
+     * Add a customer to the internal customer database.
+     * 
+     * @param info
+     */
+    public static synchronized void addCustomer(CustomerInfo info) {
+        if (customers == null) {
+            customers = new HashMap<String, CustomerInfo>();
+        }
+        CustomerInfo customerInfo = new CustomerInfo(info);
+        customers.put(info.getCustomerId(), customerInfo);
+    }
 
-		// Process the parameters to this page and add to the session.
-		if ((customerId != null) && (!customerId.trim().equals(""))) {
-			allFieldsNull = false;
-		}
-		if ((firstName != null) && (!firstName.trim().equals(""))) {
-			allFieldsNull = false;
-		}
-		if ((lastName != null) && (!lastName.trim().equals(""))) {
-			allFieldsNull = false;
-		}
-		if ((emailAddress != null) && (!emailAddress.trim().equals(""))) {
-			allFieldsNull = false;
-		}
+    /**
+     * Get a customer from the internal customer database.
+     * 
+     * @param id
+     * @return
+     */
+    public static CustomerInfo getCustomer(String id) {
+        if (customers == null) {
+            return null;
+        }
+        return ((CustomerInfo) customers.get(id));
+    }
 
-		// Check if we pass. If so, actually register the customer.
-		String address;
-		// Entering synchronized block to be sure we do not allow duplicates.
-		synchronized (this) {
-			// Check for duplicate.
-			boolean isDuplicate = (CustomerInfo.getCustomer(customerId) != null);
-			if (!isDuplicate && passes(this)) {
-				address = "confirmation.jsf";
-				CustomerInfo.addCustomer(this);
-			} else {
-				// If we don't pass the checks, re-prompt the user and show a message.
-				message = "";
-				if (isDuplicate) {
-					message =
-							"the customer id is a duplicate in the database.  please choose a different id. ";
-					customerId = "";
-				}
-				if (!allFieldsNull) {
-					message += "fields marked with * are required.";
-				}
-				address = "register.jsf";
-			}
-		}
-		return address;
-	}
+    public String doNavigation() {
+        // Get the customer bean from the session object, if any.
+        boolean allFieldsNull = true;
 
-	public String doReset() {
-		this.setCustomerId("");
-		this.setFirstName("");
-		this.setLastName("");
-		this.setEmailAddress("");
-		return "register.jsf";
-	}
+        // Process the parameters to this page and add to the session.
+        if ((customerId != null) && (!customerId.trim().equals(""))) {
+            allFieldsNull = false;
+        }
+        if ((firstName != null) && (!firstName.trim().equals(""))) {
+            allFieldsNull = false;
+        }
+        if ((lastName != null) && (!lastName.trim().equals(""))) {
+            allFieldsNull = false;
+        }
+        if ((emailAddress != null) && (!emailAddress.trim().equals(""))) {
+            allFieldsNull = false;
+        }
 
-	/**
-	 * @return the customerId
-	 */
-	public String getCustomerId() {
-		return customerId;
-	}
+        // Check if we pass. If so, actually register the customer.
+        String address;
+        // Entering synchronized block to be sure we do not allow duplicates.
+        synchronized (this) {
+            // Check for duplicate.
+            boolean isDuplicate = (CustomerInfo.getCustomer(customerId) != null);
+            if (!isDuplicate && passes(this)) {
+                address = "confirmation.jsf";
+                CustomerInfo.addCustomer(this);
+            } else {
+                // If we don't pass the checks, re-prompt the user and show a message.
+                message = "";
+                if (isDuplicate) {
+                    message =
+                            "the customer id is a duplicate in the database.  please choose a different id. ";
+                    customerId = "";
+                }
+                if (!allFieldsNull) {
+                    message += "fields marked with * are required.";
+                }
+                address = "register.jsf";
+            }
+        }
+        return address;
+    }
 
-	/**
-	 * @return the emailAddress
-	 */
-	public String getEmailAddress() {
-		return emailAddress;
-	}
+    public String doReset() {
+        this.setCustomerId("");
+        this.setFirstName("");
+        this.setLastName("");
+        this.setEmailAddress("");
+        return "register.jsf";
+    }
 
-	/**
-	 * @return the firstName
-	 */
-	public String getFirstName() {
-		return firstName;
-	}
+    /**
+     * @return the customerId
+     */
+    public String getCustomerId() {
+        return customerId;
+    }
 
-	/**
-	 * @return the lastName
-	 */
-	public String getLastName() {
-		return lastName;
-	}
+    /**
+     * @return the emailAddress
+     */
+    public String getEmailAddress() {
+        return emailAddress;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    /**
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
 
-	/**
-	 * @param customerId
-	 *            the customerId to set
-	 */
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
-	}
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
 
-	/**
-	 * @param emailAddress
-	 *            the emailAddress to set
-	 */
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	/**
-	 * @param firstName
-	 *            the firstName to set
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    /**
+     * @param customerId
+     *            the customerId to set
+     */
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
 
-	/**
-	 * @param lastName
-	 *            the lastName to set
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    /**
+     * @param emailAddress
+     *            the emailAddress to set
+     */
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    /**
+     * @param firstName
+     *            the firstName to set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	private boolean passes(CustomerInfo info) {
-		if ((info.getCustomerId() == null) || (info.getCustomerId().equals(""))) {
-			return false;
-		}
-		if ((info.getFirstName() == null) || (info.getFirstName().equals(""))) {
-			return false;
-		}
-		if ((info.getLastName() == null) || (info.getLastName().equals(""))) {
-			return false;
-		}
-		if ((info.getEmailAddress() == null) || (info.getEmailAddress().equals(""))) {
-			return false;
-		}
-		return true;
-	}
+    /**
+     * @param lastName
+     *            the lastName to set
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	/**
-	 * Add a customer to the internal customer database.
-	 * 
-	 * @param info
-	 */
-	public static synchronized void addCustomer(CustomerInfo info) {
-		if (customers == null) {
-			customers = new HashMap<String, CustomerInfo>();
-		}
-		CustomerInfo customerInfo = new CustomerInfo(info);
-		customers.put(info.getCustomerId(), customerInfo);
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	/**
-	 * Get a customer from the internal customer database.
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public static CustomerInfo getCustomer(String id) {
-		if (customers == null) {
-			return null;
-		}
-		return ((CustomerInfo) customers.get(id));
-	}
+    private boolean passes(CustomerInfo info) {
+        if ((info.getCustomerId() == null) || (info.getCustomerId().equals(""))) {
+            return false;
+        }
+        if ((info.getFirstName() == null) || (info.getFirstName().equals(""))) {
+            return false;
+        }
+        if ((info.getLastName() == null) || (info.getLastName().equals(""))) {
+            return false;
+        }
+        if ((info.getEmailAddress() == null) || (info.getEmailAddress().equals(""))) {
+            return false;
+        }
+        return true;
+    }
 }
