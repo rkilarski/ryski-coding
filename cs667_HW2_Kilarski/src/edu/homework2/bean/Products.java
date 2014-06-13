@@ -1,3 +1,9 @@
+/**
+ryszard kilarski
+met cs 667
+emrys@bu.edu
+bu id: u81-39-8560
+ */
 package edu.homework2.bean;
 
 /**

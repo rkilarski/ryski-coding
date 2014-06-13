@@ -26,10 +26,10 @@ bu id: u81-39-8560
 		<h2>email address: #{customerInfo.emailAddress}</h2>
 		<br />
 		<h:form>
-			<h:commandButton class="btn btn-primary" value="reset"
+			<a class="btn btn-success btn-lg" href="order.jsf">view products</a>&nbsp;
+			<h:commandButton class="btn btn-primary btn-lg" value="reset"
 				action="#{customerInfo.doReset}" />
 		</h:form>
-		<a href="order.jsf">view products</a>
 	</div>
 </h:body>
 </html>

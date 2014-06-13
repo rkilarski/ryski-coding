@@ -24,17 +24,26 @@ bu id: u81-39-8560
 			<h2>#{customerInfo.message}</h2>
 			<br />
 			<label>customer id: #{empty customerInfo.customerId?"*":""}</label>
-			<h:inputText value="#{customerInfo.customerId}" />
+			<h:inputText id="customerId" value="#{customerInfo.customerId}"
+				required="true" requiredMessage="you must enter a customer id" />
+			<h:message for="customerId" styleClass="error" />
 			<br />
 			<label>first name: #{empty customerInfo.firstName?"*":""}</label>
-			<h:inputText value="#{customerInfo.firstName}" />
+			<h:inputText id="firstName" value="#{customerInfo.firstName}"
+				required="true" requiredMessage="you must enter a first name" />
+			<h:message for="firstName" styleClass="error" />
 			<br />
 			<label>last name: #{empty customerInfo.lastName?"*":""}</label>
-			<h:inputText value="#{customerInfo.lastName}" />
+			<h:inputText id="lastName" value="#{customerInfo.lastName}"
+				required="true" requiredMessage="you must enter a last name" />
+			<h:message for="lastName" styleClass="error" />
 			<br />
 			<label>email address: #{empty
 				customerInfo.emailAddress?"*":""}</label>
-			<h:inputText type="email" value="#{customerInfo.emailAddress}" />
+			<h:inputText id="emailAddress" type="email"
+				value="#{customerInfo.emailAddress}" required="true"
+				requiredMessage="you must enter an email address" />
+			<h:message for="emailAddress" styleClass="error" />
 			<br />
 			<h:commandButton class="btn btn-primary" value="register"
 				action="#{customerInfo.doNavigation}" />
