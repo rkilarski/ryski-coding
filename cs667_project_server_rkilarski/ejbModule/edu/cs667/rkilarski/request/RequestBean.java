@@ -20,19 +20,39 @@ public class RequestBean implements Request {
 
 	public void test1() {
 		try {
-			Company company = new Company("Company1", "Company 1", null, null);
-			Employee employee = new Employee("employee1", "One, Employee", null);
-			// company.getEmployees().add(employee);
+			Company company = null;
+			Employee employee = null;
+			Project project = null;
 
+			company = new Company("Company1", "Company 1", null, null);
+
+			// Create an employee, persist, and add to the database.
+			employee = new Employee("employee1", "One, Employee", null);
+			company.getEmployees().add(employee);
+			em.persist(employee);
+
+			// Create an employee, persist, and add to the database.
 			employee = new Employee("employee2", "Two, Employee", null);
-			// company.getEmployees().add(employee);
+			company.getEmployees().add(employee);
+			em.persist(employee);
 
 			Set<Project> projects = new HashSet<Project>();
-			projects.add(new Project("projectA", "Project A", null));
-			projects.add(new Project("projectB", "Project B", null));
-			projects.add(new Project("projectC", "Project C", null));
-			projects.add(new Project("projectD", "Project D", null));
-			// company.setProjects(projects);
+			project = new Project("projectA", "Project A", null);
+			projects.add(project);
+			em.persist(project);
+
+			project = new Project("projectB", "Project B", null);
+			projects.add(project);
+			em.persist(project);
+
+			project = new Project("projectC", "Project C", null);
+			projects.add(project);
+			em.persist(project);
+
+			project = new Project("projectD", "Project D", null);
+			projects.add(project);
+			em.persist(project);
+			company.setProjects(projects);
 
 			outputCompany(company);
 			em.persist(company);
@@ -49,15 +69,21 @@ public class RequestBean implements Request {
 		}
 	}
 
+	// Output a whole company and all its information.
 	private void outputCompany(Company company) {
 		System.out.println("Company: " + company.toString());
-		/*
+
+		System.out.println("\n Company Projects:");
+		for (Project project : company.getProjects()) {
+			System.out.println("  Project: " + project.toString());
+		}
+
+		System.out.println("\n Employees and their projects:");
 		for (Employee employee : company.getEmployees()) {
-			System.out.println(" Employee: " + employee.toString());
+			System.out.println("  Employee: " + employee.toString());
 			for (Project project : employee.getProjects()) {
-				System.out.println("  Projects: " + project.toString());
+				System.out.println("   Projects: " + project.toString());
 			}
 		}
-		*/
 	}
 }
