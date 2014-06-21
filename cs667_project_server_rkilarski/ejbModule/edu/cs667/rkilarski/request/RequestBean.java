@@ -61,7 +61,8 @@ public class RequestBean implements Request {
 			em.persist(project);
 			company.setProjects(projects);
 
-			outputCompany(company);
+			// Look up the company in the database and output it.
+			outputCompany((Company) em.find(Company.class, "Company1"));
 			em.persist(company);
 		} catch (Exception ex) {
 			throw new EJBException(ex);
