@@ -1,10 +1,15 @@
 package edu.cs667.rkilarski.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,9 +20,8 @@ public class Company implements Serializable {
 
 	private String companyId;
 	private String companyName;
-
-	// private Set<Employee> employees;
-	// private Set<Project> projects;
+	private Set<Employee> employees;
+	private Set<Project> projects;
 
 	public String toString() {
 		return "id: " + this.companyId + " name: " + this.companyName;
@@ -29,8 +33,8 @@ public class Company implements Serializable {
 	public Company(String companyId, String companyName, Set<Employee> employees, Set<Project> projects) {
 		this.companyId = companyId;
 		this.companyName = companyName;
-		// this.employees = employees;
-		// this.projects = projects;
+		this.employees = employees;
+		this.projects = projects;
 	}
 
 	@Id
@@ -42,23 +46,28 @@ public class Company implements Serializable {
 		return companyName;
 	}
 
-	/*
-	@OneToMany(cascade = ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "RKILARSKI_JOIN_COMPANY_EMPLOYEE")
 	public Set<Employee> getEmployees() {
-	    if (employees == null) {
-	        return new HashSet<Employee>();
-	    }
-	    return employees;
+		if (employees == null) {
+			employees = new HashSet<Employee>();
+		}
+		return employees;
 	}
 
-	@OneToMany(cascade = ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "RKILARSKI_JOIN_COMPANY_PROJECT")
 	public Set<Project> getProjects() {
-	    if (projects == null) {
-	        return new HashSet<Project>();
-	    }
-	    return projects;
+		if (projects == null) {
+			projects = new HashSet<Project>();
+		}
+		return projects;
 	}
-	*/
+
+	public void setProjects(Set<Project> projects) {
+		this.projects = projects;
+	}
+
 	public void setCompanyId(String companyId) {
 		this.companyId = companyId;
 	}
@@ -67,13 +76,7 @@ public class Company implements Serializable {
 		this.companyName = companyName;
 	}
 
-	/*
 	public void setEmployees(Set<Employee> employees) {
-	    this.employees = employees;
+		this.employees = employees;
 	}
-
-	public void setProjects(Set<Project> projects) {
-	    this.projects = projects;
-	}
-	*/
 }

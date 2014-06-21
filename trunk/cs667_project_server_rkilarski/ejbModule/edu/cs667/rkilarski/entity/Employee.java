@@ -5,13 +5,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
-//@Entity
-//@Table(name = "RKILARSKI_EMPLOYEE")
+@Entity
+@Table(name = "RKILARSKI_EMPLOYEE")
 public class Employee implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -42,11 +44,11 @@ public class Employee implements Serializable {
 		return fullName;
 	}
 
-	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
-	@JoinTable(name = "RKILARSKI_EMPLOYEE_PROJECT")
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "RKILARSKI_JOIN_EMPLOYEE_PROJECT")
 	public Set<Project> getProjects() {
 		if (projects == null) {
-			return new HashSet<Project>();
+			projects = new HashSet<Project>();
 		}
 		return projects;
 	}
