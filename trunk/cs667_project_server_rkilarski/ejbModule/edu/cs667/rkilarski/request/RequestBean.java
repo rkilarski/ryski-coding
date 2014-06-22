@@ -18,6 +18,9 @@ public class RequestBean implements Request {
 	@PersistenceContext(unitName = "companyDB")
 	private EntityManager em;
 
+	public RequestBean() {
+	}
+
 	/*
 	Create the Company, two employees, and four projects. 
 	Add the employees to the Company as each employee is being created. 
@@ -27,6 +30,7 @@ public class RequestBean implements Request {
 	*/
 	public void test1() {
 		try {
+			System.out.println("test1() run start -------------------");
 			Company company = null;
 			Employee employee = null;
 			Project project = null;
@@ -59,11 +63,13 @@ public class RequestBean implements Request {
 			project = new Project("projectD", "Project D", null);
 			projects.add(project);
 			em.persist(project);
+
 			company.setProjects(projects);
+			em.persist(company);
 
 			// Look up the company in the database and output it.
 			outputCompany((Company) em.find(Company.class, "Company1"));
-			em.persist(company);
+			System.out.println("test1() run end -------------------");
 		} catch (Exception ex) {
 			throw new EJBException(ex);
 		}
@@ -77,6 +83,7 @@ public class RequestBean implements Request {
 	*/
 	public void test2() {
 		try {
+			System.out.println("\n\ntest2() run start -------------------");
 			Employee employee = null;
 			// Link employee 1 to projects A, B, and C.
 			employee = (Employee) em.find(Employee.class, "employee1");
@@ -91,43 +98,81 @@ public class RequestBean implements Request {
 			employee.getProjects().add((Project) em.find(Project.class, "projectC"));
 			employee.getProjects().add((Project) em.find(Project.class, "projectD"));
 			em.persist(employee);
+			em.flush();
 
 			// Output all the project info from the database.
 			outputProject((Project) em.find(Project.class, "projectA"));
 			outputProject((Project) em.find(Project.class, "projectB"));
 			outputProject((Project) em.find(Project.class, "projectC"));
 			outputProject((Project) em.find(Project.class, "projectD"));
+			System.out.println("test2() run end -------------------");
 		} catch (Exception ex) {
 			throw new EJBException(ex);
 		}
 	}
 
+	// Print out only what's in the database.
+	public void test3() {
+		System.out.println("-----Company-----");
+		outputCompany((Company) em.find(Company.class, "Company1"));
+
+		System.out.println("\n\n-----Project A-----");
+		outputProject((Project) em.find(Project.class, "projectA"));
+
+		System.out.println("\n-----Project B-----");
+		outputProject((Project) em.find(Project.class, "projectB"));
+
+		System.out.println("\n-----Project C-----");
+		outputProject((Project) em.find(Project.class, "projectC"));
+
+		System.out.println("\n-----Project D-----");
+		outputProject((Project) em.find(Project.class, "projectD"));
+	}
+
 	// Output a whole company and all its information.
 	private void outputCompany(Company company) {
-		System.out.println("Company: " + company.toString());
+		if (company == null) {
+			System.out.println("Company is null!");
+			return;
+		}
+		System.out.println("Company " + company.toString());
 
-		System.out.println("\n Company Projects:");
+		System.out.println("\n\n Company Projects:");
+		System.out.println(" # of projects: " + company.getProjects().size());
 		for (Project project : company.getProjects()) {
-			System.out.println("  Project: " + project.toString());
+			System.out.println("  Project " + project.toString());
 		}
 
-		System.out.println("\n Employees and their projects:");
+		System.out.println("\n\n Employees and their projects:");
+		System.out.println("  # of employees: " + company.getEmployees().size());
 		for (Employee employee : company.getEmployees()) {
 			outputEmployee(employee);
 		}
 	}
 
+	// Output the employee and related projects.
 	private void outputEmployee(Employee employee) {
-		System.out.println("  Employee: " + employee.toString());
+		if (employee == null) {
+			System.out.println("Employee is null!");
+			return;
+		}
+		System.out.println("   Employee " + employee.toString());
+		System.out.println("   # of projects: " + employee.getProjects().size());
 		for (Project project : employee.getProjects()) {
-			System.out.println("   Projects: " + project.toString());
+			System.out.println("    Project " + project.toString());
 		}
 	}
 
+	// Output the project and related employees.
 	private void outputProject(Project project) {
-		System.out.println("\n Project:" + project.toString());
+		if (project == null) {
+			System.out.println("Project is null!");
+			return;
+		}
+		System.out.println(" Project " + project.toString());
+		System.out.println(" # of employees: " + project.getEmployees().size());
 		for (Employee employee : project.getEmployees()) {
-			System.out.println("  Employee: " + employee.toString());
+			System.out.println("  Employee " + employee.toString());
 		}
 	}
 }
