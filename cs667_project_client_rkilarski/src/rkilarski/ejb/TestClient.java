@@ -14,6 +14,7 @@ public class TestClient {
 		request = doLookup();
 		request.test1();
 		request.test2();
+		request.test3();
 	}
 
 	private static Request doLookup() {
