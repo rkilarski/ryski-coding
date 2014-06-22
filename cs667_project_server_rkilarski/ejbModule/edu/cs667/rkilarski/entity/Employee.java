@@ -46,6 +46,8 @@ public class Employee implements Serializable {
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "RKILARSKI_JOIN_EMPLOYEE_PROJECT")
+	// , joinColumns = @JoinColumn(name = "EMPLOYEEID"), inverseJoinColumns = @JoinColumn(name =
+	// "PROJECTID"))
 	public Set<Project> getProjects() {
 		if (projects == null) {
 			projects = new HashSet<Project>();

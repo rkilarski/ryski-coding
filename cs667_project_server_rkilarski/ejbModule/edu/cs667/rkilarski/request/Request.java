@@ -8,6 +8,7 @@ public interface Request {
 
 	void test2();
 
+	void test3();
 	/*
 	void createCompany(Company company);
 
