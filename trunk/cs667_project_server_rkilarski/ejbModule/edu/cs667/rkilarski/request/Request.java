@@ -2,42 +2,47 @@ package edu.cs667.rkilarski.request;
 
 import javax.ejb.Remote;
 
+import edu.cs667.rkilarski.entity.Company;
+
 @Remote
 public interface Request {
-	void test1();
+    void test1();
 
-	void test2();
+    void test2();
 
-	void test3();
-	/*
-	void createCompany(Company company);
+    void test3();
 
-	void createEmployee(String id, String name);
+    Company getCompany(String companyId);
 
-	void createProject(Project project);
+    /*
+    void createCompany(Company company);
 
-	void addEmployeeToProject(String employeeId, String projectId);
+    void createEmployee(String id, String name);
 
-	void addEmployeeToCompany(String employeeId, String projectId);
+    void createProject(Project project);
 
-	void createProjectInCompany(Project project, String companyId);
+    void addEmployeeToProject(String employeeId, String projectId);
 
-	void dropEmployee(String employeeId, String projectId);
+    void addEmployeeToCompany(String employeeId, String projectId);
 
-	List<Employee> getAllEmployees();
+    void createProjectInCompany(Project project, String companyId);
 
-	Company getCompany(String companyId);
+    void dropEmployee(String employeeId, String projectId);
 
-	Employee getEmployee(String employeeId);
+    List<Employee> getAllEmployees();
 
-	Project getProject(String projectId);
+    Company getCompany(String companyId);
 
-	List<Project> getProjectsOfCompany(String companyId);
+    Employee getEmployee(String employeeId);
 
-	void removeCompany(String companyId);
+    Project getProject(String projectId);
 
-	void removeEmployee(String employeeId);
+    List<Project> getProjectsOfCompany(String companyId);
 
-	void removeProject(String projectId);
-	*/
+    void removeCompany(String companyId);
+
+    void removeEmployee(String employeeId);
+
+    void removeProject(String projectId);
+    */
 }
