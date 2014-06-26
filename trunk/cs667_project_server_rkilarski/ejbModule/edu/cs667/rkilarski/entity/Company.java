@@ -1,3 +1,9 @@
+/**
+ryszard kilarski
+met cs 667
+emrys@bu.edu
+bu id: u81-39-8560
+ */
 package edu.cs667.rkilarski.entity;
 
 import java.io.Serializable;
@@ -9,11 +15,19 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "RKILARSKI_COMPANY")
+@NamedQueries({
+		@NamedQuery(name = "edu.cs667.rkilarski.entity.Company.findAllCompanies", query = "SELECT c FROM Company c"),
+		@NamedQuery(name = "edu.cs667.rkilarski.entity.Project.findAllProjects", query = "SELECT p FROM Project p"),
+		@NamedQuery(name = "edu.cs667.rkilarski.entity.Project.findAllEmployeesForProject", query = "SELECT e FROM Employee e, IN (e.projects) p WHERE p.projectCode = :projectCode"),
+		@NamedQuery(name = "edu.cs667.rkilarski.entity.Employee.findAllEmployees", query = "SELECT e FROM Employee e"),
+		@NamedQuery(name = "edu.cs667.rkilarski.entity.Project.findAllProjectsForEmployee", query = "SELECT p FROM Project p, IN (p.employees) e WHERE e.employeeId = :employeeId") })
 public class Company implements Serializable {
 
 	private static final long serialVersionUID = 1L;
