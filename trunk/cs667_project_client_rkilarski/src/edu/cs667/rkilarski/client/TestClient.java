@@ -1,4 +1,10 @@
-package rkilarski.ejb;
+/**
+ryszard kilarski
+met cs 667
+emrys@bu.edu
+bu id: u81-39-8560
+ */
+package edu.cs667.rkilarski.client;
 
 import javax.naming.Context;
 import javax.naming.NamingException;

@@ -1,4 +1,4 @@
-package rkilarski.ejb;
+package edu.cs667.rkilarski.client;
 
 import java.util.Properties;
 
