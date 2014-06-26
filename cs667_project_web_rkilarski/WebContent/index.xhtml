@@ -19,7 +19,10 @@ bu id: u81-39-8560
 <h:body>
 	<ui:include src="signature.html" />
 	<div id="container">
-		<a href="company.jsf" target="_jsp">project solution</a>
+		<h:form>
+			<h:commandButton class="btn btn-primary btn-lg"
+				value="project solution" action="#{managerBean.doInitialNavigation}" />
+		</h:form>
 	</div>
 </h:body>
 </html>
