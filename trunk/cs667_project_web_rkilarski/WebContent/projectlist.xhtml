@@ -8,7 +8,8 @@ bu id: u81-39-8560
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.css"
@@ -19,8 +20,21 @@ bu id: u81-39-8560
 <h:body>
 	<ui:include src="signature.html" />
 	<div id="container">
-
-
+		<ui:repeat var="project" value="#{managerBean.projects}">
+			<h:dataTable class="table table-striped table-hover table-bordered"
+				var="employee"
+				value="#{managerBean.getEmployeesInProject(project.projectCode)}">
+				<f:facet name="caption">employees on #{project.projectName}</f:facet>
+				<h:column>
+					#{employee.fullName}
+				</h:column>
+			</h:dataTable>
+		</ui:repeat>
+		<h:form>
+			<h:commandButton class="btn btn-primary btn-lg"
+				value="back to main page"
+				action="#{managerBean.doInitialNavigation}" />
+		</h:form>
 	</div>
 </h:body>
 </html>
