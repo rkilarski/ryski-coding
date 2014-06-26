@@ -1,48 +1,40 @@
+/**
+ryszard kilarski
+met cs 667
+emrys@bu.edu
+bu id: u81-39-8560
+ */
 package edu.cs667.rkilarski.request;
+
+import java.util.List;
 
 import javax.ejb.Remote;
 
 import edu.cs667.rkilarski.entity.Company;
+import edu.cs667.rkilarski.entity.Employee;
+import edu.cs667.rkilarski.entity.Project;
 
 @Remote
 public interface Request {
-    void test1();
+	List<Company> getAllCompanies();
 
-    void test2();
+	List<Project> getAllProjects(String companyId);
 
-    void test3();
+	Company getCompany(String companyId);
 
-    Company getCompany(String companyId);
+	Employee getEmployee(String employeeId);
 
-    /*
-    void createCompany(Company company);
+	List<Employee> getEmployees(String companyId);
 
-    void createEmployee(String id, String name);
+	List<Employee> getEmployeesInProject(String projectCode);
 
-    void createProject(Project project);
+	List<Project> getProjectsForEmployee(String employeeId);
 
-    void addEmployeeToProject(String employeeId, String projectId);
+	void test1();
 
-    void addEmployeeToCompany(String employeeId, String projectId);
+	void test2();
 
-    void createProjectInCompany(Project project, String companyId);
+	void test3();
 
-    void dropEmployee(String employeeId, String projectId);
-
-    List<Employee> getAllEmployees();
-
-    Company getCompany(String companyId);
-
-    Employee getEmployee(String employeeId);
-
-    Project getProject(String projectId);
-
-    List<Project> getProjectsOfCompany(String companyId);
-
-    void removeCompany(String companyId);
-
-    void removeEmployee(String employeeId);
-
-    void removeProject(String projectId);
-    */
+	void updateEmployee(String employeeId, Employee employee);
 }
