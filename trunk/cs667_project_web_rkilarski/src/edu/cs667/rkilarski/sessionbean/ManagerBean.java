@@ -6,6 +6,8 @@ bu id: u81-39-8560
  */
 package edu.cs667.rkilarski.sessionbean;
 
+import java.io.Serializable;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -15,40 +17,51 @@ import edu.cs667.rkilarski.request.Request;
 
 @ManagedBean
 @SessionScoped
-public class ManagerBean {
+public class ManagerBean implements Serializable {
 
-    @EJB
-    Request bean;
+	private static final long serialVersionUID = 1L;
 
-    private static Company company = null;
+	@EJB
+	Request bean;
 
-    public ManagerBean() {
-    }
+	private static Company company = null;
 
-    public ManagerBean(Company info) {
-        ManagerBean.company = bean.getCompany("Company1");
-    }
+	public ManagerBean() {
+		System.out.println("Constructor for ManagerBean");
+	}
 
-    public String getCompanyName() {
-        return company.getCompanyName();
-    }
+	public ManagerBean(ManagerBean bean) {
+		System.out.println("Constructor for ManagerBean(bean)");
+	}
 
-    public String getCompanyId() {
-        return company.getCompanyId();
-    }
+	public String getCompanyName() {
+		System.out.println("getCompanyName()");
+		return ((Company) bean.getCompany("Company1")).getCompanyName();
+		// return company.getCompanyName();
+	}
 
-    public String doProjectNavigation() {
-        String address = "projectlist.jsf";
-        return address;
-    }
+	public String getCompanyId() {
+		System.out.println("getCompanyId()");
+		return company.getCompanyId();
+	}
 
-    public String doEmployeeNavigation() {
-        String address = "employeelist.jsf";
-        return address;
-    }
-    
-    public String doUpdateEmployee(){
-       return "employeelist.jsf";
-    }
-    
+	public String doInitialNavigation() {
+		String address = "company.jsf";
+		return address;
+	}
+
+	public String doProjectNavigation() {
+		String address = "projectlist.jsf";
+		return address;
+	}
+
+	public String doEmployeeNavigation() {
+		String address = "employeelist.jsf";
+		return address;
+	}
+
+	public String doUpdateEmployee() {
+		return "employeelist.jsf";
+	}
+
 }

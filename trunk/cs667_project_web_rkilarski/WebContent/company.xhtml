@@ -19,14 +19,16 @@ bu id: u81-39-8560
 <h:body>
 	<ui:include src="signature.html" />
 	<div id="container">
-		<h1>company information</h1>
-		<h2>company id: #{managerBean.companyId}</h2>
-		<h2>company name: #{managerBean.companyName}</h2>
-		<br />
-		<h:commandButton class="btn btn-primary btn-lg" value="project list"
-			action="#{managerBean.doProjectNavigation}" />
+		<h:form>
+			<h1>company information</h1>
+			<h3>company id: #{managerBean.companyId}</h3>
+			<h3>company name: #{managerBean.companyName}</h3>
+			<br />
+			<h:commandButton class="btn btn-primary btn-lg" value="project list"
+				action="#{managerBean.doProjectNavigation}" />&nbsp;
 		<h:commandButton class="btn btn-primary btn-lg" value="employee list"
-			action="#{managerBean.doEmployeeNavigation}" />
+				action="#{managerBean.doEmployeeNavigation}" />
+		</h:form>
 	</div>
 </h:body>
 </html>
