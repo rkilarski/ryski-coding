@@ -16,11 +16,14 @@ public class TestClient {
 
 	private static Request request;
 
+	// This method creates several entries in the database.
 	public static void main(String[] args) {
 		request = doLookup();
 		request.test1();
 		request.test2();
 		request.test3();
+		request.test4();
+		request.test5();
 	}
 
 	private static Request doLookup() {

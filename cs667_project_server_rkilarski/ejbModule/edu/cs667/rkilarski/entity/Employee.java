@@ -31,10 +31,6 @@ public class Employee implements Serializable {
 	public Employee() {
 	}
 
-	public String toString() {
-		return "id: " + this.employeeId + " name: " + this.fullName;
-	}
-
 	public Employee(String employeeId, String fullName, Set<Project> projects) {
 		this.employeeId = employeeId;
 		this.fullName = fullName;
@@ -71,5 +67,9 @@ public class Employee implements Serializable {
 
 	public void setProjects(Set<Project> projects) {
 		this.projects = projects;
+	}
+
+	public String toString() {
+		return "id: " + this.employeeId + " name: " + this.fullName;
 	}
 }
