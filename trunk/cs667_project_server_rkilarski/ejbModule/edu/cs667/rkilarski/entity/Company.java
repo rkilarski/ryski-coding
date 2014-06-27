@@ -24,22 +24,17 @@ import javax.persistence.Table;
 @Table(name = "RKILARSKI_COMPANY")
 @NamedQueries({
 		@NamedQuery(name = "edu.cs667.rkilarski.entity.Company.findAllCompanies", query = "SELECT c FROM Company c"),
-		@NamedQuery(name = "edu.cs667.rkilarski.entity.Project.findAllProjects", query = "SELECT p FROM Project p"),
+		@NamedQuery(name = "edu.cs667.rkilarski.entity.Project.findAllProjects", query = "SELECT c.projects FROM Company c WHERE c.companyId=:companyId"),
 		@NamedQuery(name = "edu.cs667.rkilarski.entity.Project.findAllEmployeesForProject", query = "SELECT e FROM Employee e, IN (e.projects) p WHERE p.projectCode = :projectCode"),
-		@NamedQuery(name = "edu.cs667.rkilarski.entity.Employee.findAllEmployees", query = "SELECT e FROM Employee e WHERE e.employeeId IN (SELECT e2.employeeId FROM Company c WHERE c.companyId=:companyId)"),
+		@NamedQuery(name = "edu.cs667.rkilarski.entity.Employee.findAllEmployees", query = "SELECT c.employees FROM Company c WHERE c.companyId=:companyId"),
 		@NamedQuery(name = "edu.cs667.rkilarski.entity.Project.findAllProjectsForEmployee", query = "SELECT p FROM Project p, IN (p.employees) e WHERE e.employeeId = :employeeId") })
 public class Company implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
 	private String companyId;
 	private String companyName;
 	private Set<Employee> employees;
 	private Set<Project> projects;
-
-	public String toString() {
-		return "id: " + this.companyId + " name: " + this.companyName;
-	}
 
 	public Company() {
 	}
@@ -78,10 +73,6 @@ public class Company implements Serializable {
 		return projects;
 	}
 
-	public void setProjects(Set<Project> projects) {
-		this.projects = projects;
-	}
-
 	public void setCompanyId(String companyId) {
 		this.companyId = companyId;
 	}
@@ -92,5 +83,13 @@ public class Company implements Serializable {
 
 	public void setEmployees(Set<Employee> employees) {
 		this.employees = employees;
+	}
+
+	public void setProjects(Set<Project> projects) {
+		this.projects = projects;
+	}
+
+	public String toString() {
+		return "id: " + this.companyId + " name: " + this.companyName;
 	}
 }

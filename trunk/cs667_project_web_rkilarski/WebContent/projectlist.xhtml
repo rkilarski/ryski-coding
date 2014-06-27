@@ -20,6 +20,10 @@ bu id: u81-39-8560
 <h:body>
 	<ui:include src="signature.html" />
 	<div id="container">
+		<h3>
+			projects for
+			<h:outputText value="#{managerBean.companyName}" />
+		</h3>
 		<ui:repeat var="project" value="#{managerBean.projects}">
 			<h:dataTable class="table table-striped table-hover table-bordered"
 				var="employee"

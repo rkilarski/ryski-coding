@@ -28,6 +28,9 @@ public class RequestBean implements Request {
 	public RequestBean() {
 	}
 
+	/**
+	 * Return list of all companies
+	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Company> getAllCompanies() {
@@ -42,13 +45,16 @@ public class RequestBean implements Request {
 		}
 	}
 
+	/**
+	 * Return list of all projects in a company.
+	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Project> getAllProjects(String companyId) {
 		List<Project> list = null;
 		try {
 			list =
-					(List<Project>) em.createNamedQuery("edu.cs667.rkilarski.entity.Project.findAllProjects").getResultList();
+					(List<Project>) em.createNamedQuery("edu.cs667.rkilarski.entity.Project.findAllProjects").setParameter("companyId", companyId).getResultList();
 
 			return list;
 		} catch (Exception ex) {
@@ -56,6 +62,9 @@ public class RequestBean implements Request {
 		}
 	}
 
+	/**
+	 * Get a company given its id.
+	 */
 	@Override
 	public Company getCompany(String companyId) {
 		Company company = null;
@@ -68,6 +77,9 @@ public class RequestBean implements Request {
 		return company;
 	}
 
+	/**
+	 * Get an employee given its id.
+	 */
 	@Override
 	public Employee getEmployee(String employeeId) {
 		Employee item = null;
@@ -79,13 +91,16 @@ public class RequestBean implements Request {
 		return item;
 	}
 
+	/**
+	 * Get the list of employees given a company id.
+	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Employee> getEmployees(String companyId) {
 		List<Employee> list = null;
 		try {
 			list =
-					(List<Employee>) em.createNamedQuery("edu.cs667.rkilarski.entity.Employee.findAllEmployees").setParameter("companyId",companyId).getResultList();
+					(List<Employee>) em.createNamedQuery("edu.cs667.rkilarski.entity.Employee.findAllEmployees").setParameter("companyId", companyId).getResultList();
 
 		} catch (Exception ex) {
 			throw new EJBException(ex);
@@ -93,6 +108,9 @@ public class RequestBean implements Request {
 		return list;
 	}
 
+	/**
+	 * Get a list of employees given a project id.
+	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Employee> getEmployeesInProject(String projectCode) {
@@ -107,6 +125,11 @@ public class RequestBean implements Request {
 		return list;
 	}
 
+	/**
+	 * Get a list of projects given an employee id.
+	 * @param employeeId
+	 * @return
+	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Project> getProjectsForEmployee(String employeeId) {
@@ -121,13 +144,15 @@ public class RequestBean implements Request {
 		}
 	}
 
-	/*
-	Create the Company, two employees, and four projects. 
-	Add the employees to the Company as each employee is being created. 
-	For the projects, use setProjects to add all of them at one time. 
-	Invoke the company's methods getEmployees and getProjects, 
-	iterate over the collections, and print them to the console.	 
-	*/
+	/**
+	 * Create test data.
+	 * Create the Company, two employees, and four projects. 
+	 * Add the employees to the Company as each employee is being created. 
+	 * For the projects, use setProjects to add all of them at one time. 
+	 * Invoke the company's methods getEmployees and getProjects, 
+	 * iterate over the collections, and print them to the console.	 
+	 */
+	@Override
 	public void test1() {
 		try {
 			System.out.println("test1() run start -------------------");
@@ -135,32 +160,32 @@ public class RequestBean implements Request {
 			Employee employee = null;
 			Project project = null;
 
-			company = new Company("Company1", "Company 1", null, null);
+			company = new Company("company1", "Microshot", null, null);
 
 			// Create an employee, persist, and add to the database.
-			employee = new Employee("employee1", "One, Employee", null);
+			employee = new Employee("employee1", "Fates, Will", null);
 			company.getEmployees().add(employee);
 			em.persist(employee);
 
 			// Create an employee, persist, and add to the database.
-			employee = new Employee("employee2", "Two, Employee", null);
+			employee = new Employee("employee2", "Fallon, Gaul", null);
 			company.getEmployees().add(employee);
 			em.persist(employee);
 
 			Set<Project> projects = new HashSet<Project>();
-			project = new Project("projectA", "Project A", null);
+			project = new Project("projecta", "TRES", null);
 			projects.add(project);
 			em.persist(project);
 
-			project = new Project("projectB", "Project B", null);
+			project = new Project("projectb", "Skylight", null);
 			projects.add(project);
 			em.persist(project);
 
-			project = new Project("projectC", "Project C", null);
+			project = new Project("projectc", "YTriangle", null);
 			projects.add(project);
 			em.persist(project);
 
-			project = new Project("projectD", "Project D", null);
+			project = new Project("projectd", "Factory", null);
 			projects.add(project);
 			em.persist(project);
 
@@ -176,63 +201,150 @@ public class RequestBean implements Request {
 		}
 	}
 
-	/*
-	Using the first employee object, add the first three projects to the first employee. 
-	Using the second employee object, add the last three projects to the second employee. 
-	Invoke the getEmployees method on each of the four projects, 
-	iterate over the resulting collection, and print them to the console.
-	*/
+	/**
+	 * Link test data from 1 to more data.
+	 * Using the first employee object, add the first three projects to the first employee. 
+	 * Using the second employee object, add the last three projects to the second employee. 
+	 * Invoke the getEmployees method on each of the four projects, 
+	 * iterate over the resulting collection, and print them to the console.
+	 */
+	@Override
 	public void test2() {
 		try {
 			System.out.println("\n\ntest2() run start -------------------");
 			Employee employee = null;
 			// Link employee 1 to projects A, B, and C.
 			employee = (Employee) em.find(Employee.class, "employee1");
-			employee.getProjects().add((Project) em.find(Project.class, "projectA"));
-			employee.getProjects().add((Project) em.find(Project.class, "projectB"));
-			employee.getProjects().add((Project) em.find(Project.class, "projectC"));
+			employee.getProjects().add((Project) em.find(Project.class, "projecta"));
+			employee.getProjects().add((Project) em.find(Project.class, "projectb"));
+			employee.getProjects().add((Project) em.find(Project.class, "projectc"));
 			em.persist(employee);
 
 			// Link employee 2 to projects B, C, and D.
 			employee = (Employee) em.find(Employee.class, "employee2");
-			employee.getProjects().add((Project) em.find(Project.class, "projectB"));
-			employee.getProjects().add((Project) em.find(Project.class, "projectC"));
-			employee.getProjects().add((Project) em.find(Project.class, "projectD"));
+			employee.getProjects().add((Project) em.find(Project.class, "projectb"));
+			employee.getProjects().add((Project) em.find(Project.class, "projectc"));
+			employee.getProjects().add((Project) em.find(Project.class, "projectd"));
 			em.persist(employee);
-			em.flush();
 
 			// Output all the project info from the database.
-			// System.out.println("These are the four projects. Note they are empty will not print anything because we are still in an open transaction.");
-			outputProject((Project) em.find(Project.class, "projectA"));
-			outputProject((Project) em.find(Project.class, "projectB"));
-			outputProject((Project) em.find(Project.class, "projectC"));
-			outputProject((Project) em.find(Project.class, "projectD"));
+			outputProject((Project) em.find(Project.class, "projecta"));
+			outputProject((Project) em.find(Project.class, "projectb"));
+			outputProject((Project) em.find(Project.class, "projectc"));
+			outputProject((Project) em.find(Project.class, "projectd"));
+
 			System.out.println("test2() run end -------------------");
 		} catch (Exception ex) {
 			throw new EJBException(ex);
 		}
 	}
 
-	// Print out only what's in the database.
+	/**
+	 * Print data that was filed in test1() and test2()
+	 */
+	@Override
 	public void test3() {
+		System.out.println("\n\ntest3() run start -------------------");
 		System.out.println("--Load from the database and print out all the information for the company and projects--");
 
 		System.out.println("-----Company-----");
-		outputCompany((Company) em.find(Company.class, "Company1"));
+		outputCompany((Company) em.find(Company.class, "company1"));
 
 		System.out.println("\n\n-----Project A-----");
-		outputProject((Project) em.find(Project.class, "projectA"));
+		outputProject((Project) em.find(Project.class, "projecta"));
 
 		System.out.println("\n-----Project B-----");
-		outputProject((Project) em.find(Project.class, "projectB"));
+		outputProject((Project) em.find(Project.class, "projectb"));
 
 		System.out.println("\n-----Project C-----");
-		outputProject((Project) em.find(Project.class, "projectC"));
+		outputProject((Project) em.find(Project.class, "projectc"));
 
 		System.out.println("\n-----Project D-----");
-		outputProject((Project) em.find(Project.class, "projectD"));
+		outputProject((Project) em.find(Project.class, "projectd"));
+		System.out.println("test3() run end -------------------");
 	}
 
+	/**
+	 * Create additional test data.
+	 */
+	@Override
+	public void test4() {
+		try {
+			System.out.println("test4() run start -------------------");
+			System.out.println("test4() adds more data to the database, but will not print out the data.");
+			Company company = null;
+			Employee employee = null;
+			Project project = null;
+
+			company = new Company("company2", "Strawberry", null, null);
+
+			// Create an employee, persist, and add to the database.
+			employee = new Employee("employee3", "Funs, Frank", null);
+			company.getEmployees().add(employee);
+			em.persist(employee);
+
+			// Create an employee, persist, and add to the database.
+			employee = new Employee("employee4", "Wiznoyak, Frank", null);
+			company.getEmployees().add(employee);
+			em.persist(employee);
+
+			Set<Project> projects = new HashSet<Project>();
+			project = new Project("projecte", "uFresh", null);
+			projects.add(project);
+			em.persist(project);
+
+			project = new Project("projectf", "uFreshAir", null);
+			projects.add(project);
+			em.persist(project);
+
+			project = new Project("projectg", "uTelegraph", null);
+			projects.add(project);
+			em.persist(project);
+
+			project = new Project("projecth", "uRadio", null);
+			projects.add(project);
+			em.persist(project);
+
+			company.setProjects(projects);
+			em.persist(company);
+			System.out.println("test4() run end -------------------");
+		} catch (Exception ex) {
+			throw new EJBException(ex);
+		}
+	}
+
+	/**
+	 * Link test data from 4 to more data.
+	 */
+	@Override
+	public void test5() {
+		try {
+			System.out.println("\n\ntest5() run start -------------------");
+			System.out.println("test5() adds more data to the database, but will not print out the data.");
+
+			Employee employee = null;
+			// Link employee 1 to projects A, B, and C.
+			employee = (Employee) em.find(Employee.class, "employee3");
+			employee.getProjects().add((Project) em.find(Project.class, "projecte"));
+			employee.getProjects().add((Project) em.find(Project.class, "projectf"));
+			employee.getProjects().add((Project) em.find(Project.class, "projectg"));
+			em.persist(employee);
+
+			// Link employee 2 to projects B, C, and D.
+			employee = (Employee) em.find(Employee.class, "employee4");
+			employee.getProjects().add((Project) em.find(Project.class, "projectf"));
+			employee.getProjects().add((Project) em.find(Project.class, "projectg"));
+			employee.getProjects().add((Project) em.find(Project.class, "projecth"));
+			em.persist(employee);
+			System.out.println("test5() run end -------------------");
+		} catch (Exception ex) {
+			throw new EJBException(ex);
+		}
+	}
+
+	/**
+	 * Given an employee id and employee data, update that employee in the database.
+	 */
 	@Override
 	public void updateEmployee(String employeeId, Employee employee) {
 		Employee item = null;
@@ -245,7 +357,9 @@ public class RequestBean implements Request {
 		}
 	}
 
-	// Output a whole company and all its information.
+	/**
+	 * Output a whole company and all its information.
+	 */
 	private void outputCompany(Company company) {
 		if (company == null) {
 			System.out.println("Company is null!");
@@ -266,7 +380,9 @@ public class RequestBean implements Request {
 		}
 	}
 
-	// Output the employee and related projects.
+	/**
+	 * Output the employee and related projects.
+	 */
 	private void outputEmployee(Employee employee) {
 		if (employee == null) {
 			System.out.println("Employee is null!");
@@ -279,7 +395,9 @@ public class RequestBean implements Request {
 		}
 	}
 
-	// Output the project and related employees.
+	/**
+	 * Output the project and related employees.
+	 */
 	private void outputProject(Project project) {
 		if (project == null) {
 			System.out.println("Project is null!");
@@ -291,5 +409,4 @@ public class RequestBean implements Request {
 			System.out.println("  Employee " + employee.toString());
 		}
 	}
-
 }

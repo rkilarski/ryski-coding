@@ -30,10 +30,6 @@ public class Project implements Serializable {
 	public Project() {
 	}
 
-	public String toString() {
-		return "id: " + this.projectCode + " name: " + this.projectName;
-	}
-
 	public Project(String projectCode, String projectName, Set<Employee> employees) {
 		this.projectCode = projectCode;
 		this.projectName = projectName;
@@ -67,5 +63,9 @@ public class Project implements Serializable {
 
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
+	}
+
+	public String toString() {
+		return "id: " + this.projectCode + " name: " + this.projectName;
 	}
 }
