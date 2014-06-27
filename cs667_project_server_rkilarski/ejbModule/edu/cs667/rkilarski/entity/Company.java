@@ -26,7 +26,7 @@ import javax.persistence.Table;
 		@NamedQuery(name = "edu.cs667.rkilarski.entity.Company.findAllCompanies", query = "SELECT c FROM Company c"),
 		@NamedQuery(name = "edu.cs667.rkilarski.entity.Project.findAllProjects", query = "SELECT p FROM Project p"),
 		@NamedQuery(name = "edu.cs667.rkilarski.entity.Project.findAllEmployeesForProject", query = "SELECT e FROM Employee e, IN (e.projects) p WHERE p.projectCode = :projectCode"),
-		@NamedQuery(name = "edu.cs667.rkilarski.entity.Employee.findAllEmployees", query = "SELECT e FROM Employee e"),
+		@NamedQuery(name = "edu.cs667.rkilarski.entity.Employee.findAllEmployees", query = "SELECT e FROM Employee e WHERE e.employeeId IN (SELECT e2.employeeId FROM Company c WHERE c.companyId=:companyId)"),
 		@NamedQuery(name = "edu.cs667.rkilarski.entity.Project.findAllProjectsForEmployee", query = "SELECT p FROM Project p, IN (p.employees) e WHERE e.employeeId = :employeeId") })
 public class Company implements Serializable {
 

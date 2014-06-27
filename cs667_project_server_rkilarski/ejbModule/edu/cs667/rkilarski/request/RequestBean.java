@@ -84,11 +84,8 @@ public class RequestBean implements Request {
 	public List<Employee> getEmployees(String companyId) {
 		List<Employee> list = null;
 		try {
-			// list =(List<Employee>)
-			// em.createNamedQuery("edu.cs667.rkilarski.entity.Employee.findAllEmployees").setParameter("companyId",
-			// companyId).getResultList();
 			list =
-					(List<Employee>) em.createNamedQuery("edu.cs667.rkilarski.entity.Employee.findAllEmployees").getResultList();
+					(List<Employee>) em.createNamedQuery("edu.cs667.rkilarski.entity.Employee.findAllEmployees").setParameter("companyId",companyId).getResultList();
 
 		} catch (Exception ex) {
 			throw new EJBException(ex);
