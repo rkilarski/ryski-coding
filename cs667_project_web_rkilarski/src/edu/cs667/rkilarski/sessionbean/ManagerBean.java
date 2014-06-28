@@ -91,7 +91,6 @@ public class ManagerBean implements Serializable {
 		for (Company detail : company) {
 			companies.add(new SelectItem(detail.getCompanyId(), detail.getCompanyName()));
 		}
-
 		return companies;
 	}
 
