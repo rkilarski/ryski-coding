@@ -48,6 +48,11 @@ public interface Request {
 	List<Employee> getEmployeesInProject(String projectCode);
 
 	/**
+	 * Get a project given its project code
+	 */
+	Project getProject(String projectCode);
+
+	/**
 	 * Get a list of projects given an employee id.
 	 * @param employeeId
 	 * @return
