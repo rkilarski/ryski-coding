@@ -126,6 +126,22 @@ public class RequestBean implements Request {
 	}
 
 	/**
+	 * Get a project given its project code
+	 */
+	@Override
+	public Project getProject(String projectCode) {
+		Project item = null;
+		try {
+			item =
+					(Project) em.createNamedQuery("edu.cs667.rkilarski.entity.Project.findProject").setParameter("projectCode", projectCode).getSingleResult();
+
+		} catch (Exception ex) {
+			throw new EJBException(ex);
+		}
+		return item;
+	}
+
+	/**
 	 * Get a list of projects given an employee id.
 	 * @param employeeId
 	 * @return
@@ -228,8 +244,20 @@ public class RequestBean implements Request {
 			em.persist(employee);
 
 			// Output all the project info from the database.
-			outputProject((Project) em.find(Project.class, "projecta"));
-			outputProject((Project) em.find(Project.class, "projectb"));
+			// Professor: I tried getting the data 3 ways: via an ad hoc query, via a named query
+			// (in getProject()), and directly via em.find(), none of them work!
+			//
+			// I know you showed us a student who did this successfully, but I can't seem to get it
+			// to work.
+			try {
+				Project project =
+						(Project) em.createQuery("SELECT p FROM Project p WHERE p.projectCode = :projectCode").setParameter("projectCode", "projecta").getSingleResult();
+				outputProject(project);
+			} catch (Exception ex) {
+				System.out.println("error printing projecta");
+			}
+			;
+			outputProject(getProject("projectb"));
 			outputProject((Project) em.find(Project.class, "projectc"));
 			outputProject((Project) em.find(Project.class, "projectd"));
 
